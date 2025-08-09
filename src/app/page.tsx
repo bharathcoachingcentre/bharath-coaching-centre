@@ -12,8 +12,8 @@ import { courses, testimonials, events } from "@/lib/mock-data";
 export default function Home() {
   const sliderImages = [
     { src: '/trichy.jpeg', alt: 'Trichy', hint: 'cityscape trichy' },
-    { src: '/slider1.jpg', alt: 'Slider Image 1', hint: 'students classroom' },
     { src: '/slider2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
+    { src: '/trichy.jpeg', alt: 'Trichy', hint: 'cityscape trichy' },
   ];
 
   return (
