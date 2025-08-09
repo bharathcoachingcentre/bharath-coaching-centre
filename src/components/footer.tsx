@@ -60,18 +60,17 @@ export function Footer() {
                 </div>
                 <div className="flex items-center gap-4">
                   <Link href="#">
-                    <Image src="/google-play.svg" alt="Get it on Google Play" width={135} height={40} data-ai-hint="Google Play store" />
+                    <Image src="/google-play.svg" alt="Get it on Google Play" width={150} height={60} data-ai-hint="Google Play store" />
                   </Link>
-                  <Link href="#">
-                    <Image src="/app-store.svg" alt="Download on the App Store" width={120} height={40} data-ai-hint="Apple App store" />
-                  </Link>
+    
                 </div>
                 <Card className="bg-background shadow-lg">
-                    <CardContent className="p-4 flex items-center gap-4">
+                    <CardContent className="p-4 flex items-center justify-between gap-4">
                         <div>
                             <p className="font-semibold">Know more about our courses. Book a free counselling session.</p>
                             <Button variant="destructive" className="mt-2 bg-red-500 hover:bg-red-600">Speak to an expert</Button>
                         </div>
+                        <Image src="/newsletter-icon.png" alt="Newsletter" width={60} height={60} data-ai-hint="newsletter icon" />
                     </CardContent>
                 </Card>
             </div>
