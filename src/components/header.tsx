@@ -85,9 +85,6 @@ export function Header() {
         <div className="flex flex-1 items-center justify-center space-x-2 md:hidden">
             <Link href="/" className="flex items-center space-x-2">
                 <Logo className="h-8 w-8" />
-                <span className="font-bold">
-                Bharath Academy
-                </span>
             </Link>
         </div>
 
