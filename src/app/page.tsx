@@ -253,12 +253,12 @@ export default function Home() {
             </div>
             <div className="hidden md:block">
               <Image 
-                src="https://placehold.co/600x600.png"
+                src="/super-kid.webp"
                 alt="Courses for kids"
                 width={600}
                 height={600}
                 className="rounded-lg"
-                data-ai-hint="girl studying"
+                data-ai-hint="child learning"
               />
             </div>
           </div>
