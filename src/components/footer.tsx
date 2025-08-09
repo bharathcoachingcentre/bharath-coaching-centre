@@ -73,6 +73,17 @@ export function Footer() {
                         <Image src="/newsletter-icon.png" alt="Newsletter" width={60} height={60} data-ai-hint="newsletter icon" />
                     </CardContent>
                 </Card>
+                <div className="text-center md:text-left">
+                    <p className="font-semibold text-lg">TOLL FREE: 1800-120-456-456</p>
+                    <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
+                        <Phone className="h-4 w-4" />
+                        <span>+91 7200030307 (9 AM to 9:30 PM on all days)</span>
+                    </div>
+                     <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
+                        <Mail className="h-4 w-4" />
+                        <a href="mailto:bcc_try@hotmail.com" className="hover:text-primary">bcc_try@hotmail.com</a>
+                    </div>
+                </div>
             </div>
 
             <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -108,26 +119,7 @@ export function Footer() {
                 </div>
             </div>
         </div>
-        <div className="mt-12 border-t pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div className="text-center md:text-left">
-                    <p className="font-semibold text-lg">TOLL FREE: 1800-120-456-456</p>
-                    <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
-                        <Phone className="h-4 w-4" />
-                        <span>91 988-660-2456 (9 AM to 9:30 PM on all days)</span>
-                    </div>
-                     <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
-                        <Mail className="h-4 w-4" />
-                        <a href="mailto:vcare@vedantu.com" className="hover:text-primary">vcare@vedantu.com</a>
-                    </div>
-                </div>
-                <div className="flex items-center gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background font-bold text-xl">
-                        N
-                    </div>
-                </div>
-            </div>
-        </div>
+      
       </div>
     </footer>
   );

@@ -10,16 +10,49 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { courses, testimonials, events } from "@/lib/mock-data";
 
 export default function Home() {
+  const sliderImages = [
+    { src: '/trichy.jpeg', alt: 'Trichy', hint: 'cityscape trichy' },
+    { src: '/slider1.jpg', alt: 'Slider Image 1', hint: 'students classroom' },
+    { src: '/slider2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
+  ];
+
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="bg-card py-20 md:py-32">
+      {/* Hero Slider Section */}
+      <section className="w-full">
+        <Carousel
+          opts={{ loop: true }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {sliderImages.map((image, index) => (
+              <CarouselItem key={index}>
+                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                    data-ai-hint={image.hint}
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10" />
+          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
+        </Carousel>
+      </section>
+      
+      {/* Welcome Section */}
+      <section className="bg-card py-16">
         <div className="container mx-auto text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tight md:text-6xl">
-            Empowering Minds, Shaping Futures
+          <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
+            Welcome to Bharath Academy
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Welcome to Bharath Academy, where we are committed to providing world-class education and fostering a community of lifelong learners.
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
+            Committed to providing world-class education and fostering a community of lifelong learners.
           </p>
           <div className="mt-8 flex justify-center gap-4">
             <Button asChild size="lg">
