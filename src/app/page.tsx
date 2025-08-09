@@ -332,6 +332,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Book a Free Demo Section */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold">
+                Book your <span className="relative inline-block text-orange-500">Free Demo
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
+                </span> session
+              </h2>
+              <p className="text-lg text-muted-foreground">Get a free academic counselling session</p>
+              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg">Book a free demo</Button>
+            </div>
+            <div className="relative">
+              <Image 
+                src="https://placehold.co/600x400.png"
+                alt="Students in a demo session"
+                width={600}
+                height={400}
+                className="rounded-lg"
+                data-ai-hint="students learning"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
