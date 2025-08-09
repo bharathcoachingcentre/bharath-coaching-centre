@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,13 +11,41 @@ import { courses, testimonials, events } from "@/lib/mock-data";
 
 export default function Home() {
   const sliderImages = [
-    { src: '/trichy.jpeg', alt: 'Trichy', hint: 'cityscape trichy' },
+    { src: '/Trichy.jpeg', alt: 'Trichy', hint: 'cityscape trichy' },
     { src: '/slider2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
-    { src: '/trichy.jpeg', alt: 'Trichy', hint: 'cityscape trichy' },
+    { src: '/trichy.jpeg', alt: 'Slider Image 3', hint: 'cityscape trichy' },
+  ];
+
+  const features = [
+    {
+      icon: ClipboardCheck,
+      text: "Daily Interactive Class",
+      color: "bg-purple-100 text-purple-600",
+    },
+    {
+      icon: PenTool,
+      text: "Unit Test, full test, Practice work Sheet",
+      color: "bg-orange-100 text-orange-600",
+    },
+    {
+      icon: HelpCircle,
+      text: "Instant Doubt Solving Session",
+      color: "bg-green-100 text-green-600",
+    },
+    {
+      icon: Book,
+      text: "Printed Study material",
+      color: "bg-pink-100 text-pink-600",
+    },
+    {
+      icon: UserCheck,
+      text: "Personalised Mentor support",
+      color: "bg-yellow-100 text-yellow-600",
+    },
   ];
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative">
       {/* Hero Slider Section */}
       <section className="w-full">
         <Carousel
@@ -45,25 +73,42 @@ export default function Home() {
         </Carousel>
       </section>
       
-      {/* Welcome Section */}
-      <section className="bg-card py-16">
-        <div className="container mx-auto text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-            Welcome to Bharath Academy
-          </h1>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
-            Committed to providing world-class education and fostering a community of lifelong learners.
-          </p>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button asChild size="lg">
-              <Link href="/courses">Explore Courses</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/contact">Contact Us</Link>
-            </Button>
-          </div>
+      {/* Features Carousel Section */}
+      <section className="bg-blue-50 py-8">
+        <div className="container mx-auto">
+          <Carousel
+            opts={{ align: "start", loop: false }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {features.map((feature, index) => (
+                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/4">
+                  <div className={`flex flex-col items-center justify-center p-6 rounded-xl h-40 ${feature.color}`}>
+                    <feature.icon className="w-8 h-8 mb-2" />
+                    <p className="text-center font-semibold">{feature.text}</p>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10 bg-white border-primary text-primary" />
+            <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10 bg-white border-primary text-primary" />
+          </Carousel>
         </div>
       </section>
+
+      {/* Floating Action Buttons */}
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
+          <Button size="icon" className="rounded-full bg-purple-200 hover:bg-purple-300 w-12 h-12">
+            <Building className="w-6 h-6 text-purple-700" />
+          </Button>
+          <Button size="icon" className="rounded-full bg-orange-400 hover:bg-orange-500 w-12 h-12">
+            <Phone className="w-6 h-6 text-white" />
+          </Button>
+          <Button size="icon" className="rounded-full bg-green-500 hover:bg-green-600 w-12 h-12">
+            <Phone className="w-6 h-6 text-white" />
+          </Button>
+      </div>
+
 
       {/* Features Section */}
       <section className="py-16 md:py-24">
