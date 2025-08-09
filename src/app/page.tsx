@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -158,6 +158,19 @@ export default function Home() {
       description: "From Good to Great: Improve your skills!",
       price: "999",
     },
+  ];
+
+  const newOnVedantuItems = [
+    {
+      src: 'https://placehold.co/600x400.png',
+      alt: 'NEET Tatva Books',
+      hint: 'educational books',
+    },
+    {
+      src: 'https://placehold.co/600x400.png',
+      alt: 'Revision JEE Cards',
+      hint: 'revision cards',
+    }
   ];
 
   return (
@@ -356,6 +369,43 @@ export default function Home() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* What's New Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold mb-12 flex items-center gap-2">
+            What's <Flame className="text-orange-500" /> New on 
+            <span className="relative inline-block">Vedantu
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span>
+            </span>
+          </h2>
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {newOnVedantuItems.map((item, index) => (
+                <CarouselItem key={index} className="md:basis-1/2">
+                  <div className="p-4">
+                    <Card className="overflow-hidden rounded-2xl">
+                      <Image
+                        src={item.src}
+                        alt={item.alt}
+                        width={600}
+                        height={400}
+                        className="w-full h-auto object-cover"
+                        data-ai-hint={item.hint}
+                      />
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10" />
+          </Carousel>
         </div>
       </section>
 
