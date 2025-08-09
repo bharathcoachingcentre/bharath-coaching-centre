@@ -152,35 +152,35 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 3 - 13)</h2>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {exploreCourses.map((course, index) => (
-              <Card key={index} className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor}`}>
-                 <CardHeader>
-                  <p className="font-semibold text-primary">{course.classRange}</p>
-                  <CardTitle className="text-2xl font-bold">{course.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <div className="p-6">
-                    <ul className="space-y-3">
-                      {course.features.map((feature, i) => (
-                        <li key={i} className="flex items-center gap-3">
-                          <Check className="w-5 h-5 text-green-500" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="relative h-64 w-full">
-                    <Image
-                      src={course.imageUrl}
-                      alt={course.title}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={course.imageHint}
-                    />
-                  </div>
-                </CardContent>
-                <CardFooter className="p-6">
-                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Time Table</Button>
-                </CardFooter>
+              <Card key={index} className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
+                <div className="flex flex-col w-2/3">
+                  <CardHeader>
+                    <p className="font-semibold text-primary">{course.classRange}</p>
+                    <CardTitle className="text-2xl font-bold">{course.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6 pt-0">
+                      <ul className="space-y-3">
+                        {course.features.map((feature, i) => (
+                          <li key={i} className="flex items-center gap-3">
+                            <Check className="w-5 h-5 text-green-500" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                  </CardContent>
+                  <CardFooter className="p-6 mt-auto">
+                    <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Time Table</Button>
+                  </CardFooter>
+                </div>
+                <div className="w-1/3 relative">
+                  <Image
+                    src={course.imageUrl}
+                    alt={course.title}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={course.imageHint}
+                  />
+                </div>
               </Card>
             ))}
           </div>
