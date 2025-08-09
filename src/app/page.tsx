@@ -183,29 +183,6 @@ export default function Home() {
     }
   ];
 
-  const classFilters = [
-    { label: "Class 12 pass", active: true },
-    { label: "Class 12" },
-    { label: "Class 11" },
-    { label: "Class 10" },
-    { label: "Class 9" },
-    { label: "Class 8" },
-    { label: "Class 7" },
-    { label: "Class 6" },
-    { label: "Class 1 - 5" },
-    { label: "LKG - UKG", new: true },
-  ];
-
-  const studyMaterials = [
-    {
-      title: "Revision notes",
-      bgColor: "bg-red-50",
-      circleColor: "bg-orange-200",
-      image: "/revision-notes.webp",
-      imageHint: "revision notes",
-    }
-  ];
-
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -439,48 +416,6 @@ export default function Home() {
             <CarouselPrevious className="absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10" />
             <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
-        </div>
-      </section>
-
-      {/* Offerings and Study Materials Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-4">
-            Explore all our <span className="relative inline-block text-orange-500">offerings
-              <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
-            </span>
-          </h2>
-          <div className="flex flex-wrap gap-2 mb-12">
-            {classFilters.map((filter) => (
-              <Button
-                key={filter.label}
-                variant={filter.active ? 'default' : 'outline'}
-                className={filter.active ? 'bg-gray-800 text-white' : 'border-gray-300 text-gray-600'}
-              >
-                {filter.label}
-                {filter.new && <Badge className="ml-2 bg-yellow-400 text-gray-800">NEW</Badge>}
-              </Button>
-            ))}
-          </div>
-
-          <h3 className="text-2xl font-bold mb-8">Study Materials</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {studyMaterials.map((material, index) => (
-              <Card key={index} className={`${material.bgColor} rounded-2xl shadow-lg p-6 flex flex-col items-start text-left`}>
-                <h4 className="text-xl font-bold mb-4">{material.title}</h4>
-                <div className={`relative w-40 h-40 rounded-full ${material.circleColor} self-center flex items-center justify-center`}>
-                  <Image
-                    src={material.image}
-                    alt={material.title}
-                    width={100}
-                    height={140}
-                    className="object-contain"
-                    data-ai-hint={material.imageHint}
-                  />
-                </div>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
 
