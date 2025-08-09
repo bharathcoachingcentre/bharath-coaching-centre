@@ -9,7 +9,7 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-4">
           <div className="flex flex-col space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <Logo className="h-8 w-8 text-primary" />
+              <Logo className="h-8 w-8" />
               <span className="text-xl font-bold">Bharath Academy</span>
             </Link>
             <p className="text-sm text-muted-foreground">

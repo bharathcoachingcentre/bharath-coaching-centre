@@ -43,7 +43,7 @@ export function Header() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Logo className="h-6 w-6 text-primary" />
+            <Logo className="h-8 w-8" />
             <span className="hidden font-bold sm:inline-block">
               Bharath Academy
             </span>
@@ -64,7 +64,7 @@ export function Header() {
             <SheetContent side="left">
                 <nav className="grid gap-6 text-lg font-medium p-6">
                     <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
-                        <Logo className="h-6 w-6 text-primary" />
+                        <Logo className="h-8 w-8" />
                         <span>Bharath Academy</span>
                     </Link>
                     {navLinks.map((link) => (
@@ -84,7 +84,7 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-center space-x-2 md:hidden">
             <Link href="/" className="flex items-center space-x-2">
-                <Logo className="h-6 w-6 text-primary" />
+                <Logo className="h-8 w-8" />
                 <span className="font-bold">
                 Bharath Academy
                 </span>
