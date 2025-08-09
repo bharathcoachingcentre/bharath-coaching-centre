@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -133,6 +133,33 @@ export default function Home() {
     },
   ];
 
+  const tutoringCourses = [
+    {
+      icon: Presentation,
+      title: "Ace your CBSE/ICSE results!",
+      description: "Highest personal attention, One teacher One student",
+      price: "888",
+    },
+    {
+      icon: Award,
+      title: "Your best bet to JEE / NEET!",
+      description: "Individual Attention, Maximum Results! One teacher One student",
+      price: "1,049",
+    },
+    {
+      icon: GraduationCap,
+      title: "Get tailored learning for IB & IGCSE board!",
+      description: "Your path to Academic Excellence!",
+      price: "1,249",
+    },
+    {
+      icon: Laptop,
+      title: "Learn Java & Python with Vedantu!",
+      description: "From Good to Great: Improve your skills!",
+      price: "999",
+    },
+  ];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -261,6 +288,46 @@ export default function Home() {
                 data-ai-hint="child learning"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* One-to-One Tutoring Section */}
+      <section className="py-16 md:py-24 bg-[#FFF9F5]">
+        <div className="container mx-auto">
+          <div className="flex justify-between items-start mb-12">
+            <div>
+              <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Tutoring</h2>
+              <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
+            </div>
+            <div className="hidden md:block">
+              <Image
+                src="https://placehold.co/300x200.png"
+                alt="Tutoring"
+                width={300}
+                height={200}
+                data-ai-hint="students tutoring"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {tutoringCourses.map((course, index) => (
+              <Card key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                <div className="flex-grow">
+                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 mb-4">
+                    <course.icon className="w-8 h-8 text-orange-500" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{course.title}</h3>
+                  <p className="text-sm text-gray-600 mb-4">{course.description}</p>
+                </div>
+                <div>
+                  <div className="border-t border-gray-200 my-4"></div>
+                  <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>
+                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Find personal tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
