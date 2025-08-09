@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -41,6 +41,56 @@ export default function Home() {
       icon: UserCheck,
       text: "Personalised Mentor support",
       color: "bg-yellow-100 text-yellow-600",
+    },
+  ];
+
+  const exploreCourses = [
+    {
+      classRange: "Class 1 - 5",
+      title: "Courses for Kids",
+      features: [
+        "School tuition",
+        "1:5 ratio Teachers & Students",
+        "Handwriting Improvement",
+        "Phonics based Training",
+        "Fun and engaging learning every day",
+      ],
+      imageUrl: "https://placehold.co/400x500.png",
+      imageHint: "female teacher",
+      bgColor: "bg-blue-50",
+    },
+    {
+      classRange: "Class 6 - 8",
+      title: "Courses for Kids",
+      features: [
+        "1:10 ratio",
+        "CBSE Board",
+        "ICSE Board",
+        "Samacheer",
+        "NEET / JEE Foundation",
+        "One to one Session",
+        "Parent Teacher Meeting",
+      ],
+      imageUrl: "https://placehold.co/400x500.png",
+      imageHint: "male teacher",
+      bgColor: "bg-purple-50",
+    },
+    {
+      classRange: "Class 3 - 13",
+      title: "Courses for Kids",
+      features: [
+        "1:25 ratio",
+        "CBSE Board",
+        "ICSE Board",
+        "Samacheer",
+        "One to one Session",
+        "Test Series",
+        "Online Class",
+        "Parent Teachers Meeting",
+      ],
+      imageUrl: "https://placehold.co/400x500.png",
+      imageHint: "happy student",
+      bgColor: "bg-yellow-50",
     },
   ];
 
@@ -95,6 +145,48 @@ export default function Home() {
           </Carousel>
         </div>
       </section>
+
+      {/* Explore Courses Section */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 3 - 13)</h2>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {exploreCourses.map((course, index) => (
+              <Card key={index} className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor}`}>
+                 <CardHeader>
+                  <p className="font-semibold text-primary">{course.classRange}</p>
+                  <CardTitle className="text-2xl font-bold">{course.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="p-6">
+                    <ul className="space-y-3">
+                      {course.features.map((feature, i) => (
+                        <li key={i} className="flex items-center gap-3">
+                          <Check className="w-5 h-5 text-green-500" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="relative h-64 w-full">
+                    <Image
+                      src={course.imageUrl}
+                      alt={course.title}
+                      fill
+                      className="object-cover"
+                      data-ai-hint={course.imageHint}
+                    />
+                  </div>
+                </CardContent>
+                <CardFooter className="p-6">
+                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Time Table</Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
