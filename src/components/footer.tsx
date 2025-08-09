@@ -1,48 +1,127 @@
 import Link from "next/link";
-import { Twitter, Facebook, Instagram } from "lucide-react";
-import { Logo } from "./logo";
+import { Phone, Mail, Newspaper } from "lucide-react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import Image from "next/image";
+import { Card, CardContent } from "./ui/card";
 
 export function Footer() {
+  const companyLinks = [
+    { href: "#", label: "About us" },
+    { href: "/contact", label: "Contact us" },
+    { href: "/blog", label: "Vedantu Blog" },
+    { href: "#", label: "News" },
+    { href: "#", label: "Child safety" },
+    { href: "#", label: "Why Vedantu" },
+    { href: "#", label: "Our results" },
+    { href: "#", label: "Careers" },
+    { href: "#", label: "Help india learn" },
+  ];
+
+  const otherLinks = [
+    { href: "#", label: "Free live classes" },
+    { href: "#", label: "Why teach with Vedantu" },
+    { href: "#", label: "Try WAVE" },
+    { href: "#", label: "Try Whiteboard" },
+    { href: "#", label: "Vedantu improvement promise" },
+    { href: "#", label: "VOLT" },
+    { href: "#", label: "Micro courses" },
+    { href: "#", label: "Maharastra Board" },
+    { href: "#", label: "Benefits" },
+    { href: "/blog", label: "Engineering Blog" },
+  ];
+
+  const coursesLinks = [
+    { href: "/courses", label: "CBSE Tuitions" },
+    { href: "/courses", label: "ICSE Tuitions" },
+    { href: "/courses", label: "JEE (Main & Advanced)" },
+    { href: "/courses", label: "NEET" },
+    { href: "/courses", label: "Eklavya JEE" },
+    { href: "/courses", label: "Eklavya NEET" },
+    { href: "/courses", label: "Computer Science" },
+  ];
+
+  const superKidsLinks = [
+      { href: "#", label: "English Superstar for kids" },
+      { href: "#", label: "Spoken English"},
+  ]
+
   return (
-    <footer className="border-t bg-card">
+    <footer className="border-t bg-card text-foreground">
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid gap-8 md:grid-cols-4">
-          <div className="flex flex-col space-y-4">
-            <Link href="/" className="flex items-center space-x-2">
-              <Logo className="h-8 w-8" />
-            </Link>
-            <p className="text-sm text-muted-foreground">
-              Empowering minds, shaping futures.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold">Quick Links</h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li><Link href="/courses" className="text-muted-foreground hover:text-primary transition-colors">Courses</Link></li>
-              <li><Link href="/events" className="text-muted-foreground hover:text-primary transition-colors">Events</Link></li>
-              <li><Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
-              <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold">Contact</h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>123 Education Lane, Knowledge City, 12345</li>
-              <li>Email: contact@bharathacademy.com</li>
-              <li>Phone: (123) 456-7890</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold">Follow Us</h3>
-            <div className="mt-4 flex space-x-4">
-              <Link href="#" aria-label="Twitter" className="text-muted-foreground hover:text-primary transition-colors"><Twitter className="h-6 w-6" /></Link>
-              <Link href="#" aria-label="Facebook" className="text-muted-foreground hover:text-primary transition-colors"><Facebook className="h-6 w-6" /></Link>
-              <Link href="#" aria-label="Instagram" className="text-muted-foreground hover:text-primary transition-colors"><Instagram className="h-6 w-6" /></Link>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+            <div className="md:col-span-4 space-y-6">
+                <div>
+                    <h3 className="text-lg font-semibold mb-2">Get link in sms to download the app</h3>
+                    <div className="flex gap-2">
+                        <Input type="tel" placeholder="Enter mobile number" className="bg-background"/>
+                        <Button>Get the link</Button>
+                    </div>
+                </div>
+                <Image src="https://placehold.co/180x53.png" alt="App Download" width={180} height={53} data-ai-hint="QR code" />
+                <Card className="bg-background shadow-lg">
+                    <CardContent className="p-4 flex items-center gap-4">
+                        <Newspaper className="h-10 w-10 text-primary" />
+                        <div>
+                            <p className="font-semibold">Know more about our courses. Book a free counselling session.</p>
+                            <Button variant="destructive" className="mt-2 bg-red-500 hover:bg-red-600">Speak to an expert</Button>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
-          </div>
+
+            <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 className="text-lg font-semibold">Company</h3>
+                    <ul className="mt-4 space-y-2 text-sm">
+                    {companyLinks.map(link => (
+                        <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
+                    ))}
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-lg font-semibold">Other Links</h3>
+                    <ul className="mt-4 space-y-2 text-sm">
+                    {otherLinks.map(link => (
+                        <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
+                    ))}
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-lg font-semibold">Courses</h3>
+                    <ul className="mt-4 space-y-2 text-sm">
+                    {coursesLinks.map(link => (
+                        <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
+                    ))}
+                    </ul>
+                    <h3 className="text-lg font-semibold mt-6">Vedantu Super Kids</h3>
+                    <ul className="mt-4 space-y-2 text-sm">
+                    {superKidsLinks.map(link => (
+                        <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
+                    ))}
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Bharath Academy. All Rights Reserved.
+        <div className="mt-12 border-t pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="text-center md:text-left">
+                    <p className="font-semibold text-lg">TOLL FREE: 1800-120-456-456</p>
+                    <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
+                        <Phone className="h-4 w-4" />
+                        <span>91 988-660-2456 (9 AM to 9:30 PM on all days)</span>
+                    </div>
+                     <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
+                        <Mail className="h-4 w-4" />
+                        <a href="mailto:vcare@vedantu.com" className="hover:text-primary">vcare@vedantu.com</a>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background font-bold text-xl">
+                        N
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
     </footer>

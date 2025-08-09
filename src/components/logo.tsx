@@ -8,14 +8,13 @@ export function Logo(props: SVGProps<SVGSVGElement> & { className?: string }) {
     <div className={cn("flex items-center gap-2", props.className)}>
         <Image
         src="/logo.png"
-        alt="Bharath Coaching Centre Logo"
+        alt=""
         width={183}
         height={40}
         priority
         className="h-auto"
         style={{ width: 'auto' }}
         />
-
     </div>
   );
 }
