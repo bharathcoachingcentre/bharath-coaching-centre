@@ -9,17 +9,13 @@ export function Logo(props: SVGProps<SVGSVGElement> & { className?: string }) {
         <Image
         src="/logo.png"
         alt="Bharath Coaching Centre Logo"
-        width={60}
-        height={60}
+        width={183}
+        height={40}
         priority
         className="h-auto"
         style={{ width: 'auto' }}
         />
-        <div>
-            <span className="font-bold text-lg leading-tight block text-sky-500">BHARATH</span>
-            <span className="text-xs leading-tight block text-gray-600">Coaching Centre</span>
-            <span className="text-[0.6rem] leading-tight block text-gray-500">Since 2008</span>
-        </div>
+
     </div>
   );
 }
