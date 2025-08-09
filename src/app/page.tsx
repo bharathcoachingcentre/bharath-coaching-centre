@@ -237,7 +237,7 @@ export default function Home() {
               {kidsCourses.map((course, index) => (
                 <Card key={index} className={`rounded-xl shadow-lg relative overflow-hidden ${course.bgColor}`}>
                   {course.isNew && <Badge className="absolute top-3 right-3 bg-red-500 text-white">NEW</Badge>}
-                  <CardContent className="p-6 flex flex-col items-start gap-4">
+                  <CardContent className="p-8 flex flex-col items-start gap-4">
                     <div className={`p-3 rounded-lg ${course.iconColor} bg-white`}>
                       <course.icon className="w-8 h-8" />
                     </div>
@@ -255,8 +255,8 @@ export default function Home() {
               <Image 
                 src="/super-kid.webp"
                 alt="Courses for kids"
-                width={600}
-                height={600}
+                width={500}
+                height={550}
                 className="rounded-lg"
                 data-ai-hint="child learning"
               />
