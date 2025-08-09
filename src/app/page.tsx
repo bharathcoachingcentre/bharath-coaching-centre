@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -94,6 +94,45 @@ export default function Home() {
     },
   ];
 
+  const kidsCourses = [
+    {
+      classRange: "Class 1 - 6",
+      title: "Spoken English Program",
+      description: "Master fluency in English speaking",
+      icon: Sun,
+      bgColor: "bg-red-50",
+      iconColor: "text-red-500",
+      isNew: true,
+    },
+    {
+      classRange: "Class LKG - 5",
+      title: "Learn English",
+      description: "Level based holistic English Program",
+      icon: Languages,
+      bgColor: "bg-yellow-50",
+      iconColor: "text-yellow-500",
+      isNew: false,
+    },
+    {
+      classRange: "Class 1 to 5",
+      title: "Learn math",
+      description: "Turn your child into a Math wizard",
+      icon: Calculator,
+      bgColor: "bg-blue-50",
+      iconColor: "text-blue-500",
+      isNew: false,
+    },
+    {
+      classRange: "Class 1 - 8",
+      title: "Coding classes",
+      description: "Learn to build apps and games, be future ready",
+      icon: Code,
+      bgColor: "bg-purple-50",
+      iconColor: "text-purple-500",
+      isNew: false,
+    },
+  ];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -183,6 +222,45 @@ export default function Home() {
                 </div>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Courses for Kids Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold mb-12">
+            Courses for <span className="relative inline-block">kids<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span></span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {kidsCourses.map((course, index) => (
+                <Card key={index} className={`rounded-xl shadow-lg relative overflow-hidden ${course.bgColor}`}>
+                  {course.isNew && <Badge className="absolute top-3 right-3 bg-red-500 text-white">NEW</Badge>}
+                  <CardContent className="p-6 flex flex-col items-start gap-4">
+                    <div className={`p-3 rounded-lg ${course.iconColor} bg-white`}>
+                      <course.icon className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-600">{course.classRange}</p>
+                      <h3 className="text-xl font-bold text-gray-800">{course.title}</h3>
+                      <p className="text-gray-500 mt-1">{course.description}</p>
+                    </div>
+                    <Button className="mt-4 w-full bg-gray-800 text-white hover:bg-gray-900">Explore</Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="hidden md:block">
+              <Image 
+                src="https://placehold.co/600x600.png"
+                alt="Courses for kids"
+                width={600}
+                height={600}
+                className="rounded-lg"
+                data-ai-hint="girl studying"
+              />
+            </div>
           </div>
         </div>
       </section>
