@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Mail, Newspaper } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Image from "next/image";
@@ -68,7 +68,7 @@ export function Footer() {
                 </div>
                 <Card className="bg-background shadow-lg">
                     <CardContent className="p-4 flex items-center gap-4">
-                        <Newspaper className="h-10 w-10 text-primary" />
+                        <Image src="/newsletter-icon.png" alt="Newsletter" width={40} height={40} data-ai-hint="newsletter icon" />
                         <div>
                             <p className="font-semibold">Know more about our courses. Book a free counselling session.</p>
                             <Button variant="destructive" className="mt-2 bg-red-500 hover:bg-red-600">Speak to an expert</Button>
