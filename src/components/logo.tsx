@@ -6,7 +6,7 @@ export function Logo(props: SVGProps<SVGSVGElement> & { className?: string }) {
   return (
     <Image
     src="/logo.png"
-    alt="Bharath Academy Logo"
+    alt=""
     width={183}
     height={40}
     priority

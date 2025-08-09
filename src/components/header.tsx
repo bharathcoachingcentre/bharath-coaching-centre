@@ -44,9 +44,6 @@ export function Header() {
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo className="h-8 w-8" />
-            <span className="hidden font-bold sm:inline-block">
-              Bharath Academy
-            </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm">
             {navLinks.map((link) => <NavLink key={link.href} {...link} />)}
