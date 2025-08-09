@@ -162,14 +162,24 @@ export default function Home() {
 
   const newOnVedantuItems = [
     {
-      src: 'https://placehold.co/600x400.png',
+      src: '/carousel1.png',
       alt: 'NEET Tatva Books',
       hint: 'educational books',
     },
     {
-      src: 'https://placehold.co/600x400.png',
+      src: '/carousel2.png',
       alt: 'Revision JEE Cards',
       hint: 'revision cards',
+    },
+    {
+      src: '/carousel3.png',
+      alt: 'JEE preparation course',
+      hint: 'online learning',
+    },
+    {
+      src: '/carousel4.png',
+      alt: 'Coding classes for kids',
+      hint: 'child coding',
     }
   ];
 
