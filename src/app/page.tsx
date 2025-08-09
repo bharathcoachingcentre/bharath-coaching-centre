@@ -183,6 +183,8 @@ export default function Home() {
     }
   ];
 
+  const classFilters = ["Class 12 pass", "Class 12", "Class 11", "Class 10", "Class 9", "Class 8", "Class 7", "Class 6", "Class 1 - 5"];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -418,6 +420,34 @@ export default function Home() {
           </Carousel>
         </div>
       </section>
+
+      {/* Explore all our offerings Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold mb-8">
+            Explore all our <span className="relative inline-block text-orange-500">offerings
+            <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
+            </span>
+          </h2>
+          <div className="flex flex-wrap gap-4 mb-12">
+            {classFilters.map((filter, index) => (
+              <Button key={index} variant={index === 0 ? 'default' : 'outline'} className={index === 0 ? 'bg-gray-800 hover:bg-gray-900' : 'border-gray-300'}>{filter}</Button>
+            ))}
+             <div className="relative">
+                <Button variant="outline" className="border-gray-300 pr-10">LKG - UKG</Button>
+                <Badge className="absolute -top-2 -right-2 bg-yellow-400 text-black">NEW</Badge>
+            </div>
+          </div>
+          <h3 className="text-3xl font-bold mb-8">Study Materials</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 1" width={450} height={400} data-ai-hint="placeholder image" />
+              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 2" width={450} height={400} data-ai-hint="placeholder image" />
+              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 3" width={450} height={400} data-ai-hint="placeholder image" />
+              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 4" width={450} height={400} data-ai-hint="placeholder image" />
+          </div>
+        </div>
+      </section>
+
 
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
