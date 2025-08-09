@@ -185,6 +185,33 @@ export default function Home() {
 
   const classFilters = ["Class 12 pass", "Class 12", "Class 11", "Class 10", "Class 9", "Class 8", "Class 7", "Class 6", "Class 1 - 5"];
 
+  const studyMaterials = [
+    {
+      src: "/revision-notes.webp",
+      alt: "Revision notes",
+      hint: "study notes",
+      title: "Revision Notes",
+    },
+    {
+      src: "/general-knowledge.webp",
+      alt: "General knowledge",
+      hint: "knowledge book",
+      title: "General Knowledge",
+    },
+    {
+      src: "/important-question-papers.webp",
+      alt: "Important question papers",
+      hint: "exam papers",
+      title: "Important Questions",
+    },
+    {
+      src: "/previous-year-question-papers.webp",
+      alt: "Previous year question papers",
+      hint: "old exam papers",
+      title: "Previous Year Papers",
+    },
+  ];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -440,10 +467,19 @@ export default function Home() {
           </div>
           <h3 className="text-3xl font-bold mb-8">Study Materials</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 1" width={450} height={400} data-ai-hint="placeholder image" />
-              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 2" width={450} height={400} data-ai-hint="placeholder image" />
-              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 3" width={450} height={400} data-ai-hint="placeholder image" />
-              <Image src="https://placehold.co/450x400.png" alt="Dummy Image 4" width={450} height={400} data-ai-hint="placeholder image" />
+            {studyMaterials.map((material) => (
+              <div key={material.alt} className="text-center">
+                <Image
+                  src={material.src}
+                  alt={material.alt}
+                  width={450}
+                  height={400}
+                  data-ai-hint={material.hint}
+                  className="rounded-lg shadow-md"
+                />
+                <p className="mt-4 font-semibold">{material.title}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
