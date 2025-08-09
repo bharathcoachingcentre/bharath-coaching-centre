@@ -58,7 +58,14 @@ export function Footer() {
                         <Button>Get the link</Button>
                     </div>
                 </div>
-                <Image src="https://placehold.co/180x53.png" alt="App Download" width={180} height={53} data-ai-hint="QR code" />
+                <div className="flex items-center gap-4">
+                  <Link href="#">
+                    <Image src="/google-play.svg" alt="Get it on Google Play" width={135} height={40} data-ai-hint="Google Play store" />
+                  </Link>
+                  <Link href="#">
+                    <Image src="/app-store.svg" alt="Download on the App Store" width={120} height={40} data-ai-hint="Apple App store" />
+                  </Link>
+                </div>
                 <Card className="bg-background shadow-lg">
                     <CardContent className="p-4 flex items-center gap-4">
                         <Newspaper className="h-10 w-10 text-primary" />
