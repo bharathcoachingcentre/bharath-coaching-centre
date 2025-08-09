@@ -201,30 +201,9 @@ export default function Home() {
       title: "Revision notes",
       bgColor: "bg-red-50",
       circleColor: "bg-orange-200",
-      image: "https://placehold.co/150x200.png",
+      image: "/revision-notes.webp",
       imageHint: "revision notes",
-    },
-    {
-      title: "Important question papers",
-      bgColor: "bg-purple-50",
-      circleColor: "bg-purple-300",
-      image: "https://placehold.co/150x200.png",
-      imageHint: "question papers",
-    },
-    {
-      title: "Previous year question papers",
-      bgColor: "bg-purple-100",
-      circleColor: "bg-purple-400",
-      image: "https://placehold.co/150x200.png",
-      imageHint: "previous year papers",
-    },
-    {
-      title: "Sample question papers",
-      bgColor: "bg-blue-50",
-      circleColor: "bg-blue-200",
-      image: "https://placehold.co/150x200.png",
-      imageHint: "sample papers",
-    },
+    }
   ];
 
   return (
@@ -569,6 +548,7 @@ export default function Home() {
                 <Image src={course.imageUrl} alt={course.title} width={600} height={400} className="h-48 w-full object-cover" data-ai-hint={course.imageHint} />
                 <CardHeader>
                   <CardTitle>{course.title}</CardTitle>
+
                   <CardDescription>{course.instructor}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
