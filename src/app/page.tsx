@@ -302,8 +302,8 @@ export default function Home() {
             </div>
             <div className="hidden md:block">
               <Image
-                src="https://placehold.co/300x200.png"
-                alt="Tutoring"
+                src="/discuss.png"
+                alt="Tutoring discussion"
                 width={300}
                 height={200}
                 data-ai-hint="students tutoring"
