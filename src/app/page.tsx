@@ -347,7 +347,7 @@ export default function Home() {
             </div>
             <div className="relative">
               <Image 
-                src="https://placehold.co/600x400.png"
+                src="/demo-open-form.webp"
                 alt="Students in a demo session"
                 width={600}
                 height={400}
