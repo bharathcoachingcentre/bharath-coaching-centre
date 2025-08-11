@@ -46,6 +46,11 @@ type ResultCategory = keyof typeof resultsData;
 
 export default function Home() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const sliderImages = [
     { src: '/slider1.jpg', alt: 'Trichy', hint: 'cityscape trichy' },
@@ -741,7 +746,7 @@ export default function Home() {
             <Card>
                 <CardContent className="p-6">
                     <ul className="space-y-4">
-                        {events.slice(0, 3).map((event) => (
+                        {isClient && events.slice(0, 3).map((event) => (
                              <li key={event.id} className="flex items-start space-x-4">
                                 <div className="flex-shrink-0 flex flex-col items-center justify-center bg-primary text-primary-foreground rounded-md h-16 w-16">
                                     <span className="text-sm font-bold uppercase">{event.date.toLocaleString('default', { month: 'short' })}</span>
@@ -768,5 +773,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
