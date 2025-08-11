@@ -217,6 +217,13 @@ export default function Home() {
   ];
 
   const resultsFilters = ["All", "IIT JEE", "NEET", "10th Board", "12th Board", "NTSE", "Olympiad"];
+  
+  const resultsCarouselImages = [
+    { src: 'https://placehold.co/1200x400.png', alt: 'Results slide 1', hint: 'students results infographic' },
+    { src: 'https://placehold.co/1200x400.png', alt: 'Results slide 2', hint: 'students results chart' },
+    { src: 'https://placehold.co/1200x400.png', alt: 'Results slide 3', hint: 'students success stories' },
+  ]
+
 
   return (
     <div className="flex flex-col relative">
@@ -523,14 +530,24 @@ export default function Home() {
             ))}
           </div>
           <div>
-            <Image
-              src="https://placehold.co/1200x400.png"
-              alt="JEE Main 2024 Results"
-              width={1200}
-              height={400}
-              className="rounded-2xl"
-              data-ai-hint="students results infographic"
-            />
+            <Carousel opts={{ loop: true }} className="w-full">
+                <CarouselContent>
+                  {resultsCarouselImages.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        width={1200}
+                        height={400}
+                        className="rounded-2xl"
+                        data-ai-hint={image.hint}
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
           </div>
         </div>
       </section>
