@@ -190,31 +190,33 @@ export default function Home() {
       src: "/revision-notes.webp",
       alt: "Revision notes",
       hint: "study notes",
-      title: "Revision Notes",
+      title: "Revision<br/>Notes",
       bgColor: "bg-red-50",
     },
     {
       src: "/general-knowledge.webp",
       alt: "General knowledge",
       hint: "knowledge book",
-      title: "General Knowledge",
+      title: "General<br/>Knowledge",
        bgColor: "bg-blue-50",
     },
     {
       src: "/important-question-papers.webp",
       alt: "Important question papers",
       hint: "exam papers",
-      title: "Important Questions",
+      title: "Important<br/>Questions",
        bgColor: "bg-yellow-50",
     },
     {
       src: "/previous-year-question-papers.webp",
       alt: "Previous year question papers",
       hint: "old exam papers",
-      title: "Previous Year Papers",
+      title: "Previous Year<br/>Papers",
        bgColor: "bg-purple-50",
     },
   ];
+
+  const resultsFilters = ["All", "IIT JEE", "NEET", "10th Board", "12th Board", "NTSE", "Olympiad"];
 
   return (
     <div className="flex flex-col relative">
@@ -473,7 +475,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {studyMaterials.map((material, index) => (
               <Card key={index} className={`${material.bgColor} rounded-2xl shadow-lg p-6 flex flex-col items-start text-left`}>
-                <h4 className="text-2xl font-bold mb-4">{material.title}</h4>
+                <h4 className="text-2xl font-bold mb-4" dangerouslySetInnerHTML={{ __html: material.title }}></h4>
                 <div className="flex-grow flex items-center justify-center w-full">
                   <div className="w-48 h-48 rounded-full flex items-center justify-center overflow-hidden">
                     <Image
@@ -492,6 +494,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Inspired Results Section */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-4xl font-bold">Inspired students. Inspired <span className="relative inline-block">results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
+              <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
+              <div className="flex gap-4 mt-8">
+                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Explore courses</Button>
+                <Button size="lg" variant="outline">View our results</Button>
+              </div>
+            </div>
+            <div className="relative h-64 md:h-auto">
+              <Image 
+                src="https://placehold.co/600x400.png"
+                alt="Inspired students"
+                width={600}
+                height={400}
+                className="rounded-lg object-contain"
+                data-ai-hint="happy students"
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-4 my-12 justify-center">
+            {resultsFilters.map((filter, index) => (
+              <Button key={index} variant={index === 0 ? 'default' : 'outline'} className={index === 0 ? 'bg-gray-800 hover:bg-gray-900' : 'border-gray-300'}>{filter}</Button>
+            ))}
+          </div>
+          <div>
+            <Image
+              src="https://placehold.co/1200x400.png"
+              alt="JEE Main 2024 Results"
+              width={1200}
+              height={400}
+              className="rounded-2xl"
+              data-ai-hint="students results infographic"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
