@@ -98,3 +98,20 @@ button#radix-«R4p6l7»:hover {
 #inspired-btn{
   margin-top: -117px;
 }
+.bg-orange-500{
+    background-color: hsl(204 90% 53%);
+}
+.text-orange-500 {
+  --tw-text-opacity: 1;
+  color: rgb(27 157 243);
+}
+.bg-orange-100 {
+  --tw-bg-opacity: 1;
+  background-color: hsl(204deg 90% 53% / 10%);
+}
+.bg-orange-50:hover{
+  background-color: hsl(204deg 90% 53% / 10%);
+}
+.border-orange-500{
+border-color: rgb(27 157 243);
+}
