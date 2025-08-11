@@ -266,11 +266,11 @@ export default function Home() {
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
   const inspiredStories = [
     {
-      image: 'https://placehold.co/800x600.png',
+      image: '/Gayathri.jpg',
       imageHint: 'student portrait',
-      quote: 'After I joined the Eklavya batch at Vedantu, I cracked KVPY and WBJEE and discovered my true potential.',
-      name: 'Rhythm Sabharwal',
-      details: 'AIR 2973 | NEET 2021'
+      quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
+      name: 'Gayathri',
+      details: 'B.E. Student'
     },
     {
       image: 'https://placehold.co/800x600.png',
@@ -674,9 +674,6 @@ export default function Home() {
                           className="object-cover w-full h-full"
                           data-ai-hint={story.imageHint}
                         />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                           <PlayCircle className="w-20 h-20 text-white/80" />
-                        </div>
                       </div>
                       <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
                         <Quote className="w-12 h-12 text-purple-400 transform rotate-180" />
