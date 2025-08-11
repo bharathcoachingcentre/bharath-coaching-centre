@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, PlayCircle } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { courses, testimonials, events } from "@/lib/mock-data";
 import React from "react";
 
@@ -52,6 +53,7 @@ type ResultCategory = keyof typeof resultsData;
 export default function Home() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
   const [isClient, setIsClient] = React.useState(false);
+  const [isTimetableOpen, setTimetableOpen] = React.useState(false);
 
   React.useEffect(() => {
     setIsClient(true);
@@ -102,7 +104,7 @@ export default function Home() {
         "Phonics based Training",
         "Fun and engaging learning every day",
       ],
-      imageUrl: "/member1.png",
+      imageUrl: "/member-1.png",
       imageHint: "female teacher",
       bgColor: "bg-blue-50",
     },
@@ -118,12 +120,12 @@ export default function Home() {
         "One to one Session",
         "Parent Teacher Meeting",
       ],
-      imageUrl: "/member2.png",
+      imageUrl: "/member-2.png",
       imageHint: "male teacher",
       bgColor: "bg-purple-50",
     },
     {
-      classRange: "Class 3 - 13",
+      classRange: "Class 9 - 12",
       title: "Courses for Kids",
       features: [
         "1:25 ratio",
@@ -135,7 +137,7 @@ export default function Home() {
         "Online Class",
         "Parent Teachers Meeting",
       ],
-      imageUrl: "/member3.png",
+      imageUrl: "/member-3.png",
       imageHint: "happy student",
       bgColor: "bg-yellow-50",
     },
@@ -316,6 +318,8 @@ export default function Home() {
     }
   ];
   
+  const timetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -372,40 +376,63 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 3 - 13)</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {exploreCourses.map((course, index) => (
-              <Card key={index} className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
-                <div className="flex flex-col w-2/3">
-                  <CardHeader>
-                    <p className="font-semibold text-primary">{course.classRange}</p>
-                    <CardTitle className="text-2xl font-bold">{course.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-6 pt-0">
-                      <ul className="space-y-3">
-                        {course.features.map((feature, i) => (
-                          <li key={i} className="flex items-center gap-3">
-                            <Check className="w-5 h-5 text-green-500" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                  </CardContent>
-                  <CardFooter className="p-6 mt-auto">
-                    <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Time Table</Button>
-                  </CardFooter>
+          <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {exploreCourses.map((course, index) => (
+                <Card key={index} className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
+                  <div className="flex flex-col w-2/3">
+                    <CardHeader>
+                      <p className="font-semibold text-primary">{course.classRange}</p>
+                      <CardTitle className="text-2xl font-bold">{course.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6 pt-0">
+                        <ul className="space-y-3">
+                          {course.features.map((feature, i) => (
+                            <li key={i} className="flex items-center gap-3">
+                              <Check className="w-5 h-5 text-green-500" />
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                    </CardContent>
+                    <CardFooter className="p-6 mt-auto">
+                      <DialogTrigger asChild>
+                        <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Time Table</Button>
+                      </DialogTrigger>
+                    </CardFooter>
+                  </div>
+                  <div className="w-1/3 relative">
+                    <Image
+                      src={course.imageUrl}
+                      alt={course.title}
+                      fill
+                      className="object-cover"
+                      data-ai-hint={course.imageHint}
+                    />
+                  </div>
+                </Card>
+              ))}
+            </div>
+             <DialogContent className="sm:max-w-[600px] p-8">
+                <DialogHeader className="text-center">
+                  <DialogTitle className="text-2xl font-bold mb-8">OFFLINE TIME TABLE</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-8">
+                    <div>
+                        <h3 className="font-bold text-lg mb-4">CBSE</h3>
+                        <div className="flex flex-wrap gap-4">
+                            {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="font-bold text-lg mb-4">SAMACHEER</h3>
+                        <div className="flex flex-wrap gap-4">
+                            {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                        </div>
+                    </div>
                 </div>
-                <div className="w-1/3 relative">
-                  <Image
-                    src={course.imageUrl}
-                    alt={course.title}
-                    fill
-                    className="object-cover"
-                    data-ai-hint={course.imageHint}
-                  />
-                </div>
-              </Card>
-            ))}
-          </div>
+              </DialogContent>
+          </Dialog>
         </div>
       </section>
 
@@ -634,14 +661,14 @@ export default function Home() {
                 <CarouselContent>
                   {resultsData[activeResultFilter].map((result, index) => (
                     <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                       <Card className="text-center">
-                        <CardContent className="p-4">
+                      <Card className="text-center overflow-hidden rounded-lg">
+                        <CardContent className="p-0">
                           <Image
                             src={result.src}
                             alt={result.alt}
-                            width={300}
+                            width={400}
                             height={400}
-                            className="rounded-t-lg w-full"
+                            className="w-full h-auto object-cover aspect-[4/5]"
                             data-ai-hint={result.hint}
                           />
                           <div className="p-4">
@@ -653,8 +680,8 @@ export default function Home() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className="absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10" />
+                <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10" />
             </Carousel>
           </div>
         </div>
@@ -693,13 +720,12 @@ export default function Home() {
                 <CarouselItem key={index}>
                   <Card className="overflow-hidden rounded-2xl shadow-lg">
                     <CardContent className="p-0 flex flex-col md:flex-row items-center">
-                      <div className="relative w-full md:w-1/2">
+                      <div className="relative w-full md:w-1/2 h-80 md:h-auto">
                         <Image
                           src={story.image}
                           alt={story.name}
-                          width={800}
-                          height={600}
-                          className="object-cover w-full h-full"
+                          fill
+                          className="object-cover"
                           data-ai-hint={story.imageHint}
                         />
                       </div>
@@ -753,7 +779,7 @@ export default function Home() {
             </div>
             <div>
               <Image
-                src="/stats-map.webp"
+                src="https://placehold.co/800x600.png"
                 alt="World map with student interactions"
                 width={800}
                 height={600}
@@ -783,12 +809,12 @@ export default function Home() {
               </Link>
             </div>
             <div>
-              <Image src="/Download-app.webp" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
+              <Image src="https://placehold.co/600x600.png" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
             </div>
           </div>
         </div>
         <div className="bg-orange-500 text-white" id="happy-help">
-          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center py-16 md:py-24"id="help-you">
+          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center"id="help-you">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold">Happy to help you!</h2>
               <p className="text-lg">
@@ -797,7 +823,7 @@ export default function Home() {
               <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
             </div>
             <div>
-            <Image src="/happy-to-help.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
+            <Image src="https://placehold.co/600x400.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
             </div>
           </div>
         </div>
@@ -854,3 +880,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
