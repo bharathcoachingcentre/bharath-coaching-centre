@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame } from "lucide-react";
@@ -8,8 +10,43 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { courses, testimonials, events } from "@/lib/mock-data";
+import React from "react";
+
+const resultsData = {
+  "All": [
+    { src: 'https://placehold.co/300x400.png', alt: 'Results slide 1', hint: 'students results infographic', name: 'Student A', score: 'Top Score' },
+    { src: 'https://placehold.co/300x400.png', alt: 'Results slide 2', hint: 'students results chart', name: 'Student B', score: 'Top Score' },
+    { src: 'https://placehold.co/300x400.png', alt: 'Results slide 3', hint: 'students success stories', name: 'Student C', score: 'Top Score' },
+  ],
+  "IIT JEE": [
+      { src: 'https://placehold.co/300x400.png', alt: 'IIT JEE Result 1', hint: 'IIT student', name: 'IIT Student 1', score: 'AIR 1' },
+      { src: 'https://placehold.co/300x400.png', alt: 'IIT JEE Result 2', hint: 'IIT student', name: 'IIT Student 2', score: 'AIR 10' },
+  ],
+  "NEET": [
+    { src: 'https://placehold.co/300x400.png', alt: 'NEET Result 1', hint: 'NEET student', name: 'NEET Student 1', score: '720/720' },
+  ],
+  "10th Board": [
+    { src: '/student-aarav.png', alt: 'Aarav K Vora', hint: 'student portrait', name: 'AARAV K VORA', score: 'MATHS 95 | TOTAL 470' },
+    { src: '/student-jhegadheesh.png', alt: 'Jhegadheesh S', hint: 'student portrait', name: 'JHEGADHEESH S', score: 'MATHS 97 | TOTAL 470' },
+    { src: 'https://placehold.co/300x400.png', alt: '10th Board Result 3', hint: 'student portrait', name: 'Student D', score: '98%' },
+  ],
+  "12th Board": [
+    { src: 'https://placehold.co/300x400.png', alt: '12th Board Result 1', hint: 'student portrait', name: 'Student E', score: '99%' },
+    { src: 'https://placehold.co/300x400.png', alt: '12th Board Result 2', hint: 'student portrait', name: 'Student F', score: '98.5%' },
+  ],
+  "NTSE": [
+      { src: 'https://placehold.co/300x400.png', alt: 'NTSE Scholar 1', hint: 'scholar portrait', name: 'Scholar G', score: 'Stage 2 Qualified' },
+  ],
+  "Olympiad": [
+      { src: 'https://placehold.co/300x400.png', alt: 'Olympiad Winner 1', hint: 'student winner', name: 'Winner H', score: 'Gold Medal' },
+  ]
+};
+
+type ResultCategory = keyof typeof resultsData;
 
 export default function Home() {
+  const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
+
   const sliderImages = [
     { src: '/slider1.jpg', alt: 'Trichy', hint: 'cityscape trichy' },
     { src: '/slider2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
@@ -216,14 +253,7 @@ export default function Home() {
     },
   ];
 
-  const resultsFilters = ["All", "IIT JEE", "NEET", "10th Board", "12th Board", "NTSE", "Olympiad"];
-  
-  const resultsCarouselImages = [
-    { src: 'https://placehold.co/1200x400.png', alt: 'Results slide 1', hint: 'students results infographic' },
-    { src: 'https://placehold.co/1200x400.png', alt: 'Results slide 2', hint: 'students results chart' },
-    { src: 'https://placehold.co/1200x400.png', alt: 'Results slide 3', hint: 'students success stories' },
-  ]
-
+  const resultsFilters: ResultCategory[] = ["All", "IIT JEE", "NEET", "10th Board", "12th Board", "NTSE", "Olympiad"];
 
   return (
     <div className="flex flex-col relative">
@@ -482,8 +512,10 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {studyMaterials.map((material, index) => (
               <Card key={index} className={`${material.bgColor} rounded-2xl shadow-lg p-6 flex flex-col items-start text-left`}>
-                <h4 className="text-2xl font-bold mb-4" dangerouslySetInnerHTML={{ __html: material.title }}></h4>
-                <div className="flex-grow flex items-center justify-center w-full">
+                 <CardHeader className="p-0">
+                    <CardTitle className="text-2xl font-bold" dangerouslySetInnerHTML={{ __html: material.title }}></CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 flex-grow flex items-center justify-center w-full mt-4">
                   <div className="w-48 h-48 rounded-full flex items-center justify-center overflow-hidden">
                     <Image
                       src={material.src}
@@ -494,7 +526,7 @@ export default function Home() {
                       data-ai-hint={material.hint}
                     />
                   </div>
-                </div>
+                </CardContent>
               </Card>
             ))}
           </div>
@@ -525,23 +557,38 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-wrap gap-4 my-12 justify-center">
-            {resultsFilters.map((filter, index) => (
-              <Button key={index} variant={index === 0 ? 'default' : 'outline'} className={index === 0 ? 'bg-gray-800 hover:bg-gray-900' : 'border-gray-300'}>{filter}</Button>
+            {resultsFilters.map((filter) => (
+              <Button 
+                key={filter} 
+                variant={activeResultFilter === filter ? 'default' : 'outline'} 
+                className={activeResultFilter === filter ? 'bg-gray-800 hover:bg-gray-900' : 'border-gray-300'}
+                onClick={() => setActiveResultFilter(filter)}
+              >
+                {filter}
+              </Button>
             ))}
           </div>
           <div>
-            <Carousel opts={{ loop: true }} className="w-full">
+            <Carousel opts={{ align: "start", loop: true }} className="w-full">
                 <CarouselContent>
-                  {resultsCarouselImages.map((image, index) => (
-                    <CarouselItem key={index}>
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        width={1200}
-                        height={400}
-                        className="rounded-2xl"
-                        data-ai-hint={image.hint}
-                      />
+                  {resultsData[activeResultFilter].map((result, index) => (
+                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                       <Card className="text-center">
+                        <CardContent className="p-4">
+                          <Image
+                            src={result.src}
+                            alt={result.alt}
+                            width={300}
+                            height={400}
+                            className="rounded-t-lg w-full"
+                            data-ai-hint={result.hint}
+                          />
+                          <div className="p-4">
+                            <h3 className="text-xl font-bold">{result.name}</h3>
+                            <p className="text-muted-foreground mt-1">{result.score}</p>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
@@ -721,3 +768,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
