@@ -14,32 +14,19 @@ import React from "react";
 
 const resultsData = {
   "All": [
-    { src: 'https://placehold.co/300x400.png', alt: 'Results slide 1', hint: 'students results infographic', name: 'Student A', score: 'Top Score' },
-    { src: 'https://placehold.co/300x400.png', alt: 'Results slide 2', hint: 'students results chart', name: 'Student B', score: 'Top Score' },
+    { src: '/aarav.jpg', alt: 'Results slide 1', hint: 'students results infographic', name: 'Student A', score: 'Top Score' },
+    { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'Student B', score: 'Top Score' },
     { src: 'https://placehold.co/300x400.png', alt: 'Results slide 3', hint: 'students success stories', name: 'Student C', score: 'Top Score' },
   ],
-  "IIT JEE": [
-      { src: 'https://placehold.co/300x400.png', alt: 'IIT JEE Result 1', hint: 'IIT student', name: 'IIT Student 1', score: 'AIR 1' },
-      { src: 'https://placehold.co/300x400.png', alt: 'IIT JEE Result 2', hint: 'IIT student', name: 'IIT Student 2', score: 'AIR 10' },
-  ],
-  "NEET": [
-    { src: 'https://placehold.co/300x400.png', alt: 'NEET Result 1', hint: 'NEET student', name: 'NEET Student 1', score: '720/720' },
-  ],
   "10th Board": [
-    { src: '/AARAV.JPG', alt: 'Aarav K Vora', hint: 'student portrait', name: 'AARAV K VORA', score: 'MATHS 95 | TOTAL 470' },
-    { src: '/JEGADHEESH.JPG', alt: 'Jhegadheesh S', hint: 'student portrait', name: 'JHEGADHEESH S', score: 'MATHS 97 | TOTAL 470' },
+    { src: '/aarav.jpg', alt: '', hint: 'student portrait', name: 'AARAV K VORA', score: 'MATHS 95 | TOTAL 470' },
+    { src: '/JHEGADHEESH.jpg', alt: 'Jhegadheesh S', hint: 'student portrait', name: 'JHEGADHEESH S', score: 'MATHS 97 | TOTAL 470' },
     { src: 'https://placehold.co/300x400.png', alt: '10th Board Result 3', hint: 'student portrait', name: 'Student D', score: '98%' },
   ],
   "12th Board": [
     { src: 'https://placehold.co/300x400.png', alt: '12th Board Result 1', hint: 'student portrait', name: 'Student E', score: '99%' },
     { src: 'https://placehold.co/300x400.png', alt: '12th Board Result 2', hint: 'student portrait', name: 'Student F', score: '98.5%' },
   ],
-  "NTSE": [
-      { src: 'https://placehold.co/300x400.png', alt: 'NTSE Scholar 1', hint: 'scholar portrait', name: 'Scholar G', score: 'Stage 2 Qualified' },
-  ],
-  "Olympiad": [
-      { src: 'https://placehold.co/300x400.png', alt: 'Olympiad Winner 1', hint: 'student winner', name: 'Winner H', score: 'Gold Medal' },
-  ]
 };
 
 type ResultCategory = keyof typeof resultsData;
@@ -258,7 +245,7 @@ export default function Home() {
     },
   ];
 
-  const resultsFilters: ResultCategory[] = ["All", "IIT JEE", "NEET", "10th Board", "12th Board", "NTSE", "Olympiad"];
+  const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
 
   return (
     <div className="flex flex-col relative">
