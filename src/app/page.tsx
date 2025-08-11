@@ -660,7 +660,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Achieve More Section */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold">
@@ -725,7 +724,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <Image src="https://placehold.co/100x100.png" alt="Impact Icon" width={80} height={80} data-ai-hint="impact icon" />
+              <Image src="/graph-chart-icon.svg" alt="Impact Icon" width={80} height={80} data-ai-hint="impact icon" />
               <h2 className="text-4xl font-bold">
                 Impact. At <span className="relative inline-block">scale
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span>
@@ -753,7 +752,7 @@ export default function Home() {
             </div>
             <div>
               <Image
-                src="https://placehold.co/800x600.png"
+                src="/stats-map.webp"
                 alt="World map with student interactions"
                 width={800}
                 height={600}
