@@ -29,7 +29,7 @@ const resultsData = {
 
   ],
   "10th Board": [
-
+    { src: '/aarav.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
     { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
     { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
     { src: '/SAJITHAA-min.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
@@ -39,7 +39,6 @@ const resultsData = {
     { src: '/SRINITHI.jpg', alt: 'SRINITHI A', hint: 'student portrait', name: 'SRINITHI A', score:'Maths 91 | Total 470' },
     { src: '/VISHAL.jpg', alt: 'VISHAL D', hint: 'student portrait', name: 'VISHAL D', score:'Maths 97 | Total 462' },
     { src: '/ROOPAN.jpg', alt: 'ROOPAN S', hint: 'student portrait', name: 'DROOPAN S', score:'MATHS 95 | TOTAL 448' },
-    { src: '/aarav.jpg', alt: 'Results slide 1', hint: 'students results infographic', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
     { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
 
   ],
@@ -610,6 +609,19 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Achieve More Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl font-bold">
+            Achieve more with Bharath Academy, get <span className="text-orange-500">Free</span> online counselling now
+          </h2>
+          <div className="mt-8 flex justify-center gap-4">
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Book a demo</Button>
+            <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600">Learn LIVE</Button>
+          </div>
+        </div>
+      </section>
+
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
           <Button size="icon" className="rounded-full bg-purple-200 hover:bg-purple-300 w-12 h-12">
@@ -776,20 +788,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Achieve More Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold">
-            Achieve more with Bharath Academy, get <span className="text-orange-500">Free</span> online counselling now
-          </h2>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Book a demo</Button>
-            <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600">Learn LIVE</Button>
-          </div>
-        </div>
-      </section>
-
     </div>
   );
 }
