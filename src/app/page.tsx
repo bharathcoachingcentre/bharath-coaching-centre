@@ -660,6 +660,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Achieve more Section */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold">
@@ -759,6 +760,44 @@ export default function Home() {
                 className="rounded-lg"
                 data-ai-hint="world map education"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+       {/* Learn from anywhere Section */}
+       <section>
+        <div className="py-16 md:py-24 bg-gray-50">
+          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold">
+                Learn from <span className="relative inline-block">anywhere
+                  <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
+                </span>
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                We're available on Android devices and platforms. Study from anywhere at your convenience.
+              </p>
+              <Link href="#">
+                <Image src="/google-play.svg" alt="Get it on Google Play" width={180} height={70} data-ai-hint="Google Play store" />
+              </Link>
+            </div>
+            <div>
+              <Image src="https://placehold.co/600x600.png" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
+            </div>
+          </div>
+        </div>
+        <div className="py-16 md:py-24 bg-orange-500 text-white">
+          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold">Happy to help you!</h2>
+              <p className="text-lg">
+                Need more details? Our expert academic counsellors will be happy to patiently explain everything that you want to know.
+              </p>
+              <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
+            </div>
+            <div>
+            <Image src="https://placehold.co/600x400.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
             </div>
           </div>
         </div>
