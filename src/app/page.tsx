@@ -26,8 +26,8 @@ const resultsData = {
     { src: 'https://placehold.co/300x400.png', alt: 'NEET Result 1', hint: 'NEET student', name: 'NEET Student 1', score: '720/720' },
   ],
   "10th Board": [
-    { src: '/student-aarav.png', alt: 'Aarav K Vora', hint: 'student portrait', name: 'AARAV K VORA', score: 'MATHS 95 | TOTAL 470' },
-    { src: '/student-jhegadheesh.png', alt: 'Jhegadheesh S', hint: 'student portrait', name: 'JHEGADHEESH S', score: 'MATHS 97 | TOTAL 470' },
+    { src: '/AARAV.JPG', alt: 'Aarav K Vora', hint: 'student portrait', name: 'AARAV K VORA', score: 'MATHS 95 | TOTAL 470' },
+    { src: '/JEGADHEESH.JPG', alt: 'Jhegadheesh S', hint: 'student portrait', name: 'JHEGADHEESH S', score: 'MATHS 97 | TOTAL 470' },
     { src: 'https://placehold.co/300x400.png', alt: '10th Board Result 3', hint: 'student portrait', name: 'Student D', score: '98%' },
   ],
   "12th Board": [
