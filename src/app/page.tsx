@@ -649,14 +649,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
           <div className="flex items-center gap-4 mb-12">
-            <svg id="talk-head" width="60" height="60" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" fill="#9B8AFB"/>
-              <path d="M24 29C26.7614 29 29 26.7614 29 24C29 21.2386 26.7614 19 24 19C21.2386 19 19 21.2386 19 24C19 26.7614 21.2386 29 24 29Z" stroke="#ffffff" strokeWidth="4" strokeLinejoin="round"/>
-              <path d="M24 19V12C24 10.3431 22.6569 9 21 9C19.3431 9 18 10.3431 18 12V12.5" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M31 14L30.5 14.5" stroke="#FFD76B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M36 20L35 20" stroke="#FFD76B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M31 29L30.5 28.5" stroke="#FFD76B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <Image src="/hand-with-mic.svg" alt="Stories that inspire icon" width={60} height={60} />
             <h2 className="text-3xl font-bold">
               Stories that <span className="relative inline-block">inspire
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
