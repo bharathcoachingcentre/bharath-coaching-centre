@@ -73,17 +73,7 @@ export function Footer() {
                         <Image src="/newsletter-icon.png" alt="Newsletter" width={60} height={60} data-ai-hint="newsletter icon" />
                     </CardContent>
                 </Card>
-                <div className="text-center md:text-left">
-                    <p className="font-semibold text-lg">TOLL FREE: 1800-120-456-456</p>
-                    <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
-                        <Phone className="h-4 w-4" />
-                        <span>+91 7200030307 (9 AM to 9:30 PM on all days)</span>
-                    </div>
-                     <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
-                        <Mail className="h-4 w-4" />
-                        <a href="mailto:bcc_try@hotmail.com" className="hover:text-primary">bcc_try@hotmail.com</a>
-                    </div>
-                </div>
+               
             </div>
 
             <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -110,13 +100,27 @@ export function Footer() {
                         <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
                     ))}
                     </ul>
-                    <h3 className="text-lg font-semibold mt-6">Vedantu Super Kids</h3>
+                    
+                </div>
+                <div>
+                <h3 className="text-lg font-semibold">Vedantu Super Kids</h3>
                     <ul className="mt-4 space-y-2 text-sm">
                     {superKidsLinks.map(link => (
                         <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
                     ))}
                     </ul>
+                    <div className="text-center md:text-left mt-6">
+                    <p className="font-semibold text-lg">TOLL FREE: 1800-120-456-456</p>
+                    <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
+                        <Phone className="h-4 w-4" />
+                        <span>+91 7200030307 (9 AM to 9:30 PM on all days)</span>
+                    </div>
+                     <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
+                        <Mail className="h-4 w-4" />
+                        <a href="mailto:bcc_try@hotmail.com" className="hover:text-primary">bcc_try@hotmail.com</a>
+                    </div>
                 </div>
+                    </div>
             </div>
         </div>
       

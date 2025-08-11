@@ -416,7 +416,7 @@ export default function Home() {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-12 flex items-center gap-2">
             What's <Flame className="text-orange-500" /> New on 
-            <span className="relative inline-block">Vedantu
+            <span className="relative inline-block">Bharath Academy
               <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span>
             </span>
           </h2>
