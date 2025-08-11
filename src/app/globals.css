@@ -98,9 +98,7 @@ button#radix-«R4p6l7»:hover {
 #inspired-btn{
   margin-top: -117px;
 }
-.bg-orange-500{
-    background-color: hsl(204 90% 53%);
-}
+
 .text-orange-500 {
   --tw-text-opacity: 1;
   color: rgb(27 157 243);
@@ -114,4 +112,12 @@ button#radix-«R4p6l7»:hover {
 }
 .border-orange-500{
 border-color: rgb(27 157 243);
+}
+#happy-help{
+  margin-top: -96px;
+  z-index: 1;
+  position: relative;
+}
+.bg-orange-500 {
+  background-color: #43b9ea;
 }

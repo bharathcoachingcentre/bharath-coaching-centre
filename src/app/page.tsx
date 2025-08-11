@@ -14,7 +14,7 @@ import React from "react";
 
 const resultsData = {
   "All": [
-    { src: '/aarav.jpg', alt: 'Results slide 1', hint: 'students results infographic', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/AARAV.JPG', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
     { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
     { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
     { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
@@ -29,7 +29,7 @@ const resultsData = {
 
   ],
   "10th Board": [
-    { src: '/aarav.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/AARAV.JPG', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
     { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
     { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
     { src: '/SAJITHAA-min.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
@@ -783,12 +783,12 @@ export default function Home() {
               </Link>
             </div>
             <div>
-              <Image src="https://placehold.co/600x600.png" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
+              <Image src="/Download-app.webp" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
             </div>
           </div>
         </div>
-        <div className="py-16 md:py-24 bg-orange-500 text-white">
-          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
+        <div className="bg-orange-500 text-white" id="happy-help">
+          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center py-16 md:py-24">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold">Happy to help you!</h2>
               <p className="text-lg">
@@ -797,7 +797,7 @@ export default function Home() {
               <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
             </div>
             <div>
-            <Image src="https://placehold.co/600x400.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
+            <Image src="/happy-to-help.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
             </div>
           </div>
         </div>
