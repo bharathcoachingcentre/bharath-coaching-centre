@@ -78,7 +78,9 @@ export function Header() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <NavLink key={link.label} href={link.href} label={link.label} />
+                <div key={link.label} className="flex items-center">
+                  <NavLink href={link.href} label={link.label} />
+                </div>
               )
             )}
             <DropdownMenu>
@@ -105,7 +107,7 @@ export function Header() {
                 </div>
                 <div className="text-sm">
                     <p className="text-muted-foreground">Talk to our experts</p>
-                    <p className="font-semibold text-foreground">+91 72000 30307</p>
+                    <p className="font-semibold text-foreground">+91 7200030307</p>
                 </div>
             </div>
             <Button variant="secondary" className="bg-primary/10 hover:bg-primary/20 text-primary font-semibold">Sign in</Button>

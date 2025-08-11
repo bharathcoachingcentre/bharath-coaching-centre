@@ -110,10 +110,9 @@ export function Footer() {
                     ))}
                     </ul>
                     <div className="text-center md:text-left mt-6">
-                    <p className="font-semibold text-lg">TOLL FREE: 1800-120-456-456</p>
                     <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
                         <Phone className="h-4 w-4" />
-                        <span>+91 7200030307 (9 AM to 9:30 PM on all days)</span>
+                        <a href="tel:+917200030307">+91 7200030307 </a>
                     </div>
                      <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
                         <Mail className="h-4 w-4" />
