@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, PlayCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -264,6 +264,29 @@ export default function Home() {
   ];
 
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
+  const inspiredStories = [
+    {
+      image: 'https://placehold.co/800x600.png',
+      imageHint: 'student portrait',
+      quote: 'After I joined the Eklavya batch at Vedantu, I cracked KVPY and WBJEE and discovered my true potential.',
+      name: 'Rhythm Sabharwal',
+      details: 'AIR 2973 | NEET 2021'
+    },
+    {
+      image: 'https://placehold.co/800x600.png',
+      imageHint: 'smiling student',
+      quote: 'The personalized attention and expert guidance from my teachers helped me excel beyond my expectations.',
+      name: 'Priya Singh',
+      details: 'JEE Advanced Qualifier'
+    },
+    {
+      image: 'https://placehold.co/800x600.png',
+      imageHint: 'student graduate',
+      quote: 'Bharath Academy provided the perfect platform to prepare for competitive exams. The resources are top-notch.',
+      name: 'Ankit Kumar',
+      details: 'Top 1% in CBSE Boards'
+    }
+  ];
 
   return (
     <div className="flex flex-col relative">
@@ -619,6 +642,63 @@ export default function Home() {
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Book a demo</Button>
             <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600">Learn LIVE</Button>
           </div>
+        </div>
+      </section>
+
+      {/* Stories that Inspire Section */}
+      <section className="py-16 md:py-24 bg-blue-50">
+        <div className="container mx-auto">
+          <div className="flex items-center gap-4 mb-12">
+            <svg id="talk-head" width="60" height="60" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" fill="#9B8AFB"/>
+              <path d="M24 29C26.7614 29 29 26.7614 29 24C29 21.2386 26.7614 19 24 19C21.2386 19 19 21.2386 19 24C19 26.7614 21.2386 29 24 29Z" stroke="#ffffff" strokeWidth="4" strokeLinejoin="round"/>
+              <path d="M24 19V12C24 10.3431 22.6569 9 21 9C19.3431 9 18 10.3431 18 12V12.5" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M31 14L30.5 14.5" stroke="#FFD76B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M36 20L35 20" stroke="#FFD76B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M31 29L30.5 28.5" stroke="#FFD76B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <h2 className="text-3xl font-bold">
+              Stories that <span className="relative inline-block">inspire
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+              </span>
+            </h2>
+          </div>
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {inspiredStories.map((story, index) => (
+                <CarouselItem key={index}>
+                  <Card className="overflow-hidden rounded-2xl shadow-lg">
+                    <CardContent className="p-0 flex flex-col md:flex-row items-center">
+                      <div className="relative w-full md:w-1/2">
+                        <Image
+                          src={story.image}
+                          alt={story.name}
+                          width={800}
+                          height={600}
+                          className="object-cover w-full h-full"
+                          data-ai-hint={story.imageHint}
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                           <PlayCircle className="w-20 h-20 text-white/80" />
+                        </div>
+                      </div>
+                      <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
+                        <Quote className="w-12 h-12 text-purple-400 transform rotate-180" />
+                        <p className="text-xl md:text-2xl font-medium mt-4">{story.quote}</p>
+                        <p className="font-bold mt-6">{story.name}</p>
+                        <p className="text-sm text-muted-foreground">{story.details}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
+          </Carousel>
         </div>
       </section>
 
