@@ -779,7 +779,7 @@ export default function Home() {
                 We're available on Android devices and platforms. Study from anywhere at your convenience.
               </p>
               <Link href="#">
-                <Image src="/google-play.svg" alt="Get it on Google Play" width={180} height={70} data-ai-hint="Google Play store" />
+                <Image src="/google-play.svg" id="google-play" alt="Get it on Google Play" width={180} height={70} data-ai-hint="Google Play store" />
               </Link>
             </div>
             <div>
@@ -788,7 +788,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-orange-500 text-white" id="happy-help">
-          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center py-16 md:py-24">
+          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center py-16 md:py-24"id="help-you">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold">Happy to help you!</h2>
               <p className="text-lg">
@@ -929,44 +929,6 @@ export default function Home() {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-        </div>
-      </section>
-
-       {/* Events Section */}
-       <section className="bg-card py-16 md:py-24">
-        <div className="container mx-auto">
-          <div className="text-center">
-            <h2 className="font-headline text-3xl font-bold md:text-4xl">Upcoming Events</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-              Stay updated with our latest workshops, seminars, and important dates.
-            </p>
-          </div>
-          <div className="mt-12 max-w-3xl mx-auto">
-            <Card>
-                <CardContent className="p-6">
-                    <ul className="space-y-4">
-                        {isClient && events.slice(0, 3).map((event) => (
-                             <li key={event.id} className="flex items-start space-x-4">
-                                <div className="flex-shrink-0 flex flex-col items-center justify-center bg-primary text-primary-foreground rounded-md h-16 w-16">
-                                    <span className="text-sm font-bold uppercase">{event.date.toLocaleString('default', { month: 'short' })}</span>
-                                    <span className="text-2xl font-bold">{event.date.getDate()}</span>
-                                </div>
-                                <div className="flex-grow">
-                                    <Badge variant={event.category === 'Deadline' ? 'destructive' : 'secondary'}>{event.category}</Badge>
-                                    <h4 className="font-semibold text-lg mt-1">{event.title}</h4>
-                                    <p className="text-sm text-muted-foreground">{event.description}</p>
-                                </div>
-                             </li>
-                        ))}
-                    </ul>
-                </CardContent>
-            </Card>
-          </div>
-          <div className="mt-12 text-center">
-            <Button asChild variant="link" className="text-lg text-primary">
-              <Link href="/events">View Full Calendar <ArrowRight className="ml-2 h-5 w-5" /></Link>
-            </Button>
-          </div>
         </div>
       </section>
     </div>

@@ -121,3 +121,10 @@ border-color: rgb(27 157 243);
 .bg-orange-500 {
   background-color: #43b9ea;
 }
+#help-you {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#google-play{
+margin-top:10px;
+}
