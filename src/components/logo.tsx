@@ -9,10 +9,10 @@ export function Logo(props: SVGProps<SVGSVGElement> & { className?: string }) {
         <Image
         src="/logo.png"
         alt=""
-        width={80}
+        width={60}
         height={60}
         priority
-        className="h-auto"
+        className="header-logo"
         style={{ width: 'auto' }}
         />
     </div>

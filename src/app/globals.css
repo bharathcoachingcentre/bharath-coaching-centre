@@ -89,3 +89,9 @@ body {
 button#radix-«R4p6l7»:hover {
   background-color: hsl(230deg 31.58% 92.55%)!important;
 }
+.header-logo{
+  width:190px!important;
+}
+#talk-head{
+  width:110px;
+}

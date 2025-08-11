@@ -154,7 +154,7 @@ export default function Home() {
     },
     {
       icon: Laptop,
-      title: "Learn Java & Python with Vedantu!",
+      title: "Learn Java & Python with Bharath Academy!",
       description: "From Good to Great: Improve your skills!",
       price: "999",
     },
@@ -191,24 +191,28 @@ export default function Home() {
       alt: "Revision notes",
       hint: "study notes",
       title: "Revision Notes",
+      bgColor: "bg-red-50",
     },
     {
       src: "/general-knowledge.webp",
       alt: "General knowledge",
       hint: "knowledge book",
       title: "General Knowledge",
+       bgColor: "bg-blue-50",
     },
     {
       src: "/important-question-papers.webp",
       alt: "Important question papers",
       hint: "exam papers",
       title: "Important Questions",
+       bgColor: "bg-yellow-50",
     },
     {
       src: "/previous-year-question-papers.webp",
       alt: "Previous year question papers",
       hint: "old exam papers",
       title: "Previous Year Papers",
+       bgColor: "bg-purple-50",
     },
   ];
 
@@ -467,18 +471,22 @@ export default function Home() {
           </div>
           <h3 className="text-3xl font-bold mb-8">Study Materials</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {studyMaterials.map((material) => (
-              <div key={material.alt} className="text-center">
-                <Image
-                  src={material.src}
-                  alt={material.alt}
-                  width={450}
-                  height={400}
-                  data-ai-hint={material.hint}
-                  className="rounded-lg shadow-md"
-                />
-                <p className="mt-4 font-semibold">{material.title}</p>
-              </div>
+          {studyMaterials.map((material, index) => (
+              <Card key={index} className={`${material.bgColor} rounded-2xl shadow-lg p-6 flex flex-col items-start text-left`}>
+                <h4 className="text-2xl font-bold mb-4">{material.title}</h4>
+                <div className="flex-grow flex items-center justify-center w-full">
+                  <div className="w-48 h-48 rounded-full flex items-center justify-center overflow-hidden">
+                    <Image
+                      src={material.src}
+                      alt={material.alt}
+                      width={200}
+                      height={200}
+                      className="object-contain"
+                      data-ai-hint={material.hint}
+                    />
+                  </div>
+                </div>
+              </Card>
             ))}
           </div>
         </div>

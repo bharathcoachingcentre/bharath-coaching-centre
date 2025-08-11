@@ -9,10 +9,10 @@ export function Footer() {
   const companyLinks = [
     { href: "#", label: "About us" },
     { href: "/contact", label: "Contact us" },
-    { href: "/blog", label: "Vedantu Blog" },
+    { href: "/blog", label: "Blog" },
     { href: "#", label: "News" },
     { href: "#", label: "Child safety" },
-    { href: "#", label: "Why Vedantu" },
+    { href: "#", label: "Why Bharath Academy " },
     { href: "#", label: "Our results" },
     { href: "#", label: "Careers" },
     { href: "#", label: "Help india learn" },
@@ -20,10 +20,10 @@ export function Footer() {
 
   const otherLinks = [
     { href: "#", label: "Free live classes" },
-    { href: "#", label: "Why teach with Vedantu" },
+    { href: "#", label: "Why teach with  Bharath Academy" },
     { href: "#", label: "Try WAVE" },
     { href: "#", label: "Try Whiteboard" },
-    { href: "#", label: "Vedantu improvement promise" },
+    { href: "#", label: "Bharath Academy improvement promise" },
     { href: "#", label: "VOLT" },
     { href: "#", label: "Micro courses" },
     { href: "#", label: "Maharastra Board" },
@@ -103,7 +103,7 @@ export function Footer() {
                     
                 </div>
                 <div>
-                <h3 className="text-lg font-semibold">Vedantu Super Kids</h3>
+                <h3 className="text-lg font-semibold"> Bharath Academy Super Kids</h3>
                     <ul className="mt-4 space-y-2 text-sm">
                     {superKidsLinks.map(link => (
                         <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
