@@ -14,18 +14,37 @@ import React from "react";
 
 const resultsData = {
   "All": [
-    { src: '/aarav.jpg', alt: 'Results slide 1', hint: 'students results infographic', name: 'Student A', score: 'Top Score' },
-    { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'Student B', score: 'Top Score' },
-    { src: 'https://placehold.co/300x400.png', alt: 'Results slide 3', hint: 'students success stories', name: 'Student C', score: 'Top Score' },
+    { src: '/aarav.jpg', alt: 'Results slide 1', hint: 'students results infographic', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
+    { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
+    { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/SAJITHAA-min.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
+    { src: '/MANASWINI.jpg', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
+    { src: 'SAHITHYAA.jpg', alt: 'SAHITHYAA', hint: 'student portrait', name: 'SAHITHYAA M.P', score:'TOTAL 479/500' },
+    { src: '/PRADEEP-min.jpg', alt: 'PRADEEP', hint: 'student portrait', name: 'PRADEEP', score:'Total 424 / 500' },
+   { src: '/SRINITHI.jpg', alt: 'SRINITHI A', hint: 'student portrait', name: 'SRINITHI A', score:'Maths 91 | Total 470' },
+    { src: '/VISHAL.jpg', alt: 'VISHAL D', hint: 'student portrait', name: 'VISHAL D', score:'Maths 97 | Total 462' },
+    { src: '/ROOPAN.jpg', alt: 'ROOPAN S', hint: 'student portrait', name: 'DROOPAN S', score:'MATHS 95 | TOTAL 448' },
+
+
   ],
   "10th Board": [
-    { src: '/aarav.jpg', alt: '', hint: 'student portrait', name: 'AARAV K VORA', score: 'MATHS 95 | TOTAL 470' },
-    { src: '/JHEGADHEESH.jpg', alt: 'Jhegadheesh S', hint: 'student portrait', name: 'JHEGADHEESH S', score: 'MATHS 97 | TOTAL 470' },
-    { src: 'https://placehold.co/300x400.png', alt: '10th Board Result 3', hint: 'student portrait', name: 'Student D', score: '98%' },
+
+    { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
+    { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/SAJITHAA-min.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
+    { src: '/MANASWINI.jpg', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
+    { src: 'SAHITHYAA.jpg', alt: 'SAHITHYAA', hint: 'student portrait', name: 'SAHITHYAA M.P', score:'TOTAL 479/500' },
+    { src: '/PRADEEP-min.jpg', alt: 'PRADEEP', hint: 'student portrait', name: 'PRADEEP', score:'Total 424 / 500' },
+    { src: '/SRINITHI.jpg', alt: 'SRINITHI A', hint: 'student portrait', name: 'SRINITHI A', score:'Maths 91 | Total 470' },
+    { src: '/VISHAL.jpg', alt: 'VISHAL D', hint: 'student portrait', name: 'VISHAL D', score:'Maths 97 | Total 462' },
+    { src: '/ROOPAN.jpg', alt: 'ROOPAN S', hint: 'student portrait', name: 'DROOPAN S', score:'MATHS 95 | TOTAL 448' },
+    { src: '/aarav.jpg', alt: 'Results slide 1', hint: 'students results infographic', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
+
   ],
   "12th Board": [
-    { src: 'https://placehold.co/300x400.png', alt: '12th Board Result 1', hint: 'student portrait', name: 'Student E', score: '99%' },
-    { src: 'https://placehold.co/300x400.png', alt: '12th Board Result 2', hint: 'student portrait', name: 'Student F', score: '98.5%' },
+    {  src: '/HARETA-ROSNI.jpg', alt: 'HARETA ROSNI', hint: 'student portrait', name: 'HARETA ROSNI', score: 'Total 501 / 600' },
   ],
 };
 
@@ -539,7 +558,7 @@ export default function Home() {
             </div>
             <div className="relative h-64 md:h-auto">
               <Image 
-                src="https://placehold.co/600x400.png"
+                src="/results-hero-image.webp"
                 alt="Inspired students"
                 width={600}
                 height={400}
@@ -548,7 +567,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="flex flex-wrap gap-4 my-12 justify-center">
+          <div className="flex flex-wrap gap-4 my-12 justify-left" id="inspired-btn">
             {resultsFilters.map((filter) => (
               <Button 
                 key={filter} 
@@ -757,6 +776,20 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Achieve More Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl font-bold">
+            Achieve more with Bharath Academy, get <span className="text-orange-500">Free</span> online counselling now
+          </h2>
+          <div className="mt-8 flex justify-center gap-4">
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Book a demo</Button>
+            <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600">Learn LIVE</Button>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
