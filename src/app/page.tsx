@@ -15,7 +15,7 @@ import React from "react";
 
 const resultsData = {
   "All": [
-    { src: '/AARAV.JPG', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/aarav.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
     { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
     { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
     { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
@@ -30,7 +30,7 @@ const resultsData = {
 
   ],
   "10th Board": [
-    { src: '/AARAV.JPG', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/aarav.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
     { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
     { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
     { src: '/SAJITHAA-min.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
@@ -268,49 +268,49 @@ export default function Home() {
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
   const inspiredStories = [
     {
-      image: '/Gayathri (1).jpg',
+      image: '/gayathri-1.jpg',
       imageHint: 'student portrait',
       quote: 'BCC is an excellent place for learning and overall development,it has the best faculty and infrastructure. Teachers deal with students with great patience and adhere to their slightest doubts. I had an amazing experience here and BCC helped me improve immensely.',
       name: 'Gayathri',
       details: 'B.E. Student'
     },
     {
-      image: '/Mohamed-niyas-min (1).jpg',
+      image: '/mohamed-niyas-min-1.jpg',
       imageHint: 'smiling student',
       quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
       name: 'Mohamed Niyas',
       details: 'MBBS Student'
     },
     {
-      image: '/Akshaya-min (1).jpg',
+      image: '/akshaya-min-1.jpg',
       imageHint: 'student graduate',
       quote: 'It is an supreme art of a teacher to awaken joy in creative exposure and knowledge. Staffs in BCC did that. The atmosphere in BCC was exemplary that made us to gain more knowledge. Thanking them for building my foundation during 10th.',
       name: 'S Akshaya',
       details: 'MBBS Student'
     },
     {
-      image: '/Reethika (1).jpg',
+      image: '/reethika-1.jpg',
       imageHint: 'student graduate',
       quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       name: 'Reethika',
       details: 'RJ'
     },
     {
-      image: '/Dhanya (2).jpg',
+      image: '/dhanya-2.jpg',
       imageHint: 'student graduate',
       quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
     {
-      image: '/S-K-Janani-priya (1).jpg',
+      image: '/s-k-janani-priya-1.jpg',
       imageHint: 'student graduate',
       quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that made me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
       name: 'S K Janani Priya',
       details: 'MBBS Student, Theni Government college'
     },
     {
-      image: 'Manisha-M-S (1).jpg',
+      image: '/manisha-m-s-1.jpg',
       imageHint: 'student graduate',
       quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
       name: 'Manisha M S',
@@ -375,7 +375,7 @@ export default function Home() {
       {/* Explore Courses Section */}
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 3 - 13)</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 1 - 12)</h2>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {exploreCourses.map((course, index) => (
@@ -720,7 +720,7 @@ export default function Home() {
                 <CarouselItem key={index}>
                   <Card className="overflow-hidden rounded-2xl shadow-lg">
                     <CardContent className="p-0 flex flex-col md:flex-row items-center">
-                      <div className="relative w-full md:w-1/2 h-80 md:h-auto">
+                      <div className="relative w-full md:w-1/2 h-80 md:h-[500px]">
                         <Image
                           src={story.image}
                           alt={story.name}
@@ -779,7 +779,7 @@ export default function Home() {
             </div>
             <div>
               <Image
-                src="https://placehold.co/800x600.png"
+                src="/stats-map.webp"
                 alt="World map with student interactions"
                 width={800}
                 height={600}
@@ -814,7 +814,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-orange-500 text-white" id="happy-help">
-          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center"id="help-you">
+          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center" id="help-you">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold">Happy to help you!</h2>
               <p className="text-lg">

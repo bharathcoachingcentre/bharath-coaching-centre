@@ -112,7 +112,7 @@ export function Header() {
             </div>
             <Button variant="secondary" className="bg-primary/10 hover:bg-primary/20 text-primary font-semibold">Sign in</Button>
         </div>
-
+   
         <div className="md:hidden">
         <Sheet>
             <SheetTrigger asChild>

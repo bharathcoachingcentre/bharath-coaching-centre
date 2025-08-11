@@ -132,3 +132,11 @@ svg.lucide.lucide-mail.h-4.w-4{
 svg.lucide.lucide-mail.h-4.w-4{
   width: 25px;
 }
+.tracking-tight{
+  text-align: center;
+}
+@media (width >= 640px) {
+  .sm\:max-w-\[600px\] {
+      max-width: 48rem!important;
+  }
+}
