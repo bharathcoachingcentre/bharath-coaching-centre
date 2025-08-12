@@ -4,6 +4,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
+import { Separator } from "./ui/separator";
 
 export function Footer() {
   const companyLinks = [
@@ -123,6 +124,12 @@ export function Footer() {
             </div>
         </div>
       
+      </div>
+      <div className="container mx-auto px-4">
+        <Separator />
+        <div className="py-8 text-center text-sm text-muted-foreground">
+            <p>© {new Date().getFullYear()} Bharath Academy. All rights reserved</p>
+        </div>
       </div>
     </footer>
   );
