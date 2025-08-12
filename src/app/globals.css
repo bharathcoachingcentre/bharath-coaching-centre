@@ -115,9 +115,17 @@ border-color: rgb(27 157 243);
   margin-top: -96px;
   z-index: 1;
   position: relative;
+  background-color: #43b9ea!important;
 }
 .bg-orange-500 {
   background-color: #43b9ea;
+}
+.phone-num:hover{
+color:#43b9ea;
+}
+#learn-live:hover{
+ background-color:hsl(204deg 90% 53% / 10%)!important;
+ color:#000000!important;
 }
 #help-you {
   padding-top: 0;
@@ -149,4 +157,7 @@ svg.lucide.lucide-mail.h-4.w-4{
 }
 #testimonial-image{
   width:40% !important;
+}
+.bg-orange-500:hover{
+  background-color:#000000!important;
 }

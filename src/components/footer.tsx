@@ -113,7 +113,7 @@ export function Footer() {
                     <div className="text-center md:text-left mt-6">
                     <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
                         <Phone className="h-4 w-4" />
-                        <a href="tel:+917200030307">+91 7200030307 </a>
+                        <a className="phone-num" href="tel:+917200030307">+91 7200030307 </a>
                     </div>
                      <div className="flex items-center justify-center md:justify-start gap-2 mt-2 text-muted-foreground">
                         <Mail className="h-4 w-4" />
