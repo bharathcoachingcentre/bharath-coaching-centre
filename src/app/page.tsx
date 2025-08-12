@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from "next/image";
@@ -12,6 +13,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { courses, testimonials, events } from "@/lib/mock-data";
 import React from "react";
+import Autoplay from "embla-carousel-autoplay";
 
 const resultsData = {
   "All": [
@@ -274,43 +276,44 @@ export default function Home() {
       name: 'Gayathri',
       details: 'B.E. Student'
     },
+
     {
-      image: '/mohamed-niyas-min.jpg',
-      imageHint: 'smiling student',
-      quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
-      name: 'Mohamed Niyas',
-      details: 'MBBS Student'
-    },
-    {
-      image: '/akshaya-min.jpg',
+      image: '/akshaya.png',
       imageHint: 'student graduate',
       quote: 'It is an supreme art of a teacher to awaken joy in creative exposure and knowledge. Staffs in BCC did that. The atmosphere in BCC was exemplary that made us to gain more knowledge. Thanking them for building my foundation during 10th.',
       name: 'S Akshaya',
       details: 'MBBS Student'
     },
     {
-      image: '/reethika-min.jpg',
+      image: '/reethika.png',
       imageHint: 'student graduate',
       quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       name: 'Reethika',
       details: 'RJ'
     },
     {
-      image: '/dhanya-min.jpg',
+      image: '/dhanya-b-s-k-janani-priya.png',
       imageHint: 'student graduate',
       quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
     {
-      image: '/s-k-janani-priya-min.jpg',
+      image: '/mohamed-niyas.png',
+      imageHint: 'smiling student',
+      quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
+      name: 'Mohamed Niyas',
+      details: 'MBBS Student'
+    },
+    {
+      image: '/s-k-janani-priya.png',
       imageHint: 'student graduate',
       quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that made me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
       name: 'S K Janani Priya',
       details: 'MBBS Student, Theni Government college'
     },
     {
-      image: '/manisha-min.jpg',
+      image: '/manisha-m-s.png',
       imageHint: 'student graduate',
       quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
       name: 'Manisha M S',
@@ -326,6 +329,11 @@ export default function Home() {
       <section className="w-full">
         <Carousel
           opts={{ loop: true }}
+          plugins={[
+            Autoplay({
+              delay: 5000,
+            }),
+          ]}
           className="w-full"
         >
           <CarouselContent>
@@ -720,7 +728,7 @@ export default function Home() {
                 <CarouselItem key={index}>
                   <Card className="overflow-hidden rounded-2xl shadow-lg">
                     <CardContent className="p-0 flex flex-col md:flex-row items-center">
-                      <div className="relative w-full md:w-[45%] h-80 md:h-[500px]">
+                      <div className="relative w-full md:w-[45%] h-80 md:h-[500px]" id="testimonial-image">
                         <Image
                           src={story.image}
                           alt={story.name}
@@ -729,7 +737,7 @@ export default function Home() {
                           data-ai-hint={story.imageHint}
                         />
                       </div>
-                      <div className="w-full md:w-[55%] p-8 md:p-12 text-center md:text-left">
+                      <div className="w-full md:w-[55%] p-8 md:p-12 text-center md:text-left" id="testimonial-text">
                         <Quote className="w-12 h-12 text-purple-400 transform rotate-180" />
                         <p className="text-xl md:text-2xl font-medium mt-4">{story.quote}</p>
                         <p className="font-bold mt-6">{story.name}</p>
@@ -880,5 +888,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     

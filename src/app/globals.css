@@ -143,6 +143,10 @@ svg.lucide.lucide-mail.h-4.w-4{
 .lg\:h-\[600px\]{
   height: 995px!important;
 }
-.object-cover {
-  object-fit: contain!important;
+
+#testimonial-text{
+  width:60% !important;
+}
+#testimonial-image{
+  width:40% !important;
 }
