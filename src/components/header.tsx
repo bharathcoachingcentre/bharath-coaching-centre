@@ -53,8 +53,8 @@ export function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 sm:px-6 lg:px-8">
-      <div className="flex h-24 items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center">
             <Logo className="h-12 w-auto" />
@@ -110,7 +110,9 @@ export function Header() {
                     <p className="font-semibold text-foreground">+91 7200030307</p>
                 </div>
             </div>
-            <Button variant="secondary" className="bg-primary/10 hover:bg-primary/20 text-primary font-semibold">Sign in</Button>
+            <Button asChild variant="secondary" className="bg-primary/10 hover:bg-primary/20 text-primary font-semibold">
+              <Link href="/signin">Sign in</Link>
+            </Button>
         </div>
    
         <div className="md:hidden">
@@ -133,7 +135,7 @@ export function Header() {
                     ))}
                     <SheetClose asChild>
                         <Button asChild className="mt-4">
-                            <Link href="#">Sign in</Link>
+                            <Link href="/signin">Sign in</Link>
                         </Button>
                     </SheetClose>
                 </nav>
