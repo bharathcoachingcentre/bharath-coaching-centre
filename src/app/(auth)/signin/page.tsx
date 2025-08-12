@@ -4,17 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Logo } from "@/components/logo";
 import Link from "next/link";
 
 export default function SignInPage() {
     return (
         <div className="flex flex-col min-h-screen bg-blue-50">
-             <header className="p-4 sm:p-6 lg:p-8">
-                <Link href="/" className="flex items-center">
-                    <Logo className="h-12 w-auto" />
-                </Link>
-            </header>
             <main className="flex-grow flex items-center justify-center p-4">
                 <Card className="w-full max-w-sm shadow-xl">
                     <CardHeader className="text-left">
