@@ -268,49 +268,49 @@ export default function Home() {
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
   const inspiredStories = [
     {
-      image: '/gayathri-1.jpg',
+      image: '/Gayathri.jpg',
       imageHint: 'student portrait',
       quote: 'BCC is an excellent place for learning and overall development,it has the best faculty and infrastructure. Teachers deal with students with great patience and adhere to their slightest doubts. I had an amazing experience here and BCC helped me improve immensely.',
       name: 'Gayathri',
       details: 'B.E. Student'
     },
     {
-      image: '/mohamed-niyas-min-1.jpg',
+      image: '/Mohamed-niyas-min (1).jpg',
       imageHint: 'smiling student',
       quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
       name: 'Mohamed Niyas',
       details: 'MBBS Student'
     },
     {
-      image: '/akshaya-min-1.jpg',
+      image: '/Akshaya.jpg',
       imageHint: 'student graduate',
       quote: 'It is an supreme art of a teacher to awaken joy in creative exposure and knowledge. Staffs in BCC did that. The atmosphere in BCC was exemplary that made us to gain more knowledge. Thanking them for building my foundation during 10th.',
       name: 'S Akshaya',
       details: 'MBBS Student'
     },
     {
-      image: '/reethika-1.jpg',
+      image: '/Reethika.jpg',
       imageHint: 'student graduate',
       quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       name: 'Reethika',
       details: 'RJ'
     },
     {
-      image: '/dhanya-2.jpg',
+      image: '/Dhanya (2).jpg',
       imageHint: 'student graduate',
       quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
     {
-      image: '/s-k-janani-priya-1.jpg',
+      image: '/S-K-Janani-priya (1).jpg',
       imageHint: 'student graduate',
       quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that made me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
       name: 'S K Janani Priya',
       details: 'MBBS Student, Theni Government college'
     },
     {
-      image: '/manisha-m-s-1.jpg',
+      image: '/Manisha.jpg',
       imageHint: 'student graduate',
       quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
       name: 'Manisha M S',
@@ -809,7 +809,7 @@ export default function Home() {
               </Link>
             </div>
             <div>
-              <Image src="https://placehold.co/600x600.png" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
+              <Image src="/Download-app.webp" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
             </div>
           </div>
         </div>
@@ -823,7 +823,7 @@ export default function Home() {
               <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
             </div>
             <div>
-            <Image src="https://placehold.co/600x400.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
+            <Image src="/happy-to-help.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
             </div>
           </div>
         </div>
