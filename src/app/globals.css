@@ -140,3 +140,9 @@ svg.lucide.lucide-mail.h-4.w-4{
       max-width: 48rem!important;
   }
 }
+.lg\:h-\[600px\]{
+  height: 995px!important;
+}
+.object-cover {
+  object-fit: contain!important;
+}
