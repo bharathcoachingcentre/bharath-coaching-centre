@@ -344,7 +344,7 @@ export default function Home() {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                     priority={index === 0}
                     data-ai-hint={image.hint}
                   />
