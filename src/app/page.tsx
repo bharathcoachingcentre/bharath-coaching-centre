@@ -339,7 +339,7 @@ export default function Home() {
           <CarouselContent>
             {sliderImages.map((image, index) => (
               <CarouselItem key={index}>
-                <div className="relative h-[300px] md:h-[400px] lg:h-[450px] w-full">
+                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full">
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -888,6 +888,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
