@@ -62,7 +62,7 @@ export default function Home() {
   }, []);
 
   const sliderImages = [
-    { src: '/slide-1.jpg', alt: 'Trichy', hint: 'cityscape trichy' },
+    { src: '/slide-1.jpg', alt: 'Slider Image 1', hint: 'cityscape trichy' },
     { src: '/slide-2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
     { src: '/slide-3.jpg', alt: 'Slider Image 3', hint: 'cityscape trichy' },
   ];
@@ -326,7 +326,7 @@ export default function Home() {
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
-      <section className="w-full">
+      <section className="w-full" id="slider-sec">
         <Carousel
           opts={{ loop: true }}
           plugins={[
@@ -339,7 +339,7 @@ export default function Home() {
           <CarouselContent>
             {sliderImages.map((image, index) => (
               <CarouselItem key={index}>
-                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full">
+                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full" id="slide-img">
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -831,7 +831,7 @@ export default function Home() {
               <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
             </div>
             <div>
-            <Image src="/happy-to-help.png" alt="Happy to help you" width={600} height={400} data-ai-hint="happy teachers" />
+            <Image src="/speak-our-expert.png" alt="Speak to our expert" width={600} height={400} data-ai-hint="expert support" />
             </div>
           </div>
         </div>
