@@ -339,7 +339,7 @@ export default function Home() {
           <CarouselContent>
             {sliderImages.map((image, index) => (
               <CarouselItem key={index}>
-                <div className="relative h-[350px] md:h-[450px] lg:h-[500px] w-full">
+                <div className="relative h-[300px] md:h-[400px] lg:h-[450px] w-full">
                   <Image
                     src={image.src}
                     alt={image.alt}
