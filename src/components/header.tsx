@@ -54,12 +54,14 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-6">
+      <div className="grid h-24 grid-cols-3 items-center px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center">
           <Link href="/" className="flex items-center">
             <Logo className="h-12 w-auto" />
           </Link>
-          <nav className="hidden items-center space-x-6 text-sm md:flex">
+        </div>
+        
+        <nav className="hidden items-center justify-center space-x-4 text-sm md:flex">
             {navLinks.map((link) => 
               link.dropdown ? (
                 <DropdownMenu key={link.label}>
@@ -97,17 +99,16 @@ export function Header() {
                     ))}
                 </DropdownMenuContent>
             </DropdownMenu>
-          </nav>
-        </div>
+        </nav>
 
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center justify-end gap-4 md:flex">
             <div className="flex items-center gap-2">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/10">
                     <Phone className="h-5 w-5 text-primary" />
                 </div>
                 <div className="text-sm">
                     <p className="text-muted-foreground">Talk to our experts</p>
-                    <p className="font-semibold text-foreground">+91 7200030307</p>
+                    <a href="tel:+917200030307" id="phone-header" className="font-semibold text-foreground">+91 7200030307</a>
                 </div>
             </div>
             <Button asChild variant="secondary" className="bg-primary/10 hover:bg-primary/20 text-primary font-semibold">
@@ -115,7 +116,7 @@ export function Header() {
             </Button>
         </div>
    
-        <div className="md:hidden">
+        <div className="md:hidden justify-self-end">
         <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
