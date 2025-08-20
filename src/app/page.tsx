@@ -270,7 +270,7 @@ export default function Home() {
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
   const inspiredStories = [
     {
-      image: '/Gayu.png',
+      image: '/testi-1.png',
       imageHint: 'student portrait',
       quote: 'BCC is an excellent place for learning and overall development,it has the best faculty and infrastructure. Teachers deal with students with great patience and adhere to their slightest doubts. I had an amazing experience here and BCC helped me improve immensely.',
       name: 'Gayathri',
