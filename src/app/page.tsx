@@ -62,9 +62,9 @@ export default function Home() {
   }, []);
 
   const sliderImages = [
-    { src: '/Hero.webp', alt: 'Trichy', hint: 'cityscape trichy' },
-    { src: '/slider2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
-    { src: '/Trichy-new.webp', alt: 'Slider Image 3', hint: 'cityscape trichy' },
+    { src: '/slide-1.jpg', alt: 'Trichy', hint: 'cityscape trichy' },
+    { src: '/slide-2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
+    { src: '/slide-3.jpg', alt: 'Slider Image 3', hint: 'cityscape trichy' },
   ];
 
   const features = [
@@ -339,7 +339,7 @@ export default function Home() {
           <CarouselContent>
             {sliderImages.map((image, index) => (
               <CarouselItem key={index}>
-                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full">
+                <div className="relative h-[350px] md:h-[450px] lg:h-[500px] w-full">
                   <Image
                     src={image.src}
                     alt={image.alt}
