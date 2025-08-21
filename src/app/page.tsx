@@ -742,6 +742,11 @@ export default function Home() {
           </div>
           <Carousel
             opts={{ align: "start", loop: true }}
+            plugins={[
+                Autoplay({
+                  delay: 5000,
+                }),
+            ]}
             className="w-full"
           >
             <CarouselContent>
