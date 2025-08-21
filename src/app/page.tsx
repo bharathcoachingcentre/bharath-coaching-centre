@@ -525,7 +525,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {tutoringCourses.map((course, index) => (
-              <Card key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+              <Card key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col transition-all duration-300 hover:scale-105 hover:-translate-y-2">
                 <div className="flex-grow">
                   <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 mb-4">
                     <course.icon className="w-8 h-8 text-orange-500" />
