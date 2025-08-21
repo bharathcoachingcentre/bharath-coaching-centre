@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, ChevronDown, Phone } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,29 +11,17 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 
 const navLinks = [
-    { href: "/courses", label: "Offline Courses", isButton: true, dropdown: true },
-    { href: "/courses", label: "Online Courses", dropdown: true },
-    { href: "/events", label: "Free study material", dropdown: true },
-    { href: "/blog", label: "Our Results" },
-    { href: "/contact", label: "One to One Classes" },
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/courses", label: "Courses" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/events", label: "Study Materials" },
+    { href: "/contact", label: "Contact" },
 ];
-
-const moreLinks = [
-    { href: "#", label: "About Us" },
-    { href: "#", label: "Careers" },
-    { href: "/blog", label: "Blog" },
-];
-  
 
 export function Header() {
   const pathname = usePathname();
@@ -61,44 +49,12 @@ export function Header() {
           </Link>
         </div>
         
-        <nav className="hidden items-center justify-center space-x-4 text-sm md:flex">
-            {navLinks.map((link) => 
-              link.dropdown ? (
-                <DropdownMenu key={link.label}>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant={link.isButton ? "outline" : "ghost"} className={cn(
-                        "font-medium",
-                        link.isButton && "border-primary text-primary hover:bg-primary/5",
-                         !link.isButton && "text-muted-foreground hover:text-primary"
-                    )}>
-                      {link.label} <ChevronDown className="ml-1 h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem>Option 1</DropdownMenuItem>
-                    <DropdownMenuItem>Option 2</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
+        <nav className="hidden items-center justify-center space-x-6 text-sm md:flex">
+            {navLinks.map((link) => (
                 <div key={link.label} className="flex items-center">
                   <NavLink href={link.href} label={link.label} />
                 </div>
-              )
-            )}
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="font-medium text-muted-foreground hover:text-primary">
-                        More <ChevronDown className="ml-1 h-4 w-4" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    {moreLinks.map(link => (
-                        <DropdownMenuItem key={link.label} asChild>
-                            <Link href={link.href}>{link.label}</Link>
-                        </DropdownMenuItem>
-                    ))}
-                </DropdownMenuContent>
-            </DropdownMenu>
+            ))}
         </nav>
 
         <div className="hidden items-center justify-end gap-4 md:flex">
@@ -129,7 +85,7 @@ export function Header() {
                     <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
                         <Logo className="h-8 w-auto" />
                     </Link>
-                    {[...navLinks, ...moreLinks].map((link) => (
+                    {navLinks.map((link) => (
                         <SheetClose asChild key={link.label}>
                             <NavLink href={link.href} label={link.label} className="text-muted-foreground hover:text-foreground" />
                         </SheetClose>

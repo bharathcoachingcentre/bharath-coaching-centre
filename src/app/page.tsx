@@ -17,36 +17,25 @@ import Autoplay from "embla-carousel-autoplay";
 
 const resultsData = {
   "All": [
-    { src: '/aarav.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
-    { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
-    { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
-    { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
-    { src: '/SAJITHAA-min.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
-    { src: '/MANASWINI.jpg', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
-    { src: 'SAHITHYAA.jpg', alt: 'SAHITHYAA', hint: 'student portrait', name: 'SAHITHYAA M.P', score:'TOTAL 479/500' },
-    { src: '/PRADEEP-min.jpg', alt: 'PRADEEP', hint: 'student portrait', name: 'PRADEEP', score:'Total 424 / 500' },
-   { src: '/SRINITHI.jpg', alt: 'SRINITHI A', hint: 'student portrait', name: 'SRINITHI A', score:'Maths 91 | Total 470' },
-    { src: '/VISHAL.jpg', alt: 'VISHAL D', hint: 'student portrait', name: 'VISHAL D', score:'Maths 97 | Total 462' },
-    { src: '/ROOPAN.jpg', alt: 'ROOPAN S', hint: 'student portrait', name: 'DROOPAN S', score:'MATHS 95 | TOTAL 448' },
-
-
+    { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/stu-4.png', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
+    { src: '/stu-5.png', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
+    { src: '/stu-2.png', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/stu-3.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
+    { src: '/stu-6.png', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
+   
   ],
   "10th Board": [
-    { src: '/aarav.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
-    { src: '/CHARAN.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
-    { src: '/JESMITHA.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
-    { src: '/SAJITHAA-min.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
-    { src: '/MANASWINI.jpg', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
-    { src: 'SAHITHYAA.jpg', alt: 'SAHITHYAA', hint: 'student portrait', name: 'SAHITHYAA M.P', score:'TOTAL 479/500' },
-    { src: '/PRADEEP-min.jpg', alt: 'PRADEEP', hint: 'student portrait', name: 'PRADEEP', score:'Total 424 / 500' },
-    { src: '/SRINITHI.jpg', alt: 'SRINITHI A', hint: 'student portrait', name: 'SRINITHI A', score:'Maths 91 | Total 470' },
-    { src: '/VISHAL.jpg', alt: 'VISHAL D', hint: 'student portrait', name: 'VISHAL D', score:'Maths 97 | Total 462' },
-    { src: '/ROOPAN.jpg', alt: 'ROOPAN S', hint: 'student portrait', name: 'DROOPAN S', score:'MATHS 95 | TOTAL 448' },
-    { src: '/JHEGADHEESH.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
-
+    
+    { src: '/stu-5.png', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
+    { src: '/stu-2.png', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/stu-3.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
+    { src: '/stu-6.png', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
+    { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/stu-4.png', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
   ],
   "12th Board": [
-    {  src: '/HARETA-ROSNI.jpg', alt: 'HARETA ROSNI', hint: 'student portrait', name: 'HARETA ROSNI', score: 'Total 501 / 600' },
+    {  src: '/stu-1.png', alt: 'HARETA ROSNI', hint: 'student portrait', name: 'HARETA ROSNI', score: 'Total 501 / 600' },
   ],
 };
 
@@ -278,42 +267,42 @@ export default function Home() {
     },
 
     {
-      image: '/Akshaya.png',
+      image: '/testi-2.png',
       imageHint: 'student graduate',
       quote: 'It is an supreme art of a teacher to awaken joy in creative exposure and knowledge. Staffs in BCC did that. The atmosphere in BCC was exemplary that made us to gain more knowledge. Thanking them for building my foundation during 10th.',
       name: 'S Akshaya',
       details: 'MBBS Student'
     },
     {
-      image: '/Reethika.png',
+      image: '/testi-3.png',
       imageHint: 'student graduate',
       quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       name: 'Reethika',
       details: 'RJ'
     },
     {
-      image: '/Dhanya.png',
+      image: '/testi-4.png',
       imageHint: 'student graduate',
       quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
     {
-      image: '/Mohamed-niyas.png',
+      image: '/testi-7.png',
       imageHint: 'smiling student',
       quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
       name: 'Mohamed Niyas',
       details: 'MBBS Student'
     },
     {
-      image: '/S-K-Janani-priya.png',
+      image: '/testi-5.png',
       imageHint: 'student graduate',
       quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that made me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
       name: 'S K Janani Priya',
       details: 'MBBS Student, Theni Government college'
     },
     {
-      image: '/Manisha.png',
+      image: '/testi-6.png',
       imageHint: 'student graduate',
       quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
       name: 'Manisha M S',
