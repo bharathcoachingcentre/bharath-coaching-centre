@@ -458,7 +458,7 @@ export default function Home() {
                 </Card>
               ))}
             </div>
-            <div className="hidden md:block">
+            <div className="hidden md:flex justify-center">
               <Image 
                 src="/super-kid.webp"
                 alt="Courses for kids"
@@ -877,9 +877,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-    
