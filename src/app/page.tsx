@@ -56,6 +56,21 @@ const AnimatedSection = ({ children, className }: { children: React.ReactNode; c
   );
 };
 
+const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' }) => {
+    const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+  
+    const animationClass = animation === 'fade-left' ? 'animate-on-scroll-left' : 'animate-on-scroll';
+
+    return (
+      <div
+        ref={setElement}
+        className={cn(animationClass, { 'is-visible': isIntersecting }, className)}
+      >
+        {children}
+      </div>
+    );
+  };
+
 
 export default function Home() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
@@ -790,7 +805,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div>
+            <AnimatedElement animation="fade-left">
               <Image
                 src="/stats-map.webp"
                 alt="World map with student interactions"
@@ -799,7 +814,7 @@ export default function Home() {
                 className="rounded-lg"
                 data-ai-hint="world map education"
               />
-            </div>
+            </AnimatedElement>
           </div>
         </div>
       </AnimatedSection>
@@ -808,7 +823,7 @@ export default function Home() {
        <section>
         <div className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-6">
+            <AnimatedSection className="space-y-6">
               <h2 className="text-4xl font-bold">
                 Learn from <span className="relative inline-block">anywhere
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
@@ -820,24 +835,24 @@ export default function Home() {
               <Link href="#">
                 <Image src="/google-play.svg" id="google-play" alt="Get it on Google Play" width={180} height={70} data-ai-hint="Google Play store" />
               </Link>
-            </div>
-            <div>
+            </AnimatedSection>
+            <AnimatedSection>
               <Image src="/Download-app.webp" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
-            </div>
+            </AnimatedSection>
           </div>
         </div>
         <div className="bg-blue-500 text-white" id="happy-help">
           <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center" id="help-you">
-            <div className="space-y-6">
+            <AnimatedSection className="space-y-6">
               <h2 className="text-4xl font-bold">Happy to help you!</h2>
               <p className="text-lg">
                 Need more details? Our expert academic counsellors will be happy to patiently explain everything that you want to know.
               </p>
               <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
-            </div>
-            <div>
+            </AnimatedSection>
+            <AnimatedSection>
             <Image src="/speak-our-expert.png" alt="Speak to our expert" width={600} height={400} data-ai-hint="expert support" />
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
