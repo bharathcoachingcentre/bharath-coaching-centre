@@ -557,7 +557,7 @@ export default function Home() {
               <p className="text-lg text-muted-foreground">Get a free academic counselling session</p>
               <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg">Book a free demo</Button>
             </div>
-            <div className="relative">
+            <AnimatedElement animation="fade-left" className="relative">
               <Image 
                 src="/demo-open-form.webp"
                 alt="Students in a demo session"
@@ -566,7 +566,7 @@ export default function Home() {
                 className="rounded-lg"
                 data-ai-hint="students learning"
               />
-            </div>
+            </AnimatedElement>
           </div>
         </div>
       </AnimatedSection>
@@ -789,15 +789,15 @@ export default function Home() {
               <p className="text-lg text-muted-foreground">Making education affordable and accessible across the globe</p>
               <div className="grid grid-cols-2 gap-y-8 gap-x-4">
                 <div>
-                  <p className="text-4xl font-bold"><CountUpNumber end={2.1} precision={1} />+ <span className="text-3xl">crore</span></p>
+                  <p className="text-4xl font-bold"><CountUpNumber end={2.1} precision={1} />+ <span className="text-3xl">C</span></p>
                   <p className="text-muted-foreground">hours of LIVE learning</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold"><CountUpNumber end={10} />+ <span className="text-3xl">lakh</span></p>
+                  <p className="text-4xl font-bold"><CountUpNumber end={10} />+ <span className="text-3xl">L</span></p>
                   <p className="text-muted-foreground">monthly youtube views</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold"><CountUpNumber end={25} />+ <span className="text-3xl">lakh</span></p>
+                  <p className="text-4xl font-bold"><CountUpNumber end={25} />+ <span className="text-3xl">L</span></p>
                   <p className="text-muted-foreground">doubts resolved on the app</p>
                 </div>
                 <div>
