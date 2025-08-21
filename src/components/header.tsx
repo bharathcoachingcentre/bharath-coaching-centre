@@ -16,11 +16,11 @@ import { Logo } from "./logo";
 
 const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/courses", label: "Courses" },
-    { href: "/gallery", label: "Gallery" },
-    { href: "/events", label: "Study Materials" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: "About" },
+    { href: "/", label: "Courses" },
+    { href: "/", label: "Gallery" },
+    { href: "/", label: "Study Materials" },
+    { href: "/", label: "Contact" },
 ];
 
 export function Header() {
@@ -49,7 +49,7 @@ export function Header() {
           </Link>
         </div>
         
-        <nav className="hidden items-center justify-center space-x-6 text-sm md:flex">
+        <nav className="hidden items-center justify-center space-x-6 text-sm md:flex" id="nav-menu">
             {navLinks.map((link) => (
                 <div key={link.label} className="flex items-center">
                   <NavLink href={link.href} label={link.label} />
