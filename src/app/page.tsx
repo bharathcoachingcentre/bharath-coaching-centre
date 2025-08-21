@@ -848,7 +848,7 @@ export default function Home() {
               <p className="text-lg">
                 Need more details? Our expert academic counsellors will be happy to patiently explain everything that you want to know.
               </p>
-              <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
+              <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg transition-transform duration-300 hover:scale-105">Speak to an expert</Button>
             </AnimatedSection>
             <AnimatedElement animation="fade-left">
               <Image src="/speak-our-expert.png" alt="Speak to our expert" width={600} height={400} data-ai-hint="expert support" />
