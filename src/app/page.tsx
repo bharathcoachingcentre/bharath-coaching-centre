@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { courses, testimonials, events } from "@/lib/mock-data";
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { cn } from "@/lib/utils";
 
 const resultsData = {
   "All": [
@@ -40,6 +42,20 @@ const resultsData = {
 };
 
 type ResultCategory = keyof typeof resultsData;
+
+const AnimatedSection = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+
+  return (
+    <section
+      ref={setElement}
+      className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
+    >
+      {children}
+    </section>
+  );
+};
+
 
 export default function Home() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
@@ -347,7 +363,7 @@ export default function Home() {
       </section>
       
       {/* Features Carousel Section */}
-      <section className="bg-blue-50 py-8">
+      <AnimatedSection className="bg-blue-50 py-8">
         <div className="container mx-auto">
           <Carousel
             opts={{ align: "start", loop: false }}
@@ -367,10 +383,10 @@ export default function Home() {
             <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10 bg-white border-primary text-primary" />
           </Carousel>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Explore Courses Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 1 - 12)</h2>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
@@ -431,10 +447,10 @@ export default function Home() {
               </DialogContent>
           </Dialog>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Courses for Kids Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-12">
             Courses for <span className="relative inline-block">kids<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span></span>
@@ -470,10 +486,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* One-to-One Tutoring Section */}
-      <section className="py-16 md:py-24 bg-[#FFF9F5]">
+      <AnimatedSection className="py-16 md:py-24 bg-[#FFF9F5]">
         <div className="container mx-auto">
           <div className="flex justify-between items-start mb-12">
             <div>
@@ -510,10 +526,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Book a Free Demo Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -537,10 +553,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* What's New Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-12 flex items-center gap-2">
             What's <Flame className="text-orange-500" /> New on 
@@ -574,10 +590,10 @@ export default function Home() {
             <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Explore all our offerings Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold mb-8">
             Explore all our <span className="relative inline-block text-orange-500">offerings
@@ -616,10 +632,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Inspired Results Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -682,10 +698,10 @@ export default function Home() {
             </Carousel>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Achieve more Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold">
             Achieve more with Bharath Academy, get <span className="text-orange-500">Free</span> online counselling now
@@ -695,10 +711,10 @@ export default function Home() {
             <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600" id="learn-live">Learn LIVE</Button>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Stories that Inspire Section */}
-      <section className="py-16 md:py-24 bg-blue-50">
+      <AnimatedSection className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
           <div className="flex items-center gap-4 mb-12">
             <Image src="/hand-with-mic.svg" alt="Stories that inspire icon" width={60} height={60} />
@@ -741,10 +757,10 @@ export default function Home() {
             <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Impact at Scale Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
@@ -786,7 +802,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
        {/* Learn from anywhere Section */}
        <section>
@@ -841,7 +857,7 @@ export default function Home() {
 
 
       {/* Features Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="text-center">
@@ -873,7 +889,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </div>
   );
 }
