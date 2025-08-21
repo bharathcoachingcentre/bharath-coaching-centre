@@ -851,7 +851,7 @@ export default function Home() {
               <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg">Speak to an expert</Button>
             </AnimatedSection>
             <AnimatedSection>
-            <Image src="/speak-our-expert.png" alt="Speak to our expert" width={600} height={400} data-ai-hint="expert support" />
+              <Image src="/speak-our-expert.png" alt="Speak to our expert" width={600} height={400} data-ai-hint="expert support" />
             </AnimatedSection>
           </div>
         </div>
