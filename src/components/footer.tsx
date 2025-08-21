@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
-import { Logo } from "./logo";
+import { FooterLogo } from "./footer-logo";
 
 export function Footer() {
   const companyLinks = [
@@ -54,7 +54,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
             <div className="md:col-span-4 space-y-6">
                 <div className="mb-6">
-                  <Logo />
+                  <FooterLogo />
                 </div>
                 <div>
                     <h3 className="text-lg font-semibold mb-2">Get link in sms to download the app</h3>

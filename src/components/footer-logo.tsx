@@ -2,13 +2,12 @@ import Image from 'next/image';
 import type { SVGProps } from 'react';
 import { cn } from "@/lib/utils";
 
-// Keep the props for compatibility with how it's used in the header/footer, but ignore them.
-export function Logo(props: SVGProps<SVGSVGElement> & { className?: string }) {
+export function FooterLogo(props: SVGProps<SVGSVGElement> & { className?: string }) {
   return (
     <div className={cn("flex items-center gap-2", props.className)}>
         <Image
-        src="/logo.png"
-        alt=""
+        src="/footer-logo.png"
+        alt="Bharath Academy Logo"
         width={100}
         height={80}
         priority
