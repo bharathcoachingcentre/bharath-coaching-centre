@@ -722,7 +722,7 @@ export default function Home() {
                           src={story.image}
                           alt={story.name}
                           fill
-                          className="object-cover"
+                          className="object-cover" id="testi-img"
                           data-ai-hint={story.imageHint}
                         />
                       </div>

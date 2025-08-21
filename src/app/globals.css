@@ -173,3 +173,6 @@ svg.lucide.lucide-mail.h-4.w-4{
 .grid-cols-3 {
   grid-template-columns: 1fr 2fr 1fr!important;
 }
+#testi-img{
+padding:55px;
+}
