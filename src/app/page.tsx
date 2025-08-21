@@ -657,7 +657,7 @@ export default function Home() {
             <Carousel opts={{ align: "start", loop: true }} className="w-full">
                 <CarouselContent>
                   {resultsData[activeResultFilter].map((result, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
                       <Card className="text-center overflow-hidden rounded-lg">
                         <CardContent className="p-0">
                           <Image
