@@ -16,6 +16,7 @@ import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
+import { CountUpNumber } from "@/components/count-up-number";
 
 const resultsData = {
   "All": [
@@ -788,19 +789,19 @@ export default function Home() {
               <p className="text-lg text-muted-foreground">Making education affordable and accessible across the globe</p>
               <div className="grid grid-cols-2 gap-y-8 gap-x-4">
                 <div>
-                  <p className="text-4xl font-bold">2.1+ <span className="text-3xl">crore</span></p>
+                  <p className="text-4xl font-bold"><CountUpNumber end={2.1} precision={1} />+ <span className="text-3xl">crore</span></p>
                   <p className="text-muted-foreground">hours of LIVE learning</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold">10+ <span className="text-3xl">lakh</span></p>
+                  <p className="text-4xl font-bold"><CountUpNumber end={10} />+ <span className="text-3xl">lakh</span></p>
                   <p className="text-muted-foreground">monthly youtube views</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold">25+ <span className="text-3xl">lakh</span></p>
+                  <p className="text-4xl font-bold"><CountUpNumber end={25} />+ <span className="text-3xl">lakh</span></p>
                   <p className="text-muted-foreground">doubts resolved on the app</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold">57+</p>
+                  <p className="text-4xl font-bold"><CountUpNumber end={57} />+</p>
                   <p className="text-muted-foreground">countries where students take LIVE classes</p>
                 </div>
               </div>
