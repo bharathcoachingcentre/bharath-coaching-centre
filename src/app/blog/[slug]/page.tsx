@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export default function BlogPostPage({ params }: { params: { slug: string }; searchParams: { [key: string]: string | string[] | undefined } }) {
   const { slug } = params;
   const post = getPostBySlug(slug);
 
