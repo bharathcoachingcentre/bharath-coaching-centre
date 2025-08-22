@@ -351,7 +351,7 @@ export default function Home() {
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
-      <section className="w-full" id="slider-sec">
+      <AnimatedSection className="w-full" id="slider-sec">
         <Carousel
           opts={{ loop: true }}
           plugins={[
@@ -380,10 +380,10 @@ export default function Home() {
           <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10" />
           <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
         </Carousel>
-      </section>
+      </AnimatedSection>
       
       {/* Features Carousel Section */}
-      <section className="bg-blue-50 py-8">
+      <AnimatedSection className="bg-blue-50 py-8">
         <div className="container mx-auto">
           <Carousel
             opts={{ align: "start", loop: false }}
@@ -403,10 +403,10 @@ export default function Home() {
             <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10 bg-white border-primary text-primary" />
           </Carousel>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Explore Courses Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
             <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 1 - 12)</h2>
@@ -469,10 +469,10 @@ export default function Home() {
               </DialogContent>
           </Dialog>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Courses for Kids Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
             <h2 className="text-3xl font-bold mb-12">
@@ -510,10 +510,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* One-to-One Tutoring Section */}
-      <section className="py-16 md:py-24 bg-[#FFF9F5]">
+      <AnimatedSection className="py-16 md:py-24 bg-[#FFF9F5]">
         <div className="container mx-auto">
           <div className="flex justify-between items-start mb-12">
             <AnimatedElement animation="fade-up">
@@ -552,10 +552,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Book a Free Demo Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <AnimatedElement animation="fade-up" className="space-y-6">
@@ -579,10 +579,10 @@ export default function Home() {
             </AnimatedElement>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* What's New Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
             <h2 className="text-3xl font-bold mb-12 flex items-center gap-2">
@@ -618,10 +618,10 @@ export default function Home() {
             <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Explore all our offerings Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
             <h2 className="text-4xl font-bold mb-8">
@@ -664,10 +664,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Inspired Results Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-8 items-center">
              <AnimatedElement animation="fade-left-up">
@@ -732,10 +732,10 @@ export default function Home() {
             </Carousel>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Achieve more Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto text-center">
           <AnimatedElement animation="fade-up">
             <h2 className="text-3xl font-bold">
@@ -747,10 +747,10 @@ export default function Home() {
             <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600" id="learn-live">Learn LIVE</Button>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Stories that Inspire Section */}
-      <section className="py-16 md:py-24 bg-blue-50">
+      <AnimatedSection className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up" className="flex items-center gap-4 mb-12">
             <Image src="/hand-with-mic.svg" alt="Stories that inspire icon" width={60} height={60} />
@@ -798,10 +798,10 @@ export default function Home() {
             <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Impact at Scale Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
@@ -845,10 +845,10 @@ export default function Home() {
             </AnimatedElement>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
        {/* Learn from anywhere Section */}
-       <section>
+       <AnimatedSection>
         <div className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-6">
@@ -887,7 +887,7 @@ export default function Home() {
             </AnimatedElement>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
@@ -904,7 +904,7 @@ export default function Home() {
 
 
       {/* Features Section */}
-      <section className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
             <AnimatedElement animation="fade-up" className="text-center">
@@ -936,7 +936,7 @@ export default function Home() {
             </AnimatedElement>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </div>
   );
 }
