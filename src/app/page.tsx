@@ -474,10 +474,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {kidsCourses.map((course, index) => (
-                <Card key={index} className={`rounded-xl shadow-lg relative overflow-hidden ${course.bgColor}`}>
+                <Card key={index} className={`rounded-xl shadow-lg relative overflow-hidden group ${course.bgColor}`}>
                   {course.isNew && <Badge className="absolute top-3 right-3 bg-red-500 text-white">NEW</Badge>}
                   <CardContent className="p-8 flex flex-col items-start gap-4">
-                    <div className={`p-3 rounded-lg ${course.iconColor} bg-white`}>
+                    <div className={`p-3 rounded-lg ${course.iconColor} bg-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12`}>
                       <course.icon className="w-8 h-8" />
                     </div>
                     <div>
@@ -557,7 +557,7 @@ export default function Home() {
               <p className="text-lg text-muted-foreground">Get a free academic counselling session</p>
               <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg">Book a free demo</Button>
             </div>
-            <AnimatedElement animation="fade-left" className="relative">
+            <AnimatedElement animation="fade-left">
               <Image 
                 src="/demo-open-form.webp"
                 alt="Students in a demo session"
