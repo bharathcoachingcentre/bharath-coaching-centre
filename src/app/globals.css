@@ -196,7 +196,7 @@ padding:55px;
 }
 
 .animate-on-scroll.is-visible {
-  animation: slide-up-fade-in 0.7s forwards;
+  animation: slide-up-fade-in 1s forwards;
 }
 
 @keyframes slide-from-left-fade-in {
@@ -216,7 +216,7 @@ padding:55px;
 }
 
 .animate-on-scroll-left.is-visible {
-  animation: slide-from-left-fade-in 0.7s forwards;
+  animation: slide-from-left-fade-in 1s forwards;
 }
 
 @keyframes slide-from-left-fade-up-in {
@@ -236,5 +236,5 @@ padding:55px;
 }
 
 .animate-on-scroll-left-up.is-visible {
-    animation: slide-from-left-fade-up-in 0.7s forwards;
+    animation: slide-from-left-fade-up-in 1s forwards;
 }
