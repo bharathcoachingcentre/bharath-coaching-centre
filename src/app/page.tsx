@@ -57,10 +57,14 @@ const AnimatedSection = ({ children, className }: { children: React.ReactNode; c
   );
 };
 
-const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' | 'fade-left-up' }) => {
+const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' | 'fade-left-up' | 'shake' }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
   
-    const animationClass = animation === 'fade-left' ? 'animate-on-scroll-left' : animation === 'fade-left-up' ? 'animate-on-scroll-left-up' : 'animate-on-scroll';
+    const animationClass = 
+        animation === 'fade-left' ? 'animate-on-scroll-left' : 
+        animation === 'fade-left-up' ? 'animate-on-scroll-left-up' : 
+        animation === 'shake' ? 'animate-on-scroll-shake' : 
+        'animate-on-scroll';
 
     return (
       <div
@@ -813,7 +817,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <AnimatedElement animation="fade-left">
+            <AnimatedElement animation="shake">
               <Image
                 src="/stats-map.webp"
                 alt="World map with student interactions"
