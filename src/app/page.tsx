@@ -383,7 +383,7 @@ export default function Home() {
       </section>
       
       {/* Features Carousel Section */}
-      <AnimatedSection className="bg-blue-50 py-8">
+      <section className="bg-blue-50 py-8">
         <div className="container mx-auto">
           <Carousel
             opts={{ align: "start", loop: false }}
@@ -403,12 +403,14 @@ export default function Home() {
             <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10 bg-white border-primary text-primary" />
           </Carousel>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Explore Courses Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
+      <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 1 - 12)</h2>
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 1 - 12)</h2>
+          </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {exploreCourses.map((course, index) => (
@@ -467,14 +469,16 @@ export default function Home() {
               </DialogContent>
           </Dialog>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Courses for Kids Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-12">
-            Courses for <span className="relative inline-block">kids<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span></span>
-          </h2>
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold mb-12">
+              Courses for <span className="relative inline-block">kids<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span></span>
+            </h2>
+          </AnimatedElement>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {kidsCourses.map((course, index) => (
@@ -506,16 +510,18 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* One-to-One Tutoring Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-[#FFF9F5]">
+      <section className="py-16 md:py-24 bg-[#FFF9F5]">
         <div className="container mx-auto">
           <div className="flex justify-between items-start mb-12">
-            <div>
-              <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Tutoring</h2>
-              <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
-            </div>
+            <AnimatedElement animation="fade-up">
+              <div>
+                <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Tutoring</h2>
+                <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
+              </div>
+            </AnimatedElement>
             <div className="hidden md:block">
               <Image
                 src="/discuss.png"
@@ -546,13 +552,13 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Book a Free Demo Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
+      <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <AnimatedElement animation="fade-up" className="space-y-6">
               <h2 className="text-4xl font-bold">
                 Book your <span className="relative inline-block text-orange-500">Free Demo
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
@@ -560,7 +566,7 @@ export default function Home() {
               </h2>
               <p className="text-lg text-muted-foreground">Get a free academic counselling session</p>
               <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg">Book a free demo</Button>
-            </div>
+            </AnimatedElement>
             <AnimatedElement animation="fade-left">
               <Image 
                 src="/demo-open-form.webp"
@@ -573,17 +579,19 @@ export default function Home() {
             </AnimatedElement>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* What's New Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-12 flex items-center gap-2">
-            What's <Flame className="text-orange-500" /> New on 
-            <span className="relative inline-block">Bharath Academy
-              <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span>
-            </span>
-          </h2>
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold mb-12 flex items-center gap-2">
+              What's <Flame className="text-orange-500" /> New on 
+              <span className="relative inline-block">Bharath Academy
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span>
+              </span>
+            </h2>
+          </AnimatedElement>
           <Carousel
             opts={{ align: "start", loop: true }}
             className="w-full"
@@ -610,16 +618,18 @@ export default function Home() {
             <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Explore all our offerings Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold mb-8">
-            Explore all our <span className="relative inline-block text-orange-500">offerings
-            <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
-            </span>
-          </h2>
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-4xl font-bold mb-8">
+              Explore all our <span className="relative inline-block text-orange-500">offerings
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
+              </span>
+            </h2>
+          </AnimatedElement>
           <div className="flex flex-wrap gap-4 mb-12">
             {classFilters.map((filter, index) => (
               <Button key={index} variant={index === 0 ? 'default' : 'outline'} className={index === 0 ? 'bg-gray-800 hover:bg-gray-900' : 'border-gray-300'}>{filter}</Button>
@@ -629,7 +639,9 @@ export default function Home() {
                 <Badge className="absolute -top-2 -right-2 bg-yellow-400 text-black">NEW</Badge>
             </div>
           </div>
-          <h3 className="text-3xl font-bold mb-8">Study Materials</h3>
+          <AnimatedElement animation="fade-up">
+            <h3 className="text-3xl font-bold mb-8">Study Materials</h3>
+          </AnimatedElement>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {studyMaterials.map((material, index) => (
               <Card key={index} className={`${material.bgColor} rounded-2xl shadow-lg p-6 flex flex-col items-start text-left`}>
@@ -652,10 +664,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Inspired Results Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
+      <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-8 items-center">
              <AnimatedElement animation="fade-left-up">
@@ -720,32 +732,34 @@ export default function Home() {
             </Carousel>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Achieve more Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold">
-            Achieve more with Bharath Academy, get <span className="text-orange-500">Free</span> online counselling now
-          </h2>
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold">
+              Achieve more with Bharath Academy, get <span className="text-orange-500">Free</span> online counselling now
+            </h2>
+          </AnimatedElement>
           <div className="mt-8 flex justify-center gap-4">
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Book a demo</Button>
             <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600" id="learn-live">Learn LIVE</Button>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Stories that Inspire Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-blue-50">
+      <section className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
-          <div className="flex items-center gap-4 mb-12">
+          <AnimatedElement animation="fade-up" className="flex items-center gap-4 mb-12">
             <Image src="/hand-with-mic.svg" alt="Stories that inspire icon" width={60} height={60} />
             <h2 className="text-3xl font-bold">
               Stories that <span className="relative inline-block">inspire
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
               </span>
             </h2>
-          </div>
+          </AnimatedElement>
           <Carousel
             opts={{ align: "start", loop: true }}
             plugins={[
@@ -784,20 +798,22 @@ export default function Home() {
             <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Impact at Scale Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <Image src="/graph-chart-icon.svg" alt="Impact Icon" width={80} height={80} data-ai-hint="impact icon" />
-              <h2 className="text-4xl font-bold">
-                Impact. At <span className="relative inline-block">scale
-                  <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span>
-                </span>
-              </h2>
-              <p className="text-lg text-muted-foreground">Making education affordable and accessible across the globe</p>
+              <AnimatedElement animation="fade-up">
+                <Image src="/graph-chart-icon.svg" alt="Impact Icon" width={80} height={80} data-ai-hint="impact icon" />
+                <h2 className="text-4xl font-bold">
+                  Impact. At <span className="relative inline-block">scale
+                    <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span>
+                  </span>
+                </h2>
+                <p className="text-lg text-muted-foreground">Making education affordable and accessible across the globe</p>
+              </AnimatedElement>
               <div className="grid grid-cols-2 gap-y-8 gap-x-4">
                 <div>
                   <p className="text-4xl font-bold"><CountUpNumber end={2.1} precision={1} />+ <span className="text-3xl">C</span></p>
@@ -829,39 +845,43 @@ export default function Home() {
             </AnimatedElement>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
        {/* Learn from anywhere Section */}
        <section>
         <div className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
-            <AnimatedSection className="space-y-6">
-              <h2 className="text-4xl font-bold">
-                Learn from <span className="relative inline-block">anywhere
-                  <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
-                </span>
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                We're available on Android devices and platforms. Study from anywhere at your convenience.
-              </p>
+            <div className="space-y-6">
+              <AnimatedElement animation="fade-up">
+                <h2 className="text-4xl font-bold">
+                  Learn from <span className="relative inline-block">anywhere
+                    <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span>
+                  </span>
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  We're available on Android devices and platforms. Study from anywhere at your convenience.
+                </p>
+              </AnimatedElement>
               <Link href="#">
                 <Image src="/google-play.svg" id="google-play" alt="Get it on Google Play" width={180} height={70} data-ai-hint="Google Play store" />
               </Link>
-            </AnimatedSection>
-            <AnimatedSection>
+            </div>
+            <div>
               <Image src="/Download-app.webp" alt="Learn from anywhere" width={600} height={600} data-ai-hint="mobile app screenshot" />
-            </AnimatedSection>
+            </div>
           </div>
         </div>
         <div className="bg-blue-500 text-white" id="happy-help">
           <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center" id="help-you">
-            <AnimatedSection className="space-y-6">
-              <h2 className="text-4xl font-bold">Happy to help you!</h2>
-              <p className="text-lg">
-                Need more details? Our expert academic counsellors will be happy to patiently explain everything that you want to know.
-              </p>
+            <div className="space-y-6">
+              <AnimatedElement animation="fade-up">
+                <h2 className="text-4xl font-bold">Happy to help you!</h2>
+                <p className="text-lg">
+                  Need more details? Our expert academic counsellors will be happy to patiently explain everything that you want to know.
+                </p>
+              </AnimatedElement>
               <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg transition-transform duration-300 hover:scale-105">Speak to an expert</Button>
-            </AnimatedSection>
+            </div>
             <AnimatedElement animation="fade-left">
               <Image src="/speak-our-expert.png" alt="Speak to our expert" width={600} height={400} data-ai-hint="expert support" />
             </AnimatedElement>
@@ -884,10 +904,10 @@ export default function Home() {
 
 
       {/* Features Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
-            <div className="text-center">
+            <AnimatedElement animation="fade-up" className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <BookOpen className="h-8 w-8" />
               </div>
@@ -895,8 +915,8 @@ export default function Home() {
               <p className="mt-2 text-muted-foreground">
                 Learn from industry leaders and renowned academics.
               </p>
-            </div>
-            <div className="text-center">
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up" className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Users className="h-8 w-8" />
               </div>
@@ -904,8 +924,8 @@ export default function Home() {
               <p className="mt-2 text-muted-foreground">
                 Connect and collaborate with a diverse student body.
               </p>
-            </div>
-            <div className="text-center">
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up" className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Calendar className="h-8 w-8" />
               </div>
@@ -913,10 +933,10 @@ export default function Home() {
               <p className="mt-2 text-muted-foreground">
                 Choose from a range of schedules to fit your life.
               </p>
-            </div>
+            </AnimatedElement>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
     </div>
   );
 }
