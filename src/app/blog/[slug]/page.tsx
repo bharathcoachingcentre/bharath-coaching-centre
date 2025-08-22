@@ -4,20 +4,16 @@ import { notFound } from 'next/navigation';
 import { Calendar, User } from 'lucide-react';
 import { blogPosts } from '@/lib/mock-data';
 
-type BlogPostPageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  // Return an array of objects, where each object has a `slug` property.
   return blogPosts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getPostBySlug(params.slug);
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();
