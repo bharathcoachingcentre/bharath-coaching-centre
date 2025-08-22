@@ -92,7 +92,9 @@ button#radix-«R4p6l7»:hover {
 .header-logo{
   width:190px!important;
 }
-
+.footer-logo{
+  width:250px!important;
+}
 #inspired-btn{
   margin-top: -117px;
 }
@@ -215,4 +217,24 @@ padding:55px;
 
 .animate-on-scroll-left.is-visible {
   animation: slide-from-left-fade-in 0.7s forwards;
+}
+
+@keyframes slide-from-left-fade-up-in {
+    from {
+        opacity: 0;
+        transform: translate(-20px, 20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.animate-on-scroll-left-up {
+    opacity: 0;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.animate-on-scroll-left-up.is-visible {
+    animation: slide-from-left-fade-up-in 0.7s forwards;
 }

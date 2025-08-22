@@ -57,10 +57,10 @@ const AnimatedSection = ({ children, className }: { children: React.ReactNode; c
   );
 };
 
-const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' }) => {
+const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' | 'fade-left-up' }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
   
-    const animationClass = animation === 'fade-left' ? 'animate-on-scroll-left' : 'animate-on-scroll';
+    const animationClass = animation === 'fade-left' ? 'animate-on-scroll-left' : animation === 'fade-left-up' ? 'animate-on-scroll-left-up' : 'animate-on-scroll';
 
     return (
       <div
@@ -654,14 +654,16 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-4xl font-bold">Inspired students. Inspired <span className="relative inline-block">results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
-              <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
-              <div className="flex gap-4 mt-8">
-                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Explore courses</Button>
-                <Button size="lg" variant="outline">View our results</Button>
-              </div>
-            </div>
+             <AnimatedElement animation="fade-left-up">
+                <div>
+                  <h2 className="text-4xl font-bold">Inspired students. Inspired <span className="relative inline-block">results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
+                  <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
+                  <div className="flex gap-4 mt-8">
+                    <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Explore courses</Button>
+                    <Button size="lg" variant="outline">View our results</Button>
+                  </div>
+                </div>
+            </AnimatedElement>
             <div className="relative h-64 md:h-auto">
               <Image 
                 src="/results-hero-image.webp"

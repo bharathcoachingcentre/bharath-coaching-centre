@@ -8,10 +8,10 @@ export function FooterLogo(props: SVGProps<SVGSVGElement> & { className?: string
         <Image
         src="/footer-logo.png"
         alt="Bharath Academy Logo"
-        width={100}
+        width={90}
         height={80}
         priority
-        className="header-logo"
+        className="footer-logo"
         style={{ width: 'auto' }}
         />
     </div>
