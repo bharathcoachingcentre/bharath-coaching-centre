@@ -817,8 +817,8 @@ export default function Home() {
                 <p className="text-lg text-muted-foreground">Making education affordable and accessible across the globe</p>
               </AnimatedElement>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div className="flex items-center gap-4">
-                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600">
+                <div className="flex items-center gap-4 group">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
                     <Clock className="w-8 h-8" />
                   </div>
                   <div>
@@ -826,8 +826,8 @@ export default function Home() {
                     <p className="text-muted-foreground">hours of LIVE learning</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-red-100 text-red-600">
+                <div className="flex items-center gap-4 group">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-red-100 text-red-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
                     <Youtube className="w-8 h-8" />
                   </div>
                   <div>
@@ -835,8 +835,8 @@ export default function Home() {
                     <p className="text-muted-foreground">monthly youtube views</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                   <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600">
+                <div className="flex items-center gap-4 group">
+                   <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
                     <MessageCircleQuestion className="w-8 h-8" />
                   </div>
                   <div>
@@ -844,8 +844,8 @@ export default function Home() {
                     <p className="text-muted-foreground">doubts resolved on the app</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 text-purple-600">
+                <div className="flex items-center gap-4 group">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 text-purple-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
                     <Globe className="w-8 h-8" />
                   </div>
                   <div>
