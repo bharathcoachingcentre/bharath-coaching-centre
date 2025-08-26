@@ -44,7 +44,7 @@ const resultsData = {
 
 type ResultCategory = keyof typeof resultsData;
 
-const AnimatedSection = ({ children, className, id }: { children: React.ReactNode; className?: string; id?: string }) => {
+const AnimatedSection = ({ children, className, id, style }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
   
     return (
@@ -52,6 +52,7 @@ const AnimatedSection = ({ children, className, id }: { children: React.ReactNod
         ref={setElement}
         id={id}
         className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
+        style={style}
       >
         {children}
       </section>
@@ -802,7 +803,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Impact at Scale Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#fcf8f5' }}>
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
