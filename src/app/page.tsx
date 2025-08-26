@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -44,37 +44,38 @@ const resultsData = {
 
 type ResultCategory = keyof typeof resultsData;
 
-const AnimatedSection = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-  const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
-
-  return (
-    <section
-      ref={setElement}
-      className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
-    >
-      {children}
-    </section>
-  );
-};
-
-const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' | 'fade-left-up' | 'shake' }) => {
+const AnimatedSection = ({ children, className, id }: { children: React.ReactNode; className?: string; id?: string }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
   
-    const animationClass = 
-        animation === 'fade-left' ? 'animate-on-scroll-left' : 
-        animation === 'fade-left-up' ? 'animate-on-scroll-left-up' : 
-        animation === 'shake' ? 'animate-on-scroll-shake' : 
-        'animate-on-scroll';
-
     return (
-      <div
+      <section
         ref={setElement}
-        className={cn(animationClass, { 'is-visible': isIntersecting }, className)}
+        id={id}
+        className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
       >
         {children}
-      </div>
+      </section>
     );
   };
+  
+  const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' | 'fade-left-up' | 'shake' }) => {
+      const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+    
+      const animationClass = 
+          animation === 'fade-left' ? 'animate-on-scroll-left' : 
+          animation === 'fade-left-up' ? 'animate-on-scroll-left-up' : 
+          animation === 'shake' ? 'animate-on-scroll-shake' : 
+          'animate-on-scroll';
+  
+      return (
+        <div
+          ref={setElement}
+          className={cn(animationClass, { 'is-visible': isIntersecting }, className)}
+        >
+          {children}
+        </div>
+      );
+    };
 
 
 export default function Home() {
@@ -814,22 +815,42 @@ export default function Home() {
                 </h2>
                 <p className="text-lg text-muted-foreground">Making education affordable and accessible across the globe</p>
               </AnimatedElement>
-              <div className="grid grid-cols-2 gap-y-8 gap-x-4">
-                <div>
-                  <p className="text-4xl font-bold"><CountUpNumber end={2.1} precision={1} />+ <span className="text-3xl">C</span></p>
-                  <p className="text-muted-foreground">hours of LIVE learning</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="flex items-center gap-4">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600">
+                    <Clock className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold"><CountUpNumber end={2.1} precision={1} />+ <span className="text-2xl">C</span></p>
+                    <p className="text-muted-foreground">hours of LIVE learning</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-4xl font-bold"><CountUpNumber end={10} />+ <span className="text-3xl">L</span></p>
-                  <p className="text-muted-foreground">monthly youtube views</p>
+                <div className="flex items-center gap-4">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-red-100 text-red-600">
+                    <Youtube className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold"><CountUpNumber end={10} />+ <span className="text-2xl">L</span></p>
+                    <p className="text-muted-foreground">monthly youtube views</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-4xl font-bold"><CountUpNumber end={25} />+ <span className="text-3xl">L</span></p>
-                  <p className="text-muted-foreground">doubts resolved on the app</p>
+                <div className="flex items-center gap-4">
+                   <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600">
+                    <MessageCircleQuestion className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold"><CountUpNumber end={25} />+ <span className="text-2xl">L</span></p>
+                    <p className="text-muted-foreground">doubts resolved on the app</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-4xl font-bold"><CountUpNumber end={57} />+</p>
-                  <p className="text-muted-foreground">countries where students take LIVE classes</p>
+                <div className="flex items-center gap-4">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 text-purple-600">
+                    <Globe className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold"><CountUpNumber end={57} />+</p>
+                    <p className="text-muted-foreground">countries where students take LIVE classes</p>
+                  </div>
                 </div>
               </div>
             </div>
