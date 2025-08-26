@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Twitter, Send, Gitlab, Rss } from "lucide-react";
+import { Twitter, Send, Gitlab, Rss, Phone, Mail } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { FooterLogo } from "./footer-logo";
 
@@ -24,18 +24,28 @@ const AppleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export function Footer() {
   const companyLinks = [
-    { href: "#", label: "About us" },
+    { href: "/about", label: "About us" },
     { href: "/contact", label: "Contact us" },
     { href: "/blog", label: "Blog" },
     { href: "#", label: "News" },
     { href: "#", label: "Child safety" },
+    { href: "#", label: "Why Bharath Academy" },
+    { href: "#", label: "Our results" },
+    { href: "#", label: "Careers" },
+    { href: "#", label: "Help india learn" },
   ];
 
   const otherLinks = [
     { href: "#", label: "Free live classes" },
-    { href: "#", label: "Why teach with  Bharath Academy" },
+    { href: "#", label: "Why teach with Bharath Academy" },
     { href: "#", label: "Try WAVE" },
     { href: "#", label: "Try Whiteboard" },
+    { href: "#", label: "Bharath Academy improvement promise" },
+    { href: "#", label: "VOLT" },
+    { href: "#", label: "Micro courses" },
+    { href: "#", label: "Maharastra Board" },
+    { href: "#", label: "Benefits" },
+    { href: "/blog", label: "Engineering Blog" },
   ];
 
   const coursesLinks = [
@@ -43,7 +53,14 @@ export function Footer() {
     { href: "/courses", label: "ICSE Tuitions" },
     { href: "/courses", label: "JEE (Main & Advanced)" },
     { href: "/courses", label: "NEET" },
+    { href: "/courses", label: "Eklavya JEE" },
+    { href: "/courses", label: "Eklavya NEET" },
     { href: "/courses", label: "Computer Science" },
+  ];
+  
+  const superKidsLinks = [
+      { href: "#", label: "English Superstar for kids" },
+      { href: "#", label: "Spoken English" },
   ];
 
   return (
@@ -88,16 +105,23 @@ export function Footer() {
                     <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
                 ))}
                 </ul>
-                
             </div>
             <div>
-                <h3 className="text-lg font-semibold">Social</h3>
-                <div className="flex gap-4 mt-4">
-                    {socialLinks.map(link => (
-                        <Link key={link.label} href={link.href} aria-label={link.label} className="text-muted-foreground hover:text-primary transition-colors">
-                            <link.icon className="h-6 w-6" />
-                        </Link>
+                <h3 className="text-lg font-semibold">Bharath Academy Super Kids</h3>
+                <ul className="mt-4 space-y-2 text-sm">
+                    {superKidsLinks.map(link => (
+                        <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
                     ))}
+                </ul>
+                <div className="mt-4 space-y-2 text-sm">
+                    <a href="tel:+917200030307" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                        <Phone className="h-4 w-4" />
+                        <span>+91 7200030307</span>
+                    </a>
+                    <a href="mailto:bcc_try@hotmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                        <Mail className="h-4 w-4" />
+                        <span>bcc_try@hotmail.com</span>
+                    </a>
                 </div>
             </div>
         </div>
