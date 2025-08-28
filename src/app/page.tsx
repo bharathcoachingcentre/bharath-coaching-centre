@@ -878,13 +878,13 @@ export default function Home() {
                         <h2 className="text-4xl font-bold">Trusted by hundreds of entrepreneurs</h2>
                     </div>
                     <div className="flex gap-4">
-                        <CarouselPrevious className="testimonial-nav" onClick={() => newTestimonialApi?.scrollPrev()} />
-                        <CarouselNext className="testimonial-nav" onClick={() => newTestimonialApi?.scrollNext()} />
+                        <CarouselPrevious className="testimonial-nav" />
+                        <CarouselNext className="testimonial-nav" />
                     </div>
                 </div>
               
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div className="relative h-[350px] w-full max-w-sm mx-auto">
+              <div className="grid md:grid-cols-5 gap-8 items-center">
+                  <div className="md:col-span-2 relative h-[350px] w-full max-w-sm mx-auto">
                       <AnimatePresence>
                           <motion.div
                               key={newTestimonialSelectedIndex}
@@ -905,7 +905,7 @@ export default function Home() {
                       </AnimatePresence>
                   </div>
 
-                  <div className="flex items-center gap-4">
+                  <div className="md:col-span-3 flex items-center gap-4">
                       <div className="w-2/3 space-y-4">
                           <AnimatePresence mode="wait">
                               <motion.div
