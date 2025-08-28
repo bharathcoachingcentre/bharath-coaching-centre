@@ -878,10 +878,6 @@ export default function Home() {
                         <p className="font-semibold text-lg mb-2">Loved & trusted by +250 businesses.</p>
                         <h2 className="text-4xl font-bold">Trusted by hundreds of entrepreneurs</h2>
                     </div>
-                    <div className="flex gap-4">
-                        <CarouselPrevious className="testimonial-nav" />
-                        <CarouselNext className="testimonial-nav" />
-                    </div>
                 </div>
               
               <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -924,6 +920,10 @@ export default function Home() {
                       </div>
 
                       <div className="w-1/3">
+                          <div className="flex justify-end gap-4 mb-4">
+                            <CarouselPrevious className="testimonial-nav" />
+                            <CarouselNext className="testimonial-nav" />
+                          </div>
                           <CarouselContent className="-mt-4 h-full hidden">
                               {/* This is a dummy carousel content to make the parent carousel work. The actual vertical one is below */}
                               {newTestimonials.map((testimonial, index) => (
