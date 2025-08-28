@@ -258,3 +258,6 @@ padding:55px;
 .animate-on-scroll-shake.is-visible {
     animation: shake-in 1s forwards;
 }
+.tracking-tight {
+  text-align: left;
+}

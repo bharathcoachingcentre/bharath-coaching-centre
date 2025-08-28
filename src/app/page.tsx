@@ -929,32 +929,32 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
-            <AnimatedElement animation="fade-up" className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <BookOpen className="h-8 w-8" />
-              </div>
-              <h3 className="mt-4 text-xl font-bold">Expert-Led Courses</h3>
-              <p className="mt-2 text-muted-foreground">
-                Learn from industry leaders and renowned academics.
-              </p>
+            <AnimatedElement animation="fade-up">
+              <Card className="p-6 text-left">
+                  <BookOpen className="h-8 w-8 mb-4 text-primary" />
+                  <h3 className="text-xl font-bold">Expert-Led Courses</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Learn from industry leaders and renowned academics.
+                  </p>
+              </Card>
             </AnimatedElement>
-            <AnimatedElement animation="fade-up" className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Users className="h-8 w-8" />
-              </div>
-              <h3 className="mt-4 text-xl font-bold">Vibrant Community</h3>
-              <p className="mt-2 text-muted-foreground">
-                Connect and collaborate with a diverse student body.
-              </p>
+            <AnimatedElement animation="fade-up">
+              <Card className="p-6 text-left">
+                  <Users className="h-8 w-8 mb-4 text-primary" />
+                  <h3 className="text-xl font-bold">Vibrant Community</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Connect and collaborate with a diverse student body.
+                  </p>
+              </Card>
             </AnimatedElement>
-            <AnimatedElement animation="fade-up" className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Calendar className="h-8 w-8" />
-              </div>
-              <h3 className="mt-4 text-xl font-bold">Flexible Learning</h3>
-              <p className="mt-2 text-muted-foreground">
-                Choose from a range of schedules to fit your life.
-              </p>
+            <AnimatedElement animation="fade-up">
+              <Card className="p-6 text-left">
+                  <Calendar className="h-8 w-8 mb-4 text-primary" />
+                  <h3 className="text-xl font-bold">Flexible Learning</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Choose from a range of schedules to fit your life.
+                  </p>
+              </Card>
             </AnimatedElement>
           </div>
         </div>
