@@ -884,7 +884,7 @@ export default function Home() {
                 </div>
               
               <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div className="relative h-[400px] w-full max-w-sm mx-auto">
+                  <div className="relative h-[350px] w-full max-w-sm mx-auto">
                       <AnimatePresence>
                           <motion.div
                               key={newTestimonialSelectedIndex}
@@ -929,7 +929,7 @@ export default function Home() {
                                   <CarouselItem key={index}></CarouselItem>
                               ))}
                           </CarouselContent>
-                          <div className="h-[400px] overflow-y-auto no-scrollbar">
+                          <div className="h-[350px] overflow-y-auto no-scrollbar">
                               <div className="flex flex-col gap-4">
                                   {newTestimonials.map((testimonial, index) => (
                                       <div key={index}
@@ -1118,5 +1118,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
