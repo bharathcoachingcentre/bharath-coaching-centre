@@ -930,7 +930,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
             <AnimatedElement animation="fade-up">
-              <Card className="flex flex-col p-6 text-left border-black shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+              <Card className="flex flex-col p-6 text-left border-black shadow-[8px_8px_0px_#000] hover:shadow-[10px_10px_0px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
                   <BookOpen className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Expert-Led Courses</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -939,7 +939,7 @@ export default function Home() {
               </Card>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
-              <Card className="flex flex-col p-6 text-left border-black shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
+              <Card className="flex flex-col p-6 text-left border-black shadow-[8px_8px_0px_#000] hover:shadow-[10px_10px_0px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
                   <Users className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Vibrant Community</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -948,11 +948,11 @@ export default function Home() {
               </Card>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
-              <Card className="flex flex-col p-6 text-left border-black shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
+              <Card className="flex flex-col p-6 text-left border-black shadow-[8px_8px_0px_#000] hover:shadow-[10px_10px_0px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
                   <Calendar className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Flexible Learning</h3>
                   <p className="mt-2 text-muted-foreground">
-                    Choose from a range of schedules to fit your life.
+                    Choose from a range of schedules to fit your <br></br>life.
                   </p>
               </Card>
             </AnimatedElement>
