@@ -873,16 +873,16 @@ export default function Home() {
                       loop: true,
                   }}
               >
-              <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
-                <div>
-                  <p className="font-semibold text-lg mb-2">Loved & trusted by +250 businesses.</p>
-                  <h2 className="text-4xl font-bold">Trusted by hundreds of entrepreneurs</h2>
+                <div className="flex justify-between items-center mb-12">
+                    <div>
+                        <p className="font-semibold text-lg mb-2">Loved & trusted by +250 businesses.</p>
+                        <h2 className="text-4xl font-bold">Trusted by hundreds of entrepreneurs</h2>
+                    </div>
+                    <div className="flex gap-4">
+                        <CarouselPrevious className="testimonial-nav" />
+                        <CarouselNext className="testimonial-nav" />
+                    </div>
                 </div>
-                <div className="flex justify-start md:justify-end gap-4">
-                    <CarouselPrevious className="testimonial-nav" />
-                    <CarouselNext className="testimonial-nav" />
-                </div>
-              </div>
               
               <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative h-[400px] w-full max-w-sm mx-auto">
@@ -930,7 +930,7 @@ export default function Home() {
                                   <CarouselItem key={index}></CarouselItem>
                               ))}
                           </CarouselContent>
-                          <div className="h-[400px] overflow-y-auto">
+                          <div className="h-[400px] overflow-y-auto no-scrollbar">
                               <div className="flex flex-col gap-4">
                                   {newTestimonials.map((testimonial, index) => (
                                       <div key={index}
