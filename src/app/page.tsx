@@ -18,6 +18,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
 import { CountUpNumber } from "@/components/count-up-number";
+import { motion, AnimatePresence } from "framer-motion";
 
 const resultsData = {
   "All": [
@@ -864,8 +865,10 @@ export default function Home() {
                 <h2 className="text-4xl font-bold">Trusted by hundreds of entrepreneurs</h2>
               </div>
               <div className="flex justify-start md:justify-end gap-4">
-                  <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="testimonial-nav" />
-                  <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="testimonial-nav" />
+                <Carousel>
+                    <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="testimonial-nav" />
+                    <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="testimonial-nav" />
+                </Carousel>
               </div>
             </div>
             
