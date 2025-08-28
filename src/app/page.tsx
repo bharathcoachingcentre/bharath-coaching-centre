@@ -930,8 +930,8 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
             <AnimatedElement animation="fade-up">
-              <Card className="p-6 text-left">
-                  <BookOpen className="h-8 w-8 mb-4 text-primary" />
+              <Card className="p-6 text-left border-black shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+                  <BookOpen className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Expert-Led Courses</h3>
                   <p className="mt-2 text-muted-foreground">
                     Learn from industry leaders and renowned academics.
@@ -939,8 +939,8 @@ export default function Home() {
               </Card>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
-              <Card className="p-6 text-left">
-                  <Users className="h-8 w-8 mb-4 text-primary" />
+              <Card className="p-6 text-left border-black shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
+                  <Users className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Vibrant Community</h3>
                   <p className="mt-2 text-muted-foreground">
                     Connect and collaborate with a diverse student body.
@@ -948,8 +948,8 @@ export default function Home() {
               </Card>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
-              <Card className="p-6 text-left">
-                  <Calendar className="h-8 w-8 mb-4 text-primary" />
+              <Card className="p-6 text-left border-black shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
+                  <Calendar className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Flexible Learning</h3>
                   <p className="mt-2 text-muted-foreground">
                     Choose from a range of schedules to fit your life.
