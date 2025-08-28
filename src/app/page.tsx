@@ -914,6 +914,12 @@ export default function Home() {
                     <div className="w-1/3">
                         <Carousel 
                             setApi={setNewTestimonialApi}
+                            plugins={[
+                                Autoplay({
+                                  delay: 3000,
+                                  stopOnInteraction: true,
+                                }),
+                            ]}
                             opts={{
                                 align: "start",
                                 containScroll: "keepSnaps",
