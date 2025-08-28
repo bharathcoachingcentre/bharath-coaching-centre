@@ -104,6 +104,7 @@ export function Footer() {
                     ))}
                 </ul>
                 <div className="mt-4 space-y-2 text-sm">
+                <h3 className="text-lg font-semibold">Contact</h3>
                     <a href="tel:+917200030307" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                         <Phone className="h-4 w-4" />
                         <span>+91 7200030307</span>

@@ -261,3 +261,24 @@ padding:55px;
 .tracking-tight {
   text-align: left;
 }
+#card-box
+{
+  height:210px!important;
+}
+span.relative.inline-block {
+  color: rgb(27, 157, 243);
+}
+
+.bg-testimonial {
+  background-color: #A59894;
+}
+
+.testimonial-nav {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+.testimonial-nav:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}

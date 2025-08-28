@@ -1,9 +1,10 @@
 
+
 'use client';
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -346,6 +347,30 @@ export default function Home() {
       name: 'Manisha M S',
       details: 'MBBS Student'
     }
+  ];
+
+  const newTestimonials = [
+    {
+      company: 'StoryCore.',
+      quote: 'With Zazu, managing our daily operations and client invoicing is much easier. We can now handle payments, send reminders and access our invoicing history all in one place.',
+      author: 'Darren Ellis, Founder of StoryCore',
+      image: 'https://picsum.photos/400/400',
+      imageHint: 'man on phone',
+    },
+    {
+      company: 'InnovateInc.',
+      quote: 'The insights from the academy helped us to redefine our strategies and led to a significant growth in our customer base. Highly recommended for any aspiring entrepreneur.',
+      author: 'Jane Doe, CEO of InnovateInc.',
+      image: 'https://picsum.photos/400/401',
+      imageHint: 'woman smiling',
+    },
+    {
+        company: 'FutureTech.',
+        quote: 'A game-changer for our startup. The mentorship and resources are unparalleled. It helped us to scale our business to new heights and achieve our goals faster than we ever thought possible.',
+        author: 'John Smith, CTO of FutureTech.',
+        image: 'https://picsum.photos/400/402',
+        imageHint: 'man portrait',
+    },
   ];
   
   const timetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
@@ -801,6 +826,49 @@ export default function Home() {
           </Carousel>
         </div>
       </AnimatedSection>
+      
+      {/* New Testimonial Section */}
+      <AnimatedSection className="py-16 md:py-24 bg-testimonial">
+        <div className="container mx-auto text-white">
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            className="w-full"
+            >
+             <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+              <div>
+                <p className="font-semibold text-lg mb-2">Loved & trusted by +250 businesses.</p>
+                <h2 className="text-4xl font-bold">Trusted by hundreds of entrepreneurs</h2>
+              </div>
+              <div className="flex justify-start md:justify-end gap-4">
+                  <CarouselPrevious className="testimonial-nav" />
+                  <CarouselNext className="testimonial-nav" />
+              </div>
+            </div>
+            <CarouselContent>
+                {newTestimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div className="relative aspect-square w-full max-w-sm mx-auto">
+                        <Image
+                        src={testimonial.image}
+                        alt={testimonial.author}
+                        fill
+                        className="rounded-lg object-cover"
+                        data-ai-hint={testimonial.imageHint}
+                        />
+                    </div>
+                    <div className="space-y-4">
+                        <h3 className="text-2xl font-bold">{testimonial.company}</h3>
+                        <p className="text-lg text-gray-300">"{testimonial.quote}"</p>
+                        <p className="font-semibold">{testimonial.author}</p>
+                    </div>
+                    </div>
+                </CarouselItem>
+                ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+      </AnimatedSection>
 
       {/* Impact at Scale Section */}
       <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#fcf8f5' }}>
@@ -930,7 +998,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
             <AnimatedElement animation="fade-up">
-              <Card className="flex flex-col p-6 text-left border-black shadow-[8px_8px_0px_#000] hover:shadow-[10px_10px_0px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
                   <BookOpen className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Expert-Led Courses</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -939,7 +1007,7 @@ export default function Home() {
               </Card>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
-              <Card className="flex flex-col p-6 text-left border-black shadow-[8px_8px_0px_#000] hover:shadow-[10px_10px_0px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
                   <Users className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Vibrant Community</h3>
                   <p className="mt-2 text-muted-foreground">
@@ -948,7 +1016,7 @@ export default function Home() {
               </Card>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
-              <Card className="flex flex-col p-6 text-left border-black shadow-[8px_8px_0px_#000] hover:shadow-[10px_10px_0px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
                   <Calendar className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Flexible Learning</h3>
                   <p className="mt-2 text-muted-foreground">
