@@ -943,8 +943,6 @@ export default function Home() {
 
                       <div className="w-1/3">
                           <div className="flex justify-end gap-4 mb-4">
-                              <CarouselPrevious className="testimonial-nav" />
-                              <CarouselNext className="testimonial-nav" />
                           </div>
                           <CarouselContent className="-mt-4 h-full hidden">
                               {/* This is a dummy carousel content to make the parent carousel work. The actual vertical one is below */}
@@ -1145,6 +1143,7 @@ export default function Home() {
     
 
     
+
 
 
 
