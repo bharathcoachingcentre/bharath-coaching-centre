@@ -293,3 +293,7 @@ span.relative.inline-block {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+#testi-thumb {
+  width: 160px;
+  height: 180px;
+}

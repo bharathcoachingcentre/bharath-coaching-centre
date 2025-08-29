@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import Image from "next/image";
@@ -18,6 +19,7 @@ import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
 import { CountUpNumber } from "@/components/count-up-number";
 import { motion, AnimatePresence } from "framer-motion";
+import { quotelessJson } from "zod";
 
 const resultsData = {
   "All": [
@@ -372,33 +374,54 @@ export default function Home() {
 
   const newTestimonials = [
     {
-      company: 'StoryCore.',
-      quote: 'With Zazu, managing our daily operations and client invoicing is much easier. We can now handle payments, send reminders and access our invoicing history all in one place.',
-      author: 'Darren Ellis, Founder of StoryCore',
-      image: 'https://picsum.photos/400/400',
-      imageHint: 'man on phone',
+      company: 'Gayathri',
+      quote: 'BCC is an excellent place for learning and overall development,it has the best faculty and infrastructure. Teachers deal with students with great patience and adhere to their slightest doubts. I had an amazing experience here and BCC helped me improve immensely.',
+      author: 'B.E. Student',
+      image: '/testi-3.png',
+      imageHint: 'B.E. Student',
     },
     {
-      company: 'InnovateInc.',
-      quote: 'The insights from the academy helped us to redefine our strategies and led to a significant growth in our customer base. Highly recommended for any aspiring entrepreneur.',
-      author: 'Jane Doe, CEO of InnovateInc.',
-      image: 'https://picsum.photos/400/401',
+      company: 'S Akshaya',
+      quote: 'It is an supreme art of a teacher to awaken joy in creative exposure and knowledge. Staffs in BCC did that. The atmosphere in BCC was exemplary that made us to gain more knowledge. Thanking them for building my foundation during 10th.',
+      author: 'MBBS Student',
+      image: '/testi-2.png',
       imageHint: 'woman smiling',
     },
     {
-        company: 'FutureTech.',
-        quote: 'A game-changer for our startup. The mentorship and resources are unparalleled. It helped us to scale our business to new heights and achieve our goals faster than we ever thought possible.',
-        author: 'John Smith, CTO of FutureTech.',
-        image: 'https://picsum.photos/400/402',
+      company: 'Reethika',
+      quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
+      author: 'RJ',
+      image: 'testi-1.png',
+      imageHint: 'man portrait',
+  },
+   {
+        company: 'Dhanya B S K Janani Priya',
+        quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
+        author: 'B.Com LL.b(Hons) Student',
+        image: '/testi-4.png',
         imageHint: 'man portrait',
     },
     {
-        company: 'GrowthHub.',
-        quote: 'The best investment we made for our team. The curriculum is top-notch, and the instructors are industry experts who provide real-world insights.',
-        author: 'Emily White, HR Manager at GrowthHub.',
-        image: 'https://picsum.photos/400/403',
-        imageHint: 'woman at desk',
-    }
+      company: 'Mohamed Niyas',
+      quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
+      author: 'MBBS Student',
+      image: '/testi-7.png',
+      imageHint: 'man portrait',
+  },
+  {
+    company: 'S K Janani Priya',
+    quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that made me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
+    author: 'MBBS Student, Theni Government college',
+    image: '/testi-5.png',
+    imageHint: 'man portrait',
+},
+{
+  company: 'S K Janani Priya',
+  quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
+  author: 'MBBS Student, Theni Government college',
+  image: '/testi-6.png',
+  imageHint: 'man portrait',
+},
   ];
   
   const timetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
@@ -874,8 +897,8 @@ export default function Home() {
               >
                 <div className="flex justify-between items-center mb-12">
                     <div>
-                        <p className="font-semibold text-lg mb-2">Loved & trusted by +250 businesses.</p>
-                        <h2 className="text-4xl font-bold">Trusted by hundreds of entrepreneurs</h2>
+                        <p className="font-semibold text-lg mb-2">What Our Students Say</p>
+                        <h2 className="text-4xl font-bold">Stories that inspire</h2>
                     </div>
                     <div className="flex gap-4">
                         <CarouselPrevious className="testimonial-nav" />
@@ -930,10 +953,10 @@ export default function Home() {
                               ))}
                           </CarouselContent>
                           <div className="h-[350px] overflow-y-auto no-scrollbar">
-                              <div className="flex flex-col gap-4">
+                              <div className="flex flex-col justify-center gap-4">
                                   {newTestimonials.map((testimonial, index) => (
                                       <div key={index}
-                                          className={cn(
+                                         id="testi-thumb" className={cn(
                                               "h-[120px] w-full aspect-square relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300",
                                               newTestimonialSelectedIndex === index ? 'opacity-100 scale-105' : 'opacity-50 scale-95'
                                           )}
