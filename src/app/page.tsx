@@ -828,6 +828,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Stories that Inspire Section */}
+      {/*
       <AnimatedSection className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up" className="flex items-center gap-4 mb-12">
@@ -877,6 +878,7 @@ export default function Home() {
           </Carousel>
         </div>
       </AnimatedSection>
+      */}
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 bg-testimonial">
@@ -898,9 +900,13 @@ export default function Home() {
                 <div className="flex justify-between items-center mb-12">
                     <div>
                         <p className="font-semibold text-lg mb-2">What Our Students Say</p>
-                        <h2 className="text-4xl font-bold">Stories that inspire</h2>
+                        <h2 className="text-3xl font-bold">
+              Stories that <span className="relative inline-block">inspire
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+              </span>
+            </h2>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2" id="nav-gap">
                         <CarouselPrevious className="static translate-y-0 testimonial-nav" />
                         <CarouselNext className="static translate-y-0 testimonial-nav" />
                     </div>
@@ -938,9 +944,9 @@ export default function Home() {
                                   exit={{ opacity: 0, y: -20 }}
                                   transition={{ duration: 0.5 }}
                               >
-                                  <h3 className="text-2xl font-bold">{newTestimonials[newTestimonialSelectedIndex].company}</h3>
-                                  <p className="text-lg text-gray-300">"{newTestimonials[newTestimonialSelectedIndex].quote}"</p>
-                                  <p className="font-semibold mt-4">{newTestimonials[newTestimonialSelectedIndex].author}</p>
+                                  <h3 className="text-2xl font-bold" id="testi-head">{newTestimonials[newTestimonialSelectedIndex].company}</h3>
+                                  <p className="text-lg text-gray-300" id="testi-text">"{newTestimonials[newTestimonialSelectedIndex].quote}"</p>
+                                  <p className="font-semibold mt-4" id="testi-txt">{newTestimonials[newTestimonialSelectedIndex].author}</p>
                               </motion.div>
                           </AnimatePresence>
                       </div>
@@ -1147,6 +1153,7 @@ export default function Home() {
     
 
     
+
 
 
 
