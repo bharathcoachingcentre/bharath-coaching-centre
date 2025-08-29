@@ -953,7 +953,7 @@ export default function Home() {
                               ))}
                           </CarouselContent>
                           <div className="h-[350px] overflow-y-auto no-scrollbar">
-                              <div className="flex flex-col justify-center gap-4">
+                              <div className="flex flex-col items-center justify-center gap-4">
                                   {newTestimonials.map((testimonial, index) => (
                                       <div key={index}
                                          id="testi-thumb" className={cn(
@@ -1145,3 +1145,4 @@ export default function Home() {
     
 
     
+
