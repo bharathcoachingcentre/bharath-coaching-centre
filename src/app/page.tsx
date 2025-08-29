@@ -900,6 +900,10 @@ export default function Home() {
                         <p className="font-semibold text-lg mb-2">What Our Students Say</p>
                         <h2 className="text-4xl font-bold">Stories that inspire</h2>
                     </div>
+                    <div className="flex gap-2">
+                        <CarouselPrevious className="static translate-y-0 testimonial-nav" />
+                        <CarouselNext className="static translate-y-0 testimonial-nav" />
+                    </div>
                 </div>
               
               <div className="grid md:grid-cols-5 gap-8 items-center">
@@ -1143,6 +1147,7 @@ export default function Home() {
     
 
     
+
 
 
 
