@@ -760,7 +760,7 @@ export default function Home() {
             </AnimatedElement>
             <div className="relative h-64 md:h-auto">
               <Image 
-                src="/results-hero-image.webp"
+                src="/results-hero-image-new.png"
                 alt="Inspired students"
                 width={600}
                 height={400}

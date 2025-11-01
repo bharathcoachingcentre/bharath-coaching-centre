@@ -1,8 +1,9 @@
+
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Phone } from "lucide-react";
+import { Menu, Phone, ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,16 +12,51 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 
 const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/", label: "About" },
-    { href: "/", label: "Courses" },
-    { href: "/", label: "Gallery" },
-    { href: "/", label: "Study Materials" },
-    { href: "/", label: "Contact" },
+  { 
+    href: "/", 
+    label: "Offline Courses",
+    isButton: true,
+    subLinks: [
+        { href: "/courses", label: "Course 1" },
+        { href: "/courses", label: "Course 2" },
+    ]
+  },
+  { 
+    href: "/", 
+    label: "Online Courses",
+    subLinks: [
+        { href: "/courses", label: "Course A" },
+        { href: "/courses", label: "Course B" },
+    ]
+  },
+  { 
+    href: "/", 
+    label: "Free study material",
+    subLinks: [
+        { href: "/blog", label: "Blog" },
+        { href: "/events", label: "Events" },
+    ]
+  },
+  { href: "/about", label: "Our Results" },
+  { href: "/courses", label: "One to One Clases" },
+  { 
+    href: "/", 
+    label: "More",
+    subLinks: [
+        { href: "/gallery", label: "Gallery" },
+        { href: "/contact", label: "Contact" },
+    ]
+  },
 ];
 
 export function Header() {
@@ -42,7 +78,18 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="grid h-24 grid-cols-3 items-center px-4 sm:px-6 lg:px-8">
+        <div className="bg-gray-100/60">
+            <div className="container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm">
+                <div className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-muted-foreground" />
+                    <p className="text-muted-foreground">Talk to our experts: <a href="tel:+917200030307" className="font-semibold text-foreground hover:text-primary transition-colors">+91 7200030307</a></p>
+                </div>
+                <Button asChild variant="ghost" size="sm" className="text-sm h-auto px-2 py-1">
+                    <Link href="/signin">Sign in</Link>
+                </Button>
+            </div>
+        </div>
+      <div className="container mx-auto flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
             <Logo className="h-12 w-auto" />
@@ -51,26 +98,33 @@ export function Header() {
         
         <nav className="hidden items-center justify-center space-x-6 text-sm md:flex" id="nav-menu">
             {navLinks.map((link) => (
-                <div key={link.label} className="flex items-center">
-                  <NavLink href={link.href} label={link.label} />
-                </div>
+                link.subLinks ? (
+                    <DropdownMenu key={link.label}>
+                        <DropdownMenuTrigger asChild>
+                            <Button 
+                                variant={link.isButton ? 'outline' : 'ghost'} 
+                                className={cn(
+                                    "flex items-center gap-1 font-medium",
+                                    link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : "text-muted-foreground hover:text-primary"
+                                )}
+                            >
+                                {link.label}
+                                <ChevronDown className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            {link.subLinks.map(subLink => (
+                                <DropdownMenuItem key={subLink.label} asChild>
+                                    <Link href={subLink.href}>{subLink.label}</Link>
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                ) : (
+                    <NavLink key={link.label} href={link.href} label={link.label} />
+                )
             ))}
         </nav>
-
-        <div className="hidden items-center justify-end gap-4 md:flex">
-            <div className="flex items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/10">
-                    <Phone className="h-5 w-5 text-primary" />
-                </div>
-                <div className="text-sm">
-                    <p className="text-muted-foreground">Talk to our experts</p>
-                    <a href="tel:+917200030307" id="phone-header" className="font-semibold text-foreground">+91 7200030307</a>
-                </div>
-            </div>
-            <Button asChild variant="secondary" className="bg-primary/10 hover:bg-primary/20 text-primary font-semibold">
-              <Link href="/signin">Sign in</Link>
-            </Button>
-        </div>
    
         <div className="md:hidden justify-self-end">
         <Sheet>
@@ -103,3 +157,5 @@ export function Header() {
     </header>
   );
 }
+
+    
