@@ -549,6 +549,24 @@ export default function Home() {
         </div>
       </AnimatedSection>
 
+      {/* Offline Time Table Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-4xl font-bold mb-8 text-center">Offline Time Table</h2>
+          </AnimatedElement>
+          <div className="flex flex-wrap gap-4 mb-12 justify-center">
+            {classFilters.map((filter, index) => (
+              <Button key={index} variant={index === 0 ? 'default' : 'outline'} className={index === 0 ? 'bg-gray-800 hover:bg-gray-900' : 'border-gray-300'}>{filter}</Button>
+            ))}
+             <div className="relative">
+                <Button variant="outline" className="border-gray-300 pr-10">LKG - UKG</Button>
+                <Badge className="absolute -top-2 -right-2 bg-yellow-400 text-black">NEW</Badge>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
       {/* Courses for Kids Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
@@ -1153,6 +1171,7 @@ export default function Home() {
     
 
     
+
 
 
 
