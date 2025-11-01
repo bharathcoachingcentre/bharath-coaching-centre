@@ -285,7 +285,7 @@ export default function Home() {
     }
   ];
 
-  const classFilters = ["Class 12 pass", "Class 12", "Class 11", "Class 10", "Class 9", "Class 8", "Class 7", "Class 6", "Class 1 - 5"];
+  const classFilters = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
 
   const studyMaterials = [
     {
@@ -559,10 +559,6 @@ export default function Home() {
             {classFilters.map((filter, index) => (
               <Button key={index} variant={index === 0 ? 'default' : 'outline'} className={index === 0 ? 'bg-gray-800 hover:bg-gray-900' : 'border-gray-300'}>{filter}</Button>
             ))}
-             <div className="relative">
-                <Button variant="outline" className="border-gray-300 pr-10">LKG - UKG</Button>
-                <Badge className="absolute -top-2 -right-2 bg-yellow-400 text-black">NEW</Badge>
-            </div>
           </div>
         </div>
       </AnimatedSection>
@@ -1171,6 +1167,7 @@ export default function Home() {
     
 
     
+
 
 
 
