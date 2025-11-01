@@ -557,7 +557,7 @@ export default function Home() {
           </AnimatedElement>
           <div>
             <h3 className="text-2xl font-bold mb-4">CBSE</h3>
-            <div className="flex flex-wrap gap-4 mb-12 justify-start">
+            <div className="flex flex-wrap gap-8 mb-12 justify-start">
               {classFilters.map((filter, index) => (
                 <Button key={index} variant={'outline'} className={'border-gray-300'}>{filter}</Button>
               ))}
@@ -565,7 +565,7 @@ export default function Home() {
           </div>
           <div>
             <h3 className="text-2xl font-bold mb-4">SAMACHEER</h3>
-            <div className="flex flex-wrap gap-4 mb-12 justify-start">
+            <div className="flex flex-wrap gap-8 mb-12 justify-start">
               {classFilters.map((filter, index) => (
                 <Button key={index} variant={'outline'} className={'border-gray-300'}>{filter}</Button>
               ))}
@@ -1178,6 +1178,7 @@ export default function Home() {
     
 
     
+
 
 
 
