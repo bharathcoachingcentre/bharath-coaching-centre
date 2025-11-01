@@ -66,7 +66,7 @@ export function Header() {
     <Link
       href={href}
       className={cn(
-        "flex items-center font-medium transition-colors hover:text-primary",
+        "flex items-center font-medium transition-colors hover:text-primary text-base",
         pathname === href ? "text-primary" : "text-muted-foreground",
         className
       )}
@@ -104,7 +104,7 @@ export function Header() {
                             <Button 
                                 variant={link.isButton ? 'outline' : 'ghost'} 
                                 className={cn(
-                                    "flex items-center gap-1 font-medium",
+                                    "flex items-center gap-1 font-medium text-base",
                                     link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : "text-muted-foreground hover:text-primary"
                                 )}
                             >
