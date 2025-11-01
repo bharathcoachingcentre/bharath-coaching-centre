@@ -586,7 +586,7 @@ export default function Home() {
                   <BookOpen className="h-8 w-8 mb-4 text-black" />
                   <h3 className="text-xl font-bold">Expert-Led Courses</h3>
                   <p className="mt-2 text-muted-foreground">
-                    Learn from industry leaders and renowned academics.
+                    Daily interaction with parents through Academic Record.
                   </p>
               </Card>
             </AnimatedElement>
@@ -1180,6 +1180,7 @@ export default function Home() {
     
 
     
+
 
 
 
