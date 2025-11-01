@@ -584,7 +584,6 @@ export default function Home() {
             <AnimatedElement animation="fade-up">
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
                   <BookOpen className="h-8 w-8 mb-4 text-black" />
-                  <h3 className="text-xl font-bold">Expert-Led Courses</h3>
                   <p className="mt-2 text-muted-foreground">
                     Daily interaction with parents through Academic Record.
                   </p>
@@ -593,7 +592,6 @@ export default function Home() {
             <AnimatedElement animation="fade-up">
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
                   <Users className="h-8 w-8 mb-4 text-black" />
-                  <h3 className="text-xl font-bold">Vibrant Community</h3>
                   <p className="mt-2 text-muted-foreground">
                     Connect and collaborate with a diverse student body.
                   </p>
@@ -602,7 +600,6 @@ export default function Home() {
             <AnimatedElement animation="fade-up">
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
                   <Calendar className="h-8 w-8 mb-4 text-black" />
-                  <h3 className="text-xl font-bold">Flexible Learning</h3>
                   <p className="mt-2 text-muted-foreground">
                     Choose from a range of schedules to fit your <br></br>life.
                   </p>
@@ -1180,6 +1177,7 @@ export default function Home() {
     
 
     
+
 
 
 
