@@ -78,13 +78,13 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="bg-gray-100/60">
+        <div className="bg-[hsl(199,78%,59%)]">
             <div className="container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm">
-                <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-muted-foreground" />
-                    <p className="text-muted-foreground">Talk to our experts: <a href="tel:+917200030307" className="font-semibold text-foreground hover:text-primary transition-colors">+91 7200030307</a></p>
+                <div className="flex items-center gap-2 text-white">
+                    <Phone className="h-4 w-4" />
+                    <p>Talk to our experts: <a href="tel:+917200030307" className="font-semibold hover:underline">+91 7200030307</a></p>
                 </div>
-                <Button asChild variant="ghost" size="sm" className="text-sm h-auto px-2 py-1">
+                <Button asChild variant="ghost" size="sm" className="text-sm h-auto px-2 py-1 text-white hover:bg-white/20 hover:text-white">
                     <Link href="/signin">Sign in</Link>
                 </Button>
             </div>
@@ -157,5 +157,3 @@ export function Header() {
     </header>
   );
 }
-
-    
