@@ -18,7 +18,7 @@ export default function StudentRegistrationPage() {
     const [date, setDate] = React.useState<Date>()
 
   return (
-    <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div style={{ backgroundColor: '#e8effe' }} className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
