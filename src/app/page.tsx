@@ -555,10 +555,13 @@ export default function Home() {
           <AnimatedElement animation="fade-up">
             <h2 className="text-4xl font-bold mb-8 text-center">Offline Time Table</h2>
           </AnimatedElement>
-          <div className="flex flex-wrap gap-4 mb-12 justify-center">
-            {classFilters.map((filter, index) => (
-              <Button key={index} variant={'outline'} className={'border-gray-300'}>{filter}</Button>
-            ))}
+          <div>
+            <h3 className="text-2xl font-bold mb-4">CBSE</h3>
+            <div className="flex flex-wrap gap-4 mb-12 justify-start">
+              {classFilters.map((filter, index) => (
+                <Button key={index} variant={'outline'} className={'border-gray-300'}>{filter}</Button>
+              ))}
+            </div>
           </div>
         </div>
       </AnimatedSection>
@@ -1167,6 +1170,7 @@ export default function Home() {
     
 
     
+
 
 
 
