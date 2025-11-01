@@ -692,7 +692,7 @@ export default function Home() {
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#dcfce7' }}>
                   <CheckCircle className="h-8 w-8 mb-4 text-black" />
                   <p className="mt-2 text-muted-foreground">
-                    Result oriented and concept-based coaching.
+                  Hierarchy of test sessions.
                   </p>
               </Card>
             </AnimatedElement>
@@ -700,7 +700,7 @@ export default function Home() {
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
                   <Brain className="h-8 w-8 mb-4 text-black" />
                   <p className="mt-2 text-muted-foreground">
-                    Brain storming sessions for assured success.
+                  Term wise parents’ meeting.
                   </p>
               </Card>
             </AnimatedElement>
@@ -708,7 +708,7 @@ export default function Home() {
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fee2e2' }}>
                   <Target className="h-8 w-8 mb-4 text-black" />
                   <p className="mt-2 text-muted-foreground">
-                    Special care for slow learners.
+                  Specialized materials.
                   </p>
               </Card>
             </AnimatedElement>
