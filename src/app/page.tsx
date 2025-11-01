@@ -549,6 +549,65 @@ export default function Home() {
         </div>
       </AnimatedSection>
       
+      {/* Features Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold text-center mb-12">Why to choose BCC?</h2>
+          </AnimatedElement>
+          <div className="grid gap-8 md:grid-cols-3">
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+                  <BookOpen className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                    Daily interaction with parents through Academic Record.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
+                  <Users className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                    Daily awareness about student’s performance for the academic inputs to parents through academic record.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
+                  <Calendar className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Weekly tests and quick evaluation.
+                  </p>
+              </Card>
+            </AnimatedElement>
+             <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#dcfce7' }}>
+                  <CheckCircle className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Hierarchy of test sessions.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
+                  <Brain className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Term wise parents’ meeting.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fee2e2' }}>
+                  <Target className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Specialized materials.
+                  </p>
+              </Card>
+            </AnimatedElement>
+          </div>
+        </div>
+      </AnimatedSection>
+      
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 bg-testimonial">
           <div className="container mx-auto text-white">
@@ -655,65 +714,6 @@ export default function Home() {
               </div>
             </Carousel>
           </div>
-      </AnimatedSection>
-
-      {/* Features Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold text-center mb-12">Why to choose BCC?</h2>
-          </AnimatedElement>
-          <div className="grid gap-8 md:grid-cols-3">
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
-                  <BookOpen className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                    Daily interaction with parents through Academic Record.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
-                  <Users className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                    Daily awareness about student’s performance for the academic inputs to parents through academic record.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
-                  <Calendar className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Weekly tests and quick evaluation.
-                  </p>
-              </Card>
-            </AnimatedElement>
-             <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#dcfce7' }}>
-                  <CheckCircle className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Hierarchy of test sessions.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
-                  <Brain className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Term wise parents’ meeting.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fee2e2' }}>
-                  <Target className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Specialized materials.
-                  </p>
-              </Card>
-            </AnimatedElement>
-          </div>
-        </div>
       </AnimatedSection>
 
       {/* Courses for Kids Section */}
@@ -917,7 +917,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
              <AnimatedElement animation="fade-left-up">
                 <div>
-                  <h2 className="text-4xl font-bold">Inspired students. Inspired <span className="relative inline-block">results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
+                  <h2 className="text-4xl font-bold">Academic Excellence<span className="relative inline-block">Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
                   <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
                   <div className="flex gap-4 mt-8">
                     <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Explore courses</Button>
