@@ -43,8 +43,8 @@ const navLinks = [
     href: "/", 
     label: "Free study material",
     subLinks: [
-        { href: "/blog", label: "Blog" },
-        { href: "/events", label: "Events" },
+        { href: "/blog", label: "free study material1" },
+        { href: "/events", label: "free study material2" },
     ]
   },
   { href: "/about", label: "Our Results" },
@@ -53,8 +53,8 @@ const navLinks = [
     href: "/", 
     label: "More",
     subLinks: [
-        { href: "/gallery", label: "Gallery" },
-        { href: "/contact", label: "Contact" },
+        { href: "/gallery", label: "More Item1" },
+        { href: "/contact", label: "More Item2" },
     ]
   },
 ];
@@ -68,6 +68,7 @@ export function Header() {
       className={cn(
         "flex items-center font-medium transition-colors hover:text-primary text-base",
         pathname === href ? "text-primary" : "text-muted-foreground",
+        "text-lg",
         className
       )}
     >
@@ -96,7 +97,7 @@ export function Header() {
           </Link>
         </div>
         
-        <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu" style={{ fontSize: '18px' }}>
+        <nav className="hidden items-center justify-center space-x-6 md:flex" style={{ fontSize: '18px' }}>
             {navLinks.map((link) => (
                 link.subLinks ? (
                     <DropdownMenu key={link.label}>
@@ -104,7 +105,7 @@ export function Header() {
                             <Button 
                                 variant={link.isButton ? 'outline' : 'ghost'} 
                                 className={cn(
-                                    "flex items-center gap-1 font-medium text-base",
+                                    "flex items-center gap-1 font-medium text-base text-lg",
                                     link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : "text-muted-foreground hover:text-primary"
                                 )}
                             >
