@@ -701,7 +701,7 @@ export default function Home() {
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
                   <Users className="h-8 w-8 mb-4 text-black" />
                   <p className="mt-2 text-muted-foreground">
-                    Connect and collaborate with a diverse student body.
+                    Daily awareness about student’s performance for the academic inputs to parents through academic record.
                   </p>
               </Card>
             </AnimatedElement>
@@ -1177,6 +1177,7 @@ export default function Home() {
     
 
     
+
 
 
 
