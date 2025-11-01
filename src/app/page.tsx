@@ -549,7 +549,30 @@ export default function Home() {
         </div>
       </AnimatedSection>
       
-      {/* Features Section */}
+      {/* Offline Time Table Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold mb-12">OFFLINE TIME TABLE</h2>
+          </AnimatedElement>
+          <div className="space-y-8">
+              <div>
+                  <h3 className="font-bold text-xl mb-4">CBSE</h3>
+                  <div className="flex flex-wrap gap-4">
+                      {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                  </div>
+              </div>
+              <div>
+                  <h3 className="font-bold text-xl mb-4">SAMACHEER</h3>
+                  <div className="flex flex-wrap gap-4">
+                      {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                  </div>
+              </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* Why to choose BCC? Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
@@ -1200,3 +1223,4 @@ export default function Home() {
 
 
     
+
