@@ -96,7 +96,7 @@ export function Header() {
           </Link>
         </div>
         
-        <nav className="hidden items-center justify-center space-x-6 text-sm md:flex" id="nav-menu">
+        <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu" style={{ fontSize: '18px' }}>
             {navLinks.map((link) => (
                 link.subLinks ? (
                     <DropdownMenu key={link.label}>
