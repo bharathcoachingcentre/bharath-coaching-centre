@@ -4,7 +4,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -548,32 +548,7 @@ export default function Home() {
           </Dialog>
         </div>
       </AnimatedSection>
-
-      {/* Offline Time Table Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-4xl font-bold mb-8 text-center">Offline Time Table</h2>
-          </AnimatedElement>
-          <div>
-            <h3 className="text-2xl font-bold mb-4">CBSE</h3>
-            <div className="flex flex-wrap gap-8 mb-12 justify-start">
-              {classFilters.map((filter, index) => (
-                <Button key={index} variant={'outline'} className={'border-gray-300'}>{filter}</Button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-4">SAMACHEER</h3>
-            <div className="flex flex-wrap gap-8 mb-12 justify-start">
-              {classFilters.map((filter, index) => (
-                <Button key={index} variant={'outline'} className={'border-gray-300'}>{filter}</Button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
-
+      
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 bg-testimonial">
           <div className="container mx-auto text-white">
@@ -709,7 +684,31 @@ export default function Home() {
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
                   <Calendar className="h-8 w-8 mb-4 text-black" />
                   <p className="mt-2 text-muted-foreground">
-                    Choose from a range of schedules to fit your <br></br>life.
+                  Weekly tests and quick evaluation.
+                  </p>
+              </Card>
+            </AnimatedElement>
+             <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#dcfce7' }}>
+                  <CheckCircle className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                    Result oriented and concept-based coaching.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
+                  <Brain className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                    Brain storming sessions for assured success.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fee2e2' }}>
+                  <Target className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                    Special care for slow learners.
                   </p>
               </Card>
             </AnimatedElement>
@@ -1198,3 +1197,6 @@ export default function Home() {
 
 
 
+
+
+    
