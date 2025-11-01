@@ -577,6 +577,9 @@ export default function Home() {
       {/* Features Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold text-center mb-12">Why to choose BCC?</h2>
+          </AnimatedElement>
           <div className="grid gap-8 md:grid-cols-3">
             <AnimatedElement animation="fade-up">
               <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
@@ -1177,6 +1180,7 @@ export default function Home() {
     
 
     
+
 
 
 
