@@ -570,7 +570,7 @@ export default function Home() {
                     <div>
                         <p className="font-semibold text-lg mb-2">What Our Students Say</p>
                         <h2 className="text-3xl font-bold">
-              Stories that <span className="relative inline-block">inspire
+              Students Academic <span className="relative inline-block">Experience
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
               </span>
             </h2>
