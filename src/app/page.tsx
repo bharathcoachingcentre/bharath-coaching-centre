@@ -483,6 +483,41 @@ export default function Home() {
         </div>
       </AnimatedSection>
 
+      {/* Features Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <div className="grid gap-8 md:grid-cols-3">
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+                  <BookOpen className="h-8 w-8 mb-4 text-black" />
+                  <h3 className="text-xl font-bold">Expert-Led Courses</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Learn from industry leaders and renowned academics.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
+                  <Users className="h-8 w-8 mb-4 text-black" />
+                  <h3 className="text-xl font-bold">Vibrant Community</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Connect and collaborate with a diverse student body.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
+                  <Calendar className="h-8 w-8 mb-4 text-black" />
+                  <h3 className="text-xl font-bold">Flexible Learning</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Choose from a range of schedules to fit your <br></br>life.
+                  </p>
+              </Card>
+            </AnimatedElement>
+          </div>
+        </div>
+      </AnimatedSection>
+
       {/* Explore Courses Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
@@ -1135,42 +1170,6 @@ export default function Home() {
             <Phone className="w-6 h-6 text-white" />
           </Button>
       </div>
-
-
-      {/* Features Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <div className="grid gap-8 md:grid-cols-3">
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
-                  <BookOpen className="h-8 w-8 mb-4 text-black" />
-                  <h3 className="text-xl font-bold">Expert-Led Courses</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Learn from industry leaders and renowned academics.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
-                  <Users className="h-8 w-8 mb-4 text-black" />
-                  <h3 className="text-xl font-bold">Vibrant Community</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Connect and collaborate with a diverse student body.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
-                  <Calendar className="h-8 w-8 mb-4 text-black" />
-                  <h3 className="text-xl font-bold">Flexible Learning</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Choose from a range of schedules to fit your <br></br>life.
-                  </p>
-              </Card>
-            </AnimatedElement>
-          </div>
-        </div>
-      </AnimatedSection>
     </div>
   );
 }
@@ -1178,6 +1177,7 @@ export default function Home() {
     
 
     
+
 
 
 
