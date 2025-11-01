@@ -57,13 +57,7 @@ export default function StudentRegistrationPage() {
                 <div className="space-y-8">
                     <div>
                         <Label htmlFor="photo">Upload your photo</Label>
-                        <div className="relative">
-                            <Input id="photo" type="file" className="hidden" />
-                            <Label htmlFor="photo" className="cursor-pointer bg-blue-50/50 border-dashed border-2 border-gray-300 rounded-md p-2 flex items-center justify-between">
-                                <span>Upload your photo</span>
-                                <Upload className="h-5 w-5 text-gray-500" />
-                            </Label>
-                        </div>
+                        <Input id="photo" type="file" className="bg-blue-50/50" />
                     </div>
                   <div>
                     <Label htmlFor="fatherOccupation">Father's Occupation *</Label>
