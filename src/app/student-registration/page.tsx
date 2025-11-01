@@ -43,6 +43,10 @@ export default function StudentRegistrationPage() {
                     <Label htmlFor="parentName">Parent's / Guardian's Name *</Label>
                     <Input id="parentName" placeholder="Parent's / Guardian's Name *" className="bg-blue-50/50" />
                   </div>
+                   <div>
+                    <Label htmlFor="standard">Standard *</Label>
+                    <Input id="standard" placeholder="Standard *" className="bg-blue-50/50" />
+                  </div>
                   <div>
                     <Label htmlFor="motherOccupation">Mother's Occupation *</Label>
                     <Input id="motherOccupation" placeholder="Mother's Occupation *" className="bg-blue-50/50" />
@@ -62,10 +66,6 @@ export default function StudentRegistrationPage() {
                   <div>
                     <Label htmlFor="fatherOccupation">Father's Occupation *</Label>
                     <Input id="fatherOccupation" placeholder="Father's Occupation *" className="bg-blue-50/50" />
-                  </div>
-                  <div>
-                    <Label htmlFor="standard">Standard *</Label>
-                    <Input id="standard" placeholder="Standard *" className="bg-blue-50/50" />
                   </div>
                   <div>
                     <Label htmlFor="dob">Date of Birth *</Label>
