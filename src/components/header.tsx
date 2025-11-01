@@ -84,7 +84,7 @@ export function Header() {
                     <Phone className="h-4 w-4" />
                     <p>Talk to our experts: <a href="tel:+917200030307" className="font-semibold hover:underline">+91 7200030307</a></p>
                 </div>
-                <Button asChild variant="ghost" size="sm" className="text-sm h-auto px-2 py-1 text-white hover:bg-white/20 hover:text-white">
+                <Button asChild size="sm" className="text-sm h-auto px-3 py-1 bg-white text-primary hover:bg-gray-100">
                     <Link href="/signin">Sign in</Link>
                 </Button>
             </div>
