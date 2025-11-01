@@ -51,10 +51,6 @@ export default function StudentRegistrationPage() {
                     <Label htmlFor="motherOccupation">Mother's Occupation *</Label>
                     <Input id="motherOccupation" placeholder="Mother's Occupation *" className="bg-blue-50/50" />
                   </div>
-                  <div>
-                    <Label htmlFor="institutionName">Name of the Institution *</Label>
-                    <Input id="institutionName" placeholder="Name of the Institution *" className="bg-blue-50/50" />
-                  </div>
                 </div>
 
                 {/* Right Column */}
@@ -66,6 +62,10 @@ export default function StudentRegistrationPage() {
                   <div>
                     <Label htmlFor="fatherOccupation">Father's Occupation *</Label>
                     <Input id="fatherOccupation" placeholder="Father's Occupation *" className="bg-blue-50/50" />
+                  </div>
+                  <div>
+                    <Label htmlFor="institutionName">Name of the Institution *</Label>
+                    <Input id="institutionName" placeholder="Name of the Institution *" className="bg-blue-50/50" />
                   </div>
                   <div>
                     <Label htmlFor="dob">Date of Birth *</Label>
