@@ -553,7 +553,7 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold mb-12">OFFLINE <span className="relative inline-block text-primary">TIME TABLE<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span></h2>
+            <h2 className="text-3xl font-bold mb-12">Offline  <span className="relative inline-block text-primary"> Time Table<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span></h2>
           </AnimatedElement>
           <div className="space-y-8">
               <div>
