@@ -856,7 +856,7 @@ export default function Home() {
             <div className="mt-12 py-8 px-6 bg-white rounded-lg shadow-lg border">
               <h3 className="text-xl font-bold text-center mb-6">{selectedMaterial} - {selectedBoard}</h3>
               <div className="flex flex-col items-center justify-center gap-6">
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-wrap items-center justify-center gap-4">
                   {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
                     <Button
                       key={idx}
@@ -869,13 +869,13 @@ export default function Home() {
                       {item.class}
                     </Button>
                   ))}
+                  <Button asChild disabled={!selectedClassPdf}>
+                    <a href={selectedClassPdf || undefined} download>
+                      <Download className="mr-2 h-4 w-4" />
+                      Download
+                    </a>
+                  </Button>
                 </div>
-                <Button asChild disabled={!selectedClassPdf}>
-                  <a href={selectedClassPdf || undefined} download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Download
-                  </a>
-                </Button>
               </div>
             </div>
           )}
@@ -1366,6 +1366,7 @@ export default function Home() {
 
 
     
+
 
 
 
