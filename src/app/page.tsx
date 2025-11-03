@@ -871,7 +871,6 @@ export default function Home() {
                   ))}
                   <Button asChild disabled={!selectedClassPdf}>
                     <a href={selectedClassPdf || undefined} download>
-                      <Download className="mr-2 h-4 w-4" />
                       Download
                     </a>
                   </Button>
@@ -1366,6 +1365,7 @@ export default function Home() {
 
 
     
+
 
 
 
