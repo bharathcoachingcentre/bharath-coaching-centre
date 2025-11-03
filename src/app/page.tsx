@@ -540,7 +540,7 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold mb-12">Offline  <span className="relative inline-block text-primary"> Time Table<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span></h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Offline  <span className="relative inline-block text-primary"> Time Table<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span></h2>
           </AnimatedElement>
           <div className="space-y-8">
               <div>
@@ -741,7 +741,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {studyMaterials.map((material, index) => (
               <AnimatedElement animation="fade-up" key={index}>
-                <Card className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+                <Card className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#45b4e8' }}>
                   <CardTitle className="text-lg font-semibold">{material.title}</CardTitle>
                 </Card>
               </AnimatedElement>
@@ -1234,6 +1234,7 @@ export default function Home() {
 
 
     
+
 
 
 
