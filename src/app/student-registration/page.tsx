@@ -129,14 +129,14 @@ export default function StudentRegistrationPage() {
                         </FormItem>
                       )}
                     />
-                     <FormField
+                    <FormField
                       control={form.control}
-                      name="parentName"
+                      name="fatherOccupation"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Parent's / Guardian's Name *</FormLabel>
+                          <FormLabel>Father's Occupation *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Parent's / Guardian's Name *" {...field} className="bg-blue-50/50" />
+                            <Input placeholder="Father's Occupation *" {...field} className="bg-blue-50/50" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -174,18 +174,18 @@ export default function StudentRegistrationPage() {
                     />
                     <FormField
                       control={form.control}
-                      name="fatherOccupation"
+                      name="parentName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Father's Occupation *</FormLabel>
+                          <FormLabel>Parent's / Guardian's Name *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Father's Occupation *" {...field} className="bg-blue-50/50" />
+                            <Input placeholder="Parent's / Guardian's Name *" {...field} className="bg-blue-50/50" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                     <FormField
+                    <FormField
                         control={form.control}
                         name="institutionName"
                         render={({ field }) => (
@@ -464,5 +464,7 @@ export default function StudentRegistrationPage() {
     </div>
   )
 }
+
+    
 
     
