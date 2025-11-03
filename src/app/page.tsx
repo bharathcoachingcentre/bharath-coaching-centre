@@ -289,32 +289,19 @@ export default function Home() {
 
   const studyMaterials = [
     {
-      src: "/revision-notes.webp",
-      alt: "Revision notes",
-      hint: "study notes",
-      title: "Revision<br/>Notes",
-      bgColor: "bg-red-50",
+      title: "NCERT Books",
     },
     {
-      src: "/general-knowledge.webp",
-      alt: "General knowledge",
-      hint: "knowledge book",
-      title: "General<br/>Knowledge",
-       bgColor: "bg-blue-50",
+      title: "NCERT Solutions",
     },
     {
-      src: "/important-question-papers.webp",
-      alt: "Important question papers",
-      hint: "exam papers",
-      title: "Important<br/>Questions",
-       bgColor: "bg-yellow-50",
+      title: "Formula Booklet",
     },
     {
-      src: "/previous-year-question-papers.webp",
-      alt: "Previous year question papers",
-      hint: "old exam papers",
-      title: "Previous Year<br/>Papers",
-       bgColor: "bg-purple-50",
+      title: "Unit wise question papers",
+    },
+    {
+      title: "Model Board question paper",
     },
   ];
 
@@ -741,6 +728,28 @@ export default function Home() {
         </div>
       </AnimatedSection>
       
+      {/* Study Materials Section */}
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto">
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Study <span className="relative inline-block text-primary">Materials
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+              </span>
+            </h2>
+          </AnimatedElement>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {studyMaterials.map((material, index) => (
+              <AnimatedElement animation="fade-up" key={index}>
+                <Card className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+                  <CardTitle className="text-lg font-semibold">{material.title}</CardTitle>
+                </Card>
+              </AnimatedElement>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
+
       {/* Courses for Kids Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
@@ -913,7 +922,7 @@ export default function Home() {
             <h3 className="text-3xl font-bold mb-8">Study Materials</h3>
           </AnimatedElement>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {studyMaterials.map((material, index) => (
+          {[]/*studyMaterials.map((material, index) => (
               <Card key={index} className={`${material.bgColor} rounded-2xl shadow-lg p-6 flex flex-col items-start text-left`}>
                  <CardHeader className="p-0">
                     <CardTitle className="text-2xl font-bold" dangerouslySetInnerHTML={{ __html: material.title }}></CardTitle>
@@ -931,7 +940,7 @@ export default function Home() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            ))*/.map((o: any) => o)}
           </div>
         </div>
       </AnimatedSection>
@@ -1225,6 +1234,7 @@ export default function Home() {
 
 
     
+
 
 
 
