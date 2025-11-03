@@ -4,7 +4,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target, Download } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -86,6 +86,9 @@ export default function Home() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
   const [isClient, setIsClient] = React.useState(false);
   const [isTimetableOpen, setTimetableOpen] = React.useState(false);
+  const [selectedBoard, setSelectedBoard] = React.useState<string | null>(null);
+  const [selectedMaterial, setSelectedMaterial] = React.useState<string | null>(null);
+
 
   const [newTestimonialApi, setNewTestimonialApi] = React.useState<CarouselApi>()
   const [newTestimonialSelectedIndex, setNewTestimonialSelectedIndex] = React.useState(0)
@@ -287,23 +290,74 @@ export default function Home() {
 
   const classFilters = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
 
-  const studyMaterials = [
-    {
-      title: "NCERT Books",
+  const boardMaterials = {
+    CBSE: {
+      "NCERT Books": [
+        { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
+        { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_ncert.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_ncert.pdf" },
+        { class: "Class 9", pdf: "/pdfs/cbse_9_ncert.pdf" },
+      ],
+      "NCERT Solutions": [
+        { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
+        { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_solutions.pdf" },
+        { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
+      ],
+      "Formula Booklet": [
+        { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_formula.pdf" },
+        { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_formula.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_formula.pdf" },
+        { class: "Class 9", pdf: "/pdfs/cbse_9_formula.pdf" },
+      ],
+      "Unit wise question papers": [
+        { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
+        { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_unit_questions.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
+        { class: "Class 9", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
+      ],
+      "Model Board question paper": [
+        { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
+        { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_model_paper.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_model_paper.pdf" },
+        { class: "Class 9", pdf: "/pdfs/cbse_9_model_paper.pdf" },
+      ],
     },
-    {
-      title: "NCERT Solutions",
+    Samacheer: {
+        "NCERT Books": [
+            { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_ncert.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_ncert.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_ncert.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_ncert.pdf" },
+        ],
+        "NCERT Solutions": [
+            { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_solutions.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_solutions.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_solutions.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_solutions.pdf" },
+        ],
+        "Formula Booklet": [
+            { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_formula.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_formula.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_formula.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_formula.pdf" },
+        ],
+        "Unit wise question papers": [
+            { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_unit_questions.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_unit_questions.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_unit_questions.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_unit_questions.pdf" },
+        ],
+        "Model Board question paper": [
+            { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_model_paper.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_model_paper.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_model_paper.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_model_paper.pdf" },
+        ],
     },
-    {
-      title: "Formula Booklet",
-    },
-    {
-      title: "Unit wise question papers",
-    },
-    {
-      title: "Model Board question paper",
-    },
-  ];
+  };
+  
+  const studyMaterials = Object.keys(boardMaterials.CBSE);
 
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
   const inspiredStories = [
@@ -739,20 +793,47 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {studyMaterials.map((material, index) => (
               <AnimatedElement animation="fade-up" key={index}>
-                <Dialog>
+                <Dialog onOpenChange={(isOpen) => { if (!isOpen) setSelectedBoard(null); }}>
                   <DialogTrigger asChild>
-                    <Card className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14 cursor-pointer" style={{ backgroundColor: '#45b4e8' }}>
-                      <CardTitle className="text-lg font-semibold whitespace-nowrap">{material.title}</CardTitle>
+                    <Card 
+                      className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14 cursor-pointer" 
+                      style={{ backgroundColor: '#45b4e8' }}
+                      onClick={() => setSelectedMaterial(material)}
+                    >
+                      <CardTitle className="text-lg font-semibold whitespace-nowrap">{material}</CardTitle>
                     </Card>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md">
+                  <DialogContent className="sm:max-w-xl">
                     <DialogHeader>
-                      <DialogTitle className="text-center text-2xl font-bold">Select Board</DialogTitle>
+                      <DialogTitle className="text-center text-2xl font-bold">
+                        {selectedBoard ? `${selectedMaterial} - ${selectedBoard}` : 'Select Board'}
+                      </DialogTitle>
                     </DialogHeader>
-                    <div className="flex justify-center gap-4 py-4">
-                      <Button className="bg-blue-500 hover:bg-blue-600 text-white">CBSE</Button>
-                      <Button className="bg-orange-500 hover:bg-orange-600 text-white">Samacheer</Button>
-                    </div>
+                    {!selectedBoard ? (
+                      <div className="flex justify-center gap-4 py-4">
+                        <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setSelectedBoard('CBSE')}>CBSE</Button>
+                        <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => setSelectedBoard('Samacheer')}>Samacheer</Button>
+                      </div>
+                    ) : (
+                      <div className="py-4">
+                        <div className="flex justify-end mb-4">
+                           <Button variant="outline" onClick={() => setSelectedBoard(null)}>Back</Button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
+                            <div key={idx} className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
+                              <span className="font-medium">{item.class}</span>
+                              <Button asChild size="sm">
+                                <a href={item.pdf} download>
+                                  <Download className="mr-2 h-4 w-4" />
+                                  Download
+                                </a>
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </DialogContent>
                 </Dialog>
               </AnimatedElement>
@@ -1245,6 +1326,7 @@ export default function Home() {
 
 
     
+
 
 
 
