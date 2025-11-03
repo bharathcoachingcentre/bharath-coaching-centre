@@ -478,6 +478,17 @@ export default function Home() {
   
   const timetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
 
+  const benefits = [
+    "18+ years experienced faculties specialized in each subjects.",
+    "Weekly tests",
+    "25% & 50% portion tests.",
+    "Full mock tests.",
+    "Quick evaluation",
+    "Term based parents' meeting",
+    "Specialized study materials.",
+    "Previous year ques. paper discussion",
+  ];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -878,6 +889,88 @@ export default function Home() {
               </div>
             </div>
           )}
+        </div>
+      </AnimatedSection>
+      
+      {/* Timetable and Benefits Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-2 gap-12">
+            <AnimatedElement animation="fade-up">
+              <h2 className="text-3xl font-bold text-center mb-8">
+                Weekly <span className="relative inline-block text-primary">Timetable
+                  <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+                </span>
+              </h2>
+              <Card>
+                <CardContent className="p-0">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                      <thead className="bg-gray-100">
+                        <tr>
+                          <th className="p-4 font-semibold">DAY</th>
+                          <th className="p-4 font-semibold">8 AM - 10 AM</th>
+                          <th className="p-4 font-semibold">11 AM - 1 PM</th>
+                          <th className="p-4 font-semibold">2 PM - 4 PM</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b">
+                          <td className="p-4 font-semibold">Monday</td>
+                          <td className="p-4">Mathematics</td>
+                          <td className="p-4">Physics</td>
+                          <td className="p-4">Chemistry</td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="p-4 font-semibold">Tuesday</td>
+                          <td className="p-4">English</td>
+                          <td className="p-4">Social</td>
+                          <td className="p-4">Tamil</td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="p-4 font-semibold">Wednesday</td>
+                          <td className="p-4">Physics</td>
+                          <td className="p-4">Mathematics</td>
+                          <td className="p-4">Science</td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="p-4 font-semibold">Thursday</td>
+                          <td className="p-4">Social</td>
+                          <td className="p-4">Tamil</td>
+                          <td className="p-4">English</td>
+                        </tr>
+                        <tr>
+                          <td className="p-4 font-semibold">Friday</td>
+                          <td className="p-4">Chemistry</td>
+                          <td className="p-4">Science</td>
+                          <td className="p-4">Mathematics</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <h2 className="text-3xl font-bold text-center mb-8">
+                Our <span className="relative inline-block text-primary">Benefits
+                  <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+                </span>
+              </h2>
+              <Card className="bg-blue-50">
+                <CardContent className="p-6">
+                  <ul className="space-y-4">
+                    {benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </AnimatedElement>
+          </div>
         </div>
       </AnimatedSection>
 
@@ -1365,6 +1458,7 @@ export default function Home() {
 
 
     
+
 
 
 
