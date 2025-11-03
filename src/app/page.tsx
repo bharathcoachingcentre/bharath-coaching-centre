@@ -572,65 +572,6 @@ export default function Home() {
         </div>
       </AnimatedSection>
 
-      {/* Why to choose BCC? Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold text-center mb-12">Why to choose BCC?</h2>
-          </AnimatedElement>
-          <div className="grid gap-8 md:grid-cols-3">
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
-                  <BookOpen className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                    Daily interaction with parents through Academic Record.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
-                  <Users className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                    Daily awareness about student’s performance for the academic inputs to parents through academic record.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
-                  <Calendar className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Weekly tests and quick evaluation.
-                  </p>
-              </Card>
-            </AnimatedElement>
-             <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#dcfce7' }}>
-                  <CheckCircle className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Hierarchy of test sessions.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
-                  <Brain className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Term wise parents’ meeting.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fee2e2' }}>
-                  <Target className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Specialized materials.
-                  </p>
-              </Card>
-            </AnimatedElement>
-          </div>
-        </div>
-      </AnimatedSection>
-      
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 bg-testimonial">
           <div className="container mx-auto text-white">
@@ -651,11 +592,9 @@ export default function Home() {
                 <div className="flex justify-between items-center mb-12">
                     <div>
                         <p className="font-semibold text-lg mb-2">What Our Students Say</p>
-                        <h2 className="text-3xl font-bold">
-              Students Academic <span className="relative inline-block">Experience
+                        <h2 className="text-3xl font-bold">Students Academic <span className="relative inline-block">Experience
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
-              </span>
-            </h2>
+              </span></h2>
                     </div>
                     <div className="flex gap-2" id="nav-gap">
                         <CarouselPrevious className="static translate-y-0 testimonial-nav" />
@@ -739,6 +678,69 @@ export default function Home() {
           </div>
       </AnimatedSection>
 
+      {/* Why to choose BCC? Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <AnimatedElement animation="fade-up">
+          <h2 className="text-3xl font-bold text-center mb-12">
+              Why to choose <span className="relative inline-block text-primary">BCC?
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+              </span>
+            </h2>
+          </AnimatedElement>
+          <div className="grid gap-8 md:grid-cols-3">
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
+                  <BookOpen className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                    Daily interaction with parents through Academic Record.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
+                  <Users className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                    Daily awareness about student’s performance for the academic inputs to parents through academic record.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
+                  <Calendar className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Weekly tests and quick evaluation.
+                  </p>
+              </Card>
+            </AnimatedElement>
+             <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#dcfce7' }}>
+                  <CheckCircle className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Hierarchy of test sessions.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
+                  <Brain className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Term wise parents’ meeting.
+                  </p>
+              </Card>
+            </AnimatedElement>
+            <AnimatedElement animation="fade-up">
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fee2e2' }}>
+                  <Target className="h-8 w-8 mb-4 text-black" />
+                  <p className="mt-2 text-muted-foreground">
+                  Specialized materials.
+                  </p>
+              </Card>
+            </AnimatedElement>
+          </div>
+        </div>
+      </AnimatedSection>
+      
       {/* Courses for Kids Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
@@ -1223,4 +1225,5 @@ export default function Home() {
 
 
     
+
 
