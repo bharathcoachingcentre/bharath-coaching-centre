@@ -88,7 +88,7 @@ export default function StudentRegistrationPage() {
     <div style={{ backgroundColor: '#e8effe' }} className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl text-center">
             Student Registration Form
           </h1>
           <p className="mt-4 text-lg leading-6 text-gray-600">
@@ -155,6 +155,40 @@ export default function StudentRegistrationPage() {
                             </FormItem>
                         )}
                         />
+                    <FormField
+                        control={form.control}
+                        name="gender"
+                        render={({ field }) => (
+                            <FormItem className="space-y-3">
+                            <FormLabel>Gender *</FormLabel>
+                            <FormControl>
+                                <RadioGroup
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                                className="flex items-center gap-8 mt-2"
+                                >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                    <FormControl>
+                                    <RadioGroupItem value="male" />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                    Male
+                                    </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                    <FormControl>
+                                    <RadioGroupItem value="female" />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                    Female
+                                    </FormLabel>
+                                </FormItem>
+                                </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                   </div>
 
                   {/* Right Column */}
@@ -231,41 +265,6 @@ export default function StudentRegistrationPage() {
                           <FormMessage />
                         </FormItem>
                       )}
-                    />
-                    
-                    <FormField
-                        control={form.control}
-                        name="gender"
-                        render={({ field }) => (
-                            <FormItem className="space-y-3">
-                            <FormLabel>Gender *</FormLabel>
-                            <FormControl>
-                                <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="flex items-center gap-8 mt-2"
-                                >
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                    <RadioGroupItem value="male" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                    Male
-                                    </FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                    <RadioGroupItem value="female" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                    Female
-                                    </FormLabel>
-                                </FormItem>
-                                </RadioGroup>
-                            </FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
                     />
                   </div>
                 </div>
