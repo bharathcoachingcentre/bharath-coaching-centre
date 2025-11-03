@@ -740,7 +740,7 @@ export default function Home() {
             {studyMaterials.map((material, index) => (
               <AnimatedElement animation="fade-up" key={index}>
                 <Card className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14" style={{ backgroundColor: '#45b4e8' }}>
-                  <CardTitle className="text-lg font-semibold">{material.title}</CardTitle>
+                  <CardTitle className="text-lg font-semibold whitespace-nowrap">{material.title}</CardTitle>
                 </Card>
               </AnimatedElement>
             ))}
@@ -1232,6 +1232,7 @@ export default function Home() {
 
 
     
+
 
 
 
