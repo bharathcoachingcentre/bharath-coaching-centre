@@ -142,19 +142,19 @@ export default function StudentRegistrationPage() {
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="motherOccupation"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Mother's Occupation *</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Mother's Occupation *" {...field} className="bg-blue-50/50" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                     <FormField
+                        control={form.control}
+                        name="institutionName"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Name of the Institution *</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Name of the Institution *" {...field} className="bg-blue-50/50" />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
                   </div>
 
                   {/* Right Column */}
@@ -186,18 +186,18 @@ export default function StudentRegistrationPage() {
                       )}
                     />
                     <FormField
-                        control={form.control}
-                        name="institutionName"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Name of the Institution *</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Name of the Institution *" {...field} className="bg-blue-50/50" />
-                            </FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                        />
+                      control={form.control}
+                      name="motherOccupation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Mother's Occupation *</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Mother's Occupation *" {...field} className="bg-blue-50/50" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     <FormField
                       control={form.control}
                       name="dob"
@@ -464,7 +464,3 @@ export default function StudentRegistrationPage() {
     </div>
   )
 }
-
-    
-
-    
