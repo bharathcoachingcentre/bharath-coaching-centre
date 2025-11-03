@@ -86,9 +86,10 @@ export default function Home() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
   const [isClient, setIsClient] = React.useState(false);
   const [isTimetableOpen, setTimetableOpen] = React.useState(false);
+  const [isStudyMaterialOpen, setStudyMaterialOpen] = React.useState(false);
   const [selectedBoard, setSelectedBoard] = React.useState<string | null>(null);
   const [selectedMaterial, setSelectedMaterial] = React.useState<string | null>(null);
-
+  const [showDownloadOptions, setShowDownloadOptions] = React.useState(false);
 
   const [newTestimonialApi, setNewTestimonialApi] = React.useState<CarouselApi>()
   const [newTestimonialSelectedIndex, setNewTestimonialSelectedIndex] = React.useState(0)
@@ -793,52 +794,73 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {studyMaterials.map((material, index) => (
               <AnimatedElement animation="fade-up" key={index}>
-                <Dialog onOpenChange={(isOpen) => { if (!isOpen) setSelectedBoard(null); }}>
+                <Dialog open={isStudyMaterialOpen && selectedMaterial === material} onOpenChange={(isOpen) => {
+                  if (!isOpen) {
+                    setSelectedMaterial(null);
+                    setSelectedBoard(null);
+                    setShowDownloadOptions(false);
+                    setStudyMaterialOpen(false);
+                  } else {
+                    setStudyMaterialOpen(true);
+                  }
+                }}>
                   <DialogTrigger asChild>
-                    <Card 
-                      className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14 cursor-pointer" 
+                    <Card
+                      className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14 cursor-pointer"
                       style={{ backgroundColor: '#45b4e8' }}
-                      onClick={() => setSelectedMaterial(material)}
+                      onClick={() => {
+                        setSelectedMaterial(material);
+                        setShowDownloadOptions(false);
+                        setSelectedBoard(null);
+                        setStudyMaterialOpen(true);
+                      }}
                     >
                       <CardTitle className="text-lg font-semibold whitespace-nowrap">{material}</CardTitle>
                     </Card>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-xl">
+                  <DialogContent className="sm:max-w-md">
                     <DialogHeader>
                       <DialogTitle className="text-center text-2xl font-bold">
-                        {selectedBoard ? `${selectedMaterial} - ${selectedBoard}` : 'Select Board'}
+                        Select Board
                       </DialogTitle>
                     </DialogHeader>
-                    {!selectedBoard ? (
-                      <div className="flex justify-center gap-4 py-4">
-                        <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setSelectedBoard('CBSE')}>CBSE</Button>
-                        <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => setSelectedBoard('Samacheer')}>Samacheer</Button>
-                      </div>
-                    ) : (
-                      <div className="py-4">
-                        <div className="flex justify-end mb-4">
-                           <Button variant="outline" onClick={() => setSelectedBoard(null)}>Back</Button>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
-                            <div key={idx} className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
-                              <span className="font-medium">{item.class}</span>
-                              <Button asChild size="sm">
-                                <a href={item.pdf} download>
-                                  <Download className="mr-2 h-4 w-4" />
-                                  Download
-                                </a>
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    <div className="flex justify-center gap-4 py-4">
+                      <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
+                        setSelectedBoard('CBSE');
+                        setShowDownloadOptions(true);
+                        setStudyMaterialOpen(false);
+                      }}>CBSE</Button>
+                      <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
+                        setSelectedBoard('Samacheer');
+                        setShowDownloadOptions(true);
+                        setStudyMaterialOpen(false);
+                      }}>Samacheer</Button>
+                    </div>
                   </DialogContent>
                 </Dialog>
               </AnimatedElement>
             ))}
           </div>
+
+          {showDownloadOptions && selectedBoard && selectedMaterial && (
+            <div className="mt-12 py-8 px-6 bg-white rounded-lg shadow-lg border">
+              <h3 className="text-xl font-bold text-center mb-6">{selectedMaterial} - {selectedBoard}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
+                  <div key={idx} className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
+                    <span className="font-medium">{item.class}</span>
+                    <Button asChild size="sm">
+                      <a href={item.pdf} download>
+                        <Download className="mr-2 h-4 w-4" />
+                        Download
+                      </a>
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
       </AnimatedSection>
 
@@ -1326,6 +1348,7 @@ export default function Home() {
 
 
     
+
 
 
 
