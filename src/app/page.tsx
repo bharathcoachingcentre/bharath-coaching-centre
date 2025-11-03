@@ -20,6 +20,8 @@ import { cn } from "@/lib/utils";
 import { CountUpNumber } from "@/components/count-up-number";
 import { motion, AnimatePresence } from "framer-motion";
 import { quotelessJson } from "zod";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 const resultsData = {
   "All": [
@@ -90,6 +92,7 @@ export default function Home() {
   const [selectedBoard, setSelectedBoard] = React.useState<string | null>(null);
   const [selectedMaterial, setSelectedMaterial] = React.useState<string | null>(null);
   const [showDownloadOptions, setShowDownloadOptions] = React.useState(false);
+  const [selectedClassPdf, setSelectedClassPdf] = React.useState<string | null>(null);
 
   const [newTestimonialApi, setNewTestimonialApi] = React.useState<CarouselApi>()
   const [newTestimonialSelectedIndex, setNewTestimonialSelectedIndex] = React.useState(0)
@@ -797,8 +800,6 @@ export default function Home() {
                 <Dialog open={isStudyMaterialOpen && selectedMaterial === material} onOpenChange={(isOpen) => {
                   if (!isOpen) {
                     setSelectedMaterial(null);
-                    setSelectedBoard(null);
-                    setShowDownloadOptions(false);
                     setStudyMaterialOpen(false);
                   } else {
                     setStudyMaterialOpen(true);
@@ -810,8 +811,9 @@ export default function Home() {
                       style={{ backgroundColor: '#45b4e8' }}
                       onClick={() => {
                         setSelectedMaterial(material);
-                        setShowDownloadOptions(false);
-                        setSelectedBoard(null);
+                        setShowDownloadOptions(false); // Reset download view
+                        setSelectedBoard(null); // Reset board
+                        setSelectedClassPdf(null); // Reset class selection
                         setStudyMaterialOpen(true);
                       }}
                     >
@@ -845,18 +847,23 @@ export default function Home() {
           {showDownloadOptions && selectedBoard && selectedMaterial && (
             <div className="mt-12 py-8 px-6 bg-white rounded-lg shadow-lg border">
               <h3 className="text-xl font-bold text-center mb-6">{selectedMaterial} - {selectedBoard}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
-                  <div key={idx} className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
-                    <span className="font-medium">{item.class}</span>
-                    <Button asChild size="sm">
-                      <a href={item.pdf} download>
-                        <Download className="mr-2 h-4 w-4" />
-                        Download
-                      </a>
-                    </Button>
-                  </div>
-                ))}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                <Select onValueChange={(value) => setSelectedClassPdf(value)}>
+                  <SelectTrigger className="w-full md:w-[280px]">
+                    <SelectValue placeholder="Select Class" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
+                      <SelectItem key={idx} value={item.pdf}>{item.class}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button asChild disabled={!selectedClassPdf}>
+                  <a href={selectedClassPdf || undefined} download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Download
+                  </a>
+                </Button>
               </div>
             </div>
           )}
@@ -1348,6 +1355,7 @@ export default function Home() {
 
 
     
+
 
 
 
