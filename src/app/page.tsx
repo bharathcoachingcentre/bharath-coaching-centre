@@ -739,9 +739,22 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {studyMaterials.map((material, index) => (
               <AnimatedElement animation="fade-up" key={index}>
-                <Card className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14" style={{ backgroundColor: '#45b4e8' }}>
-                  <CardTitle className="text-lg font-semibold whitespace-nowrap">{material.title}</CardTitle>
-                </Card>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Card className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14 cursor-pointer" style={{ backgroundColor: '#45b4e8' }}>
+                      <CardTitle className="text-lg font-semibold whitespace-nowrap">{material.title}</CardTitle>
+                    </Card>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle className="text-center text-2xl font-bold">Select Board</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex justify-center gap-4 py-4">
+                      <Button className="bg-blue-500 hover:bg-blue-600 text-white">CBSE</Button>
+                      <Button className="bg-orange-500 hover:bg-orange-600 text-white">Samacheer</Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </AnimatedElement>
             ))}
           </div>
@@ -1232,6 +1245,7 @@ export default function Home() {
 
 
     
+
 
 
 
