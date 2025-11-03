@@ -93,6 +93,7 @@ export default function Home() {
   const [selectedMaterial, setSelectedMaterial] = React.useState<string | null>(null);
   const [showDownloadOptions, setShowDownloadOptions] = React.useState(false);
   const [selectedClassPdf, setSelectedClassPdf] = React.useState<string | null>(null);
+  const [selectedClass, setSelectedClass] = React.useState<string | null>(null);
 
   const [newTestimonialApi, setNewTestimonialApi] = React.useState<CarouselApi>()
   const [newTestimonialSelectedIndex, setNewTestimonialSelectedIndex] = React.useState(0)
@@ -361,7 +362,13 @@ export default function Home() {
     },
   };
   
-  const studyMaterials = Object.keys(boardMaterials.CBSE);
+  const studyMaterials = [
+    "NCERT Books",
+    "NCERT Solutions",
+    "Formula Booklet",
+    "Unit wise question papers",
+    "Model Board question paper",
+  ];
 
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
   const inspiredStories = [
@@ -811,9 +818,10 @@ export default function Home() {
                       style={{ backgroundColor: '#45b4e8' }}
                       onClick={() => {
                         setSelectedMaterial(material);
-                        setShowDownloadOptions(false); // Reset download view
-                        setSelectedBoard(null); // Reset board
-                        setSelectedClassPdf(null); // Reset class selection
+                        setShowDownloadOptions(false);
+                        setSelectedBoard(null);
+                        setSelectedClassPdf(null);
+                        setSelectedClass(null);
                         setStudyMaterialOpen(true);
                       }}
                     >
@@ -847,17 +855,21 @@ export default function Home() {
           {showDownloadOptions && selectedBoard && selectedMaterial && (
             <div className="mt-12 py-8 px-6 bg-white rounded-lg shadow-lg border">
               <h3 className="text-xl font-bold text-center mb-6">{selectedMaterial} - {selectedBoard}</h3>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                <Select onValueChange={(value) => setSelectedClassPdf(value)}>
-                  <SelectTrigger className="w-full md:w-[280px]">
-                    <SelectValue placeholder="Select Class" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
-                      <SelectItem key={idx} value={item.pdf}>{item.class}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="flex flex-col items-center justify-center gap-6">
+                <div className="flex flex-wrap justify-center gap-4">
+                  {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
+                    <Button
+                      key={idx}
+                      variant={selectedClass === item.class ? "default" : "outline"}
+                      onClick={() => {
+                        setSelectedClass(item.class);
+                        setSelectedClassPdf(item.pdf);
+                      }}
+                    >
+                      {item.class}
+                    </Button>
+                  ))}
+                </div>
                 <Button asChild disabled={!selectedClassPdf}>
                   <a href={selectedClassPdf || undefined} download>
                     <Download className="mr-2 h-4 w-4" />
@@ -867,7 +879,6 @@ export default function Home() {
               </div>
             </div>
           )}
-
         </div>
       </AnimatedSection>
 
@@ -1355,6 +1366,7 @@ export default function Home() {
 
 
     
+
 
 
 
