@@ -584,6 +584,7 @@ export default function Home() {
                       fill
                       className="object-cover"
                       data-ai-hint={course.imageHint}
+                      style={index === 2 ? { objectPosition: 'left' } : {}}
                     />
                   </div>
                 </Card>
@@ -864,7 +865,16 @@ export default function Home() {
           </div>
 
           {showDownloadOptions && selectedBoard && selectedMaterial && (
-            <div className="mt-12 py-8 px-6 bg-white rounded-lg shadow-lg border">
+             <div className="relative mt-12 py-8 px-6 bg-white rounded-lg shadow-lg border">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2 h-8 w-8"
+                    onClick={() => setShowDownloadOptions(false)}
+                >
+                    <X className="h-5 w-5" />
+                    <span className="sr-only">Close</span>
+                </Button>
               <h3 className="text-xl font-bold text-center mb-6">{selectedMaterial} - {selectedBoard}</h3>
               <div className="flex flex-col items-center justify-center gap-6">
                 <div className="flex flex-wrap items-center justify-center gap-4">
@@ -1003,7 +1013,7 @@ export default function Home() {
             </div>
             <div className="hidden md:flex justify-center">
               <Image 
-                src="/super-kid.webp"
+                src="/kids-courses.jpg"
                 alt="Courses for kids"
                 width={500}
                 height={550}
@@ -1476,3 +1486,6 @@ export default function Home() {
 
 
 
+
+
+    
