@@ -106,6 +106,7 @@ export default function Home() {
 
   const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
   const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
+  const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
 
   React.useEffect(() => {
     setIsClient(true);
@@ -963,54 +964,53 @@ export default function Home() {
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
                 </span>
               </h2>
-              <div className="mt-8">
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="cbse">
-                    <AccordionTrigger>CBSE</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="flex flex-wrap items-center gap-4">
-                        {(timetablePdfs['CBSE'] as any[]).map((item: any, idx: number) => (
-                          <Button
-                            key={idx}
-                            variant={selectedTimetableClass?.class === item.class && timetableBoard === 'CBSE' ? "default" : "outline"}
-                            onClick={() => {
-                                setTimetableBoard('CBSE');
-                                setSelectedTimetableClass(item);
-                            }}
-                          >
-                            {item.class}
-                          </Button>
-                        ))}
+              <div className="mt-8 flex flex-col items-center">
+                {!showTimetableDownload && (
+                  <Button onClick={() => setShowTimetableDownload(true)}>
+                    Download Timetable
+                  </Button>
+                )}
+                {showTimetableDownload && (
+                  <div className="w-full p-6 bg-gray-50 rounded-lg shadow-inner">
+                     <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-bold text-lg">Select Board</h3>
+                        <Button variant="ghost" size="icon" onClick={() => {
+                            setShowTimetableDownload(false);
+                            setTimetableBoard(null);
+                            setSelectedTimetableClass(null);
+                        }}>
+                            <X className="h-5 w-5" />
+                        </Button>
+                     </div>
+                    {!timetableBoard ? (
+                      <div className="flex gap-4">
+                        <Button onClick={() => setTimetableBoard('CBSE')} className="w-full">CBSE</Button>
+                        <Button onClick={() => setTimetableBoard('Samacheer')} className="w-full">Samacheer</Button>
                       </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="samacheer">
-                    <AccordionTrigger>Samacheer</AccordionTrigger>
-                    <AccordionContent>
+                    ) : (
+                      <div>
                         <div className="flex flex-wrap items-center gap-4">
-                            {(timetablePdfs['Samacheer'] as any[]).map((item: any, idx: number) => (
-                                <Button
-                                key={idx}
-                                variant={selectedTimetableClass?.class === item.class && timetableBoard === 'Samacheer' ? "default" : "outline"}
-                                onClick={() => {
-                                    setTimetableBoard('Samacheer');
-                                    setSelectedTimetableClass(item);
-                                }}
-                                >
-                                {item.class}
-                                </Button>
-                            ))}
+                          {(timetablePdfs[timetableBoard as keyof typeof timetablePdfs] as any[]).map((item: any, idx: number) => (
+                            <Button
+                              key={idx}
+                              variant={selectedTimetableClass?.class === item.class ? "default" : "outline"}
+                              onClick={() => setSelectedTimetableClass(item)}
+                            >
+                              {item.class}
+                            </Button>
+                          ))}
                         </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-                <div className="mt-4 flex justify-start">
-                    <Button asChild disabled={!selectedTimetableClass}>
-                        <a href={selectedTimetableClass?.pdf || undefined} download>
-                            <Download className="mr-2 h-4 w-4" /> Download
-                        </a>
-                    </Button>
-                </div>
+                        <div className="mt-4 flex justify-start">
+                            <Button asChild disabled={!selectedTimetableClass}>
+                                <a href={selectedTimetableClass?.pdf || undefined} download>
+                                    <Download className="mr-2 h-4 w-4" /> Download
+                                </a>
+                            </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
@@ -1541,6 +1541,7 @@ export default function Home() {
 
 
     
+
 
 
 
