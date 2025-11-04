@@ -175,7 +175,7 @@ export default function Home() {
         "Phonics based Training",
         "Fun and engaging learning every day",
       ],
-      imageUrl: "/member-1.png",
+      imageUrl: "/final-sk.png",
       imageHint: "female teacher",
       bgColor: "bg-blue-50",
     },
@@ -1541,6 +1541,7 @@ export default function Home() {
 
 
     
+
 
 
 
