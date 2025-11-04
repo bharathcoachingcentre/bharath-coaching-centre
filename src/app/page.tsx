@@ -898,7 +898,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12">
             <AnimatedElement animation="fade-up">
               <h2 className="text-3xl font-bold text-center mb-8">
-                Weekly <span className="relative inline-block text-primary">Timetable
+                <span className="relative inline-block text-primary">Timetable
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
                 </span>
               </h2>
@@ -1458,6 +1458,7 @@ export default function Home() {
 
 
     
+
 
 
 
