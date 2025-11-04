@@ -966,7 +966,7 @@ export default function Home() {
               </h2>
               <div className="mt-8 flex flex-col items-center">
                 {!showTimetableDownload && (
-                  <Button onClick={() => setShowTimetableDownload(true)}>
+                  <Button size="lg" onClick={() => setShowTimetableDownload(true)}>
                     Download Timetable
                   </Button>
                 )}
@@ -1541,6 +1541,7 @@ export default function Home() {
 
 
     
+
 
 
 
