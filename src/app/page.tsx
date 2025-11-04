@@ -95,9 +95,9 @@ export default function Home() {
   const [isClient, setIsClient] = React.useState(false);
   const [isTimetableOpen, setTimetableOpen] = React.useState(false);
   const [isStudyMaterialOpen, setStudyMaterialOpen] = React.useState(false);
-  const [selectedBoard, setSelectedBoard] = React.useState<string | null>(null);
   const [selectedMaterial, setSelectedMaterial] = React.useState<string | null>(null);
   const [showDownloadOptions, setShowDownloadOptions] = React.useState(false);
+  const [selectedBoard, setSelectedBoard] = React.useState<string | null>(null);
   const [selectedClassPdf, setSelectedClassPdf] = React.useState<string | null>(null);
   const [selectedClass, setSelectedClass] = React.useState<string | null>(null);
 
@@ -528,6 +528,21 @@ export default function Home() {
         number: "3",
         title: "Start the journey",
         description: "Elit tellus, luctus nec mattis, pulvinar dapibus leo. Nam varius consectetur elementum.",
+    },
+    {
+      number: "4",
+      title: "Placeholder Title 4",
+      description: "Placeholder description for step 4.",
+    },
+    {
+      number: "5",
+      title: "Placeholder Title 5",
+      description: "Placeholder description for step 5.",
+    },
+    {
+      number: "6",
+      title: "Placeholder Title 6",
+      description: "Placeholder description for step 6.",
     }
   ];
 
@@ -1573,6 +1588,7 @@ export default function Home() {
 
 
     
+
 
 
 
