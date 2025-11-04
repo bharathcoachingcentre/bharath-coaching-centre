@@ -45,7 +45,7 @@ const resultsData = {
     { src: '/stu-2.png', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
     { src: '/stu-3.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
     { src: '/stu-6.png', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
-    { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K Vora', score: 'Maths 95 | Total 470' },
     { src: '/stu-4.png', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
   ],
   "12th Board": [
@@ -516,27 +516,27 @@ export default function Home() {
   const howItWorksSteps = [
     {
       number: "1",
-      description: "Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius consectetur.",
+      description: "Daily interaction with parents through Academic Record.",
     },
     {
       number: "2",
-      description: "Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius elementum.",
+      description: "Daily awareness about student’s performance for the academic inputs to parents through academic record.",
     },
     {
         number: "3",
-        description: "Elit tellus, luctus nec mattis, pulvinar dapibus leo. Nam varius consectetur elementum.",
+        description: "Weekly tests and quick evaluation.",
     },
     {
       number: "4",
-      description: "Placeholder description for step 4.",
+      description: "Hierarchy of test sessions.",
     },
     {
       number: "5",
-      description: "Placeholder description for step 5.",
+      description: "Term wise parents’ meeting.",
     },
     {
       number: "6",
-      description: "Placeholder description for step 6.",
+      description: "Specialized materials.",
     }
   ];
 
@@ -1581,6 +1581,7 @@ export default function Home() {
 
 
     
+
 
 
 
