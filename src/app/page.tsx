@@ -21,6 +21,12 @@ import { CountUpNumber } from "@/components/count-up-number";
 import { motion, AnimatePresence } from "framer-motion";
 import { quotelessJson } from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 
 const resultsData = {
@@ -97,6 +103,9 @@ export default function Home() {
 
   const [newTestimonialApi, setNewTestimonialApi] = React.useState<CarouselApi>()
   const [newTestimonialSelectedIndex, setNewTestimonialSelectedIndex] = React.useState(0)
+
+  const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
+  const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
   React.useEffect(() => {
     setIsClient(true);
@@ -369,6 +378,21 @@ export default function Home() {
     "Unit wise question papers",
     "Model Board question paper",
   ];
+
+  const timetablePdfs = {
+    CBSE: [
+        { class: "Class 12", pdf: "/pdfs/timetable_cbse_12.pdf" },
+        { class: "Class 11", pdf: "/pdfs/timetable_cbse_11.pdf" },
+        { class: "Class 10", pdf: "/pdfs/timetable_cbse_10.pdf" },
+        { class: "Class 9", pdf: "/pdfs/timetable_cbse_9.pdf" },
+    ],
+    Samacheer: [
+        { class: "Class 12", pdf: "/pdfs/timetable_samacheer_12.pdf" },
+        { class: "Class 11", pdf: "/pdfs/timetable_samacheer_11.pdf" },
+        { class: "Class 10", pdf: "/pdfs/timetable_samacheer_10.pdf" },
+        { class: "Class 9", pdf: "/pdfs/timetable_samacheer_9.pdf" },
+    ]
+  };
 
   const resultsFilters: ResultCategory[] = ["All", "10th Board", "12th Board"];
   const inspiredStories = [
@@ -892,7 +916,7 @@ export default function Home() {
                   ))}
                   <Button asChild disabled={!selectedClassPdf}>
                     <a href={selectedClassPdf || undefined} download>
-                      Download
+                       Download
                     </a>
                   </Button>
                 </div>
@@ -960,6 +984,55 @@ export default function Home() {
                   </div>
                 </CardContent>
               </Card>
+              <div className="mt-8">
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="cbse">
+                    <AccordionTrigger>CBSE</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-wrap items-center gap-4">
+                        {(timetablePdfs['CBSE'] as any[]).map((item: any, idx: number) => (
+                          <Button
+                            key={idx}
+                            variant={selectedTimetableClass?.class === item.class && timetableBoard === 'CBSE' ? "default" : "outline"}
+                            onClick={() => {
+                                setTimetableBoard('CBSE');
+                                setSelectedTimetableClass(item);
+                            }}
+                          >
+                            {item.class}
+                          </Button>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="samacheer">
+                    <AccordionTrigger>Samacheer</AccordionTrigger>
+                    <AccordionContent>
+                        <div className="flex flex-wrap items-center gap-4">
+                            {(timetablePdfs['Samacheer'] as any[]).map((item: any, idx: number) => (
+                                <Button
+                                key={idx}
+                                variant={selectedTimetableClass?.class === item.class && timetableBoard === 'Samacheer' ? "default" : "outline"}
+                                onClick={() => {
+                                    setTimetableBoard('Samacheer');
+                                    setSelectedTimetableClass(item);
+                                }}
+                                >
+                                {item.class}
+                                </Button>
+                            ))}
+                        </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+                <div className="mt-4 flex justify-start">
+                    <Button asChild disabled={!selectedTimetableClass}>
+                        <a href={selectedTimetableClass?.pdf || undefined} download>
+                            <Download className="mr-2 h-4 w-4" /> Download
+                        </a>
+                    </Button>
+                </div>
+              </div>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
               <h2 className="text-3xl font-bold text-center mb-8">
