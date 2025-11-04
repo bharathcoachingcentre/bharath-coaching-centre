@@ -719,7 +719,7 @@ export default function Home() {
                 </div>
               
               <div className="grid md:grid-cols-5 gap-8 items-center">
-                  <div className="md:col-span-2 relative h-[350px] w-full max-w-sm mx-auto">
+                  <div className="md:col-span-1 relative h-[300px] w-full max-w-xs mx-auto">
                       <AnimatePresence>
                           <motion.div
                               key={newTestimonialSelectedIndex}
@@ -740,7 +740,7 @@ export default function Home() {
                       </AnimatePresence>
                   </div>
 
-                  <div className="md:col-span-3 flex items-center gap-4">
+                  <div className="md:col-span-4 flex items-center gap-4">
                       <div className="w-2/3 space-y-4">
                           <AnimatePresence mode="wait">
                               <motion.div
@@ -1541,6 +1541,7 @@ export default function Home() {
 
 
     
+
 
 
 
