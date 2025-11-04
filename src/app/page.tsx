@@ -208,7 +208,7 @@ export default function Home() {
         "Online Class",
         "Parent Teachers Meeting",
       ],
-      imageUrl: "/member-3.png",
+      imageUrl: "/Super-kid-3.png",
       imageHint: "happy student",
       bgColor: "bg-yellow-50",
     },
@@ -636,7 +636,6 @@ export default function Home() {
                       fill
                       className="object-cover"
                       data-ai-hint={course.imageHint}
-                      style={index === 2 ? { objectPosition: 'left' } : {}}
                     />
                   </div>
                 </Card>
@@ -1541,6 +1540,7 @@ export default function Home() {
 
 
     
+
 
 
 
