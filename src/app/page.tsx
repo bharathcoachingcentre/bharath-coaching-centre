@@ -516,32 +516,26 @@ export default function Home() {
   const howItWorksSteps = [
     {
       number: "1",
-      title: "Find the perfect tutor",
       description: "Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius consectetur.",
     },
     {
       number: "2",
-      title: "Schedule your lesson",
       description: "Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius elementum.",
     },
     {
         number: "3",
-        title: "Start the journey",
         description: "Elit tellus, luctus nec mattis, pulvinar dapibus leo. Nam varius consectetur elementum.",
     },
     {
       number: "4",
-      title: "Placeholder Title 4",
       description: "Placeholder description for step 4.",
     },
     {
       number: "5",
-      title: "Placeholder Title 5",
       description: "Placeholder description for step 5.",
     },
     {
       number: "6",
-      title: "Placeholder Title 6",
       description: "Placeholder description for step 6.",
     }
   ];
@@ -889,7 +883,6 @@ export default function Home() {
                                     {step.number}
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold">{step.title}</h3>
                                     <p className="text-muted-foreground mt-1">{step.description}</p>
                                 </div>
                             </div>
@@ -1588,6 +1581,7 @@ export default function Home() {
 
 
     
+
 
 
 
