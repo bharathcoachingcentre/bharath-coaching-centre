@@ -513,6 +513,24 @@ export default function Home() {
     "Previous year ques. paper discussion",
   ];
 
+  const howItWorksSteps = [
+    {
+      number: "1",
+      title: "Find the perfect tutor",
+      description: "Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius consectetur.",
+    },
+    {
+      number: "2",
+      title: "Schedule your lesson",
+      description: "Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius elementum.",
+    },
+    {
+        number: "3",
+        title: "Start the journey",
+        description: "Elit tellus, luctus nec mattis, pulvinar dapibus leo. Nam varius consectetur elementum.",
+    }
+  ];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -827,6 +845,47 @@ export default function Home() {
         </div>
       </AnimatedSection>
       
+      {/* How it all works Section */}
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+                <AnimatedElement animation="fade-up">
+                    <h2 className="text-4xl font-bold">How it all works</h2>
+                    <p className="text-muted-foreground mt-4">Placeholder text for how it all works. Donec sagittis sagittis vestibulum. Morbi vestibulum neque.</p>
+                </AnimatedElement>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+                <AnimatedElement animation="fade-up">
+                    <Image 
+                        src="https://picsum.photos/seed/howitworks/600/800"
+                        alt="How it works"
+                        width={600}
+                        height={800}
+                        className="rounded-xl shadow-lg"
+                        data-ai-hint="woman studying laptop"
+                    />
+                </AnimatedElement>
+                <div className="space-y-8">
+                    {howItWorksSteps.map((step, index) => (
+                        <AnimatedElement animation="fade-left" key={index}>
+                            <div className="flex items-start gap-4">
+                                <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary font-bold text-xl">
+                                    {step.number}
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold">{step.title}</h3>
+                                    <p className="text-muted-foreground mt-1">{step.description}</p>
+                                </div>
+                            </div>
+                        </AnimatedElement>
+                    ))}
+                </div>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
       {/* Study Materials Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
@@ -1514,4 +1573,5 @@ export default function Home() {
 
 
     
+
 
