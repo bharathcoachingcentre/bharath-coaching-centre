@@ -998,9 +998,7 @@ export default function Home() {
                               {item.class}
                             </Button>
                           ))}
-                        </div>
-                        <div className="mt-4 flex justify-start">
-                            <Button asChild disabled={!selectedTimetableClass}>
+                           <Button asChild disabled={!selectedTimetableClass}>
                                 <a href={selectedTimetableClass?.pdf || undefined} download>
                                     <Download className="mr-2 h-4 w-4" /> Download
                                 </a>
@@ -1031,6 +1029,31 @@ export default function Home() {
                 </CardContent>
               </Card>
             </AnimatedElement>
+          </div>
+        </div>
+      </AnimatedSection>
+      
+      {/* Download Study Material Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
+            <div className="grid md:grid-cols-2 items-center">
+              <div className="p-8 md:p-12 text-white">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
+                <Button variant="outline" size="lg" className="bg-white text-primary hover:bg-gray-100">
+                  DOWNLOAD
+                </Button>
+              </div>
+              <div className="relative h-64 md:h-full">
+                <Image
+                  src="https://placehold.co/600x400.png"
+                  alt="Study Material"
+                  fill
+                  className="object-cover"
+                  data-ai-hint="modern building"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </AnimatedSection>
@@ -1540,6 +1563,7 @@ export default function Home() {
 
 
     
+
 
 
 
