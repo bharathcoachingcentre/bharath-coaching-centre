@@ -1038,8 +1038,8 @@ export default function Home() {
             </div>
             <div className="hidden md:flex justify-center">
               <Image 
-                src="/kids-courses.jpg"
-                alt="Courses for kids"
+                src="/super-kid.webp"
+                alt="A child excited about learning"
                 width={500}
                 height={550}
                 className="rounded-lg"
@@ -1514,3 +1514,4 @@ export default function Home() {
 
 
     
+
