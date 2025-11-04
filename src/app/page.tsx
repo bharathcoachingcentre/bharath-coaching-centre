@@ -848,14 +848,14 @@ export default function Home() {
       {/* How it all works Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+          <div className="grid lg:grid-cols-3 gap-12 items-center">
+            <div className="space-y-6 lg:col-span-1">
                 <AnimatedElement animation="fade-up">
                     <h2 className="text-4xl font-bold">How it all works</h2>
                     <p className="text-muted-foreground mt-4">Placeholder text for how it all works. Donec sagittis sagittis vestibulum. Morbi vestibulum neque.</p>
                 </AnimatedElement>
             </div>
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="lg:col-span-2 grid md:grid-cols-2 gap-8 items-center">
                 <AnimatedElement animation="fade-up">
                     <Image 
                         src="https://picsum.photos/seed/howitworks/600/800"
@@ -1573,5 +1573,6 @@ export default function Home() {
 
 
     
+
 
 
