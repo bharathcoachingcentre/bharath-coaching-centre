@@ -486,7 +486,7 @@ export default function Home() {
   },
   {
     company: 'S K Janani Priya',
-    quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that made me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
+    quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
     author: 'MBBS Student, Theni Government college',
     image: '/testi-5.png',
     imageHint: 'man portrait',
@@ -936,54 +936,6 @@ export default function Home() {
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
                 </span>
               </h2>
-              <Card>
-                <CardContent className="p-0">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left">
-                      <thead className="bg-gray-100">
-                        <tr>
-                          <th className="p-4 font-semibold">DAY</th>
-                          <th className="p-4 font-semibold">8 AM - 10 AM</th>
-                          <th className="p-4 font-semibold">11 AM - 1 PM</th>
-                          <th className="p-4 font-semibold">2 PM - 4 PM</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="border-b">
-                          <td className="p-4 font-semibold">Monday</td>
-                          <td className="p-4">Mathematics</td>
-                          <td className="p-4">Physics</td>
-                          <td className="p-4">Chemistry</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="p-4 font-semibold">Tuesday</td>
-                          <td className="p-4">English</td>
-                          <td className="p-4">Social</td>
-                          <td className="p-4">Tamil</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="p-4 font-semibold">Wednesday</td>
-                          <td className="p-4">Physics</td>
-                          <td className="p-4">Mathematics</td>
-                          <td className="p-4">Science</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="p-4 font-semibold">Thursday</td>
-                          <td className="p-4">Social</td>
-                          <td className="p-4">Tamil</td>
-                          <td className="p-4">English</td>
-                        </tr>
-                        <tr>
-                          <td className="p-4 font-semibold">Friday</td>
-                          <td className="p-4">Chemistry</td>
-                          <td className="p-4">Science</td>
-                          <td className="p-4">Mathematics</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </CardContent>
-              </Card>
               <div className="mt-8">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="cbse">
