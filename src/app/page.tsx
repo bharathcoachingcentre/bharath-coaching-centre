@@ -965,6 +965,14 @@ export default function Home() {
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
                 </span>
               </h2>
+              <Image
+                  src="/download-timetable.jpg"
+                  alt="Download Timetable"
+                  width={400}
+                  height={400}
+                  className="mx-auto my-4 rounded-lg"
+                  data-ai-hint="timetable schedule"
+              />
               <div className="mt-8 flex flex-col items-center">
                 {!showTimetableDownload && (
                   <Button size="lg" onClick={() => setShowTimetableDownload(true)}>
@@ -1630,6 +1638,7 @@ export default function Home() {
 
 
     
+
 
 
 
