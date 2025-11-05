@@ -191,7 +191,7 @@ export default function Home() {
         "One to one Session",
         "Parent Teacher Meeting",
       ],
-      imageUrl: "/member-2.png",
+      imageUrl: "/Super-kid-2.png",
       imageHint: "male teacher",
       bgColor: "bg-purple-50",
     },
@@ -1563,6 +1563,7 @@ export default function Home() {
 
 
     
+
 
 
 
