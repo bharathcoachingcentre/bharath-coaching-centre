@@ -975,7 +975,7 @@ export default function Home() {
                 </span>
               </h2>
               <Image
-                  src="/download-timetable.jpg"
+                  src="/download-timetable-1.png"
                   alt="Download Timetable"
                   width={350}
                   height={350}
@@ -1660,6 +1660,7 @@ export default function Home() {
 
 
     
+
 
 
 
