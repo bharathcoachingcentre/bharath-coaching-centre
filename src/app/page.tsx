@@ -966,7 +966,7 @@ export default function Home() {
                 </span>
               </h2>
               <Image
-                  src="/download-timetable-1.png"
+                  src="/download-timetable.jpg"
                   alt="Download Timetable"
                   width={350}
                   height={350}
@@ -1026,7 +1026,7 @@ export default function Home() {
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
                 </span>
               </h2>
-              <Card className="bg-blue-50">
+              <Card className="bg-blue-50 min-h-[420px]">
                 <CardContent className="p-6">
                   <ul className="space-y-4">
                     {benefits.map((benefit, index) => (
@@ -1638,6 +1638,7 @@ export default function Home() {
 
 
     
+
 
 
 
