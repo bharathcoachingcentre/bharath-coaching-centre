@@ -1140,7 +1140,7 @@ export default function Home() {
               </div>
               <div className="relative h-64 md:h-full md:col-span-2">
                 <Image
-                  src="https://placehold.co/600x400.png"
+                  src="/Study-material.png"
                   alt="Study Material"
                   fill
                   className="object-cover"
@@ -1659,6 +1659,7 @@ export default function Home() {
 
 
     
+
 
 
 
