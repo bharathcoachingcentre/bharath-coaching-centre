@@ -1040,9 +1040,13 @@ export default function Home() {
             <div className="grid md:grid-cols-5 items-center">
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
-                <Button variant="outline" size="lg" className="bg-white text-primary hover:bg-gray-100">
-                  DOWNLOAD
-                </Button>
+                 <div className="flex flex-wrap gap-4">
+                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">NCERT Books</Button>
+                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">NCERT Solutions</Button>
+                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">Formula Booklet</Button>
+                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">Unit wise question papers</Button>
+                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">Model Board question paper</Button>
+                </div>
               </div>
               <div className="relative h-64 md:h-full md:col-span-2">
                 <Image
@@ -1563,6 +1567,7 @@ export default function Home() {
 
 
     
+
 
 
 
