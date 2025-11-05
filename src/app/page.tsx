@@ -42,7 +42,7 @@ const resultsData = {
   "10th Board": [
     
     { src: '/stu-5.png', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
-    { src: '/stu-2.png', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/stu-2.png  ', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
     { src: '/stu-3.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
     { src: '/stu-6.png', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
     { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K Vora', score: 'Maths 95 | Total 470' },
@@ -871,6 +871,7 @@ export default function Home() {
                   if (!isOpen) {
                     setSelectedMaterial(null);
                     setStudyMaterialOpen(false);
+                    // Don't reset board selection here to keep it for the new UI
                   } else {
                     setStudyMaterialOpen(true);
                   }
@@ -881,11 +882,12 @@ export default function Home() {
                       style={{ backgroundColor: '#45b4e8' }}
                       onClick={() => {
                         setSelectedMaterial(material);
-                        setShowDownloadOptions(false);
+                        // Reset dependent states
                         setSelectedBoard(null);
-                        setSelectedClassPdf(null);
                         setSelectedClass(null);
-                        setStudyMaterialOpen(true);
+                        setSelectedClassPdf(null);
+                        setShowDownloadOptions(false); // Hide the external container
+                        setStudyMaterialOpen(true); // Open the dialog
                       }}
                     >
                       <CardTitle className="text-lg font-semibold whitespace-nowrap">{material}</CardTitle>
@@ -943,7 +945,7 @@ export default function Home() {
                   ))}
                   <Button asChild disabled={!selectedClassPdf}>
                     <a href={selectedClassPdf || undefined} download>
-                       Download
+                       <Download className="mr-2 h-4 w-4" /> Download
                     </a>
                   </Button>
                 </div>
@@ -1628,6 +1630,7 @@ export default function Home() {
 
 
     
+
 
 
 
