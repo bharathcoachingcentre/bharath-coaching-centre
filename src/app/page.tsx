@@ -892,7 +892,6 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
                   if (!isOpen) {
                     setSelectedMaterial(null);
                     setStudyMaterialOpen(false);
-                    // Don't reset other states, to keep selection visible
                   } else {
                     setStudyMaterialOpen(true);
                   }
@@ -1275,8 +1274,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
                       <Download className="w-6 h-6 text-primary" /> Download Study Materials
                     </h3>
                     <div className="flex flex-wrap gap-4">
-                        <Button variant="outline"><BookOpen className="mr-2" /> NCERT Books</Button>
-                        <Button variant="outline"><CheckCircle className="mr-2" /> NCERT Solutions</Button>
+                        <Button variant="outline"><BookOpen className="mr-2" /> NCERT Books</Button>                        <Button variant="outline"><CheckCircle className="mr-2" /> NCERT Solutions</Button>
                         <Button variant="outline"><Calculator className="mr-2" /> Formula Booklet</Button>
                         <Button variant="outline"><ClipboardCheck className="mr-2" /> Unit Wise Question Papers</Button>
                     </div>
@@ -1724,8 +1722,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
                   </div>
                   <div>
                     <p className="text-3xl font-bold"><CountUpNumber end={57} />+</p>
-                    <p className="text-muted-foreground">countries where students take LIVE classes</p>
-                  </div>
+                    <p className="text-muted-foreground">countries where students take LIVE classes</p>                  </div>
                 </div>
               </div>
             </div>
