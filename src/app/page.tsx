@@ -871,7 +871,6 @@ export default function Home() {
                   if (!isOpen) {
                     setSelectedMaterial(null);
                     setStudyMaterialOpen(false);
-                    // Don't reset board selection here to keep it for the new UI
                   } else {
                     setStudyMaterialOpen(true);
                   }
@@ -882,12 +881,11 @@ export default function Home() {
                       style={{ backgroundColor: '#45b4e8' }}
                       onClick={() => {
                         setSelectedMaterial(material);
-                        // Reset dependent states
                         setSelectedBoard(null);
                         setSelectedClass(null);
                         setSelectedClassPdf(null);
-                        setShowDownloadOptions(false); // Hide the external container
-                        setStudyMaterialOpen(true); // Open the dialog
+                        setShowDownloadOptions(false);
+                        setStudyMaterialOpen(true);
                       }}
                     >
                       <CardTitle className="text-lg font-semibold whitespace-nowrap">{material}</CardTitle>
@@ -1086,36 +1084,50 @@ export default function Home() {
                             </DialogHeader>
                             {!selectedBoard ? (
                                 <div className="flex justify-center gap-4 py-4">
-                                    <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setSelectedBoard('CBSE')}>CBSE</Button>
-                                    <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => setSelectedBoard('Samacheer')}>Samacheer</Button>
+                                    <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
+                                      setSelectedBoard('CBSE'); 
+                                      setShowDownloadOptions(true); 
+                                      setStudyMaterialOpen(false);
+                                    }}>CBSE</Button>
+                                    <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
+                                      setSelectedBoard('Samacheer');
+                                      setShowDownloadOptions(true); 
+                                      setStudyMaterialOpen(false);
+                                    }}>Samacheer</Button>
                                 </div>
-                            ) : (
-                                <div className="flex flex-col items-center justify-center gap-6 py-4">
-                                    <div className="flex flex-wrap items-center justify-center gap-4">
-                                        {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
-                                            <Button
-                                                key={idx}
-                                                variant={selectedClass === item.class ? "default" : "outline"}
-                                                onClick={() => {
-                                                    setSelectedClass(item.class);
-                                                    setSelectedClassPdf(item.pdf);
-                                                }}
-                                            >
-                                                {item.class}
-                                            </Button>
-                                        ))}
-                                    </div>
-                                    <Button asChild disabled={!selectedClassPdf}>
-                                        <a href={selectedClassPdf || undefined} download>
-                                            <Download className="mr-2 h-4 w-4" /> Download
-                                        </a>
-                                    </Button>
-                                </div>
-                            )}
+                            ) : null}
                             </DialogContent>
                         </Dialog>
                     ))}
                 </div>
+                {showDownloadOptions && selectedBoard && selectedMaterial && (
+                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
+                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setShowDownloadOptions(false)}>
+                            <X className="h-5 w-5" />
+                        </Button>
+                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{selectedMaterial} - {selectedBoard}</h3>
+                        <div className="flex flex-wrap items-center justify-center gap-4">
+                            {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
+                                <Button
+                                    key={idx}
+                                    variant={selectedClass === item.class ? "secondary" : "outline"}
+                                    className="bg-gray-200 text-gray-800"
+                                    onClick={() => {
+                                        setSelectedClass(item.class);
+                                        setSelectedClassPdf(item.pdf);
+                                    }}
+                                >
+                                    {item.class}
+                                </Button>
+                            ))}
+                            <Button asChild disabled={!selectedClassPdf}>
+                                <a href={selectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
+                                    <Download className="mr-2 h-4 w-4" /> Download
+                                </a>
+                            </Button>
+                        </div>
+                    </div>
+                )}
               </div>
               <div className="relative h-64 md:h-full md:col-span-2">
                 <Image
@@ -1638,6 +1650,7 @@ export default function Home() {
 
 
     
+
 
 
 
