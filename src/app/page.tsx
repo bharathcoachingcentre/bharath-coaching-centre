@@ -966,10 +966,10 @@ export default function Home() {
                 </span>
               </h2>
               <Image
-                  src="/download-timetable.jpg"
+                  src="/download-timetable-1.png"
                   alt="Download Timetable"
-                  width={400}
-                  height={400}
+                  width={350}
+                  height={350}
                   className="mx-auto my-4 rounded-lg"
                   data-ai-hint="timetable schedule"
               />
@@ -1638,6 +1638,7 @@ export default function Home() {
 
 
     
+
 
 
 
