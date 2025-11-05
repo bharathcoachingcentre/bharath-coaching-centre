@@ -27,8 +27,8 @@ const navLinks = [
     label: "Offline Courses",
     isButton: true,
     subLinks: [
-        { href: "/courses", label: "Course 1" },
-        { href: "/courses", label: "Course 2" },
+        { href: "/courses", label: "CBSE" },
+        { href: "/courses", label: "Samacheer" },
     ]
   },
   { 
