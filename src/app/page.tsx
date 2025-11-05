@@ -94,12 +94,22 @@ export default function Home() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
   const [isClient, setIsClient] = React.useState(false);
   const [isTimetableOpen, setTimetableOpen] = React.useState(false);
+  
+  // State for the first "Study Materials" section
   const [isStudyMaterialOpen, setStudyMaterialOpen] = React.useState(false);
   const [selectedMaterial, setSelectedMaterial] = React.useState<string | null>(null);
   const [showDownloadOptions, setShowDownloadOptions] = React.useState(false);
   const [selectedBoard, setSelectedBoard] = React.useState<string | null>(null);
-  const [selectedClassPdf, setSelectedClassPdf] = React.useState<string | null>(null);
   const [selectedClass, setSelectedClass] = React.useState<string | null>(null);
+  const [selectedClassPdf, setSelectedClassPdf] = React.useState<string | null>(null);
+  
+  // State for the second "Download Study Material" section
+  const [dsmIsStudyMaterialOpen, setDsmIsStudyMaterialOpen] = React.useState(false);
+  const [dsmSelectedMaterial, setDsmSelectedMaterial] = React.useState<string | null>(null);
+  const [dsmShowDownloadOptions, setDsmShowDownloadOptions] = React.useState(false);
+  const [dsmSelectedBoard, setDsmSelectedBoard] = React.useState<string | null>(null);
+  const [dsmSelectedClass, setDsmSelectedClass] = React.useState<string | null>(null);
+  const [dsmSelectedClassPdf, setDsmSelectedClassPdf] = React.useState<string | null>(null);
 
   const [newTestimonialApi, setNewTestimonialApi] = React.useState<CarouselApi>()
   const [newTestimonialSelectedIndex, setNewTestimonialSelectedIndex] = React.useState(0)
@@ -871,6 +881,7 @@ export default function Home() {
                   if (!isOpen) {
                     setSelectedMaterial(null);
                     setStudyMaterialOpen(false);
+                    // Don't reset other states, to keep selection visible
                   } else {
                     setStudyMaterialOpen(true);
                   }
@@ -1052,15 +1063,11 @@ export default function Home() {
                     {studyMaterials.map((material, index) => (
                         <Dialog 
                             key={index}
-                            open={isStudyMaterialOpen && selectedMaterial === material} 
+                            open={dsmIsStudyMaterialOpen && dsmSelectedMaterial === material} 
                             onOpenChange={(isOpen) => {
                                 if (!isOpen) {
-                                    setSelectedMaterial(null);
-                                    setStudyMaterialOpen(false);
-                                    setShowDownloadOptions(false);
-                                    setSelectedBoard(null);
-                                    setSelectedClass(null);
-                                    setSelectedClassPdf(null);
+                                    setDsmSelectedMaterial(null);
+                                    setDsmIsStudyMaterialOpen(false);
                                 }
                             }}
                         >
@@ -1069,8 +1076,12 @@ export default function Home() {
                                     variant="outline"
                                     className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
                                     onClick={() => {
-                                        setSelectedMaterial(material);
-                                        setStudyMaterialOpen(true);
+                                        setDsmSelectedMaterial(material);
+                                        setDsmSelectedBoard(null);
+                                        setDsmSelectedClass(null);
+                                        setDsmSelectedClassPdf(null);
+                                        setDsmShowDownloadOptions(false);
+                                        setDsmIsStudyMaterialOpen(true);
                                     }}
                                 >
                                     {material}
@@ -1079,49 +1090,47 @@ export default function Home() {
                             <DialogContent className="sm:max-w-lg">
                             <DialogHeader>
                                 <DialogTitle className="text-center text-2xl font-bold">
-                                    {selectedBoard ? `${selectedMaterial} - ${selectedBoard}` : 'Select Board'}
+                                    Select Board
                                 </DialogTitle>
                             </DialogHeader>
-                            {!selectedBoard ? (
                                 <div className="flex justify-center gap-4 py-4">
                                     <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                                      setSelectedBoard('CBSE'); 
-                                      setShowDownloadOptions(true); 
-                                      setStudyMaterialOpen(false);
+                                      setDsmSelectedBoard('CBSE'); 
+                                      setDsmShowDownloadOptions(true); 
+                                      setDsmIsStudyMaterialOpen(false);
                                     }}>CBSE</Button>
                                     <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
-                                      setSelectedBoard('Samacheer');
-                                      setShowDownloadOptions(true); 
-                                      setStudyMaterialOpen(false);
+                                      setDsmSelectedBoard('Samacheer');
+                                      setDsmShowDownloadOptions(true); 
+                                      setDsmIsStudyMaterialOpen(false);
                                     }}>Samacheer</Button>
                                 </div>
-                            ) : null}
                             </DialogContent>
                         </Dialog>
                     ))}
                 </div>
-                {showDownloadOptions && selectedBoard && selectedMaterial && (
+                {dsmShowDownloadOptions && dsmSelectedBoard && dsmSelectedMaterial && (
                     <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setShowDownloadOptions(false)}>
+                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmShowDownloadOptions(false)}>
                             <X className="h-5 w-5" />
                         </Button>
-                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{selectedMaterial} - {selectedBoard}</h3>
+                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
                         <div className="flex flex-wrap items-center justify-center gap-4">
-                            {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
+                            {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]?.map((item: any, idx: number) => (
                                 <Button
                                     key={idx}
-                                    variant={selectedClass === item.class ? "secondary" : "outline"}
+                                    variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
                                     className="bg-gray-200 text-gray-800"
                                     onClick={() => {
-                                        setSelectedClass(item.class);
-                                        setSelectedClassPdf(item.pdf);
+                                        setDsmSelectedClass(item.class);
+                                        setDsmSelectedClassPdf(item.pdf);
                                     }}
                                 >
                                     {item.class}
                                 </Button>
                             ))}
-                            <Button asChild disabled={!selectedClassPdf}>
-                                <a href={selectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
+                            <Button asChild disabled={!dsmSelectedClassPdf}>
+                                <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
                                     <Download className="mr-2 h-4 w-4" /> Download
                                 </a>
                             </Button>
@@ -1650,6 +1659,7 @@ export default function Home() {
 
 
     
+
 
 
 
