@@ -1037,14 +1037,14 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
-            <div className="grid md:grid-cols-2 items-center">
-              <div className="p-8 md:p-12 text-white">
+            <div className="grid md:grid-cols-5 items-center">
+              <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
                 <Button variant="outline" size="lg" className="bg-white text-primary hover:bg-gray-100">
                   DOWNLOAD
                 </Button>
               </div>
-              <div className="relative h-64 md:h-full">
+              <div className="relative h-64 md:h-full md:col-span-2">
                 <Image
                   src="https://placehold.co/600x400.png"
                   alt="Study Material"
@@ -1563,6 +1563,7 @@ export default function Home() {
 
 
     
+
 
 
 
