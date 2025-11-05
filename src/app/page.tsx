@@ -1068,7 +1068,7 @@ export default function Home() {
                                     {material}
                                 </Button>
                             </DialogTrigger>
-                            <DialogContent className="sm:max-w-md">
+                            <DialogContent className="sm:max-w-lg">
                             <DialogHeader>
                                 <DialogTitle className="text-center text-2xl font-bold">
                                     {selectedBoard ? `${selectedMaterial} - ${selectedBoard}` : 'Select Board'}
@@ -1582,6 +1582,8 @@ export default function Home() {
 
     
 
+    
+
 
 
 
@@ -1626,6 +1628,7 @@ export default function Home() {
 
 
     
+
 
 
 
