@@ -17,9 +17,29 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+
+const offlineCourses = [
+    { label: "Class 12 PCM", href: "/courses" },
+    { label: "12 Compartment", href: "/courses" },
+    { label: "Class 11 PCM", href: "/courses" },
+    { label: "Class 10 All subjects", href: "/courses" },
+    { label: "Class 9 All subjects", href: "/courses" },
+    { label: "Class 8 All subjects", href: "/courses" },
+    { label: "Class 7 All subjects", href: "/courses" },
+    { label: "Class 6 All subjects", href: "/courses" },
+    { label: "Class 5 All subjects", href: "/courses" },
+    { label: "Class 4 All subjects", href: "/courses" },
+    { label: "Class 3 All subjects", href: "/courses" },
+    { label: "Class 2 All subjects", href: "/courses" },
+    { label: "Class 1 All subjects", href: "/courses" },
+];
 
 const navLinks = [
   { 
@@ -27,8 +47,16 @@ const navLinks = [
     label: "Offline Courses",
     isButton: true,
     subLinks: [
-        { href: "/courses", label: "CBSE" },
-        { href: "/courses", label: "Samacheer" },
+        { 
+            label: "CBSE",
+            href: "/courses",
+            nestedLinks: offlineCourses
+        },
+        { 
+            label: "Samacheer",
+            href: "/courses",
+            nestedLinks: offlineCourses
+        },
     ]
   },
   { 
@@ -97,7 +125,7 @@ export function Header() {
           </Link>
         </div>
         
-        <nav className="hidden items-center justify-center space-x-6 md:flex" style={{ fontSize: '18px' }}>
+        <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu">
             {navLinks.map((link) => (
                 link.subLinks ? (
                     <DropdownMenu key={link.label}>
@@ -114,10 +142,27 @@ export function Header() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            {link.subLinks.map(subLink => (
-                                <DropdownMenuItem key={subLink.label} asChild>
-                                    <Link href={subLink.href}>{subLink.label}</Link>
-                                </DropdownMenuItem>
+                            {link.subLinks.map((subLink: any) => (
+                                subLink.nestedLinks ? (
+                                    <DropdownMenuSub key={subLink.label}>
+                                        <DropdownMenuSubTrigger>
+                                            <span>{subLink.label}</span>
+                                        </DropdownMenuSubTrigger>
+                                        <DropdownMenuPortal>
+                                            <DropdownMenuSubContent>
+                                                {subLink.nestedLinks.map((nestedLink: any) => (
+                                                    <DropdownMenuItem key={nestedLink.label} asChild>
+                                                        <Link href={nestedLink.href}>{nestedLink.label}</Link>
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </DropdownMenuSubContent>
+                                        </DropdownMenuPortal>
+                                    </DropdownMenuSub>
+                                ) : (
+                                    <DropdownMenuItem key={subLink.label} asChild>
+                                        <Link href={subLink.href}>{subLink.label}</Link>
+                                    </DropdownMenuItem>
+                                )
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
