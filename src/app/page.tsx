@@ -956,7 +956,7 @@ export default function Home() {
       </AnimatedSection>
       
       {/* Timetable and Benefits Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
             <AnimatedElement animation="fade-up">
@@ -1630,6 +1630,7 @@ export default function Home() {
 
 
     
+
 
 
 
