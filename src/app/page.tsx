@@ -208,7 +208,7 @@ export default function Home() {
         "Online Class",
         "Parent Teachers Meeting",
       ],
-      imageUrl: "/Super-kid-3.png",
+      imageUrl: "/Super-kids-3.png",
       imageHint: "happy student",
       bgColor: "bg-yellow-50",
     },
@@ -1041,11 +1041,70 @@ export default function Home() {
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
                  <div className="flex flex-wrap gap-4">
-                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">NCERT Books</Button>
-                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">NCERT Solutions</Button>
-                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">Formula Booklet</Button>
-                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">Unit wise question papers</Button>
-                  <Button variant="outline" className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black">Model Board question paper</Button>
+                    {studyMaterials.map((material, index) => (
+                        <Dialog 
+                            key={index}
+                            open={isStudyMaterialOpen && selectedMaterial === material} 
+                            onOpenChange={(isOpen) => {
+                                if (!isOpen) {
+                                    setSelectedMaterial(null);
+                                    setStudyMaterialOpen(false);
+                                    setShowDownloadOptions(false);
+                                    setSelectedBoard(null);
+                                    setSelectedClass(null);
+                                    setSelectedClassPdf(null);
+                                }
+                            }}
+                        >
+                            <DialogTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
+                                    onClick={() => {
+                                        setSelectedMaterial(material);
+                                        setStudyMaterialOpen(true);
+                                    }}
+                                >
+                                    {material}
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                                <DialogTitle className="text-center text-2xl font-bold">
+                                    {selectedBoard ? `${selectedMaterial} - ${selectedBoard}` : 'Select Board'}
+                                </DialogTitle>
+                            </DialogHeader>
+                            {!selectedBoard ? (
+                                <div className="flex justify-center gap-4 py-4">
+                                    <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setSelectedBoard('CBSE')}>CBSE</Button>
+                                    <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => setSelectedBoard('Samacheer')}>Samacheer</Button>
+                                </div>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center gap-6 py-4">
+                                    <div className="flex flex-wrap items-center justify-center gap-4">
+                                        {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
+                                            <Button
+                                                key={idx}
+                                                variant={selectedClass === item.class ? "default" : "outline"}
+                                                onClick={() => {
+                                                    setSelectedClass(item.class);
+                                                    setSelectedClassPdf(item.pdf);
+                                                }}
+                                            >
+                                                {item.class}
+                                            </Button>
+                                        ))}
+                                    </div>
+                                    <Button asChild disabled={!selectedClassPdf}>
+                                        <a href={selectedClassPdf || undefined} download>
+                                            <Download className="mr-2 h-4 w-4" /> Download
+                                        </a>
+                                    </Button>
+                                </div>
+                            )}
+                            </DialogContent>
+                        </Dialog>
+                    ))}
                 </div>
               </div>
               <div className="relative h-64 md:h-full md:col-span-2">
@@ -1567,6 +1626,7 @@ export default function Home() {
 
 
     
+
 
 
 
