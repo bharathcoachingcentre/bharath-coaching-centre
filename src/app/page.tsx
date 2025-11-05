@@ -1138,12 +1138,13 @@ export default function Home() {
                     </div>
                 )}
               </div>
-              <div className="relative h-64 md:h-full md:col-span-2">
+              <div className="h-64 md:h-full md:col-span-2">
                 <Image
                   src="/Study-material.png"
                   alt="Study Material"
-                  fill
-                  className="object-cover"
+                  width={600}
+                  height={600}
+                  className="object-cover w-full h-full relative"
                   data-ai-hint="modern building"
                 />
               </div>
@@ -1659,6 +1660,7 @@ export default function Home() {
 
 
     
+
 
 
 
