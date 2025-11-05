@@ -1139,13 +1139,13 @@ export default function Home() {
                     </div>
                 )}
               </div>
-              <div className="h-64 md:h-full md:col-span-2">
+              <div className="h-64 md:h-full md:col-span-2 relative">
                 <Image
                   src="/Study-material.png"
                   alt="Study Material"
                   width={600}
                   height={600}
-                  className="object-cover w-full h-full relative"
+                  className="object-cover w-full h-full"
                   data-ai-hint="modern building"
                 />
               </div>
@@ -1169,14 +1169,72 @@ export default function Home() {
             <TabsContent value="class-6">
               <Card className="mt-4">
                 <CardContent className="p-6">
-                    Content for Class 6
+                  <div className="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                      <h3 className="flex items-center gap-2 text-xl font-bold mb-4">
+                        <Calendar className="w-6 h-6 text-primary" /> Timetable
+                      </h3>
+                      <p className="text-muted-foreground mb-4">Respective timetables for each class will be placed here. This is a placeholder.</p>
+                      <Button><Download className="mr-2 h-4 w-4" /> Download Timetable</Button>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-4">Benefits</h3>
+                      <ul className="space-y-3">
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> 5+ years experienced faculties</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Weekly tests</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Quick evaluation</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Term based parents' meeting</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Specialized study materials</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-8 border-t pt-8">
+                    <h3 className="flex items-center gap-2 text-xl font-bold mb-4">
+                      <Download className="w-6 h-6 text-primary" /> Download Study Materials
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
+                        <Button variant="outline"><BookOpen className="mr-2" /> NCERT Books</Button>
+                        <Button variant="outline"><CheckCircle className="mr-2" /> NCERT Solutions</Button>
+                        <Button variant="outline"><Calculator className="mr-2" /> Formula Booklet</Button>
+                        <Button variant="outline"><ClipboardCheck className="mr-2" /> Unit Wise Question Papers</Button>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
             <TabsContent value="class-7">
                <Card className="mt-4">
                 <CardContent className="p-6">
-                    Content for Class 7
+                  <div className="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                      <h3 className="flex items-center gap-2 text-xl font-bold mb-4">
+                        <Calendar className="w-6 h-6 text-primary" /> Timetable
+                      </h3>
+                      <p className="text-muted-foreground mb-4">Respective timetables for each class will be placed here. This is a placeholder.</p>
+                      <Button><Download className="mr-2 h-4 w-4" /> Download Timetable</Button>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-4">Benefits</h3>
+                      <ul className="space-y-3">
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> 5+ years experienced faculties</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Weekly tests</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Quick evaluation</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Term based parents' meeting</li>
+                        <li className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-500" /> Specialized study materials</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-8 border-t pt-8">
+                    <h3 className="flex items-center gap-2 text-xl font-bold mb-4">
+                      <Download className="w-6 h-6 text-primary" /> Download Study Materials
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
+                        <Button variant="outline"><BookOpen className="mr-2" /> NCERT Books</Button>
+                        <Button variant="outline"><CheckCircle className="mr-2" /> NCERT Solutions</Button>
+                        <Button variant="outline"><Calculator className="mr-2" /> Formula Booklet</Button>
+                        <Button variant="outline"><ClipboardCheck className="mr-2" /> Unit Wise Question Papers</Button>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -1727,6 +1785,7 @@ export default function Home() {
 
 
     
+
 
 
 
