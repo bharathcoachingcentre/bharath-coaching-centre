@@ -52,7 +52,7 @@ export default function AboutPage() {
                 <div className="absolute left-8 h-full w-px border-l-2 border-dashed border-gray-300"></div>
                 
                 <div className="relative flex items-start gap-8">
-                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
+                   <div className="flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
                     <Smile className="h-8 w-8" />
                   </div>
                   <div>
@@ -63,7 +63,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="relative flex items-start gap-8">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
                     <CalendarCheck className="h-8 w-8" />
                   </div>
                   <div>
@@ -74,7 +74,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="relative flex items-start gap-8">
-                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
+                   <div className="flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
                     <Coffee className="h-8 w-8" />
                   </div>
                   <div>
@@ -85,7 +85,7 @@ export default function AboutPage() {
                 </div>
 
                  <div className="relative flex items-start gap-8">
-                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
+                   <div className="flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
                     <Award className="h-8 w-8" />
                   </div>
                   <div>
