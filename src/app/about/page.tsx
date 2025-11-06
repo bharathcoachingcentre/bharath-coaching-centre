@@ -49,44 +49,46 @@ export default function AboutPage() {
               </div>
 
               <div className="relative space-y-10">
-                <div className="relative flex items-start">
-                   <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="absolute left-8 h-full w-px border-l-2 border-dashed border-gray-300"></div>
+                
+                <div className="relative flex items-start gap-8">
+                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
                     <Smile className="h-8 w-8" />
                   </div>
-                  <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
-                  <div style={{ marginLeft: '25px' }}>
+                  <div>
                     <p className="mt-2 text-gray-600">
                       Everyone is an achiever.
                     </p>
                   </div>
                 </div>
-                <div className="relative flex items-start">
-                  <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+
+                <div className="relative flex items-start gap-8">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
                     <CalendarCheck className="h-8 w-8" />
                   </div>
-                   <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
-                  <div style={{ marginLeft: '25px' }}>
+                  <div>
                     <p className="mt-2 text-gray-600">
                       Every student needs a unique method to deliver the concept.
                     </p>
                   </div>
                 </div>
-                <div className="relative flex items-start">
-                   <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+
+                <div className="relative flex items-start gap-8">
+                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
                     <Coffee className="h-8 w-8" />
                   </div>
-                  <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
-                  <div style={{ marginLeft: '25px' }}>
+                  <div>
                     <p className="mt-2 text-gray-600">
                       BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.
                     </p>
                   </div>
                 </div>
-                 <div className="relative flex items-start">
-                   <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+
+                 <div className="relative flex items-start gap-8">
+                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 z-10 bg-white">
                     <Award className="h-8 w-8" />
                   </div>
-                  <div style={{ marginLeft: '25px' }}>
+                  <div>
                     <p className="mt-2 text-gray-600">
                       Our moto “Everyone is an achiever.” stands as our ultimate goal is to train up any student who step into our academy and turn them up into an achiever.
                     </p>
