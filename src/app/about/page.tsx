@@ -7,7 +7,7 @@ export default function AboutPage() {
     <div>
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
         <Image
-          src="https://picsum.photos/seed/about-us-banner/1200/400"
+          src="/About-Us.jpg"
           alt="About Us Banner"
           fill
           className="object-cover"
