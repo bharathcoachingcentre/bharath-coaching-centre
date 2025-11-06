@@ -6,7 +6,7 @@ export default function TrainingMethodologyPage() {
     {
       number: "1",
       title: "Find the perfect tutor",
-      description: "Daily interaction with parents through Academic Record.",
+      description: "We don’t believe in training students to memorize the lessons which have been taught in school.",
       position: "top-8",
     },
     {
