@@ -52,11 +52,11 @@ export default function AboutPage() {
               </div>
 
               <div className="relative space-y-10 pl-16">
-                 <div className="absolute left-[38px] top-0 h-full border-l-2 border-dashed border-gray-300"></div>
                 <div className="relative flex items-start">
                    <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Smile className="h-8 w-8" />
                   </div>
+                  <div className="absolute left-[-32px] top-20 h-24 border-l-2 border-dashed border-gray-300"></div>
                   <div>
                     <h3 className="text-lg font-bold text-primary tracking-wider">TALK TO ME FIRST</h3>
                     <p className="mt-2 text-gray-600">
@@ -68,6 +68,7 @@ export default function AboutPage() {
                   <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <CalendarCheck className="h-8 w-8" />
                   </div>
+                   <div className="absolute left-[-32px] top-20 h-24 border-l-2 border-dashed border-gray-300"></div>
                   <div>
                     <h3 className="text-lg font-bold text-primary tracking-wider">BOOK YOUR SESSION</h3>
                     <p className="mt-2 text-gray-600">
