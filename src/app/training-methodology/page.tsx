@@ -59,12 +59,12 @@ export default function TrainingMethodologyPage() {
             <div className="md:col-span-2 relative">
                 <div id="methodology-steps" className="relative w-full max-w-lg mx-auto">
                     <Image
-                        src="https://picsum.photos/seed/training/400/600"
-                        alt="Training process"
+                        src="/Coaching.png"
+                        alt="Coaching"
                         width={400}
                         height={600}
                         className="rounded-lg shadow-lg"
-                        data-ai-hint="team working"
+                        data-ai-hint="coaching session"
                     />
                     <div className="absolute inset-0">
                         {howItWorksSteps.map((step) => (
