@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Smile, CalendarCheck, Coffee } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -19,29 +20,72 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold">
-                Our Story & <span className="text-primary">Mission</span>
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Founded with a passion for excellence, Bharath Academy has been a beacon of knowledge and a nurturing ground for young minds. We believe in an education that goes beyond textbooks, one that sparks curiosity and builds character.
-              </p>
-              <p className="text-muted-foreground">
-                Our mission is to empower students to achieve their full academic and personal potential. We are committed to creating a community of learners who are not just successful in their careers but are also compassionate and responsible global citizens.
-              </p>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="relative">
+              <div className="absolute -top-8 -left-8 w-48 h-48 bg-[radial-gradient(hsl(var(--primary)/0.1)_2px,transparent_2px)] [background-size:16px_16px] -z-0"></div>
+              <div className="relative z-10">
+                <Image
+                  src="https://picsum.photos/seed/counseling/600/700"
+                  alt="Counseling session"
+                  width={600}
+                  height={700}
+                  className="rounded-lg shadow-2xl object-cover"
+                  data-ai-hint="counseling session"
+                />
+              </div>
             </div>
-            <div>
-              <Image 
-                src="https://picsum.photos/seed/about-story/600/500"
-                alt="Students learning together"
-                width={600}
-                height={500}
-                className="rounded-lg shadow-xl"
-                data-ai-hint="students learning"
-              />
+            <div className="space-y-8">
+              <div>
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="h-2 w-2 rounded-full bg-primary"></span>
+                  <p className="text-sm font-semibold tracking-widest text-primary">THE PROCESS</p>
+                </div>
+                <h2 className="text-4xl font-bold font-serif text-gray-800 leading-tight">
+                  An amazing tagline for your process...
+                </h2>
+                <p className="mt-6 text-lg text-gray-600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices magna vel lorem molestie, sed finibus leo placerat. Nulla non purus des venenatis.
+                </p>
+              </div>
+
+              <div className="relative space-y-10 pl-16">
+                 <div className="absolute left-[30px] top-0 h-full border-l-2 border-dashed border-gray-300"></div>
+                <div className="relative flex items-start">
+                   <div className="absolute left-[-48px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Smile className="h-8 w-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-primary tracking-wider">TALK TO ME FIRST</h3>
+                    <p className="mt-2 text-gray-600">
+                      Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing.
+                    </p>
+                  </div>
+                </div>
+                <div className="relative flex items-start">
+                  <div className="absolute left-[-48px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <CalendarCheck className="h-8 w-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-primary tracking-wider">BOOK YOUR SESSION</h3>
+                    <p className="mt-2 text-gray-600">
+                      Eu tellus neque sociis mattis mus malesuada viverra consequat elit class nonummy porttitor.
+                    </p>
+                  </div>
+                </div>
+                <div className="relative flex items-start">
+                   <div className="absolute left-[-48px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Coffee className="h-8 w-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-primary tracking-wider">COME SIT WITH ME</h3>
+                    <p className="mt-2 text-gray-600">
+                      Quam nisl feugiat potenti sed tristique interdum risus fames odio eros nostra amet facilisi potenti sagittis maecenas lacus consectetuer.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
