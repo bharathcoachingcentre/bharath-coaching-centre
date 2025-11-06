@@ -7,19 +7,31 @@ export default function TrainingMethodologyPage() {
       number: "1",
       title: "Find the perfect tutor",
       description: "Daily interaction with parents through Academic Record.",
-      position: "top-16",
+      position: "top-8",
     },
     {
       number: "2",
       title: "Schedule your lesson",
       description: "Daily awareness about student’s performance for the academic inputs to parents through academic record.",
-      position: "top-1/2 -translate-y-1/2",
+      position: "top-1/4",
     },
     {
       number: "3",
       title: "Start the journey",
       description: "Weekly tests and quick evaluation.",
-      position: "bottom-16",
+      position: "top-1/2 -translate-y-1/2",
+    },
+    {
+      number: "4",
+      title: "Track your progress",
+      description: "Hierarchy of test sessions.",
+      position: "bottom-1/4",
+    },
+    {
+      number: "5",
+      title: "Achieve your goals",
+      description: "Term wise parents’ meeting.",
+      position: "bottom-8",
     },
   ];
 
