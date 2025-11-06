@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { Smile, CalendarCheck, Coffee } from "lucide-react";
 
@@ -50,7 +51,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="relative space-y-10 pl-16">
+              <div className="relative space-y-10 pl-12">
                  <div className="absolute left-[30px] top-0 h-full border-l-2 border-dashed border-gray-300"></div>
                 <div className="relative flex items-start">
                    <div className="absolute left-[-48px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
