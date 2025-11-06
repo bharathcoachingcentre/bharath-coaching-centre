@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { Smile, CalendarCheck, Coffee } from "lucide-react";
+import { Smile, CalendarCheck, Coffee, Award } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -48,7 +48,7 @@ export default function AboutPage() {
                 </h2>
               </div>
 
-              <div className="relative space-y-10 pl-16">
+              <div className="relative space-y-10">
                 <div className="relative flex items-start">
                    <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Smile className="h-8 w-8" />
@@ -56,7 +56,7 @@ export default function AboutPage() {
                   <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
                   <div style={{ marginLeft: '25px' }}>
                     <p className="mt-2 text-gray-600">
-                      Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing.
+                      Everyone is an achiever.
                     </p>
                   </div>
                 </div>
@@ -67,7 +67,7 @@ export default function AboutPage() {
                    <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
                   <div style={{ marginLeft: '25px' }}>
                     <p className="mt-2 text-gray-600">
-                      Eu tellus neque sociis mattis mus malesuada viverra consequat elit class nonummy porttitor.
+                      Every student needs a unique method to deliver the concept.
                     </p>
                   </div>
                 </div>
@@ -75,9 +75,20 @@ export default function AboutPage() {
                    <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Coffee className="h-8 w-8" />
                   </div>
+                  <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
                   <div style={{ marginLeft: '25px' }}>
                     <p className="mt-2 text-gray-600">
-                      Quam nisl feugiat potenti sed tristique interdum risus fames odio eros nostra amet facilisi potenti sagittis maecenas lacus consectetuer.
+                      BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.
+                    </p>
+                  </div>
+                </div>
+                 <div className="relative flex items-start">
+                   <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Award className="h-8 w-8" />
+                  </div>
+                  <div style={{ marginLeft: '25px' }}>
+                    <p className="mt-2 text-gray-600">
+                      Our moto “Everyone is an achiever.” stands as our ultimate goal is to train up any student who step into our academy and turn them up into an achiever.
                     </p>
                   </div>
                 </div>
