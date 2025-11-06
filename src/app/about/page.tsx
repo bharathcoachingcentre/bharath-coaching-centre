@@ -55,7 +55,6 @@ export default function AboutPage() {
                   </div>
                   <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
                   <div style={{ marginLeft: '25px' }}>
-                    <h3 className="text-lg font-bold text-primary tracking-wider">TALK TO ME FIRST</h3>
                     <p className="mt-2 text-gray-600">
                       Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing.
                     </p>
@@ -67,7 +66,6 @@ export default function AboutPage() {
                   </div>
                    <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
                   <div style={{ marginLeft: '25px' }}>
-                    <h3 className="text-lg font-bold text-primary tracking-wider">BOOK YOUR SESSION</h3>
                     <p className="mt-2 text-gray-600">
                       Eu tellus neque sociis mattis mus malesuada viverra consequat elit class nonummy porttitor.
                     </p>
@@ -78,7 +76,6 @@ export default function AboutPage() {
                     <Coffee className="h-8 w-8" />
                   </div>
                   <div style={{ marginLeft: '25px' }}>
-                    <h3 className="text-lg font-bold text-primary tracking-wider">COME SIT WITH ME</h3>
                     <p className="mt-2 text-gray-600">
                       Quam nisl feugiat potenti sed tristique interdum risus fames odio eros nostra amet facilisi potenti sagittis maecenas lacus consectetuer.
                     </p>
