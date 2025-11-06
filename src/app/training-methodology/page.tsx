@@ -23,10 +23,6 @@ export default function TrainingMethodologyPage() {
       number: "5",
       description: "Term wise parents’ meeting.",
     },
-    {
-      number: "6",
-      description: "Specialized materials.",
-    }
   ];
 
   return (
