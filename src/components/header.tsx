@@ -81,8 +81,11 @@ const navLinks = [
     href: "/", 
     label: "More",
     subLinks: [
-        { href: "/gallery", label: "More Item1" },
-        { href: "/contact", label: "More Item2" },
+        { href: "/about", label: "About Us" },
+        { href: "/training-methodology", label: "Our Training Methodology" },
+        { href: "/student-registration", label: "To Apply" },
+        { href: "/contact", label: "Contact Us" },
+        { href: "/become-a-teacher", label: "Become a Teacher" },
     ]
   },
 ];
