@@ -323,3 +323,7 @@ color:rgb(27, 157, 243);
 .relative.w-full.max-w-lg.mx-auto {
     margin-left: 0px;
 }
+
+#methodology-steps .right-0 {
+    right: -143px;
+}
