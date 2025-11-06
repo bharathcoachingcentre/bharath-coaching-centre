@@ -56,8 +56,8 @@ export default function AboutPage() {
                    <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Smile className="h-8 w-8" />
                   </div>
-                  <div className="absolute left-[-32px] top-20 h-24 border-l-2 border-dashed border-gray-300"></div>
-                  <div>
+                  <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
+                  <div style={{ marginLeft: '25px' }}>
                     <h3 className="text-lg font-bold text-primary tracking-wider">TALK TO ME FIRST</h3>
                     <p className="mt-2 text-gray-600">
                       Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing.
@@ -68,8 +68,8 @@ export default function AboutPage() {
                   <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <CalendarCheck className="h-8 w-8" />
                   </div>
-                   <div className="absolute left-[-32px] top-20 h-24 border-l-2 border-dashed border-gray-300"></div>
-                  <div>
+                   <div className="absolute left-[-32px] border-l-2 border-dashed border-gray-300" style={{top: '70px', height: '47px'}}></div>
+                  <div style={{ marginLeft: '25px' }}>
                     <h3 className="text-lg font-bold text-primary tracking-wider">BOOK YOUR SESSION</h3>
                     <p className="mt-2 text-gray-600">
                       Eu tellus neque sociis mattis mus malesuada viverra consequat elit class nonummy porttitor.
@@ -80,7 +80,7 @@ export default function AboutPage() {
                    <div className="absolute left-[-64px] top-0 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Coffee className="h-8 w-8" />
                   </div>
-                  <div>
+                  <div style={{ marginLeft: '25px' }}>
                     <h3 className="text-lg font-bold text-primary tracking-wider">COME SIT WITH ME</h3>
                     <p className="mt-2 text-gray-600">
                       Quam nisl feugiat potenti sed tristique interdum risus fames odio eros nostra amet facilisi potenti sagittis maecenas lacus consectetuer.
