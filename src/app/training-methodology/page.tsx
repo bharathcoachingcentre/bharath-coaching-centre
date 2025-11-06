@@ -24,13 +24,13 @@ export default function TrainingMethodologyPage() {
     {
       number: "4",
       title: "Track your progress",
-      description: "Hierarchy of test sessions.",
+      description: "Weekly tests are conducted by piling up the concepts which has been taught in the particular week.",
       position: "bottom-1/4",
     },
     {
       number: "5",
       title: "Achieve your goals",
-      description: "Term wise parents’ meeting.",
+      description: "Then the entire book will be divided as 25%, 50%, 100% and be delivered as test to pile up the lessons gradually into the students' mind.",
       position: "bottom-8",
     },
   ];
