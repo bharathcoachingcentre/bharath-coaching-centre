@@ -5,23 +5,29 @@ export default function TrainingMethodologyPage() {
   const howItWorksSteps = [
     {
       number: "1",
+      title: "Find the perfect tutor",
       description: "Daily interaction with parents through Academic Record.",
+      position: "top-16",
     },
     {
       number: "2",
+      title: "Schedule your lesson",
       description: "Daily awareness about student’s performance for the academic inputs to parents through academic record.",
+      position: "top-1/2 -translate-y-1/2",
     },
     {
-        number: "3",
-        description: "Weekly tests and quick evaluation.",
+      number: "3",
+      title: "Start the journey",
+      description: "Weekly tests and quick evaluation.",
+      position: "bottom-16",
     },
     {
-      number: "4",
-      description: "Hierarchy of test sessions.",
+        number: "4",
+        description: "Hierarchy of test sessions.",
     },
     {
-      number: "5",
-      description: "Term wise parents’ meeting.",
+        number: "5",
+        description: "Term wise parents’ meeting.",
     },
   ];
 
@@ -55,25 +61,30 @@ export default function TrainingMethodologyPage() {
                 sagittis vestibulum. Morbi vestibulum neque.
               </p>
             </div>
-            <div className="relative">
-                <Image
-                    src="https://picsum.photos/seed/training/400/600"
-                    alt="Training process"
-                    width={400}
-                    height={600}
-                    className="rounded-lg shadow-lg"
-                    data-ai-hint="team working"
-                />
-            </div>
-            <div className="space-y-8">
-                {howItWorksSteps.map((step) => (
-                    <div key={step.number} className="flex items-center gap-4">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold flex-shrink-0">
-                            {step.number}
-                        </div>
-                        <p className="text-muted-foreground">{step.description}</p>
+            <div className="md:col-span-2 relative">
+                <div className="relative w-full max-w-lg mx-auto">
+                    <Image
+                        src="https://picsum.photos/seed/training/400/600"
+                        alt="Training process"
+                        width={400}
+                        height={600}
+                        className="rounded-lg shadow-lg"
+                        data-ai-hint="team working"
+                    />
+                    <div className="absolute inset-0">
+                        {howItWorksSteps.slice(0, 3).map((step) => (
+                            <div key={step.number} className={`absolute right-0 translate-x-1/2 flex items-center gap-6 w-64 ${step.position}`}>
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold flex-shrink-0 text-2xl shadow-lg">
+                                    {step.number}
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-lg">{step.title}</h3>
+                                    <p className="text-muted-foreground text-sm">{step.description}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                </div>
             </div>
           </div>
         </div>
