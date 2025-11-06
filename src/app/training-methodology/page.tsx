@@ -48,7 +48,7 @@ export default function TrainingMethodologyPage() {
 
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-3 gap-16 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold font-serif text-gray-800">
                 How it all works
@@ -57,6 +57,16 @@ export default function TrainingMethodologyPage() {
                 Placeholder text for how it all works. Donec sagittis
                 sagittis vestibulum. Morbi vestibulum neque.
               </p>
+            </div>
+            <div>
+                <Image
+                    src="https://picsum.photos/seed/training/400/600"
+                    alt="Training process"
+                    width={400}
+                    height={600}
+                    className="rounded-lg shadow-lg"
+                    data-ai-hint="team working"
+                />
             </div>
             <div className="grid grid-cols-[auto,1fr] gap-x-6 gap-y-8">
                 {howItWorksSteps.map((step) => (
