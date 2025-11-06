@@ -5,31 +5,26 @@ export default function TrainingMethodologyPage() {
   const howItWorksSteps = [
     {
       number: "1",
-      title: "Find the perfect tutor",
       description: "We don’t believe in training students to memorize the lessons which have been taught in school.",
       position: "top-8",
     },
     {
       number: "2",
-      title: "Schedule your lesson",
       description: "Our academy teaches each and every concept in the syllabus in a very interactive way to make them understand concepts more easily.",
       position: "top-1/4",
     },
     {
       number: "3",
-      title: "Start the journey",
       description: "Students will be questioned based on the concept as soon as it has been taught in the class to analyze their understanding.",
       position: "top-1/2 -translate-y-1/2",
     },
     {
       number: "4",
-      title: "Track your progress",
       description: "Weekly tests are conducted by piling up the concepts which has been taught in the particular week.",
       position: "bottom-1/4",
     },
     {
       number: "5",
-      title: "Achieve your goals",
       description: "Then the entire book will be divided as 25%, 50%, 100% and be delivered as test to pile up the lessons gradually into the students' mind.",
       position: "bottom-8",
     },
@@ -78,7 +73,6 @@ export default function TrainingMethodologyPage() {
                                     {step.number}
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-lg">{step.title}</h3>
                                     <p className="text-muted-foreground text-sm">{step.description}</p>
                                 </div>
                             </div>
@@ -92,9 +86,6 @@ export default function TrainingMethodologyPage() {
 
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="text-center">
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Information about our training methodology will be here.
-          </p>
         </div>
       </div>
     </div>
