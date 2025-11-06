@@ -12,13 +12,13 @@ export default function TrainingMethodologyPage() {
     {
       number: "2",
       title: "Schedule your lesson",
-      description: "Daily awareness about student’s performance for the academic inputs to parents through academic record.",
+      description: "Our academy teaches each and every concept in the syllabus in a very interactive way to make them understand concepts more easily.",
       position: "top-1/4",
     },
     {
       number: "3",
       title: "Start the journey",
-      description: "Weekly tests and quick evaluation.",
+      description: "Students will be questioned based on the concept as soon as it has been taught in the class to analyze their understanding.",
       position: "top-1/2 -translate-y-1/2",
     },
     {
