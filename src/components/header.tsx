@@ -75,7 +75,7 @@ const navLinks = [
         { href: "/events", label: "free study material2" },
     ]
   },
-  { href: "/about", label: "Our Results" },
+  { href: "/our-results", label: "Our Results" },
   { href: "/courses", label: "One to One Clases" },
   { 
     href: "/", 
