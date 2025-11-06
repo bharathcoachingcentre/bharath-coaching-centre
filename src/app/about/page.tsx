@@ -1,12 +1,92 @@
+import Image from "next/image";
+import { CheckCircle } from 'lucide-react';
+
 export default function AboutPage() {
+  const missionPoints = [
+    "To provide a vibrant and supportive learning environment.",
+    "To foster creativity, critical thinking, and a passion for learning.",
+    "To equip students with the knowledge and skills for future success.",
+    "To cultivate ethical values and a sense of social responsibility."
+  ];
+
   return (
-    <div className="container mx-auto px-4 py-12 md:py-16">
-      <div className="text-center">
-        <h1 className="font-headline text-4xl font-bold md:text-5xl">About Us</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-          Information about Bharath Academy will be here.
-        </p>
-      </div>
+    <div>
+      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+        <Image
+          src="https://picsum.photos/seed/about-us-banner/1200/400"
+          alt="About Us Banner"
+          fill
+          className="object-cover"
+          data-ai-hint="woman yoga"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 text-center">
+          <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
+            About Us
+          </h1>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold">
+                Our Story & <span className="text-primary">Mission</span>
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Founded with a passion for excellence, Bharath Academy has been a beacon of knowledge and a nurturing ground for young minds. We believe in an education that goes beyond textbooks, one that sparks curiosity and builds character.
+              </p>
+              <p className="text-muted-foreground">
+                Our mission is to empower students to achieve their full academic and personal potential. We are committed to creating a community of learners who are not just successful in their careers but are also compassionate and responsible global citizens.
+              </p>
+            </div>
+            <div>
+              <Image 
+                src="https://picsum.photos/seed/about-story/600/500"
+                alt="Students learning together"
+                width={600}
+                height={500}
+                className="rounded-lg shadow-xl"
+                data-ai-hint="students learning"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section className="py-16 md:py-24 bg-gray-50">
+          <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                  <h2 className="text-3xl font-bold">Why Choose Bharath Academy?</h2>
+                  <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                      We are dedicated to providing a transformative educational experience.
+                  </p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                  <div>
+                      <Image 
+                          src="https://picsum.photos/seed/about-choose/600/500"
+                          alt="Teacher helping student"
+                          width={600}
+                          height={500}
+                          className="rounded-lg shadow-xl"
+                          data-ai-hint="teacher student"
+                      />
+                  </div>
+                  <div className="space-y-6">
+                      {missionPoints.map((point, index) => (
+                          <div key={index} className="flex items-start gap-4">
+                              <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary mt-1">
+                                  <CheckCircle className="h-6 w-6" />
+                              </div>
+                              <p className="text-lg text-muted-foreground">{point}</p>
+                          </div>
+                      ))}
+                  </div>
+              </div>
+          </div>
+      </section>
     </div>
   );
 }
