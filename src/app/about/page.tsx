@@ -46,9 +46,6 @@ export default function AboutPage() {
                 <h2 className="text-4xl font-bold font-serif text-gray-800 leading-tight">
                   What Makes Us Different
                 </h2>
-                <p className="mt-6 text-lg text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices magna vel lorem molestie, sed finibus leo placerat. Nulla non purus des venenatis.
-                </p>
               </div>
 
               <div className="relative space-y-10 pl-16">
