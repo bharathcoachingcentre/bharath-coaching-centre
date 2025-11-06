@@ -58,12 +58,8 @@ export default function TrainingMethodologyPage() {
           <div className="grid md:grid-cols-3 gap-8 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold font-serif text-gray-800">
-                How it all works
+                Training Methodology
               </h2>
-              <p className="text-lg text-muted-foreground">
-                Placeholder text for how it all works. Donec sagittis
-                sagittis vestibulum. Morbi vestibulum neque.
-              </p>
             </div>
             <div className="md:col-span-2 relative">
                 <div id="methodology-steps" className="relative w-full max-w-lg mx-auto">
