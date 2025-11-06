@@ -21,14 +21,6 @@ export default function TrainingMethodologyPage() {
       description: "Weekly tests and quick evaluation.",
       position: "bottom-16",
     },
-    {
-        number: "4",
-        description: "Hierarchy of test sessions.",
-    },
-    {
-        number: "5",
-        description: "Term wise parents’ meeting.",
-    },
   ];
 
   return (
@@ -72,7 +64,7 @@ export default function TrainingMethodologyPage() {
                         data-ai-hint="team working"
                     />
                     <div className="absolute inset-0">
-                        {howItWorksSteps.slice(0, 3).map((step) => (
+                        {howItWorksSteps.map((step) => (
                             <div key={step.number} className={`absolute right-0 translate-x-1/2 flex items-center gap-6 w-64 ${step.position}`}>
                                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold flex-shrink-0 text-2xl shadow-lg">
                                     {step.number}
