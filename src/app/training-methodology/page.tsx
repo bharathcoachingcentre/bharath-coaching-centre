@@ -48,7 +48,7 @@ export default function TrainingMethodologyPage() {
 
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-16 items-center">
+          <div className="grid md:grid-cols-3 gap-8 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold font-serif text-gray-800">
                 How it all works
@@ -58,7 +58,7 @@ export default function TrainingMethodologyPage() {
                 sagittis vestibulum. Morbi vestibulum neque.
               </p>
             </div>
-            <div>
+            <div className="relative">
                 <Image
                     src="https://picsum.photos/seed/training/400/600"
                     alt="Training process"
@@ -68,17 +68,13 @@ export default function TrainingMethodologyPage() {
                     data-ai-hint="team working"
                 />
             </div>
-            <div className="grid grid-cols-[auto,1fr] gap-x-6 gap-y-8">
+            <div className="space-y-8">
                 {howItWorksSteps.map((step) => (
-                    <div key={step.number} className="contents">
-                        <div className="flex items-center">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">
-                                {step.number}
-                            </div>
+                    <div key={step.number} className="flex items-center gap-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold flex-shrink-0">
+                            {step.number}
                         </div>
-                        <div>
-                            <p className="text-muted-foreground">{step.description}</p>
-                        </div>
+                        <p className="text-muted-foreground">{step.description}</p>
                     </div>
                 ))}
             </div>
