@@ -41,10 +41,10 @@ export default function AboutPage() {
               <div>
                 <div className="flex items-center gap-4 mb-4">
                   <span className="h-2 w-2 rounded-full bg-primary"></span>
-                  <p className="text-sm font-semibold tracking-widest text-primary">THE PROCESS</p>
+                  <p className="text-sm font-semibold tracking-widest text-primary">ABOUT</p>
                 </div>
                 <h2 className="text-4xl font-bold font-serif text-gray-800 leading-tight">
-                  An amazing tagline for your process...
+                  What Makes Us Different
                 </h2>
                 <p className="mt-6 text-lg text-gray-600">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices magna vel lorem molestie, sed finibus leo placerat. Nulla non purus des venenatis.
