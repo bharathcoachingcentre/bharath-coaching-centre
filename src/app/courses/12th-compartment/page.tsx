@@ -63,7 +63,14 @@ export default function CompartmentPage() {
               </div>
             </div>
             <div>
-                <p className="text-muted-foreground">Dignissim sed auctor morbi ut volutpat malesuada. Fringilla quam sit sagittis risus nullam amet tincidunt eget dictumst.</p>
+                <Image
+                    src="/TimeTable.jpg"
+                    alt="Customized Timetable"
+                    width={600}
+                    height={400}
+                    className="rounded-lg shadow-lg"
+                    data-ai-hint="timetable schedule"
+                />
             </div>
           </div>
           <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
