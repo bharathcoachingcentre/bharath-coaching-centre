@@ -169,19 +169,19 @@ export default function CompartmentPage() {
 
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-[100px]">
-          <div className="grid md:grid-cols-2 gap-8 items-stretch">
+          <div className="grid md:grid-cols-2 gap-8">
             <div className="flex items-center">
               <Image
                 src="https://picsum.photos/seed/adultsession/600/400"
                 alt="Adult session"
                 width={600}
-                height={400}
-                className="rounded-lg shadow-lg w-full h-full object-cover"
+                height={180}
+                className="rounded-lg shadow-lg w-full object-cover"
                 data-ai-hint="woman working"
               />
             </div>
             <div className="flex items-center">
-              <div className="bg-white p-8 rounded-lg shadow-lg relative w-full h-full flex flex-col justify-center">
+              <div className="bg-white p-8 rounded-lg shadow-lg relative w-full flex flex-col justify-center">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                     <Star className="w-6 h-6 text-white fill-white" />
