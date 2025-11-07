@@ -168,7 +168,7 @@ export default function CompartmentPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-[100px]">
           <div className="grid md:grid-cols-2 gap-8 items-stretch">
             <div className="flex items-center">
               <Image
