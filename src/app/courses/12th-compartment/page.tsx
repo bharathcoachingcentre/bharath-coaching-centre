@@ -158,7 +158,7 @@ export default function CompartmentPage() {
             </div>
           </div>
           <div className="container mx-auto px-[100px] py-16">
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2">
               <div className="flex items-center">
                 <Image
                   id="benefit-img"
