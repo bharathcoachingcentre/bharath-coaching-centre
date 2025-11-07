@@ -54,7 +54,7 @@ export default function CompartmentPage() {
             <div className="space-y-4">
               <p className="text-sm font-semibold tracking-widest text-primary">OUR CORE VALUES</p>
               <h2 className="text-4xl font-bold font-serif text-gray-800 leading-tight">
-                Guiding Every Step We Take
+                Customized Timetable
               </h2>
             </div>
             <div>
