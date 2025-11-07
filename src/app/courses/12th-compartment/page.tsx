@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users } from "lucide-react";
+import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star } from "lucide-react";
 import { FeedbackForm } from "@/components/feedback-form";
 
 export default function CompartmentPage() {
@@ -105,6 +105,102 @@ export default function CompartmentPage() {
           </div>
         </div>
       </section>
+
+      <section className="py-16 md:py-24 bg-[#2C2422] text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="md:col-span-1 space-y-6">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-px bg-white"></div>
+                <div className="w-4 h-px bg-white"></div>
+              </div>
+              <h2 className="text-4xl font-bold">Benefits</h2>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <Star className="w-6 h-6 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Adults</h3>
+                  <p className="text-white/70">Life-changing sessions for adults, no matter what age group they belong to.</p>
+                </div>
+              </div>
+            </div>
+            <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <Star className="w-6 h-6 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Adults</h3>
+                  <p className="text-white/70">Life-changing sessions for adults, no matter what age group they belong to.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <Star className="w-6 h-6 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Children</h3>
+                  <p className="text-white/70">A special session for your kids regarding personal problems and study.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <Star className="w-6 h-6 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Families</h3>
+                  <p className="text-white/70">Join me with your family and we'll discuss your issues to make your bonds better.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <Star className="w-6 h-6 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Businesses</h3>
+                  <p className="text-white/70">Arrange a business session for your organization to boost the outcome.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <Image
+                src="https://picsum.photos/seed/adultsession/600/400"
+                alt="Adult session"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-lg"
+                data-ai-hint="woman working"
+              />
+            </div>
+            <div className="bg-white p-8 rounded-lg shadow-lg relative">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <Star className="w-6 h-6 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800">Adults</h3>
+                  <p className="text-gray-600">Life-changing sessions for adults, no matter what age group they belong to.</p>
+                </div>
+              </div>
+              <div className="absolute bottom-4 right-4 flex gap-1">
+                  <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
+                  <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
+                  <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
+                  <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
