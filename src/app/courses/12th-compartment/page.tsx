@@ -161,6 +161,7 @@ export default function CompartmentPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="flex items-center">
                 <Image
+                  id="benefit-img"
                   src="https://picsum.photos/seed/adultsession/600/400"
                   alt="Adult session"
                   width={600}
