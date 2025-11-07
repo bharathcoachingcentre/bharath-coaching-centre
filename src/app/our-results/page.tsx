@@ -6,14 +6,14 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const resultsData: Record<string, { src: string; alt: string; hint: string }> = {
-  '2025': { src: 'https://placehold.co/800x600/png?text=Result+2025', alt: 'Result 2025', hint: 'result chart' },
+  '2025': { src: '/2025-Result.png', alt: 'Result 2025', hint: 'result chart' },
   '2024': { src: '/2024-Result.jpg', alt: 'Result 2024', hint: 'result chart' },
-  '2023': { src: 'https://placehold.co/800x600/png?text=Result+2023', alt: 'Result 2023', hint: 'result chart' },
+  '2023': { src: '/2023-Result.jpg', alt: 'Result 2023', hint: 'result chart' },
   '2022': { src: '/2022-Result.jpg', alt: 'Result 2022', hint: 'result chart' },
   '2021': { src: '/2021-Result.png', alt: 'Result 2021', hint: 'result chart' },
 };
 
-const years = Object.keys(resultsData);
+const years = Object.keys(resultsData).sort((a, b) => Number(b) - Number(a));
 
 export default function OurResultsPage() {
   const [selectedYear, setSelectedYear] = React.useState<string>(years[0]);
