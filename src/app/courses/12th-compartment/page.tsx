@@ -27,15 +27,7 @@ export default function CompartmentPage() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="grid sm:grid-cols-2 gap-12">
               <div className="text-center">
-                <div className="inline-block p-5 bg-white/10 rounded-full mb-4 border border-white/20">
-                  <div className="p-3 bg-white rounded-full">
-                    <Rocket className="w-8 h-8" style={{ color: 'rgb(69 180 232)' }} />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold mb-2">Learn Anything</h3>
-                <p className="text-white/80 mb-4">
-                  Join millions of people from around the world learning together. Try it now!
-                </p>
+                <h2 className="text-2xl font-bold mb-4">Benefits</h2>
               </div>
               <div className="text-center">
                 <div className="inline-block p-5 bg-white/10 rounded-full mb-4 border border-white/20">
