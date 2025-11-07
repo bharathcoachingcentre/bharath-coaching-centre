@@ -342,7 +342,7 @@ export default function SamacheerClass12PcmPage() {
                             <Button asChild disabled={!dsmSelectedClassPdf}>
                                 <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
                                     <Download className="mr-2 h-4 w-4" /> Download
-                                a>
+                                </a>
                             </Button>
                         </div>
                     </div>
