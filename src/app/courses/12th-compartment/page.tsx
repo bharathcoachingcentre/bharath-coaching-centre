@@ -26,8 +26,8 @@ export default function CompartmentPage() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="grid sm:grid-cols-2 gap-12">
-              <div className="text-center">
-                <h2 className="text-2xl font-bold mb-4">Benefits</h2>
+              <div className="flex items-center justify-center text-center">
+                <h2 className="font-bold mb-4" style={{ fontSize: '55px' }}>Benefits</h2>
               </div>
               <div className="text-center">
                 <div className="inline-block p-5 bg-white/10 rounded-full mb-4 border border-white/20">
