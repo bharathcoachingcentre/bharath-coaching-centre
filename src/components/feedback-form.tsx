@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
+import { Textarea } from "./ui/textarea"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -24,6 +25,9 @@ const formSchema = z.object({
   }),
   email: z.string().email({
     message: "Please enter a valid email address.",
+  }),
+  message: z.string().min(10, {
+    message: "Message must be at least 10 characters.",
   }),
 })
 
@@ -35,6 +39,7 @@ export function FeedbackForm() {
         defaultValues: {
             name: "",
             email: "",
+            message: "",
         },
     })
 
@@ -48,7 +53,7 @@ export function FeedbackForm() {
     }
 
     return (
-        <Card className="bg-white text-gray-800 shadow-2xl rounded-lg">
+        <Card className="bg-white text-gray-800 shadow-2xl rounded-lg max-w-md mx-auto">
           <CardHeader className="bg-[#ff6b35] text-white rounded-t-lg">
             <CardTitle className="text-2xl font-bold text-white">Feedback Form</CardTitle>
           </CardHeader>
@@ -74,6 +79,18 @@ export function FeedbackForm() {
                             <FormItem>
                                 <FormControl>
                                     <Input type="email" placeholder="your@mail.com" {...field} className="bg-gray-100 border-gray-300"/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Textarea placeholder="Your Message" {...field} className="bg-gray-100 border-gray-300" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
