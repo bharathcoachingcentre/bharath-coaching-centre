@@ -36,7 +36,6 @@ export default function CompartmentPage() {
                 <p className="text-white/80 mb-4">
                   Join millions of people from around the world learning together. Try it now!
                 </p>
-                <a href="#" className="font-semibold hover:underline">View More +</a>
               </div>
               <div className="text-center">
                 <div className="inline-block p-5 bg-white/10 rounded-full mb-4 border border-white/20">
@@ -48,7 +47,6 @@ export default function CompartmentPage() {
                 <p className="text-white/80 mb-4">
                   Join millions of people from around the world learning together. Try it now!
                 </p>
-                <a href="#" className="font-semibold hover:underline">View More +</a>
               </div>
             </div>
             <div>
