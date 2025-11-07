@@ -52,7 +52,7 @@ export default function CompartmentPage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-4">
-              <p className="text-sm font-semibold tracking-widest text-primary" style={{ fontSize: '35px' }}>Benefits</p>
+              <p className="text-sm font-semibold tracking-widest text-primary" style={{ fontSize: '40px', paddingBottom: '30px' }}>Benefits</p>
               <div className="flex items-center gap-4">
                 <Rocket className="w-8 h-8 text-primary" />
                 <h2 className="text-2xl font-bold font-serif text-gray-800 leading-tight">
