@@ -60,12 +60,8 @@ const navLinks = [
     ]
   },
   { 
-    href: "/", 
+    href: "/courses", 
     label: "Online Courses",
-    subLinks: [
-        { href: "/courses", label: "Course A" },
-        { href: "/courses", label: "Course B" },
-    ]
   },
   { 
     href: "/", 
