@@ -175,13 +175,7 @@ export default function CbseClass12PcmPage() {
           </h1>
         </div>
       </section>
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="text-center">
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Course details for CBSE Class 12 PCM will be available here soon.
-          </p>
-        </div>
-      </div>
+      
       <AnimatedSection className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
