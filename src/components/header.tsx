@@ -185,9 +185,34 @@ export function Header() {
                         <Logo className="h-8 w-auto" />
                     </Link>
                     {navLinks.map((link) => (
-                        <SheetClose asChild key={link.label}>
-                            <NavLink href={link.href} label={link.label} className="text-muted-foreground hover:text-foreground" />
-                        </SheetClose>
+                         <SheetClose asChild key={link.label}>
+                         {link.subLinks ? (
+                           <DropdownMenu>
+                             <DropdownMenuTrigger asChild>
+                               <Button
+                                 variant={link.isButton ? "outline" : "ghost"}
+                                 className="flex justify-start items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary"
+                               >
+                                 {link.label}
+                                 <ChevronDown className="h-4 w-4" />
+                               </Button>
+                             </DropdownMenuTrigger>
+                             <DropdownMenuContent>
+                               {link.subLinks.map((subLink: any) => (
+                                 <DropdownMenuItem key={subLink.label} asChild>
+                                   <Link href={subLink.href}>{subLink.label}</Link>
+                                 </DropdownMenuItem>
+                               ))}
+                             </DropdownMenuContent>
+                           </DropdownMenu>
+                         ) : (
+                           <NavLink
+                             href={link.href}
+                             label={link.label}
+                             className="text-muted-foreground hover:text-foreground"
+                           />
+                         )}
+                       </SheetClose>
                     ))}
                     <SheetClose asChild>
                         <Button asChild className="mt-4">
