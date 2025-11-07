@@ -60,7 +60,7 @@ const navLinks = [
     ]
   },
   { 
-    href: "/courses", 
+    href: "/online-courses", 
     label: "Online Courses",
   },
   { 
