@@ -54,7 +54,9 @@ export default function CompartmentPage() {
             <div className="space-y-4">
               <p className="text-sm font-semibold tracking-widest text-primary" style={{ fontSize: '40px', paddingBottom: '30px' }}>Benefits</p>
               <div className="flex items-center gap-4">
-                <Rocket className="w-8 h-8 text-primary" />
+                <div className="inline-block p-4 bg-primary/10 rounded-full">
+                    <Rocket className="w-8 h-8 text-primary" />
+                </div>
                 <h2 className="text-2xl font-bold font-serif text-gray-800 leading-tight">
                   Customized Timetable
                 </h2>
