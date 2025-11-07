@@ -43,7 +43,7 @@ const offlineCourses = [
 const samacheerCourses = [
     { label: "Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
     { label: "12 Compartment", href: "/courses" },
-    { label: "Class 11 PCM", href: "/courses" },
+    { label: "Class 11 PCM", href: "/courses/samacheer-class-11-pcm" },
     { label: "Class 10 All subjects", href: "/courses" },
     { label: "Class 9 All subjects", href: "/courses" },
     { label: "Class 8 All subjects", href: "/courses" },
