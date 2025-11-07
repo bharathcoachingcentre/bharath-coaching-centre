@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 
 const offlineCourses = [
-    { label: "Class 12 PCM", href: "/courses" },
+    { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
     { label: "12 Compartment", href: "/courses" },
     { label: "Class 11 PCM", href: "/courses" },
     { label: "Class 10 All subjects", href: "/courses" },
