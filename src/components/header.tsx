@@ -40,6 +40,21 @@ const offlineCourses = [
     { label: "Class 2 All subjects", href: "/courses" },
     { label: "Class 1 All subjects", href: "/courses" },
 ];
+const samacheerCourses = [
+    { label: "Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
+    { label: "12 Compartment", href: "/courses" },
+    { label: "Class 11 PCM", href: "/courses" },
+    { label: "Class 10 All subjects", href: "/courses" },
+    { label: "Class 9 All subjects", href: "/courses" },
+    { label: "Class 8 All subjects", href: "/courses" },
+    { label: "Class 7 All subjects", href: "/courses" },
+    { label: "Class 6 All subjects", href: "/courses" },
+    { label: "Class 5 All subjects", href: "/courses" },
+    { label: "Class 4 All subjects", href: "/courses" },
+    { label: "Class 3 All subjects", href: "/courses" },
+    { label: "Class 2 All subjects", href: "/courses" },
+    { label: "Class 1 All subjects", href: "/courses" },
+];
 
 const navLinks = [
   { 
@@ -55,7 +70,7 @@ const navLinks = [
         { 
             label: "Samacheer",
             href: "/courses",
-            nestedLinks: offlineCourses
+            nestedLinks: samacheerCourses
         },
     ]
   },
