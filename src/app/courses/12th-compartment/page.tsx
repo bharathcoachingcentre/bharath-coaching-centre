@@ -22,14 +22,14 @@ export default function CompartmentPage() {
         </div>
       </section>
 
-      <section className="bg-[#12a39a] py-20 text-white">
+      <section style={{ backgroundColor: 'rgb(69 180 232)' }} className="py-20 text-white">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="grid sm:grid-cols-2 gap-12">
               <div className="text-center">
                 <div className="inline-block p-5 bg-white/10 rounded-full mb-4 border border-white/20">
                   <div className="p-3 bg-white rounded-full">
-                    <Rocket className="w-8 h-8 text-[#12a39a]" />
+                    <Rocket className="w-8 h-8" style={{ color: 'rgb(69 180 232)' }} />
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Learn Anything</h3>
@@ -41,7 +41,7 @@ export default function CompartmentPage() {
               <div className="text-center">
                 <div className="inline-block p-5 bg-white/10 rounded-full mb-4 border border-white/20">
                   <div className="p-3 bg-white rounded-full">
-                    <Globe className="w-8 h-8 text-[#12a39a]" />
+                    <Globe className="w-8 h-8" style={{ color: 'rgb(69 180 232)' }} />
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Learn Together</h3>

@@ -79,7 +79,7 @@ export function FeedbackForm() {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" className="w-full bg-[#12a39a] hover:bg-[#0f8a80] text-white text-lg py-3">Submit</Button>
+                    <Button type="submit" className="w-full text-white text-lg py-3" style={{ backgroundColor: 'rgb(69 180 232)' }}>Submit</Button>
                 </form>
             </Form>
           </CardContent>
