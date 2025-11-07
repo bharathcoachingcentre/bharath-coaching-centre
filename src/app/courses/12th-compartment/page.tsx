@@ -53,9 +53,12 @@ export default function CompartmentPage() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-4">
               <p className="text-sm font-semibold tracking-widest text-primary" style={{ fontSize: '35px' }}>Benefits</p>
-              <h2 className="text-4xl font-bold font-serif text-gray-800 leading-tight">
-                Customized Timetable
-              </h2>
+              <div className="flex items-center gap-4">
+                <Rocket className="w-8 h-8 text-primary" />
+                <h2 className="text-2xl font-bold font-serif text-gray-800 leading-tight">
+                  Customized Timetable
+                </h2>
+              </div>
             </div>
             <div>
                 <p className="text-muted-foreground">Dignissim sed auctor morbi ut volutpat malesuada. Fringilla quam sit sagittis risus nullam amet tincidunt eget dictumst.</p>
