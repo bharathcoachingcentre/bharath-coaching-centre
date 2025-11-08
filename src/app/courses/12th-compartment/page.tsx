@@ -63,7 +63,6 @@ export default function CompartmentPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Adults</h3>
-                  <p className="text-white/70">Life-changing sessions for adults, no matter what age group they belong to.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -72,7 +71,6 @@ export default function CompartmentPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Another Point</h3>
-                  <p className="text-white/70">This is another placeholder benefit point description.</p>
                 </div>
               </div>
             </div>
@@ -83,7 +81,6 @@ export default function CompartmentPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Full mock test</h3>
-                  <p className="text-white/70">Comprehensive mock tests to prepare you for the final exam.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -92,7 +89,6 @@ export default function CompartmentPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Quick evaluation</h3>
-                  <p className="text-white/70">Receive timely feedback on your performance to identify areas for improvement.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -101,7 +97,6 @@ export default function CompartmentPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Parents' meeting</h3>
-                  <p className="text-white/70">Regular meetings to keep parents informed about their child's progress.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -110,7 +105,6 @@ export default function CompartmentPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Specialized study material</h3>
-                  <p className="text-white/70">Access to curated study materials designed by experts.</p>
                 </div>
               </div>
             </div>
