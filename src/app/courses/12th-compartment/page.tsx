@@ -22,32 +22,6 @@ export default function CompartmentPage() {
         </div>
       </section>
 
-      <section style={{ backgroundColor: 'rgb(69 180 232)' }} className="py-20 text-white">
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="grid sm:grid-cols-2 gap-12">
-              <div className="flex items-center justify-center text-center">
-                <h2 className="font-bold mb-4" style={{ fontSize: '55px' }}>Benefits</h2>
-              </div>
-              <div className="text-center">
-                <div className="inline-block p-5 bg-white/10 rounded-full mb-4 border border-white/20">
-                  <div className="p-3 bg-white rounded-full">
-                    <Globe className="w-8 h-8" style={{ color: 'rgb(69 180 232)' }} />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold mb-2">Learn Together</h3>
-                <p className="text-white/80 mb-4">
-                  Join millions of people from around the world learning together. Try it now!
-                </p>
-              </div>
-            </div>
-            <div>
-              <FeedbackForm />
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="pt-16 md:pt-24 pb-36 bg-[#2C2422] text-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
