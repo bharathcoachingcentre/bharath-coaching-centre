@@ -67,7 +67,7 @@ export default function CompartmentPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-12">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                   <Star className="w-6 h-6 text-white fill-white" />
@@ -108,7 +108,7 @@ export default function CompartmentPage() {
           </div>
         </div>
       </section>
-      <div className="container mx-auto px-[100px] py-16 -mt-24 relative z-10">
+      <div className="container mx-auto px-[100px] py-16 -mt-36 relative z-10">
         <div className="flex items-center">
             <Image
               id="benefit-img"
