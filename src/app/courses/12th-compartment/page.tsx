@@ -158,8 +158,7 @@ export default function CompartmentPage() {
             </div>
           </div>
           <div className="container mx-auto px-[100px] py-16">
-            <div className="grid md:grid-cols-2">
-              <div className="flex items-center">
+            <div className="flex items-center">
                 <Image
                   id="benefit-img"
                   src="https://picsum.photos/seed/adultsession/600/400"
@@ -169,8 +168,6 @@ export default function CompartmentPage() {
                   className="rounded-lg shadow-lg w-full object-cover"
                   data-ai-hint="woman working"
                 />
-              </div>
-              <div className="flex items-center">
                 <div style={{ width: '538px', marginLeft: '-103px' }} className="bg-white p-8 rounded-lg shadow-lg relative w-full flex flex-col justify-center">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
@@ -188,7 +185,6 @@ export default function CompartmentPage() {
                       <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
