@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star, Building } from "lucide-react";
+import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star, Building, FileText, CheckCircle, UserCheck, BookCopy } from "lucide-react";
 import { FeedbackForm } from "@/components/feedback-form";
 
 export default function CompartmentPage() {
@@ -79,38 +79,38 @@ export default function CompartmentPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-12">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
-                  <Star className="w-6 h-6 text-white fill-white" />
+                  <FileText className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">Children</h3>
-                  <p className="text-white/70">A special session for your kids regarding personal problems and study.</p>
+                  <h3 className="text-xl font-semibold">Full mock test</h3>
+                  <p className="text-white/70">Comprehensive mock tests to prepare you for the final exam.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
-                  <Star className="w-6 h-6 text-white fill-white" />
+                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">Families</h3>
-                  <p className="text-white/70">Join me with your family and we'll discuss your issues to make your bonds better.</p>
+                  <h3 className="text-xl font-semibold">Quick evaluation</h3>
+                  <p className="text-white/70">Receive timely feedback on your performance to identify areas for improvement.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
-                  <Star className="w-6 h-6 text-white fill-white" />
+                  <UserCheck className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">Businesses</h3>
-                  <p className="text-white/70">Arrange a business session for your organization to boost the outcome.</p>
+                  <h3 className="text-xl font-semibold">Parents' meeting</h3>
+                  <p className="text-white/70">Regular meetings to keep parents informed about their child's progress.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
-                  <Building className="w-6 h-6 text-white fill-white" />
+                  <BookCopy className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">New Point</h3>
-                  <p className="text-white/70">This is the description for the new benefit point.</p>
+                  <h3 className="text-xl font-semibold">Specialized study material</h3>
+                  <p className="text-white/70">Access to curated study materials designed by experts.</p>
                 </div>
               </div>
             </div>
