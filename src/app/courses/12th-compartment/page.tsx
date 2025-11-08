@@ -108,15 +108,13 @@ export default function CompartmentPage() {
 
       <section className="py-16 md:py-24 bg-[#2C2422] text-white">
         <div className="container mx-auto px-4">
-          <div className="md:col-span-1 space-y-6">
+          <div className="grid md:grid-cols-2 gap-8 mt-8">
+            <div className="space-y-6">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-px bg-white"></div>
                 <div className="w-4 h-px bg-white"></div>
               </div>
               <h2 className="text-4xl font-bold">Benefits</h2>
-            </div>
-          <div className="grid md:grid-cols-2 gap-8 mt-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                   <Star className="w-6 h-6 text-white fill-white" />
@@ -126,6 +124,8 @@ export default function CompartmentPage() {
                   <p className="text-white/70">Life-changing sessions for adults, no matter what age group they belong to.</p>
                 </div>
               </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                   <Star className="w-6 h-6 text-white fill-white" />
@@ -135,8 +135,6 @@ export default function CompartmentPage() {
                   <p className="text-white/70">A special session for your kids regarding personal problems and study.</p>
                 </div>
               </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                   <Star className="w-6 h-6 text-white fill-white" />
@@ -163,9 +161,9 @@ export default function CompartmentPage() {
                   id="benefit-img"
                   src="https://picsum.photos/seed/adultsession/600/400"
                   alt="Adult session"
-                  width={600}
-                  height={300}
-                  className="rounded-l-lg shadow-lg w-full object-cover"
+                  width={350}
+                  height={170}
+                  className="rounded-l-lg shadow-lg object-cover"
                   style={{ height: '170px' }}
                   data-ai-hint="woman working"
                 />
