@@ -48,7 +48,7 @@ export default function CompartmentPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-[#2C2422] text-white">
+      <section className="pt-16 md:pt-24 pb-36 bg-[#2C2422] text-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-6">
