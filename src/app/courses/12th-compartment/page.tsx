@@ -168,7 +168,7 @@ export default function CompartmentPage() {
                   className="rounded-lg shadow-lg w-full object-cover"
                   data-ai-hint="woman working"
                 />
-                <div style={{ width: '538px', marginLeft: '-103px' }} className="bg-white p-8 rounded-lg shadow-lg relative w-full flex flex-col justify-center">
+                <div style={{ width: '632px', marginLeft: '0px' }} className="bg-white p-8 rounded-lg shadow-lg relative w-full flex flex-col justify-center">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                       <Star className="w-6 h-6 text-white fill-white" />
