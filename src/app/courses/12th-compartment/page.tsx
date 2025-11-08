@@ -103,7 +103,7 @@ export default function CompartmentPage() {
               style={{ height: '170px' }}
               data-ai-hint="woman working"
             />
-            <div style={{ width: '632px', marginLeft: '0px', height: '170px' }} className="bg-white p-8 shadow-lg relative w-full flex flex-col justify-center rounded-r-lg">
+            <div style={{ width: '550px', marginLeft: '0px', height: '170px' }} className="bg-white p-8 shadow-lg relative w-full flex flex-col justify-center rounded-r-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                   <Star className="w-6 h-6 text-white fill-white" />
