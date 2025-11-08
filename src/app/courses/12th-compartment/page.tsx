@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star } from "lucide-react";
+import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star, Building } from "lucide-react";
 import { FeedbackForm } from "@/components/feedback-form";
 
 export default function CompartmentPage() {
@@ -151,6 +151,15 @@ export default function CompartmentPage() {
                 <div>
                   <h3 className="text-xl font-semibold">Businesses</h3>
                   <p className="text-white/70">Arrange a business session for your organization to boost the outcome.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <Building className="w-6 h-6 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">New Point</h3>
+                  <p className="text-white/70">This is the description for the new benefit point.</p>
                 </div>
               </div>
             </div>
