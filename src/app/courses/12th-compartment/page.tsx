@@ -165,10 +165,10 @@ export default function CompartmentPage() {
                   alt="Adult session"
                   width={600}
                   height={300}
-                  className="rounded-lg shadow-lg w-full object-cover"
+                  className="rounded-l-lg shadow-lg w-full object-cover"
                   data-ai-hint="woman working"
                 />
-                <div style={{ width: '632px', marginLeft: '0px' }} className="bg-white p-8 rounded-lg shadow-lg relative w-full flex flex-col justify-center">
+                <div style={{ width: '632px', marginLeft: '0px' }} className="bg-white p-8 rounded-l-lg shadow-lg relative w-full flex flex-col justify-center">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                       <Star className="w-6 h-6 text-white fill-white" />
