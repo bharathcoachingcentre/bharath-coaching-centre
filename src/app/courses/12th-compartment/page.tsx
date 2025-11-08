@@ -50,13 +50,15 @@ export default function CompartmentPage() {
 
       <section className="pt-16 md:pt-24 pb-36 bg-[#2C2422] text-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-6">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-px bg-white"></div>
                 <div className="w-4 h-px bg-white"></div>
               </div>
               <h2 className="text-4xl font-bold">Benefits</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-12 md:col-span-2">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                   <Star className="w-6 h-6 text-white fill-white" />
@@ -73,8 +75,6 @@ export default function CompartmentPage() {
                   <h3 className="text-xl font-semibold">Another Point</h3>
                 </div>
               </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-12">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
                   <FileText className="w-6 h-6 text-white" />
