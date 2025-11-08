@@ -135,8 +135,8 @@ export default function CompartmentPage() {
                   <Star className="w-6 h-6 text-white fill-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-800">Adults</h3>
-                  <p className="text-gray-600">Life-changing sessions for adults, no matter what age group they belong to.</p>
+                  <h3 className="text-xl font-semibold text-gray-800">Customized Timetable</h3>
+                  <p className="text-gray-600">(based on exam date)</p>
                 </div>
               </div>
               <div className="absolute bottom-4 right-4 flex gap-1">
