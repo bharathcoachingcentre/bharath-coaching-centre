@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star, Building, FileText, CheckCircle, UserCheck, BookCopy } from "lucide-react";
+import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star, Building, FileText, CheckCircle, UserCheck, BookCopy, Clipboard, Edit } from "lucide-react";
 import { FeedbackForm } from "@/components/feedback-form";
 
 export default function CompartmentPage() {
@@ -62,18 +62,18 @@ export default function CompartmentPage() {
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
-                    <Star className="w-6 h-6 text-white fill-white" />
+                    <Clipboard className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold">Adults</h3>
+                    <h3 className="text-xl font-semibold">Daily test</h3>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
-                    <Users className="w-6 h-6 text-white fill-white" />
+                    <Edit className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold">Another Point</h3>
+                    <h3 className="text-xl font-semibold">Unit wise test</h3>
                   </div>
                 </div>
               </div>
