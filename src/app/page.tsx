@@ -917,7 +917,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
         </div>
       </AnimatedSection>
       
-      {/* Study Materials Section */}
+      {/*
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
@@ -1015,6 +1015,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
           )}
         </div>
       </AnimatedSection>
+      */}
       
       {/* Download Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
@@ -1467,6 +1468,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
