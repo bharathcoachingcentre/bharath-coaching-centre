@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ClipboardCheck, Eye, FileText, CalendarClock, TestTube2, Users2 } from "lucide-react";
+import { ClipboardCheck, Eye, FileText, CalendarClock, TestTube2, Users2, BookCopy, ClipboardList } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
 
@@ -48,6 +48,8 @@ export default function OnlineCoursesPage() {
         { icon: ClipboardCheck, title: "Weekly test", description: "Regular assessments to track your progress." },
         { icon: TestTube2, title: "25% & 50% portion test", description: "Targeted tests to ensure thorough understanding." },
         { icon: FileText, title: "Full mock test", description: "Comprehensive mock exams to prepare you for the real thing." },
+        { icon: BookCopy, title: "Specialized study materials", description: "Access to curated and comprehensive study resources." },
+        { icon: ClipboardList, title: "Previous year question paper discussion", description: "In-depth analysis and discussion of past papers." },
       ];
 
   return (
