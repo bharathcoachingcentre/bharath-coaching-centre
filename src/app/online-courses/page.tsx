@@ -71,7 +71,7 @@ export default function OnlineCoursesPage() {
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
-            <h2 className="text-4xl font-bold mb-12">Online Courses</h2>
+            <h2 className="text-4xl font-bold mb-12">Online <span className="text-primary">Courses</span></h2>
           </AnimatedElement>
           <div className="grid md:grid-cols-2 gap-12">
             <AnimatedElement animation="fade-up">
