@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import Image from "next/image";
@@ -96,18 +95,10 @@ export default function Home() {
   const [isClient, setIsClient] = React.useState(false);
   const [isTimetableOpen, setTimetableOpen] = React.useState(false);
   
-  // State for the first "Study Materials" section
-  const [isStudyMaterialOpen, setStudyMaterialOpen] = React.useState(false);
-  const [selectedMaterial, setSelectedMaterial] = React.useState<string | null>(null);
-  const [showDownloadOptions, setShowDownloadOptions] = React.useState(false);
-  const [selectedBoard, setSelectedBoard] = React.useState<string | null>(null);
-  const [selectedClass, setSelectedClass] = React.useState<string | null>(null);
-  const [selectedClassPdf, setSelectedClassPdf] = React.useState<string | null>(null);
-  
-  // State for the second "Download Study Material" section
-  const [dsmIsStudyMaterialOpen, setDsmIsStudyMaterialOpen] = React.useState(false);
+  // State for the "Download Study Material" section
+  const [dsmIsDialogOpen, setDsmIsDialogOpen] = React.useState(false);
   const [dsmSelectedMaterial, setDsmSelectedMaterial] = React.useState<string | null>(null);
-  const [dsmShowDownloadOptions, setDsmShowDownloadOptions] = React.useState(false);
+  const [dsmShowBoardSelection, setDsmShowBoardSelection] = React.useState(false);
   const [dsmSelectedBoard, setDsmSelectedBoard] = React.useState<string | null>(null);
   const [dsmSelectedClass, setDsmSelectedClass] = React.useState<string | null>(null);
   const [dsmSelectedClassPdf, setDsmSelectedClassPdf] = React.useState<string | null>(null);
@@ -910,107 +901,7 @@ export default function Home() {
         </div>
       </AnimatedSection>
       
-      {/*
-      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              Study <span className="relative inline-block text-primary">Materials
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
-              </span>
-            </h2>
-          </AnimatedElement>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            {studyMaterials.map((material, index) => (
-              <AnimatedElement animation="fade-up" key={index}>
-                <Dialog open={isStudyMaterialOpen && selectedMaterial === material} onOpenChange={(isOpen) => {
-                  if (!isOpen) {
-                    setSelectedMaterial(null);
-                    setStudyMaterialOpen(false);
-                  } else {
-                    setStudyMaterialOpen(true);
-                  }
-                }}>
-                  <DialogTrigger asChild>
-                    <Card
-                      className="text-center p-6 border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all flex flex-col justify-center items-center h-14 cursor-pointer"
-                      style={{ backgroundColor: '#45b4e8' }}
-                      onClick={() => {
-                        setSelectedMaterial(material);
-                        setSelectedBoard(null);
-                        setSelectedClass(null);
-                        setSelectedClassPdf(null);
-                        setShowDownloadOptions(false);
-                        setStudyMaterialOpen(true);
-                      }}
-                    >
-                      <CardTitle className="text-lg font-semibold whitespace-nowrap">{material}</CardTitle>
-                    </Card>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-md">
-                    <DialogHeader>
-                      <DialogTitle className="text-center text-2xl font-bold">
-                        Select Board
-                      </DialogTitle>
-                    </DialogHeader>
-                    <div className="flex justify-center gap-4 py-4">
-                      <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                        setSelectedBoard('CBSE');
-                        setShowDownloadOptions(true);
-                        setStudyMaterialOpen(false);
-                      }}>CBSE</Button>
-                      <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
-                        setSelectedBoard('Samacheer');
-                        setShowDownloadOptions(true);
-                        setStudyMaterialOpen(false);
-                      }}>Samacheer</Button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </AnimatedElement>
-            ))}
-          </div>
-
-          {showDownloadOptions && selectedBoard && selectedMaterial && (
-             <div className="relative mt-12 py-8 px-6 bg-white rounded-lg shadow-lg border">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-2 right-2 h-8 w-8"
-                    onClick={() => setShowDownloadOptions(false)}
-                >
-                    <X className="h-5 w-5" />
-                    <span className="sr-only">Close</span>
-                </Button>
-              <h3 className="text-xl font-bold text-center mb-6">{selectedMaterial} - {selectedBoard}</h3>
-              <div className="flex flex-col items-center justify-center gap-6">
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                  {(boardMaterials[selectedBoard as keyof typeof boardMaterials] as any)[selectedMaterial!]?.map((item: any, idx: number) => (
-                    <Button
-                      key={idx}
-                      variant={selectedClass === item.class ? "default" : "outline"}
-                      onClick={() => {
-                        setSelectedClass(item.class);
-                        setSelectedClassPdf(item.pdf);
-                      }}
-                    >
-                      {item.class}
-                    </Button>
-                  ))}
-                  <Button asChild disabled={!selectedClassPdf}>
-                    <a href={selectedClassPdf || undefined} download>
-                       <Download className="mr-2 h-4 w-4" /> Download
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </AnimatedSection>
-      */}
-      
-      {/* Download Study Material Section */}
+      {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
@@ -1018,58 +909,53 @@ export default function Home() {
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
                  <div className="flex flex-wrap gap-4">
-                    {studyMaterials.map((material, index) => (
-                        <Dialog 
-                            key={index}
-                            open={dsmIsStudyMaterialOpen && dsmSelectedMaterial === material} 
-                            onOpenChange={(isOpen) => {
-                                if (!isOpen) {
-                                    setDsmSelectedMaterial(null);
-                                    setDsmIsStudyMaterialOpen(false);
-                                }
+                    {studyMaterials.map((material) => (
+                      <Dialog key={material} open={dsmIsDialogOpen && dsmSelectedMaterial === material} onOpenChange={(isOpen) => {
+                        if (!isOpen) {
+                          setDsmSelectedMaterial(null);
+                          setDsmIsDialogOpen(false);
+                          setDsmShowBoardSelection(false);
+                          setDsmSelectedBoard(null);
+                          setDsmSelectedClass(null);
+                          setDsmSelectedClassPdf(null);
+                        }
+                      }}>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
+                            onClick={() => {
+                              setDsmSelectedMaterial(material);
+                              setDsmIsDialogOpen(true);
+                              setDsmShowBoardSelection(true);
                             }}
-                        >
-                            <DialogTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
-                                    onClick={() => {
-                                        setDsmSelectedMaterial(material);
-                                        setDsmSelectedBoard(null);
-                                        setDsmSelectedClass(null);
-                                        setDsmSelectedClassPdf(null);
-                                        setDsmShowDownloadOptions(false);
-                                        setDsmIsStudyMaterialOpen(true);
-                                    }}
-                                >
-                                    {material}
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-lg">
-                            <DialogHeader>
-                                <DialogTitle className="text-center text-2xl font-bold">
-                                    Select Board
-                                </DialogTitle>
-                            </DialogHeader>
-                                <div className="flex justify-center gap-4 py-4">
-                                    <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                                      setDsmSelectedBoard('CBSE'); 
-                                      setDsmShowDownloadOptions(true); 
-                                      setDsmIsStudyMaterialOpen(false);
-                                    }}>CBSE</Button>
-                                    <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
-                                      setDsmSelectedBoard('Samacheer');
-                                      setDsmShowDownloadOptions(true); 
-                                      setDsmIsStudyMaterialOpen(false);
-                                    }}>Samacheer</Button>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                          >
+                            {material}
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-lg">
+                          <DialogHeader>
+                              <DialogTitle className="text-center text-2xl font-bold">
+                                Select Board
+                              </DialogTitle>
+                          </DialogHeader>
+                          <div className="flex justify-center gap-4 py-4">
+                              <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
+                                setDsmSelectedBoard('CBSE'); 
+                                setDsmShowBoardSelection(false);
+                              }}>CBSE</Button>
+                              <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
+                                setDsmSelectedBoard('Samacheer');
+                                setDsmShowBoardSelection(false);
+                              }}>Samacheer</Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     ))}
                 </div>
-                {dsmShowDownloadOptions && dsmSelectedBoard && dsmSelectedMaterial && (
+                {dsmSelectedBoard && dsmSelectedMaterial && (
                     <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmShowDownloadOptions(false)}>
+                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
                             <X className="h-5 w-5" />
                         </Button>
                         <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
@@ -1110,48 +996,6 @@ export default function Home() {
           </div>
         </div>
       </AnimatedSection>
-{/*
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold mb-12">
-              Courses for <span className="relative inline-block">kids<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span></span>
-            </h2>
-          </AnimatedElement>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {kidsCourses.map((course, index) => (
-                <Card key={index} className={`rounded-xl shadow-lg relative overflow-hidden group ${course.bgColor}`}>
-                  {course.isNew && <Badge className="absolute top-3 right-3 bg-red-500 text-white">NEW</Badge>}
-                  <CardContent className="p-8 flex flex-col items-start gap-4">
-                    <div className={`p-3 rounded-lg ${course.iconColor} bg-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12`}>
-                      <course.icon className="w-8 h-8" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-600">{course.classRange}</p>
-                      <h3 className="text-xl font-bold text-gray-800">{course.title}</h3>
-                      <p className="text-gray-500 mt-1">{course.description}</p>
-                    </div>
-                    <Button className="mt-4 w-full bg-gray-800 text-white hover:bg-gray-900">Explore</Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <div className="hidden md:flex justify-center">
-              <Image 
-                src="/super-kid.webp"
-                alt="A child excited about learning"
-                width={500}
-                height={550}
-                className="rounded-lg"
-                data-ai-hint="child learning"
-              />
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
-              */}
-
       {/* Inspired Results Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
@@ -1231,102 +1075,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
