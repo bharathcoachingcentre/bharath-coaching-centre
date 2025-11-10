@@ -1016,7 +1016,7 @@ export default function Home() {
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
             <div className="grid md:grid-cols-5 items-center">
               <div className="p-8 md:p-12 text-white md:col-span-3">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
                  <div className="flex flex-wrap gap-4">
                     {studyMaterials.map((material, index) => (
                         <Dialog 
@@ -1282,6 +1282,7 @@ export default function Home() {
 
 
     
+
 
 
 
