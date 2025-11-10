@@ -108,8 +108,8 @@ export default function OneToOneClassesPage() {
 
             <Card className="shadow-lg">
                 <CardHeader className="text-center">
-                    <p className="text-primary font-semibold">BOOKING FORM</p>
-                    <CardTitle className="text-3xl font-bold">Send Us a Message</CardTitle>
+                    <p className="text-primary font-semibold text-3xl">BOOKING FORM</p>
+                    <CardTitle className="text-xl font-bold">Send Us a Message</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Form {...form}>
