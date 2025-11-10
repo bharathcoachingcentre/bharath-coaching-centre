@@ -267,27 +267,27 @@ export default function Home() {
   const tutoringCourses = [
     {
       icon: Presentation,
-      title: "Ace your CBSE/ICSE results!",
-      description: "Highest personal attention, One teacher One student",
-      price: "888",
+      title: "Individual concern",
+      description: "",
+      price: "",
     },
     {
       icon: Award,
       title: "Your best bet to JEE / NEET!",
-      description: "Individual Attention, Maximum Results! One teacher One student",
-      price: "1,049",
+      description: "",
+      price: "",
     },
     {
       icon: GraduationCap,
       title: "Get tailored learning for IB & IGCSE board!",
-      description: "Your path to Academic Excellence!",
-      price: "1,249",
+      description: "",
+      price: "",
     },
     {
       icon: Laptop,
       title: "Learn Java & Python with Bharath Academy!",
-      description: "From Good to Great: Improve your skills!",
-      price: "999",
+      description: "",
+      price: "",
     },
   ];
 
@@ -447,7 +447,7 @@ export default function Home() {
     {
       image: '/testi-5.png',
       imageHint: 'student graduate',
-      quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that made me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
+      quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
       name: 'S K Janani Priya',
       details: 'MBBS Student, Theni Government college'
     },
@@ -1347,7 +1347,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
             <h2 className="text-3xl font-bold mb-12">
-              Courses for <span className="relative inline-block">kids<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300"></span></span>
+              Courses for <span className="relative inline-block">kids<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-300 -z-10"></span></span>
             </h2>
           </AnimatedElement>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -1412,11 +1412,11 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
                     <course.icon className="w-8 h-8 text-orange-500" />
                   </div>
                   <h3 className="text-lg font-bold mb-2">{course.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{course.description}</p>
+                  {course.description && <p className="text-sm text-gray-600 mb-4">{course.description}</p>}
                 </div>
                 <div>
                   <div className="border-t border-gray-200 my-4"></div>
-                  <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>
+                  {course.price && <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>}
                   <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Find personal tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
                 </div>
               </Card>
@@ -1559,6 +1559,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
