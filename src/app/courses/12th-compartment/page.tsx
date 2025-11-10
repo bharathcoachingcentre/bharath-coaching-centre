@@ -35,7 +35,7 @@ export default function CompartmentPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-12 md:col-span-3">
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
                     <Clipboard className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -43,7 +43,7 @@ export default function CompartmentPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
                     <Edit className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -53,7 +53,7 @@ export default function CompartmentPage() {
               </div>
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
                     <FileText className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -61,7 +61,7 @@ export default function CompartmentPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
                     <CheckCircle className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -71,7 +71,7 @@ export default function CompartmentPage() {
               </div>
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
                     <UserCheck className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -79,7 +79,7 @@ export default function CompartmentPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
                     <BookCopy className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -106,7 +106,7 @@ export default function CompartmentPage() {
               />
               <div style={{ width: '550px', marginLeft: '0px', height: '170px' }} className="bg-white p-8 shadow-lg relative w-full flex flex-col justify-center rounded-r-lg">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#D1A16E] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
                     <Star className="w-6 h-6 text-white fill-white" />
                   </div>
                   <div>
