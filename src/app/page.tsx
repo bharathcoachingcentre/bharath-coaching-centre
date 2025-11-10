@@ -1110,8 +1110,7 @@ export default function Home() {
           </div>
         </div>
       </AnimatedSection>
-
-      {/* Courses for Kids Section */}
+{/*
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
@@ -1151,6 +1150,7 @@ export default function Home() {
           </div>
         </div>
       </AnimatedSection>
+              */}
 
       {/* Inspired Results Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
@@ -1282,6 +1282,7 @@ export default function Home() {
 
 
     
+
 
 
 
