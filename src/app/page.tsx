@@ -43,7 +43,7 @@ const resultsData = {
   "10th Board": [
     
     { src: '/stu-5.png', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
-    { src: '/stu-2.png  ', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/stu-2.png', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
     { src: '/stu-3.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
     { src: '/stu-6.png', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
     { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K Vora', score: 'Maths 95 | Total 470' },
@@ -821,12 +821,6 @@ export default function Home() {
                       <div className="w-1/3">
                           <div className="flex justify-end gap-4 mb-4">
                           </div>
-                          <CarouselContent className="-mt-4 h-full hidden">
-                              {/* This is a dummy carousel content to make the parent carousel work. The actual vertical one is below */}
-                              {newTestimonials.map((testimonial, index) => (
-                                  <CarouselItem key={index}></CarouselItem>
-                              ))}
-                          </CarouselContent>
                           <div className="h-[350px] overflow-y-auto no-scrollbar">
                               <div className="flex flex-col items-center justify-center gap-4">
                                   {newTestimonials.map((testimonial, index) => (
@@ -897,8 +891,7 @@ export default function Home() {
               </Card>
             </AnimatedElement>
             <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px
-_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
+              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
                   <Brain className="h-8 w-8 mb-4 text-black" />
                   <p className="mt-2 text-muted-foreground">
                   Term wise parents’ meeting.
@@ -1181,7 +1174,16 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
             </div>
           </div>
           <div className="flex flex-wrap gap-4 my-12 justify-left">
-            
+            {resultsFilters.map((filter) => (
+                <Button
+                    key={filter}
+                    variant={activeResultFilter === filter ? 'default' : 'outline'}
+                    onClick={() => setActiveResultFilter(filter)}
+                    className="rounded-full px-6"
+                >
+                    {filter}
+                </Button>
+            ))}
           </div>
           <div>
             <Carousel opts={{ align: "start", loop: true }} className="w-full">
@@ -1195,7 +1197,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
                             alt={result.alt}
                             width={400}
                             height={400}
-                            className="w-full h-auto object-cover aspect-[4/5.8]"
+                            className="w-full h-auto object-cover aspect-[4/5]"
                             data-ai-hint={result.hint}
                           />
                           <div className="p-4">
@@ -1280,6 +1282,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
