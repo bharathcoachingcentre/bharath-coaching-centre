@@ -22,13 +22,13 @@ export default function CompartmentPage() {
         </div>
       </section>
 
-      <section className="pt-16 md:pt-24 pb-36 bg-[#2C2422] text-white">
+      <section className="pt-16 md:pt-24 pb-36 bg-[#f1f7fa] text-gray-800">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-6">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-px bg-white"></div>
-                <div className="w-4 h-px bg-white"></div>
+                <div className="w-8 h-px bg-gray-800"></div>
+                <div className="w-4 h-px bg-gray-800"></div>
               </div>
               <h2 className="text-4xl font-bold">Benefits</h2>
             </div>
