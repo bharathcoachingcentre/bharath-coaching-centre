@@ -104,7 +104,12 @@ export default function OnlineCoursesPage() {
                 <AccordionItem value="1to1" className="border-b-0 mt-4">
                   <AccordionTrigger className="bg-yellow-100 hover:bg-yellow-200/80 text-yellow-800 font-bold text-lg rounded-lg px-6 py-4 no-underline">1 TO 1</AccordionTrigger>
                   <AccordionContent>
-                    <p>1 to 1 content goes here.</p>
+                  <ul className="bg-white rounded-b-lg border border-t-0">
+                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/1-to-1-12th-grade">12th Grade</Link></li>
+                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/1-to-1-11th-grade">11th Grade</Link></li>
+                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/1-to-1-10th-grade">10th Grade</Link></li>
+                        <li className="px-6 py-3 text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/1-to-1-9th-grade">9th Grade</Link></li>
+                    </ul>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
