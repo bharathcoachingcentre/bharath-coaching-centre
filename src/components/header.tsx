@@ -48,7 +48,7 @@ const samacheerCourses = [
     { label: "Class 9 All subjects", href: "/courses/samacheer-class-9" },
     { label: "Class 8 All subjects", href: "/courses" },
     { label: "Class 7 All subjects", href: "/courses" },
-    { label: "Class 6 All subjects", href: "/courses" },
+    { label: "Class 6 All subjects", href: "/courses/samacheer-class-6" },
     { label: "Class 5 All subjects", href: "/courses" },
     { label: "Class 4 All subjects", href: "/courses" },
     { label: "Class 3 All subjects", href: "/courses" },
@@ -242,3 +242,5 @@ export function Header() {
     </header>
   );
 }
+
+    
