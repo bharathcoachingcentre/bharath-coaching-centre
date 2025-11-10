@@ -32,7 +32,7 @@ const offlineCourses = [
     { label: "Class 10 All subjects", href: "/courses/cbse-class-10" },
     { label: "Class 9 All subjects", href: "/courses/cbse-class-9" },
     { label: "Class 8 All subjects", href: "/courses" },
-    { label: "Class 7 All subjects", href: "/courses" },
+    { label: "Class 7 All subjects", href: "/courses/cbse-class-7" },
     { label: "Class 6 All subjects", href: "/courses/cbse-class-6" },
     { label: "Class 5 All subjects", href: "/courses" },
     { label: "Class 4 All subjects", href: "/courses" },
@@ -47,7 +47,7 @@ const samacheerCourses = [
     { label: "Class 10 All subjects", href: "/courses/samacheer-class-10" },
     { label: "Class 9 All subjects", href: "/courses/samacheer-class-9" },
     { label: "Class 8 All subjects", href: "/courses" },
-    { label: "Class 7 All subjects", href: "/courses" },
+    { label: "Class 7 All subjects", href: "/courses/samacheer-class-7" },
     { label: "Class 6 All subjects", href: "/courses/samacheer-class-6" },
     { label: "Class 5 All subjects", href: "/courses" },
     { label: "Class 4 All subjects", href: "/courses" },
@@ -242,5 +242,3 @@ export function Header() {
     </header>
   );
 }
-
-    
