@@ -29,8 +29,8 @@ const offlineCourses = [
     { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
     { label: "12 Compartment", href: "/courses/12th-compartment" },
     { label: "Class 11 PCM", href: "/courses/cbse-class-11-pcm" },
-    { label: "Class 10 All subjects", href: "/courses/cbse-class-10" },
-    { label: "Class 9 All subjects", href: "/courses/cbse-class-9" },
+    { label: "Class 10 All subjects", href: "/courses/cbse-10th-grade" },
+    { label: "Class 9 All subjects", href: "/courses/cbse-9th-grade" },
     { label: "Class 8 All subjects", href: "/courses/cbse-class-8" },
     { label: "Class 7 All subjects", href: "/courses/cbse-class-7" },
     { label: "Class 6 All subjects", href: "/courses/cbse-class-6" },
@@ -87,7 +87,7 @@ const navLinks = [
     ]
   },
   { href: "/our-results", label: "Our Results" },
-  { href: "/courses", label: "One to One Clases" },
+  { href: "/one-to-one-classes", label: "One to One Clases" },
   { 
     href: "/", 
     label: "More",
