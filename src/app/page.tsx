@@ -707,6 +707,48 @@ export default function Home() {
         </div>
       </AnimatedSection>
 
+      {/* One-to-One Tutoring Section */}
+      <AnimatedSection className="py-16 md:py-24 bg-[#FFF9F5]">
+        <div className="container mx-auto">
+          <div className="flex justify-between items-start mb-12">
+            <AnimatedElement animation="fade-up">
+              <div>
+                <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Tutoring</h2>
+                <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
+              </div>
+            </AnimatedElement>
+            <div className="hidden md:block">
+              <Image
+                src="/discuss.png"
+                alt="Tutoring discussion"
+                width={300}
+                height={200}
+                data-ai-hint="students tutoring"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {tutoringCourses.map((course, index) => (
+              <Card key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col transition-all duration-300 hover:scale-105 hover:-translate-y-2">
+                <div className="flex-grow">
+                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 mb-4">
+                    <course.icon className="w-8 h-8 text-orange-500" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{course.title}</h3>
+                  {course.description && <p className="text-sm text-gray-600 mb-4">{course.description}</p>}
+                </div>
+                <div>
+                  <div className="border-t border-gray-200 my-4"></div>
+                  {course.price && <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>}
+                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Find personal tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
+
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 bg-testimonial">
           <div className="container mx-auto text-white">
@@ -1383,48 +1425,6 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
         </div>
       </AnimatedSection>
 
-      {/* One-to-One Tutoring Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-[#FFF9F5]">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-start mb-12">
-            <AnimatedElement animation="fade-up">
-              <div>
-                <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Tutoring</h2>
-                <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
-              </div>
-            </AnimatedElement>
-            <div className="hidden md:block">
-              <Image
-                src="/discuss.png"
-                alt="Tutoring discussion"
-                width={300}
-                height={200}
-                data-ai-hint="students tutoring"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {tutoringCourses.map((course, index) => (
-              <Card key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col transition-all duration-300 hover:scale-105 hover:-translate-y-2">
-                <div className="flex-grow">
-                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 mb-4">
-                    <course.icon className="w-8 h-8 text-orange-500" />
-                  </div>
-                  <h3 className="text-lg font-bold mb-2">{course.title}</h3>
-                  {course.description && <p className="text-sm text-gray-600 mb-4">{course.description}</p>}
-                </div>
-                <div>
-                  <div className="border-t border-gray-200 my-4"></div>
-                  {course.price && <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>}
-                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Find personal tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
-      
       {/* Inspired Results Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
@@ -1559,6 +1559,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
