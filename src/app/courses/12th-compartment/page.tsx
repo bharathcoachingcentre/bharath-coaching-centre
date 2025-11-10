@@ -229,7 +229,7 @@ export default function CompartmentPage() {
         </div>
       </div>
 
-      <AnimatedSection className="py-16 md:py-24">
+      <AnimatedSection className="pb-16 md:pb-24">
         <div className="container mx-auto">
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
             <div className="grid md:grid-cols-5 items-center">
