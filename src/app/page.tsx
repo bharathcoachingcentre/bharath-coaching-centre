@@ -1173,7 +1173,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="flex flex-wrap gap-4 my-12 justify-left">
+          <div className="flex flex-wrap gap-4 my-12 justify-left" id="inspired-btn">
             {resultsFilters.map((filter) => (
                 <Button
                     key={filter}
@@ -1282,6 +1282,7 @@ export default function Home() {
 
 
     
+
 
 
 
