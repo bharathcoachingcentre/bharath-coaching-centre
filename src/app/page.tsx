@@ -1240,62 +1240,6 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
           </Tabs>
         </div>
       </AnimatedSection>
-      
-      {/* Online Courses Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-4xl font-bold mb-12">Online Courses</h2>
-          </AnimatedElement>
-          <div className="grid md:grid-cols-2 gap-12">
-            <AnimatedElement animation="fade-up">
-              <Accordion type="single" collapsible defaultValue="cbse" className="w-full">
-                <AccordionItem value="cbse" className="border-b-0">
-                  <AccordionTrigger className="bg-blue-100 hover:bg-blue-200/80 text-blue-800 font-bold text-lg rounded-lg px-6 py-4 no-underline">CBSE BATCH</AccordionTrigger>
-                  <AccordionContent className="pt-0">
-                    <ul className="bg-white rounded-b-lg border border-t-0">
-                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer">12th Grade</li>
-                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer">11th Grade</li>
-                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer">10th Grade</li>
-                        <li className="px-6 py-3 text-muted-foreground hover:bg-gray-50 cursor-pointer">9th Grade</li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="samacheer" className="border-b-0 mt-4">
-                  <AccordionTrigger className="bg-green-100 hover:bg-green-200/80 text-green-800 font-bold text-lg rounded-lg px-6 py-4 no-underline">SAMACHEER BATCH</AccordionTrigger>
-                  <AccordionContent>
-                    <p>Samacheer batch content goes here.</p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="1to1" className="border-b-0 mt-4">
-                  <AccordionTrigger className="bg-yellow-100 hover:bg-yellow-200/80 text-yellow-800 font-bold text-lg rounded-lg px-6 py-4 no-underline">1 TO 1</AccordionTrigger>
-                  <AccordionContent>
-                    <p>1 to 1 content goes here.</p>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <div className="relative">
-                {onlineCourseFeatures.map((feature, index) => (
-                  <div key={index} className="flex items-start gap-6 relative pl-12 pb-10">
-                    {index !== onlineCourseFeatures.length - 1 && (
-                      <div className="absolute left-6 top-6 h-full w-px bg-gray-200"></div>
-                    )}
-                    <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-                      <feature.icon className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">{feature.title}</h3>
-                      <p className="text-muted-foreground">{feature.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </AnimatedElement>
-          </div>
-        </div>
-      </AnimatedSection>
 
       {/* Courses for Kids Section */}
       <AnimatedSection className="py-16 md:py-24">
@@ -1468,6 +1412,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
