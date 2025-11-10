@@ -33,7 +33,7 @@ const offlineCourses = [
     { label: "Class 9 All subjects", href: "/courses/cbse-class-9" },
     { label: "Class 8 All subjects", href: "/courses" },
     { label: "Class 7 All subjects", href: "/courses" },
-    { label: "Class 6 All subjects", href: "/courses" },
+    { label: "Class 6 All subjects", href: "/courses/cbse-class-6" },
     { label: "Class 5 All subjects", href: "/courses" },
     { label: "Class 4 All subjects", href: "/courses" },
     { label: "Class 3 All subjects", href: "/courses" },
