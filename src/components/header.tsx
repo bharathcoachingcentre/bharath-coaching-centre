@@ -42,7 +42,7 @@ const offlineCourses = [
 ];
 const samacheerCourses = [
     { label: "Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
-    { label: "12 Compartment", href: "/courses/12th-compartment" },
+    { label: "12 Compartment", href: "/courses/samacheer-12th-compartment" },
     { label: "Class 11 PCM", href: "/courses/samacheer-class-11-pcm" },
     { label: "Class 10 All subjects", href: "/courses/samacheer-class-10" },
     { label: "Class 9 All subjects", href: "/courses/samacheer-class-9" },
