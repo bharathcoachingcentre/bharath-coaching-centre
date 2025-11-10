@@ -1345,10 +1345,6 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
                 <div>
                   <h2 className="text-4xl font-bold">Academic Excellence<span className="relative inline-block">Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
                   <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
-                  <div className="flex gap-4 mt-8">
-                    <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Explore courses</Button>
-                    <Button size="lg" variant="outline">View our results</Button>
-                  </div>
                 </div>
             </AnimatedElement>
             <div className="relative h-64 md:h-auto">
@@ -1471,6 +1467,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
