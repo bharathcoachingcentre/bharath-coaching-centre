@@ -1764,22 +1764,6 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
             </div>
           </div>
         </div>
-        <div className="bg-blue-500 text-white" id="happy-help">
-          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center" id="help-you">
-            <div className="space-y-6">
-              <AnimatedElement animation="fade-up">
-                <h2 className="text-4xl font-bold">Happy to help you!</h2>
-                <p className="text-lg">
-                  Need more details? Our expert academic counsellors will be happy to patiently explain everything that you want to know.
-                </p>
-              </AnimatedElement>
-              <Button size="lg" className="bg-gray-800 hover:bg-gray-900 text-white font-bold text-lg transition-transform duration-300 hover:scale-105">Speak to an expert</Button>
-            </div>
-            <AnimatedElement animation="fade-left">
-              <Image src="/speak-our-expert.png" alt="Speak to our expert" width={600} height={400} data-ai-hint="expert support" />
-            </AnimatedElement>
-          </div>
-        </div>
       </AnimatedSection>
 
       {/* Floating Action Buttons */}
