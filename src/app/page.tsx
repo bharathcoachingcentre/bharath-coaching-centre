@@ -186,7 +186,7 @@ export default function Home() {
         "Phonics based Training",
         "Fun and engaging learning every day",
       ],
-      imageUrl: "/final-sk.png",
+      imageUrl: "/course.png",
       imageHint: "female teacher",
       bgColor: "bg-blue-50",
     },
@@ -1559,6 +1559,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
