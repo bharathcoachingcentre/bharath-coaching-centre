@@ -273,19 +273,19 @@ export default function Home() {
     },
     {
       icon: Award,
-      title: "Your best bet to JEE / NEET!",
+      title: "Personalized schedule",
       description: "",
       price: "",
     },
     {
       icon: GraduationCap,
-      title: "Get tailored learning for IB & IGCSE board!",
+      title: "Personalized study material",
       description: "",
       price: "",
     },
     {
       icon: Laptop,
-      title: "Learn Java & Python with Bharath Academy!",
+      title: "Weekly academic growth tracking",
       description: "",
       price: "",
     },
@@ -1559,6 +1559,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
