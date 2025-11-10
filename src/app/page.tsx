@@ -1492,21 +1492,6 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
           </div>
         </div>
       </AnimatedSection>
-
-      {/* Achieve more Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto text-center">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold">
-              Achieve more with Bharath Academy, get <span className="text-orange-500">Free</span> online counselling now
-            </h2>
-          </AnimatedElement>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">Book a demo</Button>
-            <Button size="lg" variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600" id="learn-live">Learn LIVE</Button>
-          </div>
-        </div>
-      </AnimatedSection>
       
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
@@ -1574,6 +1559,7 @@ _#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' 
 
 
     
+
 
 
 
