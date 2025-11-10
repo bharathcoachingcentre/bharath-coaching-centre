@@ -109,7 +109,7 @@ export default function OneToOneClassesPage() {
             <Card className="shadow-lg">
                 <CardHeader className="text-center">
                     <p className="text-primary font-semibold text-3xl">BOOKING FORM</p>
-                    <CardTitle className="text-xl font-bold">Send Us a Message</CardTitle>
+                    <CardTitle className="text-xl font-bold">Fill in the Form to experience our demo class</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Form {...form}>
