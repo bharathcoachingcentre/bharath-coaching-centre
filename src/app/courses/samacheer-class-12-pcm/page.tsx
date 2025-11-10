@@ -163,7 +163,7 @@ export default function SamacheerClass12PcmPage() {
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
         <Image
           src="/Online-Course.jpg"
-          alt="Samacheer Class 12 PCM Banner"
+          alt="Samacheer 12th Grade Banner"
           fill
           className="object-cover"
           data-ai-hint="online learning"
@@ -171,7 +171,7 @@ export default function SamacheerClass12PcmPage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
-            Samacheer Class 12 PCM
+            Samacheer 12th Grade
           </h1>
         </div>
       </section>

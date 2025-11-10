@@ -93,7 +93,12 @@ export default function OnlineCoursesPage() {
                 <AccordionItem value="samacheer" className="border-b-0 mt-4">
                   <AccordionTrigger className="bg-green-100 hover:bg-green-200/80 text-green-800 font-bold text-lg rounded-lg px-6 py-4 no-underline">SAMACHEER BATCH</AccordionTrigger>
                   <AccordionContent>
-                    <p>Samacheer batch content goes here.</p>
+                    <ul className="bg-white rounded-b-lg border border-t-0">
+                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/samacheer-class-12-pcm">12th Grade</Link></li>
+                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/samacheer-class-11-pcm">11th Grade</Link></li>
+                        <li className="px-6 py-3 border-b text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/samacheer-class-10">10th Grade</Link></li>
+                        <li className="px-6 py-3 text-muted-foreground hover:bg-gray-50 cursor-pointer"><Link href="/courses/samacheer-class-9">9th Grade</Link></li>
+                    </ul>
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="1to1" className="border-b-0 mt-4">
