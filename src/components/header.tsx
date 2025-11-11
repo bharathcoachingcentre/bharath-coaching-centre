@@ -63,6 +63,14 @@ const samacheerCourses = [
     { label: "Class 1 All subjects", href: "/courses" },
 ];
 
+const studyMaterialLinks = [
+    { label: "NCERT Book PDF", href: "/free-study-material" },
+    { label: "NCERT Book Back Solution", href: "/free-study-material" },
+    { label: "NCERT CHAPTER WISED Test Question Paper", href: "/free-study-material" },
+    { label: "Model Question Paper", href: "/free-study-material" },
+    { label: "Previous year Board Question Paper", href: "/free-study-material" },
+];
+
 const navLinks = [
   { 
     href: "/", 
@@ -85,13 +93,21 @@ const navLinks = [
     href: "/online-courses", 
     label: "Online Courses",
   },
-  { 
-    href: "/free-study-material", 
+  {
+    href: "/free-study-material",
     label: "Free study material",
     subLinks: [
-        { href: "/free-study-material", label: "CBSE" },
-        { href: "/free-study-material", label: "SAMACHEER" },
-    ]
+      {
+        label: "CBSE",
+        href: "/free-study-material",
+        nestedLinks: studyMaterialLinks,
+      },
+      {
+        label: "SAMACHEER",
+        href: "/free-study-material",
+        nestedLinks: studyMaterialLinks,
+      },
+    ],
   },
   { href: "/our-results", label: "Our Results" },
   { href: "/one-to-one-classes", label: "One to One Clases" },
