@@ -29,7 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, User, Calendar, BookOpen } from "lucide-react";
 import Image from "next/image";
 
 const formSchema = z.object({
@@ -89,35 +89,31 @@ export default function OneToOneClassesPage() {
                         <h2 className="text-4xl font-bold mt-2">1 to 1 Classes</h2>
                         <p className="mt-4 text-muted-foreground">
                             Connect with us today and we will take you through a hassle-free experience!
-                            Turn your dreams and ideas into reality.
                         </p>
                     </div>
                     <div className="space-y-8">
                         <div className="flex items-start space-x-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
-                                <MapPin className="h-8 w-8" />
+                                <User className="h-8 w-8" />
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold">Address</h3>
-                                <p className="text-muted-foreground">First floor, 59/G5, Adura Regent Apartment, 6th Street, Perumalpuram, Tirunelveli<br/>Tamil Nadu, 627007.</p>
+                                <h3 className="text-xl font-semibold">Personal concern</h3>
                             </div>
                         </div>
                         <div className="flex items-start space-x-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
-                                <Mail className="h-8 w-8" />
+                                <Calendar className="h-8 w-8" />
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold">Mail Us</h3>
-                                <p className="text-muted-foreground">bcc_try@hotmail.com</p>
+                                <h3 className="text-xl font-semibold">Personalized schedule</h3>
                             </div>
                         </div>
                         <div className="flex items-start space-x-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
-                                <Phone className="h-8 w-8" />
+                                <BookOpen className="h-8 w-8" />
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold">Call Us</h3>
-                                <p className="text-muted-foreground">+91 7200030307</p>
+                                <h3 className="text-xl font-semibold">Perfect Learning</h3>
                             </div>
                         </div>
                     </div>
