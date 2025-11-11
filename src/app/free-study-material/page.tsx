@@ -1,10 +1,12 @@
+
 'use client';
 
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { X, Download } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { BookOpen, FileText, GraduationCap } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
@@ -22,88 +24,6 @@ const AnimatedSection = ({ children, className }: { children: React.ReactNode; c
 };
 
 export default function FreeStudyMaterialPage() {
-    const [dsmIsDialogOpen, setDsmIsDialogOpen] = React.useState(false);
-    const [dsmSelectedMaterial, setDsmSelectedMaterial] = React.useState<string | null>(null);
-    const [dsmShowBoardSelection, setDsmShowBoardSelection] = React.useState(false);
-    const [dsmSelectedBoard, setDsmSelectedBoard] = React.useState<string | null>(null);
-    const [dsmSelectedClass, setDsmSelectedClass] = React.useState<string | null>(null);
-    const [dsmSelectedClassPdf, setDsmSelectedClassPdf] = React.useState<string | null>(null);
-
-    const boardMaterials = {
-        CBSE: {
-          "NCERT Books": [
-            { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_ncert.pdf" },
-            { class: "Class 10", pdf: "/pdfs/cbse_10_ncert.pdf" },
-            { class: "Class 9", pdf: "/pdfs/cbse_9_ncert.pdf" },
-          ],
-          "NCERT Solutions": [
-            { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
-            { class: "Class 10", pdf: "/pdfs/cbse_10_solutions.pdf" },
-            { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
-          ],
-          "Formula Booklet": [
-            { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_formula.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_formula.pdf" },
-            { class: "Class 10", pdf: "/pdfs/cbse_10_formula.pdf" },
-            { class: "Class 9", pdf: "/pdfs/cbse_9_formula.pdf" },
-          ],
-          "Unit wise question papers": [
-            { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_unit_questions.pdf" },
-            { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
-            { class: "Class 9", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
-          ],
-          "Model Board question paper": [
-            { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_model_paper.pdf" },
-            { class: "Class 10", pdf: "/pdfs/cbse_10_model_paper.pdf" },
-            { class: "Class 9", pdf: "/pdfs/cbse_9_model_paper.pdf" },
-          ],
-        },
-        Samacheer: {
-            "NCERT Books": [
-                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_ncert.pdf" },
-                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_ncert.pdf" },
-                { class: "Class 10", pdf: "/pdfs/samacheer_10_ncert.pdf" },
-                { class: "Class 9", pdf: "/pdfs/samacheer_9_ncert.pdf" },
-            ],
-            "NCERT Solutions": [
-                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_solutions.pdf" },
-                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_solutions.pdf" },
-                { class: "Class 10", pdf: "/pdfs/samacheer_10_solutions.pdf" },
-                { class: "Class 9", pdf: "/pdfs/samacheer_9_solutions.pdf" },
-            ],
-            "Formula Booklet": [
-                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_formula.pdf" },
-                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_formula.pdf" },
-                { class: "Class 10", pdf: "/pdfs/samacheer_10_formula.pdf" },
-                { class: "Class 9", pdf: "/pdfs/samacheer_9_formula.pdf" },
-            ],
-            "Unit wise question papers": [
-                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_unit_questions.pdf" },
-                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_unit_questions.pdf" },
-                { class: "Class 10", pdf: "/pdfs/samacheer_10_unit_questions.pdf" },
-                { class: "Class 9", pdf: "/pdfs/samacheer_9_unit_questions.pdf" },
-            ],
-            "Model Board question paper": [
-                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_model_paper.pdf" },
-                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_model_paper.pdf" },
-                { class: "Class 10", pdf: "/pdfs/samacheer_10_model_paper.pdf" },
-                { class: "Class 9", pdf: "/pdfs/samacheer_9_model_paper.pdf" },
-            ],
-        },
-    };
-      
-    const studyMaterials = [
-    "NCERT Books",
-    "NCERT Solutions",
-    "Formula Booklet",
-    "Unit wise question papers",
-    "Model Board question paper",
-    ];
-
   return (
     <div>
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
@@ -122,97 +42,119 @@ export default function FreeStudyMaterialPage() {
         </div>
       </section>
 
-      <AnimatedSection className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
-          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
-            <div className="grid md:grid-cols-5 items-center">
-              <div className="p-8 md:p-12 text-white md:col-span-3">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
-                <div className="flex flex-wrap gap-4">
-                    {studyMaterials.map((material) => (
-                      <Dialog key={material} open={dsmIsDialogOpen && dsmSelectedMaterial === material} onOpenChange={(isOpen) => {
-                        if (!isOpen) {
-                          setDsmSelectedMaterial(null);
-                          setDsmIsDialogOpen(false);
-                          setDsmShowBoardSelection(false);
-                          setDsmSelectedBoard(null);
-                          setDsmSelectedClass(null);
-                          setDsmSelectedClassPdf(null);
-                        }
-                      }}>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
-                            onClick={() => {
-                              setDsmSelectedMaterial(material);
-                              setDsmIsDialogOpen(true);
-                              setDsmShowBoardSelection(true);
-                            }}
-                          >
-                            {material}
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-lg">
-                          <DialogHeader>
-                              <DialogTitle className="text-center text-2xl font-bold">
-                                Select Board
-                              </DialogTitle>
-                          </DialogHeader>
-                          <div className="flex justify-center gap-4 py-4">
-                              <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                                setDsmSelectedBoard('CBSE'); 
-                                setDsmShowBoardSelection(false);
-                              }}>CBSE</Button>
-                              <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
-                                setDsmSelectedBoard('Samacheer');
-                                setDsmShowBoardSelection(false);
-                              }}>Samacheer</Button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    ))}
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* CBSE Card */}
+            <Card className="rounded-2xl shadow-lg border-t-4 border-primary">
+              <CardHeader className="flex flex-row items-center gap-4">
+                <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                  <BookOpen className="h-6 w-6 text-primary" />
                 </div>
-                {dsmSelectedBoard && dsmSelectedMaterial && (
-                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
-                            <X className="h-5 w-5" />
-                        </Button>
-                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
-                        <div className="flex flex-wrap items-center justify-center gap-4">
-                            {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]?.map((item: any, idx: number) => (
-                                <Button
-                                    key={idx}
-                                    variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
-                                    className="bg-gray-200 text-gray-800"
-                                    onClick={() => {
-                                        setDsmSelectedClass(item.class);
-                                        setDsmSelectedClassPdf(item.pdf);
-                                    }}
-                                >
-                                    {item.class}
-                                </Button>
-                            ))}
-                            <Button asChild disabled={!dsmSelectedClassPdf}>
-                                <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
-                                    <Download className="mr-2 h-4 w-4" /> Download
-                                </a>
-                            </Button>
-                        </div>
-                    </div>
-                )}
-              </div>
-              <div className="h-64 md:h-full md:col-span-2 relative">
-                <Image
-                  src="/Study-material.png"
-                  alt="Study Material"
-                  width={600}
-                  height={600}
-                  className="object-cover w-full h-full"
-                  data-ai-hint="modern building"
-                />
-              </div>
-            </div>
+                <div>
+                  <CardTitle className="text-2xl font-bold">CBSE</CardTitle>
+                  <p className="text-sm text-muted-foreground">Complete NCERT solutions and chapter-wise practice questions</p>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="cbse-ncert-solutions">
+                    <AccordionTrigger>CBSE NCERT Solutions</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-wrap gap-2">
+                        {['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
+                          <Button key={cls} variant="outline" size="sm">{cls}</Button>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="cbse-chapter-wise-test">
+                    <AccordionTrigger>CBSE Chapter Wise Test Questions</AccordionTrigger>
+                    <AccordionContent>
+                      <p>Content for CBSE Chapter Wise Test Questions.</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </CardContent>
+            </Card>
+
+            {/* Model Papers Card */}
+            <Card className="rounded-2xl shadow-lg border-t-4 border-green-500">
+              <CardHeader className="flex flex-row items-center gap-4">
+                <div className="flex-shrink-0 bg-green-100 p-3 rounded-full">
+                  <FileText className="h-6 w-6 text-green-600" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl font-bold">Model Papers</CardTitle>
+                  <p className="text-sm text-muted-foreground">Board question papers and previous year papers</p>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="board-question-papers">
+                    <AccordionTrigger>Board Question Papers</AccordionTrigger>
+                    <AccordionContent>
+                      <p>Content for Board Question Papers.</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="previous-year-papers">
+                    <AccordionTrigger>Previous Year Board Question Papers</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-wrap gap-2">
+                        {['Class 10', 'Class 12'].map(cls => (
+                          <Button key={cls} variant="outline" size="sm">{cls}</Button>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </CardContent>
+            </Card>
+
+            {/* Samacheer Card */}
+            <Card className="rounded-2xl shadow-lg border-t-4 border-purple-500">
+              <CardHeader className="flex flex-row items-center gap-4">
+                <div className="flex-shrink-0 bg-purple-100 p-3 rounded-full">
+                  <GraduationCap className="h-6 w-6 text-purple-600" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl font-bold">Samacheer</CardTitle>
+                  <p className="text-sm text-muted-foreground">Book back solutions and comprehensive test materials</p>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="samacheer-book-back">
+                    <AccordionTrigger>Samacheer Book Back Solutions</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-wrap gap-2">
+                        {['Class 9', 'Class 10', 'Class 11'].map(cls => (
+                          <Button key={cls} variant="outline" size="sm">{cls}</Button>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="samacheer-chapter-wise">
+                    <AccordionTrigger>Samacheer Chapter Wise Test Questions</AccordionTrigger>
+                    <AccordionContent>
+                      <p>Content for Samacheer Chapter Wise Test Questions.</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="samacheer-model-papers">
+                    <AccordionTrigger>Model Board Question Papers</AccordionTrigger>
+                    <AccordionContent>
+                      <p>Content for Samacheer Model Board Question Papers.</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="samacheer-previous-year">
+                    <AccordionTrigger>Previous Years Board Question Papers</AccordionTrigger>
+                    <AccordionContent>
+                      <p>Content for Samacheer Previous Years Board Question Papers.</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </AnimatedSection>
