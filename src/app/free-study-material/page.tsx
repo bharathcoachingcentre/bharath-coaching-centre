@@ -47,7 +47,7 @@ export default function FreeStudyMaterialPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {/* CBSE Card */}
             <Card className="group rounded-2xl shadow-lg border-t-4 border-primary transition-transform duration-300 hover:scale-105">
-              <CardHeader className="flex flex-row items-center gap-4">
+              <CardHeader className="flex flex-col items-center gap-4 text-center">
                 <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
                   <BookOpen className="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110" />
                 </div>
@@ -80,7 +80,7 @@ export default function FreeStudyMaterialPage() {
 
             {/* Model Papers Card */}
             <Card className="group rounded-2xl shadow-lg border-t-4 border-green-500 transition-transform duration-300 hover:scale-105">
-              <CardHeader className="flex flex-row items-center gap-4">
+              <CardHeader className="flex flex-col items-center gap-4 text-center">
                 <div className="flex-shrink-0 bg-green-100 p-3 rounded-full">
                   <FileText className="h-6 w-6 text-green-600 transition-transform duration-300 group-hover:scale-110" />
                 </div>
@@ -113,7 +113,7 @@ export default function FreeStudyMaterialPage() {
 
             {/* Samacheer Card */}
             <Card className="group rounded-2xl shadow-lg border-t-4 border-purple-500 transition-transform duration-300 hover:scale-105">
-              <CardHeader className="flex flex-row items-center gap-4">
+              <CardHeader className="flex flex-col items-center gap-4 text-center">
                 <div className="flex-shrink-0 bg-purple-100 p-3 rounded-full">
                   <GraduationCap className="h-6 w-6 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
                 </div>
