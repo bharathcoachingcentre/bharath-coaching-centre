@@ -71,6 +71,13 @@ const studyMaterialLinks = [
     { label: "Previous year Board Question Paper", href: "/free-study-material" },
 ];
 
+const samacheerStudyMaterialLinks = [
+    { label: "SAMACHEER Book Back Solution", href: "/free-study-material" },
+    { label: "SAMACHEER Chapter Wize Test Question Papper", href: "/free-study-material" },
+    { label: "SAMACHEER Question Papper", href: "/free-study-material" },
+    { label: "Previous year Board Question Papper", href: "/free-study-material" },
+];
+
 const navLinks = [
   { 
     href: "/", 
@@ -105,7 +112,7 @@ const navLinks = [
       {
         label: "SAMACHEER",
         href: "/free-study-material",
-        nestedLinks: studyMaterialLinks,
+        nestedLinks: samacheerStudyMaterialLinks,
       },
     ],
   },
@@ -172,7 +179,7 @@ export function Header() {
                                 variant={link.isButton ? 'outline' : 'ghost'} 
                                 className={cn(
                                     "flex items-center gap-1 font-medium text-base text-lg",
-                                    link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : "text-muted-foreground hover:text-primary"
+                                    link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : (pathname.startsWith(link.href) && link.href !== "/") || pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-primary"
                                 )}
                             >
                                 {link.label}
