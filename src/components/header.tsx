@@ -126,6 +126,7 @@ const navLinks = [
   { 
     label: "Online Courses",
     isDropdown: true,
+    href: "/online-courses",
     subLinks: [
         { 
             label: "CBSE BATCH",
@@ -144,7 +145,6 @@ const navLinks = [
   {
     label: "Free study material",
     isDropdown: true,
-    href: "/free-study-material",
     subLinks: [
       {
         label: "CBSE",
