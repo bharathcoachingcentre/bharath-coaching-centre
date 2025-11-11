@@ -24,6 +24,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const offlineCourses = [
     { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
@@ -81,6 +88,7 @@ const navLinks = [
   { 
     href: "#", 
     label: "Free study material",
+    isDialog: true,
   },
   { href: "/our-results", label: "Our Results" },
   { href: "/one-to-one-classes", label: "One to One Clases" },
@@ -136,8 +144,31 @@ export function Header() {
         </div>
         
         <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu">
-            {navLinks.map((link) => (
-                link.subLinks ? (
+            {navLinks.map((link) => {
+              if (link.isDialog) {
+                return (
+                  <Dialog key={link.label}>
+                    <DialogTrigger asChild>
+                       <button
+                          className={cn(
+                            "flex items-center font-medium transition-colors hover:text-primary text-base text-muted-foreground text-lg"
+                          )}
+                        >
+                          {link.label}
+                        </button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Free Study Material</DialogTitle>
+                      </DialogHeader>
+                      <p>This is where the content for the free study material would go.</p>
+                    </DialogContent>
+                  </Dialog>
+                )
+              }
+              
+              if (link.subLinks) {
+                return (
                     <DropdownMenu key={link.label}>
                         <DropdownMenuTrigger asChild>
                             <Button 
@@ -176,10 +207,10 @@ export function Header() {
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
-                ) : (
-                    <NavLink key={link.label} href={link.href} label={link.label} />
                 )
-            ))}
+              }
+              return <NavLink key={link.label} href={link.href} label={link.label} />
+            })}
         </nav>
    
         <div className="md:hidden justify-self-end">
