@@ -88,6 +88,10 @@ const navLinks = [
   { 
     href: "/free-study-material", 
     label: "Free study material",
+    subLinks: [
+        { href: "/free-study-material", label: "CBSE" },
+        { href: "/free-study-material", label: "SAMACHEER" },
+    ]
   },
   { href: "/our-results", label: "Our Results" },
   { href: "/one-to-one-classes", label: "One to One Clases" },
