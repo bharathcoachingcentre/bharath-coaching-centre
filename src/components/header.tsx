@@ -148,28 +148,6 @@ export function Header() {
         
         <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu">
             {navLinks.map((link) => {
-              if (link.isDialog) {
-                return (
-                  <Dialog key={link.label}>
-                    <DialogTrigger asChild>
-                       <button
-                          className={cn(
-                            "flex items-center font-medium transition-colors hover:text-primary text-base text-muted-foreground text-lg"
-                          )}
-                        >
-                          {link.label}
-                        </button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Free Study Material</DialogTitle>
-                      </DialogHeader>
-                      <p>This is where the content for the free study material would go.</p>
-                    </DialogContent>
-                  </Dialog>
-                )
-              }
-              
               if (link.subLinks) {
                 return (
                     <DropdownMenu key={link.label}>
