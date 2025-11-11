@@ -192,7 +192,7 @@ export function Header() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            {link.subLinks.map((subLink: any) => (
+                            {link.subLinks.map((subLink) => (
                                 subLink.nestedLinks ? (
                                     <DropdownMenuSub key={subLink.label}>
                                         <DropdownMenuSubTrigger>
@@ -200,7 +200,7 @@ export function Header() {
                                         </DropdownMenuSubTrigger>
                                         <DropdownMenuPortal>
                                             <DropdownMenuSubContent>
-                                                {subLink.nestedLinks.map((nestedLink: any) => (
+                                                {subLink.nestedLinks.map((nestedLink) => (
                                                     <DropdownMenuItem key={nestedLink.label} asChild>
                                                         <Link href={nestedLink.href}>{nestedLink.label}</Link>
                                                     </DropdownMenuItem>
@@ -249,7 +249,7 @@ export function Header() {
                                </Button>
                              </DropdownMenuTrigger>
                              <DropdownMenuContent>
-                               {link.subLinks.map((subLink: any) => (
+                               {link.subLinks.map((subLink) => (
                                  <DropdownMenuItem key={subLink.label} asChild>
                                    <Link href={subLink.href}>{subLink.label}</Link>
                                  </DropdownMenuItem>
