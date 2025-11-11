@@ -33,37 +33,27 @@ import {
 } from "@/components/ui/dialog";
 
 const offlineCourses = [
-    { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
-    { label: "12 Compartment", href: "/courses/12th-compartment" },
-    { label: "Class 11 PCM", href: "/courses/cbse-class-11-pcm" },
-    { label: "Class 10 All subjects", href: "/courses/cbse-10th-grade" },
-    { label: "Class 9 All subjects", href: "/courses/cbse-9th-grade" },
-    { label: "Class 8 All subjects", href: "/courses/cbse-class-8" },
-    { label: "Class 7 All subjects", href: "/courses/cbse-class-7" },
-    { label: "Class 6 All subjects", href: "/courses/cbse-class-6" },
-    { label: "Class 5 All subjects", href: "/courses" },
-    { label: "Class 4 All subjects", href: "/courses" },
-    { label: "Class 3 All subjects", href: "/courses" },
-    { label: "Class 2 All subjects", href: "/courses" },
-    { label: "Class 1 All subjects", href: "/courses" },
+    { label: "CBSE Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
+    { label: "CBSE 12 Compartment", href: "/courses/12th-compartment" },
+    { label: "CBSE Class 11 PCM", href: "/courses/cbse-class-11-pcm" },
+    { label: "CBSE Class 10", href: "/courses/cbse-10th-grade" },
+    { label: "CBSE Class 9", href: "/courses/cbse-9th-grade" },
+    { label: "CBSE Class 8", href: "/courses/cbse-class-8" },
+    { label: "CBSE Class 7", href: "/courses/cbse-class-7" },
+    { label: "CBSE Class 6", href: "/courses/cbse-class-6" },
 ];
 const samacheerCourses = [
-    { label: "Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
-    { label: "12 Compartment", href: "/courses/samacheer-12th-compartment" },
-    { label: "Class 11 PCM", href: "/courses/samacheer-class-11-pcm" },
-    { label: "Class 10 All subjects", href: "/courses/samacheer-class-10" },
-    { label: "Class 9 All subjects", href: "/courses/samacheer-class-9" },
-    { label: "Class 8 All subjects", href: "/courses/samacheer-class-8" },
-    { label: "Class 7 All subjects", href: "/courses/samacheer-class-7" },
-    { label: "Class 6 All subjects", href: "/courses/samacheer-class-6" },
-    { label: "Class 5 All subjects", href: "/courses" },
-    { label: "Class 4 All subjects", href: "/courses" },
-    { label: "Class 3 All subjects", href: "/courses" },
-    { label: "Class 2 All subjects", href: "/courses" },
-    { label: "Class 1 All subjects", href: "/courses" },
+    { label: "Samacheer Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
+    { label: "Samacheer 12 Compartment", href: "/courses/samacheer-12th-compartment" },
+    { label: "Samacheer Class 11 PCM", href: "/courses/samacheer-class-11-pcm" },
+    { label: "Samacheer Class 10", href: "/courses/samacheer-class-10" },
+    { label: "Samacheer Class 9", href: "/courses/samacheer-class-9" },
+    { label: "Samacheer Class 8", href: "/courses/samacheer-class-8" },
+    { label: "Samacheer Class 7", href: "/courses/samacheer-class-7" },
+    { label: "Samacheer Class 6", href: "/courses/samacheer-class-6" },
 ];
 
-const studyMaterialLinks = [
+const cbseStudyLinks = [
     { label: "NCERT Book PDF", href: "/free-study-material" },
     { label: "NCERT Book Back Solution", href: "/free-study-material" },
     { label: "NCERT CHAPTER WISED Test Question Papper", href: "/free-study-material" },
@@ -71,60 +61,84 @@ const studyMaterialLinks = [
     { label: "Previous year Board Question Paper", href: "/free-study-material" },
 ];
 
-const samacheerStudyMaterialLinks = [
+const samacheerStudyLinks = [
     { label: "SAMACHEER Book Back Solution", href: "/free-study-material" },
     { label: "SAMACHEER Chapter Wize Test Question Papper", href: "/free-study-material" },
     { label: "SAMACHEER Question Papper", href: "/free-study-material" },
     { label: "Previous year Board Question Papper", href: "/free-study-material" },
 ];
 
+const onlineCbseCourses = [
+    { label: "12th Grade", href: "/courses/cbse-12th-grade" },
+    { label: "11th Grade", href: "/courses/cbse-11th-grade" },
+    { label: "10th Grade", href: "/courses/cbse-10th-grade" },
+    { label: "9th Grade", href: "/courses/cbse-9th-grade" },
+];
+
+const onlineSamacheerCourses = [
+    { label: "12th Grade", href: "/courses/samacheer-class-12-pcm" },
+    { label: "11th Grade", href: "/courses/samacheer-class-11-pcm" },
+    { label: "10th Grade", href: "/courses/samacheer-class-10" },
+    { label: "9th Grade", href: "/courses/samacheer-class-9" },
+];
+
+const oneToOneCourses = [
+    { label: "12th Grade", href: "/courses/1-to-1-12th-grade" },
+    { label: "11th Grade", href: "/courses/1-to-1-11th-grade" },
+    { label: "10th Grade", href: "/courses/1-to-1-10th-grade" },
+    { label: "9th Grade", href: "/courses/1-to-1-9th-grade" },
+];
+
 const navLinks = [
   { 
-    href: "/courses", 
     label: "Offline Courses",
     isButton: true,
     subLinks: [
         { 
             label: "CBSE",
-            href: "/courses",
             nestedLinks: offlineCourses
         },
         { 
             label: "Samacheer",
-            href: "/courses",
             nestedLinks: samacheerCourses
         },
     ]
   },
   { 
-    href: "/online-courses", 
     label: "Online Courses",
     subLinks: [
-        { label: "CBSE BATCH", href: "/online-courses" },
-        { label: "SAMACHEER BATCH", href: "/online-courses" },
-        { label: "1 TO 1", href: "/one-to-one-classes" },
+        { label: "Online Courses Home", href: "/online-courses"},
+        { 
+            label: "CBSE BATCH",
+            nestedLinks: onlineCbseCourses
+        },
+        { 
+            label: "SAMACHEER BATCH",
+            nestedLinks: onlineSamacheerCourses
+        },
+        { 
+            label: "1 TO 1",
+            nestedLinks: oneToOneCourses
+        },
     ]
   },
   {
-    href: "/free-study-material",
     label: "Free study material",
     subLinks: [
+      { label: "All Study Materials", href: "/free-study-material"},
       {
         label: "CBSE",
-        href: "/free-study-material",
-        nestedLinks: studyMaterialLinks,
+        nestedLinks: cbseStudyLinks,
       },
       {
         label: "SAMACHEER",
-        href: "/free-study-material",
-        nestedLinks: samacheerStudyMaterialLinks,
+        nestedLinks: samacheerStudyLinks,
       },
     ],
   },
   { href: "/our-results", label: "Our Results" },
   { href: "/one-to-one-classes", label: "One to One Clases" },
   { 
-    href: "/", 
     label: "More",
     subLinks: [
         { href: "/about", label: "About Us" },
@@ -184,7 +198,7 @@ export function Header() {
                                 variant={link.isButton ? 'outline' : 'ghost'} 
                                 className={cn(
                                     "flex items-center gap-1 font-medium text-base text-lg",
-                                    link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : (pathname.startsWith(link.href) && link.href !== "/") || pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-primary"
+                                    link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : "text-muted-foreground hover:text-primary"
                                 )}
                             >
                                 {link.label}
@@ -210,7 +224,7 @@ export function Header() {
                                     </DropdownMenuSub>
                                 ) : (
                                     <DropdownMenuItem key={subLink.label} asChild>
-                                        <Link href={subLink.href}>{subLink.label}</Link>
+                                        <Link href={subLink.href!}>{subLink.label}</Link>
                                     </DropdownMenuItem>
                                 )
                             ))}
@@ -218,7 +232,7 @@ export function Header() {
                     </DropdownMenu>
                 )
               }
-              return <NavLink key={link.label} href={link.href} label={link.label} />
+              return <NavLink key={link.label} href={link.href!} label={link.label} />
             })}
         </nav>
    
@@ -251,14 +265,14 @@ export function Header() {
                              <DropdownMenuContent>
                                {link.subLinks.map((subLink) => (
                                  <DropdownMenuItem key={subLink.label} asChild>
-                                   <Link href={subLink.href}>{subLink.label}</Link>
+                                   <Link href={subLink.href!}>{subLink.label}</Link>
                                  </DropdownMenuItem>
                                ))}
                              </DropdownMenuContent>
                            </DropdownMenu>
                          ) : (
                            <NavLink
-                             href={link.href}
+                             href={link.href!}
                              label={link.label}
                              className="text-muted-foreground hover:text-foreground"
                            />
