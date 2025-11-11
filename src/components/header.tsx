@@ -99,6 +99,11 @@ const navLinks = [
   { 
     href: "/online-courses", 
     label: "Online Courses",
+    subLinks: [
+        { label: "CBSE BATCH", href: "/online-courses" },
+        { label: "SAMACHEER BATCH", href: "/online-courses" },
+        { label: "1 TO 1", href: "/one-to-one-classes" },
+    ]
   },
   {
     href: "/free-study-material",
