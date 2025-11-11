@@ -87,9 +87,6 @@ export default function OneToOneClassesPage() {
                     <div>
                         <p className="text-primary font-semibold text-sm tracking-wider">INFORMATION</p>
                         <h2 className="text-4xl font-bold mt-2">1 to 1 Classes</h2>
-                        <p className="mt-4 text-muted-foreground">
-                            Connect with us today and we will take you through a hassle-free experience!
-                        </p>
                     </div>
                     <div className="space-y-8">
                         <div className="flex items-start space-x-4">
