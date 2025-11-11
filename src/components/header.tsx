@@ -53,12 +53,27 @@ const samacheerCourses = [
     { label: "Samacheer Class 6", href: "/courses/samacheer-class-6" },
 ];
 
+const ncertLinks = [
+    { label: "Class 12", href: "/free-study-material" },
+    { label: "Class 11", href: "/free-study-material" },
+    { label: "Class 10", href: "/free-study-material" },
+    { label: "Class 9", href: "/free-study-material" },
+    { label: "Class 8", href: "/free-study-material" },
+    { label: "Class 7", href: "/free-study-material" },
+    { label: "Class 6", href: "/free-study-material" },
+];
+
+const modelAndPreviousLinks = [
+    { label: "Class 12", href: "/free-study-material" },
+    { label: "Class 10", href: "/free-study-material" },
+];
+
 const cbseStudyLinks = [
-    { label: "NCERT Book PDF", href: "/free-study-material" },
-    { label: "NCERT Book Back Solution", href: "/free-study-material" },
-    { label: "NCERT CHAPTER WISED Test Question Papper", href: "/free-study-material" },
-    { label: "Model Question Papper", href: "/free-study-material" },
-    { label: "Previous year Board Question Paper", href: "/free-study-material" },
+    { label: "NCERT Book PDF", nestedLinks: ncertLinks },
+    { label: "NCERT Book Back Solution", nestedLinks: ncertLinks },
+    { label: "NCERT CHAPTER WISED Test Question Papper", nestedLinks: ncertLinks },
+    { label: "Model Question Papper", nestedLinks: modelAndPreviousLinks },
+    { label: "Previous year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
 
 const samacheerStudyLinks = [
@@ -212,7 +227,7 @@ export function Header() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                            {link.subLinks.map((subLink) => (
-                                subLink.nestedLinks ? (
+                                'nestedLinks' in subLink && subLink.nestedLinks ? (
                                     <DropdownMenuSub key={subLink.label}>
                                         <DropdownMenuSubTrigger>
                                             <span>{subLink.label}</span>
@@ -220,9 +235,26 @@ export function Header() {
                                         <DropdownMenuPortal>
                                             <DropdownMenuSubContent>
                                                 {subLink.nestedLinks.map((nestedLink) => (
+                                                   'nestedLinks' in nestedLink && nestedLink.nestedLinks ? (
+                                                    <DropdownMenuSub key={nestedLink.label}>
+                                                        <DropdownMenuSubTrigger>
+                                                            <span>{nestedLink.label}</span>
+                                                        </DropdownMenuSubTrigger>
+                                                        <DropdownMenuPortal>
+                                                            <DropdownMenuSubContent>
+                                                                {nestedLink.nestedLinks.map((deepLink) => (
+                                                                    <DropdownMenuItem key={deepLink.label} asChild>
+                                                                        <Link href={deepLink.href}>{deepLink.label}</Link>
+                                                                    </DropdownMenuItem>
+                                                                ))}
+                                                            </DropdownMenuSubContent>
+                                                        </DropdownMenuPortal>
+                                                    </DropdownMenuSub>
+                                                ) : (
                                                     <DropdownMenuItem key={nestedLink.label} asChild>
-                                                        <Link href={nestedLink.href}>{nestedLink.label}</Link>
+                                                        <Link href={nestedLink.href!}>{nestedLink.label}</Link>
                                                     </DropdownMenuItem>
+                                                )
                                                 ))}
                                             </DropdownMenuSubContent>
                                         </DropdownMenuPortal>
@@ -256,7 +288,7 @@ export function Header() {
                     </Link>
                     {navLinks.map((link) => (
                          <SheetClose asChild key={link.label}>
-                         {link.subLinks ? (
+                         {'subLinks' in link && link.subLinks ? (
                            <DropdownMenu>
                              <DropdownMenuTrigger asChild>
                                <Button
@@ -270,7 +302,7 @@ export function Header() {
                              <DropdownMenuContent>
                                {link.subLinks.map((subLink) => (
                                  <DropdownMenuItem key={subLink.label} asChild>
-                                   <Link href={subLink.href!}>{subLink.label}</Link>
+                                   <Link href={(subLink as any).href!}>{(subLink as any).label}</Link>
                                  </DropdownMenuItem>
                                ))}
                              </DropdownMenuContent>
