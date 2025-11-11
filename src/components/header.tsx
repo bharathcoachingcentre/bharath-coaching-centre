@@ -86,9 +86,8 @@ const navLinks = [
     label: "Online Courses",
   },
   { 
-    href: "#", 
+    href: "/free-study-material", 
     label: "Free study material",
-    isDialog: true,
   },
   { href: "/our-results", label: "Our Results" },
   { href: "/one-to-one-classes", label: "One to One Clases" },
