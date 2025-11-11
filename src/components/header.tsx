@@ -102,10 +102,15 @@ const navLinks = [
             label: "Samacheer",
             nestedLinks: samacheerCourses
         },
+        { 
+            label: "1 TO 1",
+            nestedLinks: oneToOneCourses
+        },
     ]
   },
   { 
     label: "Online Courses",
+    isDropdown: true,
     subLinks: [
         { 
             label: "CBSE BATCH",
@@ -123,6 +128,7 @@ const navLinks = [
   },
   {
     label: "Free study material",
+    isDropdown: true,
     subLinks: [
       {
         label: "CBSE",
@@ -138,6 +144,7 @@ const navLinks = [
   { href: "/one-to-one-classes", label: "One to One Clases" },
   { 
     label: "More",
+    isDropdown: true,
     subLinks: [
         { href: "/about", label: "About Us" },
         { href: "/training-methodology", label: "Our Training Methodology" },
@@ -188,11 +195,11 @@ export function Header() {
         
         <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu">
             {navLinks.map((link) => {
-              if (link.subLinks) {
+              if (link.isDropdown || link.isButton) {
                 return (
                     <DropdownMenu key={link.label}>
                         <DropdownMenuTrigger asChild>
-                            <Button 
+                             <Button 
                                 variant={link.isButton ? 'outline' : 'ghost'} 
                                 className={cn(
                                     "flex items-center gap-1 font-medium text-base text-lg",
@@ -204,7 +211,7 @@ export function Header() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            {link.subLinks.map((subLink) => (
+                           {link.subLinks.map((subLink) => (
                                 subLink.nestedLinks ? (
                                     <DropdownMenuSub key={subLink.label}>
                                         <DropdownMenuSubTrigger>
