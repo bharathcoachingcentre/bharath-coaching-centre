@@ -79,12 +79,8 @@ const navLinks = [
     label: "Online Courses",
   },
   { 
-    href: "/", 
+    href: "#", 
     label: "Free study material",
-    subLinks: [
-        { href: "/blog", label: "free study material1" },
-        { href: "/events", label: "free study material2" },
-    ]
   },
   { href: "/our-results", label: "Our Results" },
   { href: "/one-to-one-classes", label: "One to One Clases" },
