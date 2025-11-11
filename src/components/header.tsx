@@ -77,10 +77,10 @@ const cbseStudyLinks = [
 ];
 
 const samacheerStudyLinks = [
-    { label: "SAMACHEER Book Back Solution", href: "/free-study-material" },
-    { label: "SAMACHEER Chapter Wize Test Question Papper", href: "/free-study-material" },
-    { label: "SAMACHEER Question Papper", href: "/free-study-material" },
-    { label: "Previous year Board Question Papper", href: "/free-study-material" },
+    { label: "SAMACHEER Book Back Solution", nestedLinks: ncertLinks },
+    { label: "SAMACHEER Chapter Wize Test Question Papper", nestedLinks: ncertLinks },
+    { label: "SAMACHEER Question Papper", nestedLinks: modelAndPreviousLinks },
+    { label: "Previous year Board Question Papper", nestedLinks: modelAndPreviousLinks },
 ];
 
 const onlineCbseCourses = [
@@ -126,6 +126,7 @@ const navLinks = [
   { 
     label: "Online Courses",
     isDropdown: true,
+    href: "/online-courses",
     subLinks: [
         { 
             label: "CBSE BATCH",
@@ -144,6 +145,7 @@ const navLinks = [
   {
     label: "Free study material",
     isDropdown: true,
+    href: "/free-study-material",
     subLinks: [
       {
         label: "CBSE",
@@ -226,6 +228,11 @@ export function Header() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
+                          {link.href && (
+                            <DropdownMenuItem asChild>
+                               <Link href={link.href}>{link.label} Home</Link>
+                            </DropdownMenuItem>
+                          )}
                            {link.subLinks.map((subLink) => (
                                 'nestedLinks' in subLink && subLink.nestedLinks ? (
                                     <DropdownMenuSub key={subLink.label}>
@@ -300,6 +307,7 @@ export function Header() {
                                </Button>
                              </DropdownMenuTrigger>
                              <DropdownMenuContent>
+                               {link.href && <DropdownMenuItem asChild><Link href={link.href}>{link.label} Home</Link></DropdownMenuItem>}
                                {link.subLinks.map((subLink) => (
                                  <DropdownMenuItem key={subLink.label} asChild>
                                    <Link href={(subLink as any).href!}>{(subLink as any).label}</Link>
