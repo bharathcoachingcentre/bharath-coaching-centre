@@ -210,7 +210,7 @@ export default function Home() {
         "Online Class",
         "Parent Teachers Meeting",
       ],
-      imageUrl: "/Super-kids-3.png",
+      imageUrl: "/super-kid-three.jpg",
       imageHint: "happy student",
       bgColor: "bg-yellow-50",
     },
