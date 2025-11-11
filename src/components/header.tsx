@@ -107,7 +107,6 @@ const navLinks = [
   { 
     label: "Online Courses",
     subLinks: [
-        { label: "Online Courses Home", href: "/online-courses"},
         { 
             label: "CBSE BATCH",
             nestedLinks: onlineCbseCourses
@@ -125,7 +124,6 @@ const navLinks = [
   {
     label: "Free study material",
     subLinks: [
-      { label: "All Study Materials", href: "/free-study-material"},
       {
         label: "CBSE",
         nestedLinks: cbseStudyLinks,
