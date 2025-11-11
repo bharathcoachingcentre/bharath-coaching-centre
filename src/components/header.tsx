@@ -126,7 +126,6 @@ const navLinks = [
   { 
     label: "Online Courses",
     isDropdown: true,
-    href: "/online-courses",
     subLinks: [
         { 
             label: "CBSE BATCH",
@@ -336,5 +335,7 @@ export function Header() {
     </header>
   );
 }
+
+    
 
     
