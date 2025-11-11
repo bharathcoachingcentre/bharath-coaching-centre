@@ -80,7 +80,7 @@ const samacheerStudyMaterialLinks = [
 
 const navLinks = [
   { 
-    href: "/", 
+    href: "/courses", 
     label: "Offline Courses",
     isButton: true,
     subLinks: [
