@@ -46,10 +46,10 @@ export default function FreeStudyMaterialPage() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {/* CBSE Card */}
-            <Card className="rounded-2xl shadow-lg border-t-4 border-primary">
+            <Card className="group rounded-2xl shadow-lg border-t-4 border-primary transition-transform duration-300 hover:scale-105">
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                  <BookOpen className="h-6 w-6 text-primary" />
+                  <BookOpen className="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div>
                   <CardTitle className="text-2xl font-bold">CBSE</CardTitle>
@@ -59,7 +59,7 @@ export default function FreeStudyMaterialPage() {
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="cbse-ncert-solutions">
-                    <AccordionTrigger>CBSE NCERT Solutions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">CBSE NCERT Solutions</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2">
                         {['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
@@ -69,7 +69,7 @@ export default function FreeStudyMaterialPage() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="cbse-chapter-wise-test">
-                    <AccordionTrigger>CBSE Chapter Wise Test Questions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">CBSE Chapter Wise Test Questions</AccordionTrigger>
                     <AccordionContent>
                       <p>Content for CBSE Chapter Wise Test Questions.</p>
                     </AccordionContent>
@@ -79,10 +79,10 @@ export default function FreeStudyMaterialPage() {
             </Card>
 
             {/* Model Papers Card */}
-            <Card className="rounded-2xl shadow-lg border-t-4 border-green-500">
+            <Card className="group rounded-2xl shadow-lg border-t-4 border-green-500 transition-transform duration-300 hover:scale-105">
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="flex-shrink-0 bg-green-100 p-3 rounded-full">
-                  <FileText className="h-6 w-6 text-green-600" />
+                  <FileText className="h-6 w-6 text-green-600 transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div>
                   <CardTitle className="text-2xl font-bold">Model Papers</CardTitle>
@@ -92,13 +92,13 @@ export default function FreeStudyMaterialPage() {
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="board-question-papers">
-                    <AccordionTrigger>Board Question Papers</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">Board Question Papers</AccordionTrigger>
                     <AccordionContent>
                       <p>Content for Board Question Papers.</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="previous-year-papers">
-                    <AccordionTrigger>Previous Year Board Question Papers</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">Previous Year Board Question Papers</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2">
                         {['Class 10', 'Class 12'].map(cls => (
@@ -112,10 +112,10 @@ export default function FreeStudyMaterialPage() {
             </Card>
 
             {/* Samacheer Card */}
-            <Card className="rounded-2xl shadow-lg border-t-4 border-purple-500">
+            <Card className="group rounded-2xl shadow-lg border-t-4 border-purple-500 transition-transform duration-300 hover:scale-105">
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="flex-shrink-0 bg-purple-100 p-3 rounded-full">
-                  <GraduationCap className="h-6 w-6 text-purple-600" />
+                  <GraduationCap className="h-6 w-6 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div>
                   <CardTitle className="text-2xl font-bold">Samacheer</CardTitle>
@@ -125,7 +125,7 @@ export default function FreeStudyMaterialPage() {
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="samacheer-book-back">
-                    <AccordionTrigger>Samacheer Book Back Solutions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">Samacheer Book Back Solutions</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2">
                         {['Class 9', 'Class 10', 'Class 11'].map(cls => (
@@ -135,19 +135,19 @@ export default function FreeStudyMaterialPage() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="samacheer-chapter-wise">
-                    <AccordionTrigger>Samacheer Chapter Wise Test Questions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">Samacheer Chapter Wise Test Questions</AccordionTrigger>
                     <AccordionContent>
                       <p>Content for Samacheer Chapter Wise Test Questions.</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="samacheer-model-papers">
-                    <AccordionTrigger>Model Board Question Papers</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">Model Board Question Papers</AccordionTrigger>
                     <AccordionContent>
                       <p>Content for Samacheer Model Board Question Papers.</p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="samacheer-previous-year">
-                    <AccordionTrigger>Previous Years Board Question Papers</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline">Previous Years Board Question Papers</AccordionTrigger>
                     <AccordionContent>
                       <p>Content for Samacheer Previous Years Board Question Papers.</p>
                     </AccordionContent>
