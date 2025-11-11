@@ -67,7 +67,7 @@ const studyMaterialLinks = [
     { label: "NCERT Book PDF", href: "/free-study-material" },
     { label: "NCERT Book Back Solution", href: "/free-study-material" },
     { label: "NCERT CHAPTER WISED Test Question Papper", href: "/free-study-material" },
-    { label: "Model Question Paper", href: "/free-study-material" },
+    { label: "Model Question Papper", href: "/free-study-material" },
     { label: "Previous year Board Question Paper", href: "/free-study-material" },
 ];
 
