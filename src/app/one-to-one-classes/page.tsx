@@ -89,7 +89,7 @@ export default function OneToOneClassesPage() {
                         <h2 className="text-4xl font-bold mt-2">1 to 1 Classes</h2>
                     </div>
                     <div className="space-y-8">
-                        <div className="flex items-start space-x-4">
+                        <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
                                 <User className="h-8 w-8" />
                             </div>
@@ -97,7 +97,7 @@ export default function OneToOneClassesPage() {
                                 <h3 className="text-xl font-semibold">Personal concern</h3>
                             </div>
                         </div>
-                        <div className="flex items-start space-x-4">
+                        <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
                                 <Calendar className="h-8 w-8" />
                             </div>
@@ -105,7 +105,7 @@ export default function OneToOneClassesPage() {
                                 <h3 className="text-xl font-semibold">Personalized schedule</h3>
                             </div>
                         </div>
-                        <div className="flex items-start space-x-4">
+                        <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
                                 <BookOpen className="h-8 w-8" />
                             </div>
