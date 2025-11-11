@@ -126,7 +126,6 @@ const navLinks = [
   { 
     label: "Online Courses",
     isDropdown: true,
-    href: "/online-courses",
     subLinks: [
         { 
             label: "CBSE BATCH",
@@ -228,12 +227,12 @@ export function Header() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          {link.href && (
+                           {(link as any).href && (
                             <DropdownMenuItem asChild>
-                               <Link href={link.href}>{link.label} Home</Link>
+                               <Link href={(link as any).href}>{(link as any).label} Home</Link>
                             </DropdownMenuItem>
                           )}
-                           {link.subLinks.map((subLink) => (
+                           {link.subLinks!.map((subLink) => (
                                 'nestedLinks' in subLink && subLink.nestedLinks ? (
                                     <DropdownMenuSub key={subLink.label}>
                                         <DropdownMenuSubTrigger>
@@ -241,7 +240,7 @@ export function Header() {
                                         </DropdownMenuSubTrigger>
                                         <DropdownMenuPortal>
                                             <DropdownMenuSubContent>
-                                                {subLink.nestedLinks.map((nestedLink) => (
+                                                {subLink.nestedLinks.map((nestedLink: any) => (
                                                    'nestedLinks' in nestedLink && nestedLink.nestedLinks ? (
                                                     <DropdownMenuSub key={nestedLink.label}>
                                                         <DropdownMenuSubTrigger>
@@ -249,7 +248,7 @@ export function Header() {
                                                         </DropdownMenuSubTrigger>
                                                         <DropdownMenuPortal>
                                                             <DropdownMenuSubContent>
-                                                                {nestedLink.nestedLinks.map((deepLink) => (
+                                                                {nestedLink.nestedLinks.map((deepLink: any) => (
                                                                     <DropdownMenuItem key={deepLink.label} asChild>
                                                                         <Link href={deepLink.href}>{deepLink.label}</Link>
                                                                     </DropdownMenuItem>
@@ -267,8 +266,8 @@ export function Header() {
                                         </DropdownMenuPortal>
                                     </DropdownMenuSub>
                                 ) : (
-                                    <DropdownMenuItem key={subLink.label} asChild>
-                                        <Link href={subLink.href!}>{subLink.label}</Link>
+                                    <DropdownMenuItem key={(subLink as any).label} asChild>
+                                        <Link href={(subLink as any).href!}>{(subLink as any).label}</Link>
                                     </DropdownMenuItem>
                                 )
                             ))}
@@ -337,3 +336,5 @@ export function Header() {
     </header>
   );
 }
+
+    
