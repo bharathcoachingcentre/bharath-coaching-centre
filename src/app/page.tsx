@@ -943,10 +943,12 @@ export default function Home() {
                               <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
                                 setDsmSelectedBoard('CBSE'); 
                                 setDsmShowBoardSelection(false);
+                                setDsmIsDialogOpen(false);
                               }}>CBSE</Button>
                               <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
                                 setDsmSelectedBoard('Samacheer');
                                 setDsmShowBoardSelection(false);
+                                setDsmIsDialogOpen(false);
                               }}>Samacheer</Button>
                           </div>
                         </DialogContent>
