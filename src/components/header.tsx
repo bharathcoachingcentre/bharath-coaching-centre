@@ -116,7 +116,7 @@ const navLinks = [
             nestedLinks: offlineCourses
         },
         { 
-            label: "Samacheer",
+            label: "SAMACHEER",
             nestedLinks: samacheerCourses
         },
         { 
