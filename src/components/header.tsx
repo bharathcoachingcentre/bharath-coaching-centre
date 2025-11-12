@@ -109,7 +109,7 @@ const oneToOneCourses = [
 const navLinks = [
   { 
     label: "Offline Courses",
-    isButton: true,
+    isDropdown: true,
     subLinks: [
         { 
             label: "CBSE",
@@ -212,15 +212,16 @@ export function Header() {
         
         <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu">
             {navLinks.map((link) => {
-              if (link.isDropdown || link.isButton) {
+              const isButton = (link as any).isButton;
+              if (link.isDropdown || isButton) {
                 return (
                     <DropdownMenu key={link.label}>
                         <DropdownMenuTrigger asChild>
                              <Button 
-                                variant={link.isButton ? 'outline' : 'ghost'} 
+                                variant={isButton ? 'outline' : 'ghost'} 
                                 className={cn(
                                     "flex items-center gap-1 font-medium text-base text-lg",
-                                    link.isButton ? "border-primary/20 text-primary" : "text-muted-foreground hover:text-primary"
+                                    isButton ? "text-primary" : "text-muted-foreground hover:text-primary"
                                 )}
                             >
                                 {link.label}
@@ -233,7 +234,7 @@ export function Header() {
                                <Link href={(link as any).href}>{(link as any).label} Home</Link>
                             </DropdownMenuItem>
                           )}
-                           {link.subLinks!.map((subLink) => (
+                           {(link as any).subLinks!.map((subLink: any) => (
                                 'nestedLinks' in subLink && subLink.nestedLinks ? (
                                     <DropdownMenuSub key={subLink.label}>
                                         <DropdownMenuSubTrigger>
@@ -302,7 +303,7 @@ export function Header() {
                            <DropdownMenu>
                              <DropdownMenuTrigger asChild>
                                <Button
-                                 variant={link.isButton ? "outline" : "ghost"}
+                                 variant={(link as any).isButton ? "outline" : "ghost"}
                                  className="flex justify-between items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary w-full"
                                >
                                  {link.label}
@@ -310,7 +311,7 @@ export function Header() {
                                </Button>
                              </DropdownMenuTrigger>
                              <DropdownMenuContent>
-                                {link.subLinks.map((subLink) => (
+                                {(link as any).subLinks.map((subLink: any) => (
                                     'nestedLinks' in subLink && subLink.nestedLinks ? (
                                         <DropdownMenuSub key={subLink.label}>
                                             <DropdownMenuSubTrigger>
