@@ -220,7 +220,7 @@ export function Header() {
                                 variant={link.isButton ? 'outline' : 'ghost'} 
                                 className={cn(
                                     "flex items-center gap-1 font-medium text-base text-lg",
-                                    link.isButton ? "bg-primary/10 border-primary/20 text-primary hover:bg-primary/20" : "text-muted-foreground hover:text-primary"
+                                    link.isButton ? "border-primary/20 text-primary" : "text-muted-foreground hover:text-primary"
                                 )}
                             >
                                 {link.label}
