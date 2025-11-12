@@ -303,19 +303,52 @@ export function Header() {
                              <DropdownMenuTrigger asChild>
                                <Button
                                  variant={link.isButton ? "outline" : "ghost"}
-                                 className="flex justify-start items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary"
+                                 className="flex justify-between items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary w-full"
                                >
                                  {link.label}
                                  <ChevronDown className="h-4 w-4" />
                                </Button>
                              </DropdownMenuTrigger>
                              <DropdownMenuContent>
-                               {link.href && <DropdownMenuItem asChild><Link href={link.href}>{link.label} Home</Link></DropdownMenuItem>}
-                               {link.subLinks.map((subLink) => (
-                                 <DropdownMenuItem key={subLink.label} asChild>
-                                   <Link href={(subLink as any).href!}>{(subLink as any).label}</Link>
-                                 </DropdownMenuItem>
-                               ))}
+                                {link.subLinks.map((subLink) => (
+                                    'nestedLinks' in subLink && subLink.nestedLinks ? (
+                                        <DropdownMenuSub key={subLink.label}>
+                                            <DropdownMenuSubTrigger>
+                                                <span>{subLink.label}</span>
+                                            </DropdownMenuSubTrigger>
+                                            <DropdownMenuPortal>
+                                                <DropdownMenuSubContent>
+                                                    {subLink.nestedLinks.map((nestedLink: any) => (
+                                                        'nestedLinks' in nestedLink && nestedLink.nestedLinks ? (
+                                                            <DropdownMenuSub key={nestedLink.label}>
+                                                                <DropdownMenuSubTrigger>
+                                                                    <span>{nestedLink.label}</span>
+                                                                </DropdownMenuSubTrigger>
+                                                                <DropdownMenuPortal>
+                                                                    <DropdownMenuSubContent>
+                                                                        {nestedLink.nestedLinks.map((deepLink: any) => (
+                                                                            <DropdownMenuItem key={deepLink.label} asChild>
+                                                                                <Link href={deepLink.href}>{deepLink.label}</Link>
+                                                                            </DropdownMenuItem>
+                                                                        ))}
+                                                                    </DropdownMenuSubContent>
+                                                                </DropdownMenuPortal>
+                                                            </DropdownMenuSub>
+                                                        ) : (
+                                                            <DropdownMenuItem key={nestedLink.label} asChild>
+                                                                <Link href={nestedLink.href!}>{nestedLink.label}</Link>
+                                                            </DropdownMenuItem>
+                                                        )
+                                                    ))}
+                                                </DropdownMenuSubContent>
+                                            </DropdownMenuPortal>
+                                        </DropdownMenuSub>
+                                    ) : (
+                                        <DropdownMenuItem key={(subLink as any).label} asChild>
+                                            <Link href={(subLink as any).href!}>{(subLink as any).label}</Link>
+                                        </DropdownMenuItem>
+                                    )
+                                ))}
                              </DropdownMenuContent>
                            </DropdownMenu>
                          ) : (
