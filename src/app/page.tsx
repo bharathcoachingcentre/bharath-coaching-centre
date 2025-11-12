@@ -748,6 +748,7 @@ export default function Home() {
           <div className="container mx-auto text-white">
               <Carousel 
                   setApi={setNewTestimonialApi}
+                  plugins={[autoplay.current]}
                   opts={{
                       align: "start",
                       containScroll: "keepSnaps",
