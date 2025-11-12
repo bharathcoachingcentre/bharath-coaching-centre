@@ -120,7 +120,7 @@ const navLinks = [
             nestedLinks: samacheerCourses
         },
         { 
-            label: "One to One",
+            label: "ONE to ONE",
             nestedLinks: oneToOneCourses
         },
     ]
@@ -138,7 +138,7 @@ const navLinks = [
             nestedLinks: onlineSamacheerCourses
         },
         { 
-            label: "One to One",
+            label: "ONE to ONE",
             nestedLinks: oneToOneCourses
         },
     ]
@@ -158,7 +158,7 @@ const navLinks = [
     ],
   },
   { href: "/our-results", label: "Our Results" },
-  { href: "/one-to-one-classes", label: "One to One Clases" },
+  { href: "/one-to-one-classes", label: "ONE to ONE Classes" },
   { 
     label: "More",
     isDropdown: true,
