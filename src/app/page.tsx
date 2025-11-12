@@ -121,11 +121,10 @@ export default function Home() {
       return
     }
 
-    setNewTestimonialSelectedIndex(newTestimonialApi.selectedScrollSnap())
-
     const onSelect = () => {
         setNewTestimonialSelectedIndex(newTestimonialApi.selectedScrollSnap())
     }
+
     newTestimonialApi.on("select", onSelect)
     
     //This is a fix to keep the autoplay running after a manual navigation
