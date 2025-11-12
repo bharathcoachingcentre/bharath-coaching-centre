@@ -36,7 +36,7 @@ import {
 
 const offlineCourses = [
     { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
-    { label: "12 Compartment", href: "/courses/12th-compartment" },
+    { label: "Class 12 Compartment", href: "/courses/12th-compartment" },
     { label: "Class 11 PCM", href: "/courses/cbse-class-11-pcm" },
     { label: "Class 10", href: "/courses/cbse-10th-grade" },
     { label: "Class 9", href: "/courses/cbse-9th-grade" },
@@ -46,7 +46,7 @@ const offlineCourses = [
 ];
 const samacheerCourses = [
     { label: "Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
-    { label: "12 Compartment", href: "/courses/samacheer-12th-compartment" },
+    { label: "Class 12 Compartment", href: "/courses/samacheer-12th-compartment" },
     { label: "Class 11 PCM", href: "/courses/samacheer-class-11-pcm" },
     { label: "Class 10", href: "/courses/samacheer-class-10" },
     { label: "Class 9", href: "/courses/samacheer-class-9" },
