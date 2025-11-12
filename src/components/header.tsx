@@ -35,14 +35,14 @@ import {
 } from "@/components/ui/dialog";
 
 const offlineCourses = [
-    { label: "CBSE Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
-    { label: "CBSE 12 Compartment", href: "/courses/12th-compartment" },
-    { label: "CBSE Class 11 PCM", href: "/courses/cbse-class-11-pcm" },
-    { label: "CBSE Class 10", href: "/courses/cbse-10th-grade" },
-    { label: "CBSE Class 9", href: "/courses/cbse-9th-grade" },
-    { label: "CBSE Class 8", href: "/courses/cbse-class-8" },
-    { label: "CBSE Class 7", href: "/courses/cbse-class-7" },
-    { label: "CBSE Class 6", href: "/courses/cbse-class-6" },
+    { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
+    { label: "12 Compartment", href: "/courses/12th-compartment" },
+    { label: "Class 11 PCM", href: "/courses/cbse-class-11-pcm" },
+    { label: "Class 10", href: "/courses/cbse-10th-grade" },
+    { label: "Class 9", href: "/courses/cbse-9th-grade" },
+    { label: "Class 8", href: "/courses/cbse-class-8" },
+    { label: "Class 7", href: "/courses/cbse-class-7" },
+    { label: "Class 6", href: "/courses/cbse-class-6" },
 ];
 const samacheerCourses = [
     { label: "Samacheer Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
@@ -218,11 +218,8 @@ export function Header() {
                     <DropdownMenu key={link.label}>
                         <DropdownMenuTrigger asChild>
                              <Button 
-                                variant={isButton ? 'outline' : 'ghost'} 
-                                className={cn(
-                                    "flex items-center gap-1 font-medium text-base text-lg",
-                                    isButton ? "text-primary" : "text-muted-foreground hover:text-primary"
-                                )}
+                                variant='ghost' 
+                                className="flex items-center gap-1 font-medium text-lg text-muted-foreground hover:text-primary"
                             >
                                 {link.label}
                                 <ChevronDown className="h-4 w-4" />
@@ -303,7 +300,7 @@ export function Header() {
                            <DropdownMenu>
                              <DropdownMenuTrigger asChild>
                                <Button
-                                 variant={(link as any).isButton ? "outline" : "ghost"}
+                                 variant="ghost"
                                  className="flex justify-between items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary w-full"
                                >
                                  {link.label}
