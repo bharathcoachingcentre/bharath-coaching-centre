@@ -75,14 +75,14 @@ const cbseStudyLinks = [
     { label: "NCERT Book Back Solution", nestedLinks: ncertLinks },
     { label: "NCERT Chapter wise Test Question Paper", nestedLinks: ncertLinks },
     { label: "Model Question Paper", nestedLinks: modelAndPreviousLinks },
-    { label: "Previous year Board Question Paper", nestedLinks: modelAndPreviousLinks },
+    { label: "Previous Year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
 
 const samacheerStudyLinks = [
     { label: "Book Back Solution", nestedLinks: ncertLinks },
     { label: "Chapterwise Test Question Paper", nestedLinks: ncertLinks },
     { label: "Model Question Paper", nestedLinks: modelAndPreviousLinks },
-    { label: "Previous year Board Question Paper", nestedLinks: modelAndPreviousLinks },
+    { label: "Previous Year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
 
 const onlineCbseCourses = [
