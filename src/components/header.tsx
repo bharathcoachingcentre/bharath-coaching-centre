@@ -11,8 +11,8 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
   SheetClose,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import {
   DropdownMenu,
@@ -79,9 +79,9 @@ const cbseStudyLinks = [
 ];
 
 const samacheerStudyLinks = [
-    { label: "SAMACHEER Book Back Solution", nestedLinks: ncertLinks },
+    { label: "Book Back Solution", nestedLinks: ncertLinks },
     { label: "Chapterwise Test Question Paper", nestedLinks: ncertLinks },
-    { label: "SAMACHEER Model Question Paper", nestedLinks: modelAndPreviousLinks },
+    { label: "Model Question Paper", nestedLinks: modelAndPreviousLinks },
     { label: "Previous year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
 
