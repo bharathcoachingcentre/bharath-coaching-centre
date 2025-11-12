@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
@@ -287,6 +289,9 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
+                <SheetHeader>
+                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                </SheetHeader>
                 <nav className="grid gap-6 text-lg font-medium p-6">
                     <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
                         <Logo className="h-8 w-auto" />
@@ -335,7 +340,3 @@ export function Header() {
     </header>
   );
 }
-
-    
-
-    
