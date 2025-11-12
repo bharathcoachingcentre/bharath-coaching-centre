@@ -80,8 +80,8 @@ const cbseStudyLinks = [
 
 const samacheerStudyLinks = [
     { label: "SAMACHEER Book Back Solution", nestedLinks: ncertLinks },
-    { label: "SAMACHEER Chapter Wise Test Question Paper", nestedLinks: ncertLinks },
-    { label: "SAMACHEER Question Paper", nestedLinks: modelAndPreviousLinks },
+    { label: "Chapterwise Test Question Paper", nestedLinks: ncertLinks },
+    { label: "SAMACHEER Model Question Paper", nestedLinks: modelAndPreviousLinks },
     { label: "Previous year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
 
