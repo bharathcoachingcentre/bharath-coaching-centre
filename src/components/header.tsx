@@ -45,14 +45,14 @@ const offlineCourses = [
     { label: "Class 6", href: "/courses/cbse-class-6" },
 ];
 const samacheerCourses = [
-    { label: "Samacheer Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
-    { label: "Samacheer 12 Compartment", href: "/courses/samacheer-12th-compartment" },
-    { label: "Samacheer Class 11 PCM", href: "/courses/samacheer-class-11-pcm" },
-    { label: "Samacheer Class 10", href: "/courses/samacheer-class-10" },
-    { label: "Samacheer Class 9", href: "/courses/samacheer-class-9" },
-    { label: "Samacheer Class 8", href: "/courses/samacheer-class-8" },
-    { label: "Samacheer Class 7", href: "/courses/samacheer-class-7" },
-    { label: "Samacheer Class 6", href: "/courses/samacheer-class-6" },
+    { label: "Class 12 PCM", href: "/courses/samacheer-class-12-pcm" },
+    { label: "12 Compartment", href: "/courses/samacheer-12th-compartment" },
+    { label: "Class 11 PCM", href: "/courses/samacheer-class-11-pcm" },
+    { label: "Class 10", href: "/courses/samacheer-class-10" },
+    { label: "Class 9", href: "/courses/samacheer-class-9" },
+    { label: "Class 8", href: "/courses/samacheer-class-8" },
+    { label: "Class 7", href: "/courses/samacheer-class-7" },
+    { label: "Class 6", href: "/courses/samacheer-class-6" },
 ];
 
 const ncertLinks = [
