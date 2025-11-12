@@ -130,11 +130,11 @@ const navLinks = [
     isDropdown: true,
     subLinks: [
         { 
-            label: "CBSE BATCH",
+            label: "CBSE",
             nestedLinks: onlineCbseCourses
         },
         { 
-            label: "SAMACHEER BATCH",
+            label: "SAMACHEER",
             nestedLinks: onlineSamacheerCourses
         },
         { 
@@ -286,9 +286,9 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
-              <SheetHeader>
-                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-              </SheetHeader>
+                <SheetHeader>
+                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium p-6">
                   <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
                       <Logo className="h-8 w-auto" />
