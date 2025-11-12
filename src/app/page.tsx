@@ -121,14 +121,19 @@ export default function Home() {
       return
     }
  
-    const onSelect = (api: CarouselApi) => {
-      setNewTestimonialSelectedIndex(api.selectedScrollSnap())
+    const onSelect = () => {
+      setNewTestimonialSelectedIndex(newTestimonialApi.selectedScrollSnap())
     }
     
-    newTestimonialApi.on("select", onSelect);
+    newTestimonialApi.on("select", onSelect)
+    newTestimonialApi.on("reInit", onSelect)
+
+    // Set initial state
+    onSelect()
 
     return () => {
-      newTestimonialApi.off("select", onSelect);
+        newTestimonialApi.off("select", onSelect)
+        newTestimonialApi.off("reInit", onSelect)
     }
   }, [newTestimonialApi]);
 
@@ -761,8 +766,8 @@ export default function Home() {
               </span></h2>
                     </div>
                     <div className="flex gap-2" id="nav-gap">
-                        <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="static translate-y-0 testimonial-nav" />
-                        <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="static translate-y-0 testimonial-nav" />
+                        <CarouselPrevious className="static translate-y-0 testimonial-nav" />
+                        <CarouselNext className="static translate-y-0 testimonial-nav" />
                     </div>
                 </div>
               
@@ -1071,3 +1076,4 @@ export default function Home() {
     </div>
   );
 }
+
