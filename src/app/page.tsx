@@ -120,22 +120,37 @@ export default function Home() {
     if (!newTestimonialApi) {
       return
     }
+ 
+    const onSelect = (api: CarouselApi) => {
+      setNewTestimonialSelectedIndex(api.selectedScrollSnap())
+    }
+    
+    const onInteraction = (api: CarouselApi) => {
+      if (api.plugins().autoplay) {
+        const autoplay = api.plugins().autoplay as any
+        if (!autoplay.options.stopOnInteraction) return
+        autoplay.stop()
+      }
+    }
 
-    const onSelect = () => {
-        setNewTestimonialSelectedIndex(newTestimonialApi.selectedScrollSnap())
+    const onPointerUp = (api: CarouselApi) => {
+      if (api.plugins().autoplay) {
+        const autoplay = api.plugins().autoplay as any
+        if (!autoplay.options.stopOnInteraction) return
+        autoplay.play()
+      }
     }
 
     newTestimonialApi.on("select", onSelect)
-    
-    //This is a fix to keep the autoplay running after a manual navigation
-    newTestimonialApi.on("pointerDown", () => autoplay.current.stop());
-    newTestimonialApi.on("pointerUp", () => autoplay.current.play());
-
+    newTestimonialApi.on("interaction", onInteraction)
+    newTestimonialApi.on("pointerUp", onPointerUp)
 
     return () => {
       newTestimonialApi.off("select", onSelect)
+      newTestimonialApi.off("interaction", onInteraction)
+      newTestimonialApi.off("pointerUp", onPointerUp)
     }
-  }, [newTestimonialApi])
+  }, [newTestimonialApi]);
 
 
   const sliderImages = [
