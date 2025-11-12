@@ -73,7 +73,7 @@ const modelAndPreviousLinks = [
 const cbseStudyLinks = [
     { label: "NCERT Book PDF", nestedLinks: ncertLinks },
     { label: "NCERT Book Back Solution", nestedLinks: ncertLinks },
-    { label: "NCERT Chapter wise Test Question Paper", nestedLinks: ncertLinks },
+    { label: "NCERT Chapterwise Test Question Paper", nestedLinks: ncertLinks },
     { label: "Model Question Paper", nestedLinks: modelAndPreviousLinks },
     { label: "Previous Year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
@@ -212,8 +212,7 @@ export function Header() {
         
         <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu">
             {navLinks.map((link) => {
-              const isButton = (link as any).isButton;
-              if (link.isDropdown || isButton) {
+              if (link.isDropdown) {
                 return (
                     <DropdownMenu key={link.label}>
                         <DropdownMenuTrigger asChild>
@@ -287,27 +286,27 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
-                <SheetHeader>
-                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                </SheetHeader>
-                <nav className="grid gap-6 text-lg font-medium p-6">
-                    <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
-                        <Logo className="h-8 w-auto" />
-                    </Link>
-                    {navLinks.map((link) => (
-                         <SheetClose asChild key={link.label}>
-                         {'subLinks' in link && link.subLinks ? (
-                           <DropdownMenu>
-                             <DropdownMenuTrigger asChild>
-                               <Button
-                                 variant="ghost"
-                                 className="flex justify-between items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary w-full"
-                               >
-                                 {link.label}
-                                 <ChevronDown className="h-4 w-4" />
-                               </Button>
-                             </DropdownMenuTrigger>
-                             <DropdownMenuContent>
+              <SheetHeader>
+                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="grid gap-6 text-lg font-medium p-6">
+                  <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
+                      <Logo className="h-8 w-auto" />
+                  </Link>
+                  {navLinks.map((link) => (
+                        <SheetClose asChild key={link.label}>
+                        {'subLinks' in link && link.subLinks ? (
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                className="flex justify-between items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary w-full"
+                              >
+                                {link.label}
+                                <ChevronDown className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
                                 {(link as any).subLinks.map((subLink: any) => (
                                     'nestedLinks' in subLink && subLink.nestedLinks ? (
                                         <DropdownMenuSub key={subLink.label}>
@@ -347,23 +346,23 @@ export function Header() {
                                         </DropdownMenuItem>
                                     )
                                 ))}
-                             </DropdownMenuContent>
-                           </DropdownMenu>
-                         ) : (
-                           <NavLink
-                             href={link.href!}
-                             label={link.label}
-                             className="text-muted-foreground hover:text-foreground"
-                           />
-                         )}
-                       </SheetClose>
-                    ))}
-                    <SheetClose asChild>
-                        <Button asChild className="mt-4">
-                            <Link href="/signin">Sign in</Link>
-                        </Button>
-                    </SheetClose>
-                </nav>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        ) : (
+                          <NavLink
+                            href={link.href!}
+                            label={link.label}
+                            className="text-muted-foreground hover:text-foreground"
+                          />
+                        )}
+                      </SheetClose>
+                  ))}
+                  <SheetClose asChild>
+                      <Button asChild className="mt-4">
+                          <Link href="/signin">Sign in</Link>
+                      </Button>
+                  </SheetClose>
+              </nav>
             </SheetContent>
           </Sheet>
         </div>
