@@ -109,6 +109,8 @@ export default function Home() {
   const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
   const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
   const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
+  
+  const autoplay = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
 
   React.useEffect(() => {
     setIsClient(true);
@@ -125,6 +127,11 @@ export default function Home() {
         setNewTestimonialSelectedIndex(newTestimonialApi.selectedScrollSnap())
     }
     newTestimonialApi.on("select", onSelect)
+    
+    //This is a fix to keep the autoplay running after a manual navigation
+    newTestimonialApi.on("pointerDown", () => autoplay.current.stop());
+    newTestimonialApi.on("pointerUp", () => autoplay.current.play());
+
 
     return () => {
       newTestimonialApi.off("select", onSelect)
@@ -470,7 +477,7 @@ export default function Home() {
       company: 'Reethika',
       quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       author: 'RJ',
-      image: 'testi-1.png',
+      image: '/testi-1.png',
       imageHint: 'man portrait',
   },
    {
@@ -745,12 +752,7 @@ export default function Home() {
           <div className="container mx-auto text-white">
               <Carousel 
                   setApi={setNewTestimonialApi}
-                  plugins={[
-                      Autoplay({
-                        delay: 3000,
-                        stopOnInteraction: true,
-                      }),
-                  ]}
+                  plugins={[autoplay.current]}
                   opts={{
                       align: "start",
                       containScroll: "keepSnaps",
