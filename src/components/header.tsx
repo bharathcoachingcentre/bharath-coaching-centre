@@ -144,7 +144,7 @@ const navLinks = [
     ]
   },
   {
-    label: "Free study material",
+    label: "Free Study Material",
     isDropdown: true,
     subLinks: [
       {
@@ -370,3 +370,5 @@ export function Header() {
     </header>
   );
 }
+
+    
