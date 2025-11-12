@@ -158,7 +158,7 @@ const navLinks = [
     ],
   },
   { href: "/our-results", label: "Our Results" },
-  { href: "/one-to-one-classes", label: "ONE to ONE Classes" },
+  { href: "/one-to-one-classes", label: "One to One Classes" },
   { 
     label: "More",
     isDropdown: true,
