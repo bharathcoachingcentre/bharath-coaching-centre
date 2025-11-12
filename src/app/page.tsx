@@ -125,30 +125,10 @@ export default function Home() {
       setNewTestimonialSelectedIndex(api.selectedScrollSnap())
     }
     
-    const onInteraction = (api: CarouselApi) => {
-      if (api.plugins().autoplay) {
-        const autoplay = api.plugins().autoplay as any
-        if (!autoplay.options.stopOnInteraction) return
-        autoplay.stop()
-      }
-    }
-
-    const onPointerUp = (api: CarouselApi) => {
-      if (api.plugins().autoplay) {
-        const autoplay = api.plugins().autoplay as any
-        if (!autoplay.options.stopOnInteraction) return
-        autoplay.play()
-      }
-    }
-
-    newTestimonialApi.on("select", onSelect)
-    newTestimonialApi.on("interaction", onInteraction)
-    newTestimonialApi.on("pointerUp", onPointerUp)
+    newTestimonialApi.on("select", onSelect);
 
     return () => {
-      newTestimonialApi.off("select", onSelect)
-      newTestimonialApi.off("interaction", onInteraction)
-      newTestimonialApi.off("pointerUp", onPointerUp)
+      newTestimonialApi.off("select", onSelect);
     }
   }, [newTestimonialApi]);
 
@@ -781,8 +761,8 @@ export default function Home() {
               </span></h2>
                     </div>
                     <div className="flex gap-2" id="nav-gap">
-                        <CarouselPrevious className="static translate-y-0 testimonial-nav" />
-                        <CarouselNext className="static translate-y-0 testimonial-nav" />
+                        <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="static translate-y-0 testimonial-nav" />
+                        <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="static translate-y-0 testimonial-nav" />
                     </div>
                 </div>
               
@@ -958,12 +938,10 @@ export default function Home() {
                           <div className="flex justify-center gap-4 py-4">
                               <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
                                 setDsmSelectedBoard('CBSE'); 
-                                setDsmShowBoardSelection(false);
                                 setDsmIsDialogOpen(false);
                               }}>CBSE</Button>
                               <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
                                 setDsmSelectedBoard('Samacheer');
-                                setDsmShowBoardSelection(false);
                                 setDsmIsDialogOpen(false);
                               }}>Samacheer</Button>
                           </div>
@@ -1093,3 +1071,4 @@ export default function Home() {
     </div>
   );
 }
+
