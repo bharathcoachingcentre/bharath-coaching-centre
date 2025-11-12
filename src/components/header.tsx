@@ -120,7 +120,7 @@ const navLinks = [
             nestedLinks: samacheerCourses
         },
         { 
-            label: "1 to 1",
+            label: "One to One",
             nestedLinks: oneToOneCourses
         },
     ]
@@ -138,7 +138,7 @@ const navLinks = [
             nestedLinks: onlineSamacheerCourses
         },
         { 
-            label: "1 to 1",
+            label: "One to One",
             nestedLinks: oneToOneCourses
         },
     ]
