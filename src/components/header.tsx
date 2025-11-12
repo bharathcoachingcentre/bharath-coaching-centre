@@ -86,24 +86,24 @@ const samacheerStudyLinks = [
 ];
 
 const onlineCbseCourses = [
-    { label: "12th Grade", href: "/courses/cbse-12th-grade" },
-    { label: "11th Grade", href: "/courses/cbse-11th-grade" },
-    { label: "10th Grade", href: "/courses/cbse-10th-grade" },
-    { label: "9th Grade", href: "/courses/cbse-9th-grade" },
+    { label: "Class 12", href: "/courses/cbse-12th-grade" },
+    { label: "Class 11", href: "/courses/cbse-11th-grade" },
+    { label: "Class 10", href: "/courses/cbse-10th-grade" },
+    { label: "Class 9", href: "/courses/cbse-9th-grade" },
 ];
 
 const onlineSamacheerCourses = [
-    { label: "12th Grade", href: "/courses/samacheer-class-12-pcm" },
-    { label: "11th Grade", href: "/courses/samacheer-class-11-pcm" },
-    { label: "10th Grade", href: "/courses/samacheer-class-10" },
-    { label: "9th Grade", href: "/courses/samacheer-class-9" },
+    { label: "Class 12", href: "/courses/samacheer-class-12-pcm" },
+    { label: "Class 11", href: "/courses/samacheer-class-11-pcm" },
+    { label: "Class 10", href: "/courses/samacheer-class-10" },
+    { label: "Class 9", href: "/courses/samacheer-class-9" },
 ];
 
 const oneToOneCourses = [
-    { label: "12th Grade", href: "/courses/1-to-1-12th-grade" },
-    { label: "11th Grade", href: "/courses/1-to-1-11th-grade" },
-    { label: "10th Grade", href: "/courses/1-to-1-10th-grade" },
-    { label: "9th Grade", href: "/courses/1-to-1-9th-grade" },
+    { label: "Class 12", href: "/courses/1-to-1-12th-grade" },
+    { label: "Class 11", href: "/courses/1-to-1-11th-grade" },
+    { label: "Class 10", href: "/courses/1-to-1-10th-grade" },
+    { label: "Class 9", href: "/courses/1-to-1-9th-grade" },
 ];
 
 const navLinks = [
