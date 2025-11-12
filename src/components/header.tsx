@@ -73,16 +73,16 @@ const modelAndPreviousLinks = [
 const cbseStudyLinks = [
     { label: "NCERT Book PDF", nestedLinks: ncertLinks },
     { label: "NCERT Book Back Solution", nestedLinks: ncertLinks },
-    { label: "NCERT CHAPTER WISED Test Question Papper", nestedLinks: ncertLinks },
-    { label: "Model Question Papper", nestedLinks: modelAndPreviousLinks },
+    { label: "NCERT Chapter wise Test Question Paper", nestedLinks: ncertLinks },
+    { label: "Model Question Paper", nestedLinks: modelAndPreviousLinks },
     { label: "Previous year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
 
 const samacheerStudyLinks = [
     { label: "SAMACHEER Book Back Solution", nestedLinks: ncertLinks },
-    { label: "SAMACHEER Chapter Wize Test Question Papper", nestedLinks: ncertLinks },
-    { label: "SAMACHEER Question Papper", nestedLinks: modelAndPreviousLinks },
-    { label: "Previous year Board Question Papper", nestedLinks: modelAndPreviousLinks },
+    { label: "SAMACHEER Chapter Wise Test Question Paper", nestedLinks: ncertLinks },
+    { label: "SAMACHEER Question Paper", nestedLinks: modelAndPreviousLinks },
+    { label: "Previous year Board Question Paper", nestedLinks: modelAndPreviousLinks },
 ];
 
 const onlineCbseCourses = [
