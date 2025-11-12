@@ -125,15 +125,12 @@ export default function Home() {
       setNewTestimonialSelectedIndex(newTestimonialApi.selectedScrollSnap())
     }
     
-    newTestimonialApi.on("select", onSelect)
-    newTestimonialApi.on("reInit", onSelect)
-
-    // Set initial state
-    onSelect()
+    newTestimonialApi.on("select", onSelect);
+    newTestimonialApi.on("reInit", onSelect);
 
     return () => {
-        newTestimonialApi.off("select", onSelect)
-        newTestimonialApi.off("reInit", onSelect)
+        newTestimonialApi.off("select", onSelect);
+        newTestimonialApi.off("reInit", onSelect);
     }
   }, [newTestimonialApi]);
 
@@ -691,13 +688,13 @@ export default function Home() {
               <div>
                   <h3 className="font-bold text-xl mb-4">CBSE</h3>
                   <div className="flex flex-wrap gap-4">
-                      {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                      {timetableClasses.map(cls => <Button key={cls} variant="outline" size="sm" className="bg-gray-100 border-gray-200">{cls}</Button>)}
                   </div>
               </div>
               <div>
                   <h3 className="font-bold text-xl mb-4">SAMACHEER</h3>
                   <div className="flex flex-wrap gap-4">
-                      {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                      {timetableClasses.map(cls => <Button key={cls} variant="outline" size="sm" className="bg-gray-100 border-gray-200">{cls}</Button>)}
                   </div>
               </div>
           </div>
@@ -751,7 +748,6 @@ export default function Home() {
           <div className="container mx-auto text-white">
               <Carousel 
                   setApi={setNewTestimonialApi}
-                  plugins={[autoplay.current]}
                   opts={{
                       align: "start",
                       containScroll: "keepSnaps",
@@ -766,8 +762,8 @@ export default function Home() {
               </span></h2>
                     </div>
                     <div className="flex gap-2" id="nav-gap">
-                        <CarouselPrevious className="static translate-y-0 testimonial-nav" />
-                        <CarouselNext className="static translate-y-0 testimonial-nav" />
+                        <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="static translate-y-0 testimonial-nav" />
+                        <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="static translate-y-0 testimonial-nav" />
                     </div>
                 </div>
               
@@ -1042,7 +1038,7 @@ export default function Home() {
                             alt={result.alt}
                             width={400}
                             height={400}
-                            className="w-full h-auto object-cover aspect-[4/5]"
+                            className="w-full h-auto aspect-[4/5]"
                             data-ai-hint={result.hint}
                           />
                           <div className="p-4">
@@ -1076,4 +1072,3 @@ export default function Home() {
     </div>
   );
 }
-
