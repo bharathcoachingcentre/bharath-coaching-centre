@@ -330,13 +330,13 @@ export default function Home() {
         { class: "Class 10", pdf: "/pdfs/cbse_10_formula.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_formula.pdf" },
       ],
-      "Unit wise question papers": [
+      "Unit wise Question Papers": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_unit_questions.pdf" },
         { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
       ],
-      "Model Board question paper": [
+      "Model Board Question Paper": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_model_paper.pdf" },
         { class: "Class 10", pdf: "/pdfs/cbse_10_model_paper.pdf" },
@@ -362,13 +362,13 @@ export default function Home() {
             { class: "Class 10", pdf: "/pdfs/samacheer_10_formula.pdf" },
             { class: "Class 9", pdf: "/pdfs/samacheer_9_formula.pdf" },
         ],
-        "Unit wise question papers": [
+        "Unit wise Question Papers": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_unit_questions.pdf" },
             { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_unit_questions.pdf" },
             { class: "Class 10", pdf: "/pdfs/samacheer_10_unit_questions.pdf" },
             { class: "Class 9", pdf: "/pdfs/samacheer_9_unit_questions.pdf" },
         ],
-        "Model Board question paper": [
+        "Model Board Question Paper": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_model_paper.pdf" },
             { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_model_paper.pdf" },
             { class: "Class 10", pdf: "/pdfs/samacheer_10_model_paper.pdf" },
@@ -381,8 +381,8 @@ export default function Home() {
     "NCERT Books",
     "NCERT Solutions",
     "Formula Booklet",
-    "Unit wise question papers",
-    "Model Board question paper",
+    "Unit wise Question Papers",
+    "Model Board Question Paper",
   ];
 
   const timetablePdfs = {
@@ -498,9 +498,9 @@ export default function Home() {
     imageHint: 'man portrait',
 },
 {
-  company: 'S K Janani Priya',
+  company: 'Manisha M S',
   quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
-  author: 'MBBS Student, Theni Government college',
+  author: 'MBBS Student',
   image: '/testi-6.png',
   imageHint: 'man portrait',
 },
@@ -616,7 +616,7 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold text-center mb-12">Explore courses (Class 1 - 12)</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Explore Courses (Class 1 - 12)</h2>
           </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -842,7 +842,7 @@ export default function Home() {
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
           <h2 className="text-3xl font-bold text-center mb-12">
-              Why to choose <span className="relative inline-block text-primary">BCC?<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span>
+              Why to Choose <span className="relative inline-block text-primary">BCC?<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span>
             </h2>
           </AnimatedElement>
           <div className="grid gap-8 md:grid-cols-3">
@@ -999,7 +999,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
              <AnimatedElement animation="fade-left-up">
                 <div>
-                  <h2 className="text-4xl font-bold">Academic Excellence<span className="relative inline-block">Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
+                  <h2 className="text-4xl font-bold">Academic Excellence <span className="relative inline-block"> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
                   <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
                 </div>
             </AnimatedElement>

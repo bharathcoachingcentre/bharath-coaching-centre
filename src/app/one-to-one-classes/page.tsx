@@ -67,7 +67,7 @@ export default function OneToOneClassesPage() {
     <div>
         <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
             <Image
-                src="/one-to-one-class.jpg"
+                src="/one-to-one.jpg"
                 alt="One to One Classes"
                 fill
                 className="object-cover"
