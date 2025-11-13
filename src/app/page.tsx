@@ -149,7 +149,7 @@ export default function Home() {
     },
     {
       icon: PenTool,
-      text: "Unit Test, full test, Practice work Sheet",
+      text: "Unit Test, Full Test, Practice Work Sheet",
       color: "bg-orange-100 text-orange-600",
     },
     {
@@ -159,12 +159,12 @@ export default function Home() {
     },
     {
       icon: Book,
-      text: "Printed Study material",
+      text: "Printed Study Material",
       color: "bg-pink-100 text-pink-600",
     },
     {
       icon: UserCheck,
-      text: "Personalised Mentor support",
+      text: "Personalised Mentor Support",
       color: "bg-yellow-100 text-yellow-600",
     },
   ];
@@ -774,7 +774,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-5 gap-8 items-center">
               <div className="md:col-span-4">
-              <CarouselContent>
+                <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
                       <div className="grid grid-cols-3 gap-8 items-center">
