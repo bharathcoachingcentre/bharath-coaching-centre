@@ -110,7 +110,7 @@ export default function Home() {
   const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
   const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
   
-  const autoplay = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
+  const autoplay = React.useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   React.useEffect(() => {
     setIsClient(true);
@@ -774,7 +774,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-5 gap-8 items-center">
               <div className="md:col-span-4">
-                <CarouselContent>
+              <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
                       <div className="grid grid-cols-3 gap-8 items-center">
