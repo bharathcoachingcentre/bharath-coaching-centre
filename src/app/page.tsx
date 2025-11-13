@@ -261,25 +261,25 @@ export default function Home() {
   const tutoringCourses = [
     {
       icon: Presentation,
-      title: "Individual concern",
+      title: "Individual Concern",
       description: "",
       price: "",
     },
     {
       icon: Award,
-      title: "Personalized schedule",
+      title: "Personalized Schedule",
       description: "",
       price: "",
     },
     {
       icon: GraduationCap,
-      title: "Personalized study material",
+      title: "Personalized Study Material",
       description: "",
       price: "",
     },
     {
       icon: Laptop,
-      title: "Weekly academic growth tracking",
+      title: "Weekly Academic Growth Tracking",
       description: "",
       price: "",
     },
