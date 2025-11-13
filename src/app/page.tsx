@@ -188,7 +188,7 @@ export default function Home() {
       classRange: "Class 6 - 8",
       title: "Courses for Kids",
       features: [
-        "1:10 Ratio Teachers & Students",
+        "1:10 Teachers & Students Ratio",
         "CBSE Board",
         "ICSE Board",
         "Samacheer Board",
@@ -204,14 +204,14 @@ export default function Home() {
       classRange: "Class 9 - 12",
       title: "Courses for Kids",
       features: [
-        "1:25 ratio",
+        "1:25 Teacher–Student Ratio",
         "CBSE Board",
         "ICSE Board",
-        "Samacheer",
-        "One to one Session",
+        "Samacheer Board",
+        "One-to-One Sessions",
         "Test Series",
-        "Online Class",
-        "Parent Teachers Meeting",
+        "Online Classes",
+        "Parent–Teacher Meeting",
       ],
       imageUrl: "/super-kid-three.jpg",
       imageHint: "happy student",
@@ -639,7 +639,7 @@ export default function Home() {
                     </CardContent>
                     <CardFooter className="p-6 mt-auto">
                       <DialogTrigger asChild>
-                        <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Time Table</Button>
+                        <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
                       </DialogTrigger>
                     </CardFooter>
                   </div>
