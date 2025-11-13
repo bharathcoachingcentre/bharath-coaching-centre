@@ -769,67 +769,52 @@ export default function Home() {
                 </div>
               
               <div className="grid md:grid-cols-5 gap-8 items-center">
-                  <div className="md:col-span-1 relative h-[300px] w-full max-w-xs mx-auto">
-                      <AnimatePresence>
-                          <motion.div
-                              key={newTestimonialSelectedIndex}
-                              initial={{ opacity: 0, x: -50 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: 50 }}
-                              transition={{ duration: 0.5 }}
-                              className="absolute inset-0"
-                          >
-                              <Image
-                                  src={newTestimonials[newTestimonialSelectedIndex].image}
-                                  alt={newTestimonials[newTestimonialSelectedIndex].author}
-                                  fill
-                                  className="rounded-lg object-cover"
-                                  data-ai-hint={newTestimonials[newTestimonialSelectedIndex].imageHint}
-                              />
-                          </motion.div>
-                      </AnimatePresence>
+                  <div className="md:col-span-4">
+                    <CarouselContent>
+                        {newTestimonials.map((testimonial, index) => (
+                            <CarouselItem key={index} className="md:basis-full">
+                                <div className="grid grid-cols-3 gap-8 items-center">
+                                    <div className="col-span-1">
+                                        <Image
+                                            src={testimonial.image}
+                                            alt={testimonial.author}
+                                            width={300}
+                                            height={400}
+                                            className="rounded-lg object-cover w-full h-auto aspect-[3/4]"
+                                            data-ai-hint={testimonial.imageHint}
+                                        />
+                                    </div>
+                                    <div className="col-span-2 space-y-4">
+                                        <h3 className="text-2xl font-bold" id="testi-head">{testimonial.company}</h3>
+                                        <p className="text-lg text-gray-300" id="testi-text">"{testimonial.quote}"</p>
+                                        <p className="font-semibold mt-4" id="testi-txt">{testimonial.author}</p>
+                                    </div>
+                                </div>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
                   </div>
 
-                  <div className="md:col-span-4 flex items-center gap-4">
-                      <div className="w-2/3 space-y-4">
-                          <AnimatePresence mode="wait">
-                              <motion.div
-                                  key={newTestimonialSelectedIndex}
-                                  initial={{ opacity: 0, y: 20 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: -20 }}
-                                  transition={{ duration: 0.5 }}
-                              >
-                                  <h3 className="text-2xl font-bold" id="testi-head">{newTestimonials[newTestimonialSelectedIndex].company}</h3>
-                                  <p className="text-lg text-gray-300" id="testi-text">"{newTestimonials[newTestimonialSelectedIndex].quote}"</p>
-                                  <p className="font-semibold mt-4" id="testi-txt">{newTestimonials[newTestimonialSelectedIndex].author}</p>
-                              </motion.div>
-                          </AnimatePresence>
-                      </div>
-
-                      <div className="w-1/3">
-                          <div className="flex justify-end gap-4 mb-4">
-                          </div>
-                          <div className="h-[350px] overflow-y-auto no-scrollbar">
-                              <div className="flex flex-col items-center justify-center gap-4">
-                                  {newTestimonials.map((testimonial, index) => (
-                                      <div key={index}
-                                         id="testi-thumb" className={cn(
-                                              "h-[120px] w-full aspect-square relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300",
-                                              newTestimonialSelectedIndex === index ? 'opacity-100 scale-105' : 'opacity-50 scale-95'
-                                          )}
-                                          onClick={() => newTestimonialApi?.scrollTo(index)}
-                                      >
-                                          <Image
-                                              src={testimonial.image}
-                                              alt={testimonial.author}
-                                              fill
-                                              className="object-cover"
-                                              data-ai-hint={testimonial.imageHint}
-                                          />
-                                      </div>
-                                  ))}
-                              </div>
+                  <div className="md:col-span-1">
+                      <div className="h-[350px] overflow-y-auto no-scrollbar">
+                          <div className="flex flex-col items-center justify-center gap-4">
+                              {newTestimonials.map((testimonial, index) => (
+                                  <div key={index}
+                                     id="testi-thumb" className={cn(
+                                          "h-[120px] w-full aspect-square relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300",
+                                          newTestimonialSelectedIndex === index ? 'opacity-100 scale-105' : 'opacity-50 scale-95'
+                                      )}
+                                      onClick={() => newTestimonialApi?.scrollTo(index)}
+                                  >
+                                      <Image
+                                          src={testimonial.image}
+                                          alt={testimonial.author}
+                                          fill
+                                          className="object-cover"
+                                          data-ai-hint={testimonial.imageHint}
+                                      />
+                                  </div>
+                              ))}
                           </div>
                       </div>
                   </div>
