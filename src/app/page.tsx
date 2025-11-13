@@ -745,84 +745,98 @@ export default function Home() {
 
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 bg-testimonial">
-          <div className="container mx-auto text-white">
-              <Carousel 
-                  setApi={setNewTestimonialApi}
-                  plugins={[autoplay.current]}
-                  opts={{
-                      align: "start",
-                      containScroll: "keepSnaps",
-                      loop: true,
-                  }}
-              >
-                <div className="flex justify-between items-center mb-12">
-                    <div>
-                        <p className="font-semibold text-lg mb-2">What Our Students Say</p>
-                        <h2 className="text-3xl font-bold">Students Academic <span className="relative inline-block">Experience
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
-              </span></h2>
-                    </div>
-                    <div className="flex gap-2" id="nav-gap">
-                        <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="static translate-y-0 testimonial-nav" />
-                        <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="static translate-y-0 testimonial-nav" />
-                    </div>
-                </div>
-              
-              <div className="grid md:grid-cols-5 gap-8 items-center">
-                  <div className="md:col-span-4">
-                    <CarouselContent>
-                        {newTestimonials.map((testimonial, index) => (
-                            <CarouselItem key={index} className="md:basis-full">
-                                <div className="grid grid-cols-3 gap-8 items-center">
-                                    <div className="col-span-1">
-                                        <Image
-                                            src={testimonial.image}
-                                            alt={testimonial.author}
-                                            width={300}
-                                            height={400}
-                                            className="rounded-lg object-cover w-full h-auto aspect-[3/4]"
-                                            data-ai-hint={testimonial.imageHint}
-                                        />
-                                    </div>
-                                    <div className="col-span-2 space-y-4">
-                                        <h3 className="text-2xl font-bold" id="testi-head">{testimonial.company}</h3>
-                                        <p className="text-lg text-gray-300" id="testi-text">"{testimonial.quote}"</p>
-                                        <p className="font-semibold mt-4" id="testi-txt">{testimonial.author}</p>
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                  </div>
-
-                  <div className="md:col-span-1">
-                      <div className="h-[350px] overflow-y-auto no-scrollbar">
-                          <div className="flex flex-col items-center justify-center gap-4">
-                              {newTestimonials.map((testimonial, index) => (
-                                  <div key={index}
-                                     id="testi-thumb" className={cn(
-                                          "h-[120px] w-full aspect-square relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300",
-                                          newTestimonialSelectedIndex === index ? 'opacity-100 scale-105' : 'opacity-50 scale-95'
-                                      )}
-                                      onClick={() => newTestimonialApi?.scrollTo(index)}
-                                  >
-                                      <Image
-                                          src={testimonial.image}
-                                          alt={testimonial.author}
-                                          fill
-                                          className="object-cover"
-                                          data-ai-hint={testimonial.imageHint}
-                                      />
-                                  </div>
-                              ))}
-                          </div>
-                      </div>
-                  </div>
+        <div className="container mx-auto text-white">
+          <Carousel
+            setApi={setNewTestimonialApi}
+            plugins={[autoplay.current]}
+            opts={{
+              align: "start",
+              containScroll: "keepSnaps",
+              loop: true,
+            }}
+          >
+            <div className="flex justify-between items-center mb-12">
+              <div>
+                <p className="font-semibold text-lg mb-2">What Our Students Say</p>
+                <h2 className="text-3xl font-bold">
+                  Students Academic{" "}
+                  <span className="relative inline-block">
+                    Experience
+                    <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+                  </span>
+                </h2>
               </div>
-            </Carousel>
-          </div>
-      </AnimatedSection>
+              <div className="flex gap-2" id="nav-gap">
+                <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="static translate-y-0 testimonial-nav" />
+                <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="static translate-y-0 testimonial-nav" />
+              </div>
+            </div>
 
+            <div className="grid md:grid-cols-5 gap-8 items-center">
+              <div className="md:col-span-4">
+                <CarouselContent>
+                  {newTestimonials.map((testimonial, index) => (
+                    <CarouselItem key={index}>
+                      <div className="grid grid-cols-3 gap-8 items-center">
+                        <div className="col-span-1">
+                          <Image
+                            src={testimonial.image}
+                            alt={testimonial.author}
+                            width={300}
+                            height={400}
+                            className="rounded-lg object-cover w-full h-auto aspect-[3/4]"
+                            data-ai-hint={testimonial.imageHint}
+                          />
+                        </div>
+                        <div className="col-span-2 space-y-4">
+                          <h3 className="text-2xl font-bold" id="testi-head">
+                            {testimonial.company}
+                          </h3>
+                          <p className="text-lg text-gray-300" id="testi-text">
+                            "{testimonial.quote}"
+                          </p>
+                          <p className="font-semibold mt-4" id="testi-txt">
+                            {testimonial.author}
+                          </p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </div>
+
+              <div className="md:col-span-1">
+                <div className="h-[350px] overflow-y-auto no-scrollbar">
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    {newTestimonials.map((testimonial, index) => (
+                      <div
+                        key={index}
+                        id="testi-thumb"
+                        className={cn(
+                          "h-[120px] w-full aspect-square relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300",
+                          newTestimonialSelectedIndex === index
+                            ? "opacity-100 scale-105"
+                            : "opacity-50 scale-95"
+                        )}
+                        onClick={() => newTestimonialApi?.scrollTo(index)}
+                      >
+                        <Image
+                          src={testimonial.image}
+                          alt={testimonial.author}
+                          fill
+                          className="object-cover"
+                          data-ai-hint={testimonial.imageHint}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Carousel>
+        </div>
+      </AnimatedSection>
+      
       {/* Why to choose BCC? Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
