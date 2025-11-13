@@ -707,7 +707,7 @@ export default function Home() {
           <div className="flex justify-between items-start mb-12">
             <AnimatedElement animation="fade-up">
               <div>
-                <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Tutoring</h2>
+                <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Sessions</h2>
                 <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
               </div>
             </AnimatedElement>
