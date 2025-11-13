@@ -52,6 +52,12 @@ export default function OneToOneClassesPage() {
             name: "",
             mobileNumber: "",
             email: "",
+            board: "",
+            grade: "",
+            individualConcern: "",
+            personalizedSchedule: "",
+            personalizedStudyMaterial: "",
+            weeklyGrowthTracking: "",
         },
     });
 
@@ -172,7 +178,7 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                             <FormLabel>Board *</FormLabel>
-                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select a board" />
@@ -196,7 +202,7 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                             <FormLabel>Grade *</FormLabel>
-                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select a grade" />
