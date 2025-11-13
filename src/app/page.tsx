@@ -735,7 +735,7 @@ export default function Home() {
                 <div>
                   <div className="border-t border-gray-200 my-4"></div>
                   {course.price && <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>}
-                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Find personal tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
+                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Find a Personal Tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
                 </div>
               </Card>
             ))}
