@@ -63,7 +63,6 @@ const howHeardItems = [
 
 export default function StudentRegistrationPage() {
     const { toast } = useToast();
-    const photoRef = React.useRef<HTMLInputElement>(null);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -88,6 +87,8 @@ export default function StudentRegistrationPage() {
         },
     });
 
+    const photoRef = form.register("photo");
+
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
         toast({
@@ -95,9 +96,6 @@ export default function StudentRegistrationPage() {
             description: "Thank you for registering. We will be in touch shortly.",
         });
         form.reset();
-        if (photoRef.current) {
-          photoRef.current.value = "";
-        }
     }
 
   return (
@@ -209,24 +207,16 @@ export default function StudentRegistrationPage() {
 
                   {/* Right Column */}
                   <div className="space-y-8">
-                    <FormField
-                        control={form.control}
-                        name="photo"
-                        render={({ field: { onChange, value, ...rest } }) => (
-                            <FormItem>
-                                <FormLabel>Upload your photo</FormLabel>
-                                <FormControl>
-                                    <Input 
-                                      type="file" 
-                                      onChange={(e) => onChange(e.target.files)}
-                                      ref={photoRef}
-                                      {...rest}
-                                      className="bg-blue-50/50" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <FormItem>
+                        <FormLabel>Upload your photo</FormLabel>
+                        <FormControl>
+                            <Input 
+                              type="file"
+                              {...photoRef}
+                              className="bg-blue-50/50" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
                     <FormField
                       control={form.control}
                       name="parentName"
@@ -514,3 +504,5 @@ export default function StudentRegistrationPage() {
     </div>
   )
 }
+
+    
