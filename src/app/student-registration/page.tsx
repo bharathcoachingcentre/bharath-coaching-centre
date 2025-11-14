@@ -95,6 +95,9 @@ export default function StudentRegistrationPage() {
             description: "Thank you for registering. We will be in touch shortly.",
         });
         form.reset();
+        if (photoRef.current) {
+          photoRef.current.value = "";
+        }
     }
 
   return (
