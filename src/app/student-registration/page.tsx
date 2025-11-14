@@ -81,7 +81,7 @@ export default function StudentRegistrationPage() {
             fatherContact: "",
             motherContact: "",
             whatsappNumber: "",
-            board: undefined,
+            board: "" as "cbse" | "samacheer" | "other-board" | undefined,
             subjects: [],
             howHeard: [],
             terms: false,
@@ -435,7 +435,7 @@ export default function StudentRegistrationPage() {
                 <FormField
                     control={form.control}
                     name="howHeard"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
                             <div className="mb-4">
                                 <FormLabel>How did you hear about us?</FormLabel>
