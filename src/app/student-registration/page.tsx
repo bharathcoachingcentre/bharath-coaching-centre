@@ -56,6 +56,7 @@ const subjectItems = [
 
 export default function StudentRegistrationPage() {
     const { toast } = useToast();
+    const photoRef = React.useRef<HTMLInputElement>(null);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -87,6 +88,13 @@ export default function StudentRegistrationPage() {
             description: "Thank you for registering. We will be in touch shortly.",
         });
         form.reset();
+        if (photoRef.current) {
+            photoRef.current.value = "";
+        }
+        // Manually reset checkboxes for 'howHeard'
+        document.querySelectorAll<HTMLInputElement>('input[type="checkbox"][id^="how-heard-"]').forEach(el => {
+            el.checked = false;
+        });
     }
 
   return (
@@ -169,7 +177,7 @@ export default function StudentRegistrationPage() {
                             <FormControl>
                                 <RadioGroup
                                 onValueChange={field.onChange}
-                                defaultValue={field.value}
+                                value={field.value}
                                 className="flex items-center gap-8 mt-2"
                                 >
                                 <FormItem className="flex items-center space-x-3 space-y-0">
@@ -201,11 +209,16 @@ export default function StudentRegistrationPage() {
                     <FormField
                         control={form.control}
                         name="photo"
-                        render={({ field }) => (
+                        render={({ field: { onChange, value, ...rest } }) => (
                             <FormItem>
                                 <FormLabel>Upload your photo</FormLabel>
                                 <FormControl>
-                                    <Input type="file" {...field} className="bg-blue-50/50" />
+                                    <Input 
+                                      type="file" 
+                                      onChange={(e) => onChange(e.target.files)}
+                                      ref={photoRef}
+                                      {...rest}
+                                      className="bg-blue-50/50" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -340,7 +353,7 @@ export default function StudentRegistrationPage() {
                         <FormControl>
                             <RadioGroup
                             onValueChange={field.onChange}
-                            defaultValue={field.value}
+                            value={field.value}
                             className="mt-2 space-y-2"
                             >
                             <FormItem className="flex items-center space-x-2">
@@ -420,16 +433,16 @@ export default function StudentRegistrationPage() {
                 <Label>How did you hear about us?</Label>
                 <div className="mt-2 space-y-2">
                   <div className="flex items-center space-x-2">
-                    <Checkbox id="internet" />
-                    <Label htmlFor="internet">Internet</Label>
+                    <Checkbox id="how-heard-internet" />
+                    <Label htmlFor="how-heard-internet">Internet</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Checkbox id="old-student" />
-                    <Label htmlFor="old-student">From an old student</Label>
+                    <Checkbox id="how-heard-old-student" />
+                    <Label htmlFor="how-heard-old-student">From an old student</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Checkbox id="other-source" />
-                    <Label htmlFor="other-source">Other</Label>
+                    <Checkbox id="how-heard-other-source" />
+                    <Label htmlFor="how-heard-other-source">Other</Label>
                   </div>
                 </div>
               </div>
