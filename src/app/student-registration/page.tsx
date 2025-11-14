@@ -54,6 +54,13 @@ const subjectItems = [
     { id: "chemistry", label: "Chemistry" },
 ];
 
+const howHeardItems = [
+    { id: "internet", label: "Internet" },
+    { id: "old-student", label: "From an old student" },
+    { id: "other", label: "Other" },
+];
+
+
 export default function StudentRegistrationPage() {
     const { toast } = useToast();
     const photoRef = React.useRef<HTMLInputElement>(null);
@@ -88,13 +95,6 @@ export default function StudentRegistrationPage() {
             description: "Thank you for registering. We will be in touch shortly.",
         });
         form.reset();
-        if (photoRef.current) {
-            photoRef.current.value = "";
-        }
-        // Manually reset checkboxes for 'howHeard'
-        document.querySelectorAll<HTMLInputElement>('input[type="checkbox"][id^="how-heard-"]').forEach(el => {
-            el.checked = false;
-        });
     }
 
   return (
@@ -429,23 +429,53 @@ export default function StudentRegistrationPage() {
                 />
               </div>
               
-              <div>
-                <Label>How did you hear about us?</Label>
-                <div className="mt-2 space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="how-heard-internet" />
-                    <Label htmlFor="how-heard-internet">Internet</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="how-heard-old-student" />
-                    <Label htmlFor="how-heard-old-student">From an old student</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="how-heard-other-source" />
-                    <Label htmlFor="how-heard-other-source">Other</Label>
-                  </div>
-                </div>
-              </div>
+                <FormField
+                    control={form.control}
+                    name="howHeard"
+                    render={() => (
+                        <FormItem>
+                            <div className="mb-4">
+                                <FormLabel>How did you hear about us?</FormLabel>
+                            </div>
+                            <div className="mt-2 space-y-2">
+                            {howHeardItems.map((item) => (
+                                <FormField
+                                key={item.id}
+                                control={form.control}
+                                name="howHeard"
+                                render={({ field }) => {
+                                    return (
+                                    <FormItem
+                                        key={item.id}
+                                        className="flex flex-row items-start space-x-3 space-y-0"
+                                    >
+                                        <FormControl>
+                                        <Checkbox
+                                            checked={field.value?.includes(item.id)}
+                                            onCheckedChange={(checked) => {
+                                            return checked
+                                                ? field.onChange([...(field.value || []), item.id])
+                                                : field.onChange(
+                                                    field.value?.filter(
+                                                    (value) => value !== item.id
+                                                    )
+                                                )
+                                            }}
+                                        />
+                                        </FormControl>
+                                        <FormLabel className="font-normal">
+                                        {item.label}
+                                        </FormLabel>
+                                    </FormItem>
+                                    )
+                                }}
+                                />
+                            ))}
+                            </div>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
               <FormField
                 control={form.control}
                 name="terms"
