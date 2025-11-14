@@ -76,7 +76,7 @@ export default function StudentRegistrationPage() {
             fatherOccupation: "",
             institutionName: "",
             dob: undefined,
-            gender: undefined,
+            gender: "" as "male" | "female" | undefined,
             residentialAddress: "",
             fatherContact: "",
             motherContact: "",
@@ -435,7 +435,7 @@ export default function StudentRegistrationPage() {
                 <FormField
                     control={form.control}
                     name="howHeard"
-                    render={() => (
+                    render={({ field }) => (
                         <FormItem>
                             <div className="mb-4">
                                 <FormLabel>How did you hear about us?</FormLabel>
