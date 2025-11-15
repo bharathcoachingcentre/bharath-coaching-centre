@@ -687,17 +687,25 @@ export default function Home() {
           <AnimatedElement animation="fade-up">
             <h2 className="text-3xl font-bold text-center mb-12">Offline  <span className="relative inline-block text-primary">Time Table<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span></h2>
           </AnimatedElement>
-          <div className="space-y-8">
+          <div className="space-y-12">
               <div>
-                  <h3 className="font-bold text-xl mb-4">CBSE</h3>
-                  <div className="flex flex-wrap gap-4">
-                      {timetableClasses.map(cls => <Button key={cls} variant="outline" size="sm" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                  <h3 className="font-bold text-2xl mb-6">CBSE</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                      {timetableClasses.map(cls => (
+                        <div key={cls} className="bg-white p-4 rounded-lg shadow-md border border-gray-100 text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+                          <p className="font-semibold">{cls}</p>
+                        </div>
+                      ))}
                   </div>
               </div>
               <div>
-                  <h3 className="font-bold text-xl mb-4">SAMACHEER</h3>
-                  <div className="flex flex-wrap gap-4">
-                      {timetableClasses.map(cls => <Button key={cls} variant="outline" size="sm" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                  <h3 className="font-bold text-2xl mb-6">SAMACHEER</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                      {timetableClasses.map(cls => (
+                        <div key={cls} className="bg-white p-4 rounded-lg shadow-md border border-gray-100 text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+                          <p className="font-semibold">{cls}</p>
+                        </div>
+                      ))}
                   </div>
               </div>
           </div>
