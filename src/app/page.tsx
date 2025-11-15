@@ -689,7 +689,7 @@ export default function Home() {
           </AnimatedElement>
           <div className="space-y-12">
               <div>
-                  <h3 className="font-bold text-2xl mb-6">CBSE</h3>
+                  <h3 className="flex items-center gap-2 font-bold text-2xl mb-6"><Book className="w-6 h-6 text-primary" /> CBSE</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                       {timetableClasses.map(cls => (
                         <div key={cls} className="bg-white p-4 rounded-lg shadow-md border border-gray-100 text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
@@ -699,7 +699,7 @@ export default function Home() {
                   </div>
               </div>
               <div>
-                  <h3 className="font-bold text-2xl mb-6">SAMACHEER</h3>
+                  <h3 className="flex items-center gap-2 font-bold text-2xl mb-6"><Book className="w-6 h-6 text-primary" /> SAMACHEER</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                       {timetableClasses.map(cls => (
                         <div key={cls} className="bg-white p-4 rounded-lg shadow-md border border-gray-100 text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
