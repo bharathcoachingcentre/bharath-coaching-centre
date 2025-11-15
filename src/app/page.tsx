@@ -693,9 +693,9 @@ export default function Home() {
                             "url(\"data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bfdbfe' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
                     }}
                 >
-                    <div className="grid md:grid-cols-3 items-center gap-8">
+                    <div className="grid md:grid-cols-2 items-center gap-8">
                         <div className="md:col-span-1">
-                            <Image
+                             <Image
                                 src="/director-chair.png"
                                 alt="Director Chair"
                                 width={300}
@@ -704,7 +704,7 @@ export default function Home() {
                                 data-ai-hint="director chair illustration"
                             />
                         </div>
-                        <div className="md:col-span-2">
+                        <div className="md:col-span-1">
                             <h2 className="text-3xl font-bold text-right text-gray-800 mb-6">
                                 Offline Time Table - CBSE
                             </h2>
@@ -727,7 +727,7 @@ export default function Home() {
 
                 <div className="mt-12">
                     <h3 className="flex items-center gap-2 font-bold text-2xl mb-6">
-                        <Book className="w-6 h-6 text-primary" /> SAMACHEER
+                         <Book className="w-6 h-6 text-primary" /> SAMACHEER
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                         {timetableClasses.map((cls) => (
@@ -1114,3 +1114,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
