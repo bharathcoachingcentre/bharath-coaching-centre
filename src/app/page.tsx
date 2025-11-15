@@ -600,10 +600,10 @@ export default function Home() {
               {features.map((feature, index) => (
                 <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/4">
                   <div className={cn(
-                    "flex flex-col items-center justify-center p-6 rounded-xl h-40 transition-transform duration-300 hover:scale-105",
+                    "group flex flex-col items-center justify-center p-6 rounded-xl h-40 transition-transform duration-300 hover:scale-105",
                     feature.color
                   )}>
-                    <feature.icon className="w-8 h-8 mb-2" />
+                    <feature.icon className="w-8 h-8 mb-2 transition-transform duration-300 group-hover:-translate-y-1" />
                     <p className="text-center font-semibold">{feature.text}</p>
                   </div>
                 </CarouselItem>
