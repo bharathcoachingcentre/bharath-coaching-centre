@@ -731,12 +731,17 @@ export default function Home() {
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                       {timetableClasses.map((cls) => (
-                          <div
-                              key={cls}
-                              className="bg-white p-4 rounded-lg shadow-md border border-gray-100 text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50"
-                          >
-                              <p className="font-semibold">{cls}</p>
-                          </div>
+                        <div key={cls} className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-between h-32 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <div className="bg-blue-100 rounded-full p-2 mb-2">
+                                <Check className="w-5 h-5 text-primary" />
+                            </div>
+                            <p className="font-semibold text-gray-700 text-sm flex-grow flex items-center">{cls}</p>
+                            <div className="w-full flex justify-end mt-2">
+                                <button className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-blue-600 transition-colors">
+                                    <Plus className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
                       ))}
                   </div>
               </div>
