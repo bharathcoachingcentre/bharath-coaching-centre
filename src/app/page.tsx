@@ -725,7 +725,7 @@ export default function Home() {
                   {cbseTimetableClasses.map((item) => (
                     <div
                       key={item}
-                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                     >
                       <div className="bg-blue-100 rounded-full p-1 mb-1">
                         <Check className="w-4 h-4 text-primary" />
@@ -744,7 +744,7 @@ export default function Home() {
                   {samacheerTimetableClasses.map((item) => (
                      <div
                       key={item}
-                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                     >
                       <div className="bg-blue-100 rounded-full p-1 mb-1">
                         <Check className="w-4 h-4 text-primary" />
@@ -1136,6 +1136,7 @@ export default function Home() {
     
 
     
+
 
 
 
