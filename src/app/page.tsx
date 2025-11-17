@@ -742,11 +742,6 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="text-right mt-6">
-                  <Button className="bg-blue-800 hover:bg-blue-900 text-white">
-                    Join Now
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
@@ -1128,6 +1123,7 @@ export default function Home() {
     
 
     
+
 
 
 
