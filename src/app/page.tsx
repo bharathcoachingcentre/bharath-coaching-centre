@@ -727,7 +727,7 @@ export default function Home() {
                 <h2 className="text-3xl font-bold text-right text-gray-800 mb-6 mt-8">
                   SAMACHEER
                 </h2>
-                <div className="grid grid-cols-6 gap-4">
+                <div className="grid grid-cols-7 gap-4">
                   {samacheerTimetableClasses.map((item) => (
                      <div
                       key={item}
@@ -1128,6 +1128,7 @@ export default function Home() {
     
 
     
+
 
 
 
