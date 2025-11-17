@@ -695,7 +695,7 @@ export default function Home() {
                 >
                     <div className="grid md:grid-cols-2 items-center gap-8">
                         <div className="md:col-span-1">
-                             <Image
+                            <Image
                                 src="/director-chair.png"
                                 alt="Director Chair"
                                 width={300}
