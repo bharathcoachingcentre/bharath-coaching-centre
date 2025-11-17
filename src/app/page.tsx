@@ -701,7 +701,7 @@ export default function Home() {
                   alt="Offline Timetable"
                   width={400}
                   height={400}
-                  className="mx-auto"
+                  className="mx-auto animate-move-up-down"
                   data-ai-hint="illustration of people studying"
                 />
               </div>
@@ -889,7 +889,7 @@ export default function Home() {
         <div className="container mx-auto">
           <AnimatedElement animation="fade-up">
           <h2 className="text-3xl font-bold text-center mb-12">
-              Why to Choose <span className="relative inline-block text-primary">BCC?<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span></span>
+              Why to Choose <span className="relative inline-block text-primary">BCC?<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 -z-10"></span></span>
             </h2>
           </AnimatedElement>
           <div className="grid gap-8 md:grid-cols-3">
@@ -1123,6 +1123,7 @@ export default function Home() {
     
 
     
+
 
 
 

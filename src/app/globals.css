@@ -331,3 +331,16 @@ color:rgb(27, 157, 243);
     height: 140px;
     width: 350px;
 }
+
+@keyframes move-up-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-move-up-down {
+  animation: move-up-down 3s ease-in-out infinite;
+}
