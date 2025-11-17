@@ -509,6 +509,7 @@ export default function Home() {
   ];
   
   const timetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
+  const samacheerTimetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
 
   const benefits = [
     "18+ years experienced faculties specialized in each subjects.",
@@ -718,31 +719,23 @@ export default function Home() {
                                   </div>
                               ))}
                           </div>
+                           <h2 className="text-3xl font-bold text-right text-gray-800 mb-6 mt-8">
+                              SAMACHEER
+                          </h2>
+                          <div className="grid grid-cols-6 gap-4">
+                              {samacheerTimetableClasses.map((item) => (
+                                  <div key={item} className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-between h-32">
+                                      <div className="bg-blue-100 rounded-full p-1">
+                                          <Check className="w-4 h-4 text-primary" />
+                                      </div>
+                                      <p className="font-semibold text-gray-700 text-sm">{item}</p>
+                                  </div>
+                              ))}
+                          </div>
                           <div className="text-right mt-6">
                               <Button className="bg-blue-800 hover:bg-blue-900 text-white">Join Now</Button>
                           </div>
                       </div>
-                  </div>
-              </div>
-
-              <div className="mt-12">
-                  <h3 className="flex items-center gap-2 font-bold text-2xl mb-6">
-                       <Book className="w-6 h-6 text-primary" /> SAMACHEER
-                  </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
-                      {timetableClasses.map((cls) => (
-                        <div key={cls} className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-between h-32 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                            <div className="bg-blue-100 rounded-full p-2 mb-2">
-                                <Check className="w-5 h-5 text-primary" />
-                            </div>
-                            <p className="font-semibold text-gray-700 text-sm flex-grow flex items-center">{cls}</p>
-                            <div className="w-full flex justify-end mt-2">
-                                <button className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-blue-600 transition-colors">
-                                    <Plus className="w-4 h-4" />
-                                </button>
-                            </div>
-                        </div>
-                      ))}
                   </div>
               </div>
           </div>
@@ -1123,3 +1116,4 @@ export default function Home() {
     
 
     
+
