@@ -350,7 +350,7 @@ color:rgb(27, 157, 243);
     transform: translateY(0px) translateX(0px);
   }
   50% {
-    transform: translateY(-20px) translateX(20px);
+    transform: translateY(-40px) translateX(40px);
   }
   100% {
     transform: translateY(0px) translateX(0px);
