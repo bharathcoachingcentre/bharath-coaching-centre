@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import Image from "next/image";
@@ -686,7 +687,7 @@ export default function Home() {
       
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden">
-        <div className="bubbles">
+        <div className="absolute inset-0 -z-10">
             <div className="bubble"></div>
             <div className="bubble"></div>
             <div className="bubble"></div>
@@ -723,12 +724,12 @@ export default function Home() {
                   {cbseTimetableClasses.map((item) => (
                     <div
                       key={item}
-                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-between h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                     >
-                      <div className="bg-blue-100 rounded-full p-1">
+                      <div className="bg-blue-100 rounded-full p-1 mb-2">
                         <Check className="w-4 h-4 text-primary" />
                       </div>
-                      <p className="font-semibold text-gray-700 text-sm mt-2">
+                      <p className="font-semibold text-gray-700 text-sm">
                         {item}
                       </p>
                     </div>
@@ -741,12 +742,12 @@ export default function Home() {
                   {samacheerTimetableClasses.map((item) => (
                      <div
                       key={item}
-                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-between h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                     >
-                      <div className="bg-blue-100 rounded-full p-1">
+                      <div className="bg-blue-100 rounded-full p-1 mb-2">
                         <Check className="w-4 h-4 text-primary" />
                       </div>
-                      <p className="font-semibold text-gray-700 text-sm mt-2">
+                      <p className="font-semibold text-gray-700 text-sm">
                         {item}
                       </p>
                     </div>
@@ -1133,6 +1134,7 @@ export default function Home() {
     
 
     
+
 
 
 
