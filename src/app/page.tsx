@@ -684,64 +684,64 @@ export default function Home() {
       </AnimatedSection>
       
       {/* Offline Time Table Section */}
-        <AnimatedSection className="py-16 md:py-24">
-            <div className="container mx-auto">
-                <div
-                    className="rounded-xl p-8 bg-blue-100/50"
-                    style={{
-                        backgroundImage:
-                            "url(\"data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bfdbfe' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-                    }}
-                >
-                    <div className="grid md:grid-cols-2 items-center gap-8">
-                        <div className="md:col-span-1">
-                            <Image
-                                src="/director-chair.png"
-                                alt="Director Chair"
-                                width={300}
-                                height={300}
-                                className="mx-auto"
-                                data-ai-hint="director chair illustration"
-                            />
-                        </div>
-                        <div className="md:col-span-1">
-                            <h2 className="text-3xl font-bold text-right text-gray-800 mb-6">
-                                Offline Time Table - CBSE
-                            </h2>
-                            <div className="grid grid-cols-6 gap-4">
-                                {cbseTimetableClasses.map((item) => (
-                                    <div key={item} className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-between h-32">
-                                        <div className="bg-blue-100 rounded-full p-1">
-                                            <Check className="w-4 h-4 text-primary" />
-                                        </div>
-                                        <p className="font-semibold text-gray-700 text-sm">{item}</p>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="text-right mt-6">
-                                <Button className="bg-blue-800 hover:bg-blue-900 text-white">Join Now</Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <AnimatedSection className="py-16 md:py-24">
+          <div className="container mx-auto">
+              <div
+                  className="rounded-xl p-8 bg-blue-100/50"
+                  style={{
+                      backgroundImage:
+                          "url(\"data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bfdbfe' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+                  }}
+              >
+                  <div className="grid md:grid-cols-2 items-center gap-8">
+                      <div className="md:col-span-1">
+                          <Image
+                              src="/offline-timetable-img.png"
+                              alt="Offline Timetable"
+                              width={400}
+                              height={400}
+                              className="mx-auto"
+                              data-ai-hint="illustration of people studying"
+                          />
+                      </div>
+                      <div className="md:col-span-1">
+                          <h2 className="text-3xl font-bold text-right text-gray-800 mb-6">
+                              Offline Time Table - CBSE
+                          </h2>
+                          <div className="grid grid-cols-6 gap-4">
+                              {cbseTimetableClasses.map((item) => (
+                                  <div key={item} className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-between h-32">
+                                      <div className="bg-blue-100 rounded-full p-1">
+                                          <Check className="w-4 h-4 text-primary" />
+                                      </div>
+                                      <p className="font-semibold text-gray-700 text-sm">{item}</p>
+                                  </div>
+                              ))}
+                          </div>
+                          <div className="text-right mt-6">
+                              <Button className="bg-blue-800 hover:bg-blue-900 text-white">Join Now</Button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-                <div className="mt-12">
-                    <h3 className="flex items-center gap-2 font-bold text-2xl mb-6">
-                         <Book className="w-6 h-6 text-primary" /> SAMACHEER
-                    </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
-                        {timetableClasses.map((cls) => (
-                            <div
-                                key={cls}
-                                className="bg-white p-4 rounded-lg shadow-md border border-gray-100 text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50"
-                            >
-                                <p className="font-semibold">{cls}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </AnimatedSection>
+              <div className="mt-12">
+                  <h3 className="flex items-center gap-2 font-bold text-2xl mb-6">
+                       <Book className="w-6 h-6 text-primary" /> SAMACHEER
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                      {timetableClasses.map((cls) => (
+                          <div
+                              key={cls}
+                              className="bg-white p-4 rounded-lg shadow-md border border-gray-100 text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50"
+                          >
+                              <p className="font-semibold">{cls}</p>
+                          </div>
+                      ))}
+                  </div>
+              </div>
+          </div>
+      </AnimatedSection>
 
       {/* One-to-One Tutoring Section */}
       <AnimatedSection className="py-16 md:py-24 bg-[#FFF9F5]">
@@ -1114,5 +1114,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
