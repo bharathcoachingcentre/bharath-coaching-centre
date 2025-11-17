@@ -4,7 +4,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target, Download, Star, Users2, Eye, TestTube2, FileText, CalendarClock, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target, Download, Star, Users2, Eye, TestTube2, FileText, CalendarClock, Plus, Pencil, Ruler, FlaskConical, Atom } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -309,8 +309,15 @@ export default function Home() {
     }
   ];
 
-  const classFilters = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
-  const cbseTimetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
+  const timetableClasses = [
+    { name: "Class 6", icon: Book },
+    { name: "Class 7", icon: Pencil },
+    { name: "Class 8", icon: Ruler },
+    { name: "Class 9", icon: Calculator },
+    { name: "Class 10", icon: FlaskConical },
+    { name: "Class 11", icon: Atom },
+    { name: "Class 12", icon: GraduationCap },
+  ];
 
 
   const boardMaterials = {
@@ -509,7 +516,6 @@ export default function Home() {
 },
   ];
   
-  const timetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
   const samacheerTimetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
 
   const benefits = [
@@ -670,13 +676,13 @@ export default function Home() {
                     <div>
                         <h3 className="font-bold text-lg mb-4">CBSE</h3>
                         <div className="flex flex-wrap gap-4">
-                            {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                            {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
                         </div>
                     </div>
                     <div>
                         <h3 className="font-bold text-lg mb-4">SAMACHEER</h3>
                         <div className="flex flex-wrap gap-4">
-                            {timetableClasses.map(cls => <Button key={cls} variant="outline" className="bg-gray-100 border-gray-200">{cls}</Button>)}
+                            {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
                         </div>
                     </div>
                 </div>
@@ -708,7 +714,7 @@ export default function Home() {
             <div className="grid md:grid-cols-10 items-center gap-8">
               <div className="md:col-span-3">
                 <Image
-                  src="/offline-timetable-img.png"
+                  src="/Timetable.png"
                   alt="Offline Timetable"
                   width={400}
                   height={400}
@@ -721,17 +727,17 @@ export default function Home() {
                   <Image src="/CBSE.gif" alt="CBSE" width={40} height={40} />
                   CBSE
                 </h2>
-                <div className="grid grid-cols-7 gap-4">
-                  {cbseTimetableClasses.map((item) => (
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+                  {timetableClasses.map((item) => (
                     <div
-                      key={item}
-                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2"
+                      key={item.name}
+                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
                       <div className="bg-blue-100 rounded-full p-1 mb-1">
-                        <Check className="w-4 h-4 text-primary" />
+                        <item.icon className="w-4 h-4 text-primary" />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
-                        {item}
+                        {item.name}
                       </p>
                     </div>
                   ))}
@@ -740,17 +746,17 @@ export default function Home() {
                   <Image src="/CBSE.gif" alt="SAMACHEER" width={40} height={40} />
                   SAMACHEER
                 </h2>
-                <div className="grid grid-cols-7 gap-4">
-                  {samacheerTimetableClasses.map((item) => (
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+                  {timetableClasses.map((item) => (
                      <div
-                      key={item}
-                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2"
+                      key={item.name}
+                      className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
                       <div className="bg-blue-100 rounded-full p-1 mb-1">
-                        <Check className="w-4 h-4 text-primary" />
+                        <item.icon className="w-4 h-4 text-primary" />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
-                        {item}
+                        {item.name}
                       </p>
                     </div>
                   ))}
@@ -1136,6 +1142,7 @@ export default function Home() {
     
 
     
+
 
 
 
