@@ -687,6 +687,9 @@ export default function Home() {
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
+        <AnimatedElement animation="fade-up" className="text-center mb-12">
+            <h2 className="text-3xl font-bold">Offline Timetable</h2>
+          </AnimatedElement>
           <div
             className="rounded-xl p-8 bg-blue-100/50"
             style={{
@@ -1123,6 +1126,7 @@ export default function Home() {
     
 
     
+
 
 
 
