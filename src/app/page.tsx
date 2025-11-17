@@ -717,7 +717,8 @@ export default function Home() {
                 />
               </div>
               <div className="md:col-span-7">
-                <h2 className="text-3xl font-bold text-right text-gray-800 mb-6">
+                <h2 className="text-3xl font-bold text-right text-gray-800 mb-6 flex items-center justify-end gap-4">
+                  <Image src="/CBSE.gif" alt="CBSE" width={40} height={40} />
                   CBSE
                 </h2>
                 <div className="grid grid-cols-7 gap-4">
@@ -726,7 +727,7 @@ export default function Home() {
                       key={item}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                     >
-                      <div className="bg-blue-100 rounded-full p-1 mb-2">
+                      <div className="bg-blue-100 rounded-full p-1 mb-1">
                         <Check className="w-4 h-4 text-primary" />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
@@ -735,7 +736,8 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <h2 className="text-3xl font-bold text-right text-gray-800 mb-6 mt-8">
+                <h2 className="text-3xl font-bold text-right text-gray-800 mb-6 mt-8 flex items-center justify-end gap-4">
+                  <Image src="/CBSE.gif" alt="SAMACHEER" width={40} height={40} />
                   SAMACHEER
                 </h2>
                 <div className="grid grid-cols-7 gap-4">
@@ -744,7 +746,7 @@ export default function Home() {
                       key={item}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-32 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                     >
-                      <div className="bg-blue-100 rounded-full p-1 mb-2">
+                      <div className="bg-blue-100 rounded-full p-1 mb-1">
                         <Check className="w-4 h-4 text-primary" />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
@@ -1134,6 +1136,7 @@ export default function Home() {
     
 
     
+
 
 
 
