@@ -309,7 +309,7 @@ export default function Home() {
   ];
 
   const classFilters = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
-  const cbseTimetableClasses = ["Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
+  const cbseTimetableClasses = ["Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
 
 
   const boardMaterials = {
@@ -709,7 +709,7 @@ export default function Home() {
                 <h2 className="text-3xl font-bold text-right text-gray-800 mb-6">
                   Offline Time Table - CBSE
                 </h2>
-                <div className="grid grid-cols-6 gap-4">
+                <div className="grid grid-cols-7 gap-4">
                   {cbseTimetableClasses.map((item) => (
                     <div
                       key={item}
@@ -1128,6 +1128,7 @@ export default function Home() {
     
 
     
+
 
 
 
