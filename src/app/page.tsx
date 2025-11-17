@@ -685,8 +685,15 @@ export default function Home() {
       </AnimatedSection>
       
       {/* Offline Time Table Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
+      <AnimatedSection className="py-16 md:py-24 relative overflow-hidden">
+        <div className="bubbles">
+            <div className="bubble"></div>
+            <div className="bubble"></div>
+            <div className="bubble"></div>
+            <div className="bubble"></div>
+            <div className="bubble"></div>
+        </div>
+        <div className="container mx-auto relative z-10">
           <AnimatedElement animation="fade-up" className="text-center mb-12">
             <h2 className="text-3xl font-bold">Offline Timetable</h2>
           </AnimatedElement>
@@ -1126,6 +1133,7 @@ export default function Home() {
     
 
     
+
 
 
 
