@@ -687,7 +687,7 @@ export default function Home() {
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
-        <AnimatedElement animation="fade-up" className="text-center mb-12">
+          <AnimatedElement animation="fade-up" className="text-center mb-12">
             <h2 className="text-3xl font-bold">Offline Timetable</h2>
           </AnimatedElement>
           <div
@@ -710,7 +710,7 @@ export default function Home() {
               </div>
               <div className="md:col-span-7">
                 <h2 className="text-3xl font-bold text-right text-gray-800 mb-6">
-                  Offline Time Table - CBSE
+                  CBSE
                 </h2>
                 <div className="grid grid-cols-7 gap-4">
                   {cbseTimetableClasses.map((item) => (
@@ -1126,6 +1126,7 @@ export default function Home() {
     
 
     
+
 
 
 
