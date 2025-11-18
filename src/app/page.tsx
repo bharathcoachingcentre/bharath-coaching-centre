@@ -1016,55 +1016,43 @@ export default function Home() {
       </AnimatedSection>
       
       <AnimatedSection className="py-16 md:py-24 bg-blue-50">
-        <div className="container mx-auto">
-            <AnimatedElement animation="fade-up">
-                <h2 className="text-3xl font-bold text-center mb-12">
-                    Why Choose Us?
-                    <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
-                </h2>
-            </AnimatedElement>
-            <div className="grid md:grid-cols-5 gap-16 items-center">
-                <div className="md:col-span-3 space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {whyChooseUsPoints.slice(0, 3).map((point, index) => (
-                            <Card key={index} className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
-                                <div className={`flex-shrink-0 ${point.bgColor} p-3 rounded-full`}>
-                                    {point.icon}
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-bold">{point.title}</h3>
-                                </div>
-                            </Card>
-                        ))}
-                    </div>
-                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {whyChooseUsPoints.slice(3).map((point, index) => (
-                            <Card key={index} className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
-                                <div className={`flex-shrink-0 ${point.bgColor} p-3 rounded-full`}>
-                                    {point.icon}
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-bold">{point.title}</h3>
-                                </div>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-                <div className="relative p-4 md:col-span-2">
-                    <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
-                    <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
-                    <Image 
-                        src="https://picsum.photos/seed/dentist/600/700" 
-                        alt="Dentist with patient"
-                        width={600}
-                        height={700}
-                        className="rounded-lg shadow-2xl object-cover relative z-10"
-                        data-ai-hint="dentist patient"
-                    />
-                </div>
-            </div>
-        </div>
-    </AnimatedSection>
+          <div className="container mx-auto">
+              <AnimatedElement animation="fade-up">
+                  <h2 className="text-3xl font-bold text-center mb-12">
+                      Why Choose Us?
+                      <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
+                  </h2>
+              </AnimatedElement>
+              <div className="grid md:grid-cols-2 gap-16 items-center">
+                  <div className="md:col-span-1 space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                          {whyChooseUsPoints.map((point, index) => (
+                              <Card key={index} className="flex flex-col items-center text-center gap-4 p-6 bg-white rounded-lg shadow-md">
+                                  <div className={`flex-shrink-0 ${point.bgColor} p-3 rounded-full`}>
+                                      {point.icon}
+                                  </div>
+                                  <div>
+                                      <h3 className="text-lg font-bold">{point.title}</h3>
+                                  </div>
+                              </Card>
+                          ))}
+                      </div>
+                  </div>
+                  <div className="relative p-4 md:col-span-1">
+                      <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
+                      <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
+                      <Image 
+                          src="https://picsum.photos/seed/dentist/600/700" 
+                          alt="Dentist with patient"
+                          width={600}
+                          height={700}
+                          className="rounded-lg shadow-2xl object-cover relative z-10"
+                          data-ai-hint="dentist patient"
+                      />
+                  </div>
+              </div>
+          </div>
+      </AnimatedSection>
       
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
@@ -1244,6 +1232,7 @@ export default function Home() {
     
 
     
+
 
 
 
