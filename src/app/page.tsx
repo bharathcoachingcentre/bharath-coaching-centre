@@ -565,6 +565,57 @@ export default function Home() {
     { icon: FileText, title: "Full mock test", description: "Comprehensive mock exams to prepare you for the real thing." },
   ];
 
+  const whyChooseUsPoints = [
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-armchair text-primary"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2Z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg>
+      ),
+      title: "Less Time in the Chair",
+      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
+      bgColor: "bg-blue-100",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-pulse text-purple-600"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+      ),
+      title: "More Efficient",
+      description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
+      bgColor: "bg-purple-100",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield-plus text-red-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="M12 8v8"/><path d="M16 12H8"/></svg>
+      ),
+      title: "Longer Lasting",
+      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
+      bgColor: "bg-red-100",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bug"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 9.3 3 11 3 13v3c0 .54.07 1.05.18 1.55"/><path d="M20.82 14.55c.11-.5.18-1.01.18-1.55v-3c0-2-1.6-3.7-3.47-4"/><path d="M4 16.5h16"/><path d="m15 11-.5-1-.5 1"/><path d="m9 11-.5-1-.5 1"/></svg>
+      ),
+      title: "Fast Pest Removal",
+      description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
+      bgColor: "bg-blue-100",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-timer"><path d="M10 2h4"/><path d="M12 14v-4"/><path d="M4 13a8 8 0 0 1 8-7 8 8 0 1 1-5.3 14L4 17.6"/><path d="M9 17H4v-5"/></svg>
+      ),
+      title: "One-Time Extermination",
+      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
+      bgColor: "bg-blue-100",
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-award"><path d="M12 15h.01"/><path d="m8.6 11.5 1.5 1.5a1 1 0 0 0 1.4 0l4-4"/><path d="M12.01 15.01 12 15"/><path d="M12 3a4 4 0 0 0-4 4v2c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V7a4 4 0 0 0-4-4"/><path d="M16 11.1V13a8 8 0 1 1-8 0v-1.9"/><path d="m15.7 6.3 1 1"/><path d="m7.3 6.3-1 1"/></svg>
+      ),
+      title: "Licensed & Protected",
+      description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
+      bgColor: "bg-blue-100",
+    },
+  ];
+
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
@@ -966,67 +1017,54 @@ export default function Home() {
       
       <AnimatedSection className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              Why Choose Us?
-              <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
-            </h2>
-          </AnimatedElement>
-          <div className="grid md:grid-cols-5 gap-16 items-center">
-            <div className="md:col-span-3 space-y-6">
-              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
-                <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-armchair text-primary"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2Z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg>
+            <AnimatedElement animation="fade-up">
+                <h2 className="text-3xl font-bold text-center mb-12">
+                    Why Choose Us?
+                    <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
+                </h2>
+            </AnimatedElement>
+            <div className="grid md:grid-cols-5 gap-16 items-center">
+                <div className="md:col-span-3 space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {whyChooseUsPoints.slice(0, 3).map((point, index) => (
+                            <Card key={index} className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
+                                <div className={`flex-shrink-0 ${point.bgColor} p-3 rounded-full`}>
+                                    {point.icon}
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold">{point.title}</h3>
+                                </div>
+                            </Card>
+                        ))}
+                    </div>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {whyChooseUsPoints.slice(3).map((point, index) => (
+                            <Card key={index} className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
+                                <div className={`flex-shrink-0 ${point.bgColor} p-3 rounded-full`}>
+                                    {point.icon}
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold">{point.title}</h3>
+                                </div>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold">Less Time in the Chair</h3>
-                  <p className="text-muted-foreground mt-1">Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.</p>
+                <div className="relative p-4 md:col-span-2">
+                    <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
+                    <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
+                    <Image 
+                        src="https://picsum.photos/seed/dentist/600/700" 
+                        alt="Dentist with patient"
+                        width={600}
+                        height={700}
+                        className="rounded-lg shadow-2xl object-cover relative z-10"
+                        data-ai-hint="dentist patient"
+                    />
                 </div>
-              </Card>
-              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
-                <div className="flex-shrink-0 bg-purple-100 p-3 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-pulse text-purple-600"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold">More Efficient</h3>
-                  <p className="text-muted-foreground mt-1">Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.</p>
-                </div>
-              </Card>
-              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
-                <div className="flex-shrink-0 bg-red-100 p-3 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield-plus text-red-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="M12 8v8"/><path d="M16 12H8"/></svg>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold">Longer Lasting</h3>
-                  <p className="text-muted-foreground mt-1">Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.</p>
-                </div>
-              </Card>
-              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
-                <div className="flex-shrink-0 bg-green-100 p-3 rounded-full">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smile text-green-600"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold">More Comfortable Experience</h3>
-                  <p className="text-muted-foreground mt-1">Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.</p>
-                </div>
-              </Card>
             </div>
-            <div className="relative p-4 md:col-span-2">
-              <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
-               <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
-
-              <Image 
-                src="https://picsum.photos/seed/dentist/600/700" 
-                alt="Dentist with patient"
-                width={600}
-                height={700}
-                className="rounded-lg shadow-2xl object-cover relative z-10"
-                data-ai-hint="dentist patient"
-              />
-            </div>
-          </div>
         </div>
-      </AnimatedSection>
+    </AnimatedSection>
       
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
@@ -1206,6 +1244,7 @@ export default function Home() {
     
 
     
+
 
 
 
