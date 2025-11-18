@@ -972,8 +972,8 @@ export default function Home() {
               <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
             </h2>
           </AnimatedElement>
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
+          <div className="grid md:grid-cols-5 gap-16 items-center">
+            <div className="md:col-span-3 space-y-6">
               <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
                 <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-armchair text-primary"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2Z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg>
@@ -1011,9 +1011,9 @@ export default function Home() {
                 </div>
               </Card>
             </div>
-            <div className="relative p-4">
-              <div className="absolute top-0 right-0 h-[calc(100%-2rem)] w-[calc(100%-2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent"></div>
-               <div className="absolute -top-4 -right-4 h-full w-full rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
+            <div className="relative p-4 md:col-span-2">
+              <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
+               <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
 
               <Image 
                 src="https://picsum.photos/seed/dentist/600/700" 
@@ -1206,6 +1206,7 @@ export default function Home() {
     
 
     
+
 
 
 
