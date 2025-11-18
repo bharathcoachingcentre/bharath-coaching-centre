@@ -693,7 +693,7 @@ export default function Home() {
       
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10">
             <div className="bubble"></div>
             <div className="bubble"></div>
             <div className="bubble"></div>
@@ -1011,13 +1011,17 @@ export default function Home() {
                 </div>
               </Card>
             </div>
-            <div>
+            <div className="relative">
+              <div className="absolute top-0 right-0 w-full h-full">
+                <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-to-tr from-transparent to-blue-300/50 rounded-tr-lg"></div>
+                <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-br from-transparent to-blue-300/50 rounded-br-lg"></div>
+              </div>
               <Image 
                 src="https://picsum.photos/seed/dentist/600/700" 
                 alt="Dentist with patient"
                 width={600}
                 height={700}
-                className="rounded-lg shadow-2xl object-cover"
+                className="rounded-lg shadow-2xl object-cover relative z-10"
                 data-ai-hint="dentist patient"
               />
             </div>
@@ -1203,6 +1207,7 @@ export default function Home() {
     
 
     
+
 
 
 
