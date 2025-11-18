@@ -964,6 +964,67 @@ export default function Home() {
         </div>
       </AnimatedSection>
       
+      <AnimatedSection className="py-16 md:py-24 bg-blue-50">
+        <div className="container mx-auto">
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Why Choose Us?
+              <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
+            </h2>
+          </AnimatedElement>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-6">
+              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
+                <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-armchair text-primary"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2Z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold">Less Time in the Chair</h3>
+                  <p className="text-muted-foreground mt-1">Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.</p>
+                </div>
+              </Card>
+              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
+                <div className="flex-shrink-0 bg-purple-100 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-pulse text-purple-600"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold">More Efficient</h3>
+                  <p className="text-muted-foreground mt-1">Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.</p>
+                </div>
+              </Card>
+              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
+                <div className="flex-shrink-0 bg-red-100 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield-plus text-red-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="M12 8v8"/><path d="M16 12H8"/></svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold">Longer Lasting</h3>
+                  <p className="text-muted-foreground mt-1">Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.</p>
+                </div>
+              </Card>
+              <Card className="flex items-start gap-4 p-6 bg-white rounded-lg shadow-md">
+                <div className="flex-shrink-0 bg-green-100 p-3 rounded-full">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smile text-green-600"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold">More Comfortable Experience</h3>
+                  <p className="text-muted-foreground mt-1">Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.</p>
+                </div>
+              </Card>
+            </div>
+            <div>
+              <Image 
+                src="https://picsum.photos/seed/dentist/600/700" 
+                alt="Dentist with patient"
+                width={600}
+                height={700}
+                className="rounded-lg shadow-2xl object-cover"
+                data-ai-hint="dentist patient"
+              />
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+      
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
@@ -1142,6 +1203,7 @@ export default function Home() {
     
 
     
+
 
 
 
