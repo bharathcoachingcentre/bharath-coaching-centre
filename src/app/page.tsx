@@ -1011,11 +1011,10 @@ export default function Home() {
                 </div>
               </Card>
             </div>
-            <div className="relative">
-              <div className="absolute top-0 right-0 w-full h-full">
-                <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-to-tr from-transparent to-blue-300/50 rounded-tr-lg"></div>
-                <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-br from-transparent to-blue-300/50 rounded-br-lg"></div>
-              </div>
+            <div className="relative p-4">
+              <div className="absolute top-0 right-0 h-[calc(100%-2rem)] w-[calc(100%-2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent"></div>
+               <div className="absolute -top-4 -right-4 h-full w-full rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
+
               <Image 
                 src="https://picsum.photos/seed/dentist/600/700" 
                 alt="Dentist with patient"
@@ -1207,6 +1206,7 @@ export default function Home() {
     
 
     
+
 
 
 
