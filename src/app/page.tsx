@@ -1024,7 +1024,7 @@ export default function Home() {
                   </h2>
               </AnimatedElement>
               <div className="grid md:grid-cols-2 gap-16 items-center">
-                  <div className="md:col-span-1 space-y-6">
+                <div className="md:col-span-1 space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                           {whyChooseUsPoints.map((point, index) => (
                               <Card key={index} className="flex flex-col items-center text-center gap-4 p-6 bg-white rounded-lg shadow-md">
@@ -1042,12 +1042,12 @@ export default function Home() {
                       <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
                       <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
                       <Image 
-                          src="https://picsum.photos/seed/dentist/600/700" 
-                          alt="Dentist with patient"
+                          src="https://picsum.photos/seed/pestcontrol/600/700" 
+                          alt="Pest control service"
                           width={600}
                           height={700}
                           className="rounded-lg shadow-2xl object-cover relative z-10"
-                          data-ai-hint="dentist patient"
+                          data-ai-hint="pest control"
                       />
                   </div>
               </div>
@@ -1232,24 +1232,3 @@ export default function Home() {
     
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
