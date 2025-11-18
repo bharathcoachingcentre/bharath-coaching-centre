@@ -1023,8 +1023,8 @@ export default function Home() {
                       <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
                   </h2>
               </AnimatedElement>
-              <div className="grid md:grid-cols-2 gap-16 items-center">
-                <div className="md:col-span-1 space-y-6">
+              <div className="grid md:grid-cols-5 gap-16 items-center">
+                  <div className="md:col-span-3 space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                           {whyChooseUsPoints.map((point, index) => (
                               <Card key={index} className="flex flex-col items-center text-center gap-4 p-6 bg-white rounded-lg shadow-md">
@@ -1038,7 +1038,7 @@ export default function Home() {
                           ))}
                       </div>
                   </div>
-                  <div className="relative p-4 md:col-span-1">
+                  <div className="relative p-4 md:col-span-2">
                       <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
                       <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
                       <Image 
@@ -1232,5 +1232,6 @@ export default function Home() {
     
 
     
+
 
 
