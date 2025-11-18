@@ -1042,12 +1042,12 @@ export default function Home() {
                       <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
                       <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
                       <Image 
-                          src="https://picsum.photos/seed/pestcontrol/600/700" 
-                          alt="Pest control service"
+                          src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlZHVjYXRpb258ZW58MHx8fHwxNzYzNDUxMDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080" 
+                          alt="Education"
                           width={600}
                           height={700}
                           className="rounded-lg shadow-2xl object-cover relative z-10"
-                          data-ai-hint="pest control"
+                          data-ai-hint="education learning"
                       />
                   </div>
               </div>
