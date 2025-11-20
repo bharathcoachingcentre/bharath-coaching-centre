@@ -608,7 +608,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/special-material.gif" alt="Specialized materials" width={24} height={24} />
+        <Image src="/special-material.gif" alt="Specialized materials" width={60} height={60} />
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -1172,6 +1172,7 @@ export default function Home() {
     
 
     
+
 
 
 
