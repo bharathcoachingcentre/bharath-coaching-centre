@@ -592,7 +592,7 @@ export default function Home() {
     },
     {
       icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bug"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 9.3 3 11 3 13v3c0 .54.07 1.05.18 1.55"/><path d="M20.82 14.55c.11-.5.18-1.01.18-1.55v-3c0-2-1.6-3.7-3.47-4"/><path d="M4 16.5h16"/><path d="m15 11-.5-1-.5 1"/><path d="m9 11-.5-1-.5 1"/></svg>
+        <Image src="/test-sessions.gif" alt="Test sessions" width={60} height={60} />
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -1172,6 +1172,7 @@ export default function Home() {
     
 
     
+
 
 
 
