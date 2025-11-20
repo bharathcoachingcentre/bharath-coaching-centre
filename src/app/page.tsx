@@ -570,7 +570,7 @@ export default function Home() {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-armchair text-primary"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2Z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg>
       ),
-      title: "Less Time in the Chair",
+      title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
       bgColor: "bg-blue-100",
     },
@@ -578,23 +578,23 @@ export default function Home() {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-pulse text-purple-600"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
       ),
-      title: "More Efficient",
-      description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
+      title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
+      description: "Weekly tests and quick evaluation.",
       bgColor: "bg-purple-100",
     },
     {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield-plus text-red-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="M12 8v8"/><path d="M16 12H8"/></svg>
       ),
-      title: "Longer Lasting",
-      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
+      title: "Weekly tests and quick evaluation.",
+      description: "Weekly tests and quick evaluation.",
       bgColor: "bg-red-100",
     },
     {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bug"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 9.3 3 11 3 13v3c0 .54.07 1.05.18 1.55"/><path d="M20.82 14.55c.11-.5.18-1.01.18-1.55v-3c0-2-1.6-3.7-3.47-4"/><path d="M4 16.5h16"/><path d="m15 11-.5-1-.5 1"/><path d="m9 11-.5-1-.5 1"/></svg>
       ),
-      title: "Fast Pest Removal",
+      title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
       bgColor: "bg-blue-100",
     },
@@ -602,16 +602,16 @@ export default function Home() {
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-timer"><path d="M10 2h4"/><path d="M12 14v-4"/><path d="M4 13a8 8 0 0 1 8-7 8 8 0 1 1-5.3 14L4 17.6"/><path d="M9 17H4v-5"/></svg>
       ),
-      title: "One-Time Extermination",
+      title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
       bgColor: "bg-blue-100",
     },
     {
       icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-award"><path d="M12 15h.01"/><path d="m8.6 11.5 1.5 1.5a1 1 0 0 0 1.4 0l4-4"/><path d="M12.01 15.01 12 15"/><path d="M12 3a4 4 0 0 0-4 4v2c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V7a4 4 0 0 0-4-4"/><path d="M16 11.1V13a8 8 0 1 1-8 0v-1.9"/><path d="m15.7 6.3 1 1"/><path d="m7.3 6.3-1 1"/></svg>
+        <Image src="/special-material.gif" alt="Specialized materials" width={24} height={24} />
       ),
-      title: "Licensed & Protected",
-      description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
+      title: "Specialized materials.",
+      description: "Specialized materials.",
       bgColor: "bg-blue-100",
     },
   ];
@@ -955,66 +955,6 @@ export default function Home() {
       </AnimatedSection>
       
       {/* Why to choose BCC? Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-          <h2 className="text-3xl font-bold text-center mb-12">
-              Why to Choose <span className="relative inline-block text-primary">BCC?<span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 -z-10"></span></span>
-            </h2>
-          </AnimatedElement>
-          <div className="grid gap-8 md:grid-cols-3">
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fef9c3' }}>
-                  <BookOpen className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                    Daily interaction with parents through Academic Record.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#f5d0fe' }}>
-                  <Users className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                    Daily awareness about student’s performance for the academic inputs to parents through academic record.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fed7aa' }}>
-                  <Calendar className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Weekly tests and quick evaluation.
-                  </p>
-              </Card>
-            </AnimatedElement>
-             <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#dcfce7' }}>
-                  <CheckCircle className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Hierarchy of test sessions.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#e0f2fe' }}>
-                  <Brain className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Term wise parents’ meeting.
-                  </p>
-              </Card>
-            </AnimatedElement>
-            <AnimatedElement animation="fade-up">
-              <Card id="card-box" className="flex flex-col p-6 text-left border-black shadow-[7px_7px_0px_#000] hover:shadow-[10px_10px_12px_#000] hover:-translate-y-1 transition-all" style={{ backgroundColor: '#fee2e2' }}>
-                  <Target className="h-8 w-8 mb-4 text-black" />
-                  <p className="mt-2 text-muted-foreground">
-                  Specialized materials.
-                  </p>
-              </Card>
-            </AnimatedElement>
-          </div>
-        </div>
-      </AnimatedSection>
-      
       <AnimatedSection className="py-16 md:py-24 bg-blue-50">
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up">
@@ -1232,6 +1172,7 @@ export default function Home() {
     
 
     
+
 
 
 
