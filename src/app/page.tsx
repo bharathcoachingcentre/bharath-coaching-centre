@@ -568,7 +568,7 @@ export default function Home() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/academic-record.gif" alt="Academic Record" width={60} height={60} />
+        <Image src="/Student-report.png" alt="Academic Record" width={60} height={60} />
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -1157,6 +1157,7 @@ export default function Home() {
     
 
     
+
 
 
 
