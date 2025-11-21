@@ -568,7 +568,7 @@ export default function Home() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} />
+        <Image src="/Academic-Record.png" alt="Academic Record" width={130} height={130} className="why-choose"/>
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -576,7 +576,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/parents-meeting.gif" alt="Daily awareness" width={130} height={130} />
+        <Image src="/parents-meeting.gif" alt="Daily awareness" width={130} height={130} className="why-choose"/>
       ),
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
@@ -584,7 +584,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/quick-evaluation.gif" alt="Quick evaluation" width={130} height={130} />
+        <Image src="/quick-evaluation.gif" alt="Quick evaluation" width={130} height={130} className="why-choose"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -592,7 +592,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/test-sessions.gif" alt="Test sessions" width={130} height={130} />
+        <Image src="/test-sessions.gif" alt="Test sessions" width={130} height={130} className="why-choose"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -600,7 +600,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/parents-meeting.gif" alt="Parents meeting" width={130} height={130} />
+        <Image src="/parents-meeting.gif" alt="Parents meeting" width={130} height={130} className="why-choose"/>
       ),
       title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -608,7 +608,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/special-material.gif" alt="Specialized materials" width={130} height={130} />
+        <Image src="/special-material.gif" alt="Specialized materials" width={130} height={130} className="why-choose"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -964,7 +964,7 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12">
                   {whyChooseUsPoints.map((point, index) => (
                       <div key={index} className="flex flex-col items-center text-center gap-4">
-                          <div className="relative w-24 h-24 flex items-center justify-center">
+                          <div className="relative w-32 h-32 flex items-center justify-center">
                             {point.icon}
                           </div>
                           <div>
@@ -1154,6 +1154,7 @@ export default function Home() {
     
 
     
+
 
 
 
