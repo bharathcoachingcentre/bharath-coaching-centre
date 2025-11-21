@@ -568,7 +568,7 @@ export default function Home() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/Student-report.png" alt="Academic Record" width={60} height={60} />
+        <Image src="/Student-report.png" alt="Academic Record" width={80} height={80} />
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -576,7 +576,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/parents-meeting.gif" alt="Daily awareness" width={60} height={60} />
+        <Image src="/parents-meeting.gif" alt="Daily awareness" width={80} height={80} />
       ),
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
@@ -584,7 +584,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/quick-evaluation.gif" alt="Quick evaluation" width={60} height={60} />
+        <Image src="/quick-evaluation.gif" alt="Quick evaluation" width={80} height={80} />
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -592,7 +592,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/test-sessions.gif" alt="Test sessions" width={60} height={60} />
+        <Image src="/test-sessions.gif" alt="Test sessions" width={80} height={80} />
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -600,7 +600,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/parents-meeting.gif" alt="Parents meeting" width={60} height={60} />
+        <Image src="/parents-meeting.gif" alt="Parents meeting" width={80} height={80} />
       ),
       title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -608,7 +608,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/special-material.gif" alt="Specialized materials" width={60} height={60} />
+        <Image src="/special-material.gif" alt="Specialized materials" width={80} height={80} />
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -1154,6 +1154,7 @@ export default function Home() {
     
 
     
+
 
 
 
