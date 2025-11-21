@@ -965,9 +965,6 @@ export default function Home() {
                   {whyChooseUsPoints.map((point, index) => (
                       <div key={index} className="flex flex-col items-center text-center gap-4">
                           <div className="relative w-24 h-24 flex items-center justify-center">
-                            <svg className="absolute w-full h-full" viewBox="0 0 100 100">
-                              <path d="M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z" fill="hsl(var(--primary)/0.1)"></path>
-                            </svg>
                             {point.icon}
                           </div>
                           <div>
@@ -1157,6 +1154,7 @@ export default function Home() {
     
 
     
+
 
 
 
