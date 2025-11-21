@@ -955,41 +955,26 @@ export default function Home() {
       </AnimatedSection>
       
       {/* Why to choose BCC? Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-blue-50">
+      <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/why-choose-us.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
           <div className="container mx-auto">
-              <AnimatedElement animation="fade-up">
-                  <h2 className="text-3xl font-bold text-center mb-12">
-                      Why Choose Us?
-                      <span className="block w-24 h-1 bg-yellow-400 mx-auto mt-2"></span>
-                  </h2>
+              <AnimatedElement animation="fade-up" className="text-center">
+                <h2 className="text-3xl font-bold mb-2">Learn new skills with a</h2>
+                <h2 className="text-3xl font-bold mb-12">flexible online <span className="text-primary">Courses</span></h2>
               </AnimatedElement>
-              <div className="grid md:grid-cols-5 gap-16 items-center">
-                  <div className="md:col-span-3 space-y-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                          {whyChooseUsPoints.map((point, index) => (
-                              <Card key={index} className="flex flex-col items-center text-center gap-4 p-6 bg-white rounded-lg shadow-md">
-                                  <div className={`flex-shrink-0 ${point.bgColor} p-3 rounded-full`}>
-                                      {point.icon}
-                                  </div>
-                                  <div>
-                                      <h3 className="text-lg font-bold">{point.title}</h3>
-                                  </div>
-                              </Card>
-                          ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12">
+                  {whyChooseUsPoints.map((point, index) => (
+                      <div key={index} className="flex flex-col items-center text-center gap-4">
+                          <div className="relative w-24 h-24 flex items-center justify-center">
+                            <svg className="absolute w-full h-full" viewBox="0 0 100 100">
+                              <path d="M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z" fill="hsl(var(--primary)/0.1)"></path>
+                            </svg>
+                            {point.icon}
+                          </div>
+                          <div>
+                              <h3 className="text-xl font-bold">{point.title}</h3>
+                          </div>
                       </div>
-                  </div>
-                  <div className="relative p-4 md:col-span-2">
-                      <div className="absolute -top-4 -left-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-blue-300/50 to-transparent -z-10"></div>
-                      <div className="absolute -bottom-4 -right-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-lg bg-gradient-to-tr from-transparent to-blue-300/50 -z-10"></div>
-                      <Image 
-                          src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxlZHVjYXRpb24lMjB8ZW58MHx8fHwxNzYzNDYzNjI4fDA&ixlib=rb-4.1.0&q=80&w=1080" 
-                          alt="Education"
-                          width={600}
-                          height={700}
-                          className="rounded-lg shadow-2xl object-cover relative z-10"
-                          data-ai-hint="education learning"
-                      />
-                  </div>
+                  ))}
               </div>
           </div>
       </AnimatedSection>
@@ -1172,6 +1157,7 @@ export default function Home() {
     
 
     
+
 
 
 
