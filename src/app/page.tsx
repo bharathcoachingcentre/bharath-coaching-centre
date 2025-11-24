@@ -608,7 +608,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/study-book.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Special-material.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -955,7 +955,7 @@ export default function Home() {
       </AnimatedSection>
       
       {/* Why to choose BCC? Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/why-choose-us.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/newsbanner11.webp')", backgroundSize: "", backgroundPosition: "center"}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
                 <h2 className="text-3xl font-bold mb-12">Why Choose <span className="text-primary">BCC</span></h2>
@@ -1154,4 +1154,5 @@ export default function Home() {
     
 
     
+
 
