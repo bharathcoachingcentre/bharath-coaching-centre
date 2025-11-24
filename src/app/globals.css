@@ -357,6 +357,22 @@ color:rgb(27, 157, 243);
   }
 }
 
+@keyframes move-up-right {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(5px, -5px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.animate-move-up-right {
+  animation: move-up-right 2s ease-in-out infinite;
+}
+
 .bubble {
   position: absolute;
   border-radius: 50%;

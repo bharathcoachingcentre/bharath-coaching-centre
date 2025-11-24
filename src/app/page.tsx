@@ -568,7 +568,7 @@ export default function Home() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} className="why-choose"/>
+        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -958,7 +958,7 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/why-choose-us.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
-                <h2 className="text-3xl font-bold mb-12">Why Choose <span className="text-primary">Bcc</span></h2>
+                <h2 className="text-3xl font-bold mb-12">Why Choose <span className="text-primary">BCC</span></h2>
               </AnimatedElement>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12">
                   {whyChooseUsPoints.map((point, index) => (
@@ -1058,7 +1058,7 @@ export default function Home() {
               </div>
               <div className="h-64 md:h-full md:col-span-2 relative">
                 <Image
-                  src="/Study-material.png"
+                  src="/study-book.png"
                   alt="Study Material"
                   width={600}
                   height={600}
@@ -1153,21 +1153,3 @@ export default function Home() {
     
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
