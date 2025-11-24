@@ -576,7 +576,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/Intraction-with-parents.png" alt="Daily awareness" width={130} height={130} className="why-choose"/>
+        <Image src="/Intraction-with-parents.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
@@ -584,7 +584,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/Quick-evaluation.png" alt="Quick evaluation" width={130} height={130} className="why-choose"/>
+        <Image src="/Quick-evaluation.png" alt="Quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -592,7 +592,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/Test-Sessions.png" alt="Test sessions" width={130} height={130} className="why-choose"/>
+        <Image src="/Test-Sessions.png" alt="Test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -600,7 +600,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/meeting.png" alt="Parents meeting" width={130} height={130} className="why-choose"/>
+        <Image src="/meeting.png" alt="Parents meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -608,7 +608,7 @@ export default function Home() {
     },
     {
       icon: (
-        <Image src="/study-book.png" alt="Specialized materials" width={130} height={130} className="why-choose"/>
+        <Image src="/study-book.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
