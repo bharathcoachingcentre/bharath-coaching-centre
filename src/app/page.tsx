@@ -978,7 +978,7 @@ export default function Home() {
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
-          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/study-bg.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay'}}>
+          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay'}}>
             <div className="grid md:grid-cols-5 items-center">
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
@@ -1058,6 +1058,7 @@ export default function Home() {
               </div>
               <div className="h-64 md:h-full md:col-span-2 relative">
                 <Image
+                  id="study-material"
                   src="/study-book.png"
                   alt="Study Material"
                   width={600}
@@ -1153,3 +1154,4 @@ export default function Home() {
     
 
     
+
