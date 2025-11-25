@@ -955,7 +955,7 @@ export default function Home() {
       </AnimatedSection>
       
       {/* Why to choose BCC? Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/newsbanner11.webp')", backgroundSize: "", backgroundPosition: "center"}}>
+      <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/newsbanner11.webp')", backgroundSize: "cover", backgroundPosition: "center"}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
                 <h2 className="text-3xl font-bold mb-12">Why Choose <span className="text-primary">BCC</span></h2>
@@ -1115,8 +1115,8 @@ export default function Home() {
                             src={result.src}
                             alt={result.alt}
                             width={400}
-                            height={400}
-                            className="w-full h-auto aspect-[4/5]"
+                            height={500}
+                            className="w-full h-auto aspect-[4/5] object-cover"
                             data-ai-hint={result.hint}
                           />
                           <div className="p-4">
@@ -1154,5 +1154,6 @@ export default function Home() {
     
 
     
+
 
 
