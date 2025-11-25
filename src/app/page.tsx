@@ -997,7 +997,7 @@ export default function Home() {
                         <DialogTrigger asChild>
                           <Button
                             variant="outline"
-                            className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
+                            className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black h-10"
                             onClick={() => {
                               setDsmSelectedMaterial(material);
                               setDsmIsDialogOpen(true);
@@ -1154,6 +1154,7 @@ export default function Home() {
     
 
     
+
 
 
 
