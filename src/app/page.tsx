@@ -684,7 +684,10 @@ export default function Home() {
           </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative">
-                <div className="absolute rounded-full -z-0 flex items-center justify-center font-semibold text-primary" style={{backgroundColor: '#caddfe', left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>Class 1 - 5</div>
+                <div className="absolute rounded-full -z-0 flex flex-col items-center justify-center font-semibold text-primary" style={{backgroundColor: '#caddfe', left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
+                    <Image src="/book.png" alt="Book" width={40} height={40} />
+                    <span>Class 1 - 5</span>
+                </div>
               {exploreCourses.map((course, index) => (
                 <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
                   <div className="flex flex-col w-2/3 p-6">
@@ -1153,6 +1156,7 @@ export default function Home() {
     
 
     
+
 
 
 
