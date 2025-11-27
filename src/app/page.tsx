@@ -693,7 +693,7 @@ export default function Home() {
                       <span>Class 1 - 5</span>
                   </div>
               </div>
-               <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#faf5ff',border: '3px dashed rgb(255 230 171)',left: 'calc(50% - 3.5rem)', top: '-90px', width: '7rem', height: '7rem'}}>
+               <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#faf5ff',border: '3px dashed #d0c1ff',left: 'calc(50% - 3.5rem)', top: '-90px', width: '7rem', height: '7rem'}}>
                   <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
                       <Image src="/reading.png" alt="Kids Icon" width={40} height={40} />
                       <span>Class 6 - 8</span>
@@ -703,7 +703,7 @@ export default function Home() {
                       <span>Class 6 - 8</span>
                   </div>
               </div>
-              <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#fefcec',border: '3px dashed #d0c1ff',right: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
+              <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#fefcec',border: '3px dashed #ffe6ab',right: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
                   <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
                       <Image src="/class9-12.png" alt="Teen Icon" width={40} height={40} />
                       <span>Class 9 - 12</span>
@@ -1178,3 +1178,4 @@ export default function Home() {
     </div>
   );
 }
+
