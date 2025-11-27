@@ -683,7 +683,8 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-center mb-12">Explore Courses (Class 1 - 12)</h2>
           </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative">
+              <div className="absolute -top-12 left-28 w-24 h-24 bg-[#43b9ea] rounded-full -z-0"></div>
               {exploreCourses.map((course, index) => (
                 <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
                   <div className="flex flex-col w-2/3">
@@ -1154,6 +1155,7 @@ export default function Home() {
     
 
     
+
 
 
 
