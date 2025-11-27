@@ -421,7 +421,7 @@ color:rgb(27, 157, 243);
   animation-delay: 3s;
 }
 
-.group-hover\/coursegrid\:\[transform\:rotateY\(180deg\)\] {
+.group-hover\/card\:\[transform\:rotateY\(180deg\)\] {
   transform: rotateY(180deg);
 }
 

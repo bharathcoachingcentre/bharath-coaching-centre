@@ -183,6 +183,14 @@ export default function Home() {
       imageUrl: "/kids-one.png",
       imageHint: "female teacher",
       bgColor: "bg-blue-50",
+      circle: {
+        icon: "/book.png",
+        style: {
+          backgroundColor: '#f0f7ff',
+          border: '3px dashed #aac9ff',
+          left: '9rem',
+        }
+      }
     },
     {
       classRange: "Class 6 - 8",
@@ -199,6 +207,14 @@ export default function Home() {
       imageUrl: "/Super-kid-2.png",
       imageHint: "male teacher",
       bgColor: "bg-purple-50",
+      circle: {
+        icon: "/reading.png",
+        style: {
+          backgroundColor: '#faf5ff',
+          border: '3px dashed #d0c1ff',
+          left: 'calc(50% - 3.5rem)',
+        }
+      }
     },
     {
       classRange: "Class 9 - 12",
@@ -216,6 +232,14 @@ export default function Home() {
       imageUrl: "/super-kid-three.jpg",
       imageHint: "happy student",
       bgColor: "bg-yellow-50",
+      circle: {
+        icon: "/class9-12.png",
+        style: {
+          backgroundColor: '#fefcec',
+          border: '3px dashed #ffe6ab',
+          right: '9rem',
+        }
+      }
     },
   ];
 
@@ -677,97 +701,89 @@ export default function Home() {
 
       {/* Explore Courses Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto">
-          <AnimatedElement animation="fade-up">
-            <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '65px' }}>Explore Courses (Class 1 - 12)</h2>
-          </AnimatedElement>
-          <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative group/coursegrid">
-              <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#f0f7ff',border: '3px dashed #aac9ff',left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
-                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
-                      <Image src="/book.png" alt="Book" width={40} height={40} />
-                      <span>Class 1 - 5</span>
+          <div className="container mx-auto">
+              <AnimatedElement animation="fade-up">
+                  <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '65px' }}>Explore Courses (Class 1 - 12)</h2>
+              </AnimatedElement>
+              <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
+                  <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                      {exploreCourses.map((course, index) => (
+                          <div key={index} className="relative group/card pt-14">
+                              <div
+                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover/card:[transform:rotateY(180deg)]"
+                                  style={{
+                                      top: 0,
+                                      left: '50%',
+                                      transform: 'translateX(-50%)',
+                                      width: '7rem',
+                                      height: '7rem',
+                                      ...course.circle.style,
+                                  }}
+                              >
+                                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
+                                      <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                                      <span>{course.classRange}</span>
+                                  </div>
+                                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                                      <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                                      <span>{course.classRange}</span>
+                                  </div>
+                              </div>
+                              <Card className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
+                                  <div className="flex flex-row flex-grow">
+                                    <div className="flex flex-col w-2/3 p-6 pt-12">
+                                        <CardTitle className="text-2xl font-bold mt-2">{course.title}</CardTitle>
+                                        <CardContent className="p-0 mt-4">
+                                            <ul className="space-y-3">
+                                                {course.features.map((feature, i) => (
+                                                    <li key={i} className="flex items-center gap-3">
+                                                        <feature.icon className="w-5 h-5 text-green-500" />
+                                                        <span>{feature.text}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </CardContent>
+                                    </div>
+                                    <div className="w-1/3 relative overflow-hidden">
+                                        <Image
+                                            src={course.imageUrl}
+                                            alt={course.title}
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover/card:scale-110"
+                                            data-ai-hint={course.imageHint}
+                                        />
+                                    </div>
+                                  </div>
+                                  <CardFooter className="p-6 mt-auto">
+                                      <DialogTrigger asChild>
+                                          <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
+                                      </DialogTrigger>
+                                  </CardFooter>
+                              </Card>
+                          </div>
+                      ))}
                   </div>
-                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                      <Image src="/book.png" alt="Book" width={40} height={40} />
-                      <span>Class 1 - 5</span>
-                  </div>
-              </div>
-               <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#faf5ff',border: '3px dashed #d0c1ff',left: 'calc(50% - 3.5rem)', top: '-90px', width: '7rem', height: '7rem'}}>
-                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
-                      <Image src="/reading.png" alt="Kids Icon" width={40} height={40} />
-                      <span>Class 6 - 8</span>
-                  </div>
-                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                      <Image src="/reading.png" alt="Kids Icon" width={40} height={40} />
-                      <span>Class 6 - 8</span>
-                  </div>
-              </div>
-              <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#fefcec',border: '3px dashed #ffe6ab',right: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
-                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
-                      <Image src="/class9-12.png" alt="Teen Icon" width={40} height={40} />
-                      <span>Class 9 - 12</span>
-                  </div>
-                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                      <Image src="/class9-12.png" alt="Teen Icon" width={40} height={40} />
-                      <span>Class 9 - 12</span>
-                  </div>
-              </div>
-
-              {exploreCourses.map((course, index) => (
-                <Card key={index} className={`group/card overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
-                  <div className="flex flex-col w-2/3 p-6">
-                      
-                      <CardTitle className="text-2xl font-bold mt-2">{course.title}</CardTitle>
-                    <CardContent className="p-0 mt-4">
-                        <ul className="space-y-3">
-                          {course.features.map((feature, i) => (
-                            <li key={i} className="flex items-center gap-3">
-                              <feature.icon className="w-5 h-5 text-green-500" />
-                              <span>{feature.text}</span>
-                            </li>
-                          ))}
-                        </ul>
-                    </CardContent>
-                    <CardFooter className="p-0 mt-auto pt-6">
-                      <DialogTrigger asChild>
-                        <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
-                      </DialogTrigger>
-                    </CardFooter>
-                  </div>
-                  <div className="w-1/3 relative overflow-hidden">
-                    <Image
-                      src={course.imageUrl}
-                      alt={course.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover/card:scale-110"
-                      data-ai-hint={course.imageHint}
-                    />
-                  </div>
-                </Card>
-              ))}
-            </div>
-             <DialogContent className="sm:max-w-[600px] p-8">
-                <DialogHeader className="text-center">
-                  <DialogTitle className="text-2xl font-bold mb-8">OFFLINE TIME TABLE</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-8">
-                    <div>
-                        <h3 className="font-bold text-lg mb-4">CBSE</h3>
-                        <div className="flex flex-wrap gap-4">
-                            {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
-                        </div>
-                    </div>
-                    <div>
-                        <h3 className="font-bold text-lg mb-4">SAMACHEER</h3>
-                        <div className="flex flex-wrap gap-4">
-                            {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
-                        </div>
-                    </div>
-                </div>
-              </DialogContent>
-          </Dialog>
-        </div>
+                  <DialogContent className="sm:max-w-[600px] p-8">
+                      <DialogHeader className="text-center">
+                          <DialogTitle className="text-2xl font-bold mb-8">OFFLINE TIME TABLE</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-8">
+                          <div>
+                              <h3 className="font-bold text-lg mb-4">CBSE</h3>
+                              <div className="flex flex-wrap gap-4">
+                                  {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
+                              </div>
+                          </div>
+                          <div>
+                              <h3 className="font-bold text-lg mb-4">SAMACHEER</h3>
+                              <div className="flex flex-wrap gap-4">
+                                  {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
+                              </div>
+                          </div>
+                      </div>
+                  </DialogContent>
+              </Dialog>
+          </div>
       </AnimatedSection>
       
       {/* Offline Time Table Section */}
@@ -1178,4 +1194,3 @@ export default function Home() {
     </div>
   );
 }
-
