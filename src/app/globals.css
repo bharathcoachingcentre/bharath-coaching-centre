@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -418,4 +419,24 @@ color:rgb(27, 157, 243);
   top: 70%;
   animation-duration: 30s;
   animation-delay: 3s;
+}
+
+.group-hover\/coursegrid\:\[transform\:rotateY\(180deg\)\] {
+  transform: rotateY(180deg);
+}
+
+.\[transform-style\:preserve-3d\] {
+  transform-style: preserve-3d;
+}
+
+.\[backface-visibility\:hidden\] {
+  backface-visibility: hidden;
+}
+
+.\[transform\:rotateY\(0deg\)\] {
+    transform: rotateY(0deg);
+}
+
+.\[transform\:rotateY\(180deg\)\] {
+    transform: rotateY(180deg);
 }

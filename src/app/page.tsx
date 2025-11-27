@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import Image from "next/image";
@@ -683,21 +682,40 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '65px' }}>Explore Courses (Class 1 - 12)</h2>
           </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative">
-                <div className="absolute rounded-full -z-0 flex flex-col items-center justify-center font-semibold text-primary" style={{backgroundColor: '#f0f7ff', border: '1px solid #caddfe', left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
-                    <Image src="/book.png" alt="Book" width={40} height={40} />
-                    <span>Class 1 - 5</span>
-                </div>
-                 <div className="absolute rounded-full -z-0 flex flex-col items-center justify-center font-semibold text-primary" style={{backgroundColor: '#f0f7ff', border: '1px solid #caddfe', left: 'calc(50% - 3.5rem)', top: '-90px', width: '7rem', height: '7rem'}}>
-                    <Image src="/reading.png" alt="Kids Icon" width={40} height={40} />
-                    <span>Class 6 - 8</span>
-                </div>
-                <div className="absolute rounded-full -z-0 flex flex-col items-center justify-center font-semibold text-primary" style={{backgroundColor: '#f0f7ff', border: '1px solid #caddfe', right: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
-                    <Image src="/class9-12.png" alt="Teen Icon" width={40} height={40} />
-                    <span>Class 9 - 12</span>
-                </div>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative group/coursegrid">
+              <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#f0f7ff', border: '1px solid #caddfe', left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
+                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
+                      <Image src="/book.png" alt="Book" width={40} height={40} />
+                      <span>Class 1 - 5</span>
+                  </div>
+                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                      <Image src="/book.png" alt="Book" width={40} height={40} />
+                      <span>Class 1 - 5</span>
+                  </div>
+              </div>
+               <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#f0f7ff', border: '1px solid #caddfe', left: 'calc(50% - 3.5rem)', top: '-90px', width: '7rem', height: '7rem'}}>
+                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
+                      <Image src="/reading.png" alt="Kids Icon" width={40} height={40} />
+                      <span>Class 6 - 8</span>
+                  </div>
+                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                      <Image src="/reading.png" alt="Kids Icon" width={40} height={40} />
+                      <span>Class 6 - 8</span>
+                  </div>
+              </div>
+              <div className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-500 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]" style={{backgroundColor: '#f0f7ff', border: '1px solid #caddfe', right: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
+                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
+                      <Image src="/class9-12.png" alt="Teen Icon" width={40} height={40} />
+                      <span>Class 9 - 12</span>
+                  </div>
+                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                      <Image src="/class9-12.png" alt="Teen Icon" width={40} height={40} />
+                      <span>Class 9 - 12</span>
+                  </div>
+              </div>
+
               {exploreCourses.map((course, index) => (
-                <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
+                <Card key={index} className={`group/card overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
                   <div className="flex flex-col w-2/3 p-6">
                       {index === 0 && <p className="font-semibold text-primary">{course.classRange}</p>}
                       <CardTitle className="text-2xl font-bold mt-2">{course.title}</CardTitle>
@@ -722,7 +740,7 @@ export default function Home() {
                       src={course.imageUrl}
                       alt={course.title}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="object-cover transition-transform duration-300 group-hover/card:scale-110"
                       data-ai-hint={course.imageHint}
                     />
                   </div>
@@ -1160,21 +1178,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
