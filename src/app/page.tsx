@@ -685,7 +685,7 @@ export default function Home() {
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {exploreCourses.map((course, index) => (
-                <Card key={index} className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
+                <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
                   <div className="flex flex-col w-2/3">
                     <CardHeader>
                       <p className="font-semibold text-primary">{course.classRange}</p>
@@ -707,12 +707,12 @@ export default function Home() {
                       </DialogTrigger>
                     </CardFooter>
                   </div>
-                  <div className="w-1/3 relative">
+                  <div className="w-1/3 relative overflow-hidden">
                     <Image
                       src={course.imageUrl}
                       alt={course.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
                       data-ai-hint={course.imageHint}
                     />
                   </div>
@@ -1154,6 +1154,7 @@ export default function Home() {
     
 
     
+
 
 
 
