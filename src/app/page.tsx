@@ -699,7 +699,7 @@ export default function Home() {
               {exploreCourses.map((course, index) => (
                 <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
                   <div className="flex flex-col w-2/3 p-6">
-                      {index !== 0 && <p className="font-semibold text-primary">{course.classRange}</p>}
+                      {index === 0 && <p className="font-semibold text-primary">{course.classRange}</p>}
                       <CardTitle className="text-2xl font-bold mt-2">{course.title}</CardTitle>
                     <CardContent className="p-0 mt-4">
                         <ul className="space-y-3">
@@ -1164,6 +1164,7 @@ export default function Home() {
     
 
     
+
 
 
 
