@@ -684,7 +684,7 @@ export default function Home() {
           </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative">
-                <div className="absolute rounded-full -z-0 flex flex-col items-center justify-center font-semibold text-primary" style={{backgroundColor: '#caddfe', left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
+                <div className="absolute rounded-full -z-0 flex flex-col items-center justify-center font-semibold text-primary" style={{backgroundColor: '#f0f7ff', border: '1px solid #caddfe', left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>
                     <Image src="/book.png" alt="Book" width={40} height={40} />
                     <span>Class 1 - 5</span>
                 </div>
@@ -1156,6 +1156,7 @@ export default function Home() {
     
 
     
+
 
 
 
