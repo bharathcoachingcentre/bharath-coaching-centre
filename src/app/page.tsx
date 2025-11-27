@@ -175,11 +175,11 @@ export default function Home() {
       classRange: "Class 1 - 5",
       title: "Courses for Kids",
       features: [
-        "School Tuition",
-        "1:5 Teachers & Students Ratio",
-        "Handwriting Improvement",
-        "Phonics-based Training",
-        "Fun and Engaging Learning Every Day",
+        { text: "School Tuition", icon: BookOpen },
+        { text: "1:5 Teachers & Students Ratio", icon: Users },
+        { text: "Handwriting Improvement", icon: Pencil },
+        { text: "Phonics-based Training", icon: Languages },
+        { text: "Fun and Engaging Learning Every Day", icon: Sun },
       ],
       imageUrl: "/kids-one.png",
       imageHint: "female teacher",
@@ -189,13 +189,13 @@ export default function Home() {
       classRange: "Class 6 - 8",
       title: "Courses for Kids",
       features: [
-        "1:10 Teachers & Students Ratio",
-        "CBSE Board",
-        "ICSE Board",
-        "Samacheer Board",
-        "NEET / JEE Foundation",
-        "One to One Sessions",
-        "Parent–Teacher Meeting",
+        { text: "1:10 Teachers & Students Ratio", icon: Users },
+        { text: "CBSE Board", icon: Award },
+        { text: "ICSE Board", icon: Award },
+        { text: "Samacheer Board", icon: Award },
+        { text: "NEET / JEE Foundation", icon: FlaskConical },
+        { text: "One to One Sessions", icon: UserCheck },
+        { text: "Parent–Teacher Meeting", icon: Users2 },
       ],
       imageUrl: "/Super-kid-2.png",
       imageHint: "male teacher",
@@ -205,14 +205,14 @@ export default function Home() {
       classRange: "Class 9 - 12",
       title: "Courses for Kids",
       features: [
-        "1:25 Teacher–Student Ratio",
-        "CBSE Board",
-        "ICSE Board",
-        "Samacheer Board",
-        "One-to-One Sessions",
-        "Test Series",
-        "Online Classes",
-        "Parent–Teacher Meeting",
+        { text: "1:25 Teacher–Student Ratio", icon: Users },
+        { text: "CBSE Board", icon: Award },
+        { text: "ICSE Board", icon: Award },
+        { text: "Samacheer Board", icon: Award },
+        { text: "One-to-One Sessions", icon: UserCheck },
+        { text: "Test Series", icon: FileText },
+        { text: "Online Classes", icon: Laptop },
+        { text: "Parent–Teacher Meeting", icon: Users2 },
       ],
       imageUrl: "/super-kid-three.jpg",
       imageHint: "happy student",
@@ -684,25 +684,23 @@ export default function Home() {
           </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative">
-                <div className="absolute -top-12 left-28 w-24 h-24 rounded-full -z-0 flex items-center justify-center font-semibold text-primary" style={{backgroundColor: '#caddfe'}}>Class 1 - 5</div>
+                <div className="absolute rounded-full -z-0 flex items-center justify-center font-semibold text-primary" style={{backgroundColor: '#caddfe', left: '9rem', top: '-90px', width: '7rem', height: '7rem'}}>Class 1 - 5</div>
               {exploreCourses.map((course, index) => (
-                <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
-                  <div className="flex flex-col w-2/3">
-                    <CardHeader>
+                <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
+                  <div className="flex flex-col w-2/3 p-6">
                       {index !== 0 && <p className="font-semibold text-primary">{course.classRange}</p>}
-                      <CardTitle className="text-2xl font-bold">{course.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-6 pt-0">
+                      <CardTitle className="text-2xl font-bold mt-2">{course.title}</CardTitle>
+                    <CardContent className="p-0 mt-4">
                         <ul className="space-y-3">
                           {course.features.map((feature, i) => (
                             <li key={i} className="flex items-center gap-3">
-                              <Check className="w-5 h-5 text-green-500" />
-                              <span>{feature}</span>
+                              <feature.icon className="w-5 h-5 text-green-500" />
+                              <span>{feature.text}</span>
                             </li>
                           ))}
                         </ul>
                     </CardContent>
-                    <CardFooter className="p-6 mt-auto">
+                    <CardFooter className="p-0 mt-auto pt-6">
                       <DialogTrigger asChild>
                         <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
                       </DialogTrigger>
@@ -1155,6 +1153,7 @@ export default function Home() {
     
 
     
+
 
 
 
