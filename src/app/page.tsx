@@ -708,9 +708,9 @@ export default function Home() {
               <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
                   <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                       {exploreCourses.map((course, index) => (
-                          <div key={index} className="relative group/card pt-14">
+                          <div key={index} className="relative group pt-14 [perspective:1000px]">
                               <div
-                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover/card:[transform:rotateY(180deg)]"
+                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
                                   style={{
                                       top: 0,
                                       left: '50%',
@@ -749,7 +749,7 @@ export default function Home() {
                                             src={course.imageUrl}
                                             alt={course.title}
                                             fill
-                                            className="object-cover transition-transform duration-300 group-hover/card:scale-110"
+                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
                                             data-ai-hint={course.imageHint}
                                         />
                                     </div>
@@ -1194,3 +1194,4 @@ export default function Home() {
     </div>
   );
 }
+
