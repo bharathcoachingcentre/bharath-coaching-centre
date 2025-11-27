@@ -684,12 +684,12 @@ export default function Home() {
           </AnimatedElement>
           <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 relative">
-              <div className="absolute -top-12 left-28 w-24 h-24 bg-[#43b9ea] rounded-full -z-0"></div>
+                <div className="absolute -top-12 left-28 w-24 h-24 rounded-full -z-0 flex items-center justify-center font-semibold text-primary" style={{backgroundColor: '#caddfe'}}>Class 1 - 5</div>
               {exploreCourses.map((course, index) => (
                 <Card key={index} className={`group overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-row`}>
                   <div className="flex flex-col w-2/3">
                     <CardHeader>
-                      <p className="font-semibold text-primary">{course.classRange}</p>
+                      {index !== 0 && <p className="font-semibold text-primary">{course.classRange}</p>}
                       <CardTitle className="text-2xl font-bold">{course.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="p-6 pt-0">
@@ -1155,6 +1155,7 @@ export default function Home() {
     
 
     
+
 
 
 
