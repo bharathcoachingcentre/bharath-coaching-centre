@@ -188,7 +188,6 @@ export default function Home() {
         style: {
           backgroundColor: '#f0f7ff',
           border: '3px dashed #aac9ff',
-          left: '50%',
         }
       }
     },
@@ -212,7 +211,6 @@ export default function Home() {
         style: {
           backgroundColor: '#faf5ff',
           border: '3px dashed #d0c1ff',
-          left: '50%',
         }
       }
     },
@@ -237,7 +235,6 @@ export default function Home() {
         style: {
           backgroundColor: '#fefcec',
           border: '3px dashed #ffe6ab',
-          left: '50%',
         }
       }
     },
@@ -706,63 +703,63 @@ export default function Home() {
                   <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '35px' }}>Explore Courses (Class 1 - 12)</h2>
               </AnimatedElement>
               <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
-                  <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                      {exploreCourses.map((course, index) => (
-                          <div key={index} className="relative group/coursegrid pt-14 [perspective:1000px]">
-                              <div
-                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]"
-                                  style={{
-                                    left: '50%',
-                                    transform: 'translateX(-50%)',
-                                    top: "-45px",
-                                    width: "7rem",
-                                    height: "7rem",
-                                    ...course.circle.style,
-                                  }}
-                              >
-                                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)] w-full h-full">
-                                      <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                      <span>{course.classRange}</span>
-                                  </div>
-                                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)] w-full h-full">
-                                      <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                      <span>{course.classRange}</span>
-                                  </div>
-                              </div>
-                              <Card className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
-                                  <div className="flex flex-row flex-grow">
-                                    <div className="flex flex-col w-2/3 p-6">
-                                        <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
-                                        <CardContent className="p-0 mt-4">
-                                            <ul className="space-y-3">
-                                                {course.features.map((feature, i) => (
-                                                    <li key={i} className="flex items-center gap-3">
-                                                        <feature.icon className="w-5 h-5 text-green-500" />
-                                                        <span>{feature.text}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </CardContent>
-                                    </div>
-                                    <div className="w-1/3 relative overflow-hidden">
-                                        <Image
-                                            src={course.imageUrl}
-                                            alt={course.title}
-                                            fill
-                                            className="object-cover transition-transform duration-300 group-hover/coursegrid:scale-110"
-                                            data-ai-hint={course.imageHint}
-                                        />
-                                    </div>
-                                  </div>
-                                  <CardFooter className="p-6 mt-auto">
-                                      <DialogTrigger asChild>
-                                          <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
-                                      </DialogTrigger>
-                                  </CardFooter>
-                              </Card>
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {exploreCourses.map((course, index) => (
+                    <div key={index} className="relative group pt-14 [perspective:1000px]">
+                      <div
+                          className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                          style={{
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            top: "-45px",
+                            width: "7rem",
+                            height: "7rem",
+                            ...course.circle.style,
+                          }}
+                      >
+                          <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)] w-full h-full">
+                              <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                              <span>{course.classRange}</span>
                           </div>
-                      ))}
-                  </div>
+                          <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)] w-full h-full">
+                              <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                              <span>{course.classRange}</span>
+                          </div>
+                      </div>
+                      <Card className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
+                          <div className="flex flex-row flex-grow">
+                            <div className="flex flex-col w-2/3 p-6">
+                                <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
+                                <CardContent className="p-0 mt-4">
+                                    <ul className="space-y-3">
+                                        {course.features.map((feature, i) => (
+                                            <li key={i} className="flex items-center gap-3">
+                                                <feature.icon className="w-5 h-5 text-green-500" />
+                                                <span>{feature.text}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                            </div>
+                            <div className="w-1/3 relative overflow-hidden">
+                                <Image
+                                    src={course.imageUrl}
+                                    alt={course.title}
+                                    fill
+                                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                    data-ai-hint={course.imageHint}
+                                />
+                            </div>
+                          </div>
+                          <CardFooter className="p-6 mt-auto">
+                              <DialogTrigger asChild>
+                                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
+                              </DialogTrigger>
+                          </CardFooter>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
                   <DialogContent className="sm:max-w-[600px] p-8">
                       <DialogHeader className="text-center">
                           <DialogTitle className="text-2xl font-bold mb-8">OFFLINE TIME TABLE</DialogTitle>
