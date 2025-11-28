@@ -188,7 +188,7 @@ export default function Home() {
         style: {
           backgroundColor: '#f0f7ff',
           border: '3px dashed #aac9ff',
-          left: '9rem',
+          left: '50%',
         }
       }
     },
@@ -212,7 +212,7 @@ export default function Home() {
         style: {
           backgroundColor: '#faf5ff',
           border: '3px dashed #d0c1ff',
-          left: 'calc(50% - 3.5rem)',
+          left: '50%',
         }
       }
     },
@@ -237,7 +237,7 @@ export default function Home() {
         style: {
           backgroundColor: '#fefcec',
           border: '3px dashed #ffe6ab',
-          right: '9rem',
+          left: '50%',
         }
       }
     },
@@ -703,7 +703,7 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up">
-                  <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '65px' }}>Explore Courses (Class 1 - 12)</h2>
+                  <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '35px' }}>Explore Courses (Class 1 - 12)</h2>
               </AnimatedElement>
               <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
                   <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -713,7 +713,6 @@ export default function Home() {
                                   className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]"
                                   style={{
                                       top: -45,
-                                      left: '50%',
                                       transform: 'translateX(-50%)',
                                       width: '7rem',
                                       height: '7rem',
@@ -1194,5 +1193,6 @@ export default function Home() {
     </div>
   );
 }
+
 
 
