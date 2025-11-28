@@ -710,21 +710,21 @@ export default function Home() {
                       {exploreCourses.map((course, index) => (
                           <div key={index} className="relative group pt-14 [perspective:1000px]">
                               <div
-                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(-180deg)]"
                                   style={{
-                                      top: -45,
-                                      left: '50%',
-                                      transform: 'translateX(-50%)',
-                                      width: '7rem',
-                                      height: '7rem',
-                                      ...course.circle.style,
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    top: "-45px",
+                                    width: "7rem",
+                                    height: "7rem",
+                                    ...course.circle.style,
                                   }}
                               >
-                                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)]">
+                                  <div className="flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(0deg)] w-full h-full">
                                       <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
                                       <span>{course.classRange}</span>
                                   </div>
-                                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(-180deg)] w-full h-full">
                                       <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
                                       <span>{course.classRange}</span>
                                   </div>
@@ -732,7 +732,7 @@ export default function Home() {
                               <Card className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
                                   <div className="flex flex-row flex-grow">
                                     <div className="flex flex-col w-2/3 p-6">
-                                        <CardTitle className="text-2xl font-bold" style={{marginTop: "25px"}}>{course.title}</CardTitle>
+                                        <CardTitle className="text-2xl font-bold mt-2">{course.title}</CardTitle>
                                         <CardContent className="p-0 mt-4">
                                             <ul className="space-y-3">
                                                 {course.features.map((feature, i) => (
