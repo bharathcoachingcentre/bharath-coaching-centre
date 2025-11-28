@@ -706,35 +706,32 @@ export default function Home() {
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                   {exploreCourses.map((course, index) => (
                       <div key={index} className="group pt-14 [perspective:1000px]">
-                          <div
-                              className="relative w-28 h-28 mx-auto"
-                              style={{ top: "-45px" }}
-                          >
-                            <div className="relative w-full h-full [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] transition-transform duration-1000">
-                                {/* Front Face */}
-                                <div 
-                                    className="absolute w-full h-full rounded-full z-10 flex items-center justify-center font-semibold text-primary [backface-visibility:hidden]"
-                                    style={course.circle.style}
-                                >
-                                    <div className="flex flex-col items-center justify-center w-full h-full">
-                                        <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                        <span>{course.classRange}</span>
-                                    </div>
-                                </div>
-                                {/* Back Face */}
-                                <div 
-                                    className="absolute w-full h-full rounded-full z-10 flex items-center justify-center font-semibold text-primary [backface-visibility:hidden] [transform:rotateY(180deg)]"
-                                    style={course.circle.style}
-                                >
-                                    <div className="flex flex-col items-center justify-center w-full h-full">
-                                        <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                        <span>{course.classRange}</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="relative w-28 h-28 mx-auto -mb-14 z-10">
+                              <div className="relative w-full h-full [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] transition-transform duration-1000">
+                                  {/* Front Face */}
+                                  <div 
+                                      className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden]"
+                                      style={course.circle.style}
+                                  >
+                                      <div className="flex flex-col items-center justify-center w-full h-full">
+                                          <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                                          <span>{course.classRange}</span>
+                                      </div>
+                                  </div>
+                                  {/* Back Face */}
+                                  <div 
+                                      className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                                      style={course.circle.style}
+                                  >
+                                      <div className="flex flex-col items-center justify-center w-full h-full">
+                                          <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                                          <span>{course.classRange}</span>
+                                      </div>
+                                  </div>
+                              </div>
                           </div>
                           
-                          <Card className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 -mt-[6.5rem] pt-14`}>
+                          <Card className={`relative overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 pt-14`}>
                               <div className="flex flex-row flex-grow">
                                 <div className="flex flex-col w-2/3 p-6">
                                     <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
