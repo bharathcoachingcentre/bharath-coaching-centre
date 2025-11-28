@@ -708,9 +708,9 @@ export default function Home() {
               <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
                   <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                       {exploreCourses.map((course, index) => (
-                          <div key={index} className="relative group pt-14 [perspective:1000px]">
+                          <div key={index} className="relative group/coursegrid pt-14 [perspective:1000px]">
                               <div
-                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(-180deg)]"
+                                  className="absolute rounded-full z-10 flex items-center justify-center font-semibold text-primary transition-transform duration-1000 [transform-style:preserve-3d] group-hover/coursegrid:[transform:rotateY(180deg)]"
                                   style={{
                                     left: '50%',
                                     transform: 'translateX(-50%)',
@@ -724,7 +724,7 @@ export default function Home() {
                                       <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
                                       <span>{course.classRange}</span>
                                   </div>
-                                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(-180deg)] w-full h-full">
+                                  <div className="absolute flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)] w-full h-full">
                                       <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
                                       <span>{course.classRange}</span>
                                   </div>
@@ -732,7 +732,7 @@ export default function Home() {
                               <Card className={`overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105`}>
                                   <div className="flex flex-row flex-grow">
                                     <div className="flex flex-col w-2/3 p-6">
-                                        <CardTitle className="text-2xl font-bold mt-2">{course.title}</CardTitle>
+                                        <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
                                         <CardContent className="p-0 mt-4">
                                             <ul className="space-y-3">
                                                 {course.features.map((feature, i) => (
@@ -749,7 +749,7 @@ export default function Home() {
                                             src={course.imageUrl}
                                             alt={course.title}
                                             fill
-                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                            className="object-cover transition-transform duration-300 group-hover/coursegrid:scale-110"
                                             data-ai-hint={course.imageHint}
                                         />
                                     </div>
