@@ -18,21 +18,14 @@ export function Footer() {
     { href: "/about", label: "About us" },
     { href: "/contact", label: "Contact us" },
     { href: "/blog", label: "Blog" },
-    { href: "#", label: "News" },
-    { href: "#", label: "Child safety" },
   ];
 
   const otherLinks = [
     { href: "#", label: "Free live classes" },
     { href: "#", label: "Why teach with Bharath Academy" },
-    { href: "#", label: "Try WAVE" },
-    { href: "#", label: "Try Whiteboard" },
-    { href: "#", label: "Bharath Academy improvement promise" },
-    { href: "#", label: "VOLT" },
-    { href: "#", label: "Micro courses" },
-    { href: "#", label: "Maharastra Board" },
-    { href: "#", label: "Benefits" },
-    { href: "/blog", label: "Engineering Blog" },
+    { href: "/training-methodology", label: "Our Training Methodology" },
+    { href: "/student-registration", label: "To Apply" },
+    { href: "/become-a-teacher", label: "Become a teacher" },
   ];
 
   const coursesLinks = [
