@@ -187,7 +187,7 @@ export default function Home() {
         icon: "/book.png",
         style: {
           backgroundColor: '#f0f7ff',
-          border: '3px dashed #aac9ff',
+          border: 'dashed #aac9ff',
         }
       }
     },
@@ -210,7 +210,7 @@ export default function Home() {
         icon: "/reading.png",
         style: {
           backgroundColor: '#faf5ff',
-          border: '3px dashed #d0c1ff',
+          border: 'dashed #d0c1ff',
         }
       }
     },
@@ -234,7 +234,7 @@ export default function Home() {
         icon: "/class9-12.png",
         style: {
           backgroundColor: '#fefcec',
-          border: '3px dashed #ffe6ab',
+          border: 'dashed #ffe6ab',
         }
       }
     },
@@ -700,7 +700,7 @@ export default function Home() {
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up">
-                  <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '35px' }}>Explore Courses (Class 1 - 12)</h2>
+                  <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '0px' }}>Explore Courses (Class 1 - 12)</h2>
               </AnimatedElement>
               <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

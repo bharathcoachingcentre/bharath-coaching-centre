@@ -39,13 +39,9 @@ export function Footer() {
   ];
 
   const coursesLinks = [
-    { href: "/courses", label: "CBSE Tuitions" },
-    { href: "/courses", label: "ICSE Tuitions" },
-    { href: "/courses", label: "JEE (Main & Advanced)" },
-    { href: "/courses", label: "NEET" },
-    { href: "/courses", label: "Eklavya JEE" },
-    { href: "/courses", label: "Eklavya NEET" },
-    { href: "/courses", label: "Computer Science" },
+    { href: "/courses", label: "CBSE" },
+    { href: "/courses", label: "SAMACHEER" },
+    { href: "/courses", label: "ONE to ONE" },
   ];
   
   const superKidsLinks = [
