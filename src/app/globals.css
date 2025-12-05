@@ -440,3 +440,7 @@ color:rgb(27, 157, 243);
 .\[transform\:rotateY\(180deg\)\] {
     transform: rotateY(180deg);
 }
+
+.footer-gradient {
+  background-image: -webkit-linear-gradient(top, #e8fffc 0, #fff4f4 100%);
+}
