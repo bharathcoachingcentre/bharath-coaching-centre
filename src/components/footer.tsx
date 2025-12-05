@@ -24,7 +24,7 @@ export function Footer() {
 
   const otherLinks = [
     { href: "#", label: "Free live classes" },
-    { href: "#", label: "Why teach with Bharath Academy" },
+    { href: "/free-study-material", label: "Free study material" },
     { href: "/training-methodology", label: "Our Training Methodology" },
     { href: "/student-registration", label: "To Apply" },
     { href: "/become-a-teacher", label: "Become a teacher" },
