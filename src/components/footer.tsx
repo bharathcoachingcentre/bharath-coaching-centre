@@ -23,8 +23,8 @@ export function Footer() {
   ];
 
   const otherLinks = [
-    { href: "#", label: "Free live classes" },
-    { href: "/free-study-material", label: "Free study material" },
+    { href: "#", label: "Free Live Classes" },
+    { href: "/free-study-material", label: "Study Material" },
     { href: "/training-methodology", label: "Our Training Methodology" },
     { href: "/student-registration", label: "To Apply" },
     { href: "/become-a-teacher", label: "Become a teacher" },
