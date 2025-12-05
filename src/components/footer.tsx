@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { Twitter, Send, Gitlab, Rss, Phone, Mail } from "lucide-react";
+import { Twitter, Send, Gitlab, Rss, Phone, Mail, MapPin } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { FooterLogo } from "./footer-logo";
 import { Input } from "./ui/input";
@@ -34,11 +34,6 @@ export function Footer() {
     { href: "/courses", label: "CBSE" },
     { href: "/courses", label: "SAMACHEER" },
     { href: "/courses", label: "ONE to ONE" },
-  ];
-  
-  const superKidsLinks = [
-      { href: "#", label: "English Superstar for kids" },
-      { href: "#", label: "Spoken English" },
   ];
 
   return (
@@ -84,23 +79,30 @@ export function Footer() {
                 ))}
                 </ul>
             </div>
-            <div>
-                <h3 className="text-lg font-semibold">Bharath Academy Super Kids</h3>
-                <ul className="mt-4 space-y-2 text-sm">
-                    {superKidsLinks.map(link => (
-                        <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
-                    ))}
-                </ul>
-                <div className="mt-4 space-y-2 text-sm">
-                <h3 className="text-lg font-semibold">Contact</h3>
-                    <a href="tel:+917200030307" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                        <Phone className="h-4 w-4" />
-                        <span>+91 7200030307</span>
-                    </a>
-                    <a href="mailto:bcc_try@hotmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                        <Mail className="h-4 w-4" />
-                        <span>bcc_try@hotmail.com</span>
-                    </a>
+            <div className="space-y-6">
+                <h3 className="text-lg font-semibold">Contact us</h3>
+                <div className="space-y-4 text-sm">
+                    <div className="flex items-start gap-3">
+                        <Mail className="h-5 w-5 mt-1 text-muted-foreground"/>
+                        <div>
+                            <p className="font-semibold">Email</p>
+                            <a href="mailto:bcc_try@hotmail.com" className="text-muted-foreground hover:text-primary transition-colors">bcc_try@hotmail.com</a>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                        <Phone className="h-5 w-5 mt-1 text-muted-foreground"/>
+                        <div>
+                            <p className="font-semibold">Phone</p>
+                            <a href="tel:+917200030307" className="text-muted-foreground hover:text-primary transition-colors">+91 7200030307</a>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                        <MapPin className="h-5 w-5 mt-1 text-muted-foreground"/>
+                        <div>
+                            <p className="font-semibold">Address</p>
+                            <p className="text-muted-foreground">123 Education Lane, Knowledge City, India</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
