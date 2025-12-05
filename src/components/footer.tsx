@@ -83,24 +83,24 @@ export function Footer() {
                 <h3 className="text-lg font-semibold">Contact us</h3>
                 <div className="space-y-4 text-sm">
                     <div className="flex items-start gap-3">
-                        <Mail className="h-5 w-5 mt-1 text-muted-foreground"/>
+                        <Mail className="h-6 w-6 mt-1 text-muted-foreground"/>
                         <div>
                             <p className="font-semibold">Email</p>
                             <a href="mailto:bcc_try@hotmail.com" className="text-muted-foreground hover:text-primary transition-colors">bcc_try@hotmail.com</a>
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
-                        <Phone className="h-5 w-5 mt-1 text-muted-foreground"/>
+                        <Phone className="h-6 w-6 mt-1 text-muted-foreground"/>
                         <div>
                             <p className="font-semibold">Phone</p>
                             <a href="tel:+917200030307" className="text-muted-foreground hover:text-primary transition-colors">+91 7200030307</a>
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
-                        <MapPin className="h-5 w-5 mt-1 text-muted-foreground"/>
+                        <MapPin className="h-6 w-6 mt-1 text-muted-foreground"/>
                         <div>
                             <p className="font-semibold">Address</p>
-                            <p className="text-muted-foreground">123 Education Lane, Knowledge City, India</p>
+                            <p className="text-muted-foreground">C-109, 5th Cross, Thillainagar (East), Trichy - 18</p>
                         </div>
                     </div>
                 </div>
