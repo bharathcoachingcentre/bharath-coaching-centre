@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Twitter, Send, Gitlab, Rss, Phone, Mail } from "lucide-react";
 import { Separator } from "./ui/separator";
@@ -19,10 +20,6 @@ export function Footer() {
     { href: "/blog", label: "Blog" },
     { href: "#", label: "News" },
     { href: "#", label: "Child safety" },
-    { href: "#", label: "Why Bharath Academy" },
-    { href: "#", label: "Our results" },
-    { href: "#", label: "Careers" },
-    { href: "#", label: "Help india learn" },
   ];
 
   const otherLinks = [
