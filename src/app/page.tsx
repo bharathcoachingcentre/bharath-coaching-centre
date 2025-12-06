@@ -698,94 +698,191 @@ export default function Home() {
 
       {/* Explore Courses Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
-          <div className="container mx-auto">
-              <AnimatedElement animation="fade-up">
-                  <h2 className="text-3xl font-bold text-center mb-12" style={{ paddingBottom: '0px' }}>Explore Courses (Class 1 - 12)</h2>
-              </AnimatedElement>
-              <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                  {exploreCourses.map((course, index) => (
-                      <div key={index} className="group pt-14 [perspective:1000px]">
-                        <div className="relative w-28 h-28 mx-auto -mb-14 z-10">
-                              <div className="relative w-full h-full [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] transition-transform duration-1000">
-                                  {/* Front Face */}
-                                  <div 
-                                      className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden]"
-                                      style={course.circle.style}
-                                  >
-                                      <div className="flex flex-col items-center justify-center w-full h-full">
-                                          <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                          <span>{course.classRange}</span>
-                                      </div>
-                                  </div>
-                                  {/* Back Face */}
-                                  <div 
-                                      className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden] [transform:rotateY(180deg)]"
-                                      style={course.circle.style}
-                                  >
-                                      <div className="flex flex-col items-center justify-center w-full h-full">
-                                          <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                          <span>{course.classRange}</span>
-                                      </div>
-                                  </div>
-                              </div>
+        <div className="container mx-auto">
+            <AnimatedElement animation="fade-up">
+                <h2 className="text-3xl font-bold text-center mb-12" style={{ marginBottom: '20px' }}>Explore Courses (Class 1 - 12)</h2>
+            </AnimatedElement>
+            <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {exploreCourses.map((course, index) => (
+                  <div key={index} className="group [perspective:1000px]">
+                    <div className="relative w-28 h-28 mx-auto -mb-14 z-10">
+                        <div className="relative w-full h-full [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] transition-transform duration-1000">
+                            {/* Front Face */}
+                            <div 
+                                className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden]"
+                                style={course.circle.style}
+                            >
+                                <div className="flex flex-col items-center justify-center w-full h-full">
+                                    <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                                    <span>{course.classRange}</span>
+                                </div>
+                            </div>
+                            {/* Back Face */}
+                            <div 
+                                className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                                style={course.circle.style}
+                            >
+                                <div className="flex flex-col items-center justify-center w-full h-full">
+                                    <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
+                                    <span>{course.classRange}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <Card className={`relative overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 pt-14`}>
+                        <div className="flex flex-row flex-grow">
+                          <div className="flex flex-col w-2/3 p-6">
+                              <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
+                              <CardContent className="p-0 mt-4">
+                                  <ul className="space-y-3">
+                                      {course.features.map((feature, i) => (
+                                          <li key={i} className="flex items-center gap-3">
+                                              <feature.icon className="w-5 h-5 text-green-500" />
+                                              <span>{feature.text}</span>
+                                          </li>
+                                      ))}
+                                  </ul>
+                              </CardContent>
                           </div>
-                          
-                          <Card className={`relative overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 pt-14`}>
-                              <div className="flex flex-row flex-grow">
-                                <div className="flex flex-col w-2/3 p-6">
-                                    <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
-                                    <CardContent className="p-0 mt-4">
-                                        <ul className="space-y-3">
-                                            {course.features.map((feature, i) => (
-                                                <li key={i} className="flex items-center gap-3">
-                                                    <feature.icon className="w-5 h-5 text-green-500" />
-                                                    <span>{feature.text}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </CardContent>
-                                </div>
-                                <div className="w-1/3 relative overflow-hidden">
-                                    <Image
-                                        src={course.imageUrl}
-                                        alt={course.title}
-                                        fill
-                                        className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                        data-ai-hint={course.imageHint}
-                                    />
-                                </div>
-                              </div>
-                              <CardFooter className="p-6 mt-auto">
-                                  <DialogTrigger asChild>
-                                      <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
-                                  </DialogTrigger>
-                              </CardFooter>
-                          </Card>
-                      </div>
-                  ))}
+                          <div className="w-1/3 relative overflow-hidden">
+                              <Image
+                                  src={course.imageUrl}
+                                  alt={course.title}
+                                  fill
+                                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                  data-ai-hint={course.imageHint}
+                              />
+                          </div>
+                        </div>
+                        <CardFooter className="p-6 mt-auto">
+                            <DialogTrigger asChild>
+                                <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
+                            </DialogTrigger>
+                        </CardFooter>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+                <DialogContent className="sm:max-w-[600px] p-8">
+                    <DialogHeader className="text-center">
+                        <DialogTitle className="text-2xl font-bold mb-8">OFFLINE TIME TABLE</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-8">
+                        <div>
+                            <h3 className="font-bold text-lg mb-4">CBSE</h3>
+                            <div className="flex flex-wrap gap-4">
+                                {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-lg mb-4">SAMACHEER</h3>
+                            <div className="flex flex-wrap gap-4">
+                                {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
+                            </div>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        </div>
+      </AnimatedSection>
+      
+      {/* Study Material Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay'}}>
+            <div className="grid md:grid-cols-5 items-center">
+              <div className="p-8 md:p-12 text-white md:col-span-3">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
+                 <div className="flex flex-wrap gap-4">
+                    {studyMaterials.map((material) => (
+                      <Dialog key={material} open={dsmIsDialogOpen && dsmSelectedMaterial === material} onOpenChange={(isOpen) => {
+                        if (!isOpen) {
+                          setDsmSelectedMaterial(null);
+                          setDsmIsDialogOpen(false);
+                          setDsmShowBoardSelection(false);
+                          setDsmSelectedBoard(null);
+                          setDsmSelectedClass(null);
+                          setDsmSelectedClassPdf(null);
+                        }
+                      }}>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black h-10"
+                            onClick={() => {
+                              setDsmSelectedMaterial(material);
+                              setDsmIsDialogOpen(true);
+                              setDsmShowBoardSelection(true);
+                            }}
+                          >
+                            {material}
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-lg">
+                          <DialogHeader>
+                              <DialogTitle className="text-center text-2xl font-bold">
+                                Select Board
+                              </DialogTitle>
+                          </DialogHeader>
+                          <div className="flex justify-center gap-4 py-4">
+                              <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
+                                setDsmSelectedBoard('CBSE'); 
+                                setDsmIsDialogOpen(false);
+                              }}>CBSE</Button>
+                              <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
+                                setDsmSelectedBoard('Samacheer');
+                                setDsmIsDialogOpen(false);
+                              }}>Samacheer</Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    ))}
                 </div>
-                  <DialogContent className="sm:max-w-[600px] p-8">
-                      <DialogHeader className="text-center">
-                          <DialogTitle className="text-2xl font-bold mb-8">OFFLINE TIME TABLE</DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-8">
-                          <div>
-                              <h3 className="font-bold text-lg mb-4">CBSE</h3>
-                              <div className="flex flex-wrap gap-4">
-                                  {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
-                              </div>
-                          </div>
-                          <div>
-                              <h3 className="font-bold text-lg mb-4">SAMACHEER</h3>
-                              <div className="flex flex-wrap gap-4">
-                                  {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
-                              </div>
-                          </div>
-                      </div>
-                  </DialogContent>
-              </Dialog>
+                {dsmSelectedBoard && dsmSelectedMaterial && (
+                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
+                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
+                            <X className="h-5 w-5" />
+                        </Button>
+                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
+                        <div className="flex flex-wrap items-center justify-center gap-4">
+                            {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]?.map((item: any, idx: number) => (
+                                <Button
+                                    key={idx}
+                                    variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
+                                    className="bg-gray-200 text-gray-800"
+                                    onClick={() => {
+                                        setDsmSelectedClass(item.class);
+                                        setDsmSelectedClassPdf(item.pdf);
+                                    }}
+                                >
+                                    {item.class}
+                                </Button>
+                            ))}
+                            <Button asChild disabled={!dsmSelectedClassPdf}>
+                                <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
+                                    <Download className="mr-2 h-4 w-4" /> Download
+                                </a>
+                            </Button>
+                        </div>
+                    </div>
+                )}
+              </div>
+              <div className="h-64 md:h-full md:col-span-2 relative">
+                <Image
+                  id="study-material"
+                  src="/study-book.png"
+                  alt="Study Material"
+                  width={600}
+                  height={600}
+                  className="object-cover w-full h-full"
+                  data-ai-hint="modern building"
+                />
+              </div>
+            </div>
           </div>
+        </div>
       </AnimatedSection>
       
       {/* Offline Time Table Section */}
@@ -1021,102 +1118,6 @@ export default function Home() {
           </div>
       </AnimatedSection>
       
-      {/* Study Material Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay'}}>
-            <div className="grid md:grid-cols-5 items-center">
-              <div className="p-8 md:p-12 text-white md:col-span-3">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
-                 <div className="flex flex-wrap gap-4">
-                    {studyMaterials.map((material) => (
-                      <Dialog key={material} open={dsmIsDialogOpen && dsmSelectedMaterial === material} onOpenChange={(isOpen) => {
-                        if (!isOpen) {
-                          setDsmSelectedMaterial(null);
-                          setDsmIsDialogOpen(false);
-                          setDsmShowBoardSelection(false);
-                          setDsmSelectedBoard(null);
-                          setDsmSelectedClass(null);
-                          setDsmSelectedClassPdf(null);
-                        }
-                      }}>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black h-10"
-                            onClick={() => {
-                              setDsmSelectedMaterial(material);
-                              setDsmIsDialogOpen(true);
-                              setDsmShowBoardSelection(true);
-                            }}
-                          >
-                            {material}
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-lg">
-                          <DialogHeader>
-                              <DialogTitle className="text-center text-2xl font-bold">
-                                Select Board
-                              </DialogTitle>
-                          </DialogHeader>
-                          <div className="flex justify-center gap-4 py-4">
-                              <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                                setDsmSelectedBoard('CBSE'); 
-                                setDsmIsDialogOpen(false);
-                              }}>CBSE</Button>
-                              <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
-                                setDsmSelectedBoard('Samacheer');
-                                setDsmIsDialogOpen(false);
-                              }}>Samacheer</Button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    ))}
-                </div>
-                {dsmSelectedBoard && dsmSelectedMaterial && (
-                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
-                            <X className="h-5 w-5" />
-                        </Button>
-                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
-                        <div className="flex flex-wrap items-center justify-center gap-4">
-                            {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]?.map((item: any, idx: number) => (
-                                <Button
-                                    key={idx}
-                                    variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
-                                    className="bg-gray-200 text-gray-800"
-                                    onClick={() => {
-                                        setDsmSelectedClass(item.class);
-                                        setDsmSelectedClassPdf(item.pdf);
-                                    }}
-                                >
-                                    {item.class}
-                                </Button>
-                            ))}
-                            <Button asChild disabled={!dsmSelectedClassPdf}>
-                                <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
-                                    <Download className="mr-2 h-4 w-4" /> Download
-                                </a>
-                            </Button>
-                        </div>
-                    </div>
-                )}
-              </div>
-              <div className="h-64 md:h-full md:col-span-2 relative">
-                <Image
-                  id="study-material"
-                  src="/study-book.png"
-                  alt="Study Material"
-                  width={600}
-                  height={600}
-                  className="object-cover w-full h-full"
-                  data-ai-hint="modern building"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
       {/* Inspired Results Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
