@@ -791,10 +791,10 @@ export default function Home() {
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Study Material</h2>
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay'}}>
             <div className="grid md:grid-cols-5 items-center">
               <div className="p-8 md:p-12 text-white md:col-span-3">
-                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Study Material</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('CBSE')}>
                         <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
@@ -1197,6 +1197,7 @@ export default function Home() {
 
 
     
+
 
 
 
