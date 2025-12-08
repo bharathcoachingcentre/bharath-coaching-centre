@@ -798,11 +798,11 @@ export default function Home() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border border-transparent bg-white" onClick={() => setDsmSelectedBoard('CBSE')}>
                         <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
-                        <p className="font-bold text-xl mt-4 text-gray-800">CBSE</p>
+                        <p className="font-extrabold text-2xl mt-4 text-gray-800">CBSE</p>
                     </Card>
                     <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border border-transparent bg-white" onClick={() => setDsmSelectedBoard('Samacheer')}>
                         <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto" />
-                        <p className="font-bold text-xl mt-4 text-gray-800">SAMACHEER</p>
+                        <p className="font-extrabold text-2xl mt-4 text-gray-800">SAMACHEER</p>
                     </Card>
                 </div>
                 {dsmSelectedBoard && (
@@ -1197,4 +1197,5 @@ export default function Home() {
 
 
     
+
 
