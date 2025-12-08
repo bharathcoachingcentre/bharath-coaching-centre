@@ -795,77 +795,52 @@ export default function Home() {
             <div className="grid md:grid-cols-5 items-center">
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
-                 <div className="flex flex-wrap gap-4">
-                    {studyMaterials.map((material) => (
-                      <Dialog key={material} open={dsmIsDialogOpen && dsmSelectedMaterial === material} onOpenChange={(isOpen) => {
-                        if (!isOpen) {
-                          setDsmSelectedMaterial(null);
-                          setDsmIsDialogOpen(false);
-                          setDsmShowBoardSelection(false);
-                          setDsmSelectedBoard(null);
-                          setDsmSelectedClass(null);
-                          setDsmSelectedClassPdf(null);
-                        }
-                      }}>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black h-10"
-                            onClick={() => {
-                              setDsmSelectedMaterial(material);
-                              setDsmIsDialogOpen(true);
-                              setDsmShowBoardSelection(true);
-                            }}
-                          >
-                            {material}
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-lg">
-                          <DialogHeader>
-                              <DialogTitle className="text-center text-2xl font-bold">
-                                Select Board
-                              </DialogTitle>
-                          </DialogHeader>
-                          <div className="flex justify-center gap-4 py-4">
-                              <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                                setDsmSelectedBoard('CBSE'); 
-                                setDsmIsDialogOpen(false);
-                              }}>CBSE</Button>
-                              <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
-                                setDsmSelectedBoard('Samacheer');
-                                setDsmIsDialogOpen(false);
-                              }}>Samacheer</Button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card className="bg-white/90 text-center p-6 rounded-lg cursor-pointer hover:bg-white transition-all duration-300" onClick={() => setDsmSelectedBoard('CBSE')}>
+                        <BookOpen className="mx-auto h-12 w-12 text-[#45b4e8]" />
+                        <p className="font-bold text-xl mt-4 text-gray-800">CBSE</p>
+                    </Card>
+                    <Card className="bg-white/90 text-center p-6 rounded-lg cursor-pointer hover:bg-white transition-all duration-300" onClick={() => setDsmSelectedBoard('Samacheer')}>
+                        <BookOpen className="mx-auto h-12 w-12 text-[#45b4e8]" />
+                        <p className="font-bold text-xl mt-4 text-gray-800">SAMACHEER</p>
+                    </Card>
                 </div>
-                {dsmSelectedBoard && dsmSelectedMaterial && (
+                {dsmSelectedBoard && (
                     <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
                         <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
                             <X className="h-5 w-5" />
                         </Button>
-                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
-                        <div className="flex flex-wrap items-center justify-center gap-4">
-                            {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]?.map((item: any, idx: number) => (
-                                <Button
-                                    key={idx}
-                                    variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
-                                    className="bg-gray-200 text-gray-800"
-                                    onClick={() => {
-                                        setDsmSelectedClass(item.class);
-                                        setDsmSelectedClassPdf(item.pdf);
-                                    }}
-                                >
-                                    {item.class}
-                                </Button>
+                        <Tabs defaultValue="books">
+                            <TabsList className="grid w-full grid-cols-5">
+                                {studyMaterials.map(material => (
+                                    <TabsTrigger key={material} value={material.toLowerCase().replace(/ /g, '-')} className="text-xs px-1">{material}</TabsTrigger>
+                                ))}
+                            </TabsList>
+                            {studyMaterials.map(material => (
+                                <TabsContent key={material} value={material.toLowerCase().replace(/ /g, '-')}>
+                                    <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
+                                        {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[material]?.map((item: any, idx: number) => (
+                                            <Button
+                                                key={idx}
+                                                variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
+                                                className="bg-gray-200 text-gray-800"
+                                                onClick={() => {
+                                                    setDsmSelectedClass(item.class);
+                                                    setDsmSelectedClassPdf(item.pdf);
+                                                }}
+                                            >
+                                                {item.class}
+                                            </Button>
+                                        ))}
+                                        <Button asChild disabled={!dsmSelectedClassPdf}>
+                                            <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
+                                                <Download className="mr-2 h-4 w-4" /> Download
+                                            </a>
+                                        </Button>
+                                    </div>
+                                </TabsContent>
                             ))}
-                            <Button asChild disabled={!dsmSelectedClassPdf}>
-                                <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
-                                    <Download className="mr-2 h-4 w-4" /> Download
-                                </a>
-                            </Button>
-                        </div>
+                        </Tabs>
                     </div>
                 )}
               </div>
@@ -1216,5 +1191,6 @@ export default function Home() {
 
 
     
+
 
 
