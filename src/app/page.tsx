@@ -847,7 +847,7 @@ export default function Home() {
               <div className="h-64 md:h-full md:col-span-2 relative">
                 <Image
                   id="study-material"
-                  src="/study-book.png"
+                  src="/sty-mat.png"
                   alt="Study Material"
                   width={600}
                   height={600}
