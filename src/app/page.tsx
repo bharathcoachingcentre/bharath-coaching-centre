@@ -796,13 +796,13 @@ export default function Home() {
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="bg-white/90 text-center p-6 rounded-lg cursor-pointer hover:bg-white transition-all duration-300" onClick={() => setDsmSelectedBoard('CBSE')}>
-                        <BookOpen className="mx-auto h-12 w-12 text-[#45b4e8]" />
-                        <p className="font-bold text-xl mt-4 text-gray-800">CBSE</p>
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all duration-300 border border-white/30 bg-transparent" onClick={() => setDsmSelectedBoard('CBSE')}>
+                        <BookOpen className="mx-auto h-12 w-12 text-white" />
+                        <p className="font-bold text-xl mt-4 text-white">CBSE</p>
                     </Card>
-                    <Card className="bg-white/90 text-center p-6 rounded-lg cursor-pointer hover:bg-white transition-all duration-300" onClick={() => setDsmSelectedBoard('Samacheer')}>
-                        <BookOpen className="mx-auto h-12 w-12 text-[#45b4e8]" />
-                        <p className="font-bold text-xl mt-4 text-gray-800">SAMACHEER</p>
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all duration-300 border border-white/30 bg-transparent" onClick={() => setDsmSelectedBoard('Samacheer')}>
+                        <BookOpen className="mx-auto h-12 w-12 text-white" />
+                        <p className="font-bold text-xl mt-4 text-white">SAMACHEER</p>
                     </Card>
                 </div>
                 {dsmSelectedBoard && (
@@ -1194,3 +1194,6 @@ export default function Home() {
 
 
 
+
+
+    
