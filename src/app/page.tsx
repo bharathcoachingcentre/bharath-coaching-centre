@@ -787,7 +787,7 @@ export default function Home() {
             </Dialog>
         </div>
       </AnimatedSection>
-      
+
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
@@ -797,11 +797,11 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all duration-300 border border-white/30 bg-transparent" onClick={() => setDsmSelectedBoard('CBSE')}>
-                        <BookOpen className="mx-auto h-12 w-12 text-white" />
+                        <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
                         <p className="font-bold text-xl mt-4 text-white">CBSE</p>
                     </Card>
                     <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all duration-300 border border-white/30 bg-transparent" onClick={() => setDsmSelectedBoard('Samacheer')}>
-                        <BookOpen className="mx-auto h-12 w-12 text-white" />
+                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto" />
                         <p className="font-bold text-xl mt-4 text-white">SAMACHEER</p>
                     </Card>
                 </div>
