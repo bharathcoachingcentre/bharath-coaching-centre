@@ -794,15 +794,15 @@ export default function Home() {
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay'}}>
             <div className="grid md:grid-cols-5 items-center">
               <div className="p-8 md:p-12 text-white md:col-span-3">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Study Material</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-12">Study Material</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all duration-300 border border-white/30 bg-transparent" onClick={() => setDsmSelectedBoard('CBSE')}>
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border border-transparent bg-white" onClick={() => setDsmSelectedBoard('CBSE')}>
                         <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
-                        <p className="font-bold text-xl mt-4 text-white">CBSE</p>
+                        <p className="font-bold text-xl mt-4 text-gray-800">CBSE</p>
                     </Card>
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all duration-300 border border-white/30 bg-transparent" onClick={() => setDsmSelectedBoard('Samacheer')}>
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border border-transparent bg-white" onClick={() => setDsmSelectedBoard('Samacheer')}>
                         <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto" />
-                        <p className="font-bold text-xl mt-4 text-white">SAMACHEER</p>
+                        <p className="font-bold text-xl mt-4 text-gray-800">SAMACHEER</p>
                     </Card>
                 </div>
                 {dsmSelectedBoard && (
@@ -1197,3 +1197,4 @@ export default function Home() {
 
 
     
+
