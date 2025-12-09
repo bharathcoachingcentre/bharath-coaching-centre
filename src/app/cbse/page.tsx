@@ -167,6 +167,36 @@ export default function CbsePage() {
         { name: "Class 12", icon: GraduationCap },
       ];
 
+      const cardColors = [
+        'bg-blue-100/70',
+        'bg-red-100/70',
+        'bg-green-100/70',
+        'bg-yellow-100/70',
+        'bg-purple-100/70',
+        'bg-pink-100/70',
+        'bg-indigo-100/70',
+      ];
+    
+      const iconColors = [
+        'text-blue-500',
+        'text-red-500',
+        'text-green-500',
+        'text-yellow-500',
+        'text-purple-500',
+        'text-pink-500',
+        'text-indigo-500',
+      ];
+    
+      const hoverColors = [
+        'group-hover:bg-blue-200',
+        'group-hover:bg-red-200',
+        'group-hover:bg-green-200',
+        'group-hover:bg-yellow-200',
+        'group-hover:bg-purple-200',
+        'group-hover:bg-pink-200',
+        'group-hover:bg-indigo-200',
+      ];
+
   return (
     <div>
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
@@ -195,8 +225,12 @@ export default function CbsePage() {
                 key={index}
                 className="group flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer"
               >
-                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100/70 mb-4 transition-all duration-300 group-hover:bg-blue-200">
-                  <item.icon className="w-8 h-8 text-blue-500 transition-all duration-300 group-hover:text-blue-600" />
+                <div className={cn(
+                  "flex items-center justify-center h-16 w-16 rounded-full mb-4 transition-all duration-300",
+                  cardColors[index % cardColors.length],
+                  hoverColors[index % hoverColors.length]
+                )}>
+                  <item.icon className={cn("w-8 h-8 transition-all duration-300", iconColors[index % iconColors.length])} />
                 </div>
                 <p className="font-bold text-lg text-gray-800">{item.name}</p>
               </Card>
