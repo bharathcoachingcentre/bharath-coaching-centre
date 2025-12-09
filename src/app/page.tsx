@@ -711,10 +711,12 @@ export default function Home() {
                             <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
                         </Card>
                     </Link>
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" onClick={() => setDsmSelectedBoard('Samacheer')}>
+                    <Link href="/samacheer" target="_blank">
+                         <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
                         <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
                         <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
                     </Card>
+                    </Link>
                 </div>
                 {dsmSelectedBoard && (
                     <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
