@@ -764,21 +764,17 @@ export default function Home() {
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Link href="/cbse" passHref legacyBehavior>
-                      <a target="_blank">
-                        <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
-                            <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto animate-move-up-down" />
-                            <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
-                        </Card>
-                      </a>
+                    <Link href="/cbse" target="_blank">
+                      <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
+                          <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto animate-move-up-down" />
+                          <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
+                      </Card>
                     </Link>
-                    <Link href="/samacheer" passHref legacyBehavior>
-                      <a target="_blank">
-                         <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
-                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
-                        <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
-                    </Card>
-                      </a>
+                    <Link href="/samacheer" target="_blank">
+                       <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
+                      <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
+                      <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
+                  </Card>
                     </Link>
                 </div>
                 {dsmSelectedBoard && (
