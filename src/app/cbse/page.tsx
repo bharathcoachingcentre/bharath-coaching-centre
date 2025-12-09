@@ -244,7 +244,7 @@ export default function CbsePage() {
 
       <AnimatedSection className="py-16 md:py-24" style={{ background: 'linear-gradient(to bottom right, #e9e4f0, #d3cce3)' }}>
             <div className="container mx-auto flex justify-center">
-                <div className="relative w-full max-w-lg">
+                <div className="relative w-full max-w-2xl">
                     <div className="absolute -right-20 -top-20 w-80 h-80 bg-red-400/80 rounded-full" style={{ filter: 'blur(50px)' }}></div>
                     <div className="absolute -left-20 -bottom-20 w-72 h-72 bg-orange-300/60 rounded-full" style={{ filter: 'blur(60px)' }}></div>
 
