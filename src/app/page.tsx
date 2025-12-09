@@ -791,10 +791,11 @@ export default function Home() {
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-black">Study Material</h2>
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
-            <div className="grid md:grid-cols-5 items-center">
+            <div className="grid md:grid-cols-5 items-center h-full">
               <div className="p-8 md:p-12 text-white md:col-span-3">
-                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">Study Material</h2>
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('CBSE')}>
                         <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
@@ -1165,20 +1166,16 @@ export default function Home() {
           <Button size="icon" className="rounded-full bg-orange-400 hover:bg-orange-500 w-12 h-12">
             <Phone className="w-6 h-6 text-white" />
           </Button>
-          <Button size="icon" className="rounded-full bg-green-500 hover:bg-green-600 w-12 h-12">
+          <Button size="icon" className="rounded-full bg-[#25D366] hover:bg-[#128C7E] w-12 h-12">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-6 h-6 text-white"
-            >
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="white"
+                className="text-white"
+                >
+                <path d="M.052 24l1.688-6.162a11.916 11.916 0 0 1-1.688-5.94c0-6.556 5.338-11.894 11.896-11.894 3.186 0 6.18 1.24 8.412 3.472 2.232 2.232 3.472 5.226 3.472 8.412 0 6.556-5.338 11.894-11.894 11.894-1.95 0-3.83-.47-5.524-1.342L.052 24zm4.846-3.15l.3-.18c1.518.902 3.27 1.412 5.116 1.412 5.478 0 9.94-4.46 9.94-9.94S17.792 2.19 12.312 2.19c-5.478 0-9.94 4.46-9.94 9.94 0 1.93.556 3.794 1.574 5.392l.214.334-1.026 3.738 3.82-1.004zm6.414-9.336c-.28-.14-1.652-.814-1.908-.908s-.444-.14-.63.14-.72.908-.882 1.096-.324.214-.604.072c-.28-.14-1.18-1.18-2.248-2.248-.832-.832-1.482-1.854-1.654-2.172s-.18-.502 0-.646c.14-.14.312-.364.468-.55.156-.18.21-.324.312-.532.104-.21.052-.392-.02-.532-.072-.14-.63-1.52-1.258-2.09-.554-.516-1.114-.438-1.52-.438-.366 0-.792.074-1.18.394s-1.284 1.256-1.284 3.064c0 1.808 1.314 3.554 1.494 3.794.18.24 2.536 4.052 6.284 5.518 3.748 1.464 4.744.972 5.478.908.734-.062 1.652-.676 1.882-1.328.232-.652.232-1.21.164-1.328-.072-.116-.258-.18-.538-.324z"/>
             </svg>
           </Button>
       </div>
