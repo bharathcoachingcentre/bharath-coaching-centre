@@ -705,12 +705,14 @@ export default function Home() {
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" onClick={() => setDsmSelectedBoard('CBSE')}>
-                        <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto transition-transform duration-500 group-hover:[transform:rotateY(180deg)]" />
-                        <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
-                    </Card>
+                    <Link href="/cbse" target="_blank">
+                        <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
+                            <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto animate-move-up-down" />
+                            <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
+                        </Card>
+                    </Link>
                     <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" onClick={() => setDsmSelectedBoard('Samacheer')}>
-                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto transition-transform duration-500 group-hover:[transform:rotateY(180deg)]" />
+                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
                         <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
                     </Card>
                 </div>
@@ -1168,22 +1170,7 @@ export default function Home() {
           </Button>
           <Button size="icon" className="rounded-full bg-[#25D366] hover:bg-[#128C7E] w-12 h-12">
             <div className="relative w-full h-full flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                viewBox="0 0 38 38"
-                fill="none"
-                stroke="white"
-                strokeWidth="3"
-              >
-                <path
-                  d="M19 3C9.6 3 3 9.6 3 19C3 22.8 4.4 26.2 6.7 28.9L3 35L9.1 32.3C11.8 34.6 15.2 36 19 36C28.4 36 35 29.4 35 19S28.4 3 19 3Z"
-                ></path>
-                <path
-                  d="M26.9 22.6C26.3 24.3 24.1 25.3 22.5 25.3C21.6 25.3 20.7 25.1 19.9 24.8C18.8 24.4 17.5 23.8 16.1 23C13.2 21.4 11.1 18.8 10.8 18.5C10.5 18.1 9.4 16.7 9.4 15.3C9.4 13.9 10.1 13.2 10.5 12.8C10.9 12.4 11.4 12.2 11.9 12.2C12.3 12.2 12.7 12.2 13 12.3C13.4 12.4 13.7 12.5 14 13.1C14.4 13.7 15 15.1 15.1 15.3C15.2 15.5 15.2 15.8 15.1 16.1C15 16.4 14.9 16.5 14.7 16.8C14.5 17 14.3 17.2 14.1 17.4C13.9 17.6 13.7 17.8 13.9 18.2C14.1 18.6 14.8 19.7 15.7 20.6C16.9 21.6 17.9 22.1 18.4 22.3C18.8 22.5 19.1 22.4 19.4 22.2C19.7 21.9 20 21.5 20.3 21.2C20.6 20.9 21 20.8 21.4 20.9C21.8 21 23.2 21.7 23.5 21.8C23.8 21.9 24 22 24.1 22.2C24.2 22.4 24.2 22.7 24.1 22.9C24.1 22.9 26.9 22.6 26.9 22.6Z"
-                ></path>
-              </svg>
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xmlSpace="preserve" className="w-8 h-8 text-white"><path d="M256.064,0h-0.128C114.784,0,0,114.784,0,256c0,79.296,36.48,149.12,92.48,196.48L0,512l64-62.144A254.272,254.272,0,0,0,256.064,512h0.128c141.248,0,256-114.752,256-256S397.312,0,256.064,0z" fill="#4CAF50"/><path d="M405.056,361.504c-6.176,17.44-30.688,31.904-50.24,36.128-13.376,2.848-30.848,5.12-89.6-19.84-71.616-31.552-124.48-97.664-129.888-105.024-5.44-7.36-48.416-64.448-48.416-122.016s31.648-88.32,41.568-98.24c9.92-9.92,21.216-12.288,29.568-12.288,3.2,0,6.016,0.16,8.576,0.288,7.52,0.32,16.128,0.48,19.328,12.288,3.2,11.808,11.808,38.336,12.8,41.536,0.992,3.2,1.472,6.496-1.44,12.288-2.912,5.792-4.832,7.712-6.752,9.632-1.92,1.92-3.84,3.84-5.12,5.12-1.28,1.28-2.56,2.912-1.28,5.76s6.496,18.464,26.656,38.624c26.912,26.912,47.584,31.552,54.496,32.992,4.16,0.832,9.024-0.32,12.288-5.12,3.616-5.44,9.632-18.048,12.288-24.544,2.912-6.496,6.496-5.76,12.288-4.832,5.792,0.96,36.128,17.248,41.536,19.328,5.408,2.08,9.12,3.2,10.592,5.12s2.08,8,0.832,14.816c-1.248,6.816-6.176,12.608-12.288,17.44-6.112,4.832-12.288,7.712-17.44,8.672-5.152,0.96-10.304,1.44-15.456,1.44z" fill="#FAFAFA"/></svg>
             </div>
           </Button>
       </div>
