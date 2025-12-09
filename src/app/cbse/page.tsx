@@ -226,6 +226,7 @@ export default function CbsePage() {
             {timetableClasses.map((item, index) => (
               <Card
                 key={index}
+                onClick={() => setActivePagination(Number(item.name.split(' ')[1]))}
                 className="group flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer"
               >
                 <div className={cn(
