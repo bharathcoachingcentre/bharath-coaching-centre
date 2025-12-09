@@ -705,12 +705,12 @@ export default function Home() {
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('CBSE')}>
-                        <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" onClick={() => setDsmSelectedBoard('CBSE')}>
+                        <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto transition-transform duration-500 group-hover:[transform:rotateY(180deg)]" />
                         <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
                     </Card>
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('Samacheer')}>
-                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto" />
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" onClick={() => setDsmSelectedBoard('Samacheer')}>
+                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto transition-transform duration-500 group-hover:[transform:rotateY(180deg)]" />
                         <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
                     </Card>
                 </div>
@@ -1167,22 +1167,24 @@ export default function Home() {
             <Phone className="w-6 h-6 text-white" />
           </Button>
           <Button size="icon" className="rounded-full bg-[#25D366] hover:bg-[#128C7E] w-12 h-12">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 38 38"
-              fill="none"
-              stroke="white"
-              strokeWidth="3"
-            >
-              <path
-                d="M19 3C9.6 3 3 9.6 3 19C3 22.8 4.4 26.2 6.7 28.9L3 35L9.1 32.3C11.8 34.6 15.2 36 19 36C28.4 36 35 29.4 35 19S28.4 3 19 3Z"
-              ></path>
-              <path
-                d="M26.9 22.6C26.3 24.3 24.1 25.3 22.5 25.3C21.6 25.3 20.7 25.1 19.9 24.8C18.8 24.4 17.5 23.8 16.1 23C13.2 21.4 11.1 18.8 10.8 18.5C10.5 18.1 9.4 16.7 9.4 15.3C9.4 13.9 10.1 13.2 10.5 12.8C10.9 12.4 11.4 12.2 11.9 12.2C12.3 12.2 12.7 12.2 13 12.3C13.4 12.4 13.7 12.5 14 13.1C14.4 13.7 15 15.1 15.1 15.3C15.2 15.5 15.2 15.8 15.1 16.1C15 16.4 14.9 16.5 14.7 16.8C14.5 17 14.3 17.2 14.1 17.4C13.9 17.6 13.7 17.8 13.9 18.2C14.1 18.6 14.8 19.7 15.7 20.6C16.9 21.6 17.9 22.1 18.4 22.3C18.8 22.5 19.1 22.4 19.4 22.2C19.7 21.9 20 21.5 20.3 21.2C20.6 20.9 21 20.8 21.4 20.9C21.8 21 23.2 21.7 23.5 21.8C23.8 21.9 24 22 24.1 22.2C24.2 22.4 24.2 22.7 24.1 22.9C24.1 22.9 26.9 22.6 26.9 22.6Z"
-              ></path>
-            </svg>
+            <div className="relative w-full h-full flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 38 38"
+                fill="none"
+                stroke="white"
+                strokeWidth="3"
+              >
+                <path
+                  d="M19 3C9.6 3 3 9.6 3 19C3 22.8 4.4 26.2 6.7 28.9L3 35L9.1 32.3C11.8 34.6 15.2 36 19 36C28.4 36 35 29.4 35 19S28.4 3 19 3Z"
+                ></path>
+                <path
+                  d="M26.9 22.6C26.3 24.3 24.1 25.3 22.5 25.3C21.6 25.3 20.7 25.1 19.9 24.8C18.8 24.4 17.5 23.8 16.1 23C13.2 21.4 11.1 18.8 10.8 18.5C10.5 18.1 9.4 16.7 9.4 15.3C9.4 13.9 10.1 13.2 10.5 12.8C10.9 12.4 11.4 12.2 11.9 12.2C12.3 12.2 12.7 12.2 13 12.3C13.4 12.4 13.7 12.5 14 13.1C14.4 13.7 15 15.1 15.1 15.3C15.2 15.5 15.2 15.8 15.1 16.1C15 16.4 14.9 16.5 14.7 16.8C14.5 17 14.3 17.2 14.1 17.4C13.9 17.6 13.7 17.8 13.9 18.2C14.1 18.6 14.8 19.7 15.7 20.6C16.9 21.6 17.9 22.1 18.4 22.3C18.8 22.5 19.1 22.4 19.4 22.2C19.7 21.9 20 21.5 20.3 21.2C20.6 20.9 21 20.8 21.4 20.9C21.8 21 23.2 21.7 23.5 21.8C23.8 21.9 24 22 24.1 22.2C24.2 22.4 24.2 22.7 24.1 22.9C24.1 22.9 26.9 22.6 26.9 22.6Z"
+                ></path>
+              </svg>
+            </div>
           </Button>
       </div>
     </div>
