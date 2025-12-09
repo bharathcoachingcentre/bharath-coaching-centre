@@ -48,6 +48,7 @@ export default function CbsePage() {
     const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
+    const [activePagination, setActivePagination] = React.useState(8);
 
     // State for the "Download Study Material" section
     const [dsmIsStudyMaterialOpen, setDsmIsStudyMaterialOpen] = React.useState(false);
@@ -197,6 +198,8 @@ export default function CbsePage() {
         'group-hover:bg-indigo-200',
       ];
 
+      const paginationItems = [6, 7, 8, 9, 10, 11, 12];
+
   return (
     <div>
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
@@ -238,6 +241,67 @@ export default function CbsePage() {
           </div>
         </div>
       </section>
+
+      <AnimatedSection className="py-16 md:py-24" style={{ background: 'linear-gradient(to bottom right, #e9e4f0, #d3cce3)' }}>
+            <div className="container mx-auto flex justify-center">
+                <div className="relative w-full max-w-lg">
+                    <div className="absolute -right-20 -top-20 w-80 h-80 bg-red-400/80 rounded-full" style={{ filter: 'blur(50px)' }}></div>
+                    <div className="absolute -left-20 -bottom-20 w-72 h-72 bg-orange-300/60 rounded-full" style={{ filter: 'blur(60px)' }}></div>
+
+                    <Card className="relative bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
+                        <CardContent className="p-0">
+                            <div className="relative h-96">
+                                <div className="absolute top-6 left-6 w-20 h-20 rounded-full bg-purple-200/50 border-2 border-purple-300/80 flex items-center justify-center">
+                                    <svg className="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.33 10.84A8.5 8.5 0 0117.67 6.33m-5.34 8.34a8.5 8.5 0 01-11.02 5.02" /></svg>
+                                </div>
+                                
+                                <div className="absolute right-0 top-0 w-2/3 h-full">
+                                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute w-full h-full">
+                                        <path fill="#FF6B6B" d="M39.6,-53.4C54,-47,70.3,-36.5,75.8,-22.3C81.4,-8.1,76.2,9.8,67.8,24.1C59.3,38.3,47.6,48.8,34.4,56.7C21.2,64.6,6.6,69.9,-8.8,70.5C-24.2,71.1,-40.5,67,-52.3,57.7C-64.1,48.4,-71.4,33.9,-75.6,18.1C-79.9,2.3,-81,-14.8,-74.6,-28.4C-68.2,-42,-54.3,-52,-40.1,-58.5C-25.9,-65,-11.5,-68,3.6,-69.1C18.7,-70.2,37.4,-69.4,39.6,-53.4Z" transform="translate(100 100) scale(1.2)" />
+                                    </svg>
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                                        <div className="relative">
+                                            <p className="font-black text-9xl" style={{fontFamily: 'monospace', textShadow: '2px 2px 4px rgba(0,0,0,0.2)'}}>
+                                                <span className="text-white/80" style={{ letterSpacing: '0.1em' }}>. . . .</span>
+                                                <span className="text-white/70" style={{ letterSpacing: '0.2em' }}>. . . . .</span>
+                                                <span className="text-white/60" style={{ letterSpacing: '0.3em' }}>. . . . .</span>
+                                                <span className="text-white/50" style={{ letterSpacing: '0.4em' }}>. . . .</span>
+                                                <span className="text-white/40" style={{ letterSpacing: '0.5em' }}>. . .</span>
+                                                <span className="text-white/30" style={{ letterSpacing: '0.6em' }}>. .</span>
+                                                <span className="text-white/20" style={{ letterSpacing: '0.7em' }}>.</span>
+                                            </p>
+                                            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-black text-9xl text-white" style={{fontFamily: 'monospace', textShadow: '2px 2px 4px rgba(0,0,0,0.2)'}}>{activePagination}</span>
+                                        </div>
+                                        <div className="w-24 h-1 bg-white/50 mt-4 rounded-full"></div>
+                                        <div className="w-20 h-1 bg-white/40 mt-2 rounded-full"></div>
+                                        <div className="w-16 h-1 bg-white/30 mt-2 rounded-full"></div>
+                                    </div>
+                                </div>
+                                <div className="absolute left-8 top-1/2 -translate-y-1/2">
+                                    <h2 className="text-7xl font-black text-red-500" style={{ fontFamily: 'Impact, sans-serif', textShadow: '2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1)' }}>CLASS</h2>
+                                    <Button variant="outline" className="mt-6 border-2 border-purple-400 text-purple-500 font-bold hover:bg-purple-100 hover:text-purple-600">READ MORE</Button>
+                                </div>
+                            </div>
+                        </CardContent>
+                        <div className="flex border-t border-gray-200/80">
+                            {paginationItems.map(item => (
+                                <button
+                                    key={item}
+                                    onClick={() => setActivePagination(item)}
+                                    className={cn(
+                                        "flex-1 py-3 text-center font-bold text-gray-500 transition-colors duration-300",
+                                        "border-r border-gray-200/80 last:border-r-0",
+                                        { "bg-purple-500 text-white": activePagination === item }
+                                    )}
+                                >
+                                    {item}
+                                </button>
+                            ))}
+                        </div>
+                    </Card>
+                </div>
+            </div>
+        </AnimatedSection>
       
       <AnimatedSection className="py-16 md:py-24 bg-blue-50">
         <div className="container mx-auto">
