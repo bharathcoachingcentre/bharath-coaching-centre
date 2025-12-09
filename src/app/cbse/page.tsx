@@ -267,8 +267,86 @@ export default function CbsePage() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="relative">
-                                    {/* This area is intentionally left empty */}
+                                <div className="relative p-8 flex flex-col justify-center">
+                                    <h2 className="text-2xl font-bold mb-6 text-gray-700 text-center">Download Study Material</h2>
+                                    <div className="flex flex-wrap gap-4 justify-center">
+                                        {studyMaterials.map((material, index) => (
+                                            <Dialog 
+                                                key={index}
+                                                open={dsmIsStudyMaterialOpen && dsmSelectedMaterial === material} 
+                                                onOpenChange={(isOpen) => {
+                                                    if (!isOpen) {
+                                                        setDsmSelectedMaterial(null);
+                                                        setDsmIsStudyMaterialOpen(false);
+                                                    }
+                                                }}
+                                            >
+                                                <DialogTrigger asChild>
+                                                    <Button
+                                                        variant="outline"
+                                                        className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
+                                                        onClick={() => {
+                                                            setDsmSelectedMaterial(material);
+                                                            setDsmSelectedBoard(null);
+                                                            setDsmSelectedClass(null);
+                                                            setDsmSelectedClassPdf(null);
+                                                            setDsmShowDownloadOptions(false);
+                                                            setDsmIsStudyMaterialOpen(true);
+                                                        }}
+                                                    >
+                                                        {material}
+                                                    </Button>
+                                                </DialogTrigger>
+                                                <DialogContent className="sm:max-w-lg">
+                                                <DialogHeader>
+                                                    <DialogTitle className="text-center text-2xl font-bold">
+                                                        Select Board
+                                                    </DialogTitle>
+                                                </DialogHeader>
+                                                    <div className="flex justify-center gap-4 py-4">
+                                                        <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
+                                                          setDsmSelectedBoard('CBSE'); 
+                                                          setDsmShowDownloadOptions(true); 
+                                                          setDsmIsStudyMaterialOpen(false);
+                                                        }}>CBSE</Button>
+                                                        <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
+                                                          setDsmSelectedBoard('Samacheer');
+                                                          setDsmShowDownloadOptions(true); 
+                                                          setDsmIsStudyMaterialOpen(false);
+                                                        }}>Samacheer</Button>
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+                                        ))}
+                                    </div>
+                                    {dsmShowDownloadOptions && dsmSelectedBoard && dsmSelectedMaterial && (
+                                        <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
+                                            <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmShowDownloadOptions(false)}>
+                                                <X className="h-5 w-5" />
+                                            </Button>
+                                            <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
+                                            <div className="flex flex-wrap items-center justify-center gap-4">
+                                                {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]?.map((item: any, idx: number) => (
+                                                    <Button
+                                                        key={idx}
+                                                        variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
+                                                        className="bg-gray-200 text-gray-800"
+                                                        onClick={() => {
+                                                            setDsmSelectedClass(item.class);
+                                                            setDsmSelectedClassPdf(item.pdf);
+                                                        }}
+                                                    >
+                                                        {item.class}
+                                                    </Button>
+                                                ))}
+                                                <Button asChild disabled={!dsmSelectedClassPdf}>
+                                                    <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
+                                                        <Download className="mr-2 h-4 w-4" /> Download
+                                                    </a>
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </CardContent>
