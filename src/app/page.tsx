@@ -696,6 +696,79 @@ export default function Home() {
         </div>
       </AnimatedSection>
 
+      {/* Study Material Section */}
+      <AnimatedSection className="py-16 md:py-24">
+        <div className="container mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-black">Study Material</h2>
+          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
+            <div className="grid md:grid-cols-5 items-center h-full">
+              <div className="p-8 md:p-12 text-white md:col-span-3">
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('CBSE')}>
+                        <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
+                        <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
+                    </Card>
+                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('Samacheer')}>
+                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto" />
+                        <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
+                    </Card>
+                </div>
+                {dsmSelectedBoard && (
+                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
+                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
+                            <X className="h-5 w-5" />
+                        </Button>
+                        <Tabs defaultValue="books">
+                            <TabsList className="grid w-full grid-cols-5">
+                                {studyMaterials.map(material => (
+                                    <TabsTrigger key={material} value={material.toLowerCase().replace(/ /g, '-')} className="text-xs px-1">{material}</TabsTrigger>
+                                ))}
+                            </TabsList>
+                            {studyMaterials.map(material => (
+                                <TabsContent key={material} value={material.toLowerCase().replace(/ /g, '-')}>
+                                    <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
+                                        {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[material]?.map((item: any, idx: number) => (
+                                            <Button
+                                                key={idx}
+                                                variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
+                                                className="bg-gray-200 text-gray-800"
+                                                onClick={() => {
+                                                    setDsmSelectedClass(item.class);
+                                                    setDsmSelectedClassPdf(item.pdf);
+                                                }}
+                                            >
+                                                {item.class}
+                                            </Button>
+                                        ))}
+                                        <Button asChild disabled={!dsmSelectedClassPdf}>
+                                            <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
+                                                <Download className="mr-2 h-4 w-4" /> Download
+                                            </a>
+                                        </Button>
+                                    </div>
+                                </TabsContent>
+                            ))}
+                        </Tabs>
+                    </div>
+                )}
+              </div>
+              <div className="h-64 md:h-full md:col-span-2 relative">
+                <Image
+                  id="study-material"
+                  src="/sty-mat.png"
+                  alt="Study Material"
+                  width={600}
+                  height={600}
+                  className="object-cover w-full h-full"
+                  data-ai-hint="modern building"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+      
       {/* Explore Courses Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
@@ -785,79 +858,6 @@ export default function Home() {
                     </div>
                 </DialogContent>
             </Dialog>
-        </div>
-      </AnimatedSection>
-
-      {/* Study Material Section */}
-      <AnimatedSection className="py-16 md:py-24">
-        <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-black">Study Material</h2>
-          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
-            <div className="grid md:grid-cols-5 items-center h-full">
-              <div className="p-8 md:p-12 text-white md:col-span-3">
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('CBSE')}>
-                        <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto" />
-                        <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
-                    </Card>
-                    <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white" onClick={() => setDsmSelectedBoard('Samacheer')}>
-                        <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto" />
-                        <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
-                    </Card>
-                </div>
-                {dsmSelectedBoard && (
-                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
-                            <X className="h-5 w-5" />
-                        </Button>
-                        <Tabs defaultValue="books">
-                            <TabsList className="grid w-full grid-cols-5">
-                                {studyMaterials.map(material => (
-                                    <TabsTrigger key={material} value={material.toLowerCase().replace(/ /g, '-')} className="text-xs px-1">{material}</TabsTrigger>
-                                ))}
-                            </TabsList>
-                            {studyMaterials.map(material => (
-                                <TabsContent key={material} value={material.toLowerCase().replace(/ /g, '-')}>
-                                    <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
-                                        {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[material]?.map((item: any, idx: number) => (
-                                            <Button
-                                                key={idx}
-                                                variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
-                                                className="bg-gray-200 text-gray-800"
-                                                onClick={() => {
-                                                    setDsmSelectedClass(item.class);
-                                                    setDsmSelectedClassPdf(item.pdf);
-                                                }}
-                                            >
-                                                {item.class}
-                                            </Button>
-                                        ))}
-                                        <Button asChild disabled={!dsmSelectedClassPdf}>
-                                            <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
-                                                <Download className="mr-2 h-4 w-4" /> Download
-                                            </a>
-                                        </Button>
-                                    </div>
-                                </TabsContent>
-                            ))}
-                        </Tabs>
-                    </div>
-                )}
-              </div>
-              <div className="h-64 md:h-full md:col-span-2 relative">
-                <Image
-                  id="study-material"
-                  src="/sty-mat.png"
-                  alt="Study Material"
-                  width={600}
-                  height={600}
-                  className="object-cover w-full h-full"
-                  data-ai-hint="modern building"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </AnimatedSection>
       
@@ -1167,7 +1167,7 @@ export default function Home() {
             <Phone className="w-6 h-6 text-white" />
           </Button>
           <Button size="icon" className="rounded-full bg-[#25D366] hover:bg-[#128C7E] w-12 h-12">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle-more"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg>
           </Button>
       </div>
     </div>
