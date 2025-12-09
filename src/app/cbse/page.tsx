@@ -252,9 +252,7 @@ export default function CbsePage() {
                         <CardContent className="p-0">
                             <div className="relative h-96 grid grid-cols-2">
                                 <div className="relative p-8 flex flex-col justify-center">
-                                    <div className="absolute top-6 left-6 w-20 h-20 rounded-full bg-purple-200/50 border-2 border-purple-300/80 flex items-center justify-center">
-                                        <svg className="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.33 10.84A8.5 8.5 0 0117.67 6.33m-5.34 8.34a8.5 8.5 0 01-11.02 5.02" /></svg>
-                                    </div>
+                                    
                                     <h2 className="text-7xl font-black text-red-500" style={{ fontFamily: 'Impact, sans-serif', textShadow: '2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1)' }}>CLASS</h2>
                                     <div className="relative mt-8" style={{ width: '200px', height: '200px'}}>
                                         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute w-full h-full">
@@ -268,7 +266,7 @@ export default function CbsePage() {
                                     </div>
                                 </div>
                                 <div className="relative p-8 flex flex-col justify-center">
-                                    <div className="flex flex-wrap gap-4 justify-center">
+                                    <div className="flex flex-col gap-4 items-center">
                                         {studyMaterials.map((material, index) => (
                                             <Dialog 
                                                 key={index}
@@ -283,7 +281,7 @@ export default function CbsePage() {
                                                 <DialogTrigger asChild>
                                                     <Button
                                                         variant="outline"
-                                                        className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
+                                                        className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black w-full"
                                                         onClick={() => {
                                                             setDsmSelectedMaterial(material);
                                                             setDsmSelectedBoard(null);
