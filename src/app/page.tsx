@@ -164,6 +164,36 @@ export default function Home() {
     }
   };
 
+  const createHoverBurst = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const x = Math.random() * rect.width;
+        const y = Math.random() * rect.height;
+        
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        
+        const angle = Math.random() * 360;
+        const distance = Math.random() * 50 + 50;
+        
+        particle.style.setProperty('--x', `${Math.cos(angle * Math.PI / 180) * distance}px`);
+        particle.style.setProperty('--y', `${Math.sin(angle * Math.PI / 180) * distance}px`);
+        
+        particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        
+        button.parentElement?.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, 700);
+    }
+  };
+
   const sliderImages = [
     { src: '/slide-1.jpg', alt: 'Slider Image 1', hint: 'cityscape trichy' },
     { src: '/slide-2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
@@ -734,17 +764,21 @@ export default function Home() {
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Link href="/cbse" target="_blank">
+                    <Link href="/cbse" passHref legacyBehavior>
+                      <a target="_blank">
                         <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
                             <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto animate-move-up-down" />
                             <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
                         </Card>
+                      </a>
                     </Link>
-                    <Link href="/samacheer" target="_blank">
+                    <Link href="/samacheer" passHref legacyBehavior>
+                      <a target="_blank">
                          <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
                         <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
                         <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
                     </Card>
+                      </a>
                     </Link>
                 </div>
                 {dsmSelectedBoard && (
@@ -867,6 +901,7 @@ export default function Home() {
                                 <Button 
                                     className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
                                     onClick={createBurst}
+                                    onMouseEnter={createHoverBurst}
                                 >
                                     Explore Offline Timetable
                                 </Button>
