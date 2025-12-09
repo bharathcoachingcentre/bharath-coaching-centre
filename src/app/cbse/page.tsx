@@ -198,7 +198,6 @@ export default function CbsePage() {
         'group-hover:bg-indigo-200',
       ];
 
-      const paginationItems = [6, 7, 8, 9, 10, 11, 12];
 
   return (
     <div>
@@ -348,21 +347,6 @@ export default function CbsePage() {
                                 </div>
                             </div>
                         </CardContent>
-                        <div className="flex border-t border-gray-200/80">
-                            {paginationItems.map(item => (
-                                <button
-                                    key={item}
-                                    onClick={() => setActivePagination(item)}
-                                    className={cn(
-                                        "flex-1 py-3 text-center font-bold text-gray-500 transition-colors duration-300",
-                                        "border-r border-gray-200/80 last:border-r-0",
-                                        { "bg-purple-500 text-white": activePagination === item }
-                                    )}
-                                >
-                                    {item}
-                                </button>
-                            ))}
-                        </div>
                     </Card>
                 </div>
             </div>
