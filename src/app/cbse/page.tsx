@@ -222,22 +222,34 @@ export default function CbsePage() {
       >
         <div className="container mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-8">
-            {timetableClasses.map((item, index) => (
-              <Card
-                key={index}
-                onClick={() => setActivePagination(Number(item.name.split(' ')[1]))}
-                className="group flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer"
-              >
-                <div className={cn(
-                  "flex items-center justify-center h-16 w-16 rounded-full mb-4 transition-all duration-300",
-                  cardColors[index % cardColors.length],
-                  hoverColors[index % hoverColors.length]
-                )}>
-                  <item.icon className={cn("w-8 h-8 transition-all duration-300", iconColors[index % iconColors.length])} />
-                </div>
-                <p className="font-bold text-lg text-gray-800">{item.name}</p>
-              </Card>
-            ))}
+            {timetableClasses.map((item, index) => {
+              const isActive = activePagination === Number(item.name.split(' ')[1]);
+              return (
+                <Card
+                  key={index}
+                  onClick={() => setActivePagination(Number(item.name.split(' ')[1]))}
+                  className={cn(
+                    "group flex flex-col items-center justify-center p-6 rounded-xl shadow-lg transition-transform duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer",
+                    isActive ? "bg-black text-white" : "bg-white"
+                  )}
+                >
+                  <div className={cn(
+                    "flex items-center justify-center h-16 w-16 rounded-full mb-4 transition-all duration-300",
+                    isActive ? "bg-white" : cardColors[index % cardColors.length],
+                    hoverColors[index % hoverColors.length]
+                  )}>
+                    <item.icon className={cn(
+                      "w-8 h-8 transition-all duration-300",
+                      isActive ? "text-black" : iconColors[index % iconColors.length]
+                    )} />
+                  </div>
+                  <p className={cn(
+                    "font-bold text-lg",
+                    isActive ? "text-white" : "text-gray-800"
+                  )}>{item.name}</p>
+                </Card>
+              )
+            })}
           </div>
         </div>
       </section>
