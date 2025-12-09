@@ -4,7 +4,7 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { X, Download, CheckCircle } from "lucide-react";
+import { X, Download, CheckCircle, Book, Pencil, Ruler, Calculator, FlaskConical, Atom, GraduationCap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
@@ -157,6 +157,15 @@ export default function CbsePage() {
         "Unit wise question papers",
         "Model Board question paper",
       ];
+      const timetableClasses = [
+        { name: "Class 6", icon: Book },
+        { name: "Class 7", icon: Pencil },
+        { name: "Class 8", icon: Ruler },
+        { name: "Class 9", icon: Calculator },
+        { name: "Class 10", icon: FlaskConical },
+        { name: "Class 11", icon: Atom },
+        { name: "Class 12", icon: GraduationCap },
+      ];
 
   return (
     <div>
@@ -173,6 +182,31 @@ export default function CbsePage() {
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
             CBSE
           </h1>
+        </div>
+      </section>
+
+      <section
+        className="py-16 md:py-24"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23a0aec0'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e\")",
+          backgroundColor: "#F7FAFC"
+        }}
+      >
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-8">
+            {timetableClasses.map((item, index) => (
+              <Card
+                key={index}
+                className="group flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer"
+              >
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100/70 mb-4 transition-all duration-300 group-hover:bg-blue-200">
+                  <item.icon className="w-8 h-8 text-blue-500 transition-all duration-300 group-hover:text-blue-600" />
+                </div>
+                <p className="font-bold text-lg text-gray-800">{item.name}</p>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
       
