@@ -261,15 +261,6 @@ export default function CbsePage() {
                                     </svg>
                                     <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
                                         <div className="relative">
-                                            <p className="font-black text-9xl" style={{fontFamily: 'monospace', textShadow: '2px 2px 4px rgba(0,0,0,0.2)'}}>
-                                                <span className="text-white/80" style={{ letterSpacing: '0.1em' }}>. . . .</span>
-                                                <span className="text-white/70" style={{ letterSpacing: '0.2em' }}>. . . . .</span>
-                                                <span className="text-white/60" style={{ letterSpacing: '0.3em' }}>. . . . .</span>
-                                                <span className="text-white/50" style={{ letterSpacing: '0.4em' }}>. . . .</span>
-                                                <span className="text-white/40" style={{ letterSpacing: '0.5em' }}>. . .</span>
-                                                <span className="text-white/30" style={{ letterSpacing: '0.6em' }}>. .</span>
-                                                <span className="text-white/20" style={{ letterSpacing: '0.7em' }}>.</span>
-                                            </p>
                                             <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-black text-9xl text-white" style={{fontFamily: 'monospace', textShadow: '2px 2px 4px rgba(0,0,0,0.2)'}}>{activePagination}</span>
                                         </div>
                                         <div className="w-24 h-1 bg-white/50 mt-4 rounded-full"></div>
