@@ -134,6 +134,35 @@ export default function Home() {
     }
   }, [newTestimonialApi]);
 
+  const createBurst = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        
+        const angle = Math.random() * 360;
+        const distance = Math.random() * 50 + 50;
+        
+        particle.style.setProperty('--x', `${Math.cos(angle * Math.PI / 180) * distance}px`);
+        particle.style.setProperty('--y', `${Math.sin(angle * Math.PI / 180) * distance}px`);
+        
+        particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        
+        button.parentElement?.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, 700);
+    }
+  };
 
   const sliderImages = [
     { src: '/slide-1.jpg', alt: 'Slider Image 1', hint: 'cityscape trichy' },
@@ -833,9 +862,14 @@ export default function Home() {
                               />
                           </div>
                         </div>
-                        <CardFooter className="p-6 mt-auto">
+                        <CardFooter className="p-6 mt-auto relative">
                             <DialogTrigger asChild>
-                                <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold">Explore Offline Timetable</Button>
+                                <Button 
+                                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                                    onClick={createBurst}
+                                >
+                                    Explore Offline Timetable
+                                </Button>
                             </DialogTrigger>
                         </CardFooter>
                     </Card>
