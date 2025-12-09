@@ -268,7 +268,6 @@ export default function CbsePage() {
                                     </div>
                                 </div>
                                 <div className="relative p-8 flex flex-col justify-center">
-                                    <h2 className="text-2xl font-bold mb-6 text-gray-700 text-center">Download Study Material</h2>
                                     <div className="flex flex-wrap gap-4 justify-center">
                                         {studyMaterials.map((material, index) => (
                                             <Dialog 
