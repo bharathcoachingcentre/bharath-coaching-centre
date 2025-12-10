@@ -491,3 +491,6 @@ color:rgb(27, 157, 243);
     transform: translate(-50%, -50%) scale(1) rotate(360deg);
   }
 }
+.to-cyan-400 {
+    --tw-gradient-to: #45b4e8 var(--tw-gradient-to-position);
+}
