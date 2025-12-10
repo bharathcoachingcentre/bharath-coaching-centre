@@ -48,7 +48,7 @@ export default function CbsePage() {
     const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
-    const [activePagination, setActivePagination] = React.useState(8);
+    const [activePagination, setActivePagination] = React.useState(6);
 
     // State for the "Download Study Material" section
     const [dsmIsStudyMaterialOpen, setDsmIsStudyMaterialOpen] = React.useState(false);
