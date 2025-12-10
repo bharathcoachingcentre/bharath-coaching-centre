@@ -91,30 +91,45 @@ export default function CbsePage() {
             { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_ncert.pdf" },
             { class: "Class 10", pdf: "/pdfs/cbse_10_ncert.pdf" },
             { class: "Class 9", pdf: "/pdfs/cbse_9_ncert.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_ncert.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_ncert.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_ncert.pdf" },
           ],
           "NCERT Solutions": [
             { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
             { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
             { class: "Class 10", pdf: "/pdfs/cbse_10_solutions.pdf" },
             { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_solutions.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_solutions.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_solutions.pdf" },
           ],
           "Formula Booklet": [
             { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_formula.pdf" },
             { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_formula.pdf" },
             { class: "Class 10", pdf: "/pdfs/cbse_10_formula.pdf" },
             { class: "Class 9", pdf: "/pdfs/cbse_9_formula.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_formula.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_formula.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_formula.pdf" },
           ],
           "Unit wise question papers": [
             { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
             { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_unit_questions.pdf" },
             { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
             { class: "Class 9", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_unit_questions.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_unit_questions.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_unit_questions.pdf" },
           ],
           "Model Board question paper": [
             { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
             { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_model_paper.pdf" },
             { class: "Class 10", pdf: "/pdfs/cbse_10_model_paper.pdf" },
             { class: "Class 9", pdf: "/pdfs/cbse_9_model_paper.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_model_paper.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_model_paper.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_model_paper.pdf" },
           ],
         },
         Samacheer: {
@@ -282,12 +297,7 @@ export default function CbsePage() {
                                     <div className="flex flex-col gap-4 items-center">
                                     {studyMaterials.map((material, index) => {
                                         const materialLinks = (boardMaterials.CBSE as any)[material] || [];
-                                        const relevantLink = materialLinks.find((item: any) => {
-                                            if (activePagination >= 9 && activePagination <= 12) {
-                                                return item.class.includes(`Class ${activePagination}`) || item.class.includes('PCM');
-                                            }
-                                            return item.class.includes(`Class ${activePagination}`);
-                                        });
+                                        const relevantLink = materialLinks.find((item: any) => item.class.includes(`Class ${activePagination}`));
 
                                         return (
                                             <a key={index} href={relevantLink?.pdf} download={!!relevantLink} className="w-full">
