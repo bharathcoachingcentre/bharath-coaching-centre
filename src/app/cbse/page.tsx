@@ -189,13 +189,13 @@ export default function CbsePage() {
       ];
     
       const hoverColors = [
-        'group-hover:bg-blue-100/70',
-        'group-hover:bg-red-100/70',
-        'group-hover:bg-green-100/70',
-        'group-hover:bg-yellow-100/70',
-        'group-hover:bg-purple-100/70',
-        'group-hover:bg-pink-100/70',
-        'group-hover:bg-indigo-100/70',
+        'hover:bg-blue-100/70',
+        'hover:bg-red-100/70',
+        'hover:bg-green-100/70',
+        'hover:bg-yellow-100/70',
+        'hover:bg-purple-100/70',
+        'hover:bg-pink-100/70',
+        'hover:bg-indigo-100/70',
       ];
 
 
@@ -224,7 +224,6 @@ export default function CbsePage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-8">
             {timetableClasses.map((item, index) => {
               const isActive = activePagination === Number(item.name.split(' ')[1]);
-              const IconComponent = item.icon;
               return (
                 <Card
                   key={index}
@@ -242,7 +241,7 @@ export default function CbsePage() {
                     {item.isGif ? (
                         <Image src={item.icon as string} alt={item.name} width={45} height={45} unoptimized />
                     ) : (
-                        <IconComponent className={cn(
+                        <item.icon className={cn(
                             "w-8 h-8 transition-all duration-300",
                             isActive ? "text-black" : iconColors[index % iconColors.length]
                         )} />
@@ -262,9 +261,6 @@ export default function CbsePage() {
       <AnimatedSection className="py-16 md:py-24" style={{ background: 'linear-gradient(to bottom right, #eff6ff, #dbeafe)' }}>
             <div className="container mx-auto flex justify-center">
                 <div className="relative w-full max-w-4xl">
-                    <div className="absolute -right-20 -top-20 w-80 h-80 bg-red-400/80 rounded-full" style={{ filter: 'blur(50px)' }}></div>
-                    <div className="absolute -left-20 -bottom-20 w-72 h-72 bg-orange-300/60 rounded-full" style={{ filter: 'blur(60px)' }}></div>
-
                     <Card className="relative bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
                         <CardContent className="p-0">
                             <div className="relative h-96 grid grid-cols-2">
