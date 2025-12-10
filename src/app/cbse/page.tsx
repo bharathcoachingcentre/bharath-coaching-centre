@@ -160,12 +160,12 @@ export default function CbsePage() {
       ];
       const timetableClasses = [
         { name: "Class 6", icon: "/cls-6.gif", isGif: true },
-        { name: "Class 7", icon: Pencil },
-        { name: "Class 8", icon: Ruler },
-        { name: "Class 9", icon: Calculator },
-        { name: "Class 10", icon: FlaskConical },
-        { name: "Class 11", icon: Atom },
-        { name: "Class 12", icon: GraduationCap },
+        { name: "Class 7", icon: "/cls-7.gif", isGif: true },
+        { name: "Class 8", icon: "/cls-8.gif", isGif: true },
+        { name: "Class 9", icon: "/cls-9.gif", isGif: true },
+        { name: "Class 10", icon: "/cls-10.gif", isGif: true },
+        { name: "Class 11", icon: "/cls-11.gif", isGif: true },
+        { name: "Class 12", icon: "/cls-12.gif", isGif: true },
       ];
 
       const cardColors = [
