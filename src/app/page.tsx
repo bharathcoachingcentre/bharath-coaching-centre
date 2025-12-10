@@ -765,13 +765,13 @@ export default function Home() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Link href="/cbse" target="_blank">
-                      <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
+                      <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" style={{boxShadow: '0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)'}}>
                           <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto animate-move-up-down" />
                           <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
                       </Card>
                     </Link>
                     <Link href="/samacheer" target="_blank">
-                       <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group">
+                       <Card className="text-center p-6 rounded-lg cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" style={{boxShadow: '0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)'}}>
                       <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
                       <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
                   </Card>
