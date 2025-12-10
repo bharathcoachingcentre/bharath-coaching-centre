@@ -240,7 +240,7 @@ export default function CbsePage() {
                     hoverColors[index % hoverColors.length]
                   )}>
                     {item.isGif ? (
-                        <Image src={item.icon as string} alt={item.name} width={32} height={32} unoptimized />
+                        <Image src={item.icon as string} alt={item.name} width={45} height={45} unoptimized />
                     ) : (
                         <IconComponent className={cn(
                             "w-8 h-8 transition-all duration-300",
