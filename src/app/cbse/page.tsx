@@ -4,7 +4,7 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { X, Download, CheckCircle, Book, Pencil, Ruler, Calculator, FlaskConical, Atom, GraduationCap } from "lucide-react";
+import { X, Download, CheckCircle, Book, Pencil, Ruler, Calculator, FlaskConical, Atom, GraduationCap, BookOpen, FileCheck, FunctionSquare, FileText, Award } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
@@ -167,11 +167,11 @@ export default function CbsePage() {
       };
       
       const studyMaterials = [
-        "NCERT Books",
-        "NCERT Solutions",
-        "Formula Booklet",
-        "Unit wise question papers",
-        "Model Board question paper",
+        { name: "NCERT Books", icon: BookOpen },
+        { name: "NCERT Solutions", icon: FileCheck },
+        { name: "Formula Booklet", icon: FunctionSquare },
+        { name: "Unit wise question papers", icon: FileText },
+        { name: "Model Board question paper", icon: Award },
       ];
       const timetableClasses = [
         { name: "Class 6", icon: "/cls-6.gif", isGif: true },
@@ -296,7 +296,7 @@ export default function CbsePage() {
                                 <div className="relative p-8 flex flex-col justify-center">
                                     <div className="flex flex-col gap-4 items-center">
                                     {studyMaterials.map((material, index) => {
-                                        const materialLinks = (boardMaterials.CBSE as any)[material] || [];
+                                        const materialLinks = (boardMaterials.CBSE as any)[material.name] || [];
                                         const relevantLink = materialLinks.find((item: any) => item.class.includes(`Class ${activePagination}`));
 
                                         return (
@@ -306,7 +306,8 @@ export default function CbsePage() {
                                                     className="w-full text-black font-bold bg-gradient-to-br from-cyan-200 to-cyan-400 border-white/50 shadow-lg shadow-cyan-500/20 rounded-xl transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 h-[50px]"
                                                     disabled={!relevantLink}
                                                 >
-                                                    {material}
+                                                    <material.icon className="mr-2 h-5 w-5" />
+                                                    {material.name}
                                                 </Button>
                                             </a>
                                         );
