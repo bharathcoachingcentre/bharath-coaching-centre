@@ -279,7 +279,7 @@ export default function CbsePage() {
                     <Card className="relative bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
                         <CardContent className="p-0">
                             <div className="relative h-96 grid grid-cols-2">
-                                <div className="relative p-8 flex flex-col justify-center">
+                                <div className="relative p-8 flex flex-col justify-center items-center">
                                     
                                     <h2 className="text-7xl font-black text-red-500" style={{ fontFamily: 'Impact, sans-serif', textShadow: '2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1)' }}>CLASS</h2>
                                     <div className="relative mt-8" style={{ width: '200px', height: '200px'}}>
