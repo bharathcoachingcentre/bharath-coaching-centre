@@ -461,3 +461,33 @@ color:rgb(27, 157, 243);
         opacity: 0;
     }
 }
+
+.sunbeam-parent::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, transparent 20%, currentColor 22%, transparent 25%);
+  transform-origin: center;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s ease-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.group:hover .sunbeam-parent::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.15;
+  animation: sunbeam 2s infinite linear;
+}
+
+@keyframes sunbeam {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+  }
+}
