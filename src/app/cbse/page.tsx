@@ -159,7 +159,7 @@ export default function CbsePage() {
         "Model Board question paper",
       ];
       const timetableClasses = [
-        { name: "Class 6", icon: Book },
+        { name: "Class 6", icon: "/cls-6.gif", isGif: true },
         { name: "Class 7", icon: Pencil },
         { name: "Class 8", icon: Ruler },
         { name: "Class 9", icon: Calculator },
@@ -224,6 +224,7 @@ export default function CbsePage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-8">
             {timetableClasses.map((item, index) => {
               const isActive = activePagination === Number(item.name.split(' ')[1]);
+              const IconComponent = item.icon;
               return (
                 <Card
                   key={index}
@@ -238,10 +239,14 @@ export default function CbsePage() {
                     isActive ? "bg-white" : cardColors[index % cardColors.length],
                     hoverColors[index % hoverColors.length]
                   )}>
-                    <item.icon className={cn(
-                      "w-8 h-8 transition-all duration-300",
-                      isActive ? "text-black" : iconColors[index % iconColors.length]
-                    )} />
+                    {item.isGif ? (
+                        <Image src={item.icon as string} alt={item.name} width={32} height={32} unoptimized />
+                    ) : (
+                        <IconComponent className={cn(
+                            "w-8 h-8 transition-all duration-300",
+                            isActive ? "text-black" : iconColors[index % iconColors.length]
+                        )} />
+                    )}
                   </div>
                   <p className={cn(
                     "font-bold text-lg",
