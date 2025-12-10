@@ -250,7 +250,7 @@ export default function CbsePage() {
                   )}
                 >
                   <div className={cn(
-                    "flex items-center justify-center h-16 w-16 rounded-full mb-4 transition-all duration-300 relative sunbeam-parent",
+                    "flex items-center justify-center h-16 w-16 rounded-full mb-4 transition-all duration-300 relative sunbeam-parent group-hover:bg-white",
                     isActive ? "bg-white" : cardColors[index % cardColors.length]
                   )}>
                     {item.isGif ? (
