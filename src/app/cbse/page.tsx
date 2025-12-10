@@ -294,7 +294,7 @@ export default function CbsePage() {
                                                 <DialogTrigger asChild>
                                                     <Button
                                                         variant="outline"
-                                                        className="w-full text-black font-bold bg-gradient-to-br from-cyan-200 to-cyan-400 border-white/50 shadow-lg shadow-cyan-500/20 rounded-xl transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
+                                                        className="w-full text-black font-bold bg-gradient-to-br from-cyan-200 to-cyan-400 border-white/50 shadow-lg shadow-cyan-500/20 rounded-xl transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 h-[50px]"
                                                         onClick={() => {
                                                             setDsmSelectedMaterial(material);
                                                             setDsmSelectedBoard(null);
