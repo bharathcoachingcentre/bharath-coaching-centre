@@ -280,69 +280,27 @@ export default function CbsePage() {
                                 </div>
                                 <div className="relative p-8 flex flex-col justify-center">
                                     <div className="flex flex-col gap-4 items-center">
-                                        {studyMaterials.map((material, index) => (
-                                            <Dialog
-                                                key={index}
-                                                open={dsmIsStudyMaterialOpen && dsmSelectedMaterial === material}
-                                                onOpenChange={(isOpen) => {
-                                                    if (!isOpen) {
-                                                        setDsmSelectedMaterial(null);
-                                                        setDsmIsStudyMaterialOpen(false);
-                                                        setDsmSelectedBoard(null);
-                                                        setDsmSelectedClass(null);
-                                                        setDsmSelectedClassPdf(null);
-                                                    }
-                                                }}
-                                            >
-                                                <DialogTrigger asChild>
-                                                    <Button
-                                                        variant="outline"
-                                                        className="w-full text-black font-bold bg-gradient-to-br from-cyan-200 to-cyan-400 border-white/50 shadow-lg shadow-cyan-500/20 rounded-xl transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 h-[50px]"
-                                                        onClick={() => {
-                                                            setDsmSelectedMaterial(material);
-                                                            setDsmIsStudyMaterialOpen(true);
-                                                            setDsmSelectedBoard(null);
-                                                            setDsmSelectedClass(null);
-                                                            setDsmSelectedClassPdf(null);
-                                                        }}
-                                                    >
-                                                        {material}
-                                                    </Button>
-                                                </DialogTrigger>
-                                                <DialogContent className="sm:max-w-lg">
-                                                    <DialogHeader>
-                                                        <DialogTitle className="text-center text-2xl font-bold">
-                                                            {dsmSelectedMaterial}
-                                                        </DialogTitle>
-                                                    </DialogHeader>
-                                                    {!dsmSelectedBoard ? (
-                                                        <div className="flex justify-center gap-4 py-4">
-                                                            <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setDsmSelectedBoard('CBSE')}>CBSE</Button>
-                                                            <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => setDsmSelectedBoard('Samacheer')}>Samacheer</Button>
-                                                        </div>
-                                                    ) : (
-                                                        <div className="py-4">
-                                                            <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
-                                                            <div className="flex flex-wrap items-center justify-center gap-4">
-                                                                {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]
-                                                                    ?.filter((item: any) => item.class.includes(`Class ${activePagination}`) || item.class.includes('PCM') && (activePagination === 11 || activePagination === 12))
-                                                                    .map((item: any, idx: number) => (
-                                                                        <a key={idx} href={item.pdf} download>
-                                                                            <Button
-                                                                                variant="outline"
-                                                                                className="bg-gray-200 text-gray-800"
-                                                                            >
-                                                                                <Download className="mr-2 h-4 w-4" />
-                                                                                {item.class}
-                                                                            </Button>
-                                                                        </a>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </DialogContent>
-                                            </Dialog>
-                                        ))}
+                                    {studyMaterials.map((material, index) => {
+                                        const materialLinks = (boardMaterials.CBSE as any)[material] || [];
+                                        const relevantLink = materialLinks.find((item: any) => {
+                                            if (activePagination >= 9 && activePagination <= 12) {
+                                                return item.class.includes(`Class ${activePagination}`) || item.class.includes('PCM');
+                                            }
+                                            return item.class.includes(`Class ${activePagination}`);
+                                        });
+
+                                        return (
+                                            <a key={index} href={relevantLink?.pdf} download={!!relevantLink} className="w-full">
+                                                <Button
+                                                    variant="outline"
+                                                    className="w-full text-black font-bold bg-gradient-to-br from-cyan-200 to-cyan-400 border-white/50 shadow-lg shadow-cyan-500/20 rounded-xl transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 h-[50px]"
+                                                    disabled={!relevantLink}
+                                                >
+                                                    {material}
+                                                </Button>
+                                            </a>
+                                        );
+                                    })}
                                     </div>
                                 </div>
                             </div>
@@ -541,4 +499,3 @@ export default function CbsePage() {
     </div>
   );
 }
-
