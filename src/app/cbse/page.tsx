@@ -189,13 +189,13 @@ export default function CbsePage() {
       ];
     
       const hoverColors = [
-        'group-hover:bg-blue-200',
-        'group-hover:bg-red-200',
-        'group-hover:bg-green-200',
-        'group-hover:bg-yellow-200',
-        'group-hover:bg-purple-200',
-        'group-hover:bg-pink-200',
-        'group-hover:bg-indigo-200',
+        'group-hover:bg-blue-100/70',
+        'group-hover:bg-red-100/70',
+        'group-hover:bg-green-100/70',
+        'group-hover:bg-yellow-100/70',
+        'group-hover:bg-purple-100/70',
+        'group-hover:bg-pink-100/70',
+        'group-hover:bg-indigo-100/70',
       ];
 
 
@@ -230,14 +230,14 @@ export default function CbsePage() {
                   key={index}
                   onClick={() => setActivePagination(Number(item.name.split(' ')[1]))}
                   className={cn(
-                    "group flex flex-col items-center justify-center p-6 rounded-xl shadow-lg transition-transform duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer",
-                    isActive ? "bg-black text-white" : "bg-white"
+                    "group flex flex-col items-center justify-center p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer",
+                    isActive ? "bg-black text-white" : "bg-white",
+                    hoverColors[index % hoverColors.length]
                   )}
                 >
                   <div className={cn(
                     "flex items-center justify-center h-16 w-16 rounded-full mb-4 transition-all duration-300",
-                    isActive ? "bg-white" : cardColors[index % cardColors.length],
-                    hoverColors[index % hoverColors.length]
+                    isActive ? "bg-white" : cardColors[index % cardColors.length]
                   )}>
                     {item.isGif ? (
                         <Image src={item.icon as string} alt={item.name} width={45} height={45} unoptimized />
