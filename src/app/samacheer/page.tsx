@@ -291,7 +291,7 @@ export default function SamacheerPage() {
                             <div className="relative md:h-96 grid grid-cols-1 md:grid-cols-2">
                                 <div className="relative p-8 flex flex-col justify-center items-center">
                                     <Image src="/book_shapes.png" alt="Book Shapes" width={100} height={100} className="absolute top-4 left-4 animate-pulse" />
-                                    <h2 className="text-7xl font-black text-black" style={{ fontFamily: 'Impact, sans-serif', textShadow: '2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1)' }}>CLASS</h2>
+                                    <h2 className="text-7xl font-black text-black pt-12 md:pt-0" style={{ fontFamily: 'Impact, sans-serif', textShadow: '2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1)' }}>CLASS</h2>
                                     <div className="relative mt-8" style={{ width: '200px', height: '200px'}}>
                                         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute w-full h-full">
                                             <path fill="#3ab0e7" d="M39.6,-53.4C54,-47,70.3,-36.5,75.8,-22.3C81.4,-8.1,76.2,9.8,67.8,24.1C59.3,38.3,47.6,48.8,34.4,56.7C21.2,64.6,6.6,69.9,-8.8,70.5C-24.2,71.1,-40.5,67,-52.3,57.7C-64.1,48.4,-71.4,33.9,-75.6,18.1C-79.9,2.3,-81,-14.8,-74.6,-28.4C-68.2,-42,-54.3,-52,-40.1,-58.5C-25.9,-65,-11.5,-68,3.6,-69.1C18.7,-70.2,37.4,-69.4,39.6,-53.4Z" transform="translate(100 100) scale(1.2)" />
