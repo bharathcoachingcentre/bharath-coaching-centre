@@ -1232,11 +1232,15 @@ export default function Home() {
           <Button size="icon" className="rounded-full bg-purple-200 hover:bg-purple-300 w-12 h-12">
             <Building className="w-6 h-6 text-purple-700" />
           </Button>
-          <Button size="icon" className="rounded-full bg-orange-400 hover:bg-orange-500 w-12 h-12">
-            <Phone className="w-6 h-6 text-white" />
+          <Button asChild size="icon" className="rounded-full bg-orange-400 hover:bg-orange-500 w-12 h-12">
+            <a href="tel:+917200030307">
+              <Phone className="w-6 h-6 text-white" />
+            </a>
           </Button>
-          <Button size="icon" className="rounded-full bg-blue-500 hover:bg-blue-600 w-12 h-12">
-            <Mail className="w-6 h-6 text-white" />
+          <Button asChild size="icon" className="rounded-full bg-blue-500 hover:bg-blue-600 w-12 h-12">
+            <a href="mailto:bcc_try@hotmail.com">
+              <Mail className="w-6 h-6 text-white" />
+            </a>
           </Button>
       </div>
     </div>
