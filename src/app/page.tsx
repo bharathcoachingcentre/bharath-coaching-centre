@@ -111,9 +111,7 @@ export default function Home() {
   const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
   
   const autoplay = React.useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
-  const autoplayPlugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
-  );
+  
 
   React.useEffect(() => {
     setIsClient(true);
@@ -704,7 +702,7 @@ export default function Home() {
       <AnimatedSection className="w-full" id="slider-sec">
         <Carousel
           opts={{ loop: true }}
-          plugins={[autoplayPlugin.current]}
+          plugins={[autoplay.current]}
           className="w-full"
         >
           <CarouselContent>
