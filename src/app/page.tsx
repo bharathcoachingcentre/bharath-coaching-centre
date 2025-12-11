@@ -1229,8 +1229,10 @@ export default function Home() {
       
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
-          <Button size="icon" className="rounded-full bg-purple-200 hover:bg-purple-300 w-12 h-12">
-            <Building className="w-6 h-6 text-purple-700" />
+          <Button asChild size="icon" className="rounded-full bg-purple-200 hover:bg-purple-300 w-12 h-12">
+            <a href="https://maps.app.goo.gl/gUFgpDmZH1xUzhF56" target="_blank" rel="noopener noreferrer">
+                <Building className="w-6 h-6 text-purple-700" />
+            </a>
           </Button>
           <Button asChild size="icon" className="rounded-full bg-orange-400 hover:bg-orange-500 w-12 h-12">
             <a href="tel:+917200030307">
