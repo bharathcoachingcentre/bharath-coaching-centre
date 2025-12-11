@@ -100,7 +100,7 @@ export function Footer() {
                         <MapPin className="h-6 w-6 mt-1 text-muted-foreground"/>
                         <div>
                             <p className="font-semibold">Address</p>
-                            <p className="text-muted-foreground">C-109, 5th Cross, Thillainagar (East), Trichy - 18</p>
+                            <p className="text-muted-foreground">C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18</p>
                         </div>
                     </div>
                 </div>
