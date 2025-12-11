@@ -70,6 +70,21 @@ const modelAndPreviousLinks = [
     { label: "Class 10", href: "/cbse" },
 ];
 
+const samacheerModelAndPreviousLinks = [
+    { label: "Class 12", href: "/samacheer" },
+    { label: "Class 10", href: "/samacheer" },
+];
+
+const samacheerNcertLinks = [
+    { label: "Class 12", href: "/samacheer" },
+    { label: "Class 11", href: "/samacheer" },
+    { label: "Class 10", href: "/samacheer" },
+    { label: "Class 9", href: "/samacheer" },
+    { label: "Class 8", href: "/samacheer" },
+    { label: "Class 7", href: "/samacheer" },
+    { label: "Class 6", href: "/samacheer" },
+];
+
 const cbseStudyLinks = [
     { label: "NCERT Book PDF", nestedLinks: ncertLinks },
     { label: "NCERT Book Back Solution", nestedLinks: ncertLinks },
@@ -79,10 +94,10 @@ const cbseStudyLinks = [
 ];
 
 const samacheerStudyLinks = [
-    { label: "Book Back Solution", nestedLinks: ncertLinks },
-    { label: "Chapterwise Test Question Paper", nestedLinks: ncertLinks },
-    { label: "Model Board Question Paper", nestedLinks: modelAndPreviousLinks },
-    { label: "Previous Year Board Question Paper", nestedLinks: modelAndPreviousLinks },
+    { label: "Book Back Solution", nestedLinks: samacheerNcertLinks },
+    { label: "Chapterwise Test Question Paper", nestedLinks: samacheerNcertLinks },
+    { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
+    { label: "Previous Year Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
 ];
 
 const onlineCbseCourses = [
