@@ -133,45 +133,38 @@ export default function SamacheerPage() {
           ],
         },
         Samacheer: {
-            "NCERT Books": [
+            "Book Back Solution": [
                 { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_ncert.pdf" },
                 { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_ncert.pdf" },
                 { class: "Class 10", pdf: "/pdfs/samacheer_10_ncert.pdf" },
                 { class: "Class 9", pdf: "/pdfs/samacheer_9_ncert.pdf" },
             ],
-            "NCERT Solutions": [
-                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_solutions.pdf" },
-                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_solutions.pdf" },
-                { class: "Class 10", pdf: "/pdfs/samacheer_10_solutions.pdf" },
-                { class: "Class 9", pdf: "/pdfs/samacheer_9_solutions.pdf" },
-            ],
-            "Formula Booklet": [
-                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_formula.pdf" },
-                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_formula.pdf" },
-                { class: "Class 10", pdf: "/pdfs/samacheer_10_formula.pdf" },
-                { class: "Class 9", pdf: "/pdfs/samacheer_9_formula.pdf" },
-            ],
-            "Unit wise question papers": [
+            "Chapter-wise Test Question paper": [
                 { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_unit_questions.pdf" },
                 { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_unit_questions.pdf" },
                 { class: "Class 10", pdf: "/pdfs/samacheer_10_unit_questions.pdf" },
                 { class: "Class 9", pdf: "/pdfs/samacheer_9_unit_questions.pdf" },
             ],
-            "Model Board question paper": [
+            "Model Board Question paper": [
                 { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_model_paper.pdf" },
                 { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_model_paper.pdf" },
                 { class: "Class 10", pdf: "/pdfs/samacheer_10_model_paper.pdf" },
                 { class: "Class 9", pdf: "/pdfs/samacheer_9_model_paper.pdf" },
             ],
+            "Previous Year Board Question Paper": [
+                { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_previous_questions.pdf" },
+                { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_previous_questions.pdf" },
+                { class: "Class 10", pdf: "/pdfs/samacheer_10_previous_questions.pdf" },
+                { class: "Class 9", pdf: "/pdfs/samacheer_9_previous_questions.pdf" },
+            ],
         },
       };
       
       const studyMaterials = [
-        { name: "NCERT Books", icon: BookOpen },
-        { name: "NCERT Solutions", icon: FileCheck },
-        { name: "Formula Booklet", icon: FunctionSquare },
-        { name: "Unit wise question papers", icon: FileText },
-        { name: "Model Board question paper", icon: Award },
+        { name: "Book Back Solution", icon: BookOpen },
+        { name: "Chapter-wise Test Question paper", icon: FileText },
+        { name: "Model Board Question paper", icon: Award },
+        { name: "Previous Year Board Question Paper", icon: FileCheck },
       ];
       const timetableClasses = [
         { name: "Class 6", icon: "/cls-6.gif", isGif: true },
