@@ -31,9 +31,9 @@ export function Footer() {
   ];
 
   const coursesLinks = [
-    { href: "/courses", label: "CBSE" },
-    { href: "/courses", label: "SAMACHEER" },
-    { href: "/courses", label: "ONE to ONE" },
+    { href: "/cbse", label: "CBSE" },
+    { href: "/samacheer", label: "SAMACHEER" },
+    { href: "/one-to-one-classes", label: "ONE to ONE" },
   ];
 
   return (
