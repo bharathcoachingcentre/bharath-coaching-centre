@@ -44,9 +44,9 @@ export function Footer() {
                 <FooterLogo />
             </div>
             <div className="flex flex-col items-center gap-4">
-                <p className="text-lg font-semibold">Get link in sms to download the app</p>
-                <div className="flex items-center gap-2">
-                    <Input type="tel" placeholder="Enter mobile number" className="w-64" />
+                <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
+                <div className="flex w-full md:w-auto items-center gap-2">
+                    <Input type="tel" placeholder="Enter mobile number" className="w-full md:w-64" />
                     <Button>Get the link</Button>
                 </div>
             </div>
@@ -79,7 +79,7 @@ export function Footer() {
                 ))}
                 </ul>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-6 col-span-2 md:col-span-1">
                 <h3 className="text-lg font-semibold">Contact us</h3>
                 <div className="space-y-4 text-sm">
                     <div className="flex items-start gap-3">

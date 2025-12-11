@@ -24,6 +24,13 @@ import {
   DropdownMenuSubContent,
   DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import {
@@ -300,84 +307,72 @@ export function Header() {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
+            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                 <SheetHeader>
                     <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
                 </SheetHeader>
-              <nav className="grid gap-6 text-lg font-medium p-6">
-                  <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
-                      <Logo className="h-8 w-auto" />
-                  </Link>
-                  {navLinks.map((link) => (
-                        <SheetClose asChild key={link.label}>
-                        {'subLinks' in link && link.subLinks ? (
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                className="flex justify-between items-center gap-1 font-medium text-base text-lg text-muted-foreground hover:text-primary w-full"
-                              >
-                                {link.label}
-                                <ChevronDown className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                {(link as any).subLinks.map((subLink: any) => (
-                                    'nestedLinks' in subLink && subLink.nestedLinks ? (
-                                        <DropdownMenuSub key={subLink.label}>
-                                            <DropdownMenuSubTrigger>
-                                                <span>{subLink.label}</span>
-                                            </DropdownMenuSubTrigger>
-                                            <DropdownMenuPortal>
-                                                <DropdownMenuSubContent>
-                                                    {subLink.nestedLinks.map((nestedLink: any) => (
-                                                        'nestedLinks' in nestedLink && nestedLink.nestedLinks ? (
-                                                            <DropdownMenuSub key={nestedLink.label}>
-                                                                <DropdownMenuSubTrigger>
-                                                                    <span>{nestedLink.label}</span>
-                                                                </DropdownMenuSubTrigger>
-                                                                <DropdownMenuPortal>
-                                                                    <DropdownMenuSubContent>
-                                                                        {nestedLink.nestedLinks.map((deepLink: any) => (
-                                                                            <DropdownMenuItem key={deepLink.label} asChild>
-                                                                                <Link href={deepLink.href}>{deepLink.label}</Link>
-                                                                            </DropdownMenuItem>
-                                                                        ))}
-                                                                    </DropdownMenuSubContent>
-                                                                </DropdownMenuPortal>
-                                                            </DropdownMenuSub>
-                                                        ) : (
-                                                            <DropdownMenuItem key={nestedLink.label} asChild>
-                                                                <Link href={nestedLink.href!}>{nestedLink.label}</Link>
-                                                            </DropdownMenuItem>
-                                                        )
-                                                    ))}
-                                                </DropdownMenuSubContent>
-                                            </DropdownMenuPortal>
-                                        </DropdownMenuSub>
-                                    ) : (
-                                        <DropdownMenuItem key={(subLink as any).label} asChild>
-                                            <Link href={(subLink as any).href!}>{(subLink as any).label}</Link>
-                                        </DropdownMenuItem>
-                                    )
-                                ))}
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        ) : (
-                          <NavLink
-                            href={link.href!}
-                            label={link.label}
-                            className="text-muted-foreground hover:text-foreground"
-                          />
-                        )}
-                      </SheetClose>
-                  ))}
-                  <SheetClose asChild>
-                      <Button asChild className="mt-4">
-                          <Link href="/signin">Sign in</Link>
-                      </Button>
-                  </SheetClose>
-              </nav>
+                <div className="p-6">
+                    <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
+                        <Logo className="h-8 w-auto" />
+                    </Link>
+                    <Accordion type="multiple" className="w-full">
+                        {navLinks.map((link) => (
+                            'subLinks' in link ? (
+                                <AccordionItem value={link.label} key={link.label}>
+                                    <AccordionTrigger className="text-base">{link.label}</AccordionTrigger>
+                                    <AccordionContent>
+                                        <Accordion type="multiple" className="w-full pl-4">
+                                            {link.subLinks.map((subLink: any) => (
+                                                'nestedLinks' in subLink ? (
+                                                    <AccordionItem value={`${link.label}-${subLink.label}`} key={subLink.label}>
+                                                        <AccordionTrigger className="text-sm">{subLink.label}</AccordionTrigger>
+                                                        <AccordionContent>
+                                                            <div className="flex flex-col space-y-2 pl-4">
+                                                            {subLink.nestedLinks.map((nestedLink: any) => (
+                                                                'nestedLinks' in nestedLink ? (
+                                                                    <AccordionItem value={`${link.label}-${subLink.label}-${nestedLink.label}`} key={nestedLink.label}>
+                                                                        <AccordionTrigger className="text-xs">{nestedLink.label}</AccordionTrigger>
+                                                                        <AccordionContent>
+                                                                            <div className="flex flex-col space-y-2 pl-4">
+                                                                            {nestedLink.nestedLinks.map((deepLink: any) => (
+                                                                                <SheetClose asChild key={deepLink.label}>
+                                                                                    <Link href={deepLink.href} className="text-muted-foreground hover:text-primary text-xs">{deepLink.label}</Link>
+                                                                                </SheetClose>
+                                                                            ))}
+                                                                            </div>
+                                                                        </AccordionContent>
+                                                                    </AccordionItem>
+                                                                ) : (
+                                                                <SheetClose asChild key={nestedLink.label}>
+                                                                    <Link href={nestedLink.href} className="text-muted-foreground hover:text-primary text-sm">{nestedLink.label}</Link>
+                                                                </SheetClose>
+                                                                )
+                                                            ))}
+                                                            </div>
+                                                        </AccordionContent>
+                                                    </AccordionItem>
+                                                ) : (
+                                                    <SheetClose asChild key={subLink.label}>
+                                                        <Link href={subLink.href} className="block py-2 text-muted-foreground hover:text-primary text-sm">{subLink.label}</Link>
+                                                    </SheetClose>
+                                                )
+                                            ))}
+                                        </Accordion>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ) : (
+                                <SheetClose asChild key={link.label}>
+                                    <Link href={link.href!} className="flex w-full items-center py-4 text-lg font-medium text-muted-foreground hover:text-primary border-b">{link.label}</Link>
+                                </SheetClose>
+                            )
+                        ))}
+                    </Accordion>
+                    <SheetClose asChild>
+                        <Button asChild className="mt-6 w-full">
+                            <Link href="/signin">Sign in</Link>
+                        </Button>
+                    </SheetClose>
+                </div>
             </SheetContent>
           </Sheet>
         </div>
