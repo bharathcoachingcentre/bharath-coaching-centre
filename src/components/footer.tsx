@@ -110,8 +110,8 @@ export function Footer() {
       </div>
       <div className="container mx-auto px-4">
         <Separator />
-        <div className="py-8 text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} Bharath Academy. All rights reserved</p>
+        <div className="py-8 text-center">
+            <p className="text-black text-base">© {new Date().getFullYear()} Bharath Academy. All rights reserved</p>
         </div>
       </div>
     </footer>
