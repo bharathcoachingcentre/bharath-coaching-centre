@@ -283,7 +283,7 @@ export default function CbsePage() {
                 <div className="relative w-full max-w-4xl">
                     <Card className="relative bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
                         <CardContent className="p-0">
-                            <div className="relative h-96 grid grid-cols-2">
+                            <div className="relative md:h-96 grid grid-cols-1 md:grid-cols-2">
                                 <div className="relative p-8 flex flex-col justify-center items-center">
                                     <Image src="/book_shapes.png" alt="Book Shapes" width={100} height={100} className="absolute top-4 left-4 animate-pulse" />
                                     <h2 className="text-7xl font-black text-black" style={{ fontFamily: 'Impact, sans-serif', textShadow: '2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1)' }}>CLASS</h2>
