@@ -273,7 +273,7 @@ export default function CbsePage() {
         </div>
       </section>
 
-      <AnimatedSection className="py-16 md:py-24" style={{ backgroundImage: "url('/bred.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundImage: "url('/bred.png')", backgroundPosition: 'center' }}>
             <div className="container mx-auto flex justify-center">
                 <div className="relative w-full max-w-4xl">
                     <Card className="relative bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
