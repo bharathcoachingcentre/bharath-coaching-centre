@@ -223,7 +223,7 @@ export default function CbsePage() {
     <div>
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
         <Image
-          src="/CBSE_BG.jpg"
+          src="/breadcrumb.jpg"
           alt="CBSE Banner"
           fill
           className="object-cover"
