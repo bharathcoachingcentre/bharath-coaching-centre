@@ -841,7 +841,7 @@ export default function Home() {
             <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {exploreCourses.map((course, index) => (
-                  <div key={index} className="group [perspective:1000px] mt-4 md:mt-0">
+                  <div key={index} className="group [perspective:1000px] mt-4 md:mt-12">
                      <div className="relative w-28 h-28 mx-auto -mb-14 z-10">
                         <div className="relative w-full h-full [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] transition-transform duration-1000">
                             {/* Front Face */}
@@ -1060,8 +1060,8 @@ export default function Home() {
               loop: true,
             }}
           >
-            <div className="flex justify-between items-center mb-12">
-              <div>
+            <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+              <div className="text-center md:text-left mb-8 md:mb-0">
                 <p className="font-semibold text-lg mb-2">What Our Students Say</p>
                 <h2 className="text-3xl font-bold">
                   Students Academic{" "}
@@ -1083,17 +1083,17 @@ export default function Home() {
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                        <div className="col-span-1">
+                        <div className="col-span-1 mx-auto md:mx-0">
                           <Image
                             src={testimonial.image}
                             alt={testimonial.author}
                             width={300}
                             height={400}
-                            className="rounded-lg object-cover w-full h-auto aspect-[3/4]"
+                            className="rounded-lg object-cover w-[250px] h-[300px] md:w-full md:h-auto md:aspect-[3/4]"
                             data-ai-hint={testimonial.imageHint}
                           />
                         </div>
-                        <div className="col-span-2 space-y-4">
+                        <div className="col-span-2 space-y-4 text-center md:text-left">
                           <h3 className="text-2xl font-bold" id="testi-head">
                             {testimonial.company}
                           </h3>
@@ -1110,7 +1110,7 @@ export default function Home() {
                 </CarouselContent>
               </div>
 
-              <div className="md:col-span-1">
+              <div className="md:col-span-1 hidden md:block">
                 <div className="h-[350px] overflow-y-auto no-scrollbar">
                   <div className="flex flex-col items-center justify-center gap-4">
                     {newTestimonials.map((testimonial, index) => (
@@ -1179,12 +1179,12 @@ export default function Home() {
                 alt="Inspired students"
                 width={600}
                 height={400}
-                className="rounded-lg object-contain"
+                className="rounded-lg object-contain w-full h-full"
                 data-ai-hint="happy students"
               />
             </div>
           </div>
-          <div className="flex flex-wrap gap-4 my-12 justify-left" id="inspired-btn">
+          <div className="flex flex-wrap gap-4 my-12 justify-center md:justify-start" id="inspired-btn">
             {resultsFilters.map((filter) => (
                 <Button
                     key={filter}
