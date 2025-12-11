@@ -292,7 +292,7 @@ export default function CbsePage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <Image src="/pen_shapes.png" alt="Pen Shapes" width={60} height={60} className="absolute bottom-12 right-12 animate-spin-slow" />
+                                    <Image src="/pen_shapes.png" alt="Pen Shapes" width={40} height={40} className="absolute bottom-12 right-12 animate-spin-slow" />
                                 </div>
                                 <div className="relative p-8 flex flex-col justify-center">
                                     <div className="flex flex-col gap-4 items-center">
