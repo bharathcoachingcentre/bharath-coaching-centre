@@ -1237,7 +1237,7 @@ export default function Home() {
           </Button>
           <Button size="icon" className="rounded-full bg-[#25D366] hover:bg-[#128C7E] w-12 h-12">
             <div className="relative w-full h-full flex items-center justify-center">
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xmlSpace="preserve" className="w-8 h-8 text-white">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" xmlSpace="preserve" className="w-8 h-8 text-white">
                 <path fill="#fff" d="M36.1,31.2C35.4,34.1,32,36.5,29.8,37.1c-2.3,0.6-5.1,1.1-10.4-3.4c-8.9-7.5-13.9-17.5-14.5-18.4 c-0.6-0.9-5.3-7.9-5.3-15.1c0-7.1,3.4-10.7,5-12.1c1.6-1.4,3.3-1.8,4.7-1.8c0.6,0,1.1,0,1.6,0.1c1,0.1,2.1,0.1,2.9,2 c0.8,1.9,2.9,8.5,3.2,9.2s0.6,1.4-0.3,2.6c-0.9,1.2-2,2.4-2.9,3.5c-0.9,1.1-1.6,2.1-0.9,3.7c0.7,1.6,4.5,7.8,9.3,12.4 c5.8,5.5,10.2,7.2,11.8,7.9c1.6,0.7,3.1-0.2,4.3-1.4c1.2-1.2,2.9-3,3.9-4.9c1-1.9,1.9-1.7,3.5-1c1.6,0.7,10.3,4.9,12,5.7 c1.7,0.8,2.8,1.2,3.1,1.9c0.3,0.7,0.2,2.5-0.3,4.6C37.8,28.8,36.9,30,36.1,31.2z"></path>
               </svg>
             </div>
