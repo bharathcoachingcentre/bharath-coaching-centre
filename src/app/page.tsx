@@ -1050,7 +1050,7 @@ export default function Home() {
         <div className="container mx-auto text-white">
           <Carousel
             setApi={setNewTestimonialApi}
-            plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
+            plugins={[autoplay.current]}
             opts={{
               align: "start",
               containScroll: "keepSnaps",
@@ -1084,9 +1084,9 @@ export default function Home() {
                           <Image
                             src={testimonial.image}
                             alt={testimonial.author}
-                            width={300}
-                            height={350}
-                            className="rounded-lg object-cover w-[250px] h-[300px] md:w-full md:h-[350px]"
+                            width={250}
+                            height={300}
+                            className="rounded-lg object-cover w-[250px] h-[300px] md:w-[250px] md:h-[300px]"
                             data-ai-hint={testimonial.imageHint}
                           />
                         </div>
