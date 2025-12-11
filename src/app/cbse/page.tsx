@@ -213,6 +213,11 @@ export default function CbsePage() {
         'hover:bg-indigo-100/70',
       ];
 
+      const handleClassClick = (classNumber: number) => {
+        setActivePagination(classNumber);
+        document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
+      };
+
 
   return (
     <div>
@@ -242,7 +247,7 @@ export default function CbsePage() {
               return (
                 <Card
                   key={index}
-                  onClick={() => setActivePagination(Number(item.name.split(' ')[1]))}
+                  onClick={() => handleClassClick(Number(item.name.split(' ')[1]))}
                   className={cn(
                     "group flex flex-col items-center justify-center p-6 rounded-xl shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer",
                     isActive ? "bg-black text-white" : "bg-white",
@@ -273,7 +278,7 @@ export default function CbsePage() {
         </div>
       </section>
 
-      <AnimatedSection className="py-16 md:py-24" style={{ backgroundImage: "url('/bred.png')", backgroundPosition: 'center' }}>
+      <AnimatedSection id="study-materials-section" className="py-16 md:py-24" style={{ backgroundImage: "url('/bred.png')", backgroundPosition: 'center' }}>
             <div className="container mx-auto flex justify-center">
                 <div className="relative w-full max-w-4xl">
                     <Card className="relative bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
