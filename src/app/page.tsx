@@ -702,7 +702,7 @@ export default function Home() {
       <AnimatedSection className="w-full" id="slider-sec">
         <Carousel
           opts={{ loop: true }}
-          plugins={[autoplay.current]}
+          plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
           className="w-full"
         >
           <CarouselContent>
@@ -1050,7 +1050,7 @@ export default function Home() {
         <div className="container mx-auto text-white">
           <Carousel
             setApi={setNewTestimonialApi}
-            plugins={[autoplay.current]}
+            plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
             opts={{
               align: "start",
               containScroll: "keepSnaps",
@@ -1085,8 +1085,8 @@ export default function Home() {
                             src={testimonial.image}
                             alt={testimonial.author}
                             width={300}
-                            height={400}
-                            className="rounded-lg object-cover w-[250px] h-[300px] md:w-full md:h-auto md:aspect-[3/4]"
+                            height={350}
+                            className="rounded-lg object-cover w-[250px] h-[300px] md:w-full md:h-[350px]"
                             data-ai-hint={testimonial.imageHint}
                           />
                         </div>
