@@ -549,7 +549,7 @@ export default function Home() {
       company: 'Gayathri',
       quote: 'BCC is an excellent place for learning and overall development,it has the best faculty and infrastructure. Teachers deal with students with great patience and adhere to their slightest doubts. I had an amazing experience here and BCC helped me improve immensely.',
       author: 'B.E. Student',
-      image: '/testi-3.png',
+      image: '/testi-1.png',
       imageHint: 'B.E. Student',
     },
     {
@@ -563,7 +563,7 @@ export default function Home() {
       company: 'Reethika',
       quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       author: 'RJ',
-      image: '/testi-1.png',
+      image: '/testi-3.png',
       imageHint: 'man portrait',
   },
    {
@@ -959,7 +959,7 @@ export default function Home() {
                 />
               </div>
               <div className="md:col-span-7">
-                <h2 className="text-3xl font-bold text-right text-gray-800 mb-6 flex items-center justify-end gap-4">
+                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 flex items-center justify-start md:justify-end gap-4">
                   <Image src="/CBSE.gif" alt="CBSE" width={40} height={40} />
                   CBSE
                 </h2>
@@ -978,7 +978,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <h2 className="text-3xl font-bold text-right text-gray-800 mb-6 mt-8 flex items-center justify-end gap-4">
+                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 mt-8 flex items-center justify-start md:justify-end gap-4">
                   <Image src="/CBSE.gif" alt="SAMACHEER" width={40} height={40} />
                   SAMACHEER
                 </h2>
