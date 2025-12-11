@@ -56,18 +56,18 @@ const samacheerCourses = [
 ];
 
 const ncertLinks = [
-    { label: "Class 12", href: "/free-study-material" },
-    { label: "Class 11", href: "/free-study-material" },
-    { label: "Class 10", href: "/free-study-material" },
-    { label: "Class 9", href: "/free-study-material" },
-    { label: "Class 8", href: "/free-study-material" },
-    { label: "Class 7", href: "/free-study-material" },
-    { label: "Class 6", href: "/free-study-material" },
+    { label: "Class 12", href: "/cbse" },
+    { label: "Class 11", href: "/cbse" },
+    { label: "Class 10", href: "/cbse" },
+    { label: "Class 9", href: "/cbse" },
+    { label: "Class 8", href: "/cbse" },
+    { label: "Class 7", href: "/cbse" },
+    { label: "Class 6", href: "/cbse" },
 ];
 
 const modelAndPreviousLinks = [
-    { label: "Class 12", href: "/free-study-material" },
-    { label: "Class 10", href: "/free-study-material" },
+    { label: "Class 12", href: "/cbse" },
+    { label: "Class 10", href: "/cbse" },
 ];
 
 const cbseStudyLinks = [
