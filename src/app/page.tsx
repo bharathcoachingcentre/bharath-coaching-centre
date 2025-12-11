@@ -841,7 +841,7 @@ export default function Home() {
             <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {exploreCourses.map((course, index) => (
-                  <div key={index} className="group [perspective:1000px]">
+                  <div key={index} className="group [perspective:1000px] mt-4 md:mt-0">
                      <div className="relative w-28 h-28 mx-auto -mb-14 z-10">
                         <div className="relative w-full h-full [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] transition-transform duration-1000">
                             {/* Front Face */}
@@ -1082,7 +1082,7 @@ export default function Home() {
                 <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
-                      <div className="grid grid-cols-3 gap-8 items-center">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
                         <div className="col-span-1">
                           <Image
                             src={testimonial.image}
