@@ -24,7 +24,7 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
     );
 };
 
-export default function StudyMatrialCbsePage() {
+export default function StudyMaterialCbsePage() {
     const [activePagination, setActivePagination] = React.useState(12);
 
     const boardMaterials = {
@@ -87,6 +87,21 @@ export default function StudyMatrialCbsePage() {
 
   return (
     <div>
+      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+        <Image
+          src="/breadcrumb.jpg"
+          alt="CBSE Banner"
+          fill
+          className="object-cover"
+          data-ai-hint="online learning"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 text-center">
+          <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
+            CBSE Study Material
+          </h1>
+        </div>
+      </section>
       <AnimatedSection id="study-materials-section" className="py-16 md:py-24" style={{ backgroundImage: "url('/bred.png')", backgroundPosition: 'center' }}>
             <div className="container mx-auto flex justify-center">
                 <div className="relative w-full max-w-4xl">
