@@ -74,18 +74,16 @@ export default function ContactPage() {
                 <ContactForm />
             </div>
             <div className="relative rounded-lg overflow-hidden min-h-[400px]">
-                <Image 
-                    src="https://picsum.photos/seed/contactForm/800/600"
-                    alt="Contact form background"
-                    fill
-                    className="object-cover"
-                    data-ai-hint="library student"
-                />
-                 <div className="absolute inset-0 bg-black/30"></div>
-                 <div className="relative z-10 p-8 flex flex-col justify-end h-full text-white">
-                     <h3 className="text-2xl font-bold">Connect with Our Experts</h3>
-                     <p className="mt-2">Have a question? Our team is here to help you on your educational journey.</p>
-                 </div>
+              <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.910360346394!2d78.68116331475016!3d10.819779992292208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf58a2333857f%3A0x8849c63675841457!2sBharath%20Coaching%20Centre!5e0!3m2!1sen!2sin!4v1620027964146!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 w-full h-full"
+              ></iframe>
             </div>
           </div>
         </div>
