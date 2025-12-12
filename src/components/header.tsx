@@ -82,14 +82,11 @@ const samacheerModelAndPreviousLinks = [
     { label: "Class 10", href: "/samacheer" },
 ];
 
-const samacheerNcertLinks = [
+const samacheerChapterWiseLinks = [
     { label: "Class 12", href: "/samacheer" },
     { label: "Class 11", href: "/samacheer" },
     { label: "Class 10", href: "/samacheer" },
     { label: "Class 9", href: "/samacheer" },
-    { label: "Class 8", href: "/samacheer" },
-    { label: "Class 7", href: "/samacheer" },
-    { label: "Class 6", href: "/samacheer" },
 ];
 
 const samacheerBookLinks = [
@@ -117,7 +114,7 @@ const cbseStudyLinks = [
 const samacheerStudyLinks = [
     { label: "Samacheer Book", nestedLinks: samacheerBookLinks },
     { label: "Book Back Solution", nestedLinks: samacheerBookBackSolutionLinks },
-    { label: "Chapterwise Test Question Paper", nestedLinks: samacheerNcertLinks },
+    { label: "Chapterwise Test Question Paper", nestedLinks: samacheerChapterWiseLinks },
     { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
     { label: "Previous Year Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
 ];
@@ -396,4 +393,5 @@ export function Header() {
   );
 }
 
+    
     
