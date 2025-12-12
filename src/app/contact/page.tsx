@@ -35,7 +35,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Our Address</h3>
-                  <a href="https://www.google.com/maps/search/?api=1&query=C-109,+5th+Cross,+Thillainagar+(East),+Trichy+-+18" target="_blank" rel="noopener noreferrer" className="text-lg text-muted-foreground mt-1 hover:text-primary">
+                  <a href="https://www.google.com/maps/search/?api=1&query=BHARATH+COACHING+CENTRE+-+C-109,+2nd+Floor+5th+Cross,+Thillainagar+(East+Near+CETHAR+HOSPITALS),+Tamil+Nadu+620018" target="_blank" rel="noopener noreferrer" className="text-lg text-muted-foreground mt-1 hover:text-primary">
                     C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18
                   </a>
                 </div>
@@ -75,7 +75,7 @@ export default function ContactPage() {
             </div>
             <div className="relative rounded-lg overflow-hidden min-h-[400px]">
               <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.910360346394!2d78.68116331475016!3d10.819779992292208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf58a2333857f%3A0x8849c63675841457!2sBharath%20Coaching%20Centre!5e0!3m2!1sen!2sin!4v1620027964146!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.910360346394!2d78.68116331475016!3d10.819779992292208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf58a2333857f%3A0x8849c63675841457!2sBHARATH%20COACHING%20CENTRE!5e0!3m2!1sen!2sin!4v1620027964146!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
