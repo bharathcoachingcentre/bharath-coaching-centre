@@ -8,7 +8,7 @@ import { X, Download, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import Link from "next/link";
 
 const AnimatedSection = ({ children, className, id, style }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
@@ -49,14 +49,6 @@ export default function SamacheerClass7Page() {
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
-    // State for the "Download Study Material" section
-    const [dsmIsStudyMaterialOpen, setDsmIsStudyMaterialOpen] = React.useState(false);
-    const [dsmSelectedMaterial, setDsmSelectedMaterial] = React.useState<string | null>(null);
-    const [dsmShowDownloadOptions, setDsmShowDownloadOptions] = React.useState(false);
-    const [dsmSelectedBoard, setDsmSelectedBoard] = React.useState<string | null>(null);
-    const [dsmSelectedClass, setDsmSelectedClass] = React.useState<string | null>(null);
-    const [dsmSelectedClassPdf, setDsmSelectedClassPdf] = React.useState<string | null>(null);
-
     const benefits = [
         "18+ years experienced faculties specialized in each subjects.",
         "Weekly tests",
@@ -79,63 +71,6 @@ export default function SamacheerClass7Page() {
             { class: "Class 7", pdf: "/pdfs/timetable_samacheer_7.pdf" },
             { class: "Class 6", pdf: "/pdfs/timetable_samacheer_6.pdf" },
         ]
-      };
-
-      const boardMaterials = {
-        CBSE: {
-          "NCERT Books": [
-            { class: "Class 8", pdf: "/pdfs/cbse_8_ncert.pdf" },
-            { class: "Class 7", pdf: "/pdfs/cbse_7_ncert.pdf" },
-            { class: "Class 6", pdf: "/pdfs/cbse_6_ncert.pdf" },
-          ],
-          "NCERT Solutions": [
-            { class: "Class 8", pdf: "/pdfs/cbse_8_solutions.pdf" },
-            { class: "Class 7", pdf: "/pdfs/cbse_7_solutions.pdf" },
-            { class: "Class 6", pdf: "/pdfs/cbse_6_solutions.pdf" },
-          ],
-          "Formula Booklet": [
-            { class: "Class 8", pdf: "/pdfs/cbse_8_formula.pdf" },
-            { class: "Class 7", pdf: "/pdfs/cbse_7_formula.pdf" },
-            { class: "Class 6", pdf: "/pdfs/cbse_6_formula.pdf" },
-          ],
-          "Unit wise question papers": [
-            { class: "Class 8", pdf: "/pdfs/cbse_8_unit_questions.pdf" },
-            { class: "Class 7", pdf: "/pdfs/cbse_7_unit_questions.pdf" },
-            { class: "Class 6", pdf: "/pdfs/cbse_6_unit_questions.pdf" },
-          ],
-          "Model Board question paper": [
-            { class: "Class 8", pdf: "/pdfs/cbse_8_model_paper.pdf" },
-            { class: "Class 7", pdf: "/pdfs/cbse_7_model_paper.pdf" },
-            { class: "Class 6", pdf: "/pdfs/cbse_6_model_paper.pdf" },
-          ],
-        },
-        Samacheer: {
-            "NCERT Books": [
-                { class: "Class 8", pdf: "/pdfs/samacheer_8_ncert.pdf" },
-                { class: "Class 7", pdf: "/pdfs/samacheer_7_ncert.pdf" },
-                { class: "Class 6", pdf: "/pdfs/samacheer_6_ncert.pdf" },
-            ],
-            "NCERT Solutions": [
-                { class: "Class 8", pdf: "/pdfs/samacheer_8_solutions.pdf" },
-                { class: "Class 7", pdf: "/pdfs/samacheer_7_solutions.pdf" },
-                { class: "Class 6", pdf: "/pdfs/samacheer_6_solutions.pdf" },
-            ],
-            "Formula Booklet": [
-                { class: "Class 8", pdf: "/pdfs/samacheer_8_formula.pdf" },
-                { class: "Class 7", pdf: "/pdfs/samacheer_7_formula.pdf" },
-                { class: "Class 6", pdf: "/pdfs/samacheer_6_formula.pdf" },
-            ],
-            "Unit wise question papers": [
-                { class: "Class 8", pdf: "/pdfs/samacheer_8_unit_questions.pdf" },
-                { class: "Class 7", pdf: "/pdfs/samacheer_7_unit_questions.pdf" },
-                { class: "Class 6", pdf: "/pdfs/samacheer_6_unit_questions.pdf" },
-            ],
-            "Model Board question paper": [
-                { class: "Class 8", pdf: "/pdfs/samacheer_8_model_paper.pdf" },
-                { class: "Class 7", pdf: "/pdfs/samacheer_7_model_paper.pdf" },
-                { class: "Class 6", pdf: "/pdfs/samacheer_6_model_paper.pdf" },
-            ],
-        },
       };
       
       const studyMaterials = [
@@ -259,82 +194,16 @@ export default function SamacheerClass7Page() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
                  <div className="flex flex-wrap gap-4">
                     {studyMaterials.map((material, index) => (
-                        <Dialog 
-                            key={index}
-                            open={dsmIsStudyMaterialOpen && dsmSelectedMaterial === material} 
-                            onOpenChange={(isOpen) => {
-                                if (!isOpen) {
-                                    setDsmSelectedMaterial(null);
-                                    setDsmIsStudyMaterialOpen(false);
-                                }
-                            }}
-                        >
-                            <DialogTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
-                                    onClick={() => {
-                                        setDsmSelectedMaterial(material);
-                                        setDsmSelectedBoard(null);
-                                        setDsmSelectedClass(null);
-                                        setDsmSelectedClassPdf(null);
-                                        setDsmShowDownloadOptions(false);
-                                        setDsmIsStudyMaterialOpen(true);
-                                    }}
-                                >
-                                    {material}
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-lg">
-                            <DialogHeader>
-                                <DialogTitle className="text-center text-2xl font-bold">
-                                    Select Board
-                                </DialogTitle>
-                            </DialogHeader>
-                                <div className="flex justify-center gap-4 py-4">
-                                    <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => {
-                                      setDsmSelectedBoard('CBSE'); 
-                                      setDsmShowDownloadOptions(true); 
-                                      setDsmIsStudyMaterialOpen(false);
-                                    }}>CBSE</Button>
-                                    <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => {
-                                      setDsmSelectedBoard('Samacheer');
-                                      setDsmShowDownloadOptions(true); 
-                                      setDsmIsStudyMaterialOpen(false);
-                                    }}>Samacheer</Button>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                        <Link href="/cbse" key={index}>
+                            <Button
+                                variant="outline"
+                                className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
+                            >
+                                {material}
+                            </Button>
+                        </Link>
                     ))}
                 </div>
-                {dsmShowDownloadOptions && dsmSelectedBoard && dsmSelectedMaterial && (
-                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmShowDownloadOptions(false)}>
-                            <X className="h-5 w-5" />
-                        </Button>
-                        <h3 className="text-xl font-bold text-center mb-4 text-gray-800">{dsmSelectedMaterial} - {dsmSelectedBoard}</h3>
-                        <div className="flex flex-wrap items-center justify-center gap-4">
-                            {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[dsmSelectedMaterial!]?.map((item: any, idx: number) => (
-                                <Button
-                                    key={idx}
-                                    variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
-                                    className="bg-gray-200 text-gray-800"
-                                    onClick={() => {
-                                        setDsmSelectedClass(item.class);
-                                        setDsmSelectedClassPdf(item.pdf);
-                                    }}
-                                >
-                                    {item.class}
-                                </Button>
-                            ))}
-                            <Button asChild disabled={!dsmSelectedClassPdf}>
-                                <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
-                                    <Download className="mr-2 h-4 w-4" /> Download
-                                </a>
-                            </Button>
-                        </div>
-                    </div>
-                )}
               </div>
               <div className="h-64 md:h-full md:col-span-2 relative">
                 <Image
