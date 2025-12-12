@@ -1,4 +1,6 @@
 
+'use client';
+
 import { ContactForm } from "@/components/contact-form";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
@@ -26,28 +28,31 @@ export default function ContactPage() {
             <h2 className="text-4xl font-bold font-serif text-gray-800">With Bharath Academy</h2>
           </div>
           <div className="border-t border-gray-200 pt-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-              <div className="flex flex-col items-center">
-                <div className="flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4">
-                  <MapPin className="h-10 w-10" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+              <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
+                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0">
+                  <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-in-out"></div>
+                  <MapPin className="h-10 w-10 relative" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Our Address</h3>
                   <p className="text-lg text-muted-foreground mt-1">123 Education Lane, Knowledge City, 12345</p>
                 </div>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4">
-                  <Mail className="h-10 w-10" />
+              <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
+                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0">
+                  <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-in-out"></div>
+                  <Mail className="h-10 w-10 relative" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Email Us</h3>
                   <p className="text-lg text-muted-foreground mt-1">contact@bharathacademy.com</p>
                 </div>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4">
-                  <Phone className="h-10 w-10" />
+              <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
+                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0">
+                   <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-in-out"></div>
+                  <Phone className="h-10 w-10 relative" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Call Us</h3>
