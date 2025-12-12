@@ -92,6 +92,13 @@ const samacheerNcertLinks = [
     { label: "Class 6", href: "/samacheer" },
 ];
 
+const samacheerBookLinks = [
+    { label: "Class 12", href: "/samacheer" },
+    { label: "Class 11", href: "/samacheer" },
+    { label: "Class 10", href: "/samacheer" },
+    { label: "Class 9", href: "/samacheer" },
+];
+
 const cbseStudyLinks = [
     { label: "NCERT Book PDF", nestedLinks: ncertLinks },
     { label: "NCERT Book Back Solution", nestedLinks: ncertLinks },
@@ -101,7 +108,7 @@ const cbseStudyLinks = [
 ];
 
 const samacheerStudyLinks = [
-    { label: "Samacheer Book", nestedLinks: samacheerNcertLinks },
+    { label: "Samacheer Book", nestedLinks: samacheerBookLinks },
     { label: "Book Back Solution", nestedLinks: samacheerNcertLinks },
     { label: "Chapterwise Test Question Paper", nestedLinks: samacheerNcertLinks },
     { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
