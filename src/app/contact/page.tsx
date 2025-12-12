@@ -33,7 +33,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Our Address</h3>
-                  <p className="text-muted-foreground mt-1">123 Education Lane, Knowledge City, 12345</p>
+                  <p className="text-lg text-muted-foreground mt-1">123 Education Lane, Knowledge City, 12345</p>
                 </div>
               </div>
               <div className="flex flex-col items-center">
@@ -42,7 +42,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Email Us</h3>
-                  <p className="text-muted-foreground mt-1">contact@bharathacademy.com</p>
+                  <p className="text-lg text-muted-foreground mt-1">contact@bharathacademy.com</p>
                 </div>
               </div>
               <div className="flex flex-col items-center">
@@ -51,7 +51,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Call Us</h3>
-                  <p className="text-muted-foreground mt-1">(123) 456-7890</p>
+                  <p className="text-lg text-muted-foreground mt-1">(123) 456-7890</p>
                 </div>
               </div>
             </div>
@@ -60,14 +60,13 @@ export default function ContactPage() {
       </section>
       <div className="py-12 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-                We'd love to hear from you. Please fill out the form below or reach out to us through our contact details.
-            </p>
-          </div>
+          
           <div className="grid gap-12 md:grid-cols-2">
             <div className="bg-card p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
+                <h2 className="text-2xl font-bold mb-2">Send us a message</h2>
+                 <p className="mx-auto max-w-2xl text-lg text-muted-foreground mb-6">
+                    We'd love to hear from you. Please fill out the form below or reach out to us through our contact details.
+                </p>
                 <ContactForm />
             </div>
             <div className="relative rounded-lg overflow-hidden min-h-[400px]">
