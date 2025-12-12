@@ -76,11 +76,11 @@ export default function CbseClass9Page() {
       };
       
       const studyMaterials = [
-        "NCERT Books",
-        "NCERT Solutions",
-        "Formula Booklet",
-        "Unit wise question papers",
-        "Model Board question paper",
+        { name: "NCERT Books", pdf: "/pdfs/cbse_9_ncert.pdf" },
+        { name: "NCERT Solutions", pdf: "/pdfs/cbse_9_solutions.pdf" },
+        { name: "Formula Booklet", pdf: "/pdfs/cbse_9_formula.pdf" },
+        { name: "Unit wise question papers", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
+        { name: "Model Board question paper", pdf: "/pdfs/cbse_9_model_paper.pdf" },
       ];
 
   return (
@@ -88,7 +88,7 @@ export default function CbseClass9Page() {
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
         <Image
           src="/Online-Course.jpg"
-          alt="CBSE Class 9 Banner"
+          alt="CBSE 9th Grade Banner"
           fill
           className="object-cover"
           data-ai-hint="online learning"
@@ -96,7 +96,7 @@ export default function CbseClass9Page() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
-            CBSE Class 9
+            CBSE 9th Grade
           </h1>
         </div>
       </section>
@@ -196,14 +196,14 @@ export default function CbseClass9Page() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
                  <div className="flex flex-wrap gap-4">
                     {studyMaterials.map((material, index) => (
-                        <Link href="/cbse" key={index}>
+                        <a href={material.pdf} download key={index}>
                             <Button
                                 variant="outline"
                                 className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
                             >
-                                {material}
+                                {material.name}
                             </Button>
-                        </Link>
+                        </a>
                     ))}
                 </div>
               </div>
