@@ -74,11 +74,11 @@ export default function CbseClass7Page() {
       };
       
       const studyMaterials = [
-        "NCERT Books",
-        "NCERT Solutions",
-        "Formula Booklet",
-        "Unit wise question papers",
-        "Model Board question paper",
+        { name: "NCERT Books", pdf: "/pdfs/cbse_7_ncert.pdf" },
+        { name: "NCERT Solutions", pdf: "/pdfs/cbse_7_solutions.pdf" },
+        { name: "Formula Booklet", pdf: "/pdfs/cbse_7_formula.pdf" },
+        { name: "Unit wise question papers", pdf: "/pdfs/cbse_7_unit_questions.pdf" },
+        { name: "Model Board question paper", pdf: "/pdfs/cbse_7_model_paper.pdf" },
       ];
 
   return (
@@ -194,14 +194,14 @@ export default function CbseClass7Page() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
                  <div className="flex flex-wrap gap-4">
                     {studyMaterials.map((material, index) => (
-                        <Link href="/cbse" key={index}>
+                        <a href={material.pdf} download key={index}>
                             <Button
                                 variant="outline"
                                 className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
                             >
-                                {material}
+                                {material.name}
                             </Button>
-                        </Link>
+                        </a>
                     ))}
                 </div>
               </div>
