@@ -30,8 +30,7 @@ export default function ContactPage() {
           <div className="border-t border-gray-200 pt-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left justify-center">
               <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
-                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0">
-                  <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-in-out"></div>
+                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-colors duration-300 hover:bg-[#45b4e8] hover:text-white hover:border-[#45b4e8]">
                   <MapPin className="h-10 w-10 relative" />
                 </div>
                 <div>
@@ -40,8 +39,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
-                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0">
-                  <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-in-out"></div>
+                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-colors duration-300 hover:bg-[#45b4e8] hover:text-white hover:border-[#45b4e8]">
                   <Mail className="h-10 w-10 relative" />
                 </div>
                 <div>
@@ -50,8 +48,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
-                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0">
-                   <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-in-out"></div>
+                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-colors duration-300 hover:bg-[#45b4e8] hover:text-white hover:border-[#45b4e8]">
                   <Phone className="h-10 w-10 relative" />
                 </div>
                 <div>
