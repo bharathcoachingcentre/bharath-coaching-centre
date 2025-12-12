@@ -112,9 +112,33 @@ const cbseStudyLinks = [
 ];
 
 const samacheerStudyLinks = [
-    { label: "Samacheer Book", nestedLinks: samacheerBookLinks },
-    { label: "Book Back Solution", nestedLinks: samacheerBookBackSolutionLinks },
-    { label: "Chapterwise Test Question Paper", nestedLinks: samacheerChapterWiseLinks },
+    {
+      label: "Samacheer Book",
+      nestedLinks: [
+        { label: "Class 12", href: "/samacheer" },
+        { label: "Class 11", href: "/samacheer" },
+        { label: "Class 10", href: "/samacheer" },
+        { label: "Class 9", href: "/samacheer" },
+      ]
+    },
+    {
+      label: "Book Back Solution",
+      nestedLinks: [
+        { label: "Class 12", href: "/samacheer" },
+        { label: "Class 11", href: "/samacheer" },
+        { label: "Class 10", href: "/samacheer" },
+        { label: "Class 9", href: "/samacheer" },
+      ]
+    },
+    {
+      label: "Chapterwise Test Question Paper",
+      nestedLinks: [
+        { label: "Class 12", href: "/samacheer" },
+        { label: "Class 11", href: "/samacheer" },
+        { label: "Class 10", href: "/samacheer" },
+        { label: "Class 9", href: "/samacheer" },
+      ]
+    },
     { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
     { label: "Previous Year Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
 ];
@@ -134,10 +158,10 @@ const onlineSamacheerCourses = [
 ];
 
 const oneToOneCourses = [
-    { label: "Class 12", href: "/courses/1-to-1-12th-grade" },
-    { label: "Class 11", href: "/courses/1-to-1-11th-grade" },
-    { label: "Class 10", href: "/courses/1-to-1-10th-grade" },
-    { label: "Class 9", href: "/courses/1-to-1-9th-grade" },
+    { label: "Class 12", href: "/courses/one-to-one-12th-grade" },
+    { label: "Class 11", href: "/courses/one-to-one-11th-grade" },
+    { label: "Class 10", href: "/courses/one-to-one-10th-grade" },
+    { label: "Class 9", href: "/courses/one-to-one-9th-grade" },
 ];
 
 const navLinks = [
@@ -392,6 +416,3 @@ export function Header() {
     </header>
   );
 }
-
-    
-    
