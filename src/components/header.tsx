@@ -101,6 +101,7 @@ const cbseStudyLinks = [
 ];
 
 const samacheerStudyLinks = [
+    { label: "Samacheer Book", nestedLinks: samacheerNcertLinks },
     { label: "Book Back Solution", nestedLinks: samacheerNcertLinks },
     { label: "Chapterwise Test Question Paper", nestedLinks: samacheerNcertLinks },
     { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
