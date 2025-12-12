@@ -35,7 +35,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Our Address</h3>
-                  <p className="text-lg text-muted-foreground mt-1">C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18</p>
+                  <a href="https://www.google.com/maps/search/?api=1&query=C-109,+5th+Cross,+Thillainagar+(East),+Trichy+-+18" target="_blank" rel="noopener noreferrer" className="text-lg text-muted-foreground mt-1 hover:text-primary">
+                    C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18
+                  </a>
                 </div>
               </div>
               <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
