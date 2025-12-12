@@ -57,7 +57,7 @@ export default function SamacheerClass12PcmPage() {
         "Quick evaluation",
         "Term based parents' meeting",
         "Specialized study materials.",
-        "Previous year ques. paper discussion",
+        "Previous year question paper discussion",
       ];
     
       const timetablePdfs = {
