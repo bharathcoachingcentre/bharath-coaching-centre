@@ -28,7 +28,7 @@ export default function ContactPage() {
             <h2 className="text-4xl font-bold font-serif text-gray-800">With Bharath Academy</h2>
           </div>
           <div className="border-t border-gray-200 pt-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left justify-center">
               <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
                 <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0">
                   <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-in-out"></div>
