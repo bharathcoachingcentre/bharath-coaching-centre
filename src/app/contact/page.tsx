@@ -19,13 +19,6 @@ export default function ContactPage() {
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">Contact</h1>
         </div>
       </section>
-      <section className="py-12 bg-gray-50 text-center">
-        <div className="container mx-auto px-4">
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            We'd love to hear from you. Please fill out the form below or reach out to us through our contact details.
-          </p>
-        </div>
-      </section>
        <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -67,6 +60,11 @@ export default function ContactPage() {
       </section>
       <div className="py-12 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+                We'd love to hear from you. Please fill out the form below or reach out to us through our contact details.
+            </p>
+          </div>
           <div className="grid gap-12 md:grid-cols-2">
             <div className="bg-card p-8 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
