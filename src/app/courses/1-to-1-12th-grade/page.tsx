@@ -96,7 +96,7 @@ export default function OneToOne12thGradePage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
-            1 to 1 12th Grade
+            One to One 12th Grade
           </h1>
         </div>
       </section>
