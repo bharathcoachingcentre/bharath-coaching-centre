@@ -50,12 +50,12 @@ export default function Cbse9thGradePage() {
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
     const benefits = [
-        "18+ years experienced faculties specialized in each subjects.",
-        "Weekly tests",
+        "18+ years experienced faculties specialized in each subject.",
+        "Weekly tests.",
         "25% & 50% portion tests.",
         "Full mock tests.",
-        "Quick evaluation",
-        "Term based parents' meeting",
+        "Quick evaluation.",
+        "Term-based parents’ meeting.",
         "Specialized study materials.",
         "Previous year question paper discussion",
       ];
