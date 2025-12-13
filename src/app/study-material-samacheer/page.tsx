@@ -125,9 +125,7 @@ export default function StudyMaterialSamacheerPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">
-          <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
-            Samacheer Study Material
-          </h1>
+          
         </div>
       </section>
 
