@@ -34,6 +34,25 @@ export default function Samacheer12thCompartmentPage() {
         { name: "Unit wise question papers", pdf: "/pdfs/samacheer_12_pcm_unit_questions.pdf" },
         { name: "Model Board question paper", pdf: "/pdfs/samacheer_12_pcm_model_paper.pdf" },
       ];
+
+      const benefits = [
+        "Daily test",
+        "Unit-wise test",
+        "Full mock test",
+        "Quick evaluation",
+        "Parents’ meeting",
+        "Specialized study material"
+      ];
+      
+      const benefitIcons = {
+        "Daily test": Clipboard,
+        "Unit-wise test": Edit,
+        "Full mock test": FileText,
+        "Quick evaluation": CheckCircle,
+        "Parents’ meeting": UserCheck,
+        "Specialized study material": BookCopy
+      };
+      
   return (
     <div>
       <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
@@ -62,61 +81,20 @@ export default function Samacheer12thCompartmentPage() {
               </div>
               <h2 className="text-4xl font-bold">Benefits</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-12 md:col-span-3">
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
-                    <Clipboard className="w-6 h-6 text-white" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-12 md:col-span-3">
+              {benefits.map((benefit, index) => {
+                const Icon = benefitIcons[benefit as keyof typeof benefitIcons] || Star;
+                return (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold">{benefit}</h3>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">Daily test</h3>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
-                    <Edit className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">Unit wise test</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
-                    <FileText className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">Full mock test</h3>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
-                    <CheckCircle className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">Quick evaluation</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
-                    <UserCheck className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">Parents' meeting</h3>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
-                    <BookCopy className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">Specialized study material</h3>
-                  </div>
-                </div>
-              </div>
+                )
+              })}
             </div>
           </div>
         </div>
