@@ -53,14 +53,17 @@ export default function StudyMaterialSamacheerPage() {
 
     useEffect(() => {
         const classParam = searchParams.get('class');
+        const materialParam = searchParams.get('material');
         if (classParam && !isNaN(Number(classParam))) {
             const classNumber = Number(classParam);
             if(classNumber >= 6 && classNumber <= 12) {
                 setActivePagination(classNumber);
-                setTimeout(() => {
-                    studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
             }
+        }
+        if (classParam || materialParam) {
+            setTimeout(() => {
+                studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
     }, [searchParams]);
 
