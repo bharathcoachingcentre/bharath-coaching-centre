@@ -50,7 +50,7 @@ export default function OneToOne9thGradePage() {
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
     const benefits = [
-        "18+ years experienced faculties specialized in each subject.",
+        "18+ years experienced faculties specialized in each subjects.",
         "Weekly tests.",
         "25% & 50% portion tests.",
         "Full mock tests.",
