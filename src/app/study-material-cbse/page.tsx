@@ -1,13 +1,14 @@
 
 'use client';
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { BookOpen, FileCheck, FunctionSquare, FileText, Award } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { useSearchParams } from "next/navigation";
 
 const AnimatedSection = ({ children, className, id, style }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
@@ -25,7 +26,18 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
 };
 
 export default function StudyMaterialCbsePage() {
+    const searchParams = useSearchParams();
     const [activePagination, setActivePagination] = React.useState(12);
+
+    useEffect(() => {
+        const classParam = searchParams.get('class');
+        if (classParam && !isNaN(Number(classParam))) {
+            const classNumber = Number(classParam);
+            if(classNumber >= 6 && classNumber <= 12) {
+                setActivePagination(classNumber);
+            }
+        }
+    }, [searchParams]);
 
     const boardMaterials = {
         CBSE: {

@@ -63,44 +63,44 @@ const samacheerCourses = [
 ];
 
 const ncertLinks = [
-    { label: "Class 12", href: "/cbse" },
-    { label: "Class 11", href: "/cbse" },
-    { label: "Class 10", href: "/cbse" },
-    { label: "Class 9", href: "/cbse" },
-    { label: "Class 8", href: "/cbse" },
-    { label: "Class 7", href: "/cbse" },
-    { label: "Class 6", href: "/cbse" },
+    { label: "Class 12", href: "/study-material-cbse?class=12" },
+    { label: "Class 11", href: "/study-material-cbse?class=11" },
+    { label: "Class 10", href: "/study-material-cbse?class=10" },
+    { label: "Class 9", href: "/study-material-cbse?class=9" },
+    { label: "Class 8", href: "/study-material-cbse?class=8" },
+    { label: "Class 7", href: "/study-material-cbse?class=7" },
+    { label: "Class 6", href: "/study-material-cbse?class=6" },
 ];
 
 const modelAndPreviousLinks = [
-    { label: "Class 12", href: "/cbse" },
-    { label: "Class 10", href: "/cbse" },
+    { label: "Class 12", href: "/study-material-cbse?class=12" },
+    { label: "Class 10", href: "/study-material-cbse?class=10" },
 ];
 
 const samacheerModelAndPreviousLinks = [
-    { label: "Class 12", href: "/samacheer" },
-    { label: "Class 10", href: "/samacheer" },
+    { label: "Class 12", href: "/samacheer?class=12" },
+    { label: "Class 10", href: "/samacheer?class=10" },
 ];
 
 const samacheerChapterWiseLinks = [
-    { label: "Class 12", href: "/samacheer" },
-    { label: "Class 11", href: "/samacheer" },
-    { label: "Class 10", href: "/samacheer" },
-    { label: "Class 9", href: "/samacheer" },
+    { label: "Class 12", href: "/samacheer?class=12" },
+    { label: "Class 11", href: "/samacheer?class=11" },
+    { label: "Class 10", href: "/samacheer?class=10" },
+    { label: "Class 9", href: "/samacheer?class=9" },
 ];
 
 const samacheerBookLinks = [
-    { label: "Class 12", href: "/samacheer" },
-    { label: "Class 11", href: "/samacheer" },
-    { label: "Class 10", href: "/samacheer" },
-    { label: "Class 9", href: "/samacheer" },
+    { label: "Class 12", href: "/samacheer?class=12" },
+    { label: "Class 11", href: "/samacheer?class=11" },
+    { label: "Class 10", href: "/samacheer?class=10" },
+    { label: "Class 9", href: "/samacheer?class=9" },
 ];
 
 const samacheerBookBackSolutionLinks = [
-    { label: "Class 12", href: "/samacheer" },
-    { label: "Class 11", href: "/samacheer" },
-    { label: "Class 10", href: "/samacheer" },
-    { label: "Class 9", href: "/samacheer" },
+    { label: "Class 12", href: "/samacheer?class=12" },
+    { label: "Class 11", href: "/samacheer?class=11" },
+    { label: "Class 10", href: "/samacheer?class=10" },
+    { label: "Class 9", href: "/samacheer?class=9" },
 ];
 
 const cbseStudyLinks = [
@@ -115,28 +115,28 @@ const samacheerStudyLinks = [
     {
       label: "Samacheer Book",
       nestedLinks: [
-        { label: "Class 12", href: "/samacheer" },
-        { label: "Class 11", href: "/samacheer" },
-        { label: "Class 10", href: "/samacheer" },
-        { label: "Class 9", href: "/samacheer" },
+        { label: "Class 12", href: "/samacheer?class=12" },
+        { label: "Class 11", href: "/samacheer?class=11" },
+        { label: "Class 10", href: "/samacheer?class=10" },
+        { label: "Class 9", href: "/samacheer?class=9" },
       ]
     },
     {
       label: "Book Back Solution",
       nestedLinks: [
-        { label: "Class 12", href: "/samacheer" },
-        { label: "Class 11", href: "/samacheer" },
-        { label: "Class 10", href: "/samacheer" },
-        { label: "Class 9", href: "/samacheer" },
+        { label: "Class 12", href: "/samacheer?class=12" },
+        { label: "Class 11", href: "/samacheer?class=11" },
+        { label: "Class 10", href: "/samacheer?class=10" },
+        { label: "Class 9", href: "/samacheer?class=9" },
       ]
     },
     {
       label: "Chapterwise Test Question Paper",
       nestedLinks: [
-        { label: "Class 12", href: "/samacheer" },
-        { label: "Class 11", href: "/samacheer" },
-        { label: "Class 10", href: "/samacheer" },
-        { label: "Class 9", href: "/samacheer" },
+        { label: "Class 12", href: "/samacheer?class=12" },
+        { label: "Class 11", href: "/samacheer?class=11" },
+        { label: "Class 10", href: "/samacheer?class=10" },
+        { label: "Class 9", href: "/samacheer?class=9" },
       ]
     },
     { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks },
