@@ -50,14 +50,11 @@ export default function SamacheerClass8Page() {
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
     const benefits = [
-        "18+ years experienced faculties specialized in each subjects.",
+        "5+ years experienced faculties",
         "Weekly tests",
-        "25% & 50% portion tests.",
-        "Full mock tests.",
         "Quick evaluation",
-        "Term based parents' meeting",
-        "Specialized study materials.",
-        "Previous year question paper discussion",
+        "Term-based parents’ meeting",
+        "Specialized study materials",
       ];
     
       const timetablePdfs = {
