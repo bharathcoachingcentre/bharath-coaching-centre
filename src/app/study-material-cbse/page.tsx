@@ -28,9 +28,7 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
 export default function StudyMaterialCbsePage() {
     const searchParams = useSearchParams();
     const [activePagination, setActivePagination] = React.useState(12);
-    const [showBanner, setShowBanner] = React.useState(true);
     const studyMaterialSectionRef = useRef<HTMLDivElement>(null);
-
 
     useEffect(() => {
         const classParam = searchParams.get('class');
@@ -38,13 +36,10 @@ export default function StudyMaterialCbsePage() {
             const classNumber = Number(classParam);
             if(classNumber >= 6 && classNumber <= 12) {
                 setActivePagination(classNumber);
-                setShowBanner(false);
                 setTimeout(() => {
                     studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
             }
-        } else {
-            setShowBanner(true);
         }
     }, [searchParams]);
 
@@ -108,7 +103,7 @@ export default function StudyMaterialCbsePage() {
 
   return (
     <div>
-      {showBanner && (
+      
         <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
           <Image
             src="/breadcrumb.jpg"
@@ -124,7 +119,7 @@ export default function StudyMaterialCbsePage() {
             </h1>
           </div>
         </section>
-      )}
+      
       <div ref={studyMaterialSectionRef}>
         <AnimatedSection id="study-materials-section" className="py-16 md:py-24" style={{ backgroundImage: "url('/bred.png')", backgroundPosition: 'center' }}>
               <div className="container mx-auto flex justify-center">
