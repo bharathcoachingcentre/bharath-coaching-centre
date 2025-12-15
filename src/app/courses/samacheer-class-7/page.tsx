@@ -71,11 +71,11 @@ export default function SamacheerClass7Page() {
       };
       
       const studyMaterials = [
-        { name: "NCERT Books", pdf: "/pdfs/samacheer_7_ncert.pdf" },
-        { name: "NCERT Solutions", pdf: "/pdfs/samacheer_7_solutions.pdf" },
-        { name: "Formula Booklet", pdf: "/pdfs/samacheer_7_formula.pdf" },
-        { name: "Unit wise question papers", pdf: "/pdfs/samacheer_7_unit_questions.pdf" },
-        { name: "Model Board question paper", pdf: "/pdfs/samacheer_7_model_paper.pdf" },
+        { name: "Samacheer Book", pdf: "/pdfs/samacheer_7_ncert.pdf" },
+        { name: "Book Back Solutions", pdf: "/pdfs/samacheer_7_solutions.pdf" },
+        { name: "Chapter-wise Test Question Papers", pdf: "/pdfs/samacheer_7_unit_questions.pdf" },
+        { name: "Model Board Question Papers", pdf: "/pdfs/samacheer_7_model_paper.pdf" },
+        { name: "Previous Year Board Question Papers", pdf: "/pdfs/samacheer_7_previous_questions.pdf" },
       ];
 
   return (
