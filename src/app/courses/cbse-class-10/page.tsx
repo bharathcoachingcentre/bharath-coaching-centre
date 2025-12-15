@@ -76,11 +76,11 @@ export default function CbseClass10Page() {
       };
       
       const studyMaterials = [
-        "NCERT Books",
-        "NCERT Solutions",
-        "Formula Booklet",
-        "Unit wise question papers",
-        "Model Board question paper",
+        "NCERT Book PDF",
+        "NCERT Book Back Solution",
+        "NCERT Chapterwise Test Question Paper",
+        "Model Board Question Paper",
+        "Previous Year Board Question Paper",
       ];
 
   return (

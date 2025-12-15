@@ -50,12 +50,12 @@ export default function CbseClass9Page() {
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
     const benefits = [
-        "18+ years experienced faculties specialized in each subject.",
-        "Weekly tests.",
+        "18+ years experienced faculties specialized in each subjects.",
+        "Weekly tests",
         "25% & 50% portion tests.",
         "Full mock tests.",
-        "Quick evaluation.",
-        "Term-based parents’ meeting.",
+        "Quick evaluation",
+        "Term based parents' meeting",
         "Specialized study materials.",
         "Previous year question paper discussion",
       ];
@@ -76,11 +76,11 @@ export default function CbseClass9Page() {
       };
       
       const studyMaterials = [
-        { name: "NCERT Books", pdf: "/pdfs/cbse_9_ncert.pdf" },
-        { name: "NCERT Solutions", pdf: "/pdfs/cbse_9_solutions.pdf" },
-        { name: "Formula Booklet", pdf: "/pdfs/cbse_9_formula.pdf" },
-        { name: "Unit wise question papers", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
-        { name: "Model Board question paper", pdf: "/pdfs/cbse_9_model_paper.pdf" },
+        { name: "NCERT Book PDF", pdf: "/pdfs/cbse_9_ncert.pdf" },
+        { name: "NCERT Book Back Solution", pdf: "/pdfs/cbse_9_solutions.pdf" },
+        { name: "NCERT Chapterwise Test Question Paper", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
+        { name: "Model Board Question Paper", pdf: "/pdfs/cbse_9_model_paper.pdf" },
+        { name: "Previous Year Board Question Paper", pdf: "/pdfs/cbse_9_model_paper.pdf" },
       ];
 
   return (

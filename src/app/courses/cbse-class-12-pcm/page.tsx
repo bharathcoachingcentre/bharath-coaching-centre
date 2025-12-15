@@ -76,11 +76,11 @@ export default function CbseClass12PcmPage() {
       };
 
       const studyMaterials = [
-        { name: "NCERT Books", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
-        { name: "NCERT Solutions", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
-        { name: "Formula Booklet", pdf: "/pdfs/cbse_12_pcm_formula.pdf" },
-        { name: "Unit wise question papers", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
-        { name: "Model Board question paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
+        { name: "NCERT Book PDF", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
+        { name: "NCERT Book Back Solution", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
+        { name: "NCERT Chapterwise Test Question Paper", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
+        { name: "Model Board Question Paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
+        { name: "Previous Year Board Question Paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
       ];
 
   return (
