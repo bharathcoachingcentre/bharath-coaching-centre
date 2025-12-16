@@ -243,7 +243,7 @@ export default function OneToOneClassesPage() {
                                             <FormItem>
                                                 <FormLabel>Individual Concern</FormLabel>
                                                 <FormControl>
-                                                    <Textarea placeholder="Individual concern or learning goals..." {...field} className="bg-gray-100" />
+                                                    <Textarea placeholder="Individual Concern" {...field} className="bg-gray-100" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -256,7 +256,7 @@ export default function OneToOneClassesPage() {
                                             <FormItem>
                                                 <FormLabel>Preferred Schedule</FormLabel>
                                                 <FormControl>
-                                                    <Textarea placeholder="Preferred schedule (days & times)..." {...field} className="bg-gray-100" />
+                                                    <Textarea placeholder="Personalized Schedule" {...field} className="bg-gray-100" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
