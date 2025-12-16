@@ -58,15 +58,29 @@ const AnimatedSection = ({ children, className, id, style, ...props }: { childre
 export default function CbseClass8Page() {
     const searchParams = useSearchParams();
     const studyMaterialSectionRef = useRef<HTMLDivElement>(null);
+    const materialButtonsRef = useRef<(HTMLAnchorElement | null)[]>([]);
     const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
     useEffect(() => {
         const showMaterial = searchParams.get('showMaterial');
+        const materialToHighlight = searchParams.get('material');
         if (showMaterial === 'true' && studyMaterialSectionRef.current) {
             setTimeout(() => {
                 studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                 if (materialToHighlight) {
+                    const buttonIndex = studyMaterials.findIndex(m => m.name === materialToHighlight);
+                    if (buttonIndex !== -1) {
+                        const buttonElement = materialButtonsRef.current[buttonIndex];
+                        if (buttonElement) {
+                            buttonElement.style.animation = 'highlight 1.5s ease-out';
+                            setTimeout(() => {
+                                buttonElement.style.animation = '';
+                            }, 1500);
+                        }
+                    }
+                }
             }, 100);
         }
     }, [searchParams]);
@@ -213,7 +227,12 @@ export default function CbseClass8Page() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
                  <div className="flex flex-wrap gap-4">
                     {studyMaterials.map((material, index) => (
-                        <a href={material.pdf} download key={index}>
+                        <a 
+                          href={material.pdf} 
+                          download 
+                          key={index}
+                          ref={el => materialButtonsRef.current[index] = el}
+                          >
                             <Button
                                 variant="outline"
                                 className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
