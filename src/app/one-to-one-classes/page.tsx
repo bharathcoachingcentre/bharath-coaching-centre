@@ -115,7 +115,7 @@ export default function OneToOneClassesPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 {whyChoosePoints.map((point, index) => (
                                     <Card key={index} className="bg-white/80 p-6 flex flex-col items-center text-center shadow-lg rounded-xl">
-                                        <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary mb-4">
+                                        <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full text-white mb-4" style={{ background: 'linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(199 89% 42%) 100%)' }}>
                                             <point.icon className="h-8 w-8" />
                                         </div>
                                         <h3 className="text-lg font-semibold">{point.title}</h3>
@@ -192,7 +192,7 @@ export default function OneToOneClassesPage() {
                                         name="board"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel>Education Board</FormLabel>
+                                            <FormLabel>Education Board *</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
                                                 <SelectTrigger className="bg-gray-100">
@@ -216,7 +216,7 @@ export default function OneToOneClassesPage() {
                                         name="grade"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel>Grade Level</FormLabel>
+                                            <FormLabel>Grade Level *</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
                                                 <SelectTrigger className="bg-gray-100">
