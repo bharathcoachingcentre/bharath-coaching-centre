@@ -236,12 +236,11 @@ export default function OneToOneClassesPage() {
                                 </div>
                                 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <FormField
+                                     <FormField
                                         control={form.control}
                                         name="individualConcern"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Individual Concern</FormLabel>
                                                 <FormControl>
                                                     <Textarea placeholder="Individual Concern" {...field} className="bg-gray-100" />
                                                 </FormControl>
@@ -254,7 +253,6 @@ export default function OneToOneClassesPage() {
                                         name="personalizedSchedule"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Preferred Schedule</FormLabel>
                                                 <FormControl>
                                                     <Textarea placeholder="Personalized Schedule" {...field} className="bg-gray-100" />
                                                 </FormControl>
@@ -269,7 +267,6 @@ export default function OneToOneClassesPage() {
                                         name="personalizedStudyMaterial"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel className="opacity-0 hidden sm:block">Placeholder</FormLabel>
                                                 <FormControl>
                                                     <Textarea placeholder="Personalized Study Material" {...field} className="bg-gray-100" />
                                                 </FormControl>
@@ -282,7 +279,6 @@ export default function OneToOneClassesPage() {
                                         name="weeklyGrowthTracking"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel className="opacity-0 hidden sm:block">Placeholder</FormLabel>
                                                 <FormControl>
                                                     <Textarea placeholder="Weekly Academic growth tracking" {...field} className="bg-gray-100" />
                                                 </FormControl>
