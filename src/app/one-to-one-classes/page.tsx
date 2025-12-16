@@ -29,7 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Mail, Phone, MapPin, User, Calendar, BookOpen } from "lucide-react";
+import { Mail, Phone, MapPin, User, Calendar, BookOpen, CheckCircle } from "lucide-react";
 import Image from "next/image";
 
 const formSchema = z.object({
@@ -61,6 +61,17 @@ export default function OneToOneClassesPage() {
         },
     });
 
+    const benefits = [
+        "Customized time table",
+        "18+ year experienced faculties",
+        "Individual attention",
+        "Weekly test",
+        "25% & 50% portion test",
+        "Full mock test",
+        "Specialized study materials",
+        "Previous year question paper discussion",
+    ];
+
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
         toast({
@@ -88,13 +99,13 @@ export default function OneToOneClassesPage() {
         </section>
         <div className="bg-gray-50 py-16 md:py-24">
         <div className="container mx-auto">
-            <div className="grid md:grid-cols-2 gap-16 items-start">
-                <div className="space-y-12">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+                <div className="space-y-8">
                     <div>
                         <p className="text-primary font-semibold text-sm tracking-wider">INFORMATION</p>
                         <h2 className="text-4xl font-bold mt-2">1 to 1 Classes</h2>
                     </div>
-                    <div className="space-y-8">
+                    <div className="space-y-6">
                         <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
                                 <User className="h-8 w-8" />
@@ -120,6 +131,21 @@ export default function OneToOneClassesPage() {
                             </div>
                         </div>
                     </div>
+                     <Card className="bg-blue-100/50">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-bold text-center">Our Benefits</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <ul className="space-y-4">
+                            {benefits.map((benefit, index) => (
+                              <li key={index} className="flex items-start">
+                                <CheckCircle className="h-6 w-6 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                                <span>{benefit}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
                 </div>
 
                 <Card className="shadow-lg">
