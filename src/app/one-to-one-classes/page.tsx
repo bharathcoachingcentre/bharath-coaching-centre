@@ -128,7 +128,7 @@ export default function OneToOneClassesPage() {
                              <h2 className="text-3xl font-bold mb-8">Our <span className="text-primary">Benefits</span></h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {benefits.map((benefit, index) => (
-                                    <div key={index} className="bg-white/80 p-4 rounded-lg shadow flex items-center">
+                                    <div key={index} className="bg-white/80 p-4 rounded-lg shadow flex items-center border border-transparent hover:border-primary/30 transition-colors duration-300">
                                         <div className="flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-lg bg-primary text-white mr-3">
                                             <CheckCircle className="h-5 w-5" />
                                         </div>
