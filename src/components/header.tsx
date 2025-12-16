@@ -127,10 +127,10 @@ const onlineSamacheerCourses = [
 ];
 
 const oneToOneCourses = [
-    { label: "Class 12", href: "/courses/one-to-one-12th-grade" },
-    { label: "Class 11", href: "/courses/one-to-one-11th-grade" },
-    { label: "Class 10", href: "/courses/one-to-one-10th-grade" },
-    { label: "Class 9", href: "/courses/one-to-one-9th-grade" },
+    { label: "Class 12", href: "/one-to-one-classes" },
+    { label: "Class 11", href: "/one-to-one-classes" },
+    { label: "Class 10", href: "/one-to-one-classes" },
+    { label: "Class 9", href: "/one-to-one-classes" },
 ];
 
 const navLinks = [
