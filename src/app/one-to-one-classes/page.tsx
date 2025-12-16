@@ -29,7 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Mail, Phone, MapPin, User, Calendar, BookOpen, CheckCircle } from "lucide-react";
+import { Mail, Phone, MapPin, User, Calendar, BookOpen, CheckCircle, Sparkles, Send } from "lucide-react";
 import Image from "next/image";
 
 const formSchema = z.object({
@@ -72,6 +72,12 @@ export default function OneToOneClassesPage() {
         "Previous year question paper discussion",
     ];
 
+    const whyChoosePoints = [
+        { icon: User, title: "Personal concern" },
+        { icon: Calendar, title: "Personalized schedule" },
+        { icon: BookOpen, title: "Perfect Learning" },
+    ];
+
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
         toast({
@@ -97,72 +103,60 @@ export default function OneToOneClassesPage() {
             </h1>
             </div>
         </section>
-        <div className="bg-gray-50 py-16 md:py-24">
-        <div className="container mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 items-start">
-                <div className="space-y-8">
-                    <div>
-                        <p className="text-primary font-semibold text-sm tracking-wider">INFORMATION</p>
-                        <h2 className="text-4xl font-bold mt-2">One to One Classes</h2>
-                    </div>
-                    <div className="space-y-6">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
-                                <User className="h-7 w-7" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold">Personal concern</h3>
-                            </div>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
-                                <Calendar className="h-7 w-7" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold">Personalized schedule</h3>
+
+        <div className="py-16 md:py-24 bg-blue-50/50">
+            <div className="container mx-auto px-4">
+                <div className="grid lg:grid-cols-2 gap-16 items-start">
+                    {/* Left Column */}
+                    <div className="space-y-12">
+                        <div>
+                            <h2 className="text-3xl font-bold mb-8">Why Choose Our <span className="text-primary">1:1 Classes?</span></h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                {whyChoosePoints.map((point, index) => (
+                                    <Card key={index} className="bg-white/80 p-6 flex flex-col items-center text-center shadow-lg rounded-xl">
+                                        <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary mb-4">
+                                            <point.icon className="h-8 w-8" />
+                                        </div>
+                                        <h3 className="text-lg font-semibold">{point.title}</h3>
+                                    </Card>
+                                ))}
                             </div>
                         </div>
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
-                                <BookOpen className="h-7 w-7" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold">Perfect Learning</h3>
+
+                        <div>
+                            <h2 className="text-3xl font-bold mb-8">What You'll <span className="text-primary">Get</span></h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {benefits.map((benefit, index) => (
+                                    <div key={index} className="bg-white/80 p-4 rounded-lg shadow flex items-center">
+                                        <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                                        <span className="font-medium text-gray-700">{benefit}</span>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    </div>
-                    
-                    <div className="space-y-4">
-                        <h3 className="text-3xl font-bold mb-8">Our Benefits</h3>
-                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
-                            {benefits.map((benefit, index) => (
-                            <li key={index} className="flex items-start pb-5">
-                                <CheckCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0" style={{ color: '#00aeff' }} />
-                                <span className="text-lg font-medium">{benefit}</span>
-                            </li>
-                            ))}
-                        </ul>
                     </div>
 
-                </div>
-
-                <Card className="shadow-lg">
-                    <CardHeader className="text-center">
-                        <p className="text-primary font-semibold text-3xl">BOOKING FORM</p>
-                        <CardTitle className="text-xl font-bold">Fill in the Form to experience our demo class</CardTitle>
-                    </CardHeader>
-                    <CardContent>
+                    {/* Right Column - Form */}
+                    <div className="bg-white p-8 rounded-2xl shadow-2xl sticky top-28">
+                        <div className="text-center mb-6">
+                            <div className="inline-flex items-center bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                                <Sparkles className="h-4 w-4 mr-2" />
+                                Limited Slots Available
+                            </div>
+                            <h2 className="text-3xl font-bold">Book Your <span className="text-primary">Demo</span></h2>
+                            <p className="text-muted-foreground mt-2">Fill in the form to experience our demo class</p>
+                        </div>
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel>Name *</FormLabel>
+                                            <FormLabel>Full Name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Your Name" {...field} />
+                                                <Input placeholder="Enter your name" {...field} className="bg-gray-100"/>
                                             </FormControl>
                                             <FormMessage />
                                             </FormItem>
@@ -173,9 +167,9 @@ export default function OneToOneClassesPage() {
                                         name="mobileNumber"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel>Mobile Number *</FormLabel>
+                                            <FormLabel>Mobile Number</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Your Mobile Number" {...field} />
+                                                <Input placeholder="+91 XXXXX XXXXX" {...field} className="bg-gray-100"/>
                                             </FormControl>
                                             <FormMessage />
                                             </FormItem>
@@ -187,25 +181,25 @@ export default function OneToOneClassesPage() {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                        <FormLabel>Email *</FormLabel>
+                                        <FormLabel>Email Address</FormLabel>
                                         <FormControl>
-                                            <Input type="email" placeholder="Your Email" {...field} />
+                                            <Input type="email" placeholder="your@email.com" {...field} className="bg-gray-100"/>
                                         </FormControl>
                                         <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}
                                         name="board"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel>Board *</FormLabel>
+                                            <FormLabel>Education Board</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select a board" />
+                                                <SelectTrigger className="bg-gray-100">
+                                                    <SelectValue placeholder="Select board" />
                                                 </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
@@ -225,11 +219,11 @@ export default function OneToOneClassesPage() {
                                         name="grade"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel>Grade *</FormLabel>
+                                            <FormLabel>Grade Level</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select a grade" />
+                                                <SelectTrigger className="bg-gray-100">
+                                                    <SelectValue placeholder="Select grade" />
                                                 </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
@@ -244,14 +238,15 @@ export default function OneToOneClassesPage() {
                                     />
                                 </div>
                                 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}
                                         name="individualConcern"
                                         render={({ field }) => (
                                             <FormItem>
+                                                <FormLabel>Individual Concern</FormLabel>
                                                 <FormControl>
-                                                    <Textarea placeholder="Individual Concern" {...field} />
+                                                    <Textarea placeholder="Individual concern or learning goals..." {...field} className="bg-gray-100" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -262,20 +257,24 @@ export default function OneToOneClassesPage() {
                                         name="personalizedSchedule"
                                         render={({ field }) => (
                                             <FormItem>
+                                                <FormLabel>Preferred Schedule</FormLabel>
                                                 <FormControl>
-                                                    <Textarea placeholder="Personalized Schedule" {...field} />
+                                                    <Textarea placeholder="Preferred schedule (days & times)..." {...field} className="bg-gray-100" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
-                                    <FormField
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                     <FormField
                                         control={form.control}
                                         name="personalizedStudyMaterial"
                                         render={({ field }) => (
                                             <FormItem>
+                                                <FormLabel className="opacity-0 hidden sm:block">Placeholder</FormLabel>
                                                 <FormControl>
-                                                    <Textarea placeholder="Personalized Study Material" {...field} />
+                                                    <Textarea placeholder="Personalized Study Material" {...field} className="bg-gray-100" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -286,8 +285,9 @@ export default function OneToOneClassesPage() {
                                         name="weeklyGrowthTracking"
                                         render={({ field }) => (
                                             <FormItem>
+                                                <FormLabel className="opacity-0 hidden sm:block">Placeholder</FormLabel>
                                                 <FormControl>
-                                                    <Textarea placeholder="Weekly Academic growth tracking" {...field} />
+                                                    <Textarea placeholder="Weekly Academic growth tracking" {...field} className="bg-gray-100" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -295,15 +295,14 @@ export default function OneToOneClassesPage() {
                                     />
                                 </div>
                                 
-                                <div className="flex justify-center">
-                                    <Button type="submit" size="lg">Send Message</Button>
-                                </div>
+                                <Button type="submit" size="lg" className="w-full text-lg">
+                                    <Send className="h-5 w-5 mr-2"/> Send Message
+                                </Button>
                             </form>
                         </Form>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </div>
-        </div>
         </div>
     </div>
   );
