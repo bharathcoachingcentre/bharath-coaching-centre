@@ -140,11 +140,7 @@ export default function OneToOneClassesPage() {
                     {/* Right Column - Form */}
                     <div className="bg-white p-8 rounded-2xl shadow-2xl sticky top-28">
                         <div className="text-center mb-6">
-                            <div className="inline-flex items-center bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-semibold mb-4">
-                                <Sparkles className="h-4 w-4 mr-2" />
-                                Limited Slots Available
-                            </div>
-                            <h2 className="text-3xl font-bold">Booking Form</h2>
+                            <h2 className="text-3xl font-bold text-primary">Booking Form</h2>
                             <p className="text-muted-foreground mt-2">Fill in the form to experience our demo class</p>
                         </div>
                         <Form {...form}>
