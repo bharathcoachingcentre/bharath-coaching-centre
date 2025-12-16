@@ -52,8 +52,8 @@ export default function OneToOneClassesPage() {
             name: "",
             mobileNumber: "",
             email: "",
-            board: "",
-            grade: "",
+            board: undefined,
+            grade: undefined,
             individualConcern: "",
             personalizedSchedule: "",
             personalizedStudyMaterial: "",
@@ -115,8 +115,8 @@ export default function OneToOneClassesPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 {whyChoosePoints.map((point, index) => (
                                     <Card key={index} className="bg-white/80 p-6 flex flex-col items-center text-center shadow-lg rounded-xl">
-                                        <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full text-white mb-4" style={{ background: 'linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(199 89% 42%) 100%)' }}>
-                                            <point.icon className="h-8 w-8" />
+                                        <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-xl text-white mb-4" style={{ background: 'linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(199 89% 42%) 100%)' }}>
+                                            <point.icon className="h-6 w-6" />
                                         </div>
                                         <h3 className="text-lg font-semibold">{point.title}</h3>
                                     </Card>
