@@ -125,7 +125,7 @@ export default function OneToOneClassesPage() {
                         </div>
 
                         <div>
-                            <h2 className="text-3xl font-bold mb-8">What You'll <span className="text-primary">Get</span></h2>
+                            <h2 className="text-3xl font-bold mb-8">Our <span className="text-primary">Benefits</span></h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {benefits.map((benefit, index) => (
                                     <div key={index} className="bg-white/80 p-4 rounded-lg shadow flex items-center">
