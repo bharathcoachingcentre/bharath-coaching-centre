@@ -69,7 +69,7 @@ export default function OneToOneClassesPage() {
         "25% & 50% portion test",
         "Full mock test",
         "Specialized study materials",
-        "Previous year question paper discussion",
+        "Previous year question paper",
     ];
 
     const whyChoosePoints = [
@@ -129,7 +129,9 @@ export default function OneToOneClassesPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {benefits.map((benefit, index) => (
                                     <div key={index} className="bg-white/80 p-4 rounded-lg shadow flex items-center">
-                                        <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                                        <div className="flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-lg bg-primary text-white mr-3">
+                                            <CheckCircle className="h-5 w-5" />
+                                        </div>
                                         <span className="font-medium text-gray-700">{benefit}</span>
                                     </div>
                                 ))}
