@@ -107,10 +107,10 @@ const cbseStudyLinks = [
 
 const samacheerStudyLinks = [
     { label: "Samacheer Book", nestedLinks: samacheerBookLinks("Samacheer Book") },
-    { label: "Book Back Solution", nestedLinks: samacheerBookLinks("Book Back Solution") },
-    { label: "Chapterwise Test Question Paper", nestedLinks: samacheerChapterWiseLinks("Chapter-wise Test Question paper") },
-    { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks("Model Board Question paper") },
-    { label: "Previous Year Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks("Previous Year Board Question paper") },
+    { label: "Book Back Solutions", nestedLinks: samacheerBookLinks("Book Back Solutions") },
+    { label: "Chapter-wise Test Question Papers", nestedLinks: samacheerChapterWiseLinks("Chapter-wise Test Question Papers") },
+    { label: "Model Board Question Papers", nestedLinks: samacheerModelAndPreviousLinks("Model Board Question Papers") },
+    { label: "Previous Year Board Question Papers", nestedLinks: samacheerModelAndPreviousLinks("Previous Year Board Question Papers") },
 ];
 
 const onlineCbseCourses = [
