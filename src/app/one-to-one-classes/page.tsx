@@ -62,14 +62,14 @@ export default function OneToOneClassesPage() {
     });
 
     const benefits = [
-        "Customized Timetables",
-        "Experienced Faculties (18+ years)",
-        "Individual Attention",
-        "Weekly Tests",
-        "Portion Tests (25% & 50%)",
-        "Full Mock Tests",
-        "Specialized Study Materials",
-        "Past Paper Discussions",
+        "Customized time table",
+        "18+ year experienced faculties",
+        "Individual attention",
+        "Weekly test",
+        "25% & 50% portion test",
+        "Full mock test",
+        "Specialized study materials",
+        "Previous year question paper discussion",
     ];
 
     function onSubmit(values: z.infer<typeof formSchema>) {
@@ -131,21 +131,19 @@ export default function OneToOneClassesPage() {
                             </div>
                         </div>
                     </div>
-                    <Card className="bg-blue-50/50 rounded-lg">
-                        <CardHeader>
-                            <CardTitle className="text-2xl font-bold">Our Benefits</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-                                {benefits.map((benefit, index) => (
-                                <li key={index} className="flex items-start">
-                                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                                    <span className="font-medium">{benefit}</span>
-                                </li>
-                                ))}
-                            </ul>
-                        </CardContent>
-                    </Card>
+                    
+                    <div className="space-y-4">
+                        <h3 className="text-2xl font-bold">Our Benefits</h3>
+                        <ul className="space-y-2">
+                            {benefits.map((benefit, index) => (
+                            <li key={index} className="flex items-start">
+                                <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                                <span>{benefit}</span>
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+
                 </div>
 
                 <Card className="shadow-lg">
