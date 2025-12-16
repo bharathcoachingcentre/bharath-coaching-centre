@@ -132,7 +132,7 @@ export default function OneToOneClassesPage() {
                         </div>
                     </div>
                      <div className="space-y-4">
-                        <h3 className="text-2xl font-bold">Our Benefits</h3>
+                        <h3 className="text-4xl font-bold mb-8">Our Benefits</h3>
                         <ul className="space-y-2">
                         {benefits.map((benefit, index) => (
                             <li key={index} className="flex items-start">
