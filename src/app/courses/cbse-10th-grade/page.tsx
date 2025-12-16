@@ -9,13 +9,24 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 
-const AnimatedSection = ({ children, className, id, style }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties }) => {
+const AnimatedSection = ({ children, className, id, style, ...props }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties } & React.HTMLAttributes<HTMLDivElement>) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+    const internalRef = useRef<HTMLDivElement>(null);
+
+    React.useImperativeHandle((props as any).ref, () => internalRef.current);
+
+    useEffect(() => {
+        if (internalRef.current) {
+            setElement(internalRef.current);
+        }
+    }, [setElement]);
   
     return (
       <section
-        ref={setElement}
+        ref={internalRef}
         id={id}
         className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
         style={style}
@@ -23,7 +34,7 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
         {children}
       </section>
     );
-  };
+};
   
   const AnimatedElement = ({ children, className, animation }: { children: React.ReactNode; className?: string; animation: 'fade-left' | 'fade-up' | 'fade-left-up' | 'shake' }) => {
       const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
@@ -45,9 +56,20 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
     };
 
 export default function Cbse10thGradePage() {
+    const searchParams = useSearchParams();
+    const studyMaterialSectionRef = useRef<HTMLDivElement>(null);
     const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
+
+    useEffect(() => {
+        const showMaterial = searchParams.get('showMaterial');
+        if (showMaterial === 'true' && studyMaterialSectionRef.current) {
+            setTimeout(() => {
+                studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    }, [searchParams]);
 
     const benefits = [
         "18+ years experienced faculties specialized in each subject.",
@@ -188,7 +210,7 @@ export default function Cbse10thGradePage() {
         </div>
       </AnimatedSection>
 
-      <AnimatedSection className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24" ref={studyMaterialSectionRef}>
         <div className="container mx-auto">
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
             <div className="grid md:grid-cols-5 items-center">
