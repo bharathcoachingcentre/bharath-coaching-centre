@@ -62,50 +62,60 @@ const samacheerCourses = [
     { label: "Class 6", href: "/courses/samacheer-class-6" },
 ];
 
-const ncertLinks = (material: string) => [
-    { label: "Class 12", href: `/study-material-cbse?class=12&material=${material}` },
-    { label: "Class 11", href: `/study-material-cbse?class=11&material=${material}` },
-    { label: "Class 10", href: `/study-material-cbse?class=10&material=${material}` },
-    { label: "Class 9", href: `/study-material-cbse?class=9&material=${material}` },
-    { label: "Class 8", href: `/study-material-cbse?class=8&material=${material}` },
-    { label: "Class 7", href: `/study-material-cbse?class=7&material=${material}` },
-    { label: "Class 6", href: `/study-material-cbse?class=6&material=${material}` },
-];
+const ncertLinks = (material: string) => {
+    const links = [
+        { label: "Class 12", href: `/courses/cbse-12th-grade?material=${encodeURIComponent(material)}` },
+        { label: "Class 11", href: `/courses/cbse-11th-grade?material=${encodeURIComponent(material)}` },
+        { label: "Class 10", href: `/courses/cbse-10th-grade?material=${encodeURIComponent(material)}` },
+        { label: "Class 9", href: `/courses/cbse-9th-grade?material=${encodeURIComponent(material)}` },
+        { label: "Class 8", href: `/courses/cbse-class-8?material=${encodeURIComponent(material)}` },
+        { label: "Class 7", href: `/courses/cbse-class-7?material=${encodeURIComponent(material)}` },
+        { label: "Class 6", href: `/courses/cbse-class-6?material=${encodeURIComponent(material)}` },
+    ];
+    if (material === "NCERT Book PDF") {
+        const class12Link = links.find(l => l.label === "Class 12");
+        if (class12Link) {
+            class12Link.href = "/courses/cbse-12th-grade?showMaterial=true";
+        }
+    }
+    return links;
+};
+
 
 const modelAndPreviousLinks = (material: string) => [
-    { label: "Class 12", href: `/study-material-cbse?class=12&material=${material}` },
-    { label: "Class 10", href: `/study-material-cbse?class=10&material=${material}` },
+    { label: "Class 12", href: `/courses/cbse-12th-grade?material=${encodeURIComponent(material)}` },
+    { label: "Class 10", href: `/courses/cbse-10th-grade?material=${encodeURIComponent(material)}` },
 ];
 
 const samacheerModelAndPreviousLinks = (material: string) => [
-    { label: "Class 12", href: `/study-material-samacheer?class=12&material=${material}` },
-    { label: "Class 10", href: `/study-material-samacheer?class=10&material=${material}` },
+    { label: "Class 12", href: `/courses/samacheer-class-12-pcm?material=${encodeURIComponent(material)}` },
+    { label: "Class 10", href: `/courses/samacheer-class-10?material=${encodeURIComponent(material)}` },
 ];
 
 const samacheerChapterWiseLinks = (material: string) => [
-    { label: "Class 12", href: `/study-material-samacheer?class=12&material=${material}` },
-    { label: "Class 11", href: `/study-material-samacheer?class=11&material=${material}` },
-    { label: "Class 10", href: `/study-material-samacheer?class=10&material=${material}` },
-    { label: "Class 9", href: `/study-material-samacheer?class=9&material=${material}` },
+    { label: "Class 12", href: `/courses/samacheer-class-12-pcm?material=${encodeURIComponent(material)}` },
+    { label: "Class 11", href: `/courses/samacheer-class-11-pcm?material=${encodeURIComponent(material)}` },
+    { label: "Class 10", href: `/courses/samacheer-class-10?material=${encodeURIComponent(material)}` },
+    { label: "Class 9", href: `/courses/samacheer-class-9?material=${encodeURIComponent(material)}` },
 ];
 
 const samacheerBookLinks = (material: string) => [
-    { label: "Class 12", href: `/study-material-samacheer?class=12&material=${material}` },
-    { label: "Class 11", href: `/study-material-samacheer?class=11&material=${material}` },
-    { label: "Class 10", href: `/study-material-samacheer?class=10&material=${material}` },
-    { label: "Class 9", href: `/study-material-samacheer?class=9&material=${material}` },
+    { label: "Class 12", href: `/courses/samacheer-class-12-pcm?material=${encodeURIComponent(material)}` },
+    { label: "Class 11", href: `/courses/samacheer-class-11-pcm?material=${encodeURIComponent(material)}` },
+    { label: "Class 10", href: `/courses/samacheer-class-10?material=${encodeURIComponent(material)}` },
+    { label: "Class 9", href: `/courses/samacheer-class-9?material=${encodeURIComponent(material)}` },
 ];
 
 const cbseStudyLinks = [
-    { label: "NCERT Book PDF", nestedLinks: ncertLinks("NCERT Books") },
-    { label: "NCERT Book Back Solution", nestedLinks: ncertLinks("NCERT Solutions") },
-    { label: "NCERT Chapterwise Test Question Paper", nestedLinks: ncertLinks("Unit wise question papers") },
-    { label: "Model Board Question Paper", nestedLinks: modelAndPreviousLinks("Model Board question paper") },
-    { label: "Previous Year Board Question Paper", nestedLinks: modelAndPreviousLinks("Model Board question paper") },
+    { label: "NCERT Book PDF", nestedLinks: ncertLinks("NCERT Book PDF") },
+    { label: "NCERT Book Back Solution", nestedLinks: ncertLinks("NCERT Book Back Solution") },
+    { label: "NCERT Chapterwise Test Question Paper", nestedLinks: ncertLinks("NCERT Chapterwise Test Question Paper") },
+    { label: "Model Board Question Paper", nestedLinks: modelAndPreviousLinks("Model Board Question Paper") },
+    { label: "Previous Year Board Question Paper", nestedLinks: modelAndPreviousLinks("Previous Year Board Question Paper") },
 ];
 
 const samacheerStudyLinks = [
-    { label: "Samacheer Book", nestedLinks: samacheerBookLinks("Book Back Solution") },
+    { label: "Samacheer Book", nestedLinks: samacheerBookLinks("Samacheer Book") },
     { label: "Book Back Solution", nestedLinks: samacheerBookLinks("Book Back Solution") },
     { label: "Chapterwise Test Question Paper", nestedLinks: samacheerChapterWiseLinks("Chapter-wise Test Question paper") },
     { label: "Model Board Question Paper", nestedLinks: samacheerModelAndPreviousLinks("Model Board Question paper") },

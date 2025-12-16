@@ -9,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 const AnimatedSection = ({ children, className, id, style }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
@@ -45,9 +47,26 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
     };
 
 export default function Cbse12thGradePage() {
+    const searchParams = useSearchParams();
+    const studyMaterialSectionRef = useRef<HTMLDivElement>(null);
     const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
+    const [filteredMaterial, setFilteredMaterial] = React.useState<string | null>(null);
+
+    useEffect(() => {
+        const material = searchParams.get('material');
+        if (material) {
+            setFilteredMaterial(material);
+        }
+        const showMaterial = searchParams.get('showMaterial');
+        if (showMaterial === 'true') {
+            setFilteredMaterial('NCERT Book PDF');
+            setTimeout(() => {
+                studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    }, [searchParams]);
 
     const benefits = [
         "18+ years experienced faculties specialized in each subject.",
@@ -75,13 +94,16 @@ export default function Cbse12thGradePage() {
         ]
       };
 
-      const studyMaterials = [
+      const allStudyMaterials = [
         { name: "NCERT Book PDF", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
         { name: "NCERT Book Back Solution", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
         { name: "NCERT Chapterwise Test Question Paper", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
         { name: "Model Board Question Paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
         { name: "Previous Year Board Question Paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
       ];
+
+      const studyMaterials = filteredMaterial ? allStudyMaterials.filter(m => m.name === filteredMaterial) : allStudyMaterials;
+
 
   return (
     <div>
@@ -188,7 +210,7 @@ export default function Cbse12thGradePage() {
         </div>
       </AnimatedSection>
 
-      <AnimatedSection className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24" ref={studyMaterialSectionRef}>
         <div className="container mx-auto">
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
             <div className="grid md:grid-cols-5 items-center">
