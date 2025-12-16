@@ -110,7 +110,8 @@ export default function OneToOneClassesPage() {
                     {/* Left Column */}
                     <div className="space-y-12">
                         <div>
-                            <h2 className="text-3xl font-bold mb-8">Why Choose Our <span className="text-primary">1:1 Classes?</span></h2>
+                            <p className="text-sm font-semibold tracking-widest text-primary mb-2">INFORMATION</p>
+                            <h2 className="text-3xl font-bold mb-8">One to One <span className="text-primary">Classes</span></h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 {whyChoosePoints.map((point, index) => (
                                     <Card key={index} className="bg-white/80 p-6 flex flex-col items-center text-center shadow-lg rounded-xl">
