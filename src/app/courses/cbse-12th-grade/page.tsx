@@ -12,12 +12,17 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-const AnimatedSection = ({ children, className, id, style }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties }) => {
+const AnimatedSection = ({ children, className, id, style, ...props }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties } & React.HTMLAttributes<HTMLDivElement>) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
   
     return (
       <section
-        ref={setElement}
+        ref={ref => {
+            setElement(ref);
+            if (props.ref && typeof props.ref === 'function') {
+                props.ref(ref);
+            }
+        }}
         id={id}
         className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
         style={style}
@@ -52,16 +57,12 @@ export default function Cbse12thGradePage() {
     const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
-    const [filteredMaterial, setFilteredMaterial] = React.useState<string | null>(null);
 
     useEffect(() => {
         const material = searchParams.get('material');
-        if (material) {
-            setFilteredMaterial(material);
-        }
         const showMaterial = searchParams.get('showMaterial');
-        if (showMaterial === 'true') {
-            setFilteredMaterial('NCERT Book PDF');
+
+        if (material || showMaterial === 'true') {
             setTimeout(() => {
                 studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
             }, 100);
@@ -94,15 +95,13 @@ export default function Cbse12thGradePage() {
         ]
       };
 
-      const allStudyMaterials = [
+      const studyMaterials = [
         { name: "NCERT Book PDF", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
         { name: "NCERT Book Back Solution", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
         { name: "NCERT Chapterwise Test Question Paper", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
         { name: "Model Board Question Paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
         { name: "Previous Year Board Question Paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
       ];
-
-      const studyMaterials = filteredMaterial ? allStudyMaterials.filter(m => m.name === filteredMaterial) : allStudyMaterials;
 
 
   return (
