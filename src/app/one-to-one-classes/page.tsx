@@ -137,7 +137,7 @@ export default function OneToOneClassesPage() {
                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
                             {benefits.map((benefit, index) => (
                             <li key={index} className="flex items-start pb-5">
-                                <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                                <CheckCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0" style={{ color: '#00aeff' }} />
                                 <span className="text-lg font-medium">{benefit}</span>
                             </li>
                             ))}
