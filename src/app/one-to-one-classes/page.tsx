@@ -103,7 +103,7 @@ export default function OneToOneClassesPage() {
                 <div className="space-y-8">
                     <div>
                         <p className="text-primary font-semibold text-sm tracking-wider">INFORMATION</p>
-                        <h2 className="text-4xl font-bold mt-2">1 to 1 Classes</h2>
+                        <h2 className="text-4xl font-bold mt-2">One to One Classes</h2>
                     </div>
                     <div className="space-y-6">
                         <div className="flex items-center space-x-4">
