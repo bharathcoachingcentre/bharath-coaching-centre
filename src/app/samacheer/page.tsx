@@ -179,13 +179,13 @@ export default function SamacheerPage() {
         { name: "Previous Year Board Question Paper", icon: FileCheck },
       ];
       const timetableClasses = [
-        { name: "Class 6", icon: "/cls-6.gif", isGif: true },
-        { name: "Class 7", icon: "/cls-7.gif", isGif: true },
-        { name: "Class 8", icon: "/cls-8.gif", isGif: true },
-        { name: "Class 9", icon: "/cls-9.gif", isGif: true },
-        { name: "Class 10", icon: "/cls-10.gif", isGif: true },
-        { name: "Class 11", icon: "/cls-11.gif", isGif: true },
-        { name: "Class 12", icon: "/cls-12.gif", isGif: true },
+        { name: "Class 6", icon: "/class-6.png", isGif: true },
+        { name: "Class 7", icon: "/class-7.png", isGif: true },
+        { name: "Class 8", icon: "/class-8.png", isGif: true },
+        { name: "Class 9", icon: "/class-9.png", isGif: true },
+        { name: "Class 10", icon: "/class-10.png", isGif: true },
+        { name: "Class 11", icon: "/class-11.png", isGif: true },
+        { name: "Class 12", icon: "/class-12.png", isGif: true },
       ];
 
       const cardColors = [
