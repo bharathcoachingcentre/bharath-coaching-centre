@@ -14,15 +14,19 @@ import { useEffect, useRef } from "react";
 
 const AnimatedSection = ({ children, className, id, style, ...props }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties } & React.HTMLAttributes<HTMLDivElement>) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+    const internalRef = useRef<HTMLDivElement>(null);
+
+    React.useImperativeHandle(props.ref, () => internalRef.current);
+
+    useEffect(() => {
+        if (internalRef.current) {
+            setElement(internalRef.current);
+        }
+    }, [setElement]);
   
     return (
       <section
-        ref={ref => {
-            setElement(ref);
-            if (props.ref && typeof props.ref === 'function') {
-                props.ref(ref);
-            }
-        }}
+        ref={internalRef}
         id={id}
         className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
         style={style}
@@ -59,10 +63,8 @@ export default function Cbse12thGradePage() {
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
 
     useEffect(() => {
-        const material = searchParams.get('material');
         const showMaterial = searchParams.get('showMaterial');
-
-        if (material || showMaterial === 'true') {
+        if (showMaterial === 'true' && studyMaterialSectionRef.current) {
             setTimeout(() => {
                 studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
             }, 100);
