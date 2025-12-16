@@ -107,24 +107,24 @@ export default function OneToOneClassesPage() {
                     </div>
                     <div className="space-y-6">
                         <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
-                                <User className="h-8 w-8" />
+                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
+                                <User className="h-7 w-7" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-semibold">Personal concern</h3>
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
-                                <Calendar className="h-8 w-8" />
+                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
+                                <Calendar className="h-7 w-7" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-semibold">Personalized schedule</h3>
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
-                                <BookOpen className="h-8 w-8" />
+                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
+                                <BookOpen className="h-7 w-7" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-semibold">Perfect Learning</h3>
