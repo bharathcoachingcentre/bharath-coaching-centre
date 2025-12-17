@@ -726,8 +726,8 @@ export default function Home2() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{backgroundColor: '#fdfbfb'}}>
-                <CardContent className="p-6 flex flex-col items-center text-center">
+              <Card key={index} className="bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{backgroundColor: '#fdfbfb', height: '200px'}}>
+                <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#f6f1ee' }}>
                     {feature.icon}
                   </div>
@@ -1237,5 +1237,7 @@ export default function Home2() {
     </div>
   );
 }
+
+    
 
     
