@@ -1062,7 +1062,7 @@ export default function Home2() {
                 <p className="font-semibold text-lg mb-2">What Our Students Say</p>
                 <h2 className="text-3xl font-bold" style={{color: '#182d45'}}>
                   Students Academic{" "}
-                  <span className="relative inline-block">
+                  <span className="relative inline-block" style={{color: '#2abfaf'}}>
                     Experience
                     <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
                   </span>
@@ -1091,7 +1091,7 @@ export default function Home2() {
                           />
                         </div>
                         <div className="col-span-2 space-y-4 text-center md:text-left">
-                          <h3 className="text-2xl font-bold" id="testi-head">
+                          <h3 className="text-2xl font-bold" id="testi-head" style={{color: '#2abfaf'}}>
                             {testimonial.company}
                           </h3>
                           <p className="text-lg text-gray-300" id="testi-text">
