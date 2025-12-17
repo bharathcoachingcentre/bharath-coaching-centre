@@ -203,23 +203,23 @@ export default function Home2() {
 
   const features = [
     {
-      icon: ClipboardCheck,
+      icon: <Presentation className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
       text: "Daily Interactive Class",
     },
     {
-      icon: PenTool,
-      text: "Unit Test, Full Test, Practice Work Sheet",
+      icon: <ClipboardCheck className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
+      text: "Unit Test, Full Test, Practice Worksheet",
     },
     {
-      icon: HelpCircle,
+      icon: <MessageCircleQuestion className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
       text: "Instant Doubt Solving Session",
     },
     {
-      icon: Book,
+      icon: <BookOpen className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
       text: "Printed Study Material",
     },
     {
-      icon: UserCheck,
+      icon: <UserCheck className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
       text: "Personalised Mentor Support",
     },
   ];
@@ -722,16 +722,16 @@ export default function Home2() {
       </AnimatedSection>
       
       {/* Features Section */}
-      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#2abfaf0d' }}>
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#faf8f7' }}>
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+              <Card key={index} className="bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{backgroundColor: '#fdfbfb'}}>
                 <CardContent className="p-6 flex flex-col items-center text-center">
-                  <div className="flex items-center justify-center h-16 w-16 rounded-full mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
-                    <feature.icon className="w-8 h-8" style={{ color: '#2abfaf' }} />
+                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#f6f1ee' }}>
+                    {feature.icon}
                   </div>
-                  <p className="font-semibold text-base text-gray-800">{feature.text}</p>
+                  <p className="font-semibold text-base text-gray-700">{feature.text}</p>
                 </CardContent>
               </Card>
             ))}
