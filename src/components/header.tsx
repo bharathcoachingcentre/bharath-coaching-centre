@@ -220,7 +220,10 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="bg-[hsl(199,78%,59%)]">
+        <div className={cn(
+          "bg-[hsl(199,78%,59%)]",
+          pathname === '/home2' && "bg-[#2abfaf]"
+        )}>
             <div className="container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm">
                 <div className="flex items-center gap-2 text-white">
                     <Phone className="h-4 w-4" />
