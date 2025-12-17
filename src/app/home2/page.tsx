@@ -1166,7 +1166,7 @@ export default function Home2() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
              <AnimatedElement animation="fade-left-up">
                 <div>
-                  <h2 className="text-4xl font-bold" style={{color: '#182d45'}}>Academic Excellence <span className="relative inline-block"> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
+                  <h2 className="text-4xl font-bold" style={{color: '#182d45'}}>Academic Excellence <span className="relative inline-block" style={{color: '#2abfaf'}}> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
                   <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
                 </div>
             </AnimatedElement>
