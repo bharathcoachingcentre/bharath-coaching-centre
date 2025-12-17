@@ -756,7 +756,7 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" style={{color: '#182d45'}}>Study Material</h2>
-          <div className="bg-[#2abfaf] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
+          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
             <div className="grid md:grid-cols-5 items-center h-full">
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 
@@ -1009,7 +1009,7 @@ export default function Home2() {
           <div className="flex justify-between items-start mb-12">
             <AnimatedElement animation="fade-up">
               <div>
-                <h2 className="text-4xl font-bold" style={{color: '#182d45'}}><span className="text-orange-500">One-to-One</span> Sessions</h2>
+                <h2 className="text-4xl font-bold" style={{color: '#182d45'}}><span style={{color: '#2abfaf'}}>One-to-One</span> Sessions</h2>
                 <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
               </div>
             </AnimatedElement>
@@ -1037,7 +1037,7 @@ export default function Home2() {
                 <div>
                   <div className="border-t border-gray-200 my-4"></div>
                   {course.price && <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>}
-                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Find a Personal Tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
+                  <Button style={{backgroundColor: '#2abfaf'}} className="w-full hover:bg-orange-600 text-white">Find a Personal Tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
                 </div>
               </Card>
             ))}
