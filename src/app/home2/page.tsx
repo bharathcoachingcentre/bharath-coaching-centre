@@ -721,28 +721,21 @@ export default function Home2() {
         </Carousel>
       </AnimatedSection>
       
-      {/* Features Carousel Section */}
-      <AnimatedSection className="py-8" style={{ backgroundColor: '#2abfaf1f' }}>
+      {/* Features Section */}
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#2abfaf0d' }}>
         <div className="container mx-auto">
-          <Carousel
-            opts={{ align: "start", loop: false }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {features.map((feature, index) => (
-                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/4">
-                  <div className={cn(
-                    "group flex flex-col items-center justify-center p-6 rounded-xl h-40 transition-transform duration-300 hover:scale-105",
-                  )} style={{ backgroundColor: '#2abfaf1f' }}>
-                    <feature.icon className="w-8 h-8 mb-2 transition-transform duration-300 group-hover:-translate-y-1" style={{ color: '#2abfaf' }}/>
-                    <p className="text-center font-semibold">{feature.text}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                <CardContent className="p-6 flex flex-col items-center text-center">
+                  <div className="flex items-center justify-center h-16 w-16 rounded-full mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
+                    <feature.icon className="w-8 h-8" style={{ color: '#2abfaf' }} />
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10 bg-white border-primary text-primary" />
-            <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10 bg-white border-primary text-primary" />
-          </Carousel>
+                  <p className="font-semibold text-base text-gray-800">{feature.text}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </AnimatedSection>
 
@@ -866,7 +859,9 @@ export default function Home2() {
                                   <ul className="space-y-3">
                                       {course.features.map((feature, i) => (
                                           <li key={i} className="flex items-center gap-3">
-                                              <feature.icon className="w-5 h-5" style={{ color: '#2abfaf' }}/>
+                                              <div className="flex items-center justify-center h-6 w-6 rounded-full" style={{ backgroundColor: '#2abfaf1f' }}>
+                                                  <feature.icon className="w-4 h-4" style={{ color: '#2abfaf' }}/>
+                                              </div>
                                               <span>{feature.text}</span>
                                           </li>
                                       ))}
