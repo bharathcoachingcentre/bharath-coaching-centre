@@ -755,7 +755,7 @@ export default function Home2() {
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-black">Study Material</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" style={{color: '#182d45'}}>Study Material</h2>
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
             <div className="grid md:grid-cols-5 items-center h-full">
               <div className="p-8 md:p-12 text-white md:col-span-3">
@@ -833,7 +833,7 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
             <AnimatedElement animation="fade-up">
-                <h2 className="text-3xl font-bold text-center mb-12" style={{ marginBottom: '20px' }}>Explore Courses (Class 1 - 12)</h2>
+                <h2 className="text-3xl font-bold text-center mb-12" style={{ marginBottom: '20px', color: '#182d45' }}>Explore Courses (Class 1 - 12)</h2>
             </AnimatedElement>
             <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -864,7 +864,7 @@ export default function Home2() {
                         </div>
                     </div>
                     
-                    <Card className={`relative overflow-hidden rounded-2xl shadow-lg ${'${course.bgColor}'} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 pt-14`}>
+                    <Card className={`relative overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 pt-14`}>
                         <div className="flex flex-row flex-grow">
                           <div className="flex flex-col w-2/3 p-6">
                               <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
@@ -938,7 +938,7 @@ export default function Home2() {
         </div>
         <div className="container mx-auto relative z-10">
           <AnimatedElement animation="fade-up" className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Offline Timetable</h2>
+            <h2 className="text-3xl font-bold" style={{color: '#182d45'}}>Offline Timetable</h2>
           </AnimatedElement>
           <div
             className="rounded-xl p-8 bg-blue-100/50"
@@ -1009,7 +1009,7 @@ export default function Home2() {
           <div className="flex justify-between items-start mb-12">
             <AnimatedElement animation="fade-up">
               <div>
-                <h2 className="text-4xl font-bold"><span className="text-orange-500">One-to-One</span> Sessions</h2>
+                <h2 className="text-4xl font-bold" style={{color: '#182d45'}}><span className="text-orange-500">One-to-One</span> Sessions</h2>
                 <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
               </div>
             </AnimatedElement>
@@ -1060,7 +1060,7 @@ export default function Home2() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12">
               <div className="text-center md:text-left mb-8 md:mb-0">
                 <p className="font-semibold text-lg mb-2">What Our Students Say</p>
-                <h2 className="text-3xl font-bold">
+                <h2 className="text-3xl font-bold" style={{color: '#182d45'}}>
                   Students Academic{" "}
                   <span className="relative inline-block">
                     Experience
@@ -1143,7 +1143,7 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/newsbanner11.webp')", backgroundSize: "cover", backgroundPosition: "center"}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
-                <h2 className="text-3xl font-bold mb-12">Why Choose <span className="text-primary">BCC</span></h2>
+                <h2 className="text-3xl font-bold mb-12" style={{color: '#182d45'}}>Why Choose <span className="text-primary">BCC</span></h2>
               </AnimatedElement>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12">
                   {whyChooseUsPoints.map((point, index) => (
@@ -1166,7 +1166,7 @@ export default function Home2() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
              <AnimatedElement animation="fade-left-up">
                 <div>
-                  <h2 className="text-4xl font-bold">Academic Excellence <span className="relative inline-block"> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
+                  <h2 className="text-4xl font-bold" style={{color: '#182d45'}}>Academic Excellence <span className="relative inline-block"> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
                   <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
                 </div>
             </AnimatedElement>
@@ -1245,3 +1245,5 @@ export default function Home2() {
     </div>
   );
 }
+
+    
