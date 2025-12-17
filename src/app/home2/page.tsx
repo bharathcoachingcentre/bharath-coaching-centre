@@ -205,27 +205,22 @@ export default function Home2() {
     {
       icon: ClipboardCheck,
       text: "Daily Interactive Class",
-      color: "bg-purple-100 text-purple-600",
     },
     {
       icon: PenTool,
       text: "Unit Test, Full Test, Practice Work Sheet",
-      color: "bg-orange-100 text-orange-600",
     },
     {
       icon: HelpCircle,
       text: "Instant Doubt Solving Session",
-      color: "bg-green-100 text-green-600",
     },
     {
       icon: Book,
       text: "Printed Study Material",
-      color: "bg-pink-100 text-pink-600",
     },
     {
       icon: UserCheck,
       text: "Personalised Mentor Support",
-      color: "bg-yellow-100 text-yellow-600",
     },
   ];
 
@@ -727,7 +722,7 @@ export default function Home2() {
       </AnimatedSection>
       
       {/* Features Carousel Section */}
-      <AnimatedSection className="bg-blue-50 py-8">
+      <AnimatedSection className="py-8" style={{ backgroundColor: '#2abfaf1f' }}>
         <div className="container mx-auto">
           <Carousel
             opts={{ align: "start", loop: false }}
@@ -738,9 +733,8 @@ export default function Home2() {
                 <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/4">
                   <div className={cn(
                     "group flex flex-col items-center justify-center p-6 rounded-xl h-40 transition-transform duration-300 hover:scale-105",
-                    feature.color
-                  )}>
-                    <feature.icon className="w-8 h-8 mb-2 transition-transform duration-300 group-hover:-translate-y-1" />
+                  )} style={{ backgroundColor: '#2abfaf1f' }}>
+                    <feature.icon className="w-8 h-8 mb-2 transition-transform duration-300 group-hover:-translate-y-1" style={{ color: '#2abfaf' }}/>
                     <p className="text-center font-semibold">{feature.text}</p>
                   </div>
                 </CarouselItem>
@@ -848,7 +842,7 @@ export default function Home2() {
                             >
                                 <div className="flex flex-col items-center justify-center w-full h-full">
                                     <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                    <span>{course.classRange}</span>
+                                    <span style={{ color: '#2abfaf' }}>{course.classRange}</span>
                                 </div>
                             </div>
                             {/* Back Face */}
@@ -858,7 +852,7 @@ export default function Home2() {
                             >
                                 <div className="flex flex-col items-center justify-center w-full h-full">
                                     <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                    <span>{course.classRange}</span>
+                                    <span style={{ color: '#2abfaf' }}>{course.classRange}</span>
                                 </div>
                             </div>
                         </div>
@@ -872,7 +866,7 @@ export default function Home2() {
                                   <ul className="space-y-3">
                                       {course.features.map((feature, i) => (
                                           <li key={i} className="flex items-center gap-3">
-                                              <feature.icon className="w-5 h-5 text-green-500" />
+                                              <feature.icon className="w-5 h-5" style={{ color: '#2abfaf' }}/>
                                               <span>{feature.text}</span>
                                           </li>
                                       ))}
@@ -892,9 +886,10 @@ export default function Home2() {
                         <CardFooter className="p-6 mt-auto relative">
                             <DialogTrigger asChild>
                                 <Button 
-                                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                                    className="w-full text-white font-bold"
                                     onClick={createBurst}
                                     onMouseEnter={createHoverBurst}
+                                    style={{ backgroundColor: '#2abfaf' }}
                                 >
                                     Explore Offline Timetable
                                 </Button>
@@ -941,10 +936,11 @@ export default function Home2() {
             <h2 className="text-3xl font-bold" style={{color: '#182d45'}}>Offline Timetable</h2>
           </AnimatedElement>
           <div
-            className="rounded-xl p-8 bg-blue-100/50"
+            className="rounded-xl p-8"
             style={{
+              backgroundColor: '#2abfaf1f',
               backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bfdbfe' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+                "url(\"data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232abfaf33' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
             }}
           >
             <div className="grid md:grid-cols-10 items-center gap-8">
@@ -969,8 +965,8 @@ export default function Home2() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="bg-blue-100 rounded-full p-1 mb-1">
-                        <item.icon className="w-4 h-4 text-primary" />
+                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#2abfaf1f' }}>
+                        <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }}/>
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -988,8 +984,8 @@ export default function Home2() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="bg-blue-100 rounded-full p-1 mb-1">
-                        <item.icon className="w-4 h-4 text-primary" />
+                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#2abfaf1f' }}>
+                        <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }} />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -1004,7 +1000,7 @@ export default function Home2() {
       </AnimatedSection>
 
       {/* One-to-One Tutoring Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-[#FFF9F5]">
+      <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#FFF9F5'}}>
         <div className="container mx-auto">
           <div className="flex justify-between items-start mb-12">
             <AnimatedElement animation="fade-up">
@@ -1028,8 +1024,8 @@ export default function Home2() {
             {tutoringCourses.map((course, index) => (
               <Card key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col transition-all duration-300 hover:scale-105 hover:-translate-y-2">
                 <div className="flex-grow">
-                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-orange-100 mb-4">
-                    <course.icon className="w-8 h-8 text-orange-500" />
+                  <div className="flex items-center justify-center h-16 w-16 rounded-full mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
+                    <course.icon className="w-8 h-8" style={{ color: '#2abfaf' }} />
                   </div>
                   <h3 className="text-lg font-bold mb-2">{course.title}</h3>
                   {course.description && <p className="text-sm text-gray-600 mb-4">{course.description}</p>}
@@ -1037,7 +1033,7 @@ export default function Home2() {
                 <div>
                   <div className="border-t border-gray-200 my-4"></div>
                   {course.price && <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>}
-                  <Button style={{backgroundColor: '#2abfaf'}} className="w-full hover:bg-orange-600 text-white">Find a Personal Tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
+                  <Button style={{backgroundColor: '#2abfaf'}} className="w-full text-white">Find a Personal Tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
                 </div>
               </Card>
             ))}
@@ -1188,6 +1184,7 @@ export default function Home2() {
                     variant={activeResultFilter === filter ? 'default' : 'outline'}
                     onClick={() => setActiveResultFilter(filter)}
                     className="rounded-full px-6"
+                    style={activeResultFilter === filter ? { backgroundColor: '#2abfaf' } : {}}
                 >
                     {filter}
                 </Button>
@@ -1231,7 +1228,7 @@ export default function Home2() {
                 <Building className="w-6 h-6 text-purple-700" />
             </a>
           </Button>
-          <Button asChild size="icon" className="rounded-full bg-orange-400 hover:bg-orange-500 w-12 h-12">
+          <Button asChild size="icon" className="rounded-full w-12 h-12" style={{ backgroundColor: '#2abfaf' }}>
             <a href="tel:+917200030307">
               <Phone className="w-6 h-6 text-white" />
             </a>
