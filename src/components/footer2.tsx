@@ -2,9 +2,9 @@
 import Link from "next/link";
 import { Twitter, Send, Gitlab, Rss, Phone, Mail, MapPin } from "lucide-react";
 import { Separator } from "./ui/separator";
-import { FooterLogo } from "./footer-logo";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { BccFooterLogo } from "./bcc-footer-logo";
 
 const socialLinks = [
     { href: "#", icon: Twitter, label: "Twitter" },
@@ -41,7 +41,7 @@ export function Footer2() {
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="mb-6 md:mb-0">
-                <FooterLogo />
+                <BccFooterLogo />
             </div>
             <div className="flex flex-col items-center gap-4">
                 <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
