@@ -756,7 +756,7 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" style={{color: '#182d45'}}>Study Material</h2>
-          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
+          <div className="bg-[#2abfaf] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
             <div className="grid md:grid-cols-5 items-center h-full">
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 
@@ -1143,7 +1143,7 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/newsbanner11.webp')", backgroundSize: "cover", backgroundPosition: "center"}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
-                <h2 className="text-3xl font-bold mb-12" style={{color: '#182d45'}}>Why Choose <span className="text-primary">BCC</span></h2>
+                <h2 className="text-3xl font-bold mb-12" style={{color: '#182d45'}}>Why Choose <span style={{color: '#2abfaf'}}>BCC</span></h2>
               </AnimatedElement>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12">
                   {whyChooseUsPoints.map((point, index) => (

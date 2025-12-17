@@ -142,7 +142,7 @@ export default function OneToOneClassesPage() {
                     {/* Right Column - Form */}
                     <div className="bg-white p-8 rounded-2xl shadow-2xl sticky top-28">
                         <div className="text-center mb-6">
-                            <h2 className="text-3xl font-bold" style={{ color: '#1b9df3' }}>Booking Form</h2>
+                            <h2 className="text-3xl font-bold" style={{ color: '#2abfaf' }}>Booking Form</h2>
                             <p className="text-black mt-2">Fill in the form to experience our demo class</p>
                         </div>
                         <Form {...form}>
