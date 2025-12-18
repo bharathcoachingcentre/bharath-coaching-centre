@@ -195,10 +195,34 @@ export default function Home2() {
     }
   };
 
-  const sliderImages = [
-    { src: '/slide-1.jpg', alt: 'Slider Image 1', hint: 'cityscape trichy' },
-    { src: '/slide-2.jpg', alt: 'Slider Image 2', hint: 'modern building' },
-    { src: '/slide-3.jpg', alt: 'Slider Image 3', hint: 'cityscape trichy' },
+  const sliderItems = [
+    {
+      src: '/slide-1.jpg',
+      alt: 'Slider Image 1',
+      hint: 'cityscape trichy',
+      heading: 'Welcome to Bharath Academy',
+      description: 'Your journey to academic excellence starts here. Explore our courses and unlock your potential.',
+      buttonText: 'Explore Courses',
+      buttonLink: '/courses',
+    },
+    {
+      src: '/slide-2.jpg',
+      alt: 'Slider Image 2',
+      hint: 'modern building',
+      heading: 'Expert-Led Tutoring',
+      description: 'Benefit from personalized attention and expert guidance from our experienced faculties.',
+      buttonText: 'Meet Our Tutors',
+      buttonLink: '/about',
+    },
+    {
+      src: '/slide-3.jpg',
+      alt: 'Slider Image 3',
+      hint: 'cityscape trichy',
+      heading: 'Achieve Your Goals',
+      description: 'We are committed to helping you achieve your academic goals and succeed in your career.',
+      buttonText: 'Contact Us',
+      buttonLink: '/contact',
+    },
   ];
 
   const features = [
@@ -701,17 +725,24 @@ export default function Home2() {
           className="w-full"
         >
           <CarouselContent>
-            {sliderImages.map((image, index) => (
+            {sliderItems.map((item, index) => (
               <CarouselItem key={index}>
                 <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full" id="slide-img">
                   <Image
-                    src={image.src}
-                    alt={image.alt}
+                    src={item.src}
+                    alt={item.alt}
                     fill
                     className="object-cover"
                     priority={index === 0}
-                    data-ai-hint={image.hint}
+                    data-ai-hint={item.hint}
                   />
+                  <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center text-white p-4">
+                    <h1 className="text-4xl md:text-6xl font-bold font-heading-home2 mb-4">{item.heading}</h1>
+                    <p className="text-lg md:text-xl max-w-2xl mb-8">{item.description}</p>
+                    <Button asChild size="lg" style={{backgroundColor: '#2abfaf'}}>
+                      <Link href={item.buttonLink}>{item.buttonText}</Link>
+                    </Button>
+                  </div>
                 </div>
               </CarouselItem>
             ))}
