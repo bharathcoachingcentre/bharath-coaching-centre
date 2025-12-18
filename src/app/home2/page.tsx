@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target, Download, Star, Users2, Eye, TestTube2, FileText, CalendarClock, Plus, Pencil, Ruler, FlaskConical, Atom, Mail } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target, Download, Star, Users2, Eye, TestTube2, FileText, CalendarClock, Plus, Pencil, Ruler, FlaskConical, Atom, Mail, TrendingUp } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -360,29 +360,25 @@ export default function Home2() {
 
   const tutoringCourses = [
     {
-      icon: Presentation,
-      title: "Individual Concern",
-      description: "",
-      price: "",
+        icon: Target,
+        title: "Individual Concern",
+        description: "Sessions are tailored to address your specific doubts and learning gaps."
     },
     {
-      icon: Award,
-      title: "Personalized Schedule",
-      description: "",
-      price: "",
+        icon: CalendarClock,
+        title: "Personalized Schedules",
+        description: "Flexible scheduling to fit your routine and learning pace."
     },
     {
-      icon: GraduationCap,
-      title: "Personalized Study Material",
-      description: "",
-      price: "",
+        icon: BookOpen,
+        title: "Customized Study Material",
+        description: "Receive study materials designed specifically for your needs."
     },
     {
-      icon: Laptop,
-      title: "Weekly Academic Growth Tracking",
-      description: "",
-      price: "",
-    },
+        icon: TrendingUp,
+        title: "Academic Growth Tracking",
+        description: "We monitor your progress closely to ensure continuous improvement."
+    }
   ];
 
   const newOnVedantuItems = [
@@ -1029,43 +1025,38 @@ export default function Home2() {
       </AnimatedSection>
 
       {/* One-to-One Tutoring Section */}
-      <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#FFF9F5'}}>
+      <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#faf8f7'}}>
         <div className="container mx-auto">
-          <div className="flex justify-between items-start mb-12">
-            <AnimatedElement animation="fade-up">
-              <div>
-                <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}><span style={{color: '#2abfaf'}}>One-to-One</span> Sessions</h2>
-                <p className="text-2xl mt-2 text-gray-700 font-heading-home2">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
-              </div>
-            </AnimatedElement>
-            <div className="hidden md:block">
-              <Image
-                src="/discuss.png"
-                alt="Tutoring discussion"
-                width={300}
-                height={200}
-                data-ai-hint="students tutoring"
-              />
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#2abfaf'}}>Personalized Learning</p>
+                <h2 className="text-4xl font-bold font-heading-home2 mt-2" style={{color: '#182d45'}}>One-to-One Coaching Sessions</h2>
+                <p className="mt-4 text-lg text-gray-600">
+                    For students who need focused attention, our one-to-one sessions provide the perfect environment to thrive. Get undivided attention from our best mentors.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-8 mt-8">
+                    {tutoringCourses.map((course, index) => (
+                        <div key={index} className="flex items-start gap-4">
+                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full" style={{ backgroundColor: '#2abfaf1f' }}>
+                                <course.icon className="w-7 h-7" style={{ color: '#2abfaf' }} />
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
+                                <p className="text-sm text-gray-600 mt-1">{course.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {tutoringCourses.map((course, index) => (
-              <Card key={index} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col transition-all duration-300 hover:scale-105 hover:-translate-y-2">
-                <div className="flex-grow">
-                  <div className="flex items-center justify-center h-16 w-16 rounded-full mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
-                    <course.icon className="w-8 h-8" style={{ color: '#2abfaf' }} />
-                  </div>
-                  <h3 className="text-lg font-bold mb-2 font-heading-home2">{course.title}</h3>
-                  {course.description && <p className="text-sm text-gray-600 mb-4">{course.description}</p>}
-                </div>
-                <div>
-                  <div className="border-t border-gray-200 my-4"></div>
-                  {course.price && <p className="text-sm text-green-600 font-semibold mb-4">Starts At <span className="text-lg font-bold text-black">₹ {course.price}/hr</span></p>}
-                  <Button style={{backgroundColor: '#2abfaf'}} className="w-full text-white">Find a Personal Tutor <ArrowRight className="ml-2 w-4 h-4" /></Button>
-                </div>
-              </Card>
-            ))}
+            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                    src="https://picsum.photos/seed/tutor/600/800"
+                    alt="One-to-one tutoring session"
+                    fill
+                    className="object-cover"
+                    data-ai-hint="tutoring session"
+                />
+            </div>
           </div>
         </div>
       </AnimatedSection>
