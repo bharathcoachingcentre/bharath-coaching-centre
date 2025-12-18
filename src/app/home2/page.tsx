@@ -1031,7 +1031,7 @@ export default function Home2() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
                 <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#2abfaf'}}>Personalized Learning</p>
-                <h2 className="text-4xl font-bold font-heading-home2 mt-2" style={{color: '#182d45'}}>One-to-One Coaching Sessions</h2>
+                <h2 className="text-4xl font-bold font-heading-home2 mt-2" style={{color: '#182d45'}}>One-to-One Sessions</h2>
                 <p className="mt-4 text-lg text-gray-600">
                     For students who need focused attention, our one-to-one sessions provide the perfect environment to thrive. Get undivided attention from our best mentors.
                 </p>
