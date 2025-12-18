@@ -736,8 +736,10 @@ export default function Home2() {
                     priority={index === 0}
                     data-ai-hint={item.hint}
                   />
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center text-white p-4">
-                    <h1 className="text-4xl md:text-6xl font-bold font-heading-home2 mb-4">{item.heading}</h1>
+                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center text-white p-4" style={{backgroundColor: 'rgb(0 0 0 / 61%)'}}>
+                    <h1 className="text-4xl md:text-6xl font-bold font-heading-home2 mb-4">
+                        {item.heading.split(' ').slice(0, -1).join(' ')} <span style={{color: '#2abfaf'}}>{item.heading.split(' ').pop()}</span>
+                    </h1>
                     <p className="text-lg md:text-xl max-w-2xl mb-8">{item.description}</p>
                     <Button asChild size="lg" style={{backgroundColor: '#2abfaf'}}>
                       <Link href={item.buttonLink}>{item.buttonText}</Link>
