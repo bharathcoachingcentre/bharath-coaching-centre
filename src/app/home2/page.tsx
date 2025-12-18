@@ -368,7 +368,7 @@ export default function Home2() {
     {
         icon: CalendarClock,
         title: "Personalized Schedules",
-        description: "Flexible scheduling to fit your routine and learning pace."
+        description: ""
     },
     {
         icon: BookOpen,
