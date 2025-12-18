@@ -203,23 +203,23 @@ export default function Home2() {
 
   const features = [
     {
-      icon: <Presentation className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
+      icon: <Presentation className="w-8 h-8" style={{ color: '#2abfaf' }} />,
       text: "Daily Interactive Class",
     },
     {
-      icon: <ClipboardCheck className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
+      icon: <ClipboardCheck className="w-8 h-8" style={{ color: '#2abfaf' }} />,
       text: "Unit Test, Full Test, Practice Worksheet",
     },
     {
-      icon: <MessageCircleQuestion className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
+      icon: <MessageCircleQuestion className="w-8 h-8" style={{ color: '#2abfaf' }} />,
       text: "Instant Doubt Solving Session",
     },
     {
-      icon: <BookOpen className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
+      icon: <BookOpen className="w-8 h-8" style={{ color: '#2abfaf' }} />,
       text: "Printed Study Material",
     },
     {
-      icon: <UserCheck className="w-8 h-8" style={{ color: '#c5b3a5' }} />,
+      icon: <UserCheck className="w-8 h-8" style={{ color: '#2abfaf' }} />,
       text: "Personalised Mentor Support",
     },
   ];
@@ -728,7 +728,7 @@ export default function Home2() {
             {features.map((feature, index) => (
               <Card key={index} className="group relative bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2 overflow-hidden" style={{backgroundColor: '#fdfbfb', height: '200px'}}>
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
-                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#f6f1ee' }}>
+                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
                     {feature.icon}
                   </div>
                   <p className="font-semibold text-base text-gray-700">{feature.text}</p>
@@ -1238,6 +1238,8 @@ export default function Home2() {
     </div>
   );
 }
+
+    
 
     
 
