@@ -767,7 +767,7 @@ export default function Home2() {
       </AnimatedSection>
 
       {/* Study Material Section */}
-      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#faf8f7' }}>
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#fff' }}>
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
