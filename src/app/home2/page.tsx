@@ -1050,11 +1050,11 @@ export default function Home2() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                    src="https://picsum.photos/seed/tutor/600/800"
+                    src="https://picsum.photos/seed/tutoring/600/800"
                     alt="One-to-one tutoring session"
                     fill
                     className="object-cover"
-                    data-ai-hint="tutoring session"
+                    data-ai-hint="one-to-one tutoring"
                 />
             </div>
           </div>
