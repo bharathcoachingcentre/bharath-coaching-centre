@@ -733,7 +733,7 @@ export default function Home2() {
                   </div>
                   <p className="font-semibold text-base text-gray-700">{feature.text}</p>
                 </CardContent>
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#c5b3a5] transition-transform duration-300 scale-x-0 group-hover:scale-x-100 origin-bottom-left"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#2abfaf] transition-transform duration-300 scale-x-0 group-hover:scale-x-100 origin-bottom-left"></div>
               </Card>
             ))}
           </div>
