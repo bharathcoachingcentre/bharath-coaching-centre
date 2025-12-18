@@ -767,77 +767,52 @@ export default function Home2() {
       </AnimatedSection>
 
       {/* Study Material Section */}
-      <AnimatedSection className="py-16 md:py-24">
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#faf8f7' }}>
         <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-black font-heading-home2">Study Material</h2>
-          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
-            <div className="grid md:grid-cols-5 items-center h-full">
-              <div className="p-8 md:p-12 text-white md:col-span-3">
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Link href="/cbse" target="_blank">
-                      <Card className="text-center p-6 cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" style={{boxShadow: '0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)', borderTopRightRadius: '35px', borderBottomLeftRadius: '35px', borderTopLeftRadius: '0px', borderBottomRightRadius: '0px'}}>
-                          <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto animate-move-up-down" />
-                          <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">CBSE</p>
-                      </Card>
-                    </Link>
-                    <Link href="/samacheer" target="_blank">
-                       <Card className="text-center p-6 cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" style={{boxShadow: '0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)', borderTopRightRadius: '35px', borderBottomLeftRadius: '35px', borderTopLeftRadius: '0px', borderBottomRightRadius: '0px'}}>
-                      <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
-                      <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">SAMACHEER</p>
-                  </Card>
-                    </Link>
-                </div>
-                {dsmSelectedBoard && (
-                    <div className="relative mt-8 py-6 px-4 bg-white/90 rounded-lg shadow-inner">
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-8 w-8 text-gray-700" onClick={() => setDsmSelectedBoard(null)}>
-                            <X className="h-5 w-5" />
-                        </Button>
-                        <Tabs defaultValue="books">
-                            <TabsList className="grid w-full grid-cols-5">
-                                {studyMaterials.map(material => (
-                                    <TabsTrigger key={material} value={material.toLowerCase().replace(/ /g, '-')} className="text-xs px-1">{material}</TabsTrigger>
-                                ))}
-                            </TabsList>
-                            {studyMaterials.map(material => (
-                                <TabsContent key={material} value={material.toLowerCase().replace(/ /g, '-')}>
-                                    <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
-                                        {(boardMaterials[dsmSelectedBoard as keyof typeof boardMaterials] as any)[material]?.map((item: any, idx: number) => (
-                                            <Button
-                                                key={idx}
-                                                variant={dsmSelectedClass === item.class ? "secondary" : "outline"}
-                                                className="bg-gray-200 text-gray-800"
-                                                onClick={() => {
-                                                    setDsmSelectedClass(item.class);
-                                                    setDsmSelectedClassPdf(item.pdf);
-                                                }}
-                                            >
-                                                {item.class}
-                                            </Button>
-                                        ))}
-                                        <Button asChild disabled={!dsmSelectedClassPdf}>
-                                            <a href={dsmSelectedClassPdf || undefined} download className="bg-green-500 hover:bg-green-600 text-white">
-                                                <Download className="mr-2 h-4 w-4" /> Download
-                                            </a>
-                                        </Button>
-                                    </div>
-                                </TabsContent>
-                            ))}
-                        </Tabs>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#c58f63'}}>RESOURCES</p>
+              <h2 className="text-4xl font-bold font-heading-home2 mt-2" style={{color: '#182d45'}}>Download Study Material</h2>
+              <p className="mt-4 text-lg text-gray-600">
+                Get access to high-quality study materials designed by expert educators to help you excel in your exams.
+              </p>
+              <Button asChild variant="outline" className="mt-8 rounded-full px-8 py-6 text-lg border-2" style={{borderColor: '#E7D8CC', backgroundColor: '#F9F4F0', color: '#c58f63'}}>
+                <Link href="/free-study-material">
+                  Browse All Materials <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-8">
+              <Link href="/study-material-cbse" target="_blank">
+                <Card className="relative group text-center p-8 cursor-pointer hover:bg-blue-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
+                  <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#c58f63'}}>
+                    <div className="absolute top-2 right-2 flex gap-0.5">
+                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
                     </div>
-                )}
-              </div>
-              <div className="h-64 md:h-full md:col-span-2 relative">
-                <Image
-                  id="study-material"
-                  src="/sty-mat.png"
-                  alt="Study Material"
-                  width={600}
-                  height={600}
-                  className="object-cover w-full h-full"
-                  data-ai-hint="modern building"
-                />
-              </div>
+                  </div>
+                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-blue-100/70 mx-auto mb-4">
+                    <BookOpen className="w-10 h-10 text-blue-600" />
+                  </div>
+                  <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">CBSE</p>
+                </Card>
+              </Link>
+              <Link href="/study-material-samacheer" target="_blank">
+                <Card className="relative group text-center p-8 cursor-pointer hover:bg-purple-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
+                    <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#a881e6'}}>
+                      <div className="absolute top-2 right-2 flex gap-0.5">
+                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                      </div>
+                    </div>
+                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-purple-100/70 mx-auto mb-4">
+                    <GraduationCap className="w-10 h-10 text-purple-600" />
+                  </div>
+                  <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">SAMACHEER</p>
+                </Card>
+              </Link>
             </div>
           </div>
         </div>
@@ -1037,7 +1012,7 @@ export default function Home2() {
                             <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full" style={{ backgroundColor: '#2abfaf1f' }}>
                                 <course.icon className="w-7 h-7" style={{ color: '#2abfaf' }} />
                             </div>
-                            <div>
+                            <div className="flex items-center">
                                 <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
                             </div>
                         </div>
