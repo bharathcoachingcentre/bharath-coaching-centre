@@ -377,7 +377,7 @@ export default function Home2() {
     },
     {
         icon: TrendingUp,
-        title: "Academic Growth Tracking",
+        title: "Weekly Academic Growth Tracking",
         description: "We monitor your progress closely to ensure continuous improvement."
     }
   ];
@@ -1082,7 +1082,7 @@ export default function Home2() {
                   Students Academic{" "}
                   <span className="relative inline-block font-heading-home2" style={{color: '#2abfaf'}}>
                     Experience
-                    <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
+                    <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 -z-10"></span>
                   </span>
                 </h2>
               </div>
