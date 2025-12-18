@@ -13,6 +13,8 @@ export default {
         body: ['PT Sans', 'sans-serif'],
         headline: ['PT Sans', 'sans-serif'],
         code: ['monospace'],
+        'heading-home2': ['var(--font-plus-jakarta-sans)', 'sans-serif'],
+        'body-home2': ['var(--font-dm-sans)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',

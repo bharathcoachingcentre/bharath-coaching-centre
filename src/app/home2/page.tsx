@@ -692,7 +692,7 @@ export default function Home2() {
   ];
 
   return (
-    <div className="flex flex-col relative">
+    <div className="flex flex-col relative font-body-home2">
       {/* Hero Slider Section */}
       <AnimatedSection className="w-full" id="slider-sec">
         <Carousel
@@ -731,7 +731,7 @@ export default function Home2() {
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
                     {feature.icon}
                   </div>
-                  <p className="font-semibold text-base text-gray-700">{feature.text}</p>
+                  <p className="font-semibold text-base text-gray-700 font-body-home2">{feature.text}</p>
                 </CardContent>
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-[#2abfaf] transition-transform duration-300 scale-x-0 group-hover:scale-x-100 origin-bottom-left"></div>
               </Card>
@@ -743,7 +743,7 @@ export default function Home2() {
       {/* Study Material Section */}
       <AnimatedSection className="py-16 md:py-24">
         <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" style={{color: '#182d45'}}>Study Material</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-black font-heading-home2">Study Material</h2>
           <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden" style={{backgroundImage: "url('/Study-material-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', height: '450px'}}>
             <div className="grid md:grid-cols-5 items-center h-full">
               <div className="p-8 md:p-12 text-white md:col-span-3">
@@ -752,13 +752,13 @@ export default function Home2() {
                     <Link href="/cbse" target="_blank">
                       <Card className="text-center p-6 cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" style={{boxShadow: '0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)', borderTopRightRadius: '35px', borderBottomLeftRadius: '35px', borderTopLeftRadius: '0px', borderBottomRightRadius: '0px'}}>
                           <Image src="/CBSE.png" alt="CBSE" width={80} height={80} className="mx-auto animate-move-up-down" />
-                          <p className="font-extrabold text-2xl mt-4 text-black">CBSE</p>
+                          <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">CBSE</p>
                       </Card>
                     </Link>
                     <Link href="/samacheer" target="_blank">
                        <Card className="text-center p-6 cursor-pointer hover:bg-blue-100/80 transition-all duration-300 border-transparent bg-white group" style={{boxShadow: '0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)', borderTopRightRadius: '35px', borderBottomLeftRadius: '35px', borderTopLeftRadius: '0px', borderBottomRightRadius: '0px'}}>
                       <Image src="/SAMACHEER.png" alt="SAMACHEER" width={80} height={80} className="mx-auto animate-move-up-down" />
-                      <p className="font-extrabold text-2xl mt-4 text-black">SAMACHEER</p>
+                      <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">SAMACHEER</p>
                   </Card>
                     </Link>
                 </div>
@@ -821,7 +821,7 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
             <AnimatedElement animation="fade-up">
-                <h2 className="text-3xl font-bold text-center mb-12" style={{ marginBottom: '20px', color: '#182d45' }}>Explore Courses (Class 1 - 12)</h2>
+                <h2 className="text-3xl font-bold text-center mb-12 font-heading-home2" style={{ marginBottom: '20px' }}>Explore Courses (Class 1 - 12)</h2>
             </AnimatedElement>
             <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -855,7 +855,7 @@ export default function Home2() {
                     <Card className={`relative overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 pt-14`}>
                         <div className="flex flex-row flex-grow">
                           <div className="flex flex-col w-2/3 p-6">
-                              <CardTitle className="text-2xl font-bold mt-2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
+                              <CardTitle className="text-2xl font-bold mt-2 font-heading-home2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
                               <CardContent className="p-0 mt-4">
                                   <ul className="space-y-3">
                                       {course.features.map((feature, i) => (
@@ -897,17 +897,17 @@ export default function Home2() {
               </div>
                 <DialogContent className="sm:max-w-[600px] p-8">
                     <DialogHeader className="text-center">
-                        <DialogTitle className="text-2xl font-bold mb-8">OFFLINE TIME TABLE</DialogTitle>
+                        <DialogTitle className="text-2xl font-bold mb-8 font-heading-home2">OFFLINE TIME TABLE</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-8">
                         <div>
-                            <h3 className="font-bold text-lg mb-4">CBSE</h3>
+                            <h3 className="font-bold text-lg mb-4 font-heading-home2">CBSE</h3>
                             <div className="flex flex-wrap gap-4">
                                 {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
                             </div>
                         </div>
                         <div>
-                            <h3 className="font-bold text-lg mb-4">SAMACHEER</h3>
+                            <h3 className="font-bold text-lg mb-4 font-heading-home2">SAMACHEER</h3>
                             <div className="flex flex-wrap gap-4">
                                 {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
                             </div>
@@ -929,7 +929,7 @@ export default function Home2() {
         </div>
         <div className="container mx-auto relative z-10">
           <AnimatedElement animation="fade-up" className="text-center mb-12">
-            <h2 className="text-3xl font-bold" style={{color: '#182d45'}}>Offline Timetable</h2>
+            <h2 className="text-3xl font-bold font-heading-home2">Offline Timetable</h2>
           </AnimatedElement>
           <div
             className="rounded-xl p-8"
@@ -951,7 +951,7 @@ export default function Home2() {
                 />
               </div>
               <div className="md:col-span-7">
-                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 flex items-center justify-start md:justify-end gap-4">
+                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 flex items-center justify-start md:justify-end gap-4 font-heading-home2">
                   <Image src="/CBSE.gif" alt="CBSE" width={40} height={40} />
                   CBSE
                 </h2>
@@ -970,7 +970,7 @@ export default function Home2() {
                     </div>
                   ))}
                 </div>
-                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 mt-8 flex items-center justify-start md:justify-end gap-4">
+                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 mt-8 flex items-center justify-start md:justify-end gap-4 font-heading-home2">
                   <Image src="/CBSE.gif" alt="SAMACHEER" width={40} height={40} />
                   SAMACHEER
                 </h2>
@@ -1001,8 +1001,8 @@ export default function Home2() {
           <div className="flex justify-between items-start mb-12">
             <AnimatedElement animation="fade-up">
               <div>
-                <h2 className="text-4xl font-bold" style={{color: '#182d45'}}><span style={{color: '#2abfaf'}}>One-to-One</span> Sessions</h2>
-                <p className="text-2xl mt-2 text-gray-700">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
+                <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}><span style={{color: '#2abfaf'}}>One-to-One</span> Sessions</h2>
+                <p className="text-2xl mt-2 text-gray-700 font-heading-home2">Highest Personal <span className="underline decoration-purple-500 decoration-2 underline-offset-4">Attention</span></p>
               </div>
             </AnimatedElement>
             <div className="hidden md:block">
@@ -1023,7 +1023,7 @@ export default function Home2() {
                   <div className="flex items-center justify-center h-16 w-16 rounded-full mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
                     <course.icon className="w-8 h-8" style={{ color: '#2abfaf' }} />
                   </div>
-                  <h3 className="text-lg font-bold mb-2">{course.title}</h3>
+                  <h3 className="text-lg font-bold mb-2 font-heading-home2">{course.title}</h3>
                   {course.description && <p className="text-sm text-gray-600 mb-4">{course.description}</p>}
                 </div>
                 <div>
@@ -1052,9 +1052,9 @@ export default function Home2() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12">
               <div className="text-center md:text-left mb-8 md:mb-0">
                 <p className="font-semibold text-lg mb-2">What Our Students Say</p>
-                <h2 className="text-3xl font-bold" style={{color: '#182d45'}}>
+                <h2 className="text-3xl font-bold font-heading-home2" style={{color: '#182d45'}}>
                   Students Academic{" "}
-                  <span className="relative inline-block" style={{color: '#2abfaf'}}>
+                  <span className="relative inline-block font-heading-home2" style={{color: '#2abfaf'}}>
                     Experience
                     <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400"></span>
                   </span>
@@ -1083,13 +1083,13 @@ export default function Home2() {
                           />
                         </div>
                         <div className="col-span-2 space-y-4 text-center md:text-left">
-                          <h3 className="text-2xl font-bold" id="testi-head" style={{color: '#2abfaf'}}>
+                          <h3 className="text-2xl font-bold font-heading-home2" id="testi-head" style={{color: '#2abfaf'}}>
                             {testimonial.company}
                           </h3>
                           <p className="text-lg text-gray-300" id="testi-text">
                             "{testimonial.quote}"
                           </p>
-                          <p className="font-semibold mt-4" id="testi-txt">
+                          <p className="font-semibold mt-4 font-heading-home2" id="testi-txt">
                             {testimonial.author}
                           </p>
                         </div>
@@ -1135,7 +1135,7 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/newsbanner11.webp')", backgroundSize: "cover", backgroundPosition: "center"}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
-                <h2 className="text-3xl font-bold mb-12" style={{color: '#182d45'}}>Why Choose <span style={{color: '#2abfaf'}}>BCC</span></h2>
+                <h2 className="text-3xl font-bold mb-12 font-heading-home2" style={{color: '#182d45'}}>Why Choose <span className="font-heading-home2" style={{color: '#2abfaf'}}>BCC</span></h2>
               </AnimatedElement>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12">
                   {whyChooseUsPoints.map((point, index) => (
@@ -1144,7 +1144,7 @@ export default function Home2() {
                             {point.icon}
                           </div>
                           <div>
-                              <h3 className="text-xl font-bold">{point.title}</h3>
+                              <h3 className="text-xl font-bold font-heading-home2">{point.title}</h3>
                           </div>
                       </div>
                   ))}
@@ -1158,7 +1158,7 @@ export default function Home2() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
              <AnimatedElement animation="fade-left-up">
                 <div>
-                  <h2 className="text-4xl font-bold" style={{color: '#182d45'}}>Academic Excellence <span className="relative inline-block" style={{color: '#2abfaf'}}> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
+                  <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Academic Excellence <span className="relative inline-block font-heading-home2" style={{color: '#2abfaf'}}> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
                   <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
                 </div>
             </AnimatedElement>
@@ -1202,7 +1202,7 @@ export default function Home2() {
                             data-ai-hint={result.hint}
                           />
                           <div className="p-4">
-                            <h3 className="text-xl font-bold">{result.name}</h3>
+                            <h3 className="text-xl font-bold font-heading-home2">{result.name}</h3>
                             <p className="text-muted-foreground mt-1">{result.score}</p>
                           </div>
                         </CardContent>
@@ -1238,11 +1238,3 @@ export default function Home2() {
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-    
