@@ -363,22 +363,18 @@ export default function Home2() {
     {
         icon: Target,
         title: "Individual Concern",
-        description: "Sessions are tailored to address your specific doubts and learning gaps."
     },
     {
         icon: CalendarClock,
         title: "Personalized Schedules",
-        description: ""
     },
     {
         icon: BookOpen,
         title: "Customized Study Material",
-        description: "Receive study materials designed specifically for your needs."
     },
     {
         icon: TrendingUp,
         title: "Weekly Academic Growth Tracking",
-        description: "We monitor your progress closely to ensure continuous improvement."
     }
   ];
 
@@ -1037,13 +1033,12 @@ export default function Home2() {
                 </p>
                 <div className="grid sm:grid-cols-2 gap-8 mt-8">
                     {tutoringCourses.map((course, index) => (
-                        <div key={index} className="flex items-start gap-4">
+                        <div key={index} className="flex items-center gap-4">
                             <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full" style={{ backgroundColor: '#2abfaf1f' }}>
                                 <course.icon className="w-7 h-7" style={{ color: '#2abfaf' }} />
                             </div>
                             <div>
                                 <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
-                                <p className="text-sm text-gray-600 mt-1">{course.description}</p>
                             </div>
                         </div>
                     ))}
