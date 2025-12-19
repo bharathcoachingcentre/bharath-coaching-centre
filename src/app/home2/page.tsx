@@ -1099,7 +1099,7 @@ export default function Home2() {
               </Carousel>
             <div className="space-y-4" style={{ marginLeft: '45px' }}>
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>TESTIMONIALS</p>
-              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Students Academic <br/>Experience</h2>
+              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', lineHeight: '45px'}}>Students Academic <br/>Experience</h2>
               <p className="text-lg text-gray-500">
                 Hear from our students about their transformative learning experiences and how we have helped them achieve their academic goals.
               </p>
