@@ -1051,7 +1051,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[100%] w-[85%] rounded-l-full blur-none" style={{backgroundColor: '#dffef196'}}></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[100%] w-[85%] rounded-l-full" style={{backgroundColor: '#dffef196'}}></div>
         <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <Carousel
@@ -1089,7 +1089,7 @@ export default function Home2() {
                   ))}
                 </CarouselContent>
                  <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
-                  <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
+                 <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
                     <ChevronLeft style={{ width: '24px', height: '24px', color: '#2abfaf' }} />
                   </CarouselPrevious>
                   <CarouselNext id="navi-arrow-next" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
@@ -1143,7 +1143,7 @@ export default function Home2() {
                         variant={activeResultFilter === filter ? 'default' : 'outline'}
                         onClick={() => setActiveResultFilter(filter)}
                         className="rounded-full px-6 py-2 text-base"
-                        style={activeResultFilter === filter ? { backgroundColor: '#182d45', color: 'white', borderColor: '#182d45' } : { borderColor: '#d1d5db', color: '#374151' }}
+                        style={activeResultFilter === filter ? { backgroundColor: 'rgb(42, 191, 175)', color: 'white', borderColor: 'rgb(42, 191, 175)' } : { borderColor: '#d1d5db', color: '#374151' }}
                     >
                         {filter}
                     </Button>
