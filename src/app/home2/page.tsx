@@ -819,11 +819,11 @@ export default function Home2() {
                       </div>
                     </div>
                     <div className="absolute bottom-0 right-0 -mb-2 -mr-2 w-16 h-16 border-b-4 border-r-4 rounded-br-2xl" style={{borderColor: '#2abfaf'}}>
-                      <div className="absolute bottom-2 left-2 flex gap-0.5">
-                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                      </div>
+                        <div className="absolute bottom-2 left-2 flex gap-0.5">
+                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                        </div>
                     </div>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-purple-100/70 mx-auto mb-4">
                     <GraduationCap className="w-10 h-10 text-purple-600" />
@@ -1053,7 +1053,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] bg-[#dffef196] rounded-full blur-3xl -mr-64"></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] bg-[#e5e7f9] rounded-full blur-3xl -mr-64"></div>
         <div className="container mx-auto relative z-10">
           <Carousel 
             setApi={setNewTestimonialApi} 
@@ -1066,7 +1066,7 @@ export default function Home2() {
                 <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
-                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#2abfaf'}}>
+                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#6366f1'}}>
                         <CardContent className="p-0">
                           <p className="text-white italic text-lg md:text-xl">
                             “{testimonial.quote}”
@@ -1092,7 +1092,7 @@ export default function Home2() {
                 </div>
               </div>
               <div className="space-y-4">
-                <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>Testimonials</p>
+                <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#6366f1' }}>Testimonials</p>
                 <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>What They Say About Us?</h2>
                 <p className="text-lg text-gray-500">
                   Hear from our students about their transformative learning experiences and how we have helped them achieve their academic goals.
@@ -1210,7 +1210,3 @@ export default function Home2() {
     </div>
   );
 }
-
-
-
-
