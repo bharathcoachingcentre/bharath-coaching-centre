@@ -532,3 +532,7 @@ button#navi-arrow-prev {
 button#navi-arrow-next {
   left: -13px;
 }
+
+.blur-3xl {
+    --tw-blur: blur(0px);
+}
