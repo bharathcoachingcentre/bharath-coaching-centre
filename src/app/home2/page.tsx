@@ -792,6 +792,13 @@ export default function Home2() {
                       <span className="h-1 w-1 rounded-full bg-gray-300"></span>
                     </div>
                   </div>
+                  <div className="absolute bottom-0 right-0 -mb-2 -mr-2 w-16 h-16 border-b-4 border-r-4 rounded-br-2xl" style={{borderColor: '#2abfaf'}}>
+                    <div className="absolute bottom-2 left-2 flex gap-0.5">
+                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                    </div>
+                  </div>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-blue-100/70 mx-auto mb-4">
                     <BookOpen className="w-10 h-10 text-blue-600" />
                   </div>
@@ -802,6 +809,13 @@ export default function Home2() {
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-purple-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
                     <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#2abfaf'}}>
                       <div className="absolute top-2 right-2 flex gap-0.5">
+                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-0 right-0 -mb-2 -mr-2 w-16 h-16 border-b-4 border-r-4 rounded-br-2xl" style={{borderColor: '#2abfaf'}}>
+                      <div className="absolute bottom-2 left-2 flex gap-0.5">
                         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
                         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
                         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
@@ -1234,5 +1248,6 @@ export default function Home2() {
     </div>
   );
 }
+
 
 
