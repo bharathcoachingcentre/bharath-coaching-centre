@@ -1090,8 +1090,12 @@ export default function Home2() {
                   ))}
                 </CarouselContent>
                 <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
-                  <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
-                  <CarouselNext id="navi-arrow-next" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
+                  <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
+                    <ChevronLeft style={{ fontSize: '24px', color: '#2abfaf' }} />
+                  </CarouselPrevious>
+                  <CarouselNext id="navi-arrow-next" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
+                    <ChevronRight style={{ fontSize: '24px', color: '#2abfaf' }} />
+                  </CarouselNext>
                 </div>
               </Carousel>
             </div>
