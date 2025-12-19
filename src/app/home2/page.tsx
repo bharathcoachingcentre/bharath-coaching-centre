@@ -1055,8 +1055,8 @@ export default function Home2() {
         <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              <Carousel 
-                setApi={setNewTestimonialApi} 
+              <Carousel
+                setApi={setNewTestimonialApi}
                 className="w-full"
                 opts={{ loop: true }}
                 plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
@@ -1066,7 +1066,7 @@ export default function Home2() {
                     <CarouselItem key={index}>
                       <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#2abfaf', height: '405px'}}>
                         <CardContent className="p-0">
-                           <p 
+                           <p
                             className="text-white italic text-lg md:text-xl"
                             style={{
                                 marginTop: (testimonial.company === 'Gayathri' || testimonial.company === 'S Akshaya') ? '30px' : '0'
@@ -1089,11 +1089,11 @@ export default function Home2() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-              </Carousel>
-              <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
+                <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                   <CarouselPrevious id="navi-arrow-prev" className="relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
                   <CarouselNext id="navi-arrow-next" className="relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
-              </div>
+                </div>
+              </Carousel>
             </div>
             <div className="space-y-4">
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>Testimonials</p>
@@ -1213,4 +1213,3 @@ export default function Home2() {
     </div>
   );
 }
-
