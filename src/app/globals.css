@@ -524,3 +524,11 @@ color:rgb(27, 157, 243);
     transform: scale(1);
   }
 }
+
+button#navi-arrow-prev {
+  left: -13px;
+}
+
+button#navi-arrow-next {
+  left: -13px;
+}
