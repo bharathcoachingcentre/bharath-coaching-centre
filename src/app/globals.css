@@ -536,3 +536,9 @@ button#navi-arrow-next {
 .blur-3xl {
     --tw-blur: blur(0px);
 }
+.w-1\/2 {
+    width: 85%;
+}
+.h-\[150\%\] {
+    height: 100%;
+}
