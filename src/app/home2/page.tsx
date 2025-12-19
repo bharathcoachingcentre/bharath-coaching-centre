@@ -1054,8 +1054,7 @@ export default function Home2() {
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: '#dffef196'}}></div>
         <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <Carousel
+            <Carousel
                 setApi={setNewTestimonialApi}
                 className="w-full"
                 opts={{ loop: true }}
@@ -1089,7 +1088,7 @@ export default function Home2() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
+                 <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                   <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
                     <ChevronLeft style={{ width: '28px', height: '28px', color: '#2abfaf' }} />
                   </CarouselPrevious>
@@ -1098,10 +1097,9 @@ export default function Home2() {
                   </CarouselNext>
                 </div>
               </Carousel>
-            </div>
-            <div className="space-y-4">
+            <div className="space-y-4" style={{ marginLeft: '45px' }}>
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>TESTIMONIALS</p>
-              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', marginLeft: '46px'}}>Students Academic <br/>Experience</h2>
+              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Students Academic <br/>Experience</h2>
               <p className="text-lg text-gray-500">
                 Hear from our students about their transformative learning experiences and how we have helped them achieve their academic goals.
               </p>
@@ -1217,5 +1215,3 @@ export default function Home2() {
     </div>
   );
 }
-
-    
