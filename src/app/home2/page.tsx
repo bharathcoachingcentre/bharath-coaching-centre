@@ -584,7 +584,7 @@ export default function Home2() {
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
+        quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir',
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
@@ -1053,7 +1053,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: 'rgb(221 247 239 / 86%)'}}></div>
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: '#dffef196'}}></div>
         <div className="container mx-auto relative z-10">
           <Carousel 
             setApi={setNewTestimonialApi} 
