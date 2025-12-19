@@ -363,18 +363,22 @@ export default function Home2() {
     {
         icon: Target,
         title: "Individual Concern",
+        description: "Sessions are tailored to address your specific doubts and learning gaps.",
     },
     {
         icon: CalendarClock,
         title: "Personalized Schedules",
+        description: "",
     },
     {
         icon: BookOpen,
         title: "Customized Study Material",
+        description: "Receive study materials designed specifically for your needs.",
     },
     {
         icon: TrendingUp,
         title: "Weekly Academic Growth Tracking",
+        description: "We monitor your progress closely to ensure continuous improvement.",
     }
   ];
 
@@ -1046,95 +1050,53 @@ export default function Home2() {
           </div>
         </div>
       </AnimatedSection>
-
+      
       {/* New Testimonial Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-testimonial">
-        <div className="container mx-auto text-white">
-          <Carousel
-            setApi={setNewTestimonialApi}
-            plugins={[autoplay.current]}
-            opts={{
-              align: "start",
-              containScroll: "keepSnaps",
-              loop: true,
-            }}
+      <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] bg-[#dffef196] rounded-full blur-3xl -mr-64"></div>
+        <div className="container mx-auto relative z-10">
+          <Carousel 
+            setApi={setNewTestimonialApi} 
+            className="w-full"
+            opts={{ loop: true }}
+            plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
           >
-            <div className="flex flex-col md:flex-row justify-between items-center mb-12">
-              <div className="text-center md:text-left mb-8 md:mb-0">
-                <p className="font-semibold text-lg mb-2">What Our Students Say</p>
-                <h2 className="text-3xl font-bold font-heading-home2" style={{color: '#182d45'}}>
-                  Students Academic{" "}
-                  <span className="relative inline-block font-heading-home2" style={{color: '#2abfaf'}}>
-                    Experience
-                    <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 -z-10"></span>
-                  </span>
-                </h2>
-              </div>
-              <div className="flex gap-2" id="nav-gap">
-                <CarouselPrevious onClick={() => newTestimonialApi?.scrollPrev()} className="static translate-y-0 testimonial-nav" />
-                <CarouselNext onClick={() => newTestimonialApi?.scrollNext()} className="static translate-y-0 testimonial-nav" />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-5 gap-8 items-center">
-              <div className="md:col-span-4">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="relative">
                 <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                        <div className="col-span-1 mx-auto md:mx-0">
-                          <Image
-                            src={testimonial.image}
-                            alt={testimonial.author}
-                            width={250}
-                            height={300}
-                            className="rounded-lg object-cover w-[250px] h-[300px] md:w-[250px] md:h-[300px]"
-                            data-ai-hint={testimonial.imageHint}
-                          />
-                        </div>
-                        <div className="col-span-2 space-y-4 text-center md:text-left">
-                          <h3 className="text-2xl font-bold font-heading-home2" id="testi-head" style={{color: '#2abfaf'}}>
-                            {testimonial.company}
-                          </h3>
-                          <p className="text-lg text-gray-300" id="testi-text">
-                            "{testimonial.quote}"
+                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#2abfaf'}}>
+                        <CardContent className="p-0">
+                          <p className="text-white italic text-lg md:text-xl">
+                            “{testimonial.quote}”
                           </p>
-                          <p className="font-semibold mt-4 font-heading-home2" id="testi-txt">
-                            {testimonial.author}
-                          </p>
-                        </div>
-                      </div>
+                          <div className="flex items-center gap-4 mt-8">
+                            <Avatar className="w-16 h-16 border-4 border-white">
+                              <AvatarImage src={testimonial.image} alt={testimonial.author} data-ai-hint={testimonial.imageHint} />
+                              <AvatarFallback>{testimonial.author.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-bold text-white text-lg">{testimonial.company}</p>
+                              <p className="text-white/80 text-sm">{testimonial.author}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-              </div>
-
-              <div className="md:col-span-1 hidden md:block">
-                <div className="h-[350px] overflow-y-auto no-scrollbar">
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    {newTestimonials.map((testimonial, index) => (
-                      <div
-                        key={index}
-                        id="testi-thumb"
-                        className={cn(
-                          "h-[120px] w-full aspect-square relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300",
-                          newTestimonialSelectedIndex === index
-                            ? "opacity-100 scale-105"
-                            : "opacity-50 scale-95"
-                        )}
-                        onClick={() => newTestimonialApi?.scrollTo(index)}
-                      >
-                        <Image
-                          src={testimonial.image}
-                          alt={testimonial.author}
-                          fill
-                          className="object-cover"
-                          data-ai-hint={testimonial.imageHint}
-                        />
-                      </div>
-                    ))}
-                  </div>
+                <div className="absolute -right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
+                  <CarouselPrevious className="relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
+                  <CarouselNext className="relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
                 </div>
+              </div>
+              <div className="space-y-4">
+                <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>Testimonials</p>
+                <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>What They Say About Us?</h2>
+                <p className="text-lg text-gray-500">
+                  Hear from our students about their transformative learning experiences and how we have helped them achieve their academic goals.
+                </p>
               </div>
             </div>
           </Carousel>
@@ -1248,6 +1210,7 @@ export default function Home2() {
     </div>
   );
 }
+
 
 
 
