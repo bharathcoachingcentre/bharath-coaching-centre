@@ -1051,7 +1051,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: '#dffef196'}}></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: '#dffef196'}}></div>
         <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative">
