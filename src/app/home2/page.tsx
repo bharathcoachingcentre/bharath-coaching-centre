@@ -577,7 +577,7 @@ export default function Home2() {
     },
     {
       company: 'Reethika',
-      quote: 'I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry join here and change your future',
+      quote: "I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry join here and change your future",
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
@@ -1091,17 +1091,17 @@ export default function Home2() {
                 </CarouselContent>
                 <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                   <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronLeft style={{ width: '24px', height: '24px', color: '#2abfaf' }} />
+                    <ChevronLeft style={{ width: '28px', height: '28px', color: '#2abfaf' }} />
                   </CarouselPrevious>
                   <CarouselNext id="navi-arrow-next" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronRight style={{ width: '24px', height: '24px', color: '#2abfaf' }} />
+                    <ChevronRight style={{ width: '28px', height: '28px', color: '#2abfaf' }} />
                   </CarouselNext>
                 </div>
               </Carousel>
             </div>
             <div className="space-y-4">
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>TESTIMONIALS</p>
-              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Students Academic Experience</h2>
+              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', marginLeft: '46px'}}>Students Academic <br/>Experience</h2>
               <p className="text-lg text-gray-500">
                 Hear from our students about their transformative learning experiences and how we have helped them achieve their academic goals.
               </p>
