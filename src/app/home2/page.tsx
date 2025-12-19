@@ -605,7 +605,7 @@ export default function Home2() {
 },
 {
   company: 'Manisha M S',
-  quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
+  quote: 'BCC is an exemplary institution with highly efficient and dedicated staff who provide personalized attention to every student. Regular tests, quick doubt clarification, and timely evaluation help students improve consistently. BCC is truly a reliable and fortunate place for learners, and I wish Bharath sir, the staff, and all students continued success and growth',
   author: 'MBBS Student',
   image: '/testi-6.png',
   imageHint: 'man portrait',
@@ -1039,12 +1039,12 @@ export default function Home2() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                    src="https://images.unsplash.com/photo-1758525861536-15fb8a3ee629?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxN3x8TW90aGVyJTIwaGVscGluZyUyMHRlZW5hZ2VyJTIwd2l0aCUyMGhvbWV3b3JrJTIwc3RvY2slMjBwaG90b3xlbnwwfHx8fDE3NjYwNTQxMTV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Mother helping teenager with homework stock photo"
-                    width={600}
-                    height={800}
+                    src={placeholderImages['one-to-one-tutoring-session'].src}
+                    alt={placeholderImages['one-to-one-tutoring-session'].alt}
+                    width={placeholderImages['one-to-one-tutoring-session'].width}
+                    height={placeholderImages['one-to-one-tutoring-session'].height}
                     className="object-cover w-full h-full"
-                    data-ai-hint="one-to-one tutoring"
+                    data-ai-hint={placeholderImages['one-to-one-tutoring-session'].hint}
                 />
             </div>
           </div>
@@ -1053,7 +1053,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: '#dffef196'}}></div>
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: 'rgb(221 247 239 / 86%)'}}></div>
         <div className="container mx-auto relative z-10">
           <Carousel 
             setApi={setNewTestimonialApi} 
