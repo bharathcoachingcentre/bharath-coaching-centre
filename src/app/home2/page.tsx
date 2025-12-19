@@ -1030,10 +1030,7 @@ export default function Home2() {
                             <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full" style={{ backgroundColor: '#2abfaf1f' }}>
                                 <course.icon className="w-7 h-7" style={{ color: '#2abfaf' }} />
                             </div>
-                            <div className="flex flex-col justify-center">
-                                <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
-                                {course.description && <p className="text-sm text-gray-600 mt-1">{course.description}</p>}
-                            </div>
+                            <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
                         </div>
                     ))}
                 </div>
