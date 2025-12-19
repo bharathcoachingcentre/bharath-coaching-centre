@@ -577,7 +577,7 @@ export default function Home2() {
     },
     {
       company: 'Reethika',
-      quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
+      quote: 'I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry—join here and change your future',
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
@@ -797,11 +797,11 @@ export default function Home2() {
                     </div>
                   </div>
                   <div className="absolute bottom-0 right-0 -mb-2 -mr-2 w-16 h-16 border-b-4 border-r-4 rounded-br-2xl" style={{borderColor: '#2abfaf'}}>
-                    <div className="absolute bottom-2 left-2 flex gap-0.5">
-                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                    </div>
+                      <div className="absolute bottom-2 left-2 flex gap-0.5">
+                          <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                          <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                          <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                      </div>
                   </div>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-blue-100/70 mx-auto mb-4">
                     <BookOpen className="w-10 h-10 text-blue-600" />
@@ -1039,12 +1039,12 @@ export default function Home2() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                    src={placeholderImages['one-to-one-tutoring-session'].src}
-                    alt={placeholderImages['one-to-one-tutoring-session'].alt}
-                    width={placeholderImages['one-to-one-tutoring-session'].width}
-                    height={placeholderImages['one-to-one-tutoring-session'].height}
+                    src="https://images.unsplash.com/photo-1758525861536-15fb8a3ee629?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxN3x8TW90aGVyJTIwaGVscGluZyUyMHRlZW5hZ2VyJTIwd2l0aCUyMGhvbWV3b3JrJTIwc3RvY2slMjBwaG90b3xlbnwwfHx8fDE3NjYwNTQxMTV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Mother helping teenager with homework stock photo"
+                    width={600}
+                    height={800}
                     className="object-cover w-full h-full"
-                    data-ai-hint={placeholderImages['one-to-one-tutoring-session'].hint}
+                    data-ai-hint="one-to-one tutoring"
                 />
             </div>
           </div>
@@ -1053,7 +1053,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] bg-[#e5e7f9] rounded-full blur-3xl -mr-64"></div>
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: '#dffef196'}}></div>
         <div className="container mx-auto relative z-10">
           <Carousel 
             setApi={setNewTestimonialApi} 
@@ -1066,7 +1066,7 @@ export default function Home2() {
                 <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
-                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#6366f1'}}>
+                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#2abfaf'}}>
                         <CardContent className="p-0">
                           <p className="text-white italic text-lg md:text-xl">
                             “{testimonial.quote}”
@@ -1092,7 +1092,7 @@ export default function Home2() {
                 </div>
               </div>
               <div className="space-y-4">
-                <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#6366f1' }}>Testimonials</p>
+                <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>Testimonials</p>
                 <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>What They Say About Us?</h2>
                 <p className="text-lg text-gray-500">
                   Hear from our students about their transformative learning experiences and how we have helped them achieve their academic goals.
