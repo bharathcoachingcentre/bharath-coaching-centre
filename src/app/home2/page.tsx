@@ -776,7 +776,7 @@ export default function Home2() {
               <p className="mt-4 text-lg text-gray-600">
                 Get access to high-quality study materials designed by expert educators to help you excel in your exams.
               </p>
-              <Button asChild variant="outline" className="mt-8 rounded-full px-8 py-6 text-lg border-2" style={{borderColor: '#E7D8CC', backgroundColor: '#F9F4F0', color: '#c58f63'}}>
+              <Button asChild variant="outline" className="mt-8 rounded-full px-8 py-6 text-lg border-2" style={{borderColor: '#d1f3ef', backgroundColor: '#dffffc', color: '#2abfaf'}}>
                 <Link href="/free-study-material">
                   Browse All Materials <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
@@ -785,7 +785,7 @@ export default function Home2() {
             <div className="grid sm:grid-cols-2 gap-8">
               <Link href="/study-material-cbse" target="_blank">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-blue-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
-                  <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#c58f63'}}>
+                  <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#2abfaf'}}>
                     <div className="absolute top-2 right-2 flex gap-0.5">
                       <span className="h-1 w-1 rounded-full bg-gray-300"></span>
                       <span className="h-1 w-1 rounded-full bg-gray-300"></span>
@@ -800,7 +800,7 @@ export default function Home2() {
               </Link>
               <Link href="/study-material-samacheer" target="_blank">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-purple-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
-                    <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#a881e6'}}>
+                    <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#2abfaf'}}>
                       <div className="absolute top-2 right-2 flex gap-0.5">
                         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
                         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
@@ -1234,3 +1234,4 @@ export default function Home2() {
     </div>
   );
 }
+
