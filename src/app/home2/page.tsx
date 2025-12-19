@@ -577,7 +577,7 @@ export default function Home2() {
     },
     {
       company: 'Reethika',
-      quote: 'I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry—join here and change your future',
+      quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
@@ -605,7 +605,7 @@ export default function Home2() {
 },
 {
   company: 'Manisha M S',
-  quote: 'BCC is an exemplary institution with highly efficient and dedicated staff who provide personalized attention to every student. Regular tests, quick doubt clarification, and timely evaluation help students improve consistently. BCC is truly a reliable and fortunate place for learners, and I wish Bharath sir, the staff, and all students continued success and growth',
+  quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
   author: 'MBBS Student',
   image: '/testi-6.png',
   imageHint: 'man portrait',
@@ -1091,10 +1091,10 @@ export default function Home2() {
                 </CarouselContent>
                 <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                   <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronLeft style={{ fontSize: '24px', color: '#2abfaf' }} />
+                    <ChevronLeft style={{ width: '24px', height: '24px', color: '#2abfaf' }} />
                   </CarouselPrevious>
                   <CarouselNext id="navi-arrow-next" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronRight style={{ fontSize: '24px', color: '#2abfaf' }} />
+                    <ChevronRight style={{ width: '24px', height: '24px', color: '#2abfaf' }} />
                   </CarouselNext>
                 </div>
               </Carousel>
