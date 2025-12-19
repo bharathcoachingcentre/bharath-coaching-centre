@@ -1088,7 +1088,7 @@ export default function Home2() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                 <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
+                <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                   <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
                     <ChevronLeft style={{ width: '28px', height: '28px', color: '#2abfaf' }} />
                   </CarouselPrevious>
@@ -1101,7 +1101,7 @@ export default function Home2() {
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>TESTIMONIALS</p>
               <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', lineHeight: '45px'}}>Students Academic <br/>Experience</h2>
               <p className="text-lg text-gray-500">
-                Hear from our students about their transformative learning experiences and how we have helped them achieve their academic goals.
+                Hear from our students about their transformative learning experiences and how we have helped them achieve their <br/> academic goals.
               </p>
             </div>
           </div>
@@ -1215,3 +1215,5 @@ export default function Home2() {
     </div>
   );
 }
+
+    
