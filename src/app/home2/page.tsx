@@ -1051,7 +1051,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[150%] rounded-full blur-3xl -mr-64" style={{backgroundColor: '#dffef196'}}></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[100%] w-[85%] rounded-l-full blur-none" style={{backgroundColor: '#dffef196'}}></div>
         <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <Carousel
@@ -1088,12 +1088,12 @@ export default function Home2() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
+                 <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                   <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronLeft style={{ width: '28px', height: '28px', color: '#2abfaf' }} />
+                    <ChevronLeft style={{ width: '24px', height: '24px', color: '#2abfaf' }} />
                   </CarouselPrevious>
                   <CarouselNext id="navi-arrow-next" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronRight style={{ width: '28px', height: '28px', color: '#2abfaf' }} />
+                    <ChevronRight style={{ width: '24px', height: '24px', color: '#2abfaf' }} />
                   </CarouselNext>
                 </div>
               </Carousel>
@@ -1132,67 +1132,45 @@ export default function Home2() {
       {/* Inspired Results Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-             <AnimatedElement animation="fade-left-up">
-                <div>
-                  <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Academic Excellence <span className="relative inline-block font-heading-home2" style={{color: '#2abfaf'}}> Results<span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 -z-10"></span></span></h2>
-                  <p className="mt-4 text-lg text-muted-foreground">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
-                </div>
-            </AnimatedElement>
-            <div className="relative h-64 md:h-auto">
-              <Image 
-                src="/Excellent-result.png"
-                alt="Inspired students"
-                width={600}
-                height={400}
-                className="rounded-lg object-contain w-full h-full"
-                data-ai-hint="happy students"
-              />
+            <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Academic Excellence Results</h2>
+                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
             </div>
-          </div>
-          <div className="flex flex-wrap gap-4 my-12 justify-center md:justify-start" id="inspired-btn">
-            {resultsFilters.map((filter) => (
-                <Button
-                    key={filter}
-                    variant={activeResultFilter === filter ? 'default' : 'outline'}
-                    onClick={() => setActiveResultFilter(filter)}
-                    className="rounded-full px-6"
-                    style={activeResultFilter === filter ? { backgroundColor: '#2abfaf' } : {}}
-                >
-                    {filter}
-                </Button>
-            ))}
-          </div>
-          <div>
-            <Carousel opts={{ align: "start", loop: true }} className="w-full">
-                <CarouselContent>
-                  {resultsData[activeResultFilter].map((result, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
-                      <Card className="text-center overflow-hidden rounded-lg">
-                        <CardContent className="p-0">
-                          <Image
-                            src={result.src}
-                            alt={result.alt}
-                            width={400}
-                            height={500}
-                            className="w-full h-auto aspect-[4/5] object-cover"
-                            data-ai-hint={result.hint}
-                          />
-                          <div className="p-4">
-                            <h3 className="text-xl font-bold font-heading-home2">{result.name}</h3>
-                            <p className="text-muted-foreground mt-1">{result.score}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10" />
-                <CarouselNext className="absolute right-[-1rem] top-1/2 -translate-y-1/2 z-10" />
-            </Carousel>
-          </div>
+            <div className="flex flex-wrap gap-4 mb-12 justify-center">
+                {resultsFilters.map((filter) => (
+                    <Button
+                        key={filter}
+                        variant={activeResultFilter === filter ? 'default' : 'outline'}
+                        onClick={() => setActiveResultFilter(filter)}
+                        className="rounded-full px-6 py-2 text-base"
+                        style={activeResultFilter === filter ? { backgroundColor: '#182d45', color: 'white', borderColor: '#182d45' } : { borderColor: '#d1d5db', color: '#374151' }}
+                    >
+                        {filter}
+                    </Button>
+                ))}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+              {resultsData[activeResultFilter].map((result, index) => (
+                <Card key={index} className="text-center overflow-hidden rounded-xl shadow-md transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
+                  <CardContent className="p-0">
+                    <Image
+                      src={result.src}
+                      alt={result.alt}
+                      width={250}
+                      height={300}
+                      className="w-full h-auto object-cover"
+                      data-ai-hint={result.hint}
+                    />
+                    <div className="p-4">
+                      <h3 className="text-lg font-bold font-heading-home2 uppercase">{result.name}</h3>
+                      <Badge variant="secondary" className="mt-2 text-sm">{result.score}</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
         </div>
-      </AnimatedSection>
+    </AnimatedSection>
       
       {/* Floating Action Buttons */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
