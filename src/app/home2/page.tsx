@@ -771,7 +771,7 @@ export default function Home2() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#c58f63'}}>RESOURCES</p>
+              <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#2abfaf'}}>RESOURCES</p>
               <h2 className="text-4xl font-bold font-heading-home2 mt-2" style={{color: '#182d45'}}>Download Study Material</h2>
               <p className="mt-4 text-lg text-gray-600">
                 Get access to high-quality study materials designed by expert educators to help you excel in your exams.
@@ -1234,4 +1234,5 @@ export default function Home2() {
     </div>
   );
 }
+
 
