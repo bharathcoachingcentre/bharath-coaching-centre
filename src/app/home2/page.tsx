@@ -1030,9 +1030,7 @@ export default function Home2() {
                             <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full" style={{ backgroundColor: '#2abfaf1f' }}>
                                 <course.icon className="w-7 h-7" style={{ color: '#2abfaf' }} />
                             </div>
-                            <div className="flex items-center">
-                                <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
-                            </div>
+                            <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
                         </div>
                     ))}
                 </div>
@@ -1066,7 +1064,7 @@ export default function Home2() {
                 <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
-                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#2abfaf'}}>
+                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#2abfaf', height: '415px'}}>
                         <CardContent className="p-0">
                           <p className="text-white italic text-lg md:text-xl">
                             “{testimonial.quote}”
