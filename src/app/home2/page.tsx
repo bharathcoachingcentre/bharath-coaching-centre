@@ -1089,7 +1089,7 @@ export default function Home2() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <div className="absolute -right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
+                <div className="absolute right-[-1.25rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                   <CarouselPrevious className="relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
                   <CarouselNext className="relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" />
                 </div>
