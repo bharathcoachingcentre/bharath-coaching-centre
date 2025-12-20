@@ -296,7 +296,7 @@ export default function Home2() {
       classRange: "CLASS 9 - 12",
       title: "Senior Secondary",
       features: [
-        { text: "1:25 Teacher-Student Ratio", icon: Users },
+        { text: "1:25 Teacher–Student Ratio", icon: Users },
         { text: "All Major Boards Covered", icon: Landmark },
         { text: "Comprehensive Test Series", icon: Search },
         { text: "Online & Offline Classes", icon: MonitorPlay },
@@ -896,14 +896,13 @@ export default function Home2() {
         </div>
         <div className="container mx-auto relative z-10">
           <AnimatedElement animation="fade-up" className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-heading-home2">Offline Timetable</h2>
+            <h2 className="text-3xl font-bold">Offline Timetable</h2>
           </AnimatedElement>
           <div
-            className="rounded-xl p-8"
+            className="rounded-xl p-8 bg-blue-100/50"
             style={{
-              backgroundColor: '#2abfaf1f',
               backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232abfaf33' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+                "url(\"data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bfdbfe' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
             }}
           >
             <div className="grid md:grid-cols-10 items-center gap-8">
@@ -918,7 +917,7 @@ export default function Home2() {
                 />
               </div>
               <div className="md:col-span-7">
-                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 flex items-center justify-start md:justify-end gap-4 font-heading-home2">
+                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 flex items-center justify-start md:justify-end gap-4">
                   <Image src="/CBSE.gif" alt="CBSE" width={40} height={40} />
                   CBSE
                 </h2>
@@ -928,8 +927,8 @@ export default function Home2() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#2abfaf1f' }}>
-                        <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }}/>
+                      <div className="bg-blue-100 rounded-full p-1 mb-1">
+                        <item.icon className="w-4 h-4 text-primary" />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -937,7 +936,7 @@ export default function Home2() {
                     </div>
                   ))}
                 </div>
-                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 mt-8 flex items-center justify-start md:justify-end gap-4 font-heading-home2">
+                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 mt-8 flex items-center justify-start md:justify-end gap-4">
                   <Image src="/CBSE.gif" alt="SAMACHEER" width={40} height={40} />
                   SAMACHEER
                 </h2>
@@ -947,8 +946,8 @@ export default function Home2() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#2abfaf1f' }}>
-                        <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }} />
+                      <div className="bg-blue-100 rounded-full p-1 mb-1">
+                        <item.icon className="w-4 h-4 text-primary" />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -1141,5 +1140,7 @@ export default function Home2() {
     </div>
   );
 }
+
+    
 
     
