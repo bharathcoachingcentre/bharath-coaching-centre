@@ -275,11 +275,13 @@ export default function Home2() {
       classRange: "CLASS 6 - 8",
       title: "Middle School",
       features: [
-        { text: "1:10 Teacher-Student Ratio", icon: Users },
-        { text: "CBSE / ICSE / State Boards", icon: Landmark },
+        { text: "1:10 Teachers & Students Ratio", icon: Users },
+        { text: "CBSE Board", icon: Landmark },
+        { text: "ICSE Board", icon: Landmark },
+        { text: "Samacheer Board", icon: Landmark },
         { text: "NEET / JEE Foundation", icon: BrainCircuit },
-        { text: "One-to-One Sessions", icon: UserRound },
-        { text: "Parent-Teacher Meetings", icon: Users2 },
+        { text: "One to One Sessions", icon: UserCheck },
+        { text: "Parent–Teacher Meeting", icon: Users2 },
       ],
       icon: BookMarked,
       colors: {
@@ -1147,3 +1149,4 @@ export default function Home2() {
     
 
     
+
