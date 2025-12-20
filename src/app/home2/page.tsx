@@ -297,10 +297,13 @@ export default function Home2() {
       title: "Senior Secondary",
       features: [
         { text: "1:25 Teacher–Student Ratio", icon: Users },
-        { text: "All Major Boards Covered", icon: Landmark },
-        { text: "Comprehensive Test Series", icon: Search },
-        { text: "Online & Offline Classes", icon: MonitorPlay },
-        { text: "Career Counseling", icon: BarChart },
+        { text: "CBSE Board", icon: Landmark },
+        { text: "ICSE Board", icon: Landmark },
+        { text: "Samacheer Board", icon: Landmark },
+        { text: "One-to-One Sessions", icon: UserCheck },
+        { text: "Test Series", icon: Search },
+        { text: "Online Classes", icon: MonitorPlay },
+        { text: "Parent–Teacher Meeting", icon: Users2 },
       ],
       icon: GraduationCap,
       colors: {
