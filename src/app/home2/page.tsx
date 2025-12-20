@@ -32,25 +32,25 @@ import placeholderImages from '@/app/lib/placeholder-images.json';
 
 const resultsData = {
   "All": [
-    { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
-    { src: '/stu-4.png', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
-    { src: '/stu-5.png', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
-    { src: '/stu-2.png', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
-    { src: '/stu-3.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
-    { src: '/stu-6.png', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
+    { src: '/person4.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K VORA', score: 'Maths 95 | Total 470' },
+    { src: '/person1.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
+    { src: '/person2.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
+    { src: '/person3.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/person6.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
+    { src: '/person7.jpg', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
    
   ],
   "10th Board": [
     
-    { src: '/stu-5.png', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
-    { src: '/stu-2.png', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
-    { src: '/stu-3.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
-    { src: '/stu-6.png', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
-    { src: '/stu-1.png', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K Vora', score: 'Maths 95 | Total 470' },
-    { src: '/stu-4.png', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
+    { src: '/person2.jpg', alt: '', hint: 'student portrait', name: 'CHARAN K', score: 'MATHS 98 | TOTAL 456' },
+    { src: '/person3.jpg', alt: 'JESMITHA', hint: 'student portrait', name: 'JESMITHA G R', score: 'MATHS 95 | TOTAL 452' },
+    { src: '/person6.jpg', alt: 'SAJITHAA C.L', hint: 'student portrait', name: 'SAJITHAA C.L', score:' TOTAL 474' },
+    { src: '/person7.jpg', alt: 'MANASWINI R', hint: 'student portrait', name: 'MANASWINI R', score:'TOTAL 458' },
+    { src: '/person4.jpg', alt: 'AARAV K VORA', hint: 'student portrait', name: 'AARAV K Vora', score: 'Maths 95 | Total 470' },
+    { src: '/person1.jpg', alt: 'Results slide 2', hint: 'students results chart', name: 'JHEGADHEESH S', score: 'Maths 97 | Total 470' },
   ],
   "12th Board": [
-    {  src: '/stu-1.png', alt: 'HARETA ROSNI', hint: 'student portrait', name: 'HARETA ROSNI', score: 'Total 501 / 600' },
+    {  src: '/person4.jpg', alt: 'HARETA ROSNI', hint: 'student portrait', name: 'HARETA ROSNI', score: 'Total 501 / 600' },
   ],
 };
 
@@ -999,7 +999,7 @@ export default function Home2() {
       
       {/* New Testimonial Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-white">
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[100%] w-[85%] rounded-l-full" style={{backgroundColor: '#dffef196'}}></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[100%] w-1/2 rounded-l-full" style={{backgroundColor: '#dffef196'}}></div>
         <div className="container mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <Carousel
@@ -1045,7 +1045,7 @@ export default function Home2() {
                   </CarouselNext>
                 </div>
               </Carousel>
-            <div className="space-y-4" style={{ marginLeft: '45px' }}>
+            <div className="space-y-4">
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>TESTIMONIALS</p>
               <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', lineHeight: '45px'}}>Students Academic <br/>Experience</h2>
               <p className="text-lg text-gray-500">
