@@ -606,7 +606,7 @@ export default function Home2() {
 },
 {
   company: 'Manisha M S',
-  quote: "BCC is an exemplary institution with highly efficient and dedicated staff who provide personalized attention to every student. Regular tests, quick doubt clarification, and timely evaluation help students improve consistently. BCC is truly a reliable and fortunate place for learners, and I wish Bharath sir, the staff, and all students continued success and growth",
+  quote: "BCC is an exemplary institution with highly efficient and dedicated staff who provide personalized attention to every student. Regular tests, quick doubt clarification, and timely evaluation help students improve consistently. BCC is truly a reliable and fortunate place for learners, and I wish Bharath sir, the staff, and all students continued success and growth.",
   author: 'MBBS Student',
   image: '/testi-6.png',
   imageHint: 'man portrait',
@@ -664,52 +664,22 @@ export default function Home2() {
 
   const whyChooseUsPoints = [
     {
-      icon: (
-        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} className="why-choose animate-move-up-right"/>
-      ),
-      title: "Daily interaction with parents through Academic Record.",
-      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
-      bgColor: "bg-blue-100",
+        icon: UserRound,
+        title: "Daily interaction with parents through Academic Record.",
+        description: "We provide daily updates on your child's progress, keeping you informed and involved in their academic journey.",
+        bgColor: "bg-blue-100",
     },
     {
-      icon: (
-        <Image src="/Intraction-with-parents.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
-      ),
-      title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
-      description: "Weekly tests and quick evaluation.",
-      bgColor: "bg-purple-100",
+        icon: BookOpen,
+        title: "Specialized materials",
+        description: "Our curriculum is enriched with specialized materials designed to enhance understanding and retention.",
+        bgColor: "bg-purple-100",
     },
     {
-      icon: (
-        <Image src="/Quick-evaluation.png" alt="Quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
-      ),
-      title: "Weekly tests and quick evaluation.",
-      description: "Weekly tests and quick evaluation.",
-      bgColor: "bg-red-100",
-    },
-    {
-      icon: (
-        <Image src="/Test-Sessions.png" alt="Test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
-      ),
-      title: "Hierarchy of test sessions.",
-      description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
-      bgColor: "bg-blue-100",
-    },
-    {
-      icon: (
-        <Image src="/meeting.png" alt="Parents meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
-      ),
-      title: "Term wise parents’ meeting.",
-      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
-      bgColor: "bg-blue-100",
-    },
-    {
-      icon: (
-        <Image src="/Special-material.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
-      ),
-      title: "Specialized materials.",
-      description: "Specialized materials.",
-      bgColor: "bg-blue-100",
+        icon: Users,
+        title: "Term wise parents’ meeting.",
+        description: "Regular parent-teacher meetings ensure a collaborative approach to your child's education and development.",
+        bgColor: "bg-red-100",
     },
   ];
 
@@ -798,11 +768,11 @@ export default function Home2() {
                     </div>
                   </div>
                   <div className="absolute bottom-0 right-0 -mb-2 -mr-2 w-16 h-16 border-b-4 border-r-4 rounded-br-2xl" style={{borderColor: '#2abfaf'}}>
-                      <div className="absolute bottom-2 left-2 flex gap-0.5">
-                          <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                          <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                          <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                      </div>
+                        <div className="absolute bottom-2 left-2 flex gap-0.5">
+                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+                        </div>
                   </div>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-blue-100/70 mx-auto mb-4">
                     <BookOpen className="w-10 h-10 text-blue-600" />
@@ -1051,7 +1021,9 @@ export default function Home2() {
               </Carousel>
             <div className="space-y-4" style={{marginLeft: '45px'}}>
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>TESTIMONIALS</p>
-              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', lineHeight: '45px'}}>Students Academic <br/>Experience</h2>
+              <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', lineHeight: '45px'}}>
+                Students Academic <br/>Experience
+              </h2>
               <p className="text-lg text-gray-500">
                 Hear from our students about their transformative learning experiences and how we have helped them achieve their <br/> academic goals.
               </p>
@@ -1061,20 +1033,25 @@ export default function Home2() {
       </AnimatedSection>
       
       {/* Why to choose BCC? Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-white" style={{backgroundImage: "url('/newsbanner11.webp')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#faf8f7'}}>
           <div className="container mx-auto">
-              <AnimatedElement animation="fade-up" className="text-center">
-                <h2 className="text-3xl font-bold mb-12 font-heading-home2" style={{color: '#182d45'}}>Why Choose <span className="font-heading-home2" style={{color: '#2abfaf'}}>BCC</span></h2>
+              <AnimatedElement animation="fade-up" className="text-center mb-12">
+                <h2 className="text-3xl font-bold mb-4 font-heading-home2" style={{color: '#182d45'}}>Why Choose <span className="font-heading-home2" style={{color: '#2abfaf'}}>BCC</span></h2>
+                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Discover the unique advantages that make Bharath Academy the ideal choice for your academic journey.</p>
               </AnimatedElement>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {whyChooseUsPoints.map((point, index) => (
-                      <div key={index} className="flex flex-col items-center text-center gap-4">
-                          <div className="relative w-32 h-32 flex items-center justify-center">
-                            {point.icon}
+                      <div key={index} className="relative pt-20">
+                          <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
+                                <point.icon className="w-16 h-16 text-white"/>
+                              </div>
                           </div>
-                          <div>
-                              <h3 className="text-xl font-bold font-heading-home2">{point.title}</h3>
-                          </div>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor: '#ecfef7'}}>
+                              <h3 className="text-xl font-bold font-heading-home2 mb-2">{point.title}</h3>
+                              <p className="text-muted-foreground mb-6">{point.description}</p>
+                              <Button variant="outline" className="rounded-full bg-white text-primary" style={{color: '#2abfaf'}}>Read More</Button>
+                          </Card>
                       </div>
                   ))}
               </div>
@@ -1145,8 +1122,3 @@ export default function Home2() {
     </div>
   );
 }
-
-    
-
-    
-
