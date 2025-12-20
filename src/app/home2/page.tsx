@@ -254,11 +254,11 @@ export default function Home2() {
       classRange: "CLASS 1 - 5",
       title: "Foundation Years",
       features: [
-        { text: "School Tuition Support", icon: School },
-        { text: "1:5 Teacher-Student Ratio", icon: Users },
+        { text: "School Tuition", icon: School },
+        { text: "1:5 Teachers & Students Ratio", icon: Users },
         { text: "Handwriting Improvement", icon: Pencil },
         { text: "Phonics-based Training", icon: Lightbulb },
-        { text: "Fun & Engaging Learning", icon: PartyPopper },
+        { text: "Fun and Engaging Learning Every Day", icon: PartyPopper },
       ],
       icon: Apple,
       colors: {
@@ -1045,7 +1045,7 @@ export default function Home2() {
                   </CarouselNext>
                 </div>
               </Carousel>
-            <div className="space-y-4">
+            <div className="space-y-4" style={{marginLeft: '45px'}}>
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#2abfaf' }}>TESTIMONIALS</p>
               <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', lineHeight: '45px'}}>Students Academic <br/>Experience</h2>
               <p className="text-lg text-gray-500">
@@ -1141,3 +1141,5 @@ export default function Home2() {
     </div>
   );
 }
+
+    
