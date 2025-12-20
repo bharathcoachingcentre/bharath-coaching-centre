@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target, Download, Star, Users2, Eye, TestTube2, FileText, CalendarClock, Plus, Pencil, Ruler, FlaskConical, Atom, Mail, TrendingUp } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Quote, Users, ClipboardCheck, PenTool, HelpCircle, Book, UserCheck, Phone, Building, ChevronLeft, ChevronRight, Check, Sun, Languages, Calculator, Code, Presentation, Award, GraduationCap, Laptop, Flame, X, Clock, Youtube, MessageCircleQuestion, Globe, CheckCircle, Brain, Target, Download, Star, Users2, Eye, TestTube2, FileText, CalendarClock, Plus, Pencil, Ruler, FlaskConical, Atom, Mail, TrendingUp, MonitorPlay, School, Lightbulb, Apple, PartyPopper, BookMarked, UserRound, Landmark, BrainCircuit, Search, BarChart } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -251,74 +251,70 @@ export default function Home2() {
 
   const exploreCourses = [
     {
-      classRange: "Class 1 - 5",
-      title: "Courses for Kids",
+      classRange: "CLASS 1 - 5",
+      title: "Foundation Years",
       features: [
-        { text: "School Tuition", icon: BookOpen },
-        { text: "1:5 Teachers & Students Ratio", icon: Users },
+        { text: "School Tuition Support", icon: School },
+        { text: "1:5 Teacher-Student Ratio", icon: Users },
         { text: "Handwriting Improvement", icon: Pencil },
-        { text: "Phonics-based Training", icon: Languages },
-        { text: "Fun and Engaging Learning Every Day", icon: Sun },
+        { text: "Phonics-based Training", icon: Lightbulb },
+        { text: "Fun & Engaging Learning", icon: PartyPopper },
       ],
-      imageUrl: "/kids-one.png",
-      imageHint: "female teacher",
-      bgColor: "bg-blue-50",
-      circle: {
-        icon: "/book.png",
-        style: {
-          backgroundColor: '#f0f7ff',
-          border: 'dashed #aac9ff',
-        }
-      }
+      icon: Apple,
+      colors: {
+        bg: "from-blue-50 to-blue-100",
+        iconBg: "bg-blue-100",
+        iconText: "text-blue-600",
+        button: "bg-blue-500 hover:bg-blue-600",
+        text: "text-blue-600",
+        title: "text-blue-900"
+      },
+      link: "#"
     },
     {
-      classRange: "Class 6 - 8",
-      title: "Courses for Kids",
+      classRange: "CLASS 6 - 8",
+      title: "Middle School",
       features: [
-        { text: "1:10 Teachers & Students Ratio", icon: Users },
-        { text: "CBSE Board", icon: Award },
-        { text: "ICSE Board", icon: Award },
-        { text: "Samacheer Board", icon: Award },
-        { text: "NEET / JEE Foundation", icon: FlaskConical },
-        { text: "One to One Sessions", icon: UserCheck },
-        { text: "Parent–Teacher Meeting", icon: Users2 },
+        { text: "1:10 Teacher-Student Ratio", icon: Users },
+        { text: "CBSE / ICSE / State Boards", icon: Landmark },
+        { text: "NEET / JEE Foundation", icon: BrainCircuit },
+        { text: "One-to-One Sessions", icon: UserRound },
+        { text: "Parent-Teacher Meetings", icon: Users2 },
       ],
-      imageUrl: "/Super-kid-2.png",
-      imageHint: "male teacher",
-      bgColor: "bg-purple-50",
-      circle: {
-        icon: "/reading.png",
-        style: {
-          backgroundColor: '#faf5ff',
-          border: 'dashed #d0c1ff',
-        }
-      }
+      icon: BookMarked,
+      colors: {
+        bg: "from-purple-50 to-purple-100",
+        iconBg: "bg-purple-100",
+        iconText: "text-purple-600",
+        button: "bg-purple-500 hover:bg-purple-600",
+        text: "text-purple-600",
+        title: "text-purple-900"
+      },
+      link: "#"
     },
     {
-      classRange: "Class 9 - 12",
-      title: "Courses for Kids",
+      classRange: "CLASS 9 - 12",
+      title: "Senior Secondary",
       features: [
-        { text: "1:25 Teacher–Student Ratio", icon: Users },
-        { text: "CBSE Board", icon: Award },
-        { text: "ICSE Board", icon: Award },
-        { text: "Samacheer Board", icon: Award },
-        { text: "One-to-One Sessions", icon: UserCheck },
-        { text: "Test Series", icon: FileText },
-        { text: "Online Classes", icon: Laptop },
-        { text: "Parent–Teacher Meeting", icon: Users2 },
+        { text: "1:25 Teacher-Student Ratio", icon: Users },
+        { text: "All Major Boards Covered", icon: Landmark },
+        { text: "Comprehensive Test Series", icon: Search },
+        { text: "Online & Offline Classes", icon: MonitorPlay },
+        { text: "Career Counseling", icon: BarChart },
       ],
-      imageUrl: "/super-kid-three.jpg",
-      imageHint: "happy student",
-      bgColor: "bg-yellow-50",
-      circle: {
-        icon: "/class9-12.png",
-        style: {
-          backgroundColor: '#fefcec',
-          border: 'dashed #ffe6ab',
-        }
-      }
+      icon: GraduationCap,
+      colors: {
+        bg: "from-orange-50 to-orange-100",
+        iconBg: "bg-orange-100",
+        iconText: "text-orange-600",
+        button: "bg-orange-500 hover:bg-orange-600",
+        text: "text-orange-600",
+        title: "text-orange-900"
+      },
+      link: "#"
     },
   ];
+  
 
   const kidsCourses = [
     {
@@ -713,7 +709,7 @@ export default function Home2() {
   ];
 
   return (
-    <div className="flex flex-col relative font-body-home2">
+    <div className="flex flex-col relative">
       {/* Hero Slider Section */}
       <AnimatedSection className="w-full" id="slider-sec">
         <Carousel
@@ -835,105 +831,57 @@ export default function Home2() {
           </div>
         </div>
       </AnimatedSection>
-
+      
       {/* Explore Courses Section */}
       <AnimatedSection className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto">
+        <div className="container mx-auto text-center">
             <AnimatedElement animation="fade-up">
-                <h2 className="text-3xl font-bold text-center mb-12 font-heading-home2" style={{ marginBottom: '20px' }}>Explore Courses (Class 1 - 12)</h2>
-            </AnimatedElement>
-            <Dialog open={isTimetableOpen} onOpenChange={setTimetableOpen}>
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {exploreCourses.map((course, index) => (
-                  <div key={index} className="group [perspective:1000px] mt-10 md:mt-12">
-                     <div className="relative w-28 h-28 mx-auto -mb-14 z-10">
-                        <div className="relative w-full h-full [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] transition-transform duration-1000">
-                            {/* Front Face */}
-                            <div 
-                                className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden]"
-                                style={course.circle.style}
-                            >
-                                <div className="flex flex-col items-center justify-center w-full h-full">
-                                    <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                    <span style={{ color: '#2abfaf' }}>{course.classRange}</span>
-                                </div>
-                            </div>
-                            {/* Back Face */}
-                            <div 
-                                className="absolute w-full h-full rounded-full flex items-center justify-center font-semibold text-primary [backface-visibility:hidden] [transform:rotateY(180deg)]"
-                                style={course.circle.style}
-                            >
-                                <div className="flex flex-col items-center justify-center w-full h-full">
-                                    <Image src={course.circle.icon} alt="Icon" width={40} height={40} />
-                                    <span style={{ color: '#2abfaf' }}>{course.classRange}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <Card className={`relative overflow-hidden rounded-2xl shadow-lg ${course.bgColor} flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:scale-105 pt-14`}>
-                        <div className="flex flex-row flex-grow">
-                          <div className="flex flex-col w-2/3 p-6">
-                              <CardTitle className="text-2xl font-bold mt-2 font-heading-home2" style={{ marginTop: '25px' }}>{course.title}</CardTitle>
-                              <CardContent className="p-0 mt-4">
-                                  <ul className="space-y-3">
-                                      {course.features.map((feature, i) => (
-                                          <li key={i} className="flex items-center gap-3">
-                                              <div className="flex items-center justify-center h-6 w-6 rounded-full" style={{ backgroundColor: '#2abfaf1f' }}>
-                                                  <feature.icon className="w-4 h-4" style={{ color: '#2abfaf' }}/>
-                                              </div>
-                                              <span>{feature.text}</span>
-                                          </li>
-                                      ))}
-                                  </ul>
-                              </CardContent>
-                          </div>
-                          <div className="w-1/3 relative overflow-hidden">
-                              <Image
-                                  src={course.imageUrl}
-                                  alt={course.title}
-                                  fill
-                                  className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                  data-ai-hint={course.imageHint}
-                              />
-                          </div>
-                        </div>
-                        <CardFooter className="p-6 mt-auto relative">
-                            <DialogTrigger asChild>
-                                <Button 
-                                    className="w-full text-white font-bold"
-                                    onClick={createBurst}
-                                    onMouseEnter={createHoverBurst}
-                                    style={{ backgroundColor: '#2abfaf' }}
-                                >
-                                    Explore Offline Timetable
-                                </Button>
-                            </DialogTrigger>
-                        </CardFooter>
-                    </Card>
-                  </div>
-                ))}
+              <Badge className="px-4 py-1.5 rounded-full bg-gray-200 text-gray-700 font-semibold text-sm mb-4">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Our Programs
+              </Badge>
+              <h2 className="text-4xl font-bold mb-3 font-heading-home2">Explore Courses</h2>
+              <p className="text-muted-foreground mb-8 text-lg">Comprehensive learning programs designed for students from Class 1 to 12</p>
+              <div className="flex justify-center items-center gap-2 mb-12">
+                <div className="w-10 h-0.5 bg-gray-300"></div>
+                <div className="w-2 h-2 rounded-full bg-primary"></div>
+                <div className="w-10 h-0.5 bg-gray-300"></div>
               </div>
-                <DialogContent className="sm:max-w-[600px] p-8">
-                    <DialogHeader className="text-center">
-                        <DialogTitle className="text-2xl font-bold mb-8 font-heading-home2">OFFLINE TIME TABLE</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-8">
-                        <div>
-                            <h3 className="font-bold text-lg mb-4 font-heading-home2">CBSE</h3>
-                            <div className="flex flex-wrap gap-4">
-                                {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
-                            </div>
+            </AnimatedElement>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {exploreCourses.map((course, index) => (
+                <Card key={index} className={`bg-gradient-to-br ${course.colors.bg} rounded-2xl shadow-lg flex flex-col h-full text-left p-8 transition-transform duration-300 hover:-translate-y-2`}>
+                  <CardHeader className="p-0">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className={`p-3 rounded-lg ${course.colors.iconBg}`}>
+                          <course.icon className={`w-8 h-8 ${course.colors.iconText}`} />
                         </div>
                         <div>
-                            <h3 className="font-bold text-lg mb-4 font-heading-home2">SAMACHEER</h3>
-                            <div className="flex flex-wrap gap-4">
-                                {timetableClasses.map(cls => <Button key={cls.name} variant="outline" className="bg-gray-100 border-gray-200">{cls.name}</Button>)}
-                            </div>
+                          <p className={`font-semibold ${course.colors.text}`}>{course.classRange}</p>
+                          <CardTitle className={`text-2xl font-bold ${course.colors.title}`}>{course.title}</CardTitle>
                         </div>
-                    </div>
-                </DialogContent>
-            </Dialog>
+                      </div>
+                  </CardHeader>
+                  <CardContent className="p-0 mt-4 flex-grow">
+                      <ul className="space-y-3">
+                          {course.features.map((feature, i) => (
+                              <li key={i} className="flex items-center gap-3 text-gray-700">
+                                  <feature.icon className={`w-5 h-5 ${course.colors.text}`} />
+                                  <span>{feature.text}</span>
+                              </li>
+                          ))}
+                      </ul>
+                  </CardContent>
+                  <CardFooter className="p-0 mt-6">
+                      <Button asChild className={`w-full text-white font-bold rounded-lg py-6 text-base ${course.colors.button}`}>
+                          <Link href={course.link}>
+                              Explore Timetable <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                      </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
         </div>
       </AnimatedSection>
       
@@ -1193,5 +1141,3 @@ export default function Home2() {
     </div>
   );
 }
-
-    
