@@ -1025,7 +1025,7 @@ export default function Home2() {
                 Students Academic <br/>Experience
               </h2>
               <p className="text-lg text-gray-500">
-                Hear from our students about their transformative learning experiences and how we have helped them achieve their <br/> academic goals.
+                Hear from our students about their transformative learning <br/> experiences and how we have helped them achieve their academic goals.
               </p>
             </div>
           </div>
@@ -1050,7 +1050,6 @@ export default function Home2() {
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor: '#ecfef7'}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2">{point.title}</h3>
                               <p className="text-muted-foreground mb-6">{point.description}</p>
-                              <Button variant="outline" className="rounded-full bg-white" style={{color: '#2abfaf'}}>Read More</Button>
                           </Card>
                       </div>
                   ))}
@@ -1058,13 +1057,12 @@ export default function Home2() {
           </div>
       </AnimatedSection>
       
-      {/* Inspired Results Section */}
+      {/* Academic Excellence Results Section */}
       <AnimatedSection className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto">
-            <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Academic Excellence Results</h2>
-                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
-            </div>
+        <div className="container mx-auto text-center">
+            <h2 className="text-4xl font-bold font-heading-home2 mb-4" style={{color: '#182d45'}}>Academic Excellence Results</h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto mb-12">Our results reflect the passion, hardwork and efforts of our students and teachers.</p>
+            
             <div className="flex flex-wrap gap-4 mb-12 justify-center">
                 {resultsFilters.map((filter) => (
                     <Button
@@ -1078,6 +1076,7 @@ export default function Home2() {
                     </Button>
                 ))}
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {resultsData[activeResultFilter].map((result, index) => (
                 <Card key={index} className="text-center overflow-hidden rounded-xl shadow-md transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
