@@ -1041,7 +1041,7 @@ export default function Home2() {
               </AnimatedElement>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {whyChooseUsPoints.map((point, index) => (
-                      <div key={index} className="relative pt-20">
+                      <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
                                 <point.icon className="w-16 h-16 text-white"/>
@@ -1050,7 +1050,7 @@ export default function Home2() {
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor: '#ecfef7'}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2">{point.title}</h3>
                               <p className="text-muted-foreground mb-6">{point.description}</p>
-                              <Button variant="outline" className="rounded-full bg-white text-primary" style={{color: '#2abfaf'}}>Read More</Button>
+                              <Button variant="outline" className="rounded-full bg-white" style={{color: '#2abfaf'}}>Read More</Button>
                           </Card>
                       </div>
                   ))}
@@ -1059,7 +1059,7 @@ export default function Home2() {
       </AnimatedSection>
       
       {/* Inspired Results Section */}
-      <AnimatedSection className="py-16 md:py-24 bg-gray-50">
+      <AnimatedSection className="py-16 md:py-24 bg-white">
         <div className="container mx-auto">
             <div className="text-center mb-12">
                 <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45'}}>Academic Excellence Results</h2>
