@@ -1025,7 +1025,8 @@ export default function Home2() {
                 Students Academic <br/>Experience
               </h2>
               <p className="text-lg text-gray-500">
-                Hear from our students about their transformative learning <br/> experiences and how we have helped them achieve their academic goals.
+                Hear from our students about their transformative learning <br/> experiences and how we have helped them achieve their 
+                academic goals.
               </p>
             </div>
           </div>
@@ -1047,8 +1048,8 @@ export default function Home2() {
                                 <point.icon className="w-16 h-16 text-white"/>
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor: '#ecfef7'}}>
-                              <h3 className="text-xl font-bold font-heading-home2 mb-2">{point.title}</h3>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor: '#ecfef7', width: '270px', height: '270px'}}>
+                              <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>{point.title}</h3>
                               <p className="text-muted-foreground mb-6">{point.description}</p>
                           </Card>
                       </div>
