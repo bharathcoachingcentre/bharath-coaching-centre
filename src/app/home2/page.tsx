@@ -675,6 +675,18 @@ export default function Home2() {
         icon: Users,
         title: "Weekly tests and quick evaluation.",
     },
+    {
+        icon: UserCheck,
+        title: "Hierarchy of test sessions.",
+    },
+    {
+        icon: Users2,
+        title: "Term wise parents’ meeting.",
+    },
+    {
+        icon: BookMarked,
+        title: "Specialized materials.",
+    },
   ];
 
   return (
@@ -1010,7 +1022,7 @@ export default function Home2() {
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Discover the unique advantages that make Bharath Academy the ideal choice for your academic journey.</p>
               </AnimatedElement>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {whyChooseUsPoints.map((point, index) => (
+                  {whyChooseUsPoints.slice(0, 3).map((point, index) => (
                       <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
@@ -1023,37 +1035,21 @@ export default function Home2() {
                       </div>
                   ))}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                  <div className="relative pt-16">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                          <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                            <UserCheck className="w-16 h-16 text-white"/>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{marginTop: '100px'}}>
+                  {whyChooseUsPoints.slice(3).map((point, index) => (
+                      <div key={index + 3} className="relative pt-16">
+                          <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
+                                <point.icon className="w-16 h-16 text-white"/>
+                              </div>
                           </div>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
+                              <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
+                                {point.title === "Term wise parents’ meeting." ? "Daily awareness about student’s performance for the academic inputs to parents through academic record" : point.title === "Daily awareness about student’s performance for the academic inputs to parents through academic record" ? "Term wise parents’ meeting." : point.title}
+                              </h3>
+                          </Card>
                       </div>
-                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
-                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Hierarchy of test sessions.</h3>
-                      </Card>
-                  </div>
-                  <div className="relative pt-16">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                          <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                            <Users2 className="w-16 h-16 text-white"/>
-                          </div>
-                      </div>
-                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
-                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Daily awareness about student’s performance for the academic inputs to parents through academic record</h3>
-                      </Card>
-                  </div>
-                  <div className="relative pt-16">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                          <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                            <BookMarked className="w-16 h-16 text-white"/>
-                          </div>
-                      </div>
-                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
-                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Specialized materials.</h3>
-                      </Card>
-                  </div>
+                  ))}
               </div>
           </div>
       </AnimatedSection>
