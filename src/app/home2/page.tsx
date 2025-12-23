@@ -1047,6 +1047,20 @@ export default function Home2() {
                       </div>
                   ))}
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                  {whyChooseUsPoints.map((point, index) => (
+                      <div key={index} className="relative pt-16">
+                          <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
+                                <point.icon className="w-16 h-16 text-white"/>
+                              </div>
+                          </div>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
+                              <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>{point.title}</h3>
+                          </Card>
+                      </div>
+                  ))}
+              </div>
           </div>
       </AnimatedSection>
       
@@ -1100,7 +1114,7 @@ export default function Home2() {
                 <Building className="w-6 h-6 text-purple-700" />
             </a>
           </Button>
-          <Button asChild size="icon" className="rounded-full w-12 h-12" style={{ backgroundColor: '#2abfaf' }}>
+          <Button asChild size="icon" className="rounded-full bg-orange-400 hover:bg-orange-500 w-12 h-12">
             <a href="tel:+917200030307">
               <Phone className="w-6 h-6 text-white" />
             </a>
