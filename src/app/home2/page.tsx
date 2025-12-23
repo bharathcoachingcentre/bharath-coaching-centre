@@ -663,30 +663,12 @@ export default function Home2() {
   ];
 
   const whyChooseUsPoints = [
-    {
-        icon: UserRound,
-        title: "Daily interaction with parents through Academic Record.",
-    },
-    {
-        icon: BookOpen,
-        title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
-    },
-    {
-        icon: Users,
-        title: "Weekly tests and quick evaluation.",
-    },
-    {
-        icon: UserCheck,
-        title: "Hierarchy of test sessions.",
-    },
-    {
-        icon: Users2,
-        title: "Term wise parents’ meeting.",
-    },
-    {
-        icon: BookMarked,
-        title: "Specialized materials.",
-    },
+    { icon: '/check-list.png', title: "Daily interaction with parents through Academic Record." },
+    { icon: '/service-03.png', title: "Daily awareness about student’s performance for the academic inputs to parents through academic record" },
+    { icon: '/assessment.png', title: "Weekly tests and quick evaluation." },
+    { icon: '/training.png', title: "Hierarchy of test sessions." },
+    { icon: '/round-table.png', title: "Term wise parents’ meeting." },
+    { icon: '/service-01.png', title: "Specialized materials." },
   ];
 
   return (
@@ -1026,10 +1008,10 @@ export default function Home2() {
                       <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <point.icon className="w-16 h-16 text-white"/>
+                                <Image src={point.icon} alt={point.title} width={80} height={80} />
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"280px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>{point.title}</h3>
                           </Card>
                       </div>
@@ -1040,12 +1022,12 @@ export default function Home2() {
                       <div key={index + 3} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <point.icon className="w-16 h-16 text-white"/>
+                                <Image src={point.icon} alt={point.title} width={80} height={80} />
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"280px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
-                                {point.title === "Daily awareness about student’s performance for the academic inputs to parents through academic record" ? "Term wise parents’ meeting." : point.title}
+                                {point.title}
                               </h3>
                           </Card>
                       </div>
