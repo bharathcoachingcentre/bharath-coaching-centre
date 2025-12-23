@@ -1029,7 +1029,7 @@ export default function Home2() {
                                 <point.icon className="w-16 h-16 text-white"/>
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>{point.title}</h3>
                           </Card>
                       </div>
@@ -1043,9 +1043,9 @@ export default function Home2() {
                                 <point.icon className="w-16 h-16 text-white"/>
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
-                                {point.title === "Term wise parents’ meeting." ? "Daily awareness about student’s performance for the academic inputs to parents through academic record" : point.title === "Daily awareness about student’s performance for the academic inputs to parents through academic record" ? "Term wise parents’ meeting." : point.title}
+                                {point.title === "Daily awareness about student’s performance for the academic inputs to parents through academic record" ? "Term wise parents’ meeting." : point.title === "Term wise parents’ meeting." ? "Daily awareness about student’s performance for the academic inputs to parents through academic record" : point.title}
                               </h3>
                           </Card>
                       </div>
