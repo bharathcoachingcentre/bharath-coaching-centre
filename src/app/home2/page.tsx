@@ -228,23 +228,23 @@ export default function Home2() {
 
   const features = [
     {
-      icon: <Presentation className="w-8 h-8" style={{ color: '#2abfaf' }} />,
+      icon: Presentation,
       text: "Daily Interactive Class",
     },
     {
-      icon: <ClipboardCheck className="w-8 h-8" style={{ color: '#2abfaf' }} />,
+      icon: ClipboardCheck,
       text: "Unit Test, Full Test, Practice Worksheet",
     },
     {
-      icon: <MessageCircleQuestion className="w-8 h-8" style={{ color: '#2abfaf' }} />,
+      icon: MessageCircleQuestion,
       text: "Instant Doubt Solving Session",
     },
     {
-      icon: <BookOpen className="w-8 h-8" style={{ color: '#2abfaf' }} />,
+      icon: BookOpen,
       text: "Printed Study Material",
     },
     {
-      icon: <UserCheck className="w-8 h-8" style={{ color: '#2abfaf' }} />,
+      icon: UserCheck,
       text: "Personalised Mentor Support",
     },
   ];
@@ -534,7 +534,7 @@ export default function Home2() {
     {
       image: '/testi-4.png',
       imageHint: 'student graduate',
-      quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
+      quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir.',
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
@@ -585,7 +585,7 @@ export default function Home2() {
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
+        quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir.',
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
@@ -724,7 +724,7 @@ export default function Home2() {
               <Card key={index} className="group relative bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2 overflow-hidden" style={{backgroundColor: '#fdfbfb', height: '230px'}}>
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#2abfaf1f' }}>
-                    {feature.icon}
+                    <feature.icon className="w-8 h-8" style={{ color: '#2abfaf' }} />
                   </div>
                   <p className="font-semibold text-base text-gray-700 font-body-home2">{feature.text}</p>
                 </CardContent>
@@ -754,20 +754,8 @@ export default function Home2() {
             <div className="grid sm:grid-cols-2 gap-8">
               <Link href="/study-material-cbse" target="_blank">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-blue-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
-                  <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#2abfaf'}}>
-                    <div className="absolute top-2 right-2 flex gap-0.5">
-                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                      <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                    </div>
-                  </div>
-                  <div className="absolute bottom-0 right-0 -mb-2 -mr-2 w-16 h-16 border-b-4 border-r-4 rounded-br-2xl" style={{borderColor: '#2abfaf'}}>
-                        <div className="absolute bottom-2 left-2 flex gap-0.5">
-                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                        </div>
-                  </div>
+                  
+                  
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-blue-100/70 mx-auto mb-4">
                     <BookOpen className="w-10 h-10 text-blue-600" />
                   </div>
@@ -776,20 +764,8 @@ export default function Home2() {
               </Link>
               <Link href="/study-material-samacheer" target="_blank">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-purple-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
-                    <div className="absolute top-0 left-0 -mt-2 -ml-2 w-16 h-16 border-t-4 border-l-4 rounded-tl-2xl" style={{borderColor: '#2abfaf'}}>
-                      <div className="absolute top-2 right-2 flex gap-0.5">
-                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0 right-0 -mb-2 -mr-2 w-16 h-16 border-b-4 border-r-4 rounded-br-2xl" style={{borderColor: '#2abfaf'}}>
-                        <div className="absolute bottom-2 left-2 flex gap-0.5">
-                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                            <span className="h-1 w-1 rounded-full bg-gray-300"></span>
-                        </div>
-                    </div>
+                    
+                    
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-purple-100/70 mx-auto mb-4">
                     <GraduationCap className="w-10 h-10 text-purple-600" />
                   </div>
@@ -1041,7 +1017,7 @@ export default function Home2() {
                                 <point.icon className="w-16 h-16 text-white"/>
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>{point.title}</h3>
                           </Card>
                       </div>
@@ -1054,7 +1030,7 @@ export default function Home2() {
                             <UserCheck className="w-16 h-16 text-white"/>
                           </div>
                       </div>
-                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
+                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
                           <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Hierarchy of test sessions.</h3>
                       </Card>
                   </div>
@@ -1064,8 +1040,8 @@ export default function Home2() {
                             <Users2 className="w-16 h-16 text-white"/>
                           </div>
                       </div>
-                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
-                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Term wise parents’ meeting.</h3>
+                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
+                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Daily awareness about student’s performance for the academic inputs to parents through academic record</h3>
                       </Card>
                   </div>
                   <div className="relative pt-16">
@@ -1074,7 +1050,7 @@ export default function Home2() {
                             <BookMarked className="w-16 h-16 text-white"/>
                           </div>
                       </div>
-                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
+                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
                           <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Specialized materials.</h3>
                       </Card>
                   </div>
