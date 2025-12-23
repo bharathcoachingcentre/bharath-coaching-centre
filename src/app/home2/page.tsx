@@ -673,7 +673,7 @@ export default function Home2() {
     },
     {
         icon: Users,
-        title: "Term wise parents’ meeting.",
+        title: "Weekly tests and quick evaluation.",
     },
   ];
 
