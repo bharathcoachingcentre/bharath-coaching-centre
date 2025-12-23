@@ -1048,18 +1048,36 @@ export default function Home2() {
                   ))}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                  {whyChooseUsPoints.map((point, index) => (
-                      <div key={index} className="relative pt-16">
-                          <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <point.icon className="w-16 h-16 text-white"/>
-                              </div>
+                  <div className="relative pt-16">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                          <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
+                            <UserCheck className="w-16 h-16 text-white"/>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
-                              <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>{point.title}</h3>
-                          </Card>
                       </div>
-                  ))}
+                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
+                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Hierarchy of test sessions.</h3>
+                      </Card>
+                  </div>
+                  <div className="relative pt-16">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                          <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
+                            <Users2 className="w-16 h-16 text-white"/>
+                          </div>
+                      </div>
+                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
+                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Term wise parents’ meeting.</h3>
+                      </Card>
+                  </div>
+                  <div className="relative pt-16">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                          <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
+                            <BookMarked className="w-16 h-16 text-white"/>
+                          </div>
+                      </div>
+                      <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"300px",height:"320px"}}>
+                          <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>Specialized materials.</h3>
+                      </Card>
+                  </div>
               </div>
           </div>
       </AnimatedSection>
