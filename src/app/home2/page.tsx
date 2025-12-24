@@ -886,7 +886,7 @@ export default function Home2() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="bg-blue-100 rounded-full p-1 mb-1">
+                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#e3f3f2' }}>
                         <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }} />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
@@ -905,7 +905,7 @@ export default function Home2() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="bg-blue-100 rounded-full p-1 mb-1">
+                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#e3f3f2' }}>
                         <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }} />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
@@ -1047,7 +1047,7 @@ export default function Home2() {
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
-                                {point.title}
+                                {point.title === 'Daily awareness about student’s performance for the academic inputs to parents through academic record' ? 'Term wise parents’ meeting' : point.title}
                               </h3>
                           </Card>
                       </div>
