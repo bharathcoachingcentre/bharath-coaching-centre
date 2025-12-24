@@ -269,7 +269,14 @@ export default function Home2() {
         text: "text-blue-600",
         title: "text-blue-900"
       },
-      link: "#"
+      link: "#",
+      circle: {
+        icon: "/book.png",
+        style: {
+          backgroundColor: '#f0f7ff',
+          border: 'dashed #aac9ff',
+        }
+      }
     },
     {
       classRange: "CLASS 6 - 8",
@@ -292,7 +299,14 @@ export default function Home2() {
         text: "text-purple-600",
         title: "text-purple-900"
       },
-      link: "#"
+      link: "#",
+      circle: {
+        icon: "/reading.png",
+        style: {
+          backgroundColor: '#faf5ff',
+          border: 'dashed #d0c1ff',
+        }
+      }
     },
     {
       classRange: "CLASS 9 - 12",
@@ -316,7 +330,14 @@ export default function Home2() {
         text: "text-orange-600",
         title: "text-orange-900"
       },
-      link: "#"
+      link: "#",
+       circle: {
+        icon: "/class9-12.png",
+        style: {
+          backgroundColor: '#fefcec',
+          border: 'dashed #ffe6ab',
+        }
+      }
     },
   ];
   
@@ -534,7 +555,7 @@ export default function Home2() {
     {
       image: '/testi-4.png',
       imageHint: 'student graduate',
-      quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir.',
+      quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
@@ -663,12 +684,12 @@ export default function Home2() {
   ];
 
   const whyChooseUsPoints = [
-    { icon: '/check-list.png', title: "Daily interaction with parents through Academic Record." },
-    { icon: '/service-03.png', title: "Daily awareness about student’s performance for the academic inputs to parents through academic record" },
-    { icon: '/assessment.png', title: "Weekly tests and quick evaluation." },
-    { icon: '/training.png', title: "Hierarchy of test sessions." },
-    { icon: '/round-table.png', title: "Term wise parents’ meeting." },
-    { icon: '/service-01.png', title: "Specialized materials." },
+    { icon: '/check-list.png', alt: "Academic Record", title: "Daily interaction with parents through Academic Record." },
+    { icon: '/service-03.png', alt: "Daily awareness", title: "Daily awareness about student’s performance for the academic inputs to parents through academic record" },
+    { icon: '/assessment.png', alt: "Quick evaluation", title: "Weekly tests and quick evaluation." },
+    { icon: '/training.png', alt: "Test sessions", title: "Hierarchy of test sessions." },
+    { icon: '/round-table.png', alt: "Parents meeting", title: "Term wise parents’ meeting." },
+    { icon: '/service-01.png', alt: "Specialized materials", title: "Specialized materials." },
   ];
 
   return (
@@ -866,7 +887,7 @@ export default function Home2() {
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
                       <div className="bg-blue-100 rounded-full p-1 mb-1">
-                        <item.icon className="w-4 h-4 text-primary" />
+                        <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }} />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -885,7 +906,7 @@ export default function Home2() {
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
                       <div className="bg-blue-100 rounded-full p-1 mb-1">
-                        <item.icon className="w-4 h-4 text-primary" />
+                        <item.icon className="w-4 h-4" style={{ color: '#2abfaf' }} />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -1007,7 +1028,7 @@ export default function Home2() {
                       <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <Image src={point.icon} alt={point.title} width={80} height={80} />
+                                <Image src={point.icon} alt={point.alt} width={80} height={80} />
                               </div>
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
@@ -1021,7 +1042,7 @@ export default function Home2() {
                       <div key={index + 3} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <Image src={point.icon} alt={point.title} width={80} height={80} />
+                                <Image src={point.icon} alt={point.alt} width={80} height={80} />
                               </div>
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
