@@ -688,7 +688,7 @@ export default function Home2() {
     { icon: '/service-03.png', alt: "Daily awareness", title: "Daily awareness about student’s performance for the academic inputs to parents through academic record" },
     { icon: '/assessment.png', alt: "Quick evaluation", title: "Weekly tests and quick evaluation." },
     { icon: '/training.png', alt: "Test sessions", title: "Hierarchy of test sessions." },
-    { icon: '/round-table.png', alt: "Parents meeting", title: "Term wise parents’ meeting." },
+    { icon: '/round-table.png', alt: "Parents meeting", title: "Term wise parents’ meeting" },
     { icon: '/service-01.png', alt: "Specialized materials", title: "Specialized materials." },
   ];
 
@@ -768,23 +768,19 @@ export default function Home2() {
             </div>
             <div className="grid sm:grid-cols-2 gap-8">
               <Link href="/study-material-cbse" target="_blank">
-                <Card className="relative group text-center p-8 cursor-pointer hover:bg-blue-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
-                  
-                  
-                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-blue-100/70 mx-auto mb-4">
-                    <BookOpen className="w-10 h-10 text-blue-600" />
+                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ backgroundColor: '#2abfaf' }}>
+                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-white/20 mx-auto mb-4">
+                    <BookOpen className="w-10 h-10 text-white" />
                   </div>
-                  <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">CBSE</p>
+                  <p className="font-extrabold text-2xl mt-4 text-white font-heading-home2">CBSE</p>
                 </Card>
               </Link>
               <Link href="/study-material-samacheer" target="_blank">
-                <Card className="relative group text-center p-8 cursor-pointer hover:bg-purple-50/50 transition-all duration-300 border-gray-200 shadow-sm hover:shadow-xl rounded-2xl">
-                    
-                    
-                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-purple-100/70 mx-auto mb-4">
-                    <GraduationCap className="w-10 h-10 text-purple-600" />
+                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ backgroundColor: '#2abfaf' }}>
+                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl bg-white/20 mx-auto mb-4">
+                    <GraduationCap className="w-10 h-10 text-white" />
                   </div>
-                  <p className="font-extrabold text-2xl mt-4 text-black font-heading-home2">SAMACHEER</p>
+                  <p className="font-extrabold text-2xl mt-4 text-white font-heading-home2">SAMACHEER</p>
                 </Card>
               </Link>
             </div>
@@ -1047,7 +1043,7 @@ export default function Home2() {
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
-                                {point.title === 'Daily awareness about student’s performance for the academic inputs to parents through academic record' ? 'Term wise parents’ meeting' : point.title}
+                                {point.title}
                               </h3>
                           </Card>
                       </div>
