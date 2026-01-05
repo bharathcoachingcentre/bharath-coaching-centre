@@ -265,7 +265,7 @@ export default function Home2() {
         bg: "from-blue-50 to-blue-100",
         iconBg: "bg-blue-100",
         iconText: "text-blue-600",
-        button: "bg-blue-500 hover:bg-blue-600",
+        button: "bg-[#2dd4bf] hover:bg-[#1f9d8d]",
         text: "text-blue-600",
         title: "text-blue-900"
       },
@@ -295,7 +295,7 @@ export default function Home2() {
         bg: "from-purple-50 to-purple-100",
         iconBg: "bg-purple-100",
         iconText: "text-purple-600",
-        button: "bg-purple-500 hover:bg-purple-600",
+        button: "bg-[#2dd4bf] hover:bg-[#1f9d8d]",
         text: "text-purple-600",
         title: "text-purple-900"
       },
@@ -326,7 +326,7 @@ export default function Home2() {
         bg: "from-orange-50 to-orange-100",
         iconBg: "bg-orange-100",
         iconText: "text-orange-600",
-        button: "bg-orange-500 hover:bg-orange-600",
+        button: "bg-[#2dd4bf] hover:bg-[#1f9d8d]",
         text: "text-orange-600",
         title: "text-orange-900"
       },
@@ -684,12 +684,54 @@ export default function Home2() {
   ];
 
   const whyChooseUsPoints = [
-    { icon: '/check-list.png', alt: "Academic Record", title: "Daily interaction with parents through Academic Record." },
-    { icon: '/service-03.png', alt: "Daily awareness", title: "Daily awareness about student’s performance for the academic inputs to parents through academic record" },
-    { icon: '/assessment.png', alt: "Quick evaluation", title: "Weekly tests and quick evaluation." },
-    { icon: '/training.png', alt: "Test sessions", title: "Hierarchy of test sessions." },
-    { icon: '/round-table.png', alt: "Parents meeting", title: "Term wise parents’ meeting" },
-    { icon: '/service-01.png', alt: "Specialized materials", title: "Specialized materials." },
+    {
+      icon: (
+        <Image src="/check-list.png" alt="Academic Record" width={130} height={130} className="why-choose animate-move-up-right"/>
+      ),
+      title: "Daily interaction with parents through Academic Record.",
+      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
+      bgColor: "bg-blue-100",
+    },
+    {
+      icon: (
+        <Image src="/service-03.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
+      ),
+      title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
+      description: "Weekly tests and quick evaluation.",
+      bgColor: "bg-purple-100",
+    },
+    {
+      icon: (
+        <Image src="/assessment.png" alt="Quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
+      ),
+      title: "Weekly tests and quick evaluation.",
+      description: "Weekly tests and quick evaluation.",
+      bgColor: "bg-red-100",
+    },
+    {
+      icon: (
+        <Image src="/training.png" alt="Test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
+      ),
+      title: "Hierarchy of test sessions.",
+      description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
+      bgColor: "bg-blue-100",
+    },
+    {
+      icon: (
+        <Image src="/round-table.png" alt="Parents meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
+      ),
+      title: "Term wise parents’ meeting",
+      description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
+      bgColor: "bg-blue-100",
+    },
+    {
+      icon: (
+        <Image src="/service-01.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
+      ),
+      title: "Specialized materials.",
+      description: "Specialized materials.",
+      bgColor: "bg-blue-100",
+    },
   ];
 
   return (
@@ -796,11 +838,11 @@ export default function Home2() {
                 <BookOpen className="w-4 h-4 mr-2" />
                 Our Programs
               </Badge>
-              <h2 className="text-4xl font-bold mb-3 font-heading-home2">Explore Courses</h2>
+              <h2 className="text-4xl font-bold mb-3 font-heading-home2" style={{color: '#2abfaf'}}>Explore Courses</h2>
               <p className="text-muted-foreground mb-8 text-lg">Comprehensive learning programs designed for students from Class 1 to 12</p>
               <div className="flex justify-center items-center gap-2 mb-12">
                 <div className="w-10 h-0.5 bg-gray-300"></div>
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
+                <div className="w-2 h-2 rounded-full bg-primary" style={{backgroundColor: '#2abfaf'}}></div>
                 <div className="w-10 h-0.5 bg-gray-300"></div>
               </div>
             </AnimatedElement>
@@ -1024,7 +1066,7 @@ export default function Home2() {
                       <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <Image src={point.icon} alt={point.alt} width={80} height={80} />
+                                <Image src={point.icon.props.src} alt={point.alt} width={80} height={80} />
                               </div>
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
@@ -1038,7 +1080,7 @@ export default function Home2() {
                       <div key={index + 3} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <Image src={point.icon} alt={point.alt} width={80} height={80} />
+                                <Image src={point.icon.props.src} alt={point.alt} width={80} height={80} />
                               </div>
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
