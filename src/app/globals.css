@@ -391,7 +391,7 @@ color:rgb(27, 157, 243);
 .bubble {
   position: absolute;
   border-radius: 50%;
-  background-color: rgba(59, 130, 246, 0.1); /* soft blue */
+  background-color: #2abfaf17;
   animation: float 25s infinite ease-in-out;
 }
 .bubble:nth-child(1) {
