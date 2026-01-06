@@ -599,14 +599,14 @@ export default function Home2() {
     },
     {
       company: 'Reethika',
-      quote: "I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry join here and change your future.",
+      quote: "I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.",
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: "I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir.",
+        quote: "I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!",
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
@@ -686,7 +686,7 @@ export default function Home2() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/check-list.png" alt="Academic Record" width={80} height={80} className="why-choose animate-move-up-right"/>
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -695,7 +695,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Intraction-with-parents.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/service-03.png" alt="Daily awareness" width={80} height={80} className="why-choose animate-move-up-right"/>
       ),
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
@@ -704,7 +704,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Quick-evaluation.png" alt="Quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/assessment.png" alt="Quick evaluation" width={80} height={80} className="why-choose animate-move-up-right"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -713,7 +713,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Test-Sessions.png" alt="Test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/training.png" alt="Test sessions" width={80} height={80} className="why-choose animate-move-up-right"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -722,7 +722,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/meeting.png" alt="Parents meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/round-table.png" alt="Parents meeting" width={80} height={80} className="why-choose animate-move-up-right"/>
       ),
       title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -731,7 +731,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Special-material.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/service-01.png" alt="Specialized materials" width={80} height={80} className="why-choose animate-move-up-right"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -1071,7 +1071,7 @@ export default function Home2() {
                       <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <Image src={point.icon.props.src} alt={point.alt} width={80} height={80} />
+                                {point.icon}
                               </div>
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
@@ -1085,7 +1085,7 @@ export default function Home2() {
                       <div key={index + 3} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
                               <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#2abfaf'}}>
-                                <Image src={point.icon.props.src} alt={point.alt} width={80} height={80} />
+                                {point.icon}
                               </div>
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
