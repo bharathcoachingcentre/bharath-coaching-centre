@@ -265,7 +265,7 @@ export default function Home2() {
         bg: "from-blue-50 to-blue-100",
         iconBg: "bg-blue-100",
         iconText: "text-blue-600",
-        button: "bg-[#2dd4bf] hover:bg-[#1f9d8d]",
+        button: "bg-[#2abfaf] hover:bg-[#1f9d8d]",
         text: "text-blue-600",
         title: "text-blue-900"
       },
@@ -295,7 +295,7 @@ export default function Home2() {
         bg: "from-purple-50 to-purple-100",
         iconBg: "bg-purple-100",
         iconText: "text-purple-600",
-        button: "bg-[#2dd4bf] hover:bg-[#1f9d8d]",
+        button: "bg-[#2abfaf] hover:bg-[#1f9d8d]",
         text: "text-purple-600",
         title: "text-purple-900"
       },
@@ -326,7 +326,7 @@ export default function Home2() {
         bg: "from-orange-50 to-orange-100",
         iconBg: "bg-orange-100",
         iconText: "text-orange-600",
-        button: "bg-[#2dd4bf] hover:bg-[#1f9d8d]",
+        button: "bg-[#2abfaf] hover:bg-[#1f9d8d]",
         text: "text-orange-600",
         title: "text-orange-900"
       },
@@ -697,7 +697,7 @@ export default function Home2() {
       icon: (
         <Image src="/service-03.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
-      title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
+      title: "Term wise parents’ meeting",
       description: "Weekly tests and quick evaluation.",
       bgColor: "bg-purple-100",
       alt: "Daily awareness"
@@ -1164,3 +1164,5 @@ export default function Home2() {
     </div>
   );
 }
+
+    
