@@ -691,6 +691,7 @@ export default function Home2() {
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
       bgColor: "bg-blue-100",
+      alt: "Academic Record"
     },
     {
       icon: (
@@ -699,6 +700,7 @@ export default function Home2() {
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
       bgColor: "bg-purple-100",
+      alt: "Daily awareness"
     },
     {
       icon: (
@@ -707,6 +709,7 @@ export default function Home2() {
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
       bgColor: "bg-red-100",
+      alt: "Quick evaluation"
     },
     {
       icon: (
@@ -715,6 +718,7 @@ export default function Home2() {
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
       bgColor: "bg-blue-100",
+      alt: "Test sessions"
     },
     {
       icon: (
@@ -723,6 +727,7 @@ export default function Home2() {
       title: "Term wise parents’ meeting",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
       bgColor: "bg-blue-100",
+      alt: "Parents meeting"
     },
     {
       icon: (
@@ -731,6 +736,7 @@ export default function Home2() {
       title: "Specialized materials.",
       description: "Specialized materials.",
       bgColor: "bg-blue-100",
+      alt: "Specialized materials"
     },
   ];
 
