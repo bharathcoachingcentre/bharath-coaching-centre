@@ -695,39 +695,39 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/service-03.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/service-03.png" alt="Term wise parents’ meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Term wise parents’ meeting",
       description: "Weekly tests and quick evaluation.",
       bgColor: "bg-purple-100",
-      alt: "Daily awareness"
+      alt: "Term wise parents’ meeting"
     },
     {
       icon: (
-        <Image src="/assessment.png" alt="Quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/assessment.png" alt="Weekly tests and quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
       bgColor: "bg-red-100",
-      alt: "Quick evaluation"
+      alt: "Weekly tests and quick evaluation"
     },
     {
       icon: (
-        <Image src="/training.png" alt="Test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/training.png" alt="Hierarchy of test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
       bgColor: "bg-blue-100",
-      alt: "Test sessions"
+      alt: "Hierarchy of test sessions"
     },
     {
       icon: (
-        <Image src="/round-table.png" alt="Parents meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/round-table.png" alt="Term wise parents’ meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Term wise parents’ meeting",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
       bgColor: "bg-blue-100",
-      alt: "Parents meeting"
+      alt: "Term wise parents’ meeting"
     },
     {
       icon: (
@@ -987,12 +987,11 @@ export default function Home2() {
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                    src={placeholderImages['one-to-one-tutoring-session'].src}
-                    alt={placeholderImages['one-to-one-tutoring-session'].alt}
-                    width={placeholderImages['one-to-one-tutoring-session'].width}
-                    height={placeholderImages['one-to-one-tutoring-session'].height}
-                    className="object-cover w-full h-full"
-                    data-ai-hint={placeholderImages['one-to-one-tutoring-session'].hint}
+                    src="/one-to-one-image.png"
+                    alt="One-to-one tutoring session"
+                    fill
+                    className="object-cover"
+                    data-ai-hint="one-to-one tutoring"
                 />
             </div>
           </div>
