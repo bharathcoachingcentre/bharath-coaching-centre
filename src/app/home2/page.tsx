@@ -555,7 +555,7 @@ export default function Home2() {
     {
       image: '/testi-4.png',
       imageHint: 'student graduate',
-      quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir',
+      quote: "I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir",
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
@@ -606,7 +606,7 @@ export default function Home2() {
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir',
+        quote: "I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir",
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
@@ -686,7 +686,7 @@ export default function Home2() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/check-list.png" alt="Academic Record" width={130} height={130} className="why-choose"/>
+        <Image src="/check-list.png" alt="Academic Record" width={100} height={100} className="why-choose"/>
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -695,7 +695,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/service-03.png" alt="Daily awareness" width={130} height={130} className="why-choose"/>
+        <Image src="/service-03.png" alt="Daily awareness" width={100} height={100} className="why-choose"/>
       ),
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
@@ -704,7 +704,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/assessment.png" alt="Quick evaluation" width={130} height={130} className="why-choose"/>
+        <Image src="/assessment.png" alt="Quick evaluation" width={100} height={100} className="why-choose"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -713,7 +713,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/training.png" alt="Test sessions" width={130} height={130} className="why-choose"/>
+        <Image src="/training.png" alt="Test sessions" width={100} height={100} className="why-choose"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -722,7 +722,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/round-table.png" alt="Parents meeting" width={130} height={130} className="why-choose"/>
+        <Image src="/round-table.png" alt="Parents meeting" width={100} height={100} className="why-choose"/>
       ),
       title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -731,7 +731,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/service-01.png" alt="Specialized materials" width={130} height={130} className="why-choose"/>
+        <Image src="/service-01.png" alt="Specialized materials" width={100} height={100} className="why-choose"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -891,7 +891,7 @@ export default function Home2() {
       
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10" style={{backgroundColor: 'rgb(42 191 175 / 10%)'}}>
+      <div className="absolute inset-0 -z-10" style={{backgroundColor: 'rgb(42 191 175 / 14%)'}}>
             <div className="bubble" style={{backgroundColor: '#2abfaf17'}}></div>
             <div className="bubble" style={{backgroundColor: '#2abfaf17'}}></div>
             <div className="bubble" style={{backgroundColor: '#2abfaf17'}}></div>
