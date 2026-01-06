@@ -911,7 +911,7 @@ export default function Home2() {
             <div className="grid md:grid-cols-10 items-center gap-8">
               <div className="md:col-span-3">
                 <Image
-                  src="/Timetable.png"
+                  src="/timetable-illustration.png"
                   alt="Offline Timetable"
                   width={400}
                   height={400}
