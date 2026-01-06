@@ -599,14 +599,14 @@ export default function Home2() {
     },
     {
       company: 'Reethika',
-      quote: "I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.",
+      quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: "I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!",
+        quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
@@ -891,7 +891,7 @@ export default function Home2() {
       
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10" style={{backgroundColor: 'rgb(42 191 175 / 6%)'}}>
+      <div className="absolute inset-0 -z-10" style={{backgroundColor: 'rgb(42 191 175 / 14%)'}}>
             <div className="bubble"></div>
             <div className="bubble"></div>
             <div className="bubble"></div>
@@ -905,7 +905,7 @@ export default function Home2() {
           <div
             className="rounded-xl p-8"
             style={{
-                backgroundColor: 'transparent'
+                backgroundColor: '#2abfafe3'
             }}
           >
             <div className="grid md:grid-cols-10 items-center gap-8">
@@ -1167,3 +1167,4 @@ export default function Home2() {
     
 
     
+
