@@ -686,7 +686,7 @@ export default function Home2() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/check-list.png" alt="Academic Record" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -695,16 +695,16 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/service-03.png" alt="Term wise parents’ meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Intraction-with-parents.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
-      title: "Term wise parents’ meeting",
+      title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
       bgColor: "bg-purple-100",
-      alt: "Term wise parents’ meeting"
+      alt: "Daily awareness"
     },
     {
       icon: (
-        <Image src="/assessment.png" alt="Weekly tests and quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Quick-evaluation.png" alt="Quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -713,25 +713,25 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/training.png" alt="Hierarchy of test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Test-Sessions.png" alt="Test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
       bgColor: "bg-blue-100",
-      alt: "Hierarchy of test sessions"
+      alt: "Test sessions"
     },
     {
       icon: (
-        <Image src="/round-table.png" alt="Term wise parents’ meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/meeting.png" alt="Parents meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
-      title: "Term wise parents’ meeting",
+      title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
       bgColor: "bg-blue-100",
-      alt: "Term wise parents’ meeting"
+      alt: "Parents meeting"
     },
     {
       icon: (
-        <Image src="/service-01.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Special-material.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -891,7 +891,7 @@ export default function Home2() {
       
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10" style={{backgroundColor: 'rgb(42 191 175 / 6%)'}}>
             <div className="bubble"></div>
             <div className="bubble"></div>
             <div className="bubble"></div>
@@ -905,13 +905,13 @@ export default function Home2() {
           <div
             className="rounded-xl p-8"
             style={{
-                backgroundColor: '#2abfafe3'
+                backgroundColor: 'transparent'
             }}
           >
             <div className="grid md:grid-cols-10 items-center gap-8">
               <div className="md:col-span-3">
                 <Image
-                  src="/timetable-illustration.png"
+                  src="/TimeTable-Left.png"
                   alt="Offline Timetable"
                   width={400}
                   height={400}
@@ -1163,5 +1163,7 @@ export default function Home2() {
     </div>
   );
 }
+
+    
 
     
