@@ -170,7 +170,7 @@ svg.lucide.lucide-mail.h-4.w-4{
 #slide-img{
   height:650px!important;
 }
-#nav-menu.font-home2-header {
+#nav-menu.font-home2-header a, #nav-menu.font-home2-header button {
   font-size: 17px !important;
 }
 #nav-menu {

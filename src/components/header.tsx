@@ -208,7 +208,7 @@ export function Header() {
     <Link
       href={href}
       className={cn(
-        "flex items-center font-medium transition-colors hover:text-primary text-base",
+        "flex items-center font-medium transition-colors hover:text-primary",
         pathname === href ? "text-primary" : "text-muted-foreground",
         "text-lg",
         className
@@ -250,7 +250,7 @@ export function Header() {
                         <DropdownMenuTrigger asChild>
                              <Button 
                                 variant='ghost' 
-                                className="flex items-center gap-1 font-medium text-lg text-muted-foreground hover:text-primary"
+                                className={cn("flex items-center gap-1 font-medium text-lg text-muted-foreground hover:text-primary", isHome2 && "text-base")}
                             >
                                 {link.label}
                                 <ChevronDown className="h-4 w-4" />
@@ -305,7 +305,7 @@ export function Header() {
                     </DropdownMenu>
                 )
               }
-              return <NavLink key={link.label} href={link.href!} label={link.label} />
+              return <NavLink key={link.label} href={link.href!} label={link.label} className={cn(isHome2 && "text-base")} />
             })}
         </nav>
    
