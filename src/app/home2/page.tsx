@@ -555,7 +555,7 @@ export default function Home2() {
     {
       image: '/testi-4.png',
       imageHint: 'student graduate',
-      quote: "I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir",
+      quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir',
       name: 'Dhanya B S K Janani Priya',
       details: 'B.Com LL.b(Hons) Student'
     },
@@ -599,14 +599,14 @@ export default function Home2() {
     },
     {
       company: 'Reethika',
-      quote: "I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry join here and change your future.",
+      quote: 'I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry join here and change your future.',
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: "I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir",
+        quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir',
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
@@ -824,7 +824,7 @@ export default function Home2() {
                 </Card>
               </Link>
               <Link href="/study-material-samacheer" target="_blank">
-                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ backgroundColor: '#2abfaf' }}>
+                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ background: 'linear-gradient(180deg, #52DACD 0%, #289B8F 100%)' }}>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: '#FFFFFFE6' }}>
                     <GraduationCap className="w-10 h-10" style={{ color: '#2abfaf' }} />
                   </div>
