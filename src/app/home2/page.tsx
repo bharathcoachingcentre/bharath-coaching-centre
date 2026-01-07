@@ -548,7 +548,7 @@ export default function Home2() {
     {
       image: '/testi-3.png',
       imageHint: 'student graduate',
-      quote: "I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry join here and change your future.",
+      quote: 'I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry join here and change your future.',
       name: 'Reethika',
       details: 'RJ'
     },
@@ -808,7 +808,7 @@ export default function Home2() {
               <p className="mt-4 text-lg text-gray-600">
                 Get access to high-quality study materials designed by expert educators to help you excel in your exams.
               </p>
-              <Button asChild variant="outline" className="mt-8 rounded-full px-8 py-6 text-lg border-2" style={{borderColor: '#d1f3ef', backgroundColor: '#dffffc', color: '#2abfaf'}}>
+              <Button asChild variant="outline" className="mt-8 rounded-full px-8 py-6 text-lg border-2" style={{borderColor: '#2abfaf', backgroundColor: '#fff', color: '#2abfaf', height: '54px'}}>
                 <Link href="/free-study-material">
                   Browse All Materials <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
@@ -1075,7 +1075,9 @@ export default function Home2() {
                               </div>
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#ecfef7",width:"350px",height:"270px"}}>
-                              <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>{point.title}</h3>
+                              <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
+                                  {index === 1 ? "Daily awareness about student’s performance for the academic inputs to parents through academic record" : point.title}
+                              </h3>
                           </Card>
                       </div>
                   ))}
@@ -1163,18 +1165,3 @@ export default function Home2() {
     </div>
   );
 }
-
-    
-
-    
-
-
-
-
-
-    
-
-    
-
-
-
