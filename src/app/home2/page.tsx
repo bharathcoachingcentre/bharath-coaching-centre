@@ -686,7 +686,7 @@ export default function Home2() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/check-list.png" alt="Academic Record" width={100} height={100} className="why-choose"/>
+        <Image src="/check-list.png" alt="Academic Record" width={80} height={80} className="why-choose"/>
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -695,7 +695,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/service-03.png" alt="Daily awareness" width={100} height={100} className="why-choose"/>
+        <Image src="/service-03.png" alt="Daily awareness" width={80} height={80} className="why-choose"/>
       ),
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
@@ -704,7 +704,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/assessment.png" alt="Quick evaluation" width={100} height={100} className="why-choose"/>
+        <Image src="/assessment.png" alt="Quick evaluation" width={80} height={80} className="why-choose"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -713,7 +713,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/training.png" alt="Test sessions" width={100} height={100} className="why-choose"/>
+        <Image src="/training.png" alt="Test sessions" width={80} height={80} className="why-choose"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -722,7 +722,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/round-table.png" alt="Parents meeting" width={100} height={100} className="why-choose"/>
+        <Image src="/round-table.png" alt="Parents meeting" width={80} height={80} className="why-choose"/>
       ),
       title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -731,7 +731,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/service-01.png" alt="Specialized materials" width={100} height={100} className="why-choose"/>
+        <Image src="/service-01.png" alt="Specialized materials" width={80} height={80} className="why-choose"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -1175,3 +1175,4 @@ export default function Home2() {
     
 
     
+
