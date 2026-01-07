@@ -170,8 +170,11 @@ svg.lucide.lucide-mail.h-4.w-4{
 #slide-img{
   height:650px!important;
 }
-#nav-menu{
-  font-size: 18px!important;
+#nav-menu.font-home2-header {
+  font-size: 17px !important;
+}
+#nav-menu {
+  font-size: 18px !important;
 }
 .grid-cols-3 {
   grid-template-columns: 1fr 2fr 1fr!important;
