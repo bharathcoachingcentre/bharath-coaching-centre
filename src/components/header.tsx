@@ -202,6 +202,7 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
+  const isHome2 = pathname === '/home2';
 
   const NavLink = ({ href, label, className, children }: { href: string; label:string, className?: string, children?: React.ReactNode }) => (
     <Link
@@ -222,9 +223,9 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className={cn(
           "bg-[hsl(199,78%,59%)]",
-          pathname === '/home2' && "bg-[#2abfaf]"
+          isHome2 && "bg-[#2abfaf]"
         )}>
-            <div className="container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm">
+            <div className={cn("container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm", isHome2 && 'font-home2-header')}>
                 <div className="flex items-center gap-2 text-white">
                     <Phone className="h-4 w-4" />
                     <p>Talk to our experts: <a href="tel:+917200030307" className="font-semibold hover:underline">+91 7200030307</a></p>
@@ -241,7 +242,7 @@ export function Header() {
           </Link>
         </div>
         
-        <nav className="hidden items-center justify-center space-x-6 md:flex" id="nav-menu">
+        <nav className={cn("hidden items-center justify-center space-x-6 md:flex", isHome2 && 'font-home2-header')} id="nav-menu">
             {navLinks.map((link) => {
               if (link.isDropdown) {
                 return (
