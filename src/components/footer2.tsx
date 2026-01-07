@@ -37,7 +37,7 @@ export function Footer2() {
   ];
 
   return (
-    <footer className="border-t text-foreground" style={{ backgroundColor: '#1a2e44', color: 'white', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif' }}>
+    <footer className="border-t text-foreground home2-footer">
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="mb-6 md:mb-0">

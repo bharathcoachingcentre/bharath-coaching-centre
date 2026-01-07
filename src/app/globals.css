@@ -591,3 +591,9 @@ button#navi-arrow-next {
 .home2-footer-button {
   background-color: #2abfaf;
 }
+
+.home2-footer {
+  background-color: #1a2e44;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
