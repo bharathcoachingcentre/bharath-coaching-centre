@@ -256,7 +256,7 @@ export function Header() {
                                 <ChevronDown className="h-4 w-4" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent>
+                        <DropdownMenuContent className={cn(isHome2 && 'font-home2-header')}>
                            {(link as any).href && (
                             <DropdownMenuItem asChild>
                                <Link href={(link as any).href}>{(link as any).label} Home</Link>
@@ -269,7 +269,7 @@ export function Header() {
                                             <span>{subLink.label}</span>
                                         </DropdownMenuSubTrigger>
                                         <DropdownMenuPortal>
-                                            <DropdownMenuSubContent>
+                                            <DropdownMenuSubContent className={cn(isHome2 && 'font-home2-header')}>
                                                 {subLink.nestedLinks.map((nestedLink: any) => (
                                                    'nestedLinks' in nestedLink && nestedLink.nestedLinks ? (
                                                     <DropdownMenuSub key={nestedLink.label}>
@@ -277,7 +277,7 @@ export function Header() {
                                                             <span>{nestedLink.label}</span>
                                                         </DropdownMenuSubTrigger>
                                                         <DropdownMenuPortal>
-                                                            <DropdownMenuSubContent>
+                                                            <DropdownMenuSubContent className={cn(isHome2 && 'font-home2-header')}>
                                                                 {nestedLink.nestedLinks.map((deepLink: any) => (
                                                                     <DropdownMenuItem key={deepLink.label} asChild>
                                                                         <Link href={deepLink.href}>{deepLink.label}</Link>
