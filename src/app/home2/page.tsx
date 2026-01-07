@@ -818,7 +818,7 @@ export default function Home2() {
               <Link href="/study-material-cbse" target="_blank">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ backgroundColor: '#2abfaf' }}>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mx-auto mb-4" style={{ backgroundColor: '#FFFFFFE6' }}>
-                    <BookOpen className="w-10 h-10 text-white" />
+                    <BookOpen className="w-10 h-10" style={{ color: '#2abfaf' }}/>
                   </div>
                   <p className="font-extrabold text-2xl mt-4 text-white font-heading-home2">CBSE</p>
                 </Card>
@@ -826,7 +826,7 @@ export default function Home2() {
               <Link href="/study-material-samacheer" target="_blank">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ backgroundColor: '#2abfaf' }}>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mx-auto mb-4" style={{ backgroundColor: '#FFFFFFE6' }}>
-                    <GraduationCap className="w-10 h-10 text-white" />
+                    <GraduationCap className="w-10 h-10" style={{ color: '#2abfaf' }} />
                   </div>
                   <p className="font-extrabold text-2xl mt-4 text-white font-heading-home2">SAMACHEER</p>
                 </Card>
@@ -1175,5 +1175,6 @@ export default function Home2() {
     
 
     
+
 
 
