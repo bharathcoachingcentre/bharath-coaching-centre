@@ -47,7 +47,7 @@ export function Footer2() {
                 <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
                 <div className="flex w-full md:w-auto items-center gap-2">
                     <Input type="tel" placeholder="Enter mobile number" className="w-full md:w-64 text-black" />
-                    <Button style={{ backgroundColor: '#2abfaf' }}>Get the link</Button>
+                    <Button className="home2-footer-button">Get the link</Button>
                 </div>
             </div>
         </div>
