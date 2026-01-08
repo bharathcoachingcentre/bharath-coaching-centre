@@ -894,7 +894,7 @@ export default function Home2() {
         </div>
         <div className="container mx-auto relative z-10">
           <AnimatedElement animation="fade-up" className="text-center mb-12">
-            <h2 className="text-3xl font-bold" style={{ fontSize: '36px', color: '#182d45' }}>Offline Timetable</h2>
+            <h2 className="text-3xl font-bold font-heading-home2" style={{ fontSize: '36px', color: '#182d45' }}>Offline Timetable</h2>
           </AnimatedElement>
           <div
             className="rounded-xl p-8"
@@ -1159,3 +1159,5 @@ export default function Home2() {
     </div>
   );
 }
+
+    
