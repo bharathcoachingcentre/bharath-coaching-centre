@@ -1056,9 +1056,8 @@ export default function Home2() {
       {/* Why to choose BCC? Section */}
       <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#faf8f7'}}>
           <div className="container mx-auto">
-              <AnimatedElement animation="fade-up" className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4 font-heading-home2" style={{color: '#182d45'}}>Why Choose <span className="font-heading-home2" style={{color: '#2abfaf'}}>BCC</span></h2>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Discover the unique advantages that make Bharath Academy the ideal choice for your academic journey.</p>
+              <AnimatedElement animation="fade-up" className="text-center">
+                <h2 className="text-3xl font-bold mb-12" style={{fontSize: '36px'}}>Why Choose <span className="text-primary">BCC</span></h2>
               </AnimatedElement>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {whyChooseUsPoints.slice(0, 3).map((point, index) => (
