@@ -1060,7 +1060,7 @@ export default function Home2() {
                 <h2 className="text-3xl font-bold mb-4 font-heading-home2" style={{color: '#182d45', fontSize: '36px'}}>Why Choose <span className="text-primary" style={{color: '#2abfaf'}}>BCC</span></h2>
                 <p className="text-lg text-muted-foreground mb-12">Our methodology is designed to ensure deep understanding and long-term success.</p>
               </AnimatedElement>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col md:grid md:grid-cols-3 gap-8 items-center">
                   {whyChooseUsPoints.slice(0, 3).map((point, index) => (
                       <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
@@ -1076,7 +1076,7 @@ export default function Home2() {
                       </div>
                   ))}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{marginTop: '100px'}}>
+              <div className="flex flex-col md:grid md:grid-cols-3 gap-8 items-center" style={{marginTop: '100px'}}>
                   {whyChooseUsPoints.slice(3).map((point, index) => (
                       <div key={index + 3} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
@@ -1163,4 +1163,5 @@ export default function Home2() {
     
 
     
+
 
