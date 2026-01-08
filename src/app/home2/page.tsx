@@ -686,7 +686,7 @@ export default function Home2() {
   const whyChooseUsPoints = [
     {
       icon: (
-        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Student-report.png" alt="Academic Record" width={130} height={130} className="why-choose"/>
       ),
       title: "Daily interaction with parents through Academic Record.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -694,7 +694,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Intraction-with-parents.png" alt="Daily awareness" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Intraction-with-parents.png" alt="Daily awareness" width={130} height={130} className="why-choose"/>
       ),
       title: "Daily awareness about student’s performance for the academic inputs to parents through academic record",
       description: "Weekly tests and quick evaluation.",
@@ -702,7 +702,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Quick-evaluation.png" alt="Quick evaluation" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Quick-evaluation.png" alt="Quick evaluation" width={130} height={130} className="why-choose"/>
       ),
       title: "Weekly tests and quick evaluation.",
       description: "Weekly tests and quick evaluation.",
@@ -710,7 +710,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Test-Sessions.png" alt="Test sessions" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Test-Sessions.png" alt="Test sessions" width={130} height={130} className="why-choose"/>
       ),
       title: "Hierarchy of test sessions.",
       description: "Eu semper velit tristique semper. Laoreet mi lacus nisi diam in.",
@@ -718,7 +718,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/meeting.png" alt="Parents meeting" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/meeting.png" alt="Parents meeting" width={130} height={130} className="why-choose"/>
       ),
       title: "Term wise parents’ meeting.",
       description: "Justo non dolor lectus ac egestas dictum. Leo tempus nec amet fringilla.",
@@ -726,7 +726,7 @@ export default function Home2() {
     },
     {
       icon: (
-        <Image src="/Special-material.png" alt="Specialized materials" width={130} height={130} className="why-choose animate-move-up-right"/>
+        <Image src="/Special-material.png" alt="Specialized materials" width={130} height={130} className="why-choose"/>
       ),
       title: "Specialized materials.",
       description: "Specialized materials.",
@@ -1057,7 +1057,8 @@ export default function Home2() {
       <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#faf8f7'}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
-                <h2 className="text-3xl font-bold mb-12" style={{fontSize: '36px'}}>Why Choose <span className="text-primary">BCC</span></h2>
+                <h2 className="text-3xl font-bold mb-4 font-heading-home2" style={{color: '#182d45', fontSize: '36px'}}>Why Choose <span className="text-primary" style={{color: '#2abfaf'}}>BCC</span></h2>
+                <p className="text-lg text-muted-foreground mb-12">Our methodology is designed to ensure deep understanding and long-term success.</p>
               </AnimatedElement>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {whyChooseUsPoints.slice(0, 3).map((point, index) => (
@@ -1158,5 +1159,7 @@ export default function Home2() {
     </div>
   );
 }
+
+    
 
     
