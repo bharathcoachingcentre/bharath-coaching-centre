@@ -608,3 +608,30 @@ button#navi-arrow-next {
 .results-button-hover:hover {
   background-color: #e1f6f480;
 }
+.hover-swipe-right {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.hover-swipe-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 100%;
+  background-color: #2abfaf;
+  transition: right 0.4s ease-in-out;
+  z-index: -1;
+}
+
+.hover-swipe-right:hover {
+  color: white;
+}
+
+.hover-swipe-right:hover::before {
+  right: 0;
+}
+
