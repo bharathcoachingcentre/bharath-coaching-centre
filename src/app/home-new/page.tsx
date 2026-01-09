@@ -216,9 +216,9 @@ export default function HomeNew() {
       buttonLink: '/about',
     },
     {
-      src: '/slide-3.jpg',
-      alt: 'Slider Image 3',
-      hint: 'cityscape trichy',
+      src: '/hero-achieve-banner.jpg',
+      alt: 'Students achieving goals',
+      hint: 'students celebrating',
       heading: 'Achieve Your Goals',
       description: 'We are committed to helping you achieve your academic goals and succeed in your career.',
       buttonText: 'Contact Us',
@@ -1166,6 +1166,7 @@ export default function HomeNew() {
     
 
     
+
 
 
 
