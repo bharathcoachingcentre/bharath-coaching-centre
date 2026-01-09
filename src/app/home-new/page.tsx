@@ -802,7 +802,7 @@ export default function HomeNew() {
               <p className="mt-4 text-lg text-gray-600">
                 Get access to high-quality study materials designed by expert educators to help you excel in your exams.
               </p>
-              <Button asChild variant="outline" className="relative mt-8 rounded-full px-8 py-6 text-lg border-2 hover-swipe-right hover:text-white" style={{borderColor: '#2abfaf', backgroundColor: '#fff', color: '#2abfaf', height: '54px'}}>
+              <Button asChild variant="outline" className="relative mt-8 rounded-full px-8 py-6 text-lg border-2 hover-swipe-right text-[#2abfaf]" style={{borderColor: '#2abfaf', backgroundColor: '#fff', height: '54px'}}>
                   <Link href="/free-study-material">
                       Browse All Materials <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -1107,7 +1107,10 @@ export default function HomeNew() {
                         key={filter}
                         variant={activeResultFilter === filter ? 'default' : 'outline'}
                         onClick={() => setActiveResultFilter(filter)}
-                        className={cn("rounded-full px-6 py-2 text-base", activeResultFilter !== filter && "results-button-hover")}
+                        className={cn(
+                            "rounded-full px-6 py-2 text-base",
+                            activeResultFilter !== filter && "results-button-hover"
+                        )}
                         style={activeResultFilter === filter ? { backgroundColor: 'rgb(42, 191, 175)', color: 'white', borderColor: 'rgb(42, 191, 175)' } : { borderColor: '#2abfaf', color: '#2abfaf' }}
                     >
                         {filter}
@@ -1163,6 +1166,7 @@ export default function HomeNew() {
     
 
     
+
 
 
 
