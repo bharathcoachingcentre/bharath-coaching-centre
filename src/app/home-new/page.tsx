@@ -1108,7 +1108,7 @@ export default function HomeNew() {
                         variant={activeResultFilter === filter ? 'default' : 'outline'}
                         onClick={() => setActiveResultFilter(filter)}
                         className={cn("rounded-full px-6 py-2 text-base", activeResultFilter !== filter && "results-button-hover")}
-                        style={activeResultFilter === filter ? { backgroundColor: 'rgb(42, 191, 175)', color: 'white', borderColor: 'rgb(42, 191, 175)' } : { borderColor: '#d1d5db', color: '#374151' }}
+                        style={activeResultFilter === filter ? { backgroundColor: 'rgb(42, 191, 175)', color: 'white', borderColor: 'rgb(42, 191, 175)' } : { borderColor: '#2abfaf', color: '#2abfaf' }}
                     >
                         {filter}
                     </Button>
@@ -1163,6 +1163,7 @@ export default function HomeNew() {
     
 
     
+
 
 
 
