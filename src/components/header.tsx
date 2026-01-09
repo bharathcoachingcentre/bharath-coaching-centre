@@ -239,7 +239,7 @@ export function Header() {
       <div className="container mx-auto flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
-            {isHome2 ? <BccLogo /> : <Logo />}
+            <Logo />
           </Link>
         </div>
         
