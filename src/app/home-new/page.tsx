@@ -91,7 +91,7 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
     };
 
 
-export default function Home2() {
+export default function HomeNew() {
   const [activeResultFilter, setActiveResultFilter] = React.useState<ResultCategory>("All");
   const [isClient, setIsClient] = React.useState(false);
   const [isTimetableOpen, setTimetableOpen] = React.useState(false);

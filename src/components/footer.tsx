@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 export function Footer() {
   const pathname = usePathname();
-  const isHome2 = pathname === '/home2';
+  const isHome2 = pathname === '/home2' || pathname === '/home-new';
 
   const socialLinks = [
     { href: "#", icon: Twitter, label: "Twitter" },

@@ -40,6 +40,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { BccLogo } from "./bcc-logo";
 
 const offlineCourses = [
     { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
@@ -202,7 +203,7 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const isHome2 = pathname === '/home2';
+  const isHome2 = pathname === '/home2' || pathname === '/home-new';
 
   const NavLink = ({ href, label, className, children }: { href: string; label:string, className?: string, children?: React.ReactNode }) => (
     <Link
@@ -238,7 +239,7 @@ export function Header() {
       <div className="container mx-auto flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
-            <Logo className="h-12 w-auto" />
+            {isHome2 ? <BccLogo /> : <Logo />}
           </Link>
         </div>
         
