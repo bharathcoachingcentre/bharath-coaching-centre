@@ -207,9 +207,9 @@ export default function HomeNew() {
       buttonLink: '/courses',
     },
     {
-      src: '/slide-2.jpg',
-      alt: 'Slider Image 2',
-      hint: 'modern building',
+      src: '/hero-classroom-banner.jpg',
+      alt: 'Students in a classroom',
+      hint: 'classroom students',
       heading: 'Expert-Led Tutoring',
       description: 'Benefit from personalized attention and expert guidance from our experienced faculties.',
       buttonText: 'Meet Our Tutors',
@@ -1166,6 +1166,7 @@ export default function HomeNew() {
     
 
     
+
 
 
 
