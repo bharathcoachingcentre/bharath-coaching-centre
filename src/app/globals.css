@@ -604,3 +604,7 @@ button#navi-arrow-next {
 .font-home2-header {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
+
+.results-button-hover:hover {
+  background-color: #e1f6f480;
+}
