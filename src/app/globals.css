@@ -606,7 +606,7 @@ button#navi-arrow-next {
 }
 
 .results-button-hover:hover {
-  background-color: #e1f6f480;
+  background-color: rgba(225, 246, 244, .5)!important;
 }
 .hover-swipe-right {
   position: relative;
