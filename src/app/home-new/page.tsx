@@ -252,7 +252,7 @@ export default function HomeNew() {
   const exploreCourses = [
     {
       classRange: "CLASS 1 - 5",
-      title: "Foundation Years",
+      title: "Courses for Kids",
       features: [
         { text: "School Tuition", icon: School },
         { text: "1:5 Teachers & Students Ratio", icon: Users },
@@ -802,7 +802,7 @@ export default function HomeNew() {
               <p className="mt-4 text-lg text-gray-600">
                 Get access to high-quality study materials designed by expert educators to help you excel in your exams.
               </p>
-               <Button asChild id="study-material" variant="outline" className="relative mt-8 rounded-full px-8 py-6 text-lg border-2 hover-swipe-right text-primary hover:text-white" style={{borderColor: '#2abfaf', backgroundColor: '#fff', height: '54px'}}>
+               <Button asChild id="study-material" variant="outline" className="relative mt-8 rounded-full px-8 py-6 text-lg border-2 hover-swipe-right hover:text-white" style={{borderColor: '#2abfaf', backgroundColor: '#fff', height: '54px'}}>
                   <Link href="/free-study-material">
                       Browse All Materials <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -1166,6 +1166,7 @@ export default function HomeNew() {
     
 
     
+
 
 
 
