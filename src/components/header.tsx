@@ -225,7 +225,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className={cn(
           "bg-[hsl(199,78%,59%)]",
-          isHome2 && "bg-[#1a2e44]"
+          isHome2 && "bg-[#2abfaf]"
         )}>
             <div className={cn("container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm", isHome2 && 'font-home2-header')}>
                 <div className="flex items-center gap-2 text-white">
@@ -234,7 +234,7 @@ export function Header() {
                 </div>
                 <Button asChild size="sm" className={cn(
                     "text-sm h-auto px-3 py-1 bg-white text-primary hover:bg-gray-100",
-                    isHome2 && "bg-white text-[#2abfaf] border border-white hover:bg-[#2abfaf] hover:text-white"
+                    isHome2 && "bg-white text-[#2abfaf] border border-white hover:bg-transparent hover:text-white"
                 )}>
                     <Link href="/signin">Sign in</Link>
                 </Button>
@@ -257,7 +257,8 @@ export function Header() {
                                 variant='ghost' 
                                 className={cn(
                                     "flex items-center gap-1 font-medium text-lg text-muted-foreground",
-                                    isHome2 ? "hover:text-[#2abfaf] text-base" : "hover:text-primary"
+                                    isHome2 ? "hover:text-[#2abfaf] text-base" : "hover:text-primary",
+                                    "hover:bg-transparent"
                                 )}
                             >
                                 {link.label}
