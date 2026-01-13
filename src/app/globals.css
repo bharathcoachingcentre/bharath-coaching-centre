@@ -635,4 +635,9 @@ button#navi-arrow-next {
   right: 0;
 }
 
-
+#study-material {
+    color: #2abfaf !important;
+}
+#study-material:hover {
+    color: #fff !important;
+}
