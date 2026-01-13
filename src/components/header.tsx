@@ -231,7 +231,10 @@ export function Header() {
                     <Phone className="h-4 w-4" />
                     <p>Talk to our experts: <a href="tel:+917200030307" className="font-semibold hover:underline">+91 7200030307</a></p>
                 </div>
-                <Button asChild size="sm" className="text-sm h-auto px-3 py-1 bg-white text-primary hover:bg-gray-100">
+                <Button asChild size="sm" className={cn(
+                    "text-sm h-auto px-3 py-1 bg-white text-primary hover:bg-gray-100",
+                    isHome2 && "bg-[#2abfaf] text-white border border-white hover:bg-white hover:text-[#2abfaf]"
+                )}>
                     <Link href="/signin">Sign in</Link>
                 </Button>
             </div>
