@@ -28,6 +28,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-4 text-sm outline-none focus:text-primary data-[state=open]:text-primary border-b focus:bg-transparent data-[state=open]:bg-transparent relative focus:shadow-[inset_4px_0_0_0_hsl(var(--primary))] data-[state=open]:shadow-[inset_4px_0_0_0_hsl(var(--primary))]",
+      "[.font-home2-header_&]:focus:text-[#2abfaf] [.font-home2-header_&]:data-[state=open]:text-[#2abfaf] [.font-home2-header_&]:focus:shadow-[inset_4px_0_0_0_#2abfaf] [.font-home2-header_&]:data-[state=open]:shadow-[inset_4px_0_0_0_#2abfaf]",
       inset && "pl-8",
       className
     )}
@@ -84,6 +85,7 @@ const DropdownMenuItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default select-none items-center gap-2 rounded-none px-2 py-4 text-sm outline-none transition-colors focus:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border-b last:border-b-0 focus:bg-transparent focus:shadow-[inset_4px_0_0_0_hsl(var(--primary))]",
+      "[.font-home2-header_&]:focus:text-[#2abfaf] [.font-home2-header_&]:focus:shadow-[inset_4px_0_0_0_#2abfaf]",
       inset && "pl-8",
       className
     )}
