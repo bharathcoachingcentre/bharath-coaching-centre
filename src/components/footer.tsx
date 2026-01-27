@@ -15,13 +15,14 @@ import React from "react";
 
 export function Footer() {
   const pathname = usePathname();
-  const [isHome2, setIsHome2] = React.useState(false);
-  const [currentYear, setCurrentYear] = React.useState(new Date().getFullYear());
+  const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => {
-    setIsHome2(pathname === '/home2' || pathname === '/home-new');
-    setCurrentYear(new Date().getFullYear());
-  }, [pathname]);
+    setIsClient(true);
+  }, []);
+
+  const isHome2 = isClient && (pathname === '/home2' || pathname === '/home-new');
+  const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     { href: "#", icon: Twitter, label: "Twitter" },
@@ -65,7 +66,7 @@ export function Footer() {
             <div className="flex flex-col items-center gap-4">
                 <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
                 <div className="flex w-full md:w-auto items-center gap-2">
-                    <Input type="tel" placeholder="Enter mobile number" className={cn("w-full md:w-64", isHome2 && "bg-white text-black")} />
+                    <Input type="tel" placeholder="Enter mobile number" className={cn(isHome2 && "bg-white text-black")} />
                     <Button className={cn(isHome2 && "home2-footer-button")}>Get the link</Button>
                 </div>
             </div>
