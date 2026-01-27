@@ -10,11 +10,18 @@ import { BccFooterLogo } from "./bcc-footer-logo";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import React from "react";
 
 
 export function Footer() {
   const pathname = usePathname();
-  const isHome2 = pathname === '/home2' || pathname === '/home-new';
+  const [isHome2, setIsHome2] = React.useState(false);
+  const [currentYear, setCurrentYear] = React.useState(new Date().getFullYear());
+
+  React.useEffect(() => {
+    setIsHome2(pathname === '/home2' || pathname === '/home-new');
+    setCurrentYear(new Date().getFullYear());
+  }, [pathname]);
 
   const socialLinks = [
     { href: "#", icon: Twitter, label: "Twitter" },
@@ -123,7 +130,7 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <Separator className={cn(isHome2 && "bg-gray-300")} />
         <div className="py-8 text-center">
-            <p className={cn("text-base", isHome2 ? "text-gray-800" : "text-black")}>© {new Date().getFullYear()} Bharath Academy. All rights reserved</p>
+            <p className={cn("text-base", isHome2 ? "text-gray-800" : "text-black")}>© {currentYear} Bharath Academy. All rights reserved</p>
         </div>
       </div>
     </footer>
