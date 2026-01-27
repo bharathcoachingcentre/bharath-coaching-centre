@@ -15,14 +15,15 @@ import React from "react";
 
 export function Footer() {
   const pathname = usePathname();
-  const [isClient, setIsClient] = React.useState(false);
+  const [isMounted, setIsMounted] = React.useState(false);
+  const [currentYear, setCurrentYear] = React.useState(new Date().getFullYear());
 
   React.useEffect(() => {
-    setIsClient(true);
+    setIsMounted(true);
+    setCurrentYear(new Date().getFullYear());
   }, []);
 
-  const isHome2 = isClient && (pathname === '/home2' || pathname === '/home-new');
-  const currentYear = new Date().getFullYear();
+  const isHome2 = isMounted && (pathname === '/home2' || pathname === '/home-new');
 
   const socialLinks = [
     { href: "#", icon: Twitter, label: "Twitter" },
