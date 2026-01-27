@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -15,18 +14,13 @@ import React from "react";
 
 export function Footer() {
   const pathname = usePathname();
-  const [isMounted, setIsMounted] = React.useState(false);
+  const [isHome2, setIsHome2] = React.useState(false);
+  const [currentYear, setCurrentYear] = React.useState(new Date().getFullYear());
 
   React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
-
-  const currentYear = new Date().getFullYear();
-  const isHome2 = pathname === '/home2' || pathname === '/home-new';
+    setIsHome2(pathname === '/home2' || pathname === '/home-new');
+    setCurrentYear(new Date().getFullYear());
+  }, [pathname]);
 
   const socialLinks = [
     { href: "#", icon: Twitter, label: "Twitter" },
