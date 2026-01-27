@@ -16,14 +16,17 @@ import React from "react";
 export function Footer() {
   const pathname = usePathname();
   const [isMounted, setIsMounted] = React.useState(false);
-  const [currentYear, setCurrentYear] = React.useState(new Date().getFullYear());
 
   React.useEffect(() => {
     setIsMounted(true);
-    setCurrentYear(new Date().getFullYear());
   }, []);
 
-  const isHome2 = isMounted && (pathname === '/home2' || pathname === '/home-new');
+  if (!isMounted) {
+    return null;
+  }
+
+  const currentYear = new Date().getFullYear();
+  const isHome2 = pathname === '/home2' || pathname === '/home-new';
 
   const socialLinks = [
     { href: "#", icon: Twitter, label: "Twitter" },
