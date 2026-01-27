@@ -210,8 +210,8 @@ export function Header() {
       href={href}
       className={cn(
         "flex items-center font-medium transition-colors",
-        isHome2 ? "hover:text-[#2abfaf]" : "hover:text-primary",
-        pathname === href ? (isHome2 ? "text-[#2abfaf]" : "text-primary") : "text-muted-foreground",
+        isHome2 ? "hover:text-[#1497d4]" : "hover:text-primary",
+        pathname === href ? (isHome2 ? "text-[#1497d4]" : "text-primary") : "text-muted-foreground",
         "text-lg",
         className
       )}
@@ -225,7 +225,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className={cn(
           "bg-[hsl(199,78%,59%)]",
-          isHome2 && "bg-[#2abfaf]"
+          isHome2 && "bg-[#1497d4]"
         )}>
             <div className={cn("container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm", isHome2 && 'font-home2-header')}>
                 <div className="flex items-center gap-2 text-white">
@@ -233,8 +233,8 @@ export function Header() {
                     <p>Talk to our experts: <a href="tel:+917200030307" className="font-semibold hover:underline">+91 7200030307</a></p>
                 </div>
                 <Button asChild size="sm" className={cn(
-                    "text-sm h-auto px-3 py-1 bg-white text-primary hover:bg-gray-100",
-                    isHome2 && "bg-white text-[#2abfaf] border border-white hover:bg-transparent hover:text-white"
+                    "text-sm h-auto px-3 py-1",
+                    isHome2 ? "bg-white text-[#1497d4] border border-white hover:bg-transparent hover:text-white" : "bg-white text-primary hover:bg-gray-100"
                 )}>
                     <Link href="/signin">Sign in</Link>
                 </Button>
@@ -257,7 +257,7 @@ export function Header() {
                                 variant='ghost' 
                                 className={cn(
                                     "flex items-center gap-1 font-medium text-lg text-muted-foreground",
-                                    isHome2 ? "hover:text-[#2abfaf] text-base" : "hover:text-primary",
+                                    isHome2 ? "hover:text-[#1497d4] text-base" : "hover:text-primary",
                                     "hover:bg-transparent"
                                 )}
                             >
