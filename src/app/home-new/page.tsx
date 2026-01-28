@@ -731,16 +731,6 @@ export default function HomeNew() {
                   />
             </div>
         </div>
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
-            <Button variant="outline" size="icon" className="rounded-full bg-white/30 text-white border-white hover:bg-white/50">
-                <ChevronLeft />
-            </Button>
-        </div>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
-            <Button variant="outline" size="icon" className="rounded-full bg-white/30 text-white border-white hover:bg-white/50">
-                <ChevronRight />
-            </Button>
-        </div>
       </AnimatedSection>
       
       {/* Features Section */}
@@ -753,7 +743,7 @@ export default function HomeNew() {
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#1497d41f' }}>
                     <feature.icon className="w-8 h-8" style={{ color: '#1497d4' }} />
                   </div>
-                  <p className="font-semibold text-base text-gray-700 font-body-home2">{feature.text}</p>
+                  <p className="font-extrabold text-base text-gray-700 font-body-home2">{feature.text}</p>
                 </CardContent>
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-[#1497d4] transition-transform duration-300 scale-x-0 group-hover:scale-x-100 origin-bottom-left"></div>
               </Card>
@@ -1132,4 +1122,5 @@ export default function HomeNew() {
     </div>
   );
 }
+
 
