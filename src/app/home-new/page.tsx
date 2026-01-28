@@ -232,19 +232,19 @@ export default function HomeNew() {
       ],
       icon: Apple,
       colors: {
-        bg: "from-blue-50 to-blue-100",
-        iconBg: "bg-blue-100",
-        iconText: "text-blue-600",
-        button: "bg-[#1497d4] hover:bg-[#107ab0]",
-        text: "text-blue-600",
-        title: "text-blue-900"
+        bg: "from-cyan-50 to-cyan-100",
+        iconBg: "bg-cyan-100",
+        iconText: "text-cyan-600",
+        button: "bg-[#35a3be] hover:bg-[#174f5f]",
+        text: "text-cyan-600",
+        title: "text-cyan-900"
       },
       link: "#",
       circle: {
         icon: "/book.png",
         style: {
-          backgroundColor: '#f0f7ff',
-          border: 'dashed #aac9ff',
+          backgroundColor: '#e0f7fa',
+          border: 'dashed #80deea',
         }
       }
     },
@@ -262,19 +262,19 @@ export default function HomeNew() {
       ],
       icon: BookMarked,
       colors: {
-        bg: "from-blue-50 to-blue-100",
-        iconBg: "bg-blue-100",
-        iconText: "text-blue-600",
-        button: "bg-[#1497d4] hover:bg-[#107ab0]",
-        text: "text-blue-600",
-        title: "text-blue-900"
+        bg: "from-purple-50 to-purple-100",
+        iconBg: "bg-purple-100",
+        iconText: "text-purple-600",
+        button: "bg-[#35a3be] hover:bg-[#174f5f]",
+        text: "text-purple-600",
+        title: "text-purple-900"
       },
       link: "#",
       circle: {
         icon: "/reading.png",
         style: {
-          backgroundColor: '#f0f7ff',
-          border: 'dashed #aac9ff',
+          backgroundColor: '#faf5ff',
+          border: 'dashed #d0c1ff',
         }
       }
     },
@@ -293,19 +293,19 @@ export default function HomeNew() {
       ],
       icon: GraduationCap,
       colors: {
-        bg: "from-blue-50 to-blue-100",
-        iconBg: "bg-blue-100",
-        iconText: "text-blue-600",
-        button: "bg-[#1497d4] hover:bg-[#107ab0]",
-        text: "text-blue-600",
-        title: "text-blue-900"
+        bg: "from-orange-50 to-orange-100",
+        iconBg: "bg-orange-100",
+        iconText: "text-orange-600",
+        button: "bg-[#35a3be] hover:bg-[#174f5f]",
+        text: "text-orange-600",
+        title: "text-orange-900"
       },
       link: "#",
        circle: {
         icon: "/class9-12.png",
         style: {
-          backgroundColor: '#f0f7ff',
-          border: 'dashed #aac9ff',
+          backgroundColor: '#fefcec',
+          border: 'dashed #ffe6ab',
         }
       }
     },
@@ -738,14 +738,14 @@ export default function HomeNew() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="group relative bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2 overflow-hidden" style={{backgroundColor: '#fdfbfb', height: '230px', borderColor: '#1497d469', borderWidth: '2px'}}>
+              <Card key={index} className="group relative bg-white rounded-2xl shadow-lg border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-2 overflow-hidden" style={{backgroundColor: '#fdfbfb', height: '230px', borderColor: '#35a3be69', borderWidth: '2px'}}>
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
-                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: '#1497d41f' }}>
-                    <feature.icon className="w-8 h-8" style={{ color: '#1497d4' }} />
+                  <div className="flex items-center justify-center h-20 w-20 rounded-2xl mb-4" style={{ backgroundColor: 'rgba(53, 163, 190, 0.12)' }}>
+                    <feature.icon className="w-8 h-8" style={{ color: '#35a3be' }} />
                   </div>
                   <p className="font-extrabold text-base text-gray-700 font-body-home2">{feature.text}</p>
                 </CardContent>
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#1497d4] transition-transform duration-300 scale-x-0 group-hover:scale-x-100 origin-bottom-left"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#35a3be] transition-transform duration-300 scale-x-0 group-hover:scale-x-100 origin-bottom-left"></div>
               </Card>
             ))}
           </div>
@@ -753,16 +753,16 @@ export default function HomeNew() {
       </AnimatedSection>
 
       {/* Study Material Section */}
-      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: '#1497d424' }}>
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: 'rgba(53, 163, 190, 0.14)' }}>
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#1497d4'}}>RESOURCES</p>
+              <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#35a3be'}}>RESOURCES</p>
               <h2 className="text-4xl font-bold font-heading-home2 mt-2" style={{color: '#182d45'}}>Download Study Material</h2>
               <p className="mt-4 text-lg text-gray-600">
                 Get access to high-quality study materials designed by expert educators to help you excel in your exams.
               </p>
-               <Button asChild id="study-material" variant="outline" className="relative mt-8 rounded-full px-8 py-6 text-lg border-2 hover-swipe-right hover:text-white" style={{borderColor: '#1497d4', backgroundColor: '#fff', height: '54px'}}>
+               <Button asChild id="study-material" variant="outline" className="relative mt-8 rounded-full px-8 py-6 text-lg border-2 hover-swipe-right hover:text-white" style={{borderColor: '#35a3be', backgroundColor: '#fff', height: '54px'}}>
                   <Link href="/free-study-material">
                       Browse All Materials <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -770,17 +770,17 @@ export default function HomeNew() {
             </div>
             <div className="grid sm:grid-cols-2 gap-8">
               <Link href="/study-material-cbse" target="_blank">
-                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ background: 'linear-gradient(180deg, #4dabf7 0%, #1497d4 100%)' }}>
+                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' }}>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: '#FFFFFFE6' }}>
-                    <BookOpen className="w-10 h-10" style={{ color: '#1497d4' }}/>
+                    <BookOpen className="w-10 h-10" style={{ color: '#35a3be' }}/>
                   </div>
                   <p className="font-extrabold text-2xl mt-4 text-white font-heading-home2">CBSE</p>
                 </Card>
               </Link>
               <Link href="/study-material-samacheer" target="_blank">
-                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ background: 'linear-gradient(180deg, #4dabf7 0%, #1497d4 100%)' }}>
+                <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' }}>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: '#FFFFFFE6' }}>
-                    <GraduationCap className="w-10 h-10" style={{ color: '#1497d4' }} />
+                    <GraduationCap className="w-10 h-10" style={{ color: '#35a3be' }} />
                   </div>
                   <p className="font-extrabold text-2xl mt-4 text-white font-heading-home2">SAMACHEER</p>
                 </Card>
@@ -794,15 +794,15 @@ export default function HomeNew() {
       <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#f5faff'}}>
         <div className="container mx-auto text-center">
             <AnimatedElement animation="fade-up">
-              <Badge className="px-4 py-1.5 rounded-full bg-blue-100 text-blue-800 font-semibold text-sm mb-4">
+              <Badge className="px-4 py-1.5 rounded-full font-semibold text-sm mb-4" style={{ backgroundColor: 'rgba(53, 163, 190, 0.12)', color: '#174f5f' }}>
                 <BookOpen className="w-4 h-4 mr-2" />
                 Our Programs
               </Badge>
-              <h2 className="text-4xl font-bold mb-3 font-heading-home2" style={{color: '#1497d4'}}>Explore Courses</h2>
+              <h2 className="text-4xl font-bold mb-3 font-heading-home2" style={{color: '#35a3be'}}>Explore Courses</h2>
               <p className="text-muted-foreground mb-8 text-lg">Comprehensive learning programs designed for students from Class 1 to 12</p>
               <div className="flex justify-center items-center gap-2 mb-12">
                 <div className="w-10 h-0.5 bg-gray-300"></div>
-                <div className="w-2 h-2 rounded-full bg-primary" style={{backgroundColor: '#1497d4'}}></div>
+                <div className="w-2 h-2 rounded-full" style={{backgroundColor: '#35a3be'}}></div>
                 <div className="w-10 h-0.5 bg-gray-300"></div>
               </div>
             </AnimatedElement>
@@ -845,12 +845,12 @@ export default function HomeNew() {
       
       {/* Offline Time Table Section */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10" style={{backgroundColor: 'rgb(20 151 212 / 14%)'}}>
-            <div className="bubble" style={{backgroundColor: '#1497d417'}}></div>
-            <div className="bubble" style={{backgroundColor: '#1497d417'}}></div>
-            <div className="bubble" style={{backgroundColor: '#1497d417'}}></div>
-            <div className="bubble" style={{backgroundColor: '#1497d417'}}></div>
-            <div className="bubble" style={{backgroundColor: '#1497d417'}}></div>
+      <div className="absolute inset-0 -z-10" style={{backgroundColor: 'rgba(53, 163, 190, 0.14)'}}>
+            <div className="bubble" style={{backgroundColor: 'rgba(53, 163, 190, 0.09)'}}></div>
+            <div className="bubble" style={{backgroundColor: 'rgba(53, 163, 190, 0.09)'}}></div>
+            <div className="bubble" style={{backgroundColor: 'rgba(53, 163, 190, 0.09)'}}></div>
+            <div className="bubble" style={{backgroundColor: 'rgba(53, 163, 190, 0.09)'}}></div>
+            <div className="bubble" style={{backgroundColor: 'rgba(53, 163, 190, 0.09)'}}></div>
         </div>
         <div className="container mx-auto relative z-10">
           <AnimatedElement animation="fade-up" className="text-center mb-12">
@@ -859,7 +859,7 @@ export default function HomeNew() {
           <div
             className="rounded-xl p-8"
             style={{
-                backgroundColor: '#1497d4e3'
+                backgroundColor: 'rgba(53, 163, 190, 0.89)'
             }}
           >
             <div className="grid md:grid-cols-10 items-center gap-8">
@@ -884,8 +884,8 @@ export default function HomeNew() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#e3f5ff' }}>
-                        <item.icon className="w-4 h-4" style={{ color: '#1497d4' }} />
+                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#e0f7fa' }}>
+                        <item.icon className="w-4 h-4" style={{ color: '#35a3be' }} />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -903,8 +903,8 @@ export default function HomeNew() {
                       key={item.name}
                       className="bg-white rounded-lg p-4 text-center shadow-md flex flex-col items-center justify-center h-24 transition-all duration-300 hover:shadow-xl hover:scale-110 hover:-translate-y-2"
                     >
-                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#e3f5ff' }}>
-                        <item.icon className="w-4 h-4" style={{ color: '#1497d4' }} />
+                      <div className="rounded-full p-1 mb-1" style={{ backgroundColor: '#e0f7fa' }}>
+                        <item.icon className="w-4 h-4" style={{ color: '#35a3be' }} />
                       </div>
                       <p className="font-semibold text-gray-700 text-sm">
                         {item.name}
@@ -923,7 +923,7 @@ export default function HomeNew() {
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-                <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#1497d4'}}>Personalized Learning</p>
+                <p className="text-sm font-semibold tracking-widest uppercase" style={{color: '#35a3be'}}>Personalized Learning</p>
                 <h2 className="text-4xl font-bold font-heading-home2 mt-2" style={{color: '#182d45'}}>One-to-One Sessions</h2>
                 <p className="mt-4 text-lg text-gray-600">
                     For students who need focused attention, our one-to-one sessions provide the perfect environment to thrive. Get undivided attention from our best mentors.
@@ -931,8 +931,8 @@ export default function HomeNew() {
                 <div className="grid sm:grid-cols-2 gap-8 mt-8">
                     {tutoringCourses.map((course, index) => (
                         <div key={index} className="flex items-center gap-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full" style={{ backgroundColor: '#1497d41f' }}>
-                                <course.icon className="w-7 h-7" style={{ color: '#1497d4' }} />
+                            <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full" style={{ backgroundColor: 'rgba(53, 163, 190, 0.12)' }}>
+                                <course.icon className="w-7 h-7" style={{ color: '#35a3be' }} />
                             </div>
                             <h3 className="text-lg font-bold font-heading-home2">{course.title}</h3>
                         </div>
@@ -966,7 +966,7 @@ export default function HomeNew() {
                 <CarouselContent>
                   {newTestimonials.map((testimonial, index) => (
                     <CarouselItem key={index}>
-                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{backgroundColor: '#1497d4', height: '405px'}}>
+                      <Card className="rounded-3xl p-8 md:p-12 shadow-xl" style={{background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', height: '405px'}}>
                         <CardContent className="p-0">
                            <p
                             className="text-white italic text-lg md:text-xl"
@@ -993,15 +993,15 @@ export default function HomeNew() {
                 </CarouselContent>
                  <div className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
                  <CarouselPrevious id="navi-arrow-prev" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronLeft style={{ width: '24px', height: '24px', color: '#1497d4' }} />
+                    <ChevronLeft style={{ width: '24px', height: '24px', color: '#35a3be' }} />
                   </CarouselPrevious>
                   <CarouselNext id="navi-arrow-next" className="rounded-full -left-12 top-1/2 relative translate-x-0 translate-y-0 w-12 h-12 bg-white text-primary shadow-lg border-gray-200" >
-                    <ChevronRight style={{ width: '24px', height: '24px', color: '#1497d4' }} />
+                    <ChevronRight style={{ width: '24px', height: '24px', color: '#35a3be' }} />
                   </CarouselNext>
                 </div>
               </Carousel>
             <div className="space-y-4" style={{marginLeft: '45px'}}>
-              <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#1497d4' }}>TESTIMONIALS</p>
+              <p className="text-sm font-bold uppercase tracking-widest" style={{ color: '#35a3be' }}>TESTIMONIALS</p>
               <h2 className="text-4xl font-bold font-heading-home2" style={{color: '#182d45', lineHeight: '45px'}}>
                 Students Academic <br/>Experience
               </h2>
@@ -1017,18 +1017,18 @@ export default function HomeNew() {
       <AnimatedSection className="py-16 md:py-24" style={{backgroundColor: '#f5faff'}}>
           <div className="container mx-auto">
               <AnimatedElement animation="fade-up" className="text-center">
-                <h2 className="text-3xl font-bold mb-4 font-heading-home2" style={{color: '#182d45', fontSize: '36px'}}>Why Choose <span className="text-primary" style={{color: '#1497d4'}}>BCC</span></h2>
+                <h2 className="text-3xl font-bold mb-4 font-heading-home2" style={{color: '#182d45', fontSize: '36px'}}>Why Choose <span className="text-primary" style={{color: '#35a3be'}}>BCC</span></h2>
                 <p className="text-lg text-muted-foreground mb-12">Our methodology is designed to ensure deep understanding and long-term success.</p>
               </AnimatedElement>
               <div className="flex flex-col md:grid md:grid-cols-3 gap-8 items-center">
                   {whyChooseUsPoints.slice(0, 3).map((point, index) => (
                       <div key={index} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#1497d4'}}>
+                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)'}}>
                                 {point.icon}
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#e3f6ff",width:"350px",height:"270px"}}>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#e0f7fa",width:"350px",height:"270px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
                                   {index === 1 ? "Daily awareness about student’s performance for the academic inputs to parents through academic record" : point.title}
                               </h3>
@@ -1040,11 +1040,11 @@ export default function HomeNew() {
                   {whyChooseUsPoints.slice(3).map((point, index) => (
                       <div key={index + 3} className="relative pt-16">
                           <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{backgroundColor: '#1497d4'}}>
+                              <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)'}}>
                                 {point.icon}
                               </div>
                           </div>
-                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#e3f6ff",width:"350px",height:"270px"}}>
+                          <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#e0f7fa",width:"350px",height:"270px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
                                 {point.title}
                               </h3>
@@ -1071,7 +1071,7 @@ export default function HomeNew() {
                             "rounded-full px-6 py-2 text-base",
                             activeResultFilter !== filter && "results-button-hover"
                         )}
-                        style={activeResultFilter === filter ? { backgroundColor: '#1497d4', color: 'white', borderColor: '#1497d4' } : { borderColor: '#1497d4', color: '#1497d4' }}
+                        style={activeResultFilter === filter ? { backgroundColor: '#35a3be', color: 'white', borderColor: '#35a3be' } : { borderColor: '#35a3be', color: '#35a3be' }}
                     >
                         {filter}
                     </Button>
@@ -1113,7 +1113,7 @@ export default function HomeNew() {
               <Phone className="w-6 h-6 text-white" />
             </a>
           </Button>
-          <Button asChild size="icon" className="rounded-full bg-blue-500 hover:bg-blue-600 w-12 h-12">
+          <Button asChild size="icon" className="bg-[#35a3be] hover:bg-[#174f5f] w-12 h-12">
             <a href="mailto:bcc_try@hotmail.com">
               <Mail className="w-6 h-6 text-white" />
             </a>
@@ -1122,5 +1122,6 @@ export default function HomeNew() {
     </div>
   );
 }
+
 
 
