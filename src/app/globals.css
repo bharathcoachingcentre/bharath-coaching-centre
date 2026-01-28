@@ -648,3 +648,7 @@ button#navi-arrow-next {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.home-new-header {
+    backdrop-filter: none;
+    background-color: transparent !important;
+}
