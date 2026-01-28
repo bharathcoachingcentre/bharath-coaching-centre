@@ -649,6 +649,6 @@ button#navi-arrow-next {
     -webkit-text-fill-color: transparent;
 }
 .home-new-header {
+    background: linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc) !important;
     backdrop-filter: none;
-    background-color: transparent !important;
 }
