@@ -707,7 +707,7 @@ export default function HomeNew() {
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
-      <AnimatedSection className="w-full relative" id="slider-sec" style={{background: 'linear-gradient(135deg, #0f5f6f, #1fa4b8, #6fd6d1)'}}>
+      <AnimatedSection className="w-full relative" id="slider-sec" style={{background: 'linear-gradient(135deg, #0f5f6f, #1fa4b8, #6fd6d1)', marginTop: '-140px'}}>
         <div className="container mx-auto px-4 grid md:grid-cols-2 items-center gap-8 min-h-[600px] relative z-10">
             <div className="text-white text-center md:text-left py-16">
                 <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gradient-home-new font-heading-home2">
