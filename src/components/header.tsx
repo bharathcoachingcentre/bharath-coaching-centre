@@ -209,10 +209,10 @@ export function Header() {
     <Link
       href={href}
       className={cn(
-        "flex items-center font-medium transition-colors",
-        isHome2 ? "hover:text-[#1497d4]" : "hover:text-primary",
-        pathname === href ? (isHome2 ? "text-[#1497d4]" : "text-primary") : "text-muted-foreground",
-        "text-lg",
+        "flex items-center font-medium transition-colors text-lg",
+        isHome2 
+            ? "text-white hover:text-white/90" 
+            : `hover:text-primary ${pathname === href ? "text-primary" : "text-muted-foreground"}`,
         className
       )}
     >
@@ -223,12 +223,12 @@ export function Header() {
 
   return (
     <header className={cn(
-        "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
-        isHome2 && "home-new-header"
+        "sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        isHome2 ? "home-new-header border-none" : "border-b"
     )}>
-        <div className={cn(!isHome2 && "bg-[hsl(199,78%,59%)]")}>
+        <div className={cn(isHome2 ? "" : "bg-[hsl(199,78%,59%)]")}>
             <div className={cn("container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm", isHome2 && 'font-home2-header')}>
-                <div className={cn("flex items-center gap-2", isHome2 ? "text-foreground" : "text-white")}>
+                <div className={cn("flex items-center gap-2", isHome2 ? "text-white" : "text-white")}>
                     <Phone className="h-4 w-4" />
                     <p>Talk to our experts: <a href="tel:+917200030307" className="font-semibold hover:underline">+91 7200030307</a></p>
                 </div>
@@ -238,7 +238,7 @@ export function Header() {
                     variant={isHome2 ? 'outline' : 'default'}
                     className={cn(
                         "text-sm h-auto px-3 py-1",
-                        !isHome2 && "bg-white text-primary hover:bg-gray-100"
+                        isHome2 ? "bg-transparent text-white border-white hover:bg-white hover:text-black" : "bg-white text-primary hover:bg-gray-100"
                     )}
                 >
                     <Link href="/signin">Sign in</Link>
@@ -261,9 +261,10 @@ export function Header() {
                              <Button 
                                 variant='ghost' 
                                 className={cn(
-                                    "flex items-center gap-1 font-medium text-lg text-muted-foreground",
-                                    isHome2 ? "hover:text-[#1497d4] text-base" : "hover:text-primary",
-                                    "hover:bg-transparent"
+                                    "flex items-center gap-1 font-medium text-lg hover:bg-transparent",
+                                    isHome2 
+                                        ? "text-white hover:text-white/90 text-base" 
+                                        : "text-muted-foreground hover:text-primary"
                                 )}
                             >
                                 {link.label}
@@ -404,4 +405,3 @@ export function Header() {
     </header>
   );
 }
-
