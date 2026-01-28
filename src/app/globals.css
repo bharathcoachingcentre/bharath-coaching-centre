@@ -641,3 +641,10 @@ button#navi-arrow-next {
 #study-material:hover {
     color: #fff !important;
 }
+
+.text-gradient-home-new {
+    background: linear-gradient(180deg, #fff 1%, #8fcfe9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

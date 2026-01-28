@@ -196,36 +196,6 @@ export default function HomeNew() {
     }
   };
 
-  const sliderItems = [
-    {
-      src: '/banner-2.png',
-      alt: 'Slider Image 1',
-      hint: 'cityscape trichy',
-      heading: 'Welcome to Bharath Academy',
-      description: 'Your journey to academic excellence starts here. Explore our courses and unlock your potential.',
-      buttonText: 'Explore Courses',
-      buttonLink: '/courses',
-    },
-    {
-      src: '/banner-slider-2.png',
-      alt: 'Students in a classroom',
-      hint: 'classroom students',
-      heading: 'Expert-Led Tutoring',
-      description: 'Benefit from personalized attention and expert guidance from our experienced faculties.',
-      buttonText: 'Meet Our Tutors',
-      buttonLink: '/about',
-    },
-    {
-      src: '/hero-achieve-banner.jpg',
-      alt: 'Students achieving goals',
-      hint: 'students celebrating',
-      heading: 'Achieve Your Goals',
-      description: 'We are committed to helping you achieve your academic goals and succeed in your career.',
-      buttonText: 'Contact Us',
-      buttonLink: '/contact',
-    },
-  ];
-
   const features = [
     {
       icon: Presentation,
@@ -737,44 +707,40 @@ export default function HomeNew() {
   return (
     <div className="flex flex-col relative">
       {/* Hero Slider Section */}
-      <AnimatedSection className="w-full" id="slider-sec">
-        <Carousel
-          opts={{ loop: true }}
-          plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
-          className="w-full"
-        >
-          <CarouselContent>
-            {sliderItems.map((item, index) => (
-              <CarouselItem key={index}>
-                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full" id="slide-img">
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                    data-ai-hint={item.hint}
+      <AnimatedSection className="w-full relative" id="slider-sec" style={{background: 'linear-gradient(135deg, #0f5f6f, #1fa4b8, #6fd6d1)'}}>
+        <div className="container mx-auto px-4 grid md:grid-cols-2 items-center gap-8 min-h-[600px] relative z-10">
+            <div className="text-white text-center md:text-left py-16">
+                <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gradient-home-new font-heading-home2">
+                    Achieve Your Goals
+                </h1>
+                <p className="text-lg md:text-xl max-w-lg mx-auto md:mx-0 mb-8">
+                    We are committed to helping you achieve your academic goals and succeed in your career.
+                </p>
+                <Button asChild size="lg" className="bg-white text-[#1fa4b8] hover:bg-gray-100 font-bold py-6 px-8 rounded-lg">
+                    <Link href="/contact">Contact Us</Link>
+                </Button>
+            </div>
+            <div className="relative hidden md:flex justify-center md:justify-end">
+                 <Image
+                    src="https://picsum.photos/seed/student-laptop-thumbs-up/500/550"
+                    alt="Happy student with laptop"
+                    width={500}
+                    height={550}
+                    className="object-contain"
+                    data-ai-hint="student laptop thumbs up"
                   />
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center text-white p-4" style={{backgroundColor: 'rgb(0 0 0 / 61%)'}}>
-                    <h1 className="text-4xl md:text-6xl font-bold font-heading-home2 mb-4">
-                        {item.heading.split(' ').slice(0, -1).join(' ')} <span style={{color: '#1497d4'}}>{item.heading.split(' ').pop()}</span>
-                    </h1>
-                    <p className="text-lg md:text-xl max-w-2xl mb-8">{item.description}</p>
-                    <Button asChild size="lg" style={{backgroundColor: '#1497d4'}}>
-                      <Link href={item.buttonLink}>{item.buttonText}</Link>
-                    </Button>
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-            <ChevronLeft />
-          </CarouselPrevious>
-          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10">
-            <ChevronRight />
-          </CarouselNext>
-        </Carousel>
+            </div>
+        </div>
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+            <Button variant="outline" size="icon" className="rounded-full bg-white/30 text-white border-white hover:bg-white/50">
+                <ChevronLeft />
+            </Button>
+        </div>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+            <Button variant="outline" size="icon" className="rounded-full bg-white/30 text-white border-white hover:bg-white/50">
+                <ChevronRight />
+            </Button>
+        </div>
       </AnimatedSection>
       
       {/* Features Section */}
@@ -1166,8 +1132,3 @@ export default function HomeNew() {
     </div>
   );
 }
-
-    
-
-    
-
