@@ -768,8 +768,12 @@ export default function HomeNew() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10" />
-          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
+          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+            <ChevronLeft />
+          </CarouselPrevious>
+          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10">
+            <ChevronRight />
+          </CarouselNext>
         </Carousel>
       </AnimatedSection>
       
@@ -1166,3 +1170,4 @@ export default function HomeNew() {
     
 
     
+
