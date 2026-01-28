@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -53,14 +54,12 @@ export function Footer() {
   ];
 
   if (!isMounted) {
-    // On the server and during the initial client render, render a default static footer
-    // to prevent hydration mismatch. This version does not use any client-side hooks logic.
     return (
         <footer className={cn("border-t text-foreground", "footer-gradient")}>
             <div className="container mx-auto px-4 py-8 md:py-12">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-8">
                     <div className="mb-6 md:mb-0">
-                        <FooterLogo />
+                        <BccFooterLogo />
                     </div>
                     <div className="flex flex-col items-center gap-4">
                         <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
@@ -127,7 +126,7 @@ export function Footer() {
             <div className="container mx-auto px-4">
                 <Separator />
                 <div className="py-8 text-center">
-                    <p className="text-base text-black">© {new Date().getFullYear()} Bharath Academy. All rights reserved</p>
+                    <p className="text-base text-black">© {currentYear} Bharath Academy. All rights reserved</p>
                 </div>
             </div>
         </footer>
@@ -142,7 +141,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="mb-6 md:mb-0">
-                {isHome2 ? <BccFooterLogo /> : <FooterLogo />}
+                <BccFooterLogo />
             </div>
             <div className="flex flex-col items-center gap-4">
                 <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
@@ -153,14 +152,14 @@ export function Footer() {
             </div>
         </div>
         
-        <Separator className={cn(isHome2 && "bg-gray-300")} />
+        <Separator className={cn(isHome2 && "bg-white/20")} />
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8">
             <div>
                 <h3 className="text-lg font-semibold">Company</h3>
                 <ul className="mt-4 space-y-2 text-sm">
                 {companyLinks.map(link => (
-                    <li key={link.label}><Link href={link.href} className={cn("hover:text-primary transition-colors", isHome2 ? "text-gray-600" : "text-muted-foreground")}>{link.label}</Link></li>
+                    <li key={link.label}><Link href={link.href} className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>{link.label}</Link></li>
                 ))}
                 </ul>
             </div>
@@ -168,7 +167,7 @@ export function Footer() {
                 <h3 className="text-lg font-semibold">Other Links</h3>
                 <ul className="mt-4 space-y-2 text-sm">
                 {otherLinks.map(link => (
-                    <li key={link.label}><Link href={link.href} className={cn("hover:text-primary transition-colors", isHome2 ? "text-gray-600" : "text-muted-foreground")}>{link.label}</Link></li>
+                    <li key={link.label}><Link href={link.href} className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>{link.label}</Link></li>
                 ))}
                 </ul>
             </div>
@@ -176,7 +175,7 @@ export function Footer() {
                 <h3 className="text-lg font-semibold">Courses</h3>
                 <ul className="mt-4 space-y-2 text-sm">
                 {coursesLinks.map(link => (
-                    <li key={link.label}><Link href={link.href} className={cn("hover:text-primary transition-colors", isHome2 ? "text-gray-600" : "text-muted-foreground")}>{link.label}</Link></li>
+                    <li key={link.label}><Link href={link.href} className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>{link.label}</Link></li>
                 ))}
                 </ul>
             </div>
@@ -184,24 +183,24 @@ export function Footer() {
                 <h3 className="text-lg font-semibold">Contact us</h3>
                 <div className="space-y-4 text-sm">
                     <div className="flex items-start gap-3">
-                        <Mail className={cn("h-6 w-6 mt-1", isHome2 ? "text-gray-600" : "text-muted-foreground")}/>
+                        <Mail className={cn("h-6 w-6 mt-1", isHome2 ? "text-white" : "text-muted-foreground")}/>
                         <div>
                             <p className="font-semibold">Email</p>
-                            <a href="mailto:bcc_try@hotmail.com" className={cn("hover:text-primary transition-colors", isHome2 ? "text-gray-600" : "text-muted-foreground")}>bcc_try@hotmail.com</a>
+                            <a href="mailto:bcc_try@hotmail.com" className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>bcc_try@hotmail.com</a>
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
-                        <Phone className={cn("h-6 w-6 mt-1", isHome2 ? "text-gray-600" : "text-muted-foreground")}/>
+                        <Phone className={cn("h-6 w-6 mt-1", isHome2 ? "text-white" : "text-muted-foreground")}/>
                         <div>
                             <p className="font-semibold">Phone</p>
-                            <a href="tel:+917200030307" className={cn("hover:text-primary transition-colors", isHome2 ? "text-gray-600" : "text-muted-foreground")}>+91 7200030307</a>
+                            <a href="tel:+917200030307" className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>+91 7200030307</a>
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
-                        <MapPin className={cn("h-6 w-6 mt-1", isHome2 ? "text-gray-600" : "text-muted-foreground")}/>
+                        <MapPin className={cn("h-6 w-6 mt-1", isHome2 ? "text-white" : "text-muted-foreground")}/>
                         <div>
                             <p className="font-semibold">Address</p>
-                            <p className={cn(isHome2 ? "text-gray-600" : "text-muted-foreground")}>C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18</p>
+                            <p className={cn(isHome2 ? "text-white/80" : "text-muted-foreground")}>C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18</p>
                         </div>
                     </div>
                 </div>
@@ -210,9 +209,9 @@ export function Footer() {
       
       </div>
       <div className="container mx-auto px-4">
-        <Separator className={cn(isHome2 && "bg-gray-300")} />
+        <Separator className={cn(isHome2 && "bg-white/20")} />
         <div className="py-8 text-center">
-            <p className={cn("text-base", isHome2 ? "text-gray-800" : "text-black")}>© {currentYear} Bharath Academy. All rights reserved</p>
+            <p className={cn("text-base", isHome2 ? "text-white" : "text-black")}>© {currentYear} Bharath Academy. All rights reserved</p>
         </div>
       </div>
     </footer>
