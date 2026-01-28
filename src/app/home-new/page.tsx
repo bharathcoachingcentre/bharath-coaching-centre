@@ -722,12 +722,12 @@ export default function HomeNew() {
             </div>
             <div className="relative hidden md:flex justify-center md:justify-end">
                  <Image
-                    src="https://picsum.photos/seed/student-laptop-thumbs-up/500/550"
-                    alt="Happy student with laptop"
+                    src="/onetoone-live.png"
+                    alt="Online tutoring session"
                     width={500}
                     height={550}
                     className="object-contain"
-                    data-ai-hint="student laptop thumbs up"
+                    data-ai-hint="online tutoring"
                   />
             </div>
         </div>
