@@ -859,7 +859,7 @@ export default function HomeNew() {
           <div
             className="rounded-xl p-8"
             style={{
-                backgroundColor: 'rgba(53, 163, 190, 0.89)'
+                background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)'
             }}
           >
             <div className="grid md:grid-cols-10 items-center gap-8">
@@ -874,7 +874,7 @@ export default function HomeNew() {
                 />
               </div>
               <div className="md:col-span-7">
-                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 flex items-center justify-start md:justify-end gap-4">
+                <h2 className="text-3xl font-bold text-left md:text-right text-white mb-6 flex items-center justify-start md:justify-end gap-4">
                   <Image src="/CBSE.gif" alt="CBSE" width={40} height={40} />
                   CBSE
                 </h2>
@@ -893,7 +893,7 @@ export default function HomeNew() {
                     </div>
                   ))}
                 </div>
-                <h2 className="text-3xl font-bold text-left md:text-right text-gray-800 mb-6 mt-8 flex items-center justify-start md:justify-end gap-4">
+                <h2 className="text-3xl font-bold text-left md:text-right text-white mb-6 mt-8 flex items-center justify-start md:justify-end gap-4">
                   <Image src="/CBSE.gif" alt="SAMACHEER" width={40} height={40} />
                   SAMACHEER
                 </h2>
@@ -1122,6 +1122,3 @@ export default function HomeNew() {
     </div>
   );
 }
-
-
-
