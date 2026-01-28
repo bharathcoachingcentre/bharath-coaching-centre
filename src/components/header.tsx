@@ -223,7 +223,8 @@ export function Header() {
 
   return (
     <header className={cn(
-        "sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        !isHome2 && "sticky",
         isHome2 ? "home-new-header border-none" : "border-b"
     )}>
         <div className={cn(isHome2 ? "" : "bg-[hsl(199,78%,59%)]")}>
