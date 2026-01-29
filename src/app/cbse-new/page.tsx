@@ -2,10 +2,11 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight, BookOpen, Award, GraduationCap } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, BookOpen, Award, GraduationCap, FileCheck, FunctionSquare, FileText } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const classes = [
   { name: "Class 6", number: 6, href: "/courses/cbse-class-6" },
@@ -15,6 +16,14 @@ const classes = [
   { name: "Class 10", number: 10, href: "/courses/cbse-10th-grade" },
   { name: "Class 11", number: 11, href: "/courses/cbse-11th-grade" },
   { name: "Class 12", number: 12, href: "/courses/cbse-12th-grade" },
+];
+
+const studyMaterials = [
+    { name: "NCERT Books", icon: BookOpen },
+    { name: "NCERT Solutions", icon: FileCheck },
+    { name: "Formula Booklet", icon: FunctionSquare },
+    { name: "Unit wise Papers", icon: FileText },
+    { name: "Model Board Papers", icon: Award },
 ];
 
 export default function CbseNewPage() {
@@ -48,22 +57,54 @@ export default function CbseNewPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {classes.map((item, index) => (
-                    <Link href={item.href} key={index}>
-                    <Card className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center p-8 h-full flex flex-col justify-between">
-                        <CardContent className="p-0 flex flex-col items-center">
-                        <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: 'linear-gradient(135deg, #35a3be, #6cc4dc)' }}>
-                            <span className="text-4xl font-bold text-white">{item.number}</span>
+                    <div key={index} className="group [perspective:1000px]" style={{ minHeight: '350px' }}>
+                        <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                            {/* Front side */}
+                            <Card className="absolute h-full w-full [backface-visibility:hidden] bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center p-8 flex flex-col justify-between">
+                                <CardContent className="p-0 flex flex-col items-center">
+                                    <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: 'linear-gradient(135deg, #35a3be, #6cc4dc)' }}>
+                                        <span className="text-4xl font-bold text-white">{item.number}</span>
+                                    </div>
+                                    <h3 className="text-2xl font-bold font-heading-home2 mb-2" style={{ color: '#182d45' }}>{item.name}</h3>
+                                    <p className="text-gray-500 text-sm">Complete study materials & resources</p>
+                                </CardContent>
+                                <div className="mt-6">
+                                    <span className="font-semibold text-sm transition-colors duration-300" style={{ color: '#35a3be' }}>
+                                        Hover to explore <ArrowRight className="inline-block w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                                    </span>
+                                </div>
+                            </Card>
+
+                            {/* Back side */}
+                            <Card className="absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-cyan-400 rounded-2xl shadow-lg p-6 flex flex-col justify-center">
+                                <CardHeader className="p-2 text-center">
+                                    <CardTitle className="text-white text-xl font-bold">Class {item.number} Materials</CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-2 flex flex-col gap-2">
+                                    {studyMaterials.map((material) => {
+                                        const materialMap: { [key: string]: string } = {
+                                            "NCERT Books": "NCERT Book PDF",
+                                            "NCERT Solutions": "NCERT Book Back Solution",
+                                            "Unit wise Papers": "NCERT Chapterwise Test Question Paper",
+                                            "Model Board Papers": "Model Board Question Paper",
+                                            "Formula Booklet": "Formula Booklet",
+                                        };
+                                        const materialQueryParam = materialMap[material.name] || material.name;
+                                        const href = `${item.href}?showMaterial=true&material=${encodeURIComponent(materialQueryParam)}`;
+                                        
+                                        return (
+                                            <Button asChild key={material.name} variant="ghost" className="bg-white/90 hover:bg-white text-cyan-900 justify-start w-full">
+                                                <Link href={href}>
+                                                    <material.icon className="mr-2 h-4 w-4" />
+                                                    {material.name}
+                                                </Link>
+                                            </Button>
+                                        );
+                                    })}
+                                </CardContent>
+                            </Card>
                         </div>
-                        <h3 className="text-2xl font-bold font-heading-home2 mb-2" style={{ color: '#182d45' }}>{item.name}</h3>
-                        <p className="text-gray-500 text-sm">Complete study materials & resources</p>
-                        </CardContent>
-                        <div className="mt-6">
-                        <span className="font-semibold text-sm transition-colors duration-300" style={{ color: '#35a3be' }}>
-                            Hover to explore <ArrowRight className="inline-block w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                        </span>
-                        </div>
-                    </Card>
-                    </Link>
+                    </div>
                 ))}
                 </div>
             </div>
