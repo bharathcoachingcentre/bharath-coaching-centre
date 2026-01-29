@@ -76,7 +76,7 @@ export default function CbseNewPage() {
                             </Card>
 
                             {/* Back side */}
-                            <Card className="absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-cyan-400 rounded-2xl shadow-lg p-6 flex flex-col justify-center">
+                            <Card className="absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl shadow-lg p-6 flex flex-col justify-center" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' }}>
                                 <CardHeader className="p-2 text-center">
                                     <CardTitle className="text-white text-xl font-bold">Class {item.number} Materials</CardTitle>
                                 </CardHeader>
