@@ -203,7 +203,7 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const isHome2 = pathname === '/home2' || pathname === '/home-new';
+  const isHome2 = pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse-new';
 
   const NavLink = ({ href, label, className, children }: { href: string; label:string, className?: string, children?: React.ReactNode }) => (
     <Link
