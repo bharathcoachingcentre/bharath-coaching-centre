@@ -769,7 +769,7 @@ export default function HomeNew() {
               </Button>
             </div>
             <div className="grid sm:grid-cols-2 gap-8">
-              <Link href="/study-material-cbse" target="_blank">
+              <Link href="/cbse-new">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' }}>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: '#FFFFFFE6' }}>
                     <BookOpen className="w-10 h-10" style={{ color: '#35a3be' }}/>
@@ -1122,3 +1122,11 @@ export default function HomeNew() {
     </div>
   );
 }
+
+    
+
+    
+
+
+
+
