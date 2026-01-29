@@ -27,6 +27,56 @@ const studyMaterials = [
 ];
 
 export default function CbseNewPage() {
+    const boardMaterials = {
+        CBSE: {
+          "NCERT Books": [
+            { class: "Class 12", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
+            { class: "Class 11", pdf: "/pdfs/cbse_11_pcm_ncert.pdf" },
+            { class: "Class 10", pdf: "/pdfs/cbse_10_ncert.pdf" },
+            { class: "Class 9", pdf: "/pdfs/cbse_9_ncert.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_ncert.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_ncert.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_ncert.pdf" },
+          ],
+          "NCERT Solutions": [
+            { class: "Class 12", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
+            { class: "Class 11", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
+            { class: "Class 10", pdf: "/pdfs/cbse_10_solutions.pdf" },
+            { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_solutions.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_solutions.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_solutions.pdf" },
+          ],
+          "Formula Booklet": [
+            { class: "Class 12", pdf: "/pdfs/cbse_12_pcm_formula.pdf" },
+            { class: "Class 11", pdf: "/pdfs/cbse_11_pcm_formula.pdf" },
+            { class: "Class 10", pdf: "/pdfs/cbse_10_formula.pdf" },
+            { class: "Class 9", pdf: "/pdfs/cbse_9_formula.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_formula.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_formula.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_formula.pdf" },
+          ],
+          "Unit wise question papers": [
+            { class: "Class 12", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
+            { class: "Class 11", pdf: "/pdfs/cbse_11_pcm_unit_questions.pdf" },
+            { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
+            { class: "Class 9", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_unit_questions.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_unit_questions.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_unit_questions.pdf" },
+          ],
+          "Model Board question paper": [
+            { class: "Class 12", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
+            { class: "Class 11", pdf: "/pdfs/cbse_11_pcm_model_paper.pdf" },
+            { class: "Class 10", pdf: "/pdfs/cbse_10_model_paper.pdf" },
+            { class: "Class 9", pdf: "/pdfs/cbse_9_model_paper.pdf" },
+            { class: "Class 8", pdf: "/pdfs/cbse_8_model_paper.pdf" },
+            { class: "Class 7", pdf: "/pdfs/cbse_7_model_paper.pdf" },
+            { class: "Class 6", pdf: "/pdfs/cbse_6_model_paper.pdf" },
+          ],
+        },
+      };
+
   return (
     <div>
         <section className="relative w-full flex items-center justify-center text-center text-white overflow-hidden" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', height: '500px', marginTop: '-140px' }}>
@@ -82,22 +132,26 @@ export default function CbseNewPage() {
                                 </CardHeader>
                                 <CardContent className="p-2 flex flex-col gap-2">
                                     {studyMaterials.map((material) => {
-                                        const materialMap: { [key: string]: string } = {
-                                            "NCERT Books": "NCERT Book PDF",
-                                            "NCERT Solutions": "NCERT Book Back Solution",
-                                            "Unit wise Papers": "NCERT Chapterwise Test Question Paper",
-                                            "Model Board Papers": "Model Board Question Paper",
+                                        const materialKeyMap: { [key: string]: string } = {
+                                            "NCERT Books": "NCERT Books",
+                                            "NCERT Solutions": "NCERT Solutions",
                                             "Formula Booklet": "Formula Booklet",
+                                            "Unit wise Papers": "Unit wise question papers",
+                                            "Model Board Papers": "Model Board question paper",
                                         };
-                                        const materialQueryParam = materialMap[material.name] || material.name;
-                                        const href = `${item.href}?showMaterial=true&material=${encodeURIComponent(materialQueryParam)}`;
+                                        const boardMaterialKey = materialKeyMap[material.name];
+                                        const materialLinks = (boardMaterials.CBSE as any)[boardMaterialKey] || [];
+                                        const classNumber = item.number;
                                         
+                                        const relevantLink = materialLinks.find((link: any) => link.class.includes(`Class ${classNumber}`));
+                                        const href = relevantLink ? relevantLink.pdf : "#";
+
                                         return (
-                                            <Button asChild key={material.name} variant="ghost" className="bg-white/90 hover:bg-white text-cyan-900 justify-start w-full">
-                                                <Link href={href}>
+                                            <Button asChild key={material.name} variant="ghost" className="bg-white/90 hover:bg-white text-cyan-900 justify-start w-full" disabled={!relevantLink}>
+                                                <a href={href} download>
                                                     <material.icon className="mr-2 h-4 w-4" />
                                                     {material.name}
-                                                </Link>
+                                                </a>
                                             </Button>
                                         );
                                     })}
