@@ -20,10 +20,10 @@ const classes = [
 export default function CbseNewPage() {
   return (
     <div>
-        <section className="relative w-full flex items-center justify-center text-center text-white overflow-hidden" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', height: '450px', marginTop: '-140px' }}>
+        <section className="relative w-full flex items-center justify-center text-center text-white overflow-hidden" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', height: '500px', marginTop: '-140px' }}>
             <Award className="absolute -left-8 -bottom-8 w-32 h-32 text-white/10" />
             <GraduationCap className="absolute -right-8 -top-8 w-32 h-32 text-white/10" />
-            <div className="z-10 relative">
+            <div className="z-10 relative" style={{ marginTop: '20px' }}>
               <h1 className="text-5xl md:text-6xl font-bold font-heading-home2 mb-4 relative inline-block">
                 CBSE
                 <BookOpen className="absolute -right-12 -top-2 w-16 h-16 text-white/10" />
