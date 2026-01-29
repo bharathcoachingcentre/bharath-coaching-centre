@@ -33,7 +33,7 @@ export default function CbseNewPage() {
             <Award className="absolute -left-8 -bottom-8 w-32 h-32 text-white/10" />
             <GraduationCap className="absolute -right-8 -top-8 w-32 h-32 text-white/10" />
             <div className="z-10 relative" style={{ marginTop: '20px' }}>
-              <h1 className="text-5xl md:text-6xl font-bold font-heading-home2 mb-4 relative inline-block">
+              <h1 className="text-5xl md:text-6xl font-bold font-heading-home2 mb-4 relative inline-block text-gradient-home-new">
                 CBSE
                 <BookOpen className="absolute -right-12 -top-2 w-16 h-16 text-white/10" />
               </h1>
