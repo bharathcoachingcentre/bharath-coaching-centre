@@ -99,7 +99,7 @@ export default function CbseNewPage() {
                 CBSE Board Curriculum
                 </Badge>
                 <h1 className="text-5xl font-bold font-heading-home2 mb-4" style={{ color: '#182d45' }}>
-                Select Your <span style={{ color: '#f59e0b' }}>Class</span>
+                Select Your <span style={{ color: '#35a3be' }}>Class</span>
                 </h1>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
                 Access comprehensive study materials, NCERT solutions, formula booklets, and practice papers for classes 6 to 12.
