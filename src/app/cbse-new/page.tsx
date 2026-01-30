@@ -19,11 +19,11 @@ const classes = [
 ];
 
 const studyMaterials = [
-    { name: "NCERT Books", icon: BookOpen },
-    { name: "NCERT Solutions", icon: FileCheck },
-    { name: "Formula Booklet", icon: FunctionSquare },
-    { name: "Unit wise Papers", icon: FileText },
-    { name: "Model Board Papers", icon: Award },
+    { name: "NCERT Book PDF", icon: BookOpen },
+    { name: "NCERT Book Back Solution", icon: FileCheck },
+    { name: "NCERT Chapterwise Test QP", icon: FileText },
+    { name: "Model Board Question Paper", icon: Award },
+    { name: "Previous Year Board QP", icon: Award },
 ];
 
 export default function CbseNewPage() {
@@ -133,11 +133,11 @@ export default function CbseNewPage() {
                                 <CardContent className="p-2 flex flex-col gap-2">
                                     {studyMaterials.map((material) => {
                                         const materialKeyMap: { [key: string]: string } = {
-                                            "NCERT Books": "NCERT Books",
-                                            "NCERT Solutions": "NCERT Solutions",
-                                            "Formula Booklet": "Formula Booklet",
-                                            "Unit wise Papers": "Unit wise question papers",
-                                            "Model Board Papers": "Model Board question paper",
+                                            "NCERT Book PDF": "NCERT Books",
+                                            "NCERT Book Back Solution": "NCERT Solutions",
+                                            "NCERT Chapterwise Test QP": "Unit wise question papers",
+                                            "Model Board Question Paper": "Model Board question paper",
+                                            "Previous Year Board QP": "Model Board question paper",
                                         };
                                         const boardMaterialKey = materialKeyMap[material.name];
                                         const materialLinks = (boardMaterials.CBSE as any)[boardMaterialKey] || [];
