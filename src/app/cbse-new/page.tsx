@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -74,6 +73,10 @@ export default function CbseNewPage() {
             { class: "Class 7", pdf: "/pdfs/cbse_7_model_paper.pdf" },
             { class: "Class 6", pdf: "/pdfs/cbse_6_model_paper.pdf" },
           ],
+          "Previous Year Board QP": [
+            { class: "Class 12", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
+            { class: "Class 10", pdf: "/pdfs/cbse_10_model_paper.pdf" },
+          ],
         },
       };
 
@@ -107,7 +110,7 @@ export default function CbseNewPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {classes.map((item, index) => (
-                    <div key={index} className="group [perspective:1000px]" style={{ minHeight: '350px' }}>
+                    <div key={index} className="group [perspective:1000px]" style={{ minHeight: '350px', width: '310px' }}>
                         <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                             {/* Front side */}
                             <Card className="absolute h-full w-full [backface-visibility:hidden] bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center p-8 flex flex-col justify-between">
@@ -137,7 +140,7 @@ export default function CbseNewPage() {
                                             "NCERT Book Back Solution": "NCERT Solutions",
                                             "NCERT Chapterwise Test QP": "Unit wise question papers",
                                             "Model Board Question Paper": "Model Board question paper",
-                                            "Previous Year Board QP": "Model Board question paper",
+                                            "Previous Year Board QP": "Previous Year Board QP",
                                         };
                                         const boardMaterialKey = materialKeyMap[material.name];
                                         const materialLinks = (boardMaterials.CBSE as any)[boardMaterialKey] || [];
