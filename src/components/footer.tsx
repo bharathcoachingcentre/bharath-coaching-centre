@@ -21,7 +21,7 @@ export function Footer() {
     setIsMounted(true);
   }, []);
 
-  const isHome2 = pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse-new' || pathname === '/samacheer-new';
+  const isHome2 = pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse-new' || pathname === '/samacheer-new' || pathname === '/cbse-class-12-pcm';
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
