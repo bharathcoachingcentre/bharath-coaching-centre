@@ -112,7 +112,7 @@ export default function SamacheerNewPage() {
                             {/* Front side */}
                             <Card className="absolute h-full w-full [backface-visibility:hidden] bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center p-8 flex flex-col justify-between">
                                 <CardContent className="p-0 flex flex-col items-center">
-                                    <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: 'linear-gradient(135deg, #35a3be, #6cc4dc)' }}>
+                                    <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: 'linear-gradient(120deg, rgb(23, 79, 95), rgb(53, 163, 190), rgb(108, 196, 220))' }}>
                                         <span className="text-4xl font-bold text-white">{item.number}</span>
                                     </div>
                                     <h3 className="text-2xl font-bold font-heading-home2 mb-2" style={{ color: '#182d45' }}>{item.name}</h3>
