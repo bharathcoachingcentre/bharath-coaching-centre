@@ -149,7 +149,7 @@ export default function CbseNewPage() {
                                         return (
                                             <Button asChild key={material.name} variant="ghost" className="bg-white/90 hover:bg-white text-cyan-900 justify-start w-full" disabled={!relevantLink}>
                                                 <a href={href} download>
-                                                    <material.icon className="mr-2 h-4 w-4" />
+                                                    <material.icon className="h-4 w-4" />
                                                     {material.name}
                                                 </a>
                                             </Button>
