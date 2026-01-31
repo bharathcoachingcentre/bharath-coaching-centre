@@ -5,7 +5,8 @@ import React from "react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { BookOpen, FileCheck, Layers, GraduationCap, FileText, Download, ArrowRight } from "lucide-react";
+import { BookOpen, FileCheck, Layers, GraduationCap, FileText, Download, ArrowRight, Calendar, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const studyMaterials = [
   {
@@ -58,6 +59,16 @@ const studyMaterials = [
   },
 ];
 
+const benefits = [
+    "18+ years experienced faculties specialized in each subject.",
+    "Weekly tests.",
+    "25% & 50% portion tests.",
+    "Full mock tests.",
+    "Quick evaluation.",
+    "Term-based parents' meeting.",
+    "Specialized study materials.",
+    "Previous year question paper discussion.",
+];
 
 export default function CbseClass12PcmNewPage() {
   return (
@@ -75,6 +86,39 @@ export default function CbseClass12PcmNewPage() {
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
             CBSE Class 12 PCM
           </h1>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(21 49 61)' }}>
+        <div className="container mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div className="text-white">
+                    <Badge className="mb-4 bg-yellow-400/20 text-yellow-300 border-yellow-400/30 px-3 py-1.5 font-semibold">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Class Schedule
+                    </Badge>
+                    <h2 className="text-4xl font-bold mb-4">Structured <span className="text-cyan-400">Timetable</span></h2>
+                    <p className="text-lg text-gray-300 mb-8 max-w-lg">
+                        Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
+                    </p>
+                    <Button asChild size="lg" className="bg-white/90 text-gray-800 hover:bg-white font-bold rounded-lg py-6 px-8">
+                        <a href="/pdfs/timetable_cbse_12.pdf" download>
+                            <Download className="w-5 h-5 mr-2" />
+                            Download Timetable
+                        </a>
+                    </Button>
+                </div>
+                <div className="space-y-4">
+                    {benefits.map((benefit, index) => (
+                        <div key={index} className="flex items-center gap-3 text-white">
+                            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                                <CheckCircle className="w-4 h-4 text-green-400" />
+                            </div>
+                            <span className="text-lg">{benefit}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
       </section>
 
