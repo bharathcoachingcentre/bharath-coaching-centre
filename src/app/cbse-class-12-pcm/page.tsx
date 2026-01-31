@@ -92,7 +92,7 @@ export default function CbseClass12PcmNewPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {studyMaterials.map((material, index) => (
               <a href={material.pdf} download key={index} className="block group">
-                <Card className="bg-gray-200/5 backdrop-blur-sm border border-gray-200/10 text-white p-6 h-full text-left rounded-2xl transition-all duration-300 hover:bg-gray-200/10 hover:border-gray-200/20 hover:-translate-y-2">
+                <Card className="bg-gray-200/10 backdrop-blur-sm border border-gray-200/10 text-white p-6 h-full text-left rounded-2xl transition-all duration-300 hover:bg-gray-200/10 hover:border-gray-200/20 hover:-translate-y-2">
                   <CardContent className="p-0 flex flex-col h-full">
                     <div className="flex items-center gap-4">
                         <div className={`p-3 rounded-lg ${material.iconBg}`}>
