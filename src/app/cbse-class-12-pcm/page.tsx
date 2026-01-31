@@ -64,7 +64,7 @@ export default function CbseClass12PcmNewPage() {
     <div>
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
-          src="/Online-Course.jpg"
+          src="/cbse-banner-bg-img.png"
           alt="CBSE Class 12 PCM Banner"
           fill
           className="object-cover"
@@ -114,4 +114,3 @@ export default function CbseClass12PcmNewPage() {
     </div>
   );
 }
-
