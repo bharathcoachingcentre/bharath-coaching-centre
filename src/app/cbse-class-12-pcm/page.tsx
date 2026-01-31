@@ -48,13 +48,21 @@ const studyMaterials = [
     iconBg: "bg-pink-500/20",
     iconColor: "text-pink-400",
   },
+   {
+    title: "Formula Booklet",
+    description: "All important formulas in one place",
+    icon: FileText,
+    pdf: "/pdfs/cbse_12_pcm_formula.pdf",
+    iconBg: "bg-yellow-500/20",
+    iconColor: "text-yellow-400",
+  },
 ];
 
 
 export default function CbseClass12PcmNewPage() {
   return (
     <div>
-      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/Online-Course.jpg"
           alt="CBSE Class 12 PCM Banner"
@@ -106,3 +114,4 @@ export default function CbseClass12PcmNewPage() {
     </div>
   );
 }
+
