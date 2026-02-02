@@ -140,7 +140,7 @@ export default function HomeNew() {
       }
     };
 
-    const typingTimeout = setTimeout(handleTyping, isDeleting ? 50 : 150);
+    const typingTimeout = setTimeout(handleTyping, isDeleting ? 25 : 75);
     return () => clearTimeout(typingTimeout);
   }, [displayedText, isDeleting, textIndex, texts]);
 
@@ -1159,3 +1159,6 @@ export default function HomeNew() {
 
 
 
+
+
+    
