@@ -110,6 +110,11 @@ export default function HomeNew() {
   const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
   const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
   const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
+
+  const [textIndex, setTextIndex] = React.useState(0);
+  const [displayedText, setDisplayedText] = React.useState('');
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const texts = ['Welcome to Bharath Academy', 'Achieve Your Goals', 'Expert-Led Tutoring'];
   
   const autoplay = React.useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   
@@ -117,6 +122,27 @@ export default function HomeNew() {
   React.useEffect(() => {
     setIsClient(true);
   }, []);
+
+  React.useEffect(() => {
+    const handleTyping = () => {
+      const currentText = texts[textIndex];
+      if (isDeleting) {
+        setDisplayedText(currentText.substring(0, displayedText.length - 1));
+      } else {
+        setDisplayedText(currentText.substring(0, displayedText.length + 1));
+      }
+
+      if (!isDeleting && displayedText === currentText) {
+        setTimeout(() => setIsDeleting(true), 2000);
+      } else if (isDeleting && displayedText === '') {
+        setIsDeleting(false);
+        setTextIndex((prev) => (prev + 1) % texts.length);
+      }
+    };
+
+    const typingTimeout = setTimeout(handleTyping, isDeleting ? 50 : 150);
+    return () => clearTimeout(typingTimeout);
+  }, [displayedText, isDeleting, textIndex, texts]);
 
   React.useEffect(() => {
     if (!newTestimonialApi) {
@@ -710,8 +736,9 @@ export default function HomeNew() {
       <AnimatedSection className="w-full relative" id="slider-sec" style={{background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', marginTop: '-140px'}}>
         <div className="container mx-auto px-4 grid md:grid-cols-2 items-center gap-8 min-h-[650px] relative z-10">
             <div className="text-white text-center md:text-left py-16">
-                <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gradient-home-new font-heading-home2">
-                    Achieve Your Goals
+                <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gradient-home-new font-heading-home2 min-h-[96px] md:min-h-[72px]">
+                    {displayedText}
+                    <span className="typing-cursor">|</span>
                 </h1>
                 <p className="text-lg md:text-xl max-w-lg mx-auto md:mx-0 mb-8">
                     We are committed to helping you achieve your academic goals and succeed in your career.
@@ -1126,6 +1153,7 @@ export default function HomeNew() {
     
 
     
+
 
 
 

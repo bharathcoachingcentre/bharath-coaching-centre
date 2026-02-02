@@ -654,3 +654,12 @@ button#navi-arrow-next {
 .home-new-header > .container {
     background: linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc);
 }
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.typing-cursor {
+  animation: blink 1s step-end infinite;
+}
