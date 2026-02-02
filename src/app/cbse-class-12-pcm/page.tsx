@@ -112,7 +112,7 @@ export default function CbseClass12PcmNewPage() {
                     {benefits.map((benefit, index) => (
                         <div key={index} className="flex items-center gap-3 text-black">
                             <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#0d4f5c' }}>
-                                <CheckCircle className="w-4 h-4 text-white" />
+                                <CheckCircle style={{ width: '14px', height: '14px' }} className="text-white" />
                             </div>
                             <span className="text-lg">{benefit}</span>
                         </div>
