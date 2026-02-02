@@ -124,7 +124,7 @@ export default function CbseClass12PcmNewPage() {
 
       <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(21 49 61)' }}>
         <div className="container mx-auto text-center">
-          <Badge className="mb-4 bg-green-900/50 text-green-300 border-green-700 px-4 py-1.5 font-semibold">
+          <Badge className="mb-4 bg-[#cffafe] text-[#0d4f5c] border-transparent px-4 py-1.5 font-semibold">
             <Download className="w-4 h-4 mr-2" />
             Free Resources
           </Badge>
