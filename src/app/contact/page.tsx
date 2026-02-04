@@ -23,7 +23,9 @@ export default function ContactPage() {
        <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-lg text-primary font-semibold mb-2">Get in touch</p>
+            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-600 font-semibold text-sm uppercase tracking-widest mb-4">
+              Get in touch
+            </span>
             <h2 className="text-4xl font-bold font-serif text-gray-800">With Bharath Academy</h2>
           </div>
           <div className="border-t border-gray-200 pt-12">
