@@ -28,7 +28,7 @@ export default function AboutPage() {
               <div className="absolute -top-8 -left-8 w-48 h-48 bg-[radial-gradient(hsl(var(--primary)/0.1)_2px,transparent_2px)] [background-size:16px_16px] -z-0"></div>
               <div className="relative z-10">
                 <Image
-                  src="/about-image-1.jpg"
+                  src="/about-image-vector.jpg"
                   alt="Counseling session"
                   width={600}
                   height={700}
