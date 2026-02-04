@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 
 export default function TrainingMethodologyPage() {
@@ -83,11 +82,6 @@ export default function TrainingMethodologyPage() {
           </div>
         </div>
       </section>
-
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="text-center">
-        </div>
-      </div>
     </div>
   );
 }
