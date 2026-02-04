@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ContactForm } from "@/components/contact-form";
@@ -24,7 +23,7 @@ export default function ContactPage() {
        <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-lg text-primary font-semibold">Get in touch</p>
+            <p className="text-lg text-primary font-semibold mb-2">Get in touch</p>
             <h2 className="text-4xl font-bold font-serif text-gray-800">With Bharath Academy</h2>
           </div>
           <div className="border-t border-gray-200 pt-12">
