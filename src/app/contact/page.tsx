@@ -23,7 +23,10 @@ export default function ContactPage() {
        <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-600 font-semibold text-sm uppercase tracking-widest mb-4">
+            <span 
+              className="inline-block px-4 py-1.5 rounded-full border font-semibold text-sm uppercase tracking-widest mb-4"
+              style={{ color: '#1b9df3', backgroundColor: '#1b9df30d', borderColor: '#1b9df333' }}
+            >
               Get in touch
             </span>
             <h2 className="text-4xl font-bold font-serif text-gray-800">With Bharath Academy</h2>
