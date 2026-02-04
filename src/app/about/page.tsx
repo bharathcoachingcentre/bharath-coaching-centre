@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { Smile, CalendarCheck, Coffee, Award } from "lucide-react";
 
@@ -51,7 +50,7 @@ export default function AboutPage() {
               <div className="relative space-y-10">
                 
                 <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
+                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
                     <Smile className="h-8 w-8" />
                   </div>
                   <div>
@@ -62,7 +61,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="relative flex items-start gap-8">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
                     <CalendarCheck className="h-8 w-8" />
                   </div>
                   <div>
@@ -73,7 +72,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
+                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
                     <Coffee className="h-8 w-8" />
                   </div>
                   <div>
@@ -84,7 +83,7 @@ export default function AboutPage() {
                 </div>
 
                  <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white" style={{ backgroundColor: '#1b9df31a' }}>
+                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
                     <Award className="h-8 w-8" />
                   </div>
                   <div>
