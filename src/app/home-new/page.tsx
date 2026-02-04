@@ -173,16 +173,16 @@ export default function HomeNew() {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
-        particle.style.left = `${'${x}'}px`;
-        particle.style.top = `${'${y}'}px`;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
         
         const angle = Math.random() * 360;
         const distance = Math.random() * 50 + 50;
         
-        particle.style.setProperty('--x', `${'${Math.cos(angle * Math.PI / 180) * distance}'}px`);
-        particle.style.setProperty('--y', `${'${Math.sin(angle * Math.PI / 180) * distance}'}px`);
+        particle.style.setProperty('--x', `${Math.cos(angle * Math.PI / 180) * distance}px`);
+        particle.style.setProperty('--y', `${Math.sin(angle * Math.PI / 180) * distance}px`);
         
-        particle.style.backgroundColor = `hsl(${'${Math.random() * 360}'}, 100%, 50%)`;
+        particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
         
         button.parentElement?.appendChild(particle);
         
@@ -203,16 +203,16 @@ export default function HomeNew() {
         const x = Math.random() * rect.width;
         const y = Math.random() * rect.height;
         
-        particle.style.left = `${'${x}'}px`;
-        particle.style.top = `${'${y}'}px`;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
         
         const angle = Math.random() * 360;
         const distance = Math.random() * 50 + 50;
         
-        particle.style.setProperty('--x', `${'${Math.cos(angle * Math.PI / 180) * distance}'}px`);
-        particle.style.setProperty('--y', `${'${Math.sin(angle * Math.PI / 180) * distance}'}px`);
+        particle.style.setProperty('--x', `${Math.cos(angle * Math.PI / 180) * distance}px`);
+        particle.style.setProperty('--y', `${Math.sin(angle * Math.PI / 180) * distance}px`);
         
-        particle.style.backgroundColor = `hsl(${'${Math.random() * 360}'}, 100%, 50%)`;
+        particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
         
         button.parentElement?.appendChild(particle);
         
@@ -736,7 +736,7 @@ export default function HomeNew() {
       <AnimatedSection className="w-full relative" id="slider-sec" style={{background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', marginTop: '-140px'}}>
         <div className="container mx-auto px-4 grid md:grid-cols-2 items-center gap-8 min-h-[650px] relative z-10">
             <div className="text-white text-center md:text-left py-16">
-                <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gradient-home-new font-heading-home2 min-h-[96px] md:min-h-[72px]">
+                <h1 className="text-5xl md:text-6xl font-bold mb-4 text-gradient-home-new font-heading-home2 min-h-[110px] md:min-h-[84px] leading-tight pb-2">
                     {displayedText}
                     <span className="typing-cursor">|</span>
                 </h1>
@@ -1149,16 +1149,3 @@ export default function HomeNew() {
     </div>
   );
 }
-
-    
-
-    
-
-
-
-
-
-
-
-
-    
