@@ -33,33 +33,38 @@ export default function ContactPage() {
           </div>
           <div className="border-t border-gray-200 pt-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center justify-center">
-              <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
-                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-colors duration-300 hover:bg-[#45b4e8] hover:text-white hover:border-[#45b4e8]">
+              {/* Address */}
+              <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
+                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#45b4e8] group-hover:text-white group-hover:border-[#45b4e8] group-hover:scale-110 group-hover:shadow-md">
                   <MapPin className="h-10 w-10 relative" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Our Address</h3>
-                  <a href="https://www.google.com/maps/search/?api=1&query=BHARATH+COACHING+CENTRE+-+C-109,+2nd+Floor+5th+Cross,+Thillainagar+(East+Near+CETHAR+HOSPITALS),+Tamil+Nadu+620018" target="_blank" rel="noopener noreferrer" className="text-lg text-muted-foreground mt-1 hover:text-primary">
+                  <a href="https://www.google.com/maps/search/?api=1&query=BHARATH+COACHING+CENTRE+-+C-109,+2nd+Floor+5th+Cross,+Thillainagar+(East+Near+CETHAR+HOSPITALS),+Tamil+Nadu+620018" target="_blank" rel="noopener noreferrer" className="text-lg text-muted-foreground mt-1 hover:text-primary transition-colors">
                     C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18
                   </a>
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
-                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-colors duration-300 hover:bg-[#45b4e8] hover:text-white hover:border-[#45b4e8]">
+
+              {/* Email */}
+              <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
+                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#45b4e8] group-hover:text-white group-hover:border-[#45b4e8] group-hover:scale-110 group-hover:shadow-md">
                   <Mail className="h-10 w-10 relative" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Email Us</h3>
-                  <a href="mailto:bcc_try@hotmail.com" className="text-lg text-muted-foreground mt-1 hover:text-primary">bcc_try@hotmail.com</a>
+                  <a href="mailto:bcc_try@hotmail.com" className="text-lg text-muted-foreground mt-1 hover:text-primary transition-colors">bcc_try@hotmail.com</a>
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
-                <div className="group relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-colors duration-300 hover:bg-[#45b4e8] hover:text-white hover:border-[#45b4e8]">
+
+              {/* Phone */}
+              <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
+                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#45b4e8] group-hover:text-white group-hover:border-[#45b4e8] group-hover:scale-110 group-hover:shadow-md">
                   <Phone className="h-10 w-10 relative" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Call Us</h3>
-                  <a href="tel:+917200030307" className="text-lg text-muted-foreground mt-1 hover:text-primary">+91 7200030307</a>
+                  <a href="tel:+917200030307" className="text-lg text-muted-foreground mt-1 hover:text-primary transition-colors">+91 7200030307</a>
                 </div>
               </div>
             </div>
