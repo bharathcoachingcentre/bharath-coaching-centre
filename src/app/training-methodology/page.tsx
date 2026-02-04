@@ -68,7 +68,7 @@ export default function TrainingMethodologyPage() {
                     <div className="absolute inset-0">
                         {howItWorksSteps.map((step) => (
                             <div key={step.number} className={`absolute right-0 flex items-center gap-6 w-96 ${step.position}`}>
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold flex-shrink-0 text-2xl shadow-lg">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold flex-shrink-0 text-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl cursor-default">
                                     {step.number}
                                 </div>
                                 <div>
