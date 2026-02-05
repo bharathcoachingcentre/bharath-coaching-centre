@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from "react";
@@ -97,7 +96,10 @@ export default function CbseClass12PcmNewPage() {
                         <Calendar className="w-4 h-4 mr-2" />
                         Class Schedule
                     </Badge>
-                    <h2 className="text-4xl font-bold mb-4" style={{ color: '#182d45' }}>Structured <span style={{ color: '#155e75' }}>Timetable</span></h2>
+                    <div className="flex items-center gap-4 mb-4">
+                        <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>Structured <span style={{ color: '#155e75' }}>Timetable</span></h2>
+                        <Image src="/study-time.png" alt="Study Time" width={60} height={60} className="object-contain" />
+                    </div>
                     <p className="text-lg text-gray-600 mb-8 max-w-lg">
                         Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
                     </p>
