@@ -221,6 +221,8 @@ export function Header() {
     </Link>
   );
 
+  const homeLink = ['/cbse-class-12-pcm', '/cbse-new', '/samacheer-new'].includes(pathname) ? '/home-new' : "/";
+
   return (
     <header className={cn(
         "top-0 z-50 w-full",
@@ -248,7 +250,7 @@ export function Header() {
       <div className={cn(isHome2 && "home-new-header", !isHome2 && "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60")}>
         <div className="container mx-auto flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center">
-            <Link href={pathname === '/cbse-class-12-pcm' ? '/home-new' : "/"} className="flex items-center">
+            <Link href={homeLink} className="flex items-center">
                 <Logo />
             </Link>
             </div>
@@ -338,7 +340,7 @@ export function Header() {
                         <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
                     </SheetHeader>
                     <div className="p-6">
-                        <Link href={pathname === '/cbse-class-12-pcm' ? '/home-new' : "/"} className="flex items-center gap-2 text-lg font-semibold mb-4">
+                        <Link href={homeLink} className="flex items-center gap-2 text-lg font-semibold mb-4">
                             <Logo className="h-8 w-auto" />
                         </Link>
                         <Accordion type="multiple" className="w-full">
