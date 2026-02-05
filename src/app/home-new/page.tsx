@@ -327,7 +327,7 @@ export default function HomeNew() {
         title: "text-orange-900"
       },
       link: "#",
-       circle: {
+      circle: {
         icon: "/class9-12.png",
         style: {
           backgroundColor: '#fefcec',
@@ -789,11 +789,6 @@ export default function HomeNew() {
               <p className="mt-4 text-lg text-gray-600">
                 Get access to high-quality study materials designed by expert educators to help you excel in your exams.
               </p>
-               <Button asChild id="study-material" variant="outline" className="relative mt-8 rounded-full px-8 py-6 text-lg border-2 hover-swipe-right hover:text-white" style={{borderColor: '#35a3be', backgroundColor: '#fff', height: '54px'}}>
-                  <Link href="/free-study-material">
-                      Browse All Materials <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-              </Button>
             </div>
             <div className="grid sm:grid-cols-2 gap-8">
               <Link href="/cbse-new">
@@ -1073,7 +1068,7 @@ export default function HomeNew() {
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#e0f7fa",width:"350px",height:"270px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
-                                {point.title}
+                                  {point.title}
                               </h3>
                           </Card>
                       </div>
