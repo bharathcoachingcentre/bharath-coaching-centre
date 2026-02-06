@@ -89,68 +89,71 @@ export default function CbseClass12PcmNewPage() {
       </section>
 
       <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
-        <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
-                {/* Introduction Content */}
-                <div className="space-y-6">
-                    <Badge className="bg-cyan-100 text-cyan-800 border-none px-3 py-1.5 font-semibold hover:bg-cyan-100 inline-flex items-center">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        Class Schedule
-                    </Badge>
-                    <h2 className="text-4xl font-bold leading-tight" style={{ color: '#182d45' }}>
-                        Structured <span style={{ color: '#155e75' }}>Timetable</span>
-                    </h2>
-                    <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
-                        Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
-                    </p>
+        <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+                {/* Left Side: Content */}
+                <div className="space-y-12">
+                    {/* Introduction Content */}
+                    <div className="space-y-6">
+                        <Badge className="bg-cyan-100 text-cyan-800 border-none px-3 py-1.5 font-semibold hover:bg-cyan-100 inline-flex items-center">
+                            <Calendar className="w-4 h-4 mr-2" />
+                            Class Schedule
+                        </Badge>
+                        <h2 className="text-4xl font-bold leading-tight" style={{ color: '#182d45' }}>
+                            Structured <span style={{ color: '#35a3be' }}>Timetable</span>
+                        </h2>
+                        <p className="text-lg text-gray-600 leading-relaxed max-w-xl">
+                            Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
+                        </p>
+                    </div>
+
+                    {/* Benefits Column */}
+                    <div className="space-y-8">
+                        <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>
+                            Our <span style={{ color: '#35a3be' }}>Benefits</span>
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                            {benefits.map((benefit, index) => (
+                                <div key={index} className="flex items-start gap-4 text-black">
+                                    <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: '#0d4f5c' }}>
+                                        <CheckCircle style={{ width: '14px', height: '14px' }} className="text-white" />
+                                    </div>
+                                    <span className="text-lg leading-snug">{benefit}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
                 
-                {/* Timetable Card Column */}
-                <div className="flex flex-col">
-                    <Card className="border-none shadow-xl bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
-                        <CardContent className="p-8 flex flex-col items-center gap-8">
-                            <div className="relative flex items-center justify-center w-full">
+                {/* Right Side: Timetable Card */}
+                <div className="flex flex-col h-full justify-center">
+                    <Card className="border-none shadow-2xl bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-cyan-900/10">
+                        <CardContent className="p-10 flex flex-col items-center gap-10">
+                            <div className="relative flex items-center justify-center w-full bg-slate-50 rounded-2xl p-6">
                                 <Image 
                                     src="/bcc-time-table.jpeg" 
                                     alt="BCC Timetable" 
-                                    width={230} 
+                                    width={260} 
                                     height={150} 
                                     className="object-contain" 
                                     priority 
                                 />
                             </div>
-                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-xl py-7 shadow-md w-full">
+                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-xl py-8 text-lg shadow-lg w-full">
                                 <a href="/pdfs/timetable_cbse_12.pdf" download>
-                                    <Download className="w-5 h-5 mr-2" />
+                                    <Download className="w-6 h-6 mr-3" />
                                     Download Timetable
                                 </a>
                             </Button>
                         </CardContent>
                     </Card>
                 </div>
-
-                {/* Benefits Column */}
-                <div className="space-y-8">
-                  <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>
-                    Our <span style={{ color: '#155e75' }}>Benefits</span>
-                  </h2>
-                  <div className="space-y-5">
-                      {benefits.map((benefit, index) => (
-                          <div key={index} className="flex items-start gap-4 text-black">
-                              <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: '#0d4f5c' }}>
-                                  <CheckCircle style={{ width: '14px', height: '14px' }} className="text-white" />
-                              </div>
-                              <span className="text-lg leading-snug">{benefit}</span>
-                          </div>
-                      ))}
-                  </div>
-                </div>
             </div>
         </div>
       </section>
 
       <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(21 49 61)' }}>
-        <div className="container mx-auto text-center">
+        <div className="container mx-auto text-center px-4">
           <Badge className="mb-4 bg-[#cffafe] text-[#0d4f5c] border-transparent px-4 py-1.5 font-semibold hover:bg-[#cffafe]">
             <Download className="w-4 h-4 mr-2" />
             Free Resources
