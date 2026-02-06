@@ -107,7 +107,7 @@ export default function CbseClass12PcmNewPage() {
                         src="/bcc-time-table.jpeg" 
                         alt="BCC Timetable" 
                         width={300} 
-                        height={300} 
+                        height={250} 
                         className="object-contain mb-6 animate-move-up-down" 
                         priority 
                     />
