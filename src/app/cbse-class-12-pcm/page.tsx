@@ -129,13 +129,13 @@ export default function CbseClass12PcmNewPage() {
                 <div className="flex flex-col h-full justify-center">
                     <Card className="border-none shadow-2xl bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-cyan-900/10">
                         <CardContent className="p-10 flex flex-col items-center gap-10">
-                            <div className="relative flex items-center justify-center w-full bg-slate-50 rounded-2xl p-6">
+                            <div className="relative w-full overflow-hidden rounded-2xl">
                                 <Image 
                                     src="/bcc-time-table.jpeg" 
                                     alt="BCC Timetable" 
-                                    width={260} 
-                                    height={150} 
-                                    className="object-contain" 
+                                    width={800} 
+                                    height={500} 
+                                    className="w-full h-auto object-contain" 
                                     priority 
                                 />
                             </div>
