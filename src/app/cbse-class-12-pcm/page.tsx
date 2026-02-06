@@ -98,7 +98,7 @@ export default function CbseClass12PcmNewPage() {
                     </Badge>
                     <div className="flex items-center gap-4 mb-2">
                         <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>Structured <span style={{ color: '#155e75' }}>Timetable</span></h2>
-                        <Image src="/study-time.png" alt="Study Time" width={180} height={180} className="object-contain animate-move-up-down" style={{ marginTop: '-80px' }} priority />
+                        <Image src="/study-time.png" alt="Study Time" width={130} height={130} className="object-contain animate-move-up-down" style={{ marginTop: '-80px' }} priority />
                     </div>
                     <p className="text-lg text-gray-600 mb-4 max-w-lg">
                         Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
