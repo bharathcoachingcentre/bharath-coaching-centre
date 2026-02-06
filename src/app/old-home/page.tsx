@@ -328,30 +328,45 @@ export default function OldHomePage() {
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_ncert.pdf" },
         { class: "Class 10", pdf: "/pdfs/cbse_10_ncert.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_ncert.pdf" },
+        { class: "Class 8", pdf: "/pdfs/cbse_8_ncert.pdf" },
+        { class: "Class 7", pdf: "/pdfs/cbse_7_ncert.pdf" },
+        { class: "Class 6", pdf: "/pdfs/cbse_6_ncert.pdf" },
       ],
       "NCERT Solutions": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
         { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
+        { class: "Class 8", pdf: "/pdfs/cbse_8_solutions.pdf" },
+        { class: "Class 7", pdf: "/pdfs/cbse_7_solutions.pdf" },
+        { class: "Class 6", pdf: "/pdfs/cbse_6_solutions.pdf" },
       ],
       "Formula Booklet": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_formula.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_formula.pdf" },
         { class: "Class 10", pdf: "/pdfs/cbse_10_formula.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_formula.pdf" },
+        { class: "Class 8", pdf: "/pdfs/cbse_8_formula.pdf" },
+        { class: "Class 7", pdf: "/pdfs/cbse_7_formula.pdf" },
+        { class: "Class 6", pdf: "/pdfs/cbse_6_formula.pdf" },
       ],
       "Unit wise Question Papers": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_unit_questions.pdf" },
         { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_unit_questions.pdf" },
+        { class: "Class 8", pdf: "/pdfs/cbse_8_unit_questions.pdf" },
+        { class: "Class 7", pdf: "/pdfs/cbse_7_unit_questions.pdf" },
+        { class: "Class 6", pdf: "/pdfs/cbse_6_unit_questions.pdf" },
       ],
       "Model Board Question Paper": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_model_paper.pdf" },
         { class: "Class 10", pdf: "/pdfs/cbse_10_model_paper.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_model_paper.pdf" },
+        { class: "Class 8", pdf: "/pdfs/cbse_8_model_paper.pdf" },
+        { class: "Class 7", pdf: "/pdfs/cbse_7_model_paper.pdf" },
+        { class: "Class 6", pdf: "/pdfs/cbse_6_model_paper.pdf" },
       ],
     },
     Samacheer: {
@@ -415,25 +430,18 @@ export default function OldHomePage() {
     },
     {
       company: 'Reethika',
-      quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
+      quote: 'I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry—join here and change your future.',
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
+        quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir.',
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
     },
-    {
-      company: 'Mohamed Niyas',
-      quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
-      author: 'MBBS Student',
-      image: '/testi-7.png',
-      imageHint: 'man portrait',
-  },
   {
     company: 'S K Janani Priya',
     quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
@@ -1041,7 +1049,7 @@ export default function OldHomePage() {
               <Phone className="w-6 h-6 text-white" />
             </a>
           </Button>
-          <Button asChild size="icon" className="rounded-full bg-blue-500 hover:bg-blue-600 w-12 h-12">
+          <Button asChild size="icon" className="bg-[#35a3be] hover:bg-[#174f5f] w-12 h-12">
             <a href="mailto:bcc_try@hotmail.com">
               <Mail className="w-6 h-6 text-white" />
             </a>

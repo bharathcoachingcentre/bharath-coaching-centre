@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from "next/image";
@@ -18,7 +17,6 @@ import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
 import { CountUpNumber } from "@/components/count-up-number";
 import { motion, AnimatePresence } from "framer-motion";
-import { quotelessJson } from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Accordion,
@@ -342,45 +340,6 @@ export default function Home2() {
   ];
   
 
-  const kidsCourses = [
-    {
-      classRange: "Class 1 - 6",
-      title: "Spoken English Program",
-      description: "Master fluency in English speaking",
-      icon: Sun,
-      bgColor: "bg-red-50",
-      iconColor: "text-red-500",
-      isNew: true,
-    },
-    {
-      classRange: "Class LKG - 5",
-      title: "Learn English",
-      description: "Level based holistic English Program",
-      icon: Languages,
-      bgColor: "bg-yellow-50",
-      iconColor: "text-yellow-500",
-      isNew: false,
-    },
-    {
-      classRange: "Class 1 to 5",
-      title: "Learn math",
-      description: "Turn your child into a Math wizard",
-      icon: Calculator,
-      bgColor: "bg-blue-50",
-      iconColor: "text-blue-500",
-      isNew: false,
-    },
-    {
-      classRange: "Class 1 - 8",
-      title: "Coding classes",
-      description: "Learn to build apps and games, be future ready",
-      icon: Code,
-      bgColor: "bg-purple-50",
-      iconColor: "text-purple-500",
-      isNew: false,
-    },
-  ];
-
   const tutoringCourses = [
     {
         icon: Target,
@@ -401,29 +360,6 @@ export default function Home2() {
         icon: TrendingUp,
         title: "Weekly Academic Growth Tracking",
         description: "We monitor your progress closely to ensure continuous improvement.",
-    }
-  ];
-
-  const newOnVedantuItems = [
-    {
-      src: '/carousel-slide1.png',
-      alt: 'NEET Tatva Books',
-      hint: 'educational books',
-    },
-    {
-      src: '/carousel-slide2.png',
-      alt: 'Revision JEE Cards',
-      hint: 'revision cards',
-    },
-    {
-      src: '/carousel-slide3.png',
-      alt: 'JEE preparation course',
-      hint: 'online learning',
-    },
-    {
-      src: '/carousel-slide4.png',
-      alt: 'Coding classes for kids',
-      hint: 'child coding',
     }
   ];
 
@@ -449,7 +385,7 @@ export default function Home2() {
       "NCERT Solutions": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
-        { class: "Class 10", pdf: "/pdfs/cbse_10_solutions.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
       ],
       "Formula Booklet": [
@@ -480,9 +416,9 @@ export default function Home2() {
         ],
         "NCERT Solutions": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_solutions.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_solutions.pdf" },
-            { class: "Class 10", pdf: "/pdfs/samacheer_10_solutions.pdf" },
-            { class: "Class 9", pdf: "/pdfs/samacheer_9_solutions.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_ncert.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_formula.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_formula.pdf" },
         ],
         "Formula Booklet": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_formula.pdf" },
@@ -560,13 +496,6 @@ export default function Home2() {
       details: 'B.Com LL.b(Hons) Student'
     },
     {
-      image: '/testi-7.png',
-      imageHint: 'smiling student',
-      quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
-      name: 'Mohamed Niyas',
-      details: 'MBBS Student'
-    },
-    {
       image: '/testi-5.png',
       imageHint: 'student graduate',
       quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
@@ -576,7 +505,7 @@ export default function Home2() {
     {
       image: '/testi-6.png',
       imageHint: 'student graduate',
-      quote: 'BCC is an exemplary institution with very efficient n specialized staffs. Personalized individual attention to every student. Immediate clarification of doubts n queries by the staffs. Daily ,weekly n regular test schedule n timely correction n analysis of the answers . Reliable n a lucky charm for every student who is a part of BCC. Wishing success to Barath sir ,all the staffs and to every student who enrolls in BCC. May this institute achieve great heights in the field of education',
+      quote: 'BCC is an exemplary institution with highly efficient and dedicated staff who provide personalized attention to every student. Regular tests, quick doubt clarification, and timely evaluation help students improve consistently. BCC is truly a reliable and fortunate place for learners, and I wish Bharath sir, the staff, and all students continued success and growth',
       name: 'Manisha M S',
       details: 'MBBS Student'
     }
@@ -611,13 +540,6 @@ export default function Home2() {
         image: '/testi-4.png',
         imageHint: 'man portrait',
     },
-    {
-      company: 'Mohamed Niyas',
-      quote: 'I studied 11th and 12th grade. I scored 89 in 11th and in 12 92 .I ever had best coaching centre is bcc only because the teacher are very good in teaching, good infrastructure, digital class and (Bharath Coaching Centre = worth it) I never feel even one rupees wasted in bcc I spend worth it (for who poor student in maths blindly join in bcc).',
-      author: 'MBBS Student',
-      image: '/testi-7.png',
-      imageHint: 'man portrait',
-  },
   {
     company: 'S K Janani Priya',
     quote: 'I am very grateful to be a part of BCC. It was only possible due to the extraordinary support of experienced and well professional teachers that me successful in academics. Your motivation gave me a much needed boost to the confidence I had in myself. I am so grateful and I can’t thank you enough!',
@@ -1159,10 +1081,3 @@ export default function Home2() {
     </div>
   );
 }
-
-    
-
-    
-
-
-
