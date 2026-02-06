@@ -104,7 +104,7 @@ export default function CbseClass12PcmNewPage() {
                             Class Schedule
                         </Badge>
                         <h2 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight" style={{ color: '#182d45' }}>
-                            Structured <span className="text-[#35a3be] relative inline-block">
+                            Structured <span style={{ color: 'rgb(53 163 190)' }} className="relative inline-block">
                                 Timetable
                                 <span className="absolute bottom-1 left-0 w-full h-2 bg-[#35a3be]/10 -z-10 rounded-full"></span>
                             </span>
@@ -118,7 +118,7 @@ export default function CbseClass12PcmNewPage() {
                     <div className="space-y-8 bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-white/60 shadow-inner">
                         <h2 className="text-3xl font-bold flex items-center gap-3" style={{ color: '#182d45' }}>
                             <span className="w-1.5 h-8 bg-[#35a3be] rounded-full"></span>
-                            Our <span className="text-[#35a3be]">Benefits</span>
+                            Our <span style={{ color: 'rgb(53 163 190)' }}>Benefits</span>
                         </h2>
                         <div className="flex flex-col gap-y-1">
                             {benefits.map((benefit, index) => (
