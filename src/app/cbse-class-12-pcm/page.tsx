@@ -120,9 +120,9 @@ export default function CbseClass12PcmNewPage() {
                             <span className="w-1.5 h-8 bg-[#35a3be] rounded-full"></span>
                             Our <span className="text-[#35a3be]">Benefits</span>
                         </h2>
-                        <div className="flex flex-col gap-y-4">
+                        <div className="flex flex-col gap-y-1">
                             {benefits.map((benefit, index) => (
-                                <div key={index} className="flex items-start gap-4 group p-2 rounded-xl transition-all duration-300 hover:bg-white/60">
+                                <div key={index} className="flex items-start gap-4 group p-1.5 rounded-xl transition-all duration-300 hover:bg-white/60">
                                     <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 shadow-md group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
                                         <CheckCircle style={{ width: '16px', height: '16px' }} className="text-white" />
                                     </div>
