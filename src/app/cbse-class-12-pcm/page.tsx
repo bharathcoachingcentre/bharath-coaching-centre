@@ -112,7 +112,7 @@ export default function CbseClass12PcmNewPage() {
                         <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>
                             Our <span style={{ color: '#35a3be' }}>Benefits</span>
                         </h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                        <div className="flex flex-col gap-y-5">
                             {benefits.map((benefit, index) => (
                                 <div key={index} className="flex items-start gap-4 text-black">
                                     <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: '#0d4f5c' }}>
