@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -196,7 +195,7 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer-new' || pathname === '/cbse-class-12-pcm';
+  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm';
 
   const NavLink = ({ href, label, className, children }: { href: string; label:string, className?: string, children?: React.ReactNode }) => (
     <Link

@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -20,7 +19,7 @@ export function Footer() {
     setIsMounted(true);
   }, []);
 
-  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer-new' || pathname === '/cbse-class-12-pcm';
+  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm';
   const currentYear = new Date().getFullYear();
   
   const companyLinks = [

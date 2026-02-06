@@ -363,9 +363,9 @@ export default function OldHomePage() {
         ],
         "NCERT Solutions": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_solutions.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_solutions.pdf" },
-            { class: "Class 10", pdf: "/pdfs/samacheer_10_solutions.pdf" },
-            { class: "Class 9", pdf: "/pdfs/samacheer_9_solutions.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_ncert.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_formula.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_formula.pdf" },
         ],
         "Formula Booklet": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_formula.pdf" },
