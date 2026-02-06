@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from "next/image";
@@ -373,7 +374,7 @@ export default function Home() {
       "NCERT Solutions": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
-        { class: "Class 10", pdf: "/pdfs/cbse_10_solutions.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
       ],
       "Formula Booklet": [
@@ -404,9 +405,9 @@ export default function Home() {
         ],
         "NCERT Solutions": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_solutions.pdf" },
-            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_solutions.pdf" },
-            { class: "Class 10", pdf: "/pdfs/samacheer_10_solutions.pdf" },
-            { class: "Class 9", pdf: "/pdfs/samacheer_9_solutions.pdf" },
+            { class: "Class 11 PCM", pdf: "/pdfs/samacheer_11_pcm_ncert.pdf" },
+            { class: "Class 10", pdf: "/pdfs/samacheer_10_formula.pdf" },
+            { class: "Class 9", pdf: "/pdfs/samacheer_9_formula.pdf" },
         ],
         "Formula Booklet": [
             { class: "Class 12 PCM", pdf: "/pdfs/samacheer_12_pcm_formula.pdf" },
@@ -456,14 +457,14 @@ export default function Home() {
     },
     {
       company: 'Reethika',
-      quote: 'I was one of the first students to join the Trichy branch, and the warmth and confidence of Bharath anna made me feel comfortable and motivated from the start. Bharath Tuition Centre offers a caring and inspiring learning environment with regular tests that truly helped me succeed. The teachers teach from the heart, and my chemistry teacher inspired me to pursue B.Sc. Chemistry—join here and change your future.',
+      quote: 'I guess I’m in the first few students that had joined in his trichy branch. First of all, the warmth and the confidence of Bharath anna, made me comfortable as well as confident. Bharath tuition centre honestly has a caring and stimulating learning environment. I can proudly say, his efforts are what I scored. Not to mention the regular tests. The other teachers are the same as well. They teach what’s in their mind, through their heart. My chemistry teacher was one of the reasons for me, pursuing Bsc.Chemistry. You guys still have time. It’s never late. Join here and change your future.',
       author: 'RJ',
       image: '/testi-3.png',
       imageHint: 'man portrait',
   },
    {
         company: 'Dhanya B S K Janani Priya',
-        quote: 'I had the privilege of studying at BCC for six years, and it has been a truly wonderful journey. I once disliked Maths, but at BCC the concepts were taught in a simple, practical, and engaging way that completely changed my perspective. With well-trained staff and strong values, BCC has played a major role in shaping who I am today thank you, Bharath sir.',
+        quote: 'I had the privilege of studying at BCC for 6 yrs. It’s been a wonderful journey. To start with, I had aversion towards the subject ‘ MATHS’. But after joining BCC, the concepts was thought to us in a simple way without much complications and made very intresting to understand the subject. More practical approaches are used to make us understand the concepts. In a nutshell, well trained staffs with good value system is all about BCC. Thank you Bharat sir for what am today!!',
         author: 'B.Com LL.b(Hons) Student',
         image: '/testi-4.png',
         imageHint: 'man portrait',
@@ -603,7 +604,7 @@ export default function Home() {
               </p>
             </div>
             <div className="grid sm:grid-cols-2 gap-8">
-              <Link href="/cbse-new">
+              <Link href="/cbse">
                 <Card className="relative group text-center p-8 cursor-pointer hover:bg-teal-500/10 transition-all duration-300 shadow-sm hover:shadow-xl rounded-2xl" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' }}>
                   <div className="flex items-center justify-center h-20 w-20 rounded-2xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: '#FFFFFFE6' }}>
                     <BookOpen className="w-10 h-10" style={{ color: '#35a3be' }}/>
@@ -880,7 +881,7 @@ export default function Home() {
                           </div>
                           <Card className="text-center rounded-2xl shadow-lg pt-20 pb-8 px-6" style={{backgroundColor:"#e0f7fa",width:"350px",height:"270px"}}>
                               <h3 className="text-xl font-bold font-heading-home2 mb-2" style={{lineHeight: '36px', marginTop: '16px'}}>
-                                  {point.title}
+                                {point.title}
                               </h3>
                           </Card>
                       </div>
