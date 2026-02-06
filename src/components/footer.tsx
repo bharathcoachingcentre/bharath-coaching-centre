@@ -1,11 +1,9 @@
-
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Twitter, Send, Gitlab, Rss, Phone, Mail, MapPin } from "lucide-react";
 import { Separator } from "./ui/separator";
-import { FooterLogo } from "./footer-logo";
 import { BccFooterLogo } from "./bcc-footer-logo";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -21,16 +19,9 @@ export function Footer() {
     setIsMounted(true);
   }, []);
 
-  const isHome2 = pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse-new' || pathname === '/samacheer-new' || pathname === '/cbse-class-12-pcm';
+  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse-new' || pathname === '/samacheer-new' || pathname === '/cbse-class-12-pcm';
   const currentYear = new Date().getFullYear();
   
-  const socialLinks = [
-    { href: "#", icon: Twitter, label: "Twitter" },
-    { href: "#", icon: Send, label: "Telegram" },
-    { href: "#", icon: Gitlab, label: "Gitlab" },
-    { href: "#", icon: Rss, label: "RSS" },
-];
-
   const companyLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About us" },

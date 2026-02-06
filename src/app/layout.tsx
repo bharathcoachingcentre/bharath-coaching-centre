@@ -3,7 +3,19 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { ClientHeader } from '@/components/client-header';
 import { FooterWrapper } from '@/components/footer-wrapper';
+import { Plus_Jakarta_Sans, DM_Sans } from 'next/font/google';
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-plus-jakarta-sans',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+});
 
 export const metadata: Metadata = {
   title: 'Bharath Academy Hub',
@@ -23,7 +35,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased flex flex-col min-h-screen">
+      <body className={`${plusJakartaSans.variable} ${dmSans.variable} font-body antialiased flex flex-col min-h-screen`}>
         <ClientHeader />
         <main className="flex-grow">{children}</main>
         <FooterWrapper />

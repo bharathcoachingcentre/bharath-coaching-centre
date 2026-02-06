@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -33,13 +32,6 @@ import {
 
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { BccLogo } from "./bcc-logo";
 
 const offlineCourses = [
@@ -203,7 +195,7 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const isHome2 = pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse-new' || pathname === '/samacheer-new' || pathname === '/cbse-class-12-pcm';
+  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse-new' || pathname === '/samacheer-new' || pathname === '/cbse-class-12-pcm';
 
   const NavLink = ({ href, label, className, children }: { href: string; label:string, className?: string, children?: React.ReactNode }) => (
     <Link
@@ -221,7 +213,7 @@ export function Header() {
     </Link>
   );
 
-  const homeLink = ['/cbse-class-12-pcm', '/cbse-new', '/samacheer-new'].includes(pathname) ? '/home-new' : "/";
+  const homeLink = "/";
 
   return (
     <header className={cn(
