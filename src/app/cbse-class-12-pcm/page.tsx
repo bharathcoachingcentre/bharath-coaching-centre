@@ -135,7 +135,7 @@ export default function CbseClass12PcmNewPage() {
                                     alt="BCC Timetable" 
                                     width={800} 
                                     height={500} 
-                                    className="w-full h-auto object-contain" 
+                                    className="w-full h-auto object-cover" 
                                     priority 
                                 />
                             </div>
