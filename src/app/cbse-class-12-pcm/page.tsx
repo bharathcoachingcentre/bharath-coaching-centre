@@ -103,7 +103,7 @@ export default function CbseClass12PcmNewPage() {
                             <Calendar className="w-4 h-4 mr-2" />
                             Class Schedule
                         </Badge>
-                        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-left" style={{ color: '#182d45' }}>
+                        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-left" style={{ color: '#182d45', textAlign: 'left' }}>
                             Structured <span style={{ color: 'rgb(53 163 190)' }} className="relative inline-block">
                                 Timetable
                                 <span className="absolute bottom-1 left-0 w-full h-2 bg-[#35a3be]/10 -z-10 rounded-full"></span>
@@ -116,7 +116,7 @@ export default function CbseClass12PcmNewPage() {
 
                     {/* Benefits Column */}
                     <div className="space-y-8 bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-white/60 shadow-inner">
-                        <h2 className="text-3xl font-bold flex items-center gap-3 text-left" style={{ color: 'rgb(53 163 190)' }}>
+                        <h2 className="text-3xl font-bold flex items-center gap-3 text-left" style={{ color: 'rgb(53 163 190)', textAlign: 'left' }}>
                             <span className="w-1.5 h-8 bg-[#35a3be] rounded-full"></span>
                             Our <span>Benefits</span>
                         </h2>
