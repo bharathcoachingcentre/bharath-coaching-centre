@@ -90,26 +90,35 @@ export default function CbseClass12PcmNewPage() {
 
       <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
                 <div className="text-black">
                     <Badge className="mb-2 bg-cyan-100 text-cyan-800 border-cyan-200/30 px-3 py-1.5 font-semibold hover:bg-cyan-100">
                         <Calendar className="w-4 h-4 mr-2" />
                         Class Schedule
                     </Badge>
-                    <div className="flex items-center gap-4 mb-2">
-                        <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>Structured <span style={{ color: '#155e75' }}>Timetable</span></h2>
-                        <Image src="/study-time.png" alt="Study Time" width={130} height={130} className="object-contain animate-move-up-down" style={{ marginTop: '-50px' }} priority />
-                    </div>
+                    <h2 className="text-4xl font-bold mb-4" style={{ color: '#182d45' }}>Structured <span style={{ color: '#155e75' }}>Timetable</span></h2>
                     <p className="text-lg text-gray-600 mb-4 max-w-lg">
                         Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
                     </p>
-                    <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-lg py-6 px-8">
+                </div>
+                
+                <div className="flex flex-col items-center">
+                    <Image 
+                        src="/bcc-time-table.jpeg" 
+                        alt="BCC Timetable" 
+                        width={300} 
+                        height={300} 
+                        className="object-contain mb-6 animate-move-up-down" 
+                        priority 
+                    />
+                    <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-lg py-6 px-8 shadow-md">
                         <a href="/pdfs/timetable_cbse_12.pdf" download>
                             <Download className="w-5 h-5 mr-2" />
                             Download Timetable
                         </a>
                     </Button>
                 </div>
+
                 <div>
                   <h2 className="text-4xl font-bold mb-8" style={{ color: '#182d45' }}>Our <span style={{ color: '#155e75' }}>Benefits</span></h2>
                   <div className="space-y-4">
