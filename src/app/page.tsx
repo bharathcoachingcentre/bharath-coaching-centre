@@ -410,7 +410,7 @@ export default function Home() {
       "NCERT Solutions": [
         { class: "Class 12 PCM", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
         { class: "Class 11 PCM", pdf: "/pdfs/cbse_11_pcm_solutions.pdf" },
-        { class: "Class 10", pdf: "/pdfs/cbse_10_solutions.pdf" },
+        { class: "Class 10", pdf: "/pdfs/cbse_10_unit_questions.pdf" },
         { class: "Class 9", pdf: "/pdfs/cbse_9_solutions.pdf" },
       ],
       "Formula Booklet": [
