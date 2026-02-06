@@ -103,22 +103,22 @@ export default function CbseClass12PcmNewPage() {
                             <Calendar className="w-4 h-4 mr-2" />
                             Class Schedule
                         </Badge>
-                        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight" style={{ color: '#182d45' }}>
+                        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-left" style={{ color: '#182d45' }}>
                             Structured <span style={{ color: 'rgb(53 163 190)' }} className="relative inline-block">
                                 Timetable
                                 <span className="absolute bottom-1 left-0 w-full h-2 bg-[#35a3be]/10 -z-10 rounded-full"></span>
                             </span>
                         </h2>
-                        <p className="text-lg text-gray-600 leading-relaxed max-w-xl font-medium">
+                        <p className="text-lg text-gray-600 leading-relaxed max-w-xl font-medium text-left">
                             Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
                         </p>
                     </div>
 
                     {/* Benefits Column */}
                     <div className="space-y-8 bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-white/60 shadow-inner">
-                        <h2 className="text-3xl font-bold flex items-center gap-3" style={{ color: '#182d45' }}>
+                        <h2 className="text-3xl font-bold flex items-center gap-3 text-left" style={{ color: 'rgb(53 163 190)' }}>
                             <span className="w-1.5 h-8 bg-[#35a3be] rounded-full"></span>
-                            Our <span style={{ color: 'rgb(53 163 190)' }}>Benefits</span>
+                            Our <span>Benefits</span>
                         </h2>
                         <div className="flex flex-col gap-y-1">
                             {benefits.map((benefit, index) => (
@@ -126,7 +126,7 @@ export default function CbseClass12PcmNewPage() {
                                     <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 shadow-md group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
                                         <CheckCircle style={{ width: '16px', height: '16px' }} className="text-white" />
                                     </div>
-                                    <span className="text-lg leading-snug font-medium text-gray-800">{benefit}</span>
+                                    <span className="text-lg leading-snug font-medium text-gray-800 text-left">{benefit}</span>
                                 </div>
                             ))}
                         </div>
