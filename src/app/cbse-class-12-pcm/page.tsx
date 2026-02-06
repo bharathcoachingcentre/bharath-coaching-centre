@@ -123,8 +123,8 @@ export default function CbseClass12PcmNewPage() {
                   <h2 className="text-4xl font-bold mb-8" style={{ color: '#182d45' }}>Our <span style={{ color: '#155e75' }}>Benefits</span></h2>
                   <div className="space-y-4">
                       {benefits.map((benefit, index) => (
-                          <div key={index} className="flex items-center gap-3 text-black">
-                              <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#0d4f5c' }}>
+                          <div key={index} className="flex items-start gap-3 text-black">
+                              <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: '#0d4f5c' }}>
                                   <CheckCircle style={{ width: '14px', height: '14px' }} className="text-white" />
                               </div>
                               <span className="text-lg">{benefit}</span>
