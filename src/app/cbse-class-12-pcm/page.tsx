@@ -92,15 +92,15 @@ export default function CbseClass12PcmNewPage() {
         <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div className="text-black">
-                    <Badge className="mb-4 bg-cyan-100 text-cyan-800 border-cyan-200/30 px-3 py-1.5 font-semibold hover:bg-cyan-100">
+                    <Badge className="mb-2 bg-cyan-100 text-cyan-800 border-cyan-200/30 px-3 py-1.5 font-semibold hover:bg-cyan-100">
                         <Calendar className="w-4 h-4 mr-2" />
                         Class Schedule
                     </Badge>
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-4 mb-2">
                         <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>Structured <span style={{ color: '#155e75' }}>Timetable</span></h2>
                         <Image src="/time.png" alt="Study Time" width={180} height={180} className="object-contain" priority />
                     </div>
-                    <p className="text-lg text-gray-600 mb-8 max-w-lg">
+                    <p className="text-lg text-gray-600 mb-4 max-w-lg">
                         Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
                     </p>
                     <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-lg py-6 px-8">
