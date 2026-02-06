@@ -91,29 +91,35 @@ export default function CbseClass12PcmNewPage() {
       <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
-                <div className="text-black">
-                    <Badge className="mb-2 bg-cyan-100 text-cyan-800 border-cyan-200/30 px-3 py-1.5 font-semibold hover:bg-cyan-100">
+                {/* Introduction Content */}
+                <div className="space-y-6">
+                    <Badge className="bg-cyan-100 text-cyan-800 border-none px-3 py-1.5 font-semibold hover:bg-cyan-100 inline-flex items-center">
                         <Calendar className="w-4 h-4 mr-2" />
                         Class Schedule
                     </Badge>
-                    <h2 className="text-4xl font-bold mb-4" style={{ color: '#182d45' }}>Structured <span style={{ color: '#155e75' }}>Timetable</span></h2>
-                    <p className="text-lg text-gray-600 mb-4 max-w-lg">
+                    <h2 className="text-4xl font-bold leading-tight" style={{ color: '#182d45' }}>
+                        Structured <span style={{ color: '#155e75' }}>Timetable</span>
+                    </h2>
+                    <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
                         Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
                     </p>
                 </div>
                 
-                <div className="flex flex-col items-start">
-                    <Card className="p-6 border-transparent shadow-sm bg-white flex flex-col items-center">
-                        <CardContent className="p-0 flex flex-col items-center">
-                            <Image 
-                                src="/bcc-time-table.jpeg" 
-                                alt="BCC Timetable" 
-                                width={230} 
-                                height={150} 
-                                className="object-contain mb-6" 
-                                priority 
-                            />
-                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-lg py-6 px-8 shadow-md w-full">
+                {/* Timetable Card Column */}
+                <div className="flex flex-col">
+                    <Card className="border-none shadow-xl bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
+                        <CardContent className="p-8 flex flex-col items-center gap-8">
+                            <div className="relative flex items-center justify-center w-full">
+                                <Image 
+                                    src="/bcc-time-table.jpeg" 
+                                    alt="BCC Timetable" 
+                                    width={230} 
+                                    height={150} 
+                                    className="object-contain" 
+                                    priority 
+                                />
+                            </div>
+                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-xl py-7 shadow-md w-full">
                                 <a href="/pdfs/timetable_cbse_12.pdf" download>
                                     <Download className="w-5 h-5 mr-2" />
                                     Download Timetable
@@ -123,15 +129,18 @@ export default function CbseClass12PcmNewPage() {
                     </Card>
                 </div>
 
-                <div>
-                  <h2 className="text-4xl font-bold mb-8" style={{ color: '#182d45' }}>Our <span style={{ color: '#155e75' }}>Benefits</span></h2>
-                  <div className="space-y-4">
+                {/* Benefits Column */}
+                <div className="space-y-8">
+                  <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>
+                    Our <span style={{ color: '#155e75' }}>Benefits</span>
+                  </h2>
+                  <div className="space-y-5">
                       {benefits.map((benefit, index) => (
-                          <div key={index} className="flex items-start gap-3 text-black">
+                          <div key={index} className="flex items-start gap-4 text-black">
                               <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: '#0d4f5c' }}>
                                   <CheckCircle style={{ width: '14px', height: '14px' }} className="text-white" />
                               </div>
-                              <span className="text-lg">{benefit}</span>
+                              <span className="text-lg leading-snug">{benefit}</span>
                           </div>
                       ))}
                   </div>
