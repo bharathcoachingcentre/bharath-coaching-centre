@@ -126,9 +126,9 @@ export default function CbseClass12PcmNewPage() {
                 </div>
                 
                 {/* Right Side: Timetable Card */}
-                <div className="flex flex-col h-full justify-center">
+                <div className="flex flex-col h-full justify-start">
                     <Card className="border-none shadow-2xl bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-cyan-900/10">
-                        <CardContent className="p-10 flex flex-col items-center gap-10">
+                        <CardContent className="p-6 flex flex-col items-center gap-6">
                             <div className="relative w-full overflow-hidden rounded-2xl">
                                 <Image 
                                     src="/bcc-time-table.jpeg" 
@@ -139,7 +139,7 @@ export default function CbseClass12PcmNewPage() {
                                     priority 
                                 />
                             </div>
-                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-xl py-8 text-lg shadow-lg w-full">
+                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-xl py-6 text-lg shadow-lg w-full">
                                 <a href="/pdfs/timetable_cbse_12.pdf" download>
                                     <Download className="w-6 h-6 mr-3" />
                                     Download Timetable
