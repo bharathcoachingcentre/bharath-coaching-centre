@@ -147,7 +147,7 @@ export default function CbseClass12PcmNewPage() {
                                     alt="BCC Timetable" 
                                     width={800} 
                                     height={575} 
-                                    className="w-full h-[575px] object-cover transition-transform duration-700 group-hover/img:scale-105" 
+                                    className="w-full h-[575px] object-cover transition-transform duration-700" 
                                     priority 
                                 />
                             </div>
