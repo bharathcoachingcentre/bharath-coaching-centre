@@ -134,8 +134,8 @@ export default function CbseClass12PcmNewPage() {
                                     src="/bcc-time-table.jpeg" 
                                     alt="BCC Timetable" 
                                     width={800} 
-                                    height={500} 
-                                    className="w-full h-auto object-cover" 
+                                    height={575} 
+                                    className="w-full h-[575px] object-cover" 
                                     priority 
                                 />
                             </div>
