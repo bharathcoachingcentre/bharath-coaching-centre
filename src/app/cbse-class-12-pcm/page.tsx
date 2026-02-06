@@ -108,7 +108,7 @@ export default function CbseClass12PcmNewPage() {
                         alt="BCC Timetable" 
                         width={255} 
                         height={170} 
-                        className="object-contain mb-6 animate-move-up-down" 
+                        className="object-contain mb-6" 
                         priority 
                     />
                     <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-lg py-6 px-8 shadow-md">
