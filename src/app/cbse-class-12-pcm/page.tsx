@@ -102,21 +102,25 @@ export default function CbseClass12PcmNewPage() {
                     </p>
                 </div>
                 
-                <div className="flex flex-col items-center">
-                    <Image 
-                        src="/bcc-time-table.jpeg" 
-                        alt="BCC Timetable" 
-                        width={260} 
-                        height={170} 
-                        className="object-contain mb-6" 
-                        priority 
-                    />
-                    <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-lg py-6 px-8 shadow-md">
-                        <a href="/pdfs/timetable_cbse_12.pdf" download>
-                            <Download className="w-5 h-5 mr-2" />
-                            Download Timetable
-                        </a>
-                    </Button>
+                <div className="flex flex-col items-start">
+                    <Card className="p-6 border-transparent shadow-sm bg-white flex flex-col items-center">
+                        <CardContent className="p-0 flex flex-col items-center">
+                            <Image 
+                                src="/bcc-time-table.jpeg" 
+                                alt="BCC Timetable" 
+                                width={230} 
+                                height={150} 
+                                className="object-contain mb-6" 
+                                priority 
+                            />
+                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-lg py-6 px-8 shadow-md w-full">
+                                <a href="/pdfs/timetable_cbse_12.pdf" download>
+                                    <Download className="w-5 h-5 mr-2" />
+                                    Download Timetable
+                                </a>
+                            </Button>
+                        </CardContent>
+                    </Card>
                 </div>
 
                 <div>
