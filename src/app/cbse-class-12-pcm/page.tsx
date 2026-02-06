@@ -88,60 +88,72 @@ export default function CbseClass12PcmNewPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-24 relative overflow-hidden" style={{ backgroundColor: 'rgb(245 250 255)' }}>
+        {/* Decorative background elements */}
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-cyan-200/20 rounded-full blur-3xl -z-0"></div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl -z-0"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                 {/* Left Side: Content */}
                 <div className="space-y-12">
                     {/* Introduction Content */}
                     <div className="space-y-6">
-                        <Badge className="bg-cyan-100 text-cyan-800 border-none px-3 py-1.5 font-semibold hover:bg-cyan-100 inline-flex items-center">
+                        <Badge className="bg-cyan-100 text-cyan-800 border-none px-4 py-1.5 font-bold hover:bg-cyan-100 inline-flex items-center rounded-full shadow-sm">
                             <Calendar className="w-4 h-4 mr-2" />
                             Class Schedule
                         </Badge>
-                        <h2 className="text-4xl font-bold leading-tight" style={{ color: '#182d45' }}>
-                            Structured <span style={{ color: '#35a3be' }}>Timetable</span>
+                        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight" style={{ color: '#182d45' }}>
+                            Structured <span className="text-[#35a3be] relative inline-block">
+                                Timetable
+                                <span className="absolute bottom-1 left-0 w-full h-2 bg-[#35a3be]/10 -z-10 rounded-full"></span>
+                            </span>
                         </h2>
-                        <p className="text-lg text-gray-600 leading-relaxed max-w-xl">
+                        <p className="text-lg text-gray-600 leading-relaxed max-w-xl font-medium">
                             Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
                         </p>
                     </div>
 
                     {/* Benefits Column */}
-                    <div className="space-y-8">
-                        <h2 className="text-4xl font-bold" style={{ color: '#182d45' }}>
-                            Our <span style={{ color: '#35a3be' }}>Benefits</span>
+                    <div className="space-y-8 bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-white/60 shadow-inner">
+                        <h2 className="text-3xl font-bold flex items-center gap-3" style={{ color: '#182d45' }}>
+                            <span className="w-1.5 h-8 bg-[#35a3be] rounded-full"></span>
+                            Our <span className="text-[#35a3be]">Benefits</span>
                         </h2>
-                        <div className="flex flex-col gap-y-5">
+                        <div className="flex flex-col gap-y-4">
                             {benefits.map((benefit, index) => (
-                                <div key={index} className="flex items-start gap-4 text-black">
-                                    <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: '#0d4f5c' }}>
-                                        <CheckCircle style={{ width: '14px', height: '14px' }} className="text-white" />
+                                <div key={index} className="flex items-start gap-4 group p-2 rounded-xl transition-all duration-300 hover:bg-white/60">
+                                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 shadow-md group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
+                                        <CheckCircle style={{ width: '16px', height: '16px' }} className="text-white" />
                                     </div>
-                                    <span className="text-lg leading-snug">{benefit}</span>
+                                    <span className="text-lg leading-snug font-medium text-gray-800">{benefit}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
                 
-                {/* Right Side: Timetable Card */}
-                <div className="flex flex-col h-full justify-start">
-                    <Card className="border-none shadow-2xl bg-white rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-cyan-900/10">
-                        <CardContent className="p-6 flex flex-col items-center gap-6">
-                            <div className="relative w-full overflow-hidden rounded-2xl">
+                {/* Right Side: Timetable Card - Feature Highlight */}
+                <div className="relative group">
+                    {/* Floating decorative element behind card */}
+                    <div className="absolute -inset-4 bg-gradient-to-tr from-[#35a3be]/20 to-transparent rounded-[2.5rem] blur-2xl group-hover:scale-105 transition-transform duration-500"></div>
+                    
+                    <Card className="relative border border-white bg-white/80 backdrop-blur-md shadow-[0_20px_50px_rgba(8,112,184,0.1)] rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(8,112,184,0.15)] hover:-translate-y-2">
+                        <CardContent className="p-8 flex flex-col items-center gap-8">
+                            <div className="relative w-full overflow-hidden rounded-3xl shadow-lg border border-gray-100 group/img">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 z-10"></div>
                                 <Image 
                                     src="/bcc-time-table.jpeg" 
                                     alt="BCC Timetable" 
                                     width={800} 
                                     height={575} 
-                                    className="w-full h-[575px] object-cover" 
+                                    className="w-full h-[575px] object-cover transition-transform duration-700 group-hover/img:scale-105" 
                                     priority 
                                 />
                             </div>
-                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-bold rounded-xl py-6 text-lg shadow-lg w-full">
-                                <a href="/pdfs/timetable_cbse_12.pdf" download>
-                                    <Download className="w-6 h-6 mr-3" />
+                            <Button asChild size="lg" className="bg-[#35a3be] text-white hover:bg-[#174f5f] font-extrabold rounded-2xl py-8 text-xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 w-full group/btn">
+                                <a href="/pdfs/timetable_cbse_12.pdf" download className="flex items-center justify-center">
+                                    <Download className="w-7 h-7 mr-3 group-hover/btn:animate-bounce" />
                                     Download Timetable
                                 </a>
                             </Button>
