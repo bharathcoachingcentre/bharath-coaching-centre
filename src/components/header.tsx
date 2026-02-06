@@ -35,7 +35,7 @@ import { Logo } from "./logo";
 import { BccLogo } from "./bcc-logo";
 
 const offlineCourses = [
-    { label: "Class 12 PCM", href: "/courses/cbse-class-12-pcm" },
+    { label: "Class 12 PCM", href: "/cbse-class-12-pcm" },
     { label: "Class 12 Compartment", href: "/courses/12th-compartment" },
     { label: "Class 11 PCM", href: "/courses/cbse-class-11-pcm" },
     { label: "Class 10", href: "/courses/cbse-10th-grade" },
