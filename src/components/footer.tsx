@@ -19,7 +19,7 @@ export function Footer() {
     setIsMounted(true);
   }, []);
 
-  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm' || pathname === '/courses/12th-compartment';
+  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm' || pathname === '/courses/12th-compartment' || pathname === '/courses/cbse-class-11-pcm';
   const currentYear = new Date().getFullYear();
   
   const companyLinks = [
