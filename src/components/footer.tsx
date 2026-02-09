@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -20,7 +19,7 @@ export function Footer() {
     setIsMounted(true);
   }, []);
 
-  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm' || pathname === '/courses/12th-compartment' || pathname === '/courses/cbse-class-11-pcm' || pathname === '/courses/cbse-10th-grade' || pathname === '/courses/cbse-9th-grade';
+  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm' || pathname === '/courses/12th-compartment' || pathname === '/courses/cbse-class-11-pcm' || pathname === '/courses/cbse-10th-grade' || pathname === '/courses/cbse-9th-grade' || pathname === '/courses/cbse-class-8';
   const currentYear = new Date().getFullYear();
   
   const companyLinks = [
