@@ -126,7 +126,8 @@ export function Footer() {
 
   return (
     <footer className={cn(
-        "border-t text-foreground",
+        !isHome2 && "border-t",
+        "text-foreground",
         isHome2 ? 'home2-footer' : 'footer-gradient'
       )}>
       <div className="container mx-auto px-4 py-8 md:py-12">
