@@ -2,12 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
-import { Rocket, Globe, Leaf, Headset, HeartHandshake, Users, Star, Building, FileText, CheckCircle, UserCheck, BookCopy, Clipboard, Edit, X, Download } from "lucide-react";
-import { FeedbackForm } from "@/components/feedback-form";
+import { Star, FileText, CheckCircle, UserCheck, BookCopy, Clipboard, Edit, X, Download, BookOpen, FileCheck, Layers, GraduationCap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
 
 const AnimatedSection = ({ children, className, id, style }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties }) => {
@@ -27,11 +28,46 @@ const AnimatedSection = ({ children, className, id, style }: { children: React.R
 
 export default function CompartmentPage() {
       const studyMaterials = [
-        { name: "NCERT Books", pdf: "/pdfs/cbse_12_pcm_ncert.pdf" },
-        { name: "NCERT Solutions", pdf: "/pdfs/cbse_12_pcm_solutions.pdf" },
-        { name: "Formula Booklet", pdf: "/pdfs/cbse_12_pcm_formula.pdf" },
-        { name: "Unit wise question papers", pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf" },
-        { name: "Model Board question paper", pdf: "/pdfs/cbse_12_pcm_model_paper.pdf" },
+        {
+          title: "NCERT Books",
+          description: "Complete NCERT textbooks in PDF format",
+          icon: BookOpen,
+          pdf: "/pdfs/cbse_12_pcm_ncert.pdf",
+          iconBg: "bg-blue-500/20",
+          iconColor: "text-blue-400",
+        },
+        {
+          title: "NCERT Solutions",
+          description: "Detailed solutions for all exercises",
+          icon: FileCheck,
+          pdf: "/pdfs/cbse_12_pcm_solutions.pdf",
+          iconBg: "bg-green-500/20",
+          iconColor: "text-green-400",
+        },
+        {
+          title: "Formula Booklet",
+          description: "All important formulas in one place",
+          icon: FileText,
+          pdf: "/pdfs/cbse_12_pcm_formula.pdf",
+          iconBg: "bg-yellow-500/20",
+          iconColor: "text-yellow-400",
+        },
+        {
+          title: "Unit wise question papers",
+          description: "Practice papers for each chapter",
+          icon: Layers,
+          pdf: "/pdfs/cbse_12_pcm_unit_questions.pdf",
+          iconBg: "bg-purple-500/20",
+          iconColor: "text-purple-400",
+        },
+        {
+          title: "Model Board question paper",
+          description: "Latest model papers for practice",
+          icon: GraduationCap,
+          pdf: "/pdfs/cbse_12_pcm_model_paper.pdf",
+          iconBg: "bg-orange-500/20",
+          iconColor: "text-orange-400",
+        },
       ];
 
       const benefits = [
@@ -132,36 +168,36 @@ export default function CompartmentPage() {
         </div>
       </div>
 
-      <AnimatedSection className="pb-16 md:pb-24" style={{ backgroundColor: 'rgb(21 49 61)' }}>
-        <div className="container mx-auto py-16">
-          <div className="bg-transparent rounded-lg overflow-hidden">
-            <div className="grid md:grid-cols-5 items-center">
-              <div className="p-8 md:p-12 text-white md:col-span-3">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
-                 <div className="flex flex-wrap gap-4">
-                    {studyMaterials.map((material, index) => (
-                        <a href={material.pdf} download key={index}>
-                            <Button
-                                variant="outline"
-                                className="bg-white text-[#174f5f] hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
-                            >
-                                {material.name}
-                            </Button>
-                        </a>
-                    ))}
-                </div>
-              </div>
-              <div className="h-64 md:h-full md:col-span-2 relative">
-                <Image
-                  src="/Study-material.png"
-                  alt="Study Material"
-                  width={600}
-                  height={600}
-                  className="object-cover w-full h-full"
-                  data-ai-hint="modern building"
-                />
-              </div>
-            </div>
+      <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: 'rgb(21 49 61)' }}>
+        <div className="container mx-auto text-center px-4">
+          <Badge className="mb-4 bg-[#cffafe] text-[#0d4f5c] border-transparent px-4 py-1.5 font-semibold hover:bg-[#cffafe]">
+            <Download className="w-4 h-4 mr-2" />
+            Free Resources
+          </Badge>
+          <h2 className="text-4xl font-bold text-white mb-4">Download Study Material</h2>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-12">
+            Access our comprehensive collection of study materials to boost your preparation
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {studyMaterials.map((material, index) => (
+              <a href={material.pdf} download key={index} className="block group">
+                <Card className="bg-gray-200/10 backdrop-blur-sm border border-gray-200/10 text-white p-6 h-full text-left rounded-2xl transition-all duration-300 hover:bg-gray-200/10 hover:border-gray-200/20 hover:-translate-y-2">
+                  <CardContent className="p-0 flex flex-col h-full">
+                    <div className="flex items-center gap-4">
+                        <div className={`p-3 rounded-lg ${material.iconBg}`}>
+                            <material.icon className={`w-8 h-8 ${material.iconColor}`} />
+                        </div>
+                        <h3 className="text-lg font-bold flex-1">{material.title}</h3>
+                    </div>
+                    <p className="text-sm text-gray-400 mt-4 flex-grow">{material.description}</p>
+                    <div className="mt-6 flex items-center text-yellow-400 group-hover:text-yellow-300 font-semibold transition-colors">
+                      Download Now <ArrowRight className="ml-2 w-4 h-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            ))}
           </div>
         </div>
       </AnimatedSection>
