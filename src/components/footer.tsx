@@ -19,7 +19,7 @@ export function Footer() {
     setIsMounted(true);
   }, []);
 
-  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm' || pathname === '/courses/12th-compartment' || pathname === '/courses/cbse-class-11-pcm' || pathname === '/courses/cbse-10th-grade' || pathname === '/courses/cbse-9th-grade' || pathname === '/courses/cbse-class-8' || pathname === '/courses/cbse-class-7' || pathname === '/courses/cbse-class-6' || pathname === '/courses/samacheer-class-12-pcm' || pathname === '/courses/samacheer-12th-compartment' || pathname === '/courses/samacheer-class-11-pcm';
+  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm' || pathname === '/courses/12th-compartment' || pathname === '/courses/cbse-class-11-pcm' || pathname === '/courses/cbse-10th-grade' || pathname === '/courses/cbse-9th-grade' || pathname === '/courses/cbse-class-8' || pathname === '/courses/cbse-class-7' || pathname === '/courses/cbse-class-6' || pathname === '/courses/samacheer-class-12-pcm' || pathname === '/courses/samacheer-12th-compartment' || pathname === '/courses/samacheer-class-11-pcm' || pathname === '/courses/samacheer-class-10';
   const currentYear = new Date().getFullYear();
   
   const companyLinks = [
