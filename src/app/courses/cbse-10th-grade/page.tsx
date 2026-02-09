@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from "react";
@@ -176,7 +175,7 @@ export default function Cbse10thGradePage() {
                         </span>
                     </h2>
                     <p className="text-lg text-gray-600 leading-relaxed max-w-xl font-medium text-left">
-                        Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE syllabus with dedicated time for revision and doubt clearing sessions.
+                        Our meticulously planned schedule ensures comprehensive coverage of the entire CBSE 10th Grade syllabus with dedicated time for revision and doubt clearing sessions.
                     </p>
                 </div>
 
@@ -273,7 +272,7 @@ export default function Cbse10thGradePage() {
           </Badge>
           <h2 className="text-4xl font-bold text-white mb-4">Download Study Material</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-12">
-            Access our comprehensive collection of study materials to boost your preparation
+            Access our comprehensive collection of CBSE 10th Grade study materials to boost your preparation
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
