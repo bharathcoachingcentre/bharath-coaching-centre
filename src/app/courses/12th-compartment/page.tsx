@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from "react";
@@ -55,7 +54,7 @@ export default function CompartmentPage() {
 
   return (
     <div>
-      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/Online-Course.jpg"
           alt="12th Compartment Banner"
@@ -71,7 +70,7 @@ export default function CompartmentPage() {
         </div>
       </section>
 
-      <section className="pt-16 md:pt-24 pb-36 bg-[#f1f7fa] text-gray-800">
+      <section className="pt-16 md:pt-24 pb-36 text-gray-800" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-6">
@@ -86,7 +85,7 @@ export default function CompartmentPage() {
                 const Icon = benefitIcons[benefit as keyof typeof benefitIcons] || Star;
                 return (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
+                    <div className="flex-shrink-0 p-2 bg-[#35a3be] rounded-full">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -114,7 +113,7 @@ export default function CompartmentPage() {
               />
               <div style={{ width: '550px', marginLeft: '0px', height: '170px' }} className="bg-white p-8 shadow-lg relative w-full flex flex-col justify-center rounded-r-lg">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#45b4e8] rounded-full">
+                  <div className="flex-shrink-0 p-2 bg-[#35a3be] rounded-full">
                     <Star className="w-6 h-6 text-white fill-white" />
                   </div>
                   <div>
@@ -133,9 +132,9 @@ export default function CompartmentPage() {
         </div>
       </div>
 
-      <AnimatedSection className="pb-16 md:pb-24">
-        <div className="container mx-auto">
-          <div className="bg-[#45b4e8] rounded-lg shadow-lg overflow-hidden">
+      <AnimatedSection className="pb-16 md:pb-24" style={{ backgroundColor: 'rgb(21 49 61)' }}>
+        <div className="container mx-auto py-16">
+          <div className="bg-transparent rounded-lg overflow-hidden">
             <div className="grid md:grid-cols-5 items-center">
               <div className="p-8 md:p-12 text-white md:col-span-3">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download Study Material</h2>
@@ -144,7 +143,7 @@ export default function CompartmentPage() {
                         <a href={material.pdf} download key={index}>
                             <Button
                                 variant="outline"
-                                className="bg-white text-primary hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
+                                className="bg-white text-[#174f5f] hover:bg-gray-100 shadow-[4px_4px_0px_#000] border-black"
                             >
                                 {material.name}
                             </Button>
