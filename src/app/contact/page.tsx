@@ -3,6 +3,7 @@
 import { ContactForm } from "@/components/contact-form";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function ContactPage() {
   return (
@@ -75,15 +76,32 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           
           <div className="grid gap-12 md:grid-cols-2">
-            <div className="bg-white p-8 rounded-2xl shadow-xl">
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-white/60">
                 <h2 className="text-2xl font-bold mb-2">Send us a message</h2>
-                 <p className="mx-auto max-w-2xl text-lg text-muted-foreground mb-6">
+                 <p className="max-w-2xl text-lg text-muted-foreground mb-6">
                     We'd love to hear from you. Please fill out the form below or reach out to us through our contact details.
                 </p>
                 <ContactForm />
             </div>
-            <div className="relative rounded-2xl overflow-hidden min-h-[400px] shadow-xl border border-white/60">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.833339879261!2d78.684333!3d10.824063!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf5a243a17405%3A0xa5da4fee80d33420!2sBHARATH%20COACHING%20CENTRE!5e0!3m2!1sen!2sin!4v1765519531548!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0 }} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="absolute inset-0 w-full h-full"></iframe>
+            <div className="relative rounded-[2rem] overflow-hidden min-h-[450px] shadow-[0_20px_50px_rgba(8,112,184,0.1)] group/map border border-white transition-all duration-500 hover:shadow-[0_30px_60px_rgba(8,112,184,0.2)] hover:-translate-y-1">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.833339879261!2d78.684333!3d10.824063!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf5a243a17405%3A0xa5da4fee80d33420!2sBHARATH%20COACHING%20CENTRE!5e0!3m2!1sen!2sin!4v1765519531548!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade" 
+                className="absolute inset-0 w-full h-full grayscale-[0.2] transition-all duration-700 group-hover/map:grayscale-0 group-hover/map:scale-[1.02]"
+              ></iframe>
+              <div className="absolute bottom-6 left-6 right-6 flex justify-center">
+                <Button asChild className="bg-white/90 backdrop-blur-md text-[#182d45] hover:bg-white shadow-xl rounded-xl px-6 py-2 font-bold transition-all duration-300 opacity-0 translate-y-4 group-hover/map:opacity-100 group-hover/map:translate-y-0">
+                    <a href="https://maps.app.goo.gl/gUFgpDmZH1xUzhF56" target="_blank" rel="noopener noreferrer">
+                        <MapPin className="w-4 h-4 mr-2 text-[#35a3be]" />
+                        Get Directions
+                    </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
