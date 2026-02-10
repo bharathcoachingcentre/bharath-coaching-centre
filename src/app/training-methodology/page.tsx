@@ -33,7 +33,7 @@ export default function TrainingMethodologyPage() {
     <div>
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
-          src="/Training Method.jpg"
+          src="/training-program-bcc.jpg"
           alt="Training Methodology Banner"
           fill
           className="object-cover"
