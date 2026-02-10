@@ -4,7 +4,7 @@ import { Target, Lightbulb, Brain, Trophy } from "lucide-react";
 export default function AboutPage() {
   return (
     <div>
-      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/About-Us.jpg"
           alt="About Us Banner"
@@ -20,7 +20,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 relative overflow-hidden" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative">
@@ -39,10 +39,10 @@ export default function AboutPage() {
             <div className="space-y-8">
               <div>
                 <div className="flex items-center gap-4 mb-4">
-                  <span className="h-2 w-2 rounded-full bg-primary"></span>
-                  <p className="text-sm font-semibold tracking-widest text-primary">ABOUT</p>
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: '#35a3be' }}></span>
+                  <p className="text-sm font-semibold tracking-widest uppercase" style={{ color: '#35a3be' }}>ABOUT</p>
                 </div>
-                <h2 className="text-4xl font-bold font-serif text-gray-800 leading-tight">
+                <h2 className="text-4xl font-bold font-serif leading-tight" style={{ color: '#182d45' }}>
                   What Makes Us Different
                 </h2>
               </div>
@@ -50,44 +50,44 @@ export default function AboutPage() {
               <div className="relative space-y-10">
                 
                 <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
+                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
                     <Target className="h-8 w-8" />
                   </div>
                   <div>
-                    <p className="mt-2 text-gray-600">
+                    <p className="mt-2 text-gray-600 font-medium">
                       Everyone is an achiever.
                     </p>
                   </div>
                 </div>
 
                 <div className="relative flex items-start gap-8">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
                     <Lightbulb className="h-8 w-8" />
                   </div>
                   <div>
-                    <p className="mt-2 text-gray-600">
+                    <p className="mt-2 text-gray-600 font-medium">
                       Every student needs a unique method to deliver the concept.
                     </p>
                   </div>
                 </div>
 
                 <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
+                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
                     <Brain className="h-8 w-8" />
                   </div>
                   <div>
-                    <p className="mt-2 text-gray-600">
+                    <p className="mt-2 text-gray-600 font-medium">
                       BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.
                     </p>
                   </div>
                 </div>
 
                  <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-primary flex-shrink-0 z-10 bg-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#1b9df31a' }}>
+                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
                     <Trophy className="h-8 w-8" />
                   </div>
                   <div>
-                    <p className="mt-2 text-gray-600">
+                    <p className="mt-2 text-gray-600 font-medium">
                       Our moto “Everyone is an achiever.” stands as our ultimate goal is to train up any student who step into our academy and turn them up into an achiever.
                     </p>
                   </div>
