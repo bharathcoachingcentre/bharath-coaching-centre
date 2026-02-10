@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function ContactPage() {
   return (
     <div>
-      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/contact-bg1.png"
           alt="Contact Us Banner"
@@ -20,12 +20,12 @@ export default function ContactPage() {
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">Contact</h1>
         </div>
       </section>
-       <section className="py-16 md:py-24">
+       <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <span 
               className="inline-block px-4 py-1.5 rounded-full border font-semibold text-sm uppercase tracking-widest mb-4"
-              style={{ color: '#1b9df3', backgroundColor: '#1b9df30d', borderColor: '#1b9df333' }}
+              style={{ color: '#35a3be', backgroundColor: 'rgba(53, 163, 190, 0.05)', borderColor: 'rgba(53, 163, 190, 0.2)' }}
             >
               Get in touch
             </span>
@@ -35,7 +35,7 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center justify-center">
               {/* Address */}
               <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
-                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#45b4e8] group-hover:text-white group-hover:border-[#45b4e8] group-hover:scale-110 group-hover:shadow-md">
+                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#35a3be] group-hover:text-white group-hover:border-[#35a3be] group-hover:scale-110 group-hover:shadow-md">
                   <MapPin className="h-10 w-10 relative" />
                 </div>
                 <div>
@@ -48,7 +48,7 @@ export default function ContactPage() {
 
               {/* Email */}
               <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
-                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#45b4e8] group-hover:text-white group-hover:border-[#45b4e8] group-hover:scale-110 group-hover:shadow-md">
+                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#35a3be] group-hover:text-white group-hover:border-[#35a3be] group-hover:scale-110 group-hover:shadow-md">
                   <Mail className="h-10 w-10 relative" />
                 </div>
                 <div>
@@ -59,7 +59,7 @@ export default function ContactPage() {
 
               {/* Phone */}
               <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
-                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#45b4e8] group-hover:text-white group-hover:border-[#45b4e8] group-hover:scale-110 group-hover:shadow-md">
+                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#35a3be] group-hover:text-white group-hover:border-[#35a3be] group-hover:scale-110 group-hover:shadow-md">
                   <Phone className="h-10 w-10 relative" />
                 </div>
                 <div>
@@ -71,18 +71,18 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <div className="py-12 md:py-16 bg-gray-50">
+      <div className="py-12 md:py-16" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto px-4">
           
           <div className="grid gap-12 md:grid-cols-2">
-            <div className="bg-card p-8 rounded-lg shadow-lg">
+            <div className="bg-white p-8 rounded-2xl shadow-xl">
                 <h2 className="text-2xl font-bold mb-2">Send us a message</h2>
                  <p className="mx-auto max-w-2xl text-lg text-muted-foreground mb-6">
                     We'd love to hear from you. Please fill out the form below or reach out to us through our contact details.
                 </p>
                 <ContactForm />
             </div>
-            <div className="relative rounded-lg overflow-hidden min-h-[400px]">
+            <div className="relative rounded-2xl overflow-hidden min-h-[400px] shadow-xl border border-white/60">
               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.833339879261!2d78.684333!3d10.824063!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf5a243a17405%3A0xa5da4fee80d33420!2sBHARATH%20COACHING%20CENTRE!5e0!3m2!1sen!2sin!4v1765519531548!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0 }} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="absolute inset-0 w-full h-full"></iframe>
             </div>
           </div>
