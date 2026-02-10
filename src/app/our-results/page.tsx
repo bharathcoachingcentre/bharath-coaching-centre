@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from "react";
@@ -20,7 +19,7 @@ export default function OurResultsPage() {
 
   return (
     <div>
-      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/Our-result.jpg"
           alt="Our Results Banner"
@@ -36,15 +35,19 @@ export default function OurResultsPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">Our Achievements</h2>
+          <h2 className="text-4xl font-bold mb-8" style={{ color: '#182d45' }}>Our Achievements</h2>
           <div className="flex justify-center gap-4 mb-12">
             {years.map((year) => (
               <Button
                 key={year}
                 variant={selectedYear === year ? 'default' : 'outline'}
                 onClick={() => setSelectedYear(year)}
+                style={selectedYear === year 
+                    ? { backgroundColor: '#35a3be', color: 'white', borderColor: '#35a3be' } 
+                    : { borderColor: '#35a3be', color: '#35a3be' }}
+                className="rounded-lg px-8 font-bold"
               >
                 {year}
               </Button>
@@ -56,7 +59,7 @@ export default function OurResultsPage() {
               alt={resultsData[selectedYear].alt}
               width={800}
               height={600}
-              className="w-full max-w-4xl mx-auto rounded-lg shadow-lg"
+              className="w-full max-w-4xl mx-auto rounded-3xl shadow-2xl border border-white/60"
               data-ai-hint={resultsData[selectedYear].hint}
             />
           </div>
