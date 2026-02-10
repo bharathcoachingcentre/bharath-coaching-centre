@@ -31,7 +31,7 @@ export default function TrainingMethodologyPage() {
 
   return (
     <div>
-      <section className="relative h-64 md:h-80 w-full flex items-center justify-center">
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/Training Method.jpg"
           alt="Training Methodology Banner"
@@ -47,7 +47,7 @@ export default function TrainingMethodologyPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 items-center">
             <div className="space-y-6">
@@ -68,11 +68,11 @@ export default function TrainingMethodologyPage() {
                     <div className="absolute inset-0">
                         {howItWorksSteps.map((step) => (
                             <div key={step.number} className={`absolute right-0 flex items-center gap-6 w-96 ${step.position}`}>
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold flex-shrink-0 text-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl cursor-default">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full text-white font-bold flex-shrink-0 text-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
                                     {step.number}
                                 </div>
                                 <div>
-                                    <p className="text-muted-foreground text-sm">{step.description}</p>
+                                    <p className="text-gray-600 font-medium text-sm">{step.description}</p>
                                 </div>
                             </div>
                         ))}
