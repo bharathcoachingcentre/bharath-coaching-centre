@@ -32,42 +32,50 @@ export default function ContactPage() {
             </span>
             <h2 className="text-4xl font-bold font-serif text-gray-800">With Bharath Academy</h2>
           </div>
-          <div className="border-t border-gray-200 pt-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center justify-center">
-              {/* Address */}
-              <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
-                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#35a3be] group-hover:text-white group-hover:border-[#35a3be] group-hover:scale-110 group-hover:shadow-md">
-                  <MapPin className="h-10 w-10 relative" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Our Address</h3>
-                  <a href="https://www.google.com/maps/search/?api=1&query=BHARATH+COACHING+CENTRE+-+C-109,+2nd+Floor+5th+Cross,+Thillainagar+(East+Near+CETHAR+HOSPITALS),+Tamil+Nadu+620018" target="_blank" rel="noopener noreferrer" className="text-lg text-muted-foreground mt-1 hover:text-primary transition-colors">
-                    C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18
-                  </a>
-                </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            {/* Address Card */}
+            <div className="group bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-white/60 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(8,112,184,0.1)] hover:-translate-y-2 flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-2xl bg-cyan-50 flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-[#35a3be] group-hover:rotate-[10deg]">
+                <MapPin className="w-8 h-8 text-[#35a3be] group-hover:text-white transition-colors duration-500" />
               </div>
+              <h3 className="text-xl font-bold text-[#182d45] mb-3">Our Address</h3>
+              <a 
+                href="https://maps.app.goo.gl/gUFgpDmZH1xUzhF56" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-600 font-medium hover:text-[#35a3be] transition-colors leading-relaxed"
+              >
+                C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18
+              </a>
+            </div>
 
-              {/* Email */}
-              <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
-                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#35a3be] group-hover:text-white group-hover:border-[#35a3be] group-hover:scale-110 group-hover:shadow-md">
-                  <Mail className="h-10 w-10 relative" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Email Us</h3>
-                  <a href="mailto:bcc_try@hotmail.com" className="text-lg text-muted-foreground mt-1 hover:text-primary transition-colors">bcc_try@hotmail.com</a>
-                </div>
+            {/* Email Card */}
+            <div className="group bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-white/60 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(8,112,184,0.1)] hover:-translate-y-2 flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-2xl bg-cyan-50 flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-[#35a3be] group-hover:rotate-[10deg]">
+                <Mail className="w-8 h-8 text-[#35a3be] group-hover:text-white transition-colors duration-500" />
               </div>
+              <h3 className="text-xl font-bold text-[#182d45] mb-3">Email Us</h3>
+              <a 
+                href="mailto:bcc_try@hotmail.com" 
+                className="text-gray-600 font-medium hover:text-[#35a3be] transition-colors"
+              >
+                bcc_try@hotmail.com
+              </a>
+            </div>
 
-              {/* Phone */}
-              <div className="group flex flex-col md:flex-row items-center text-center md:text-left gap-6 cursor-default">
-                <div className="relative flex-shrink-0 flex items-center justify-center h-20 w-20 rounded-full border-2 border-primary/50 text-primary mb-4 md:mb-0 transition-all duration-300 group-hover:bg-[#35a3be] group-hover:text-white group-hover:border-[#35a3be] group-hover:scale-110 group-hover:shadow-md">
-                  <Phone className="h-10 w-10 relative" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Call Us</h3>
-                  <a href="tel:+917200030307" className="text-lg text-muted-foreground mt-1 hover:text-primary transition-colors">+91 7200030307</a>
-                </div>
+            {/* Phone Card */}
+            <div className="group bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-white/60 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(8,112,184,0.1)] hover:-translate-y-2 flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-2xl bg-cyan-50 flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-[#35a3be] group-hover:rotate-[10deg]">
+                <Phone className="w-8 h-8 text-[#35a3be] group-hover:text-white transition-colors duration-500" />
               </div>
+              <h3 className="text-xl font-bold text-[#182d45] mb-3">Call Us</h3>
+              <a 
+                href="tel:+917200030307" 
+                className="text-gray-600 font-medium hover:text-[#35a3be] transition-colors"
+              >
+                +91 7200030307
+              </a>
             </div>
           </div>
         </div>
