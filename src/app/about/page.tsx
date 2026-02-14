@@ -38,11 +38,10 @@ export default function AboutPage() {
             </div>
             <div className="space-y-8">
               <div>
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: '#35a3be' }}></span>
-                  <p className="text-sm font-semibold tracking-widest uppercase" style={{ color: '#35a3be' }}>ABOUT</p>
+                <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#35a3be]/10 border border-[#35a3be]/20 mb-6">
+                  <span className="h-2 w-2 rounded-full bg-[#35a3be] animate-pulse"></span>
+                  <p className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: '#35a3be' }}>ABOUT</p>
                 </div>
-                <div className="w-12 h-1 rounded-full mb-4" style={{ backgroundColor: '#35a3be' }}></div>
                 <h2 className="text-4xl font-bold font-serif leading-tight" style={{ color: '#182d45' }}>
                   What Makes Us Different
                 </h2>
