@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -123,9 +122,6 @@ export default function StudentRegistrationPage() {
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#35a3be]/10 text-[#35a3be] text-xs font-black uppercase tracking-[0.2em] mb-4">
-                Enrollment 2024-25
-            </span>
             <h2 className="text-4xl md:text-5xl font-black text-[#182d45] tracking-tight mb-4">
               Registration Form
             </h2>
