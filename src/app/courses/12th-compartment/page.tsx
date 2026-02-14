@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Star, FileText, CheckCircle, Users, BookOpen, Clipboard, Download, FileCheck, Layers, GraduationCap, ArrowRight } from "lucide-react";
+import { Star, FileText, CheckCircle, Users, BookOpen, Clipboard, Download, FileCheck, Layers, GraduationCap, ArrowRight, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { Badge } from "@/components/ui/badge";
@@ -115,24 +115,35 @@ export default function CompartmentPage() {
               ))}
             </div>
 
-            {/* Highlight Card */}
-            <div className="bg-[#f1f5f9] rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-16">
-              <div className="w-full md:w-5/12 aspect-video relative overflow-hidden rounded-2xl shadow-lg border border-gray-200">
-                <Image 
-                    src="/bcc-time-table.jpeg" 
-                    alt="BCC Timetable" 
-                    fill 
-                    className="object-cover"
-                    priority 
-                />
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 rounded-full bg-yellow-400 flex items-center justify-center shadow-lg flex-shrink-0">
-                  <Star className="w-7 h-7 text-white fill-white" />
+            {/* Improved Highlight Card */}
+            <div className="group relative">
+              {/* Floating decorative glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#35a3be]/10 to-transparent rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className="relative bg-gradient-to-br from-white to-[#f1f5f9] rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-16 border border-white/60 shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] hover:-translate-y-1">
+                <div className="w-full md:w-5/12 aspect-video relative overflow-hidden rounded-2xl shadow-lg border border-white group/img">
+                  <Image 
+                      src="/bcc-time-table.jpeg" 
+                      alt="BCC Timetable" 
+                      fill 
+                      className="object-cover transition-transform duration-700 group-hover/img:scale-110"
+                      priority 
+                  />
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300"></div>
                 </div>
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-[#182d45]">Customized Timetable</h3>
-                  <p className="text-gray-500 text-lg">(based on exam date)</p>
+                <div className="flex items-center gap-6">
+                  <div className="relative">
+                    <div className="absolute -inset-2 bg-yellow-400/20 rounded-full blur-sm group-hover:scale-150 transition-transform duration-500"></div>
+                    <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-yellow-400 to-yellow-300 flex items-center justify-center shadow-[0_5px_15px_rgba(250,204,21,0.4)] flex-shrink-0">
+                      <Star className="w-8 h-8 text-white fill-white animate-pulse" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl md:text-4xl font-extrabold text-[#182d45] tracking-tight">Customized <span className="text-[#35a3be]">Timetable</span></h3>
+                    <p className="text-gray-500 text-lg font-medium mt-1 flex items-center gap-2">
+                      <Clock className="w-4 h-4" /> (based on exam date)
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
