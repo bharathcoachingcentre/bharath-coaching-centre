@@ -117,8 +117,14 @@ export default function CompartmentPage() {
 
             {/* Highlight Card */}
             <div className="bg-[#f1f5f9] rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-16">
-              <div className="w-full md:w-5/12 aspect-video bg-[#cbd5e1] rounded-2xl flex items-center justify-center">
-                <BookOpen className="w-20 h-20 text-[#94a3b8]" />
+              <div className="w-full md:w-5/12 aspect-video relative overflow-hidden rounded-2xl shadow-lg border border-gray-200">
+                <Image 
+                    src="/bcc-time-table.jpeg" 
+                    alt="BCC Timetable" 
+                    fill 
+                    className="object-cover"
+                    priority 
+                />
               </div>
               <div className="flex items-center gap-6">
                 <div className="w-14 h-14 rounded-full bg-yellow-400 flex items-center justify-center shadow-lg flex-shrink-0">
