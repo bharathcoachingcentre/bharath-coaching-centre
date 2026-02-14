@@ -108,28 +108,36 @@ export default function OneToOneClassesPage() {
                     <div className="space-y-12">
                         <div>
                             <p className="text-sm font-semibold tracking-widest uppercase mb-2" style={{ color: '#35a3be' }}>INFORMATION</p>
-                            <h2 className="text-3xl font-bold mb-8" style={{ color: '#182d45' }}>One to One <span style={{ color: '#35a3be' }}>Classes</span></h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <h2 className="text-4xl font-extrabold mb-12" style={{ color: '#182d45' }}>One to One <span style={{ color: '#35a3be' }}>Classes</span></h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                                 {whyChoosePoints.map((point, index) => (
-                                    <Card key={index} className="bg-white/80 backdrop-blur-md p-6 flex flex-col items-center text-center shadow-lg rounded-xl border-white">
-                                        <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-xl text-white mb-4" style={{ backgroundColor: '#35a3be' }}>
-                                            <point.icon className="h-6 w-6" />
+                                    <div key={index} className="group relative bg-white/70 backdrop-blur-md p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-2 flex flex-col items-center text-center overflow-hidden">
+                                        <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#35a3be]/5 rounded-full transition-transform duration-700 group-hover:scale-150 -z-0" />
+                                        
+                                        <div className="relative mb-6">
+                                            <div className="absolute inset-0 bg-[#35a3be]/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                                            <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.2)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                                                <point.icon className="w-8 h-8 text-white" />
+                                            </div>
                                         </div>
-                                        <h3 className="text-lg font-semibold" style={{ color: '#182d45' }}>{point.title}</h3>
-                                    </Card>
+                                        <h3 className="relative z-10 text-xl font-extrabold text-[#182d45] tracking-tight leading-tight">{point.title}</h3>
+                                    </div>
                                 ))}
                             </div>
                         </div>
 
-                        <div>
-                             <h2 className="text-3xl font-bold mb-8" style={{ color: '#35a3be' }}>Our <span>Benefits</span></h2>
+                        <div className="pt-4">
+                             <h2 className="text-3xl font-bold mb-8 flex items-center gap-3" style={{ color: '#182d45' }}>
+                                <span className="w-1.5 h-8 bg-[#35a3be] rounded-full"></span>
+                                Our <span style={{ color: '#35a3be' }}>Benefits</span>
+                            </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {benefits.map((benefit, index) => (
-                                    <div key={index} className="bg-white/80 p-4 rounded-lg shadow flex items-center border border-white hover:border-[#35a3be]/30 transition-colors duration-300">
-                                        <div className="flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-lg text-white mr-3" style={{ backgroundColor: '#0d4f5c' }}>
+                                    <div key={index} className="bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-sm flex items-center border border-white/60 hover:border-[#35a3be]/30 transition-all duration-300 group">
+                                        <div className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-xl text-white mr-4 shadow-md group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
                                             <CheckCircle className="h-5 w-5" />
                                         </div>
-                                        <span className="font-medium text-gray-700">{benefit}</span>
+                                        <span className="font-semibold text-gray-700">{benefit}</span>
                                     </div>
                                 ))}
                             </div>
@@ -137,22 +145,23 @@ export default function OneToOneClassesPage() {
                     </div>
 
                     {/* Right Column - Form */}
-                    <div className="bg-white p-8 rounded-2xl shadow-2xl sticky top-28 border border-gray-100">
-                        <div className="text-center mb-6">
-                            <h2 className="text-3xl font-bold" style={{ color: '#35a3be' }}>Booking Form</h2>
-                            <p className="text-gray-600 mt-2">Fill in the form to experience our demo class</p>
+                    <div className="bg-white/90 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_30px_80px_rgba(8,112,184,0.1)] sticky top-28 border border-white">
+                        <div className="text-center mb-8">
+                            <span className="inline-block px-4 py-1.5 rounded-full bg-[#35a3be]/10 text-[#35a3be] text-xs font-black uppercase tracking-widest mb-4">Book Now</span>
+                            <h2 className="text-3xl font-extrabold text-[#182d45]">Booking Form</h2>
+                            <p className="text-gray-500 mt-2 font-medium">Experience our personalized demo class today</p>
                         </div>
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <FormField
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel style={{ color: '#182d45' }}>Full Name</FormLabel>
+                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Full Name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Enter your name" {...field} className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]"/>
+                                                <Input placeholder="John Doe" {...field} className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm"/>
                                             </FormControl>
                                             <FormMessage />
                                             </FormItem>
@@ -163,9 +172,9 @@ export default function OneToOneClassesPage() {
                                         name="mobileNumber"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel style={{ color: '#182d45' }}>Mobile Number</FormLabel>
+                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Mobile Number</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="+91 XXXXX XXXXX" {...field} className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]"/>
+                                                <Input placeholder="+91 XXXXX XXXXX" {...field} className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm"/>
                                             </FormControl>
                                             <FormMessage />
                                             </FormItem>
@@ -177,24 +186,24 @@ export default function OneToOneClassesPage() {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                        <FormLabel style={{ color: '#182d45' }}>Email Address</FormLabel>
+                                        <FormLabel className="font-bold" style={{ color: '#182d45' }}>Email Address</FormLabel>
                                         <FormControl>
-                                            <Input type="email" placeholder="your@email.com" {...field} className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]"/>
+                                            <Input type="email" placeholder="your@email.com" {...field} className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm"/>
                                         </FormControl>
                                         <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <FormField
                                         control={form.control}
                                         name="board"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel style={{ color: '#182d45' }}>Education Board *</FormLabel>
+                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Education Board *</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                <SelectTrigger className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]">
+                                                <SelectTrigger className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm">
                                                     <SelectValue placeholder="Select board" />
                                                 </SelectTrigger>
                                                 </FormControl>
@@ -215,10 +224,10 @@ export default function OneToOneClassesPage() {
                                         name="grade"
                                         render={({ field }) => (
                                             <FormItem>
-                                            <FormLabel style={{ color: '#182d45' }}>Grade Level *</FormLabel>
+                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Grade Level *</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                <SelectTrigger className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]">
+                                                <SelectTrigger className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm">
                                                     <SelectValue placeholder="Select grade" />
                                                 </SelectTrigger>
                                                 </FormControl>
@@ -234,14 +243,14 @@ export default function OneToOneClassesPage() {
                                     />
                                 </div>
                                 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                      <FormField
                                         control={form.control}
                                         name="individualConcern"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Individual Concern" {...field} className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                                                    <Textarea placeholder="Individual Concern" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -253,21 +262,21 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Personalized Schedule" {...field} className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                                                    <Textarea placeholder="Personalized Schedule" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                      <FormField
                                         control={form.control}
                                         name="personalizedStudyMaterial"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Personalized Study Material" {...field} className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                                                    <Textarea placeholder="Personalized Study Material" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -279,7 +288,7 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Weekly Academic growth tracking" {...field} className="bg-gray-50 border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                                                    <Textarea placeholder="Weekly Academic Growth Tracking" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -287,8 +296,8 @@ export default function OneToOneClassesPage() {
                                     />
                                 </div>
                                 
-                                <Button type="submit" size="lg" className="w-full text-lg text-white hover:bg-[#174f5f] transition-colors" style={{ backgroundColor: '#35a3be' }}>
-                                    <Send className="h-5 w-5 mr-2"/> Send Message
+                                <Button type="submit" size="lg" className="w-full h-14 text-lg font-extrabold text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 mt-4" style={{ backgroundColor: '#35a3be' }}>
+                                    <Send className="h-5 w-5 mr-2"/> Book My Demo Session
                                 </Button>
                             </form>
                         </Form>
