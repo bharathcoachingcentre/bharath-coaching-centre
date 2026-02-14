@@ -1,7 +1,7 @@
 'use client';
 
 import { ContactForm } from "@/components/contact-form";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -21,60 +21,87 @@ export default function ContactPage() {
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">Contact</h1>
         </div>
       </section>
-       <section className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+       <section className="py-16 md:py-24 relative overflow-hidden" style={{ backgroundColor: 'rgb(245 250 255)' }}>
+        {/* Background Blobs for Modern UI feel */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-cyan-200/20 rounded-full blur-[100px] -z-0"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
             <span 
-              className="inline-block px-4 py-1.5 rounded-full border font-semibold text-sm uppercase tracking-widest mb-4"
-              style={{ color: '#35a3be', backgroundColor: 'rgba(53, 163, 190, 0.05)', borderColor: 'rgba(53, 163, 190, 0.2)' }}
+              className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-4 shadow-sm"
+              style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}
             >
               Get in touch
             </span>
-            <h2 className="text-4xl font-bold font-serif text-gray-800">With Bharath Academy</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight">With Bharath Academy</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {/* Address Card */}
-            <div className="group bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-white/60 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(8,112,184,0.1)] hover:-translate-y-2 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-2xl bg-cyan-50 flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-[#35a3be] group-hover:rotate-[10deg]">
-                <MapPin className="w-8 h-8 text-[#35a3be] group-hover:text-white transition-colors duration-500" />
+            <div className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden">
+              <MapPin className="absolute -right-4 -bottom-4 w-32 h-32 text-[#35a3be]/5 -rotate-12 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-0" />
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  <MapPin className="w-10 h-10 text-white" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-[#182d45] mb-3">Our Address</h3>
+              <h3 className="text-2xl font-extrabold text-[#182d45] mb-4 tracking-tight">Our Address</h3>
               <a 
                 href="https://maps.app.goo.gl/gUFgpDmZH1xUzhF56" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-gray-600 font-medium hover:text-[#35a3be] transition-colors leading-relaxed"
+                className="relative z-10 text-gray-600 font-semibold hover:text-[#35a3be] transition-colors leading-relaxed group/link"
               >
-                C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18
+                <span className="block">C-109, 5th Cross,</span>
+                <span className="block">Thillainagar (East),</span>
+                <span className="block">Trichy - 18</span>
+                <div className="mt-4 inline-flex items-center text-[10px] font-black uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  Navigate Now <ArrowRight className="ml-1 w-3 h-3" />
+                </div>
               </a>
             </div>
 
             {/* Email Card */}
-            <div className="group bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-white/60 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(8,112,184,0.1)] hover:-translate-y-2 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-2xl bg-cyan-50 flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-[#35a3be] group-hover:rotate-[10deg]">
-                <Mail className="w-8 h-8 text-[#35a3be] group-hover:text-white transition-colors duration-500" />
+            <div className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden">
+              <Mail className="absolute -right-4 -bottom-4 w-32 h-32 text-[#35a3be]/5 -rotate-12 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-0" />
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  <Mail className="w-10 h-10 text-white" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-[#182d45] mb-3">Email Us</h3>
+              <h3 className="text-2xl font-extrabold text-[#182d45] mb-4 tracking-tight">Email Us</h3>
               <a 
                 href="mailto:bcc_try@hotmail.com" 
-                className="text-gray-600 font-medium hover:text-[#35a3be] transition-colors"
+                className="relative z-10 text-gray-600 font-semibold hover:text-[#35a3be] transition-colors group/link"
               >
                 bcc_try@hotmail.com
+                <div className="mt-4 inline-flex items-center text-[10px] font-black uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  Send Mail <ArrowRight className="ml-1 w-3 h-3" />
+                </div>
               </a>
             </div>
 
             {/* Phone Card */}
-            <div className="group bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-white/60 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(8,112,184,0.1)] hover:-translate-y-2 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-2xl bg-cyan-50 flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-[#35a3be] group-hover:rotate-[10deg]">
-                <Phone className="w-8 h-8 text-[#35a3be] group-hover:text-white transition-colors duration-500" />
+            <div className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden">
+              <Phone className="absolute -right-4 -bottom-4 w-32 h-32 text-[#35a3be]/5 -rotate-12 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-0" />
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  <Phone className="w-10 h-10 text-white" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-[#182d45] mb-3">Call Us</h3>
+              <h3 className="text-2xl font-extrabold text-[#182d45] mb-4 tracking-tight">Call Us</h3>
               <a 
                 href="tel:+917200030307" 
-                className="text-gray-600 font-medium hover:text-[#35a3be] transition-colors"
+                className="relative z-10 text-gray-600 font-semibold hover:text-[#35a3be] transition-colors group/link"
               >
                 +91 7200030307
+                <div className="mt-4 inline-flex items-center text-[10px] font-black uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  Call Now <ArrowRight className="ml-1 w-3 h-3" />
+                </div>
               </a>
             </div>
           </div>
