@@ -548,8 +548,10 @@ export default function Home() {
                 <p className="text-lg md:text-xl max-w-lg mx-auto md:mx-0 mb-8">
                     We are committed to helping you achieve your academic goals and succeed in your career.
                 </p>
-                <Button asChild size="lg" className="bg-white text-[#1fa4b8] hover:bg-gray-100 font-bold py-6 px-8 rounded-lg">
-                    <Link href="/contact">Contact Us</Link>
+                <Button asChild size="lg" className="bg-white text-[#1fa4b8] hover:bg-gray-100 font-bold py-6 px-8 rounded-lg group">
+                    <Link href="/contact" className="flex items-center">
+                        Contact Us <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    </Link>
                 </Button>
             </div>
             <div className="relative hidden md:flex justify-center md:justify-end mt-[130px]">
