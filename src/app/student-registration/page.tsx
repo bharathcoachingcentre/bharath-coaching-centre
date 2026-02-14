@@ -126,7 +126,7 @@ export default function StudentRegistrationPage() {
               Registration Form
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto font-medium">
-              Join the Bharath Academy family. Please provide the accurate details below to complete your application.
+              Please fill out the form below to register with Bharath Academy.
             </p>
           </div>
 
