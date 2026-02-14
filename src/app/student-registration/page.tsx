@@ -1,14 +1,14 @@
+
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CalendarIcon, Upload } from "lucide-react"
+import { CalendarIcon, User, Users, Phone, BookOpen, Send, GraduationCap } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
@@ -19,6 +19,7 @@ import * as z from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
+import { Separator } from "@/components/ui/separator"
 
 const formSchema = z.object({
     candidateName: z.string().min(1, { message: "Candidate name is required." }),
@@ -99,7 +100,7 @@ export default function StudentRegistrationPage() {
     }
 
   return (
-    <div>
+    <div className="font-body-home2">
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/Our-result.jpg"
@@ -110,38 +111,51 @@ export default function StudentRegistrationPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">
-          <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
-            Student Registration
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
+            Registration
           </h1>
         </div>
       </section>
 
-      <div style={{ backgroundColor: 'rgb(245 250 255)' }} className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-center" style={{ color: '#182d45' }}>
+      <div style={{ backgroundColor: 'rgb(245 250 255)' }} className="py-16 md:py-24 px-4 overflow-hidden relative">
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-cyan-200/20 rounded-full blur-[100px] -z-0"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#35a3be]/10 text-[#35a3be] text-xs font-black uppercase tracking-[0.2em] mb-4">
+                Enrollment 2024-25
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-[#182d45] tracking-tight mb-4">
               Registration Form
             </h2>
-            <p className="mt-4 text-lg leading-6 text-gray-600">
-              Please fill out the form below to register with Bharath Academy.
+            <p className="text-gray-500 max-w-xl mx-auto font-medium">
+              Join the Bharath Academy family. Please provide the accurate details below to complete your application.
             </p>
           </div>
 
-          <Card className="shadow-2xl border border-white/60 bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden">
-            <CardContent className="p-8">
+          <Card className="shadow-[0_30px_80px_rgba(8,112,184,0.1)] border border-white bg-white/90 backdrop-blur-md rounded-[2.5rem] overflow-hidden">
+            <CardContent className="p-8 md:p-12">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Left Column */}
-                    <div className="space-y-8">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+                  
+                  {/* Candidate Section */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-cyan-100 flex items-center justify-center">
+                            <User className="w-5 h-5 text-[#35a3be]" />
+                        </div>
+                        <h3 className="text-xl font-extrabold text-[#182d45]">Student Details</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                       <FormField
                         control={form.control}
                         name="candidateName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Candidate Name *</FormLabel>
+                            <FormLabel className="text-[#182d45] font-bold">Candidate Name *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Candidate Name *" {...field} className="bg-blue-50/50" />
+                              <Input placeholder="Full Name" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -152,9 +166,9 @@ export default function StudentRegistrationPage() {
                         name="standard"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Standard *</FormLabel>
+                            <FormLabel className="text-[#182d45] font-bold">Standard *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Standard *" {...field} className="bg-blue-50/50" />
+                              <Input placeholder="Grade / Class" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -162,102 +176,15 @@ export default function StudentRegistrationPage() {
                       />
                       <FormField
                         control={form.control}
-                        name="fatherOccupation"
+                        name="institutionName"
                         render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Father's Occupation *</FormLabel>
+                            <FormItem>
+                            <FormLabel className="text-[#182d45] font-bold">Name of the Institution *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Father's Occupation *" {...field} className="bg-blue-50/50" />
+                                <Input placeholder="Current School / College" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
                             </FormControl>
                             <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                       <FormField
-                          control={form.control}
-                          name="institutionName"
-                          render={({ field }) => (
-                              <FormItem>
-                              <FormLabel>Name of the Institution *</FormLabel>
-                              <FormControl>
-                                  <Input placeholder="Name of the Institution *" {...field} className="bg-blue-50/50" />
-                              </FormControl>
-                              <FormMessage />
-                              </FormItem>
-                          )}
-                          />
-                      <FormField
-                          control={form.control}
-                          name="gender"
-                          render={({ field }) => (
-                              <FormItem className="space-y-3">
-                              <FormLabel>Gender *</FormLabel>
-                              <FormControl>
-                                  <RadioGroup
-                                  onValueChange={field.onChange}
-                                  value={field.value}
-                                  className="flex items-center gap-8 mt-2"
-                                  >
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                      <FormControl>
-                                      <RadioGroupItem value="male" />
-                                      </FormControl>
-                                      <FormLabel className="font-normal">
-                                      Male
-                                      </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                      <FormControl>
-                                      <RadioGroupItem value="female" />
-                                      </FormControl>
-                                      <FormLabel className="font-normal">
-                                      Female
-                                      </FormLabel>
-                                  </FormItem>
-                                  </RadioGroup>
-                              </FormControl>
-                              <FormMessage />
-                              </FormItem>
-                          )}
-                      />
-                    </div>
-
-                    {/* Right Column */}
-                    <div className="space-y-8">
-                      <FormItem>
-                          <FormLabel>Upload your photo</FormLabel>
-                          <FormControl>
-                              <Input 
-                                type="file"
-                                {...photoRef}
-                                className="bg-blue-50/50" />
-                          </FormControl>
-                          <FormMessage />
-                      </FormItem>
-                      <FormField
-                        control={form.control}
-                        name="parentName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Parent's / Guardian's Name *</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Parent's / Guardian's Name *" {...field} className="bg-blue-50/50" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="motherOccupation"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Mother's Occupation *</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Mother's Occupation *" {...field} className="bg-blue-50/50" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
+                            </FormItem>
                         )}
                       />
                       <FormField
@@ -265,23 +192,23 @@ export default function StudentRegistrationPage() {
                         name="dob"
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
-                            <FormLabel>Date of Birth *</FormLabel>
+                            <FormLabel className="text-[#182d45] font-bold mb-2">Date of Birth *</FormLabel>
                              <Popover>
                                 <PopoverTrigger asChild>
                                   <FormControl>
                                     <Button
                                     variant={"outline"}
                                     className={cn(
-                                        "w-full justify-start text-left font-normal bg-blue-50/50",
+                                        "h-12 justify-start text-left font-normal bg-gray-50/50 rounded-xl border-gray-200",
                                         !field.value && "text-muted-foreground"
                                     )}
                                     >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {field.value ? format(field.value, "PPP") : <span>Date of Birth *</span>}
+                                    {field.value ? format(field.value, "PPP") : <span>Select Date</span>}
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
+                                <PopoverContent className="w-auto p-0 rounded-2xl overflow-hidden shadow-xl border-none">
                                     <Calendar
                                     mode="single"
                                     selected={field.value}
@@ -294,226 +221,347 @@ export default function StudentRegistrationPage() {
                           </FormItem>
                         )}
                       />
+                      <FormField
+                          control={form.control}
+                          name="gender"
+                          render={({ field }) => (
+                              <FormItem className="space-y-3">
+                              <FormLabel className="text-[#182d45] font-bold">Gender *</FormLabel>
+                              <FormControl>
+                                  <RadioGroup
+                                  onValueChange={field.onChange}
+                                  value={field.value}
+                                  className="flex items-center gap-10 mt-2"
+                                  >
+                                  <FormItem className="flex items-center space-x-3 space-y-0">
+                                      <FormControl>
+                                      <RadioGroupItem value="male" className="border-gray-300 text-[#35a3be]" />
+                                      </FormControl>
+                                      <FormLabel className="font-semibold text-gray-600">Male</FormLabel>
+                                  </FormItem>
+                                  <FormItem className="flex items-center space-x-3 space-y-0">
+                                      <FormControl>
+                                      <RadioGroupItem value="female" className="border-gray-300 text-[#35a3be]" />
+                                      </FormControl>
+                                      <FormLabel className="font-semibold text-gray-600">Female</FormLabel>
+                                  </FormItem>
+                                  </RadioGroup>
+                              </FormControl>
+                              <FormMessage />
+                              </FormItem>
+                          )}
+                      />
+                      <FormItem>
+                          <FormLabel className="text-[#182d45] font-bold">Upload Candidate Photo</FormLabel>
+                          <FormControl>
+                              <div className="flex items-center gap-4">
+                                <Input 
+                                    type="file"
+                                    {...photoRef}
+                                    className="h-12 bg-gray-50/50 rounded-xl border-gray-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-[#35a3be]/10 file:text-[#35a3be] hover:file:bg-[#35a3be]/20 cursor-pointer" 
+                                />
+                              </div>
+                          </FormControl>
+                          <FormMessage />
+                      </FormItem>
                     </div>
                   </div>
 
-                  <FormField
+                  <Separator className="bg-gray-100" />
+
+                  {/* Family Section */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center">
+                            <Users className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <h3 className="text-xl font-extrabold text-[#182d45]">Family Background</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                      <FormField
+                        control={form.control}
+                        name="parentName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[#182d45] font-bold">Parent's / Guardian's Name *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Full Name" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <FormField
+                            control={form.control}
+                            name="fatherOccupation"
+                            render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="text-[#182d45] font-bold">Father's Occupation *</FormLabel>
+                                <FormControl>
+                                <Input placeholder="Occupation" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="motherOccupation"
+                            render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="text-[#182d45] font-bold">Mother's Occupation *</FormLabel>
+                                <FormControl>
+                                <Input placeholder="Occupation" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                            )}
+                        />
+                      </div>
+                    </div>
+                    <FormField
                       control={form.control}
                       name="residentialAddress"
                       render={({ field }) => (
                           <FormItem>
-                          <FormLabel>Residential Address *</FormLabel>
+                          <FormLabel className="text-[#182d45] font-bold">Residential Address *</FormLabel>
                           <FormControl>
-                              <Textarea placeholder="Residential Address *" {...field} className="bg-blue-50/50 h-24" />
+                              <Textarea placeholder="Full Postal Address" {...field} className="bg-gray-50/50 rounded-xl border-gray-200 min-h-[100px] resize-none focus:border-[#35a3be] focus:ring-[#35a3be]" />
                           </FormControl>
                           <FormMessage />
                           </FormItem>
                       )}
-                  />
+                    />
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <FormField
-                      control={form.control}
-                      name="fatherContact"
-                      render={({ field }) => (
-                          <FormItem>
-                          <FormLabel>Father's Contact Number *</FormLabel>
-                          <FormControl>
-                              <Input placeholder="Father's Contact Number *" {...field} className="bg-blue-50/50" />
-                          </FormControl>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                  <FormField
-                      control={form.control}
-                      name="motherContact"
-                      render={({ field }) => (
-                          <FormItem>
-                          <FormLabel>Mother's Contact Number *</FormLabel>
-                          <FormControl>
-                              <Input placeholder="Mother's Contact Number *" {...field} className="bg-blue-50/50" />
-                          </FormControl>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                  <FormField
-                      control={form.control}
-                      name="whatsappNumber"
-                      render={({ field }) => (
-                          <FormItem>
-                          <FormLabel>WhatsApp Number *</FormLabel>
-                          <FormControl>
-                              <Input placeholder="WhatsApp Number *" {...field} className="bg-blue-50/50" />
-                          </FormControl>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                </div>
+                  <Separator className="bg-gray-100" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <FormField
-                      control={form.control}
-                      name="board"
-                      render={({ field }) => (
-                          <FormItem className="space-y-3">
-                          <FormLabel>Board of Education *</FormLabel>
-                          <FormControl>
-                              <RadioGroup
-                              onValueChange={field.onChange}
-                              value={field.value}
-                              className="mt-2 space-y-2"
-                              >
-                              <FormItem className="flex items-center space-x-2">
-                                  <FormControl>
-                                  <RadioGroupItem value="cbse" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">CBSE</FormLabel>
+                  {/* Contact Section */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center">
+                            <Phone className="w-5 h-5 text-green-600" />
+                        </div>
+                        <h3 className="text-xl font-extrabold text-[#182d45]">Contact Channels</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                      <FormField
+                          control={form.control}
+                          name="fatherContact"
+                          render={({ field }) => (
+                              <FormItem>
+                              <FormLabel className="text-[#182d45] font-bold">Father's Contact *</FormLabel>
+                              <FormControl>
+                                  <Input placeholder="10 Digit Number" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                              </FormControl>
+                              <FormMessage />
                               </FormItem>
-                              <FormItem className="flex items-center space-x-2">
-                                  <FormControl>
-                                  <RadioGroupItem value="samacheer" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">Samacheer</FormLabel>
+                          )}
+                      />
+                      <FormField
+                          control={form.control}
+                          name="motherContact"
+                          render={({ field }) => (
+                              <FormItem>
+                              <FormLabel className="text-[#182d45] font-bold">Mother's Contact *</FormLabel>
+                              <FormControl>
+                                  <Input placeholder="10 Digit Number" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                              </FormControl>
+                              <FormMessage />
                               </FormItem>
-                              <FormItem className="flex items-center space-x-2">
-                                  <FormControl>
-                                  <RadioGroupItem value="other-board" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">Other</FormLabel>
+                          )}
+                      />
+                      <FormField
+                          control={form.control}
+                          name="whatsappNumber"
+                          render={({ field }) => (
+                              <FormItem>
+                              <FormLabel className="text-[#182d45] font-bold">WhatsApp Number *</FormLabel>
+                              <FormControl>
+                                  <Input placeholder="For Updates" {...field} className="h-12 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                              </FormControl>
+                              <FormMessage />
                               </FormItem>
-                              </RadioGroup>
-                          </FormControl>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                  <FormField
-                      control={form.control}
-                      name="subjects"
-                      render={({ field }) => (
-                          <FormItem>
-                          <div className="mb-4">
-                              <FormLabel>Subjects *</FormLabel>
-                          </div>
-                          <div className="grid grid-cols-2 gap-x-8 gap-y-2 mt-2">
-                              {subjectItems.map((item) => (
-                              <FormField
-                                  key={item.id}
-                                  control={form.control}
-                                  name="subjects"
-                                  render={({ field }) => {
-                                  return (
-                                      <FormItem
-                                      key={item.id}
-                                      className="flex flex-row items-start space-x-3 space-y-0"
-                                      >
+                          )}
+                      />
+                    </div>
+                  </div>
+
+                  <Separator className="bg-gray-100" />
+
+                  {/* Academy Details */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center">
+                            <GraduationCap className="w-5 h-5 text-orange-600" />
+                        </div>
+                        <h3 className="text-xl font-extrabold text-[#182d45]">Academic & Source</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      <FormField
+                          control={form.control}
+                          name="board"
+                          render={({ field }) => (
+                              <FormItem className="space-y-4">
+                              <FormLabel className="text-[#182d45] font-bold">Board of Education *</FormLabel>
+                              <FormControl>
+                                  <RadioGroup
+                                  onValueChange={field.onChange}
+                                  value={field.value}
+                                  className="mt-2 space-y-3"
+                                  >
+                                  <FormItem className="flex items-center space-x-3 space-y-0 p-4 rounded-2xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
                                       <FormControl>
-                                          <Checkbox
-                                          checked={field.value?.includes(item.id)}
-                                          onCheckedChange={(checked) => {
-                                              return checked
-                                              ? field.onChange([...(field.value || []), item.id])
-                                              : field.onChange(
-                                                  field.value?.filter(
-                                                      (value) => value !== item.id
-                                                  )
-                                                  )
-                                          }}
-                                          />
+                                      <RadioGroupItem value="cbse" className="border-gray-300 text-[#35a3be]" />
                                       </FormControl>
-                                      <FormLabel className="font-normal">
-                                          {item.label}
-                                      </FormLabel>
-                                      </FormItem>
-                                  )
-                                  }}
-                              />
-                              ))}
-                          </div>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                </div>
-                
-                  <FormField
-                      control={form.control}
-                      name="howHeard"
-                      render={() => (
-                          <FormItem>
-                              <div className="mb-4">
-                                  <FormLabel>How did you hear about us?</FormLabel>
-                              </div>
-                              <div className="mt-2 space-y-2">
-                              {howHeardItems.map((item) => (
+                                      <FormLabel className="font-semibold text-gray-700 cursor-pointer w-full">CBSE</FormLabel>
+                                  </FormItem>
+                                  <FormItem className="flex items-center space-x-3 space-y-0 p-4 rounded-2xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
+                                      <FormControl>
+                                      <RadioGroupItem value="samacheer" className="border-gray-300 text-[#35a3be]" />
+                                      </FormControl>
+                                      <FormLabel className="font-semibold text-gray-700 cursor-pointer w-full">Samacheer</FormLabel>
+                                  </FormItem>
+                                  <FormItem className="flex items-center space-x-3 space-y-0 p-4 rounded-2xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
+                                      <FormControl>
+                                      <RadioGroupItem value="other-board" className="border-gray-300 text-[#35a3be]" />
+                                      </FormControl>
+                                      <FormLabel className="font-semibold text-gray-700 cursor-pointer w-full">Other Board</FormLabel>
+                                  </FormItem>
+                                  </RadioGroup>
+                              </FormControl>
+                              <FormMessage />
+                              </FormItem>
+                          )}
+                      />
+                      <FormField
+                          control={form.control}
+                          name="subjects"
+                          render={({ field }) => (
+                              <FormItem>
+                              <FormLabel className="text-[#182d45] font-bold">Preferred Subjects *</FormLabel>
+                              <div className="grid grid-cols-2 gap-3 mt-4">
+                                  {subjectItems.map((item) => (
                                   <FormField
-                                  key={item.id}
-                                  control={form.control}
-                                  name="howHeard"
-                                  render={({ field }) => {
+                                      key={item.id}
+                                      control={form.control}
+                                      name="subjects"
+                                      render={({ field }) => {
                                       return (
-                                      <FormItem
+                                          <FormItem
                                           key={item.id}
-                                          className="flex flex-row items-start space-x-3 space-y-0"
-                                      >
+                                          className="flex flex-row items-center space-x-3 space-y-0 p-3 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all"
+                                          >
                                           <FormControl>
-                                          <Checkbox
+                                              <Checkbox
                                               checked={field.value?.includes(item.id)}
                                               onCheckedChange={(checked) => {
-                                              return checked
+                                                  return checked
                                                   ? field.onChange([...(field.value || []), item.id])
                                                   : field.onChange(
                                                       field.value?.filter(
-                                                      (value) => value !== item.id
+                                                          (value) => value !== item.id
                                                       )
-                                                  )
+                                                      )
                                               }}
-                                          />
+                                              className="border-gray-300 data-[state=checked]:bg-[#35a3be] data-[state=checked]:border-[#35a3be]"
+                                              />
                                           </FormControl>
-                                          <FormLabel className="font-normal">
-                                          {item.label}
+                                          <FormLabel className="font-semibold text-gray-600 text-sm cursor-pointer">
+                                              {item.label}
                                           </FormLabel>
-                                      </FormItem>
+                                          </FormItem>
                                       )
-                                  }}
+                                      }}
                                   />
-                              ))}
+                                  ))}
                               </div>
                               <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                <FormField
-                  control={form.control}
-                  name="terms"
-                  render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
-                      <FormControl>
-                          <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                          <FormLabel>
-                          I agree to the terms and conditions
-                          </FormLabel>
-                          <FormMessage />
-                      </div>
-                      </FormItem>
-                  )}
-                />
+                              </FormItem>
+                          )}
+                      />
+                    </div>
+                    
+                    <FormField
+                        control={form.control}
+                        name="howHeard"
+                        render={() => (
+                            <FormItem>
+                                <FormLabel className="text-[#182d45] font-bold">How did you hear about us?</FormLabel>
+                                <div className="flex flex-wrap gap-4 mt-4">
+                                {howHeardItems.map((item) => (
+                                    <FormField
+                                    key={item.id}
+                                    control={form.control}
+                                    name="howHeard"
+                                    render={({ field }) => {
+                                        return (
+                                        <FormItem
+                                            key={item.id}
+                                            className="flex flex-row items-center space-x-3 space-y-0 p-3 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all"
+                                        >
+                                            <FormControl>
+                                            <Checkbox
+                                                checked={field.value?.includes(item.id)}
+                                                onCheckedChange={(checked) => {
+                                                return checked
+                                                    ? field.onChange([...(field.value || []), item.id])
+                                                    : field.onChange(
+                                                        field.value?.filter(
+                                                        (value) => value !== item.id
+                                                        )
+                                                    )
+                                                }}
+                                                className="border-gray-300 data-[state=checked]:bg-[#35a3be] data-[state=checked]:border-[#35a3be]"
+                                            />
+                                            </FormControl>
+                                            <FormLabel className="font-semibold text-gray-600 text-sm cursor-pointer">
+                                            {item.label}
+                                            </FormLabel>
+                                        </FormItem>
+                                        )
+                                    }}
+                                    />
+                                ))}
+                                </div>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                  </div>
 
+                  <div className="pt-8">
+                    <FormField
+                    control={form.control}
+                    name="terms"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-[1.5rem] border border-gray-100 bg-[#35a3be]/5 p-6 shadow-inner">
+                        <FormControl>
+                            <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            className="mt-1 border-[#35a3be] data-[state=checked]:bg-[#35a3be] data-[state=checked]:border-[#35a3be]"
+                            />
+                        </FormControl>
+                        <div className="space-y-1 leading-relaxed">
+                            <FormLabel className="text-sm font-bold text-[#182d45] cursor-pointer">
+                            I agree to the terms and conditions. I verify that all the information provided above is correct to the best of my knowledge.
+                            </FormLabel>
+                            <FormMessage />
+                        </div>
+                        </FormItem>
+                    )}
+                    />
 
-                <div className="text-center pt-4">
-                  <Button type="submit" size="lg" className="text-white font-bold px-12 py-6 rounded-xl transition-all duration-300 hover:scale-105" style={{ backgroundColor: '#35a3be' }}>
-                    Submit Application
-                  </Button>
-                </div>
-              </form>
+                    <div className="mt-12 text-center">
+                    <Button type="submit" size="lg" className="w-full md:w-auto min-w-[300px] h-16 text-lg font-black text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 group" style={{ backgroundColor: '#35a3be' }}>
+                        <Send className="w-5 h-5 mr-3 group-hover:animate-bounce" />
+                        Submit Application
+                    </Button>
+                    </div>
+                  </div>
+                </form>
               </Form>
             </CardContent>
           </Card>
