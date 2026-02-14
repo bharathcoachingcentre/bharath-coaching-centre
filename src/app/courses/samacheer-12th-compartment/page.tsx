@@ -1,13 +1,10 @@
-
 'use client';
 
 import React from "react";
 import Image from "next/image";
-import { Star, FileText, CheckCircle, UserCheck, BookCopy, Clipboard, Edit, X, Download, BookOpen, FileCheck, Layers, GraduationCap, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Star, FileText, CheckCircle, Users, BookOpen, Clipboard, Download, FileCheck, Layers, GraduationCap, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -72,22 +69,13 @@ export default function Samacheer12thCompartmentPage() {
       ];
 
       const benefits = [
-        "Daily test",
-        "Unit-wise test",
-        "Full mock test",
-        "Quick evaluation",
-        "Parents’ meeting",
-        "Specialized study material"
+        { title: "Daily test", icon: Clipboard },
+        { title: "Unit-wise test", icon: FileText },
+        { title: "Full mock test", icon: BookOpen },
+        { title: "Quick evaluation", icon: CheckCircle },
+        { title: "Parents' meeting", icon: Users },
+        { title: "Specialized study material", icon: Star }
       ];
-      
-      const benefitIcons = {
-        "Daily test": Clipboard,
-        "Unit-wise test": Edit,
-        "Full mock test": FileText,
-        "Quick evaluation": CheckCircle,
-        "Parents’ meeting": UserCheck,
-        "Specialized study material": BookCopy
-      };
 
   return (
     <div>
@@ -107,67 +95,44 @@ export default function Samacheer12thCompartmentPage() {
         </div>
       </section>
 
-      <section className="pt-16 md:pt-24 pb-36 text-gray-800" style={{ backgroundColor: 'rgb(245 250 255)' }}>
+      {/* Redesigned Benefits Section */}
+      <section className="py-16 md:py-24 bg-white text-gray-800">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="space-y-6">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-px bg-gray-800"></div>
-                <div className="w-4 h-px bg-gray-800"></div>
-              </div>
-              <h2 className="text-4xl font-bold">Benefits</h2>
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-12">
+              <div className="w-12 h-1 bg-[#2abfaf] rounded-full mb-4"></div>
+              <h2 className="text-4xl font-bold text-[#182d45]">Benefits</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-12 md:col-span-3">
-              {benefits.map((benefit, index) => {
-                const Icon = benefitIcons[benefit as keyof typeof benefitIcons] || Star;
-                return (
-                  <div key={index} className="flex items-start gap-4">
-                    <div className="flex-shrink-0 p-2 bg-[#35a3be] rounded-full">
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold">{benefit}</h3>
-                    </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {benefits.map((benefit, index) => (
+                <Card key={index} className="border-none shadow-[0_4px_20px_rgba(0,0,0,0.05)] rounded-2xl bg-white p-6 flex items-center gap-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <div className="w-12 h-12 rounded-full bg-cyan-50 flex items-center justify-center flex-shrink-0">
+                    <benefit.icon className="w-6 h-6 text-[#35a3be]" />
                   </div>
-                )
-              })}
+                  <h3 className="font-bold text-gray-800 text-lg">{benefit.title}</h3>
+                </Card>
+              ))}
+            </div>
+
+            {/* Highlight Card */}
+            <div className="bg-[#f1f5f9] rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-16">
+              <div className="w-full md:w-5/12 aspect-video bg-[#cbd5e1] rounded-2xl flex items-center justify-center">
+                <BookOpen className="w-20 h-20 text-[#94a3b8]" />
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="w-14 h-14 rounded-full bg-yellow-400 flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Star className="w-7 h-7 text-white fill-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#182d45]">Customized Timetable</h3>
+                  <p className="text-gray-500 text-lg">(based on exam date)</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
-      <div className="container mx-auto px-4 py-16 -mt-36 relative z-10">
-        <div className="flex justify-center">
-          <div className="flex items-center">
-              <Image
-                id="benefit-img"
-                src="https://picsum.photos/seed/adultsession/600/400"
-                alt="Adult session"
-                width={350}
-                height={170}
-                className="rounded-l-lg shadow-lg object-cover"
-                style={{ height: '170px' }}
-                data-ai-hint="woman working"
-              />
-              <div style={{ width: '550px', marginLeft: '0px', height: '170px' }} className="bg-white p-8 shadow-lg relative w-full flex flex-col justify-center rounded-r-lg">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-2 bg-[#35a3be] rounded-full">
-                    <Star className="w-6 h-6 text-white fill-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-800">Customized Timetable</h3>
-                    <p className="text-gray-600">(based on exam date)</p>
-                  </div>
-                </div>
-                <div className="absolute bottom-4 right-4 flex gap-1">
-                    <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
-                    <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
-                    <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
-                    <span className="w-3 h-3 bg-gray-200 rounded-full"></span>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
 
       <AnimatedSection className="py-16 md:py-24" style={{ backgroundColor: 'rgb(21 49 61)' }}>
         <div className="container mx-auto text-center px-4">
