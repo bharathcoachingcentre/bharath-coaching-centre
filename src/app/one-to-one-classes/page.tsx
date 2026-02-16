@@ -94,8 +94,8 @@ export default function OneToOneClassesPage() {
                 data-ai-hint="student learning online"
             />
             <div className="absolute inset-0 bg-black/50" />
-            <div className="relative z-10 text-center">
-            <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
+            <div className="relative z-10 text-center px-4">
+            <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-lg">
                 One to One Classes
             </h1>
             </div>
@@ -105,19 +105,26 @@ export default function OneToOneClassesPage() {
             <div className="container mx-auto px-4">
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
                     {/* Left Column */}
-                    <div className="space-y-12">
+                    <div className="space-y-16">
                         <div>
-                            <p className="text-sm font-semibold tracking-widest uppercase mb-2" style={{ color: '#35a3be' }}>INFORMATION</p>
-                            <h2 className="text-4xl font-extrabold mb-12" style={{ color: '#182d45' }}>One to One <span style={{ color: '#35a3be' }}>Classes</span></h2>
+                            <span 
+                                className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm"
+                                style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}
+                            >
+                                Information
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight mb-12">
+                                One to One <span style={{ color: '#35a3be' }}>Classes</span>
+                            </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                                 {whyChoosePoints.map((point, index) => (
-                                    <div key={index} className="group relative bg-white/70 backdrop-blur-md p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-2 flex flex-col items-center text-center overflow-hidden">
-                                        <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#35a3be]/5 rounded-full transition-transform duration-700 group-hover:scale-150 -z-0" />
+                                    <div key={index} className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden">
+                                        <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-[#35a3be]/5 rounded-full transition-transform duration-700 group-hover:scale-150 -z-0" />
                                         
-                                        <div className="relative mb-6">
-                                            <div className="absolute inset-0 bg-[#35a3be]/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                                            <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.2)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                                                <point.icon className="w-8 h-8 text-white" />
+                                        <div className="relative mb-8">
+                                            <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                                            <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                                                <point.icon className="w-10 h-10 text-white" />
                                             </div>
                                         </div>
                                         <h3 className="relative z-10 text-xl font-extrabold text-[#182d45] tracking-tight leading-tight">{point.title}</h3>
@@ -127,17 +134,17 @@ export default function OneToOneClassesPage() {
                         </div>
 
                         <div className="pt-4">
-                             <h2 className="text-3xl font-bold mb-8 flex items-center gap-3" style={{ color: '#182d45' }}>
-                                <span className="w-1.5 h-8 bg-[#35a3be] rounded-full"></span>
+                             <h2 className="text-3xl font-bold mb-10 flex items-center gap-4" style={{ color: '#182d45' }}>
+                                <span className="w-2 h-10 bg-[#35a3be] rounded-full"></span>
                                 Our <span style={{ color: '#35a3be' }}>Benefits</span>
                             </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {benefits.map((benefit, index) => (
-                                    <div key={index} className="bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-sm flex items-center border border-white/60 hover:border-[#35a3be]/30 transition-all duration-300 group">
-                                        <div className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-xl text-white mr-4 shadow-md group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
-                                            <CheckCircle className="h-5 w-5" />
+                                    <div key={index} className="bg-white/70 backdrop-blur-md p-5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center border border-white transition-all duration-300 hover:border-[#35a3be]/30 hover:shadow-lg group">
+                                        <div className="flex-shrink-0 flex items-center justify-center h-11 w-11 rounded-2xl text-white mr-5 shadow-[0_5px_15px_rgba(13,79,92,0.2)] group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
+                                            <CheckCircle className="h-6 w-6" />
                                         </div>
-                                        <span className="font-semibold text-gray-700">{benefit}</span>
+                                        <span className="font-bold text-gray-700 text-lg leading-tight">{benefit}</span>
                                     </div>
                                 ))}
                             </div>
