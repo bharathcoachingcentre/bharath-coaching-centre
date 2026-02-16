@@ -8,8 +8,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CalendarIcon, User, Users, Phone, BookOpen, Send, GraduationCap } from "lucide-react"
-import React, { useEffect, useState } from "react"
+import { CalendarIcon, User, Users, Phone, BookOpen, Send, GraduationCap, Trash2 } from "lucide-react"
+import React, { useEffect, useState, useRef } from "react"
 import ReactCalendar from 'react-calendar'
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
@@ -65,6 +65,8 @@ const howHeardItems = [
 export default function StudentRegistrationPage() {
     const { toast } = useToast();
     const [isMounted, setIsMounted] = useState(false);
+    const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -93,7 +95,21 @@ export default function StudentRegistrationPage() {
         },
     });
 
-    const photoRef = form.register("photo");
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedFileName(file.name);
+            form.setValue("photo", e.target.files);
+        }
+    };
+
+    const removeFile = () => {
+        setSelectedFileName(null);
+        form.setValue("photo", undefined);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
+    };
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
@@ -102,6 +118,7 @@ export default function StudentRegistrationPage() {
             description: "Thank you for registering. We will be in touch shortly.",
         });
         form.reset();
+        setSelectedFileName(null);
     }
 
   return (
@@ -258,11 +275,27 @@ export default function StudentRegistrationPage() {
                           <FormLabel className="text-[#182d45] font-bold text-xs md:text-sm">Upload Candidate Photo</FormLabel>
                           <FormControl>
                               <div className="flex items-center gap-4">
-                                <Input 
-                                    type="file"
-                                    {...photoRef}
-                                    className="h-11 bg-gray-50/50 rounded-xl border-gray-200 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#35a3be]/10 file:text-[#35a3be] hover:file:bg-[#35a3be]/20 cursor-pointer" 
-                                />
+                                {selectedFileName ? (
+                                    <div className="flex items-center justify-between w-full h-11 bg-gray-50/50 rounded-xl border border-gray-200 px-4">
+                                        <span className="text-sm text-gray-600 truncate max-w-[200px]">{selectedFileName}</span>
+                                        <Button 
+                                            type="button" 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8"
+                                            onClick={removeFile}
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <Input 
+                                        type="file"
+                                        onChange={handleFileChange}
+                                        ref={fileInputRef}
+                                        className="h-11 bg-gray-50/50 rounded-xl border-gray-200 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#35a3be]/10 file:text-[#35a3be] hover:file:bg-[#35a3be]/20 cursor-pointer" 
+                                    />
+                                )}
                               </div>
                           </FormControl>
                           <FormMessage />
