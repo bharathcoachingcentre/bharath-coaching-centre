@@ -26,7 +26,19 @@ import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { User, Calendar, BookOpen, CheckCircle, Send } from "lucide-react";
+import { 
+    User, 
+    Calendar, 
+    BookOpen, 
+    CheckCircle, 
+    Send, 
+    Users, 
+    UserCheck, 
+    ClipboardCheck, 
+    BarChart, 
+    GraduationCap, 
+    FileText 
+} from "lucide-react";
 import Image from "next/image";
 
 const formSchema = z.object({
@@ -59,14 +71,14 @@ export default function OneToOneClassesPage() {
     });
 
     const benefits = [
-        "Customized time table",
-        "18+ year experienced faculties",
-        "Individual attention",
-        "Weekly test",
-        "25% & 50% portion test",
-        "Full mock test",
-        "Specialized study materials",
-        "Previous year question paper",
+        { text: "Customized time table", icon: Calendar },
+        { text: "18+ year experienced faculties", icon: Users },
+        { text: "Individual attention", icon: UserCheck },
+        { text: "Weekly test", icon: ClipboardCheck },
+        { text: "25% & 50% portion test", icon: BarChart },
+        { text: "Full mock test", icon: GraduationCap },
+        { text: "Specialized study materials", icon: BookOpen },
+        { text: "Previous year question paper", icon: FileText },
     ];
 
     const whyChoosePoints = [
@@ -95,7 +107,7 @@ export default function OneToOneClassesPage() {
             />
             <div className="absolute inset-0 bg-black/50" />
             <div className="relative z-10 text-center px-4">
-            <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-lg">
+            <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-lg text-left">
                 One to One Classes
             </h1>
             </div>
@@ -106,14 +118,14 @@ export default function OneToOneClassesPage() {
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
                     {/* Left Column */}
                     <div className="space-y-16">
-                        <div>
+                        <div className="text-left">
                             <span 
                                 className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm"
                                 style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}
                             >
                                 Information
                             </span>
-                            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight mb-12">
+                            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight mb-12 text-left">
                                 One to One <span style={{ color: '#35a3be' }}>Classes</span>
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -133,8 +145,8 @@ export default function OneToOneClassesPage() {
                             </div>
                         </div>
 
-                        <div className="pt-4">
-                             <h2 className="text-3xl font-bold mb-10 flex items-center gap-4" style={{ color: '#182d45' }}>
+                        <div className="pt-4 text-left">
+                             <h2 className="text-3xl font-bold mb-10 flex items-center gap-4 text-left" style={{ color: '#182d45' }}>
                                 <span className="w-2 h-10 bg-[#35a3be] rounded-full"></span>
                                 Our <span style={{ color: '#35a3be' }}>Benefits</span>
                             </h2>
@@ -142,9 +154,9 @@ export default function OneToOneClassesPage() {
                                 {benefits.map((benefit, index) => (
                                     <div key={index} className="bg-white/70 backdrop-blur-md p-5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center border border-white transition-all duration-300 hover:border-[#35a3be]/30 hover:shadow-lg group">
                                         <div className="flex-shrink-0 flex items-center justify-center h-11 w-11 rounded-2xl text-white mr-5 shadow-[0_5px_15px_rgba(13,79,92,0.2)] group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
-                                            <CheckCircle className="h-6 w-6" />
+                                            <benefit.icon className="h-6 w-6" />
                                         </div>
-                                        <span className="font-bold text-gray-700 text-lg leading-tight">{benefit}</span>
+                                        <span className="font-bold text-gray-700 text-lg leading-tight text-left">{benefit.text}</span>
                                     </div>
                                 ))}
                             </div>
