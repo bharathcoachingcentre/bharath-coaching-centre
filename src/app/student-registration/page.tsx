@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -8,10 +9,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { CalendarIcon, User, Users, Phone, BookOpen, Send, GraduationCap } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
+import React, { useEffect, useState } from "react"
+import ReactCalendar from 'react-calendar'
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
-import React from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -63,6 +64,11 @@ const howHeardItems = [
 
 export default function StudentRegistrationPage() {
     const { toast } = useToast();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -133,17 +139,17 @@ export default function StudentRegistrationPage() {
           <Card className="shadow-[0_30px_80px_rgba(8,112,184,0.1)] border border-white bg-white/90 backdrop-blur-md rounded-[2rem] overflow-hidden">
             <CardContent className="p-6 md:p-10">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:space-y-10">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   
                   {/* Candidate Section */}
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-cyan-100 flex items-center justify-center">
                             <User className="w-4 h-4 text-[#35a3be]" />
                         </div>
                         <h3 className="text-lg font-extrabold text-[#182d45]">Student Details</h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
                         control={form.control}
                         name="candidateName"
@@ -205,12 +211,13 @@ export default function StudentRegistrationPage() {
                                   </FormControl>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-auto p-0 rounded-2xl overflow-hidden shadow-xl border-none">
-                                    <Calendar
-                                    mode="single"
-                                    selected={field.value}
-                                    onSelect={field.onChange}
-                                    initialFocus
-                                    />
+                                    {isMounted && (
+                                        <ReactCalendar
+                                            onChange={(val) => field.onChange(val as Date)}
+                                            value={field.value || new Date()}
+                                            className="border-none"
+                                        />
+                                    )}
                                 </PopoverContent>
                             </Popover>
                             <FormMessage />
@@ -266,14 +273,14 @@ export default function StudentRegistrationPage() {
                   <Separator className="bg-gray-100" />
 
                   {/* Family Section */}
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-purple-100 flex items-center justify-center">
                             <Users className="w-4 h-4 text-purple-600" />
                         </div>
                         <h3 className="text-lg font-extrabold text-[#182d45]">Family Background</h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
                         control={form.control}
                         name="parentName"
@@ -287,7 +294,7 @@ export default function StudentRegistrationPage() {
                           </FormItem>
                         )}
                       />
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                             control={form.control}
                             name="fatherOccupation"
@@ -334,14 +341,14 @@ export default function StudentRegistrationPage() {
                   <Separator className="bg-gray-100" />
 
                   {/* Contact Section */}
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center">
                             <Phone className="w-4 h-4 text-green-600" />
                         </div>
                         <h3 className="text-lg font-extrabold text-[#182d45]">Contact Channels</h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <FormField
                           control={form.control}
                           name="fatherContact"
@@ -387,14 +394,14 @@ export default function StudentRegistrationPage() {
                   <Separator className="bg-gray-100" />
 
                   {/* Academy Details */}
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center">
                             <GraduationCap className="w-4 h-4 text-orange-600" />
                         </div>
                         <h3 className="text-lg font-extrabold text-[#182d45]">Academic & Source</h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <FormField
                           control={form.control}
                           name="board"
@@ -407,19 +414,19 @@ export default function StudentRegistrationPage() {
                                   value={field.value}
                                   className="mt-1 space-y-2"
                                   >
-                                  <FormItem className="flex items-center space-x-3 space-y-0 p-3 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
+                                  <FormItem className="flex items-center space-x-3 space-y-0 p-2.5 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
                                       <FormControl>
                                       <RadioGroupItem value="cbse" className="border-gray-300 text-[#35a3be]" />
                                       </FormControl>
                                       <FormLabel className="font-semibold text-gray-700 cursor-pointer w-full text-sm">CBSE</FormLabel>
                                   </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0 p-3 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
+                                  <FormItem className="flex items-center space-x-3 space-y-0 p-2.5 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
                                       <FormControl>
                                       <RadioGroupItem value="samacheer" className="border-gray-300 text-[#35a3be]" />
                                       </FormControl>
                                       <FormLabel className="font-semibold text-gray-700 cursor-pointer w-full text-sm">Samacheer</FormLabel>
                                   </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0 p-3 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
+                                  <FormItem className="flex items-center space-x-3 space-y-0 p-2.5 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
                                       <FormControl>
                                       <RadioGroupItem value="other-board" className="border-gray-300 text-[#35a3be]" />
                                       </FormControl>
@@ -447,7 +454,7 @@ export default function StudentRegistrationPage() {
                                       return (
                                           <FormItem
                                           key={item.id}
-                                          className="flex flex-row items-center space-x-2 space-y-0 p-2.5 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all"
+                                          className="flex flex-row items-center space-x-2 space-y-0 p-2 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all"
                                           >
                                           <FormControl>
                                               <Checkbox
@@ -485,7 +492,7 @@ export default function StudentRegistrationPage() {
                         render={() => (
                             <FormItem>
                                 <FormLabel className="text-[#182d45] font-bold text-xs md:text-sm">How did you hear about us?</FormLabel>
-                                <div className="flex flex-wrap gap-3 mt-2">
+                                <div className="flex flex-wrap gap-2 mt-2">
                                 {howHeardItems.map((item) => (
                                     <FormField
                                     key={item.id}
@@ -495,7 +502,7 @@ export default function StudentRegistrationPage() {
                                         return (
                                         <FormItem
                                             key={item.id}
-                                            className="flex flex-row items-center space-x-2 space-y-0 p-2.5 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all"
+                                            className="flex flex-row items-center space-x-2 space-y-0 p-2 rounded-xl border border-gray-100 bg-gray-50/30 hover:bg-white hover:shadow-sm transition-all"
                                         >
                                             <FormControl>
                                             <Checkbox
@@ -527,12 +534,12 @@ export default function StudentRegistrationPage() {
                     />
                   </div>
 
-                  <div className="pt-4">
+                  <div className="pt-2">
                     <FormField
                     control={form.control}
                     name="terms"
                     render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-2xl border border-gray-100 bg-[#35a3be]/5 p-5 shadow-inner">
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-2xl border border-gray-100 bg-[#35a3be]/5 p-4 shadow-inner">
                         <FormControl>
                             <Checkbox
                             checked={field.value}
@@ -550,7 +557,7 @@ export default function StudentRegistrationPage() {
                     )}
                     />
 
-                    <div className="mt-8 text-center">
+                    <div className="mt-6 text-center">
                     <Button type="submit" size="lg" className="w-full md:w-auto min-w-[260px] h-14 text-base font-black text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 group" style={{ backgroundColor: '#35a3be' }}>
                         <Send className="w-4 h-4 mr-2.5 group-hover:animate-bounce" />
                         Submit Application
