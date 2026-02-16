@@ -118,7 +118,7 @@ export default function ContactPage() {
           
           <div className="grid gap-12 md:grid-cols-2">
             <div className="bg-white p-8 rounded-2xl shadow-xl border border-white/60">
-                <h2 className="text-2xl font-bold mb-2">SEND US A MESSAGE</h2>
+                <h2 className="text-2xl font-bold mb-2">Send Us A Message</h2>
                  <p className="max-w-2xl text-lg text-muted-foreground mb-6">
                     We'd love to hear from you. Please fill out the form below or reach out to us through our contact details.
                 </p>
