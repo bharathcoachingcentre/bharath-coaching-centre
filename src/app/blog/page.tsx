@@ -50,7 +50,7 @@ export default function BlogPage() {
           <div className="grid gap-10 md:grid-cols-1 lg:grid-cols-2">
             {blogPosts.map((post) => (
               <Card key={post.slug} className="group flex flex-col md:flex-row overflow-hidden transition-all duration-500 bg-white/70 backdrop-blur-md rounded-[2rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-2">
-                <div className="md:w-2/5 relative h-64 md:h-auto md:min-h-[300px] overflow-hidden">
+                <div className="md:w-2/5 relative h-64 md:min-h-[350px] overflow-hidden">
                   <Image
                     src={post.imageUrl}
                     alt={post.title}
