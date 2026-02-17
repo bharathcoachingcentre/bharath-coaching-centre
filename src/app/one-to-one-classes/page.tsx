@@ -106,10 +106,10 @@ export default function OneToOneClassesPage() {
                 data-ai-hint="student learning online"
             />
             <div className="absolute inset-0 bg-black/50" />
-            <div className="relative z-10 text-center px-4">
-            <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-lg text-left">
-                One to One Classes
-            </h1>
+            <div className="relative z-10 w-full container mx-auto px-4 text-left">
+                <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-lg text-left">
+                    One to One Classes
+                </h1>
             </div>
         </section>
 
