@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "@/lib/mock-data";
@@ -38,7 +37,7 @@ export default function BlogPage() {
           <div className="text-center mb-16">
             <span 
               className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-4 shadow-sm"
-              style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}
+              style={{ color: '#35a3be', backgroundColor: 'rgba(53, 163, 190, 0.1)', borderColor: 'rgba(53, 163, 190, 0.2)' }}
             >
               Latest Updates
             </span>
