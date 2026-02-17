@@ -5,17 +5,20 @@ import { blogPosts } from "@/lib/mock-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, User, Calendar as CalendarIcon } from "lucide-react";
+import placeholderImages from "@/app/lib/placeholder-images.json";
 
 export default function BlogPage() {
+  const bannerImage = placeholderImages["blog-banner"];
+
   return (
     <div className="font-body-home2">
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
-          src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=600"
-          alt="Blog Banner"
+          src={bannerImage.src}
+          alt={bannerImage.alt}
           fill
           className="object-cover"
-          data-ai-hint="blog office"
+          data-ai-hint={bannerImage.hint}
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">

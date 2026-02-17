@@ -7,6 +7,13 @@
     "alt": "Mother helping teenager with homework stock photo",
     "hint": "one-to-one tutoring"
   },
+  "blog-banner": {
+    "src": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=600",
+    "width": 1200,
+    "height": 600,
+    "alt": "Blog Banner",
+    "hint": "blog office"
+  },
   "blog-card-future": {
     "src": "/blog-1.jpg",
     "width": 800,
