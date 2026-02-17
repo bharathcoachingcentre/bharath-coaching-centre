@@ -220,7 +220,7 @@ export function Header() {
         "top-0 z-50 w-full",
         !isHome2 && "sticky"
     )}>
-        <div className={cn(isHome2 ? "bg-transparent" : "bg-[hsl(199,78%,59%)]")}>
+        <div className={cn(isHome2 ? (pathname === '/signin' ? "bg-[#174f5f]" : "bg-transparent") : "bg-[hsl(199,78%,59%)]")}>
             <div className={cn("container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm", isHome2 && 'font-home2-header')}>
                 <div className={cn("flex items-center gap-2", isHome2 ? "text-white" : "text-white")}>
                     <Phone className="h-4 w-4" />
