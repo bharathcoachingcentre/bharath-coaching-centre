@@ -231,7 +231,7 @@ export default function StudentRegistrationPage() {
                                         <ReactCalendar
                                             onChange={(val) => field.onChange(val as Date)}
                                             value={field.value || new Date()}
-                                            calendarType="iso8601"
+                                            calendarType="gregory"
                                             className="border-none"
                                         />
                                     )}
