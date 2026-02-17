@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { Send } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -90,7 +91,7 @@ export function ContactForm() {
                     name="subject"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Subject</FormLabel>
+                            <CardLabel>Subject</CardLabel>
                             <FormControl>
                                 <Input placeholder="Inquiry about courses" {...field} />
                             </FormControl>
@@ -115,7 +116,9 @@ export function ContactForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full bg-gradient-to-r from-[#174f5f] to-[#35a3be] hover:from-[#35a3be] hover:to-[#174f5f] text-white font-bold h-12 rounded-xl shadow-lg transition-all duration-500">Send Message</Button>
+                <Button type="submit" className="w-full bg-gradient-to-r from-[#174f5f] to-[#35a3be] hover:from-[#35a3be] hover:to-[#174f5f] text-white font-bold h-12 rounded-xl shadow-lg transition-all duration-500">
+                    <Send className="mr-2 h-4 w-4" /> Send Message
+                </Button>
             </form>
         </Form>
     )
