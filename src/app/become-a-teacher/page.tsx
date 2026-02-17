@@ -54,7 +54,7 @@ export default function BecomeATeacherPage() {
             <span className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm" style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}>
               Join Our Faculty
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-[#182d45] tracking-tight mb-6">Shape the Future with Us</h2>
+            <h2 className="text-4xl md:text-5xl font-black text-[#182d45] tracking-tight mb-6">Shape The Future With Us</h2>
             <p className="text-lg text-gray-600 font-medium">
               At Bharath Academy, we believe that everyone is an achiever. We are looking for dedicated educators who can deliver complex concepts through unique and interactive methods.
             </p>
