@@ -125,7 +125,7 @@ export default function OneToOneClassesPage() {
                             >
                                 Information
                             </span>
-                            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight mb-12 text-left">
+                            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight mb-12 !text-left">
                                 One to One <span style={{ color: '#35a3be' }}>Classes</span>
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
