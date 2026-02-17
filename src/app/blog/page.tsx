@@ -4,8 +4,7 @@ import Link from "next/link";
 import { blogPosts } from "@/lib/mock-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, User, Calendar as CalendarIcon, BookOpen } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ArrowRight, User, Calendar as CalendarIcon } from "lucide-react";
 
 export default function BlogPage() {
   return (
@@ -58,9 +57,9 @@ export default function BlogPage() {
                   />
                   <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:opacity-0" />
                 </div>
-                <div className="flex flex-col justify-between p-8 md:w-3/5">
-                  <div>
-                    <div className="flex items-center gap-4 text-xs font-bold text-[#35a3be] mb-4">
+                <div className="flex flex-col justify-between p-8 md:w-3/5 text-left">
+                  <div className="text-left">
+                    <div className="flex items-center gap-4 text-xs font-bold text-[#35a3be] mb-4 justify-start">
                         <div className="flex items-center gap-1.5">
                             <User className="h-3.5 w-3.5" />
                             <span>{post.author}</span>
@@ -70,12 +69,12 @@ export default function BlogPage() {
                             <span>{post.date}</span>
                         </div>
                     </div>
-                    <CardHeader className="p-0">
+                    <CardHeader className="p-0 text-left">
                       <CardTitle className="text-2xl font-black text-[#182d45] hover:text-[#35a3be] transition-colors leading-tight text-left">
-                        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                        <Link href={`/blog/${post.slug}`} className="text-left">{post.title}</Link>
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-0 mt-4">
+                    <CardContent className="p-0 mt-4 text-left">
                       <CardDescription className="text-gray-500 font-medium line-clamp-3 leading-relaxed text-left">
                         {post.excerpt}
                       </CardDescription>
