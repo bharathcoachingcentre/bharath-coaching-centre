@@ -1,3 +1,4 @@
+
 import type { Course, Testimonial, Event, BlogPost } from './types';
 
 export const courses: Course[] = [
@@ -104,8 +105,8 @@ export const blogPosts: BlogPost[] = [
         author: 'Jane Doe',
         date: 'October 26, 2023',
         excerpt: 'Education is evolving at a rapid pace. In this article, we explore the key trends shaping the future of learning, from AI tutors to virtual classrooms.',
-        imageUrl: 'https://placehold.co/800x400.png',
-        imageHint: 'futuristic classroom',
+        imageUrl: '/blog-1.jpg',
+        imageHint: 'blog future',
         content: `
 <p>Education is undergoing a profound transformation. The traditional model of classroom-based learning is being augmented, and in some cases, replaced by innovative technologies and pedagogical approaches. In this article, we'll explore some of the most significant trends that are shaping the future of education.</p>
 
