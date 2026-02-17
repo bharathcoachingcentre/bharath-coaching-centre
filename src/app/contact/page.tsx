@@ -30,7 +30,7 @@ export default function ContactPage() {
           <div className="text-center mb-16">
             <span 
               className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-4 shadow-sm"
-              style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}
+              style={{ color: '#35a3be', backgroundColor: 'rgba(53, 163, 190, 0.1)', borderColor: 'rgba(53, 163, 190, 0.2)' }}
             >
               Get in touch
             </span>
@@ -44,7 +44,7 @@ export default function ContactPage() {
               <div className="relative mb-8">
                 <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
                 <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                  <MapPin className="w-10 h-10 text-white" />
+                  <point.icon className="w-10 h-10 text-white" />
                 </div>
               </div>
               <h3 className="text-2xl font-extrabold text-[#182d45] mb-4 tracking-tight">Our Address</h3>
