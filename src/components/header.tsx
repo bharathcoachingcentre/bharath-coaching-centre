@@ -221,7 +221,11 @@ export function Header() {
         !isHome2 && "sticky"
     )}>
         <div className={cn(isHome2 ? (pathname === '/signin' ? "bg-[#174f5f]" : "bg-transparent") : "bg-[hsl(199,78%,59%)]")}>
-            <div className={cn("container mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm", isHome2 && 'font-home2-header')}>
+            <div className={cn(
+                pathname === '/signin' ? "w-full" : "container mx-auto",
+                "flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8 text-sm", 
+                isHome2 && 'font-home2-header'
+            )}>
                 <div className={cn("flex items-center gap-2", isHome2 ? "text-white" : "text-white")}>
                     <Phone className="h-4 w-4" />
                     <p>Talk to our experts: <a href="tel:+917200030307" className="font-semibold hover:underline">+91 7200030307</a></p>
@@ -240,7 +244,10 @@ export function Header() {
             </div>
         </div>
       <div className={cn(isHome2 && "home-new-header", !isHome2 && "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60")}>
-        <div className="container mx-auto flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className={cn(
+            pathname === '/signin' ? "w-full" : "container mx-auto",
+            "flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8"
+        )}>
             <div className="flex items-center">
             <Link href={homeLink} className="flex items-center">
                 <Logo />
