@@ -77,7 +77,7 @@ export default function BecomeATeacherPage() {
 
           <div className="mt-20 text-center">
             <div className="inline-block p-10 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white shadow-xl max-w-2xl">
-              <h3 className="text-2xl font-bold text-[#182d45] mb-4">Ready to start your journey?</h3>
+              <h3 className="text-2xl font-bold text-[#182d45] mb-4">Ready To Start Your Journey?</h3>
               <p className="text-gray-600 mb-8">
                 If you have the passion to transform a student into an achiever, we want to hear from you. Please send your detailed resume and a brief introduction to our team.
               </p>
