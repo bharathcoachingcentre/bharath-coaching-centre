@@ -128,7 +128,7 @@ export const blogPosts: BlogPost[] = [
         author: 'John Smith',
         date: 'November 5, 2023',
         excerpt: 'Studying effectively is a skill. We dive into proven techniques like active recall and spaced repetition to help you get the most out of your study sessions.',
-        imageUrl: 'https://placehold.co/800x400.png',
+        imageUrl: '/blog-2.jpg',
         imageHint: 'student studying',
         content: `
 <p>It's a common misconception that spending more hours studying automatically leads to better results. The key to academic success isn't about the quantity of time, but the quality of your study methods. Let's explore some evidence-based techniques.</p>

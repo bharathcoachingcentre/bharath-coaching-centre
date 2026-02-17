@@ -20,5 +20,12 @@
     "height": 400,
     "alt": "Future of Learning",
     "hint": "blog future"
+  },
+  "blog-card-studying": {
+    "src": "/blog-2.jpg",
+    "width": 800,
+    "height": 400,
+    "alt": "Mastering the Art of Studying",
+    "hint": "student studying"
   }
 }
