@@ -31,7 +31,7 @@ export default function BecomeATeacherPage() {
     <div className="font-body-home2">
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
-          src="/Online-Course.jpg"
+          src="/Teacher-banner-bcc.jpg"
           alt="Become A Teacher Banner"
           fill
           className="object-cover"
@@ -65,7 +65,7 @@ export default function BecomeATeacherPage() {
               <div key={index} className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden">
                 <div className="relative mb-8">
                   <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53, 163, 190, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
                     <item.icon className="w-10 h-10 text-white" />
                   </div>
                 </div>
