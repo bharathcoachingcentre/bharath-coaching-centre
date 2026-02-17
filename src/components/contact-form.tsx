@@ -91,7 +91,7 @@ export function ContactForm() {
                     name="subject"
                     render={({ field }) => (
                         <FormItem>
-                            <CardLabel>Subject</CardLabel>
+                            <FormLabel>Subject</FormLabel>
                             <FormControl>
                                 <Input placeholder="Inquiry about courses" {...field} />
                             </FormControl>
