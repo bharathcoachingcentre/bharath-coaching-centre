@@ -71,17 +71,17 @@ export default function BlogPage() {
                         </div>
                     </div>
                     <CardHeader className="p-0">
-                      <CardTitle className="text-2xl font-black text-[#182d45] hover:text-[#35a3be] transition-colors leading-tight">
+                      <CardTitle className="text-2xl font-black text-[#182d45] hover:text-[#35a3be] transition-colors leading-tight text-left">
                         <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 mt-4">
-                      <CardDescription className="text-gray-500 font-medium line-clamp-3 leading-relaxed">
+                      <CardDescription className="text-gray-500 font-medium line-clamp-3 leading-relaxed text-left">
                         {post.excerpt}
                       </CardDescription>
                     </CardContent>
                   </div>
-                  <div className="mt-8">
+                  <div className="mt-8 text-left">
                     <Button asChild variant="link" className="p-0 h-auto text-[#35a3be] font-black uppercase tracking-widest text-xs group/btn">
                       <Link href={`/blog/${post.slug}`} className="flex items-center">
                         Read More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
