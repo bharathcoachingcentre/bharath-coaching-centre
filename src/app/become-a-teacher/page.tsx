@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { GraduationCap, Users, Heart, Lightbulb } from "lucide-react";
+import { GraduationCap, Users, Heart, Lightbulb, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -81,8 +81,10 @@ export default function BecomeATeacherPage() {
               <p className="text-gray-600 mb-8">
                 If you have the passion to transform a student into an achiever, we want to hear from you. Please send your detailed resume and a brief introduction to our team.
               </p>
-              <Button asChild size="lg" className="bg-[#35a3be] hover:bg-[#174f5f] font-black py-7 px-10 rounded-2xl text-lg shadow-xl shadow-[#35a3be]/20 transition-all duration-300">
-                <Link href="/contact">Apply Now</Link>
+              <Button asChild size="lg" className="bg-[#35a3be] hover:bg-[#174f5f] font-black py-7 px-10 rounded-2xl text-lg shadow-xl shadow-[#35a3be]/20 transition-all duration-300 group">
+                <Link href="/contact" className="flex items-center">
+                  Apply Now <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </Link>
               </Button>
             </div>
           </div>
