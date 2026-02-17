@@ -62,12 +62,12 @@ export default function BlogPage() {
                 </div>
                 <div className="flex flex-col justify-between p-8 md:w-3/5 text-left">
                   <div className="text-left">
-                    <div className="flex items-center gap-4 text-xs font-bold text-[#35a3be] mb-4 justify-start">
-                        <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-3 text-[10px] md:text-xs font-bold text-[#35a3be] mb-4 justify-start">
+                        <div className="flex items-center gap-1.5 px-3 py-1 bg-[#35a3be]/10 border border-[#35a3be]/20 rounded-full">
                             <User className="h-3.5 w-3.5" />
                             <span>{post.author}</span>
                         </div>
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-1.5 px-3 py-1 bg-[#35a3be]/10 border border-[#35a3be]/20 rounded-full">
                             <CalendarIcon className="h-3.5 w-3.5" />
                             <span>{post.date}</span>
                         </div>
