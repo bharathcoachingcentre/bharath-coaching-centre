@@ -10,7 +10,7 @@ export default function ContactPage() {
     <div>
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
-          src="/contact-us-banner-bcc.jpg"
+          src="/contact-us-banner-bcc-teaching.jpg"
           alt="Contact Us Banner"
           fill
           className="object-cover"
