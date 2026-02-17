@@ -86,16 +86,16 @@ export default function OurResultsPage() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="flex justify-center"
                 >
-                    <div className="relative group w-full max-w-5xl">
+                    <div className="relative group w-full max-w-4xl">
                         <div className="absolute -inset-4 bg-gradient-to-tr from-[#35a3be]/20 to-transparent rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                         
-                        {/* Consistent Size Image Wrapper */}
+                        {/* Standardized Size Image Wrapper */}
                         <div className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-[0_30px_80px_rgba(8,112,184,0.15)] border border-white/60 bg-white/50 z-10">
                             <Image
                                 src={resultsData[selectedYear].src}
                                 alt={resultsData[selectedYear].alt}
                                 fill
-                                className="object-contain p-4 md:p-8"
+                                className="object-contain p-6 md:p-12"
                                 data-ai-hint={resultsData[selectedYear].hint}
                                 priority
                             />
