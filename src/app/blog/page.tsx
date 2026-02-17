@@ -70,8 +70,8 @@ export default function BlogPage() {
                         </div>
                     </div>
                     <CardHeader className="p-0 text-left">
-                      <CardTitle className="text-2xl font-black text-[#182d45] hover:text-[#35a3be] transition-colors leading-tight text-left">
-                        <Link href={`/blog/${post.slug}`} className="text-left">{post.title}</Link>
+                      <CardTitle className="text-2xl font-black text-[#182d45] hover:text-[#35a3be] transition-colors leading-tight !text-left">
+                        <Link href={`/blog/${post.slug}`} className="!text-left">{post.title}</Link>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 mt-4 text-left">
