@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -244,10 +245,13 @@ export function Header() {
             </div>
         </div>
       <div className={cn(isHome2 && "home-new-header", !isHome2 && "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60")}>
-        <div className={cn(
-            pathname === '/signin' ? "w-full" : "container mx-auto",
-            "flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8"
-        )}>
+        <div 
+            className={cn(
+                pathname === '/signin' ? "w-full" : "container mx-auto",
+                "flex h-24 items-center justify-between px-4 sm:px-6 lg:px-8"
+            )}
+            style={pathname === '/signin' ? { background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' } : undefined}
+        >
             <div className="flex items-center">
             <Link href={homeLink} className="flex items-center">
                 <Logo />
