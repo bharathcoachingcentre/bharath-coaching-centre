@@ -86,17 +86,20 @@ export default function OurResultsPage() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="flex justify-center"
                 >
-                    <div className="relative group">
+                    <div className="relative group w-full max-w-5xl">
                         <div className="absolute -inset-4 bg-gradient-to-tr from-[#35a3be]/20 to-transparent rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                        <Image
-                            src={resultsData[selectedYear].src}
-                            alt={resultsData[selectedYear].alt}
-                            width={1000}
-                            height={750}
-                            className="w-full max-w-5xl mx-auto rounded-[2.5rem] shadow-[0_30px_80px_rgba(8,112,184,0.15)] border border-white/60 relative z-10"
-                            data-ai-hint={resultsData[selectedYear].hint}
-                            priority
-                        />
+                        
+                        {/* Consistent Size Image Wrapper */}
+                        <div className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-[0_30px_80px_rgba(8,112,184,0.15)] border border-white/60 bg-white/50 z-10">
+                            <Image
+                                src={resultsData[selectedYear].src}
+                                alt={resultsData[selectedYear].alt}
+                                fill
+                                className="object-contain p-4 md:p-8"
+                                data-ai-hint={resultsData[selectedYear].hint}
+                                priority
+                            />
+                        </div>
                     </div>
                 </motion.div>
             </AnimatePresence>
