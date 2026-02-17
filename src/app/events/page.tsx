@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -88,6 +87,7 @@ export default function EventsPage() {
                   onChange={(val) => setDate(val as Date)}
                   value={date}
                   tileContent={tileContent}
+                  calendarType="iso8601"
                   className="border-none"
                 />
               )}

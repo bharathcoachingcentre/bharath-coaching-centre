@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -232,6 +231,7 @@ export default function StudentRegistrationPage() {
                                         <ReactCalendar
                                             onChange={(val) => field.onChange(val as Date)}
                                             value={field.value || new Date()}
+                                            calendarType="iso8601"
                                             className="border-none"
                                         />
                                     )}
