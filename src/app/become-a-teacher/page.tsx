@@ -32,7 +32,7 @@ export default function BecomeATeacherPage() {
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/Online-Course.jpg"
-          alt="Become a Teacher Banner"
+          alt="Become A Teacher Banner"
           fill
           className="object-cover"
           data-ai-hint="teacher classroom"
@@ -40,7 +40,7 @@ export default function BecomeATeacherPage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">
           <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl">
-            Become a Teacher
+            Become A Teacher
           </h1>
         </div>
       </section>
