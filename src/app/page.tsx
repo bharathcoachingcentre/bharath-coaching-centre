@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -32,6 +31,7 @@ import {
   Calendar,
   PieChart,
   ClipboardCheck,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -318,12 +318,15 @@ export default function HomePage() {
                   Samacheer
                 </button>
               </div>
-              <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px] shadow-sm">
-                <option>All Subjects</option>
-                <option>Mathematics</option>
-                <option>Science</option>
-                <option>English</option>
-              </select>
+              <div className="relative min-w-[200px]">
+                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer">
+                  <option>All Subjects</option>
+                  <option>Mathematics</option>
+                  <option>Science</option>
+                  <option>English</option>
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -334,7 +337,7 @@ export default function HomePage() {
                     "group rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1",
                     material.lightBg,
                     material.borderColor,
-                    `hover:border-[${material.iconColor.split('-')[1]}-600]`
+                    activeBoard === 'cbse' ? 'hover:border-blue-600' : 'hover:border-teal-600'
                   )}
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -467,12 +470,15 @@ export default function HomePage() {
                   Samacheer
                 </button>
               </div>
-              <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px] shadow-sm">
-                <option>Class 10</option>
-                {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
-                  <option key={c}>{c}</option>
-                ))}
-              </select>
+              <div className="relative min-w-[200px]">
+                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer">
+                  <option>Class 10</option>
+                  {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
             </div>
 
             <div className="overflow-x-auto rounded-[1.5rem] border border-gray-100 shadow-inner">
@@ -692,43 +698,6 @@ export default function HomePage() {
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Feature High Resolution Bottom Grid */}
-      <section className="bg-[#f1f5f9] py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <div className="flex flex-col items-start text-left space-y-6">
-              <div className="w-14 h-14 rounded-full bg-[#2b65e2] flex items-center justify-center shadow-lg">
-                <PieChart className="text-white w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-black text-[#182d45] tracking-tight">Parent Academic Tracking</h3>
-              <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                Real-time access to student performance, attendance, and progress through our dedicated parent portal with detailed analytics.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start text-left space-y-6">
-              <div className="w-14 h-14 rounded-full bg-[#2abfaf] flex items-center justify-center shadow-lg">
-                <Calendar className="text-white w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-black text-[#182d45] tracking-tight">Daily Performance Monitoring</h3>
-              <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                Track daily homework completion, class participation, and understanding levels with instant notifications to parents.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start text-left space-y-6">
-              <div className="w-14 h-14 rounded-full bg-[#8b5cf6] flex items-center justify-center shadow-lg">
-                <ClipboardCheck className="text-white w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-black text-[#182d45] tracking-tight">Weekly Tests & Evaluation</h3>
-              <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.
-              </p>
-            </div>
           </div>
         </div>
       </section>
