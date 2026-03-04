@@ -29,6 +29,9 @@ import {
   Info,
   ClipboardList,
   LineChart,
+  Calendar,
+  PieChart,
+  ClipboardCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -96,54 +99,6 @@ export default function HomePage() {
       hoverBorderColor: "hover:border-orange-600",
       iconColor: "text-orange-600",
     },
-    {
-      title: "Physics",
-      grade: "Class 11",
-      desc: "Concepts, formulas and problems",
-      themeColor: "bg-[#ec4899]",
-      hoverThemeColor: "hover:bg-pink-700",
-      lightBg: "bg-pink-50",
-      iconContainerBg: "bg-white",
-      borderColor: "border-pink-100",
-      hoverBorderColor: "hover:border-pink-600",
-      iconColor: "text-pink-600",
-    },
-    {
-      title: "Chemistry",
-      grade: "Class 11",
-      desc: "Organic, inorganic & physical chemistry",
-      themeColor: "bg-[#6366f1]",
-      hoverThemeColor: "hover:bg-indigo-700",
-      lightBg: "bg-indigo-50",
-      iconContainerBg: "bg-white",
-      borderColor: "border-indigo-100",
-      hoverBorderColor: "hover:border-indigo-600",
-      iconColor: "text-indigo-600",
-    },
-    {
-      title: "Biology",
-      grade: "Class 12",
-      desc: "Botany and zoology comprehensive notes",
-      themeColor: "bg-[#22c55e]",
-      hoverThemeColor: "hover:bg-green-700",
-      lightBg: "bg-green-50",
-      iconContainerBg: "bg-white",
-      borderColor: "border-green-100",
-      hoverBorderColor: "hover:border-green-600",
-      iconColor: "text-green-600",
-    },
-    {
-      title: "Hindi",
-      grade: "Class 8",
-      desc: "Grammar and literature study material",
-      themeColor: "bg-[#eab308]",
-      hoverThemeColor: "hover:bg-yellow-700",
-      lightBg: "bg-yellow-50",
-      iconContainerBg: "bg-white",
-      borderColor: "border-yellow-100",
-      hoverBorderColor: "hover:border-yellow-600",
-      iconColor: "text-yellow-600",
-    },
   ];
 
   const programs = [
@@ -169,17 +124,6 @@ export default function HomePage() {
       popular: true,
       points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
     },
-  ];
-
-  const students = [
-    { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", color: "text-blue-600", iconBg: "bg-blue-500" },
-    { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", color: "text-teal-600", iconBg: "bg-teal-500" },
-    { name: "Divya Nair", grade: "Class 10, Samacheer", marks: "96.4%", rank: "Rank 3", color: "text-purple-600", iconBg: "bg-purple-500" },
-    { name: "Rohan Kapoor", grade: "Class 12, CBSE", marks: "95.2%", rank: "Top 10", color: "text-orange-600", iconBg: "bg-orange-500" },
-    { name: "Meera Reddy", grade: "Class 10, CBSE", marks: "94.8%", rank: "Top 10", color: "text-pink-600", iconBg: "bg-pink-500" },
-    { name: "Karthik Iyer", grade: "Class 12, Samacheer", marks: "94.2%", rank: "Top 10", color: "text-green-600", iconBg: "bg-green-500" },
-    { name: "Sneha Patel", grade: "Class 10, CBSE", marks: "93.6%", rank: "Top 10", color: "text-indigo-600", iconBg: "bg-indigo-500" },
-    { name: "Aditya Sharma", grade: "Class 12, CBSE", marks: "92.8%", rank: "Top 10", color: "text-yellow-600", iconBg: "bg-yellow-500" },
   ];
 
   return (
@@ -390,7 +334,7 @@ export default function HomePage() {
                     "group rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1",
                     material.lightBg,
                     material.borderColor,
-                    material.hoverBorderColor
+                    `hover:border-[${material.iconColor.split('-')[1]}-600]`
                   )}
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -406,7 +350,7 @@ export default function HomePage() {
                   <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed">{material.desc}</p>
                   <Button
                     className={cn(
-                      "w-full text-white font-black rounded-xl h-12 shadow-lg hover:opacity-90 transition-all transform active:scale-95 flex items-center justify-center gap-2",
+                      "w-full text-white font-black rounded-xl h-12 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
                       material.themeColor,
                       material.hoverThemeColor
                     )}
@@ -486,7 +430,7 @@ export default function HomePage() {
       </section>
 
       {/* Timetable Section */}
-      <section id="timetable-section" className="relative py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -707,6 +651,88 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section id="testimonials-section" className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+              What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
+            </h2>
+            <p className="text-lg text-gray-500 font-medium">
+              Real stories from our successful students and satisfied parents
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { name: "Priya Sharma", role: "Class 10, CBSE", text: "The teachers at Bharath Academy are amazing! They explain every concept so clearly and are always available for doubt clearing. I improved my marks from 75% to 92% in just one year!" },
+              { name: "Rajesh Kumar", role: "Parent, Class 12", text: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!" },
+              { name: "Arun Reddy", role: "Class 11, Samacheer", text: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!" },
+              { name: "Kavya Iyer", role: "Class 9, CBSE", text: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore." },
+              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused." },
+              { name: "Vikram Singh", role: "Class 12, CBSE", text: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!" }
+            ].map((testimonial, idx) => (
+              <div key={idx} className="bg-white rounded-[2.5rem] shadow-xl p-8 border border-gray-50 flex flex-col items-start text-left transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#2abfaf]/20 shadow-inner bg-gray-100">
+                    <Image src={`https://picsum.photos/seed/user${idx}/100/100`} alt={testimonial.name} fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-gray-900 leading-tight">{testimonial.name}</h4>
+                    <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mt-0.5">{testimonial.role}</p>
+                  </div>
+                </div>
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-600 text-sm leading-relaxed font-medium italic">
+                  "{testimonial.text}"
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Feature High Resolution Bottom Grid */}
+      <section className="bg-[#f1f5f9] py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="flex flex-col items-start text-left space-y-6">
+              <div className="w-14 h-14 rounded-full bg-[#2b65e2] flex items-center justify-center shadow-lg">
+                <PieChart className="text-white w-7 h-7" />
+              </div>
+              <h3 className="text-2xl font-black text-[#182d45] tracking-tight">Parent Academic Tracking</h3>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                Real-time access to student performance, attendance, and progress through our dedicated parent portal with detailed analytics.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-start text-left space-y-6">
+              <div className="w-14 h-14 rounded-full bg-[#2abfaf] flex items-center justify-center shadow-lg">
+                <Calendar className="text-white w-7 h-7" />
+              </div>
+              <h3 className="text-2xl font-black text-[#182d45] tracking-tight">Daily Performance Monitoring</h3>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                Track daily homework completion, class participation, and understanding levels with instant notifications to parents.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-start text-left space-y-6">
+              <div className="w-14 h-14 rounded-full bg-[#8b5cf6] flex items-center justify-center shadow-lg">
+                <ClipboardCheck className="text-white w-7 h-7" />
+              </div>
+              <h3 className="text-2xl font-black text-[#182d45] tracking-tight">Weekly Tests & Evaluation</h3>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Results Showcase Section */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -729,34 +755,6 @@ export default function HomePage() {
                 </div>
                 <div className="text-5xl font-bold text-gray-900 mb-2">{stat.val}</div>
                 <div className="text-lg text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {students.map((student, idx) => (
-              <div key={idx} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 group">
-                <div className="relative h-48 overflow-hidden">
-                  <Image src={`https://picsum.photos/seed/stu${idx}/400/500`} alt={student.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute top-3 right-3">
-                    <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white text-xs font-bold rounded-full shadow-lg">
-                      Rank {idx + 1}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{student.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{student.grade}</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className={cn("text-3xl font-bold", student.color)}>{student.marks}</div>
-                      <div className="text-xs text-gray-500 font-bold uppercase tracking-wider">Marks</div>
-                    </div>
-                    <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md transition-transform group-hover:rotate-12", student.iconBg)}>
-                      <Star className="w-6 h-6 fill-current" />
-                    </div>
-                  </div>
-                </div>
               </div>
             ))}
           </div>
