@@ -331,21 +331,29 @@ export default function HomePage() {
 
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10">
-              <div className="flex p-1.5 bg-gray-100 rounded-2xl">
-                <Button 
+              <div className="flex gap-4">
+                <button
                   onClick={() => setActiveBoard("cbse")}
-                  variant="ghost" 
-                  className={cn("px-8 py-2.5 font-bold rounded-xl transition-all", activeBoard === "cbse" ? "bg-white text-blue-600 shadow-sm" : "text-gray-500")}
+                  className={cn(
+                    "px-10 py-4 font-black rounded-2xl transition-all duration-300 min-w-[160px] text-lg tracking-tight",
+                    activeBoard === "cbse"
+                      ? "bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
+                      : "bg-[#f1f5f9] text-[#1e293b] hover:bg-gray-200"
+                  )}
                 >
                   CBSE
-                </Button>
-                <Button 
+                </button>
+                <button
                   onClick={() => setActiveBoard("samacheer")}
-                  variant="ghost" 
-                  className={cn("px-8 py-2.5 font-bold rounded-xl transition-all", activeBoard === "samacheer" ? "bg-white text-blue-600 shadow-sm" : "text-gray-500")}
+                  className={cn(
+                    "px-10 py-4 font-black rounded-2xl transition-all duration-300 min-w-[160px] text-lg tracking-tight",
+                    activeBoard === "samacheer"
+                      ? "bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
+                      : "bg-[#f1f5f9] text-[#1e293b] hover:bg-gray-200"
+                  )}
                 >
                   Samacheer
-                </Button>
+                </button>
               </div>
               <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px] shadow-sm">
                 <option>All Subjects</option>
