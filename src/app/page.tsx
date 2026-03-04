@@ -52,6 +52,30 @@ import {
 } from "@/components/ui/select";
 import placeholderImages from "@/app/lib/placeholder-images.json";
 
+const SolidUserCheck = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm9.29-4.71L17 13.59l-2.29-2.3-1.42 1.42L17 16.41l5.71-5.71-1.42-1.42z"/>
+  </svg>
+);
+
+const SolidClipboardList = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M19 3h-4.18a3 3 0 0 0-5.64 0H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM7 7h10V5h2v14H5V5h2v2zm2 5h6v2H9v-2zm0 4h6v2H9v-2z" />
+  </svg>
+);
+
+const SolidLineChart = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
+  </svg>
+);
+
+const SolidUsers = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+  </svg>
+);
+
 export default function HomePage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
@@ -761,28 +785,28 @@ export default function HomePage() {
               <div className="space-y-8">
                 {[
                   { 
-                    icon: UserCheck, 
+                    icon: SolidUserCheck, 
                     title: "Individual Attention", 
                     desc: "Dedicated mentor assigned to each student for personalized guidance and support throughout their academic journey.",
                     bg: "bg-blue-100",
                     text: "text-blue-600"
                   },
                   { 
-                    icon: ClipboardList, 
+                    icon: SolidClipboardList, 
                     title: "Customized Study Plan", 
                     desc: "Tailored learning strategies based on individual strengths, weaknesses, and learning pace for optimal results.",
                     bg: "bg-teal-100",
                     text: "text-teal-600"
                   },
                   { 
-                    icon: LineChart, 
+                    icon: SolidLineChart, 
                     title: "Weekly Academic Tracking", 
                     desc: "Regular monitoring of progress with detailed performance analysis and timely interventions when needed.",
                     bg: "bg-purple-100",
                     text: "text-purple-600"
                   },
                   { 
-                    icon: Users, 
+                    icon: SolidUsers, 
                     title: "Parent Performance Updates", 
                     desc: "Comprehensive reports shared with parents weekly, keeping them informed about their child's academic progress.",
                     bg: "bg-orange-100",
