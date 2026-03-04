@@ -90,7 +90,7 @@ export function Header() {
 
           <div className="hidden lg:flex items-center space-x-4">
             <Button variant="ghost" asChild className="text-gray-700 font-semibold hover:text-blue-600 hover:bg-blue-50 border-2 border-transparent hover:border-blue-100 rounded-lg px-6 transition-all">
-              <Link href="/signin">Sign In</Link>
+              <Link href="/courses">Explore Courses</Link>
             </Button>
             <Button asChild className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-200 transform hover:scale-105 px-8 h-11">
               <Link href="/contact">Book Free Demo</Link>
