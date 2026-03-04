@@ -30,6 +30,7 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: var(--font-inter), sans-serif !important;
   }
   body {
     @apply bg-background text-foreground;

@@ -3,18 +3,13 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { ClientHeader } from '@/components/client-header';
 import { FooterWrapper } from '@/components/footer-wrapper';
-import { Plus_Jakarta_Sans, DM_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-plus-jakarta-sans',
-});
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-dm-sans',
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
@@ -31,11 +26,8 @@ export default function RootLayout({
     <html lang="en" className="light">
       <head>
         <link rel="icon" href="/fav.png" type="image/png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className={`${plusJakartaSans.variable} ${dmSans.variable} font-body antialiased flex flex-col min-h-screen`}>
+      <body className={`${inter.variable} font-body antialiased flex flex-col min-h-screen`}>
         <ClientHeader />
         <main className="flex-grow">{children}</main>
         <FooterWrapper />
