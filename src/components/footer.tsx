@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { GraduationCap, Facebook, Instagram, Youtube, Phone, Mail, MapPin } from "lucide-react";
+import { GraduationCap, Facebook, Instagram, Youtube, Phone, Mail, MapPin, Send } from "lucide-react";
 import { Button } from "./ui/button";
 
 export function Footer() {
@@ -37,7 +37,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Company</h3>
-            <ul className="space-y-4 font-medium">
+            <ul className="space-y-4 font-medium text-sm">
               <li><Link href="/" className="text-gray-400 hover:text-white transition-colors duration-200">Home</Link></li>
               <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors duration-200">About Us</Link></li>
               <li><Link href="/our-results" className="text-gray-400 hover:text-white transition-colors duration-200">Our Results</Link></li>
@@ -47,17 +47,17 @@ export function Footer() {
 
           <div>
             <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Courses</h3>
-            <ul className="space-y-4 font-medium">
+            <ul className="space-y-4 font-medium text-sm">
               <li><Link href="/courses" className="text-gray-400 hover:text-white transition-colors duration-200">CBSE Coaching</Link></li>
               <li><Link href="/courses" className="text-gray-400 hover:text-white transition-colors duration-200">Samacheer Coaching</Link></li>
-              <li><Link href="/courses" className="text-gray-400 hover:text-white transition-colors duration-200">Online Classes</Link></li>
-              <li><Link href="/courses" className="text-gray-400 hover:text-white transition-colors duration-200">One-to-One Mentorship</Link></li>
+              <li><Link href="/online-courses" className="text-gray-400 hover:text-white transition-colors duration-200">Online Classes</Link></li>
+              <li><Link href="/one-to-one-classes" className="text-gray-400 hover:text-white transition-colors duration-200">One-to-One Mentorship</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Resources</h3>
-            <ul className="space-y-4 font-medium">
+            <ul className="space-y-4 font-medium text-sm">
               <li><Link href="/free-study-material" className="text-gray-400 hover:text-white transition-colors duration-200">Free Study Materials</Link></li>
               <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors duration-200">Blog</Link></li>
               <li><Link href="/student-registration" className="text-gray-400 hover:text-white transition-colors duration-200">Become a Teacher</Link></li>
@@ -66,7 +66,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Contact</h3>
-            <ul className="space-y-5 text-gray-400 font-medium">
+            <ul className="space-y-5 text-gray-400 font-medium text-sm">
               <li className="flex items-start gap-3">
                 <Phone className="text-blue-500 w-5 h-5 mt-1" />
                 <div>

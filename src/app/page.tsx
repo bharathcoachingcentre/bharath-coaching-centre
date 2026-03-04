@@ -37,9 +37,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -54,14 +53,78 @@ export default function HomePage() {
   ];
 
   const materials = [
-    { title: "Mathematics", grade: "Class 10", iconColor: "text-blue-600", bgColor: "bg-blue-50", borderColor: "border-blue-100" },
-    { title: "Science", grade: "Class 10", iconColor: "text-teal-600", bgColor: "bg-teal-50", borderColor: "border-teal-100" },
-    { title: "English", grade: "Class 9", iconColor: "text-purple-600", bgColor: "bg-purple-50", borderColor: "border-purple-100" },
-    { title: "Social Science", grade: "Class 12", iconColor: "text-orange-600", bgColor: "bg-orange-50", borderColor: "border-orange-100" },
-    { title: "Physics", grade: "Class 11", iconColor: "text-pink-600", bgColor: "bg-pink-50", borderColor: "border-pink-100" },
-    { title: "Chemistry", grade: "Class 11", iconColor: "text-indigo-600", bgColor: "bg-indigo-50", borderColor: "border-indigo-100" },
-    { title: "Biology", grade: "Class 12", iconColor: "text-green-600", bgColor: "bg-green-50", borderColor: "border-green-100" },
-    { title: "Hindi", grade: "Class 8", iconColor: "text-yellow-600", bgColor: "bg-yellow-50", borderColor: "border-yellow-100" },
+    { 
+      title: "Mathematics", 
+      grade: "Class 10", 
+      desc: "Complete chapter-wise notes and formulas", 
+      themeColor: "bg-blue-600", 
+      lightBg: "bg-blue-50", 
+      borderColor: "border-blue-100", 
+      iconColor: "text-blue-600" 
+    },
+    { 
+      title: "Science", 
+      grade: "Class 10", 
+      desc: "Physics, Chemistry & Biology notes", 
+      themeColor: "bg-teal-600", 
+      lightBg: "bg-teal-50", 
+      borderColor: "border-teal-100", 
+      iconColor: "text-teal-600" 
+    },
+    { 
+      title: "English", 
+      grade: "Class 9", 
+      desc: "Grammar, literature and writing skills", 
+      themeColor: "bg-purple-600", 
+      lightBg: "bg-purple-50", 
+      borderColor: "border-purple-100", 
+      iconColor: "text-purple-600" 
+    },
+    { 
+      title: "Social Science", 
+      grade: "Class 12", 
+      desc: "History, Geography & Civics notes", 
+      themeColor: "bg-orange-600", 
+      lightBg: "bg-orange-50", 
+      borderColor: "border-orange-100", 
+      iconColor: "text-orange-600" 
+    },
+    { 
+      title: "Physics", 
+      grade: "Class 11", 
+      desc: "Concepts, formulas and problems", 
+      themeColor: "bg-pink-600", 
+      lightBg: "bg-pink-50", 
+      borderColor: "border-pink-100", 
+      iconColor: "text-pink-600" 
+    },
+    { 
+      title: "Chemistry", 
+      grade: "Class 11", 
+      desc: "Organic, inorganic & physical chemistry", 
+      themeColor: "bg-indigo-600", 
+      lightBg: "bg-indigo-50", 
+      borderColor: "border-indigo-100", 
+      iconColor: "text-indigo-600" 
+    },
+    { 
+      title: "Biology", 
+      grade: "Class 12", 
+      desc: "Botany and zoology comprehensive notes", 
+      themeColor: "bg-green-600", 
+      lightBg: "bg-green-50", 
+      borderColor: "border-green-100", 
+      iconColor: "text-green-600" 
+    },
+    { 
+      title: "Hindi", 
+      grade: "Class 8", 
+      desc: "Grammar and literature study material", 
+      themeColor: "bg-yellow-600", 
+      lightBg: "bg-yellow-50", 
+      borderColor: "border-yellow-100", 
+      iconColor: "text-yellow-600" 
+    },
   ];
 
   const programs = [
@@ -267,22 +330,24 @@ export default function HomePage() {
           </div>
 
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8">
-              <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10">
+              <div className="flex p-1.5 bg-gray-100 rounded-2xl">
                 <Button 
                   onClick={() => setActiveBoard("cbse")}
-                  className={cn("px-8 py-3 font-semibold rounded-xl transition-all", activeBoard === "cbse" ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200")}
+                  variant="ghost" 
+                  className={cn("px-8 py-2.5 font-bold rounded-xl transition-all", activeBoard === "cbse" ? "bg-white text-blue-600 shadow-sm" : "text-gray-500")}
                 >
                   CBSE
                 </Button>
                 <Button 
                   onClick={() => setActiveBoard("samacheer")}
-                  className={cn("px-8 py-3 font-semibold rounded-xl transition-all", activeBoard === "samacheer" ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200")}
+                  variant="ghost" 
+                  className={cn("px-8 py-2.5 font-bold rounded-xl transition-all", activeBoard === "samacheer" ? "bg-white text-blue-600 shadow-sm" : "text-gray-500")}
                 >
                   Samacheer
                 </Button>
               </div>
-              <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-medium text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px]">
+              <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px] shadow-sm">
                 <option>All Subjects</option>
                 <option>Mathematics</option>
                 <option>Science</option>
@@ -292,17 +357,18 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {materials.map((material, idx) => (
-                <div key={idx} className={cn("rounded-2xl p-6 border-2 transition-all duration-300 hover:shadow-xl", material.bgColor, material.borderColor)}>
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                      <FileText className={cn("w-8 h-8", material.iconColor)} />
+                <div key={idx} className={cn("rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1", material.lightBg, material.borderColor)}>
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="w-12 h-12 bg-white rounded-xl flex flex-col items-center justify-center shadow-sm">
+                      <FileText className={cn("w-6 h-6", material.iconColor)} />
+                      <span className={cn("text-[8px] font-black uppercase", material.iconColor)}>PDF</span>
                     </div>
-                    <span className={cn("px-3 py-1 text-white text-xs font-bold rounded-full", material.iconColor.replace('text', 'bg'))}>{material.grade}</span>
+                    <span className={cn("px-4 py-1 text-white text-[10px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{material.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">Comprehensive notes and formulas</p>
-                  <Button className={cn("w-full text-white font-semibold rounded-xl h-12 shadow-md hover:opacity-90 transition-opacity", material.iconColor.replace('text', 'bg'))}>
-                    <Download className="mr-2 h-4 w-4" /> Download PDF
+                  <h3 className="text-xl font-black text-gray-900 mb-2">{material.title}</h3>
+                  <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed">{material.desc}</p>
+                  <Button className={cn("w-full text-white font-black rounded-xl h-12 shadow-lg hover:opacity-90 transition-all transform active:scale-95 flex items-center justify-center gap-2", material.themeColor)}>
+                    <Download className="w-4 h-4" /> Download PDF
                   </Button>
                 </div>
               ))}
@@ -448,85 +514,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Mentorship Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl group">
-              <Image 
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=800"
-                alt="Mentorship"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                data-ai-hint="teacher mentoring student"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-            </div>
-            <div className="space-y-8">
-              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
-                One-to-One <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Mentorship</span>
-              </h2>
-              <p className="text-lg text-gray-600 font-medium">Personalized attention to help every student reach their full potential</p>
-              
-              <div className="grid gap-6">
-                {[
-                  { icon: UserCheck, title: "Individual Attention", desc: "Dedicated mentor assigned to each student for personalized guidance.", color: "bg-blue-100 text-blue-600" },
-                  { icon: PieChart, title: "Customized Study Plan", desc: "Tailored strategies based on individual strengths and weaknesses.", color: "bg-teal-100 text-teal-600" },
-                  { icon: TrendingUp, title: "Weekly tracking", desc: "Regular progress monitoring with detailed analysis reports.", color: "bg-purple-100 text-purple-600" },
-                  { icon: Users, title: "Parent performance updates", desc: "Weekly updates keeping parents connected with the journey.", color: "bg-orange-100 text-orange-600" },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-4">
-                    <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm", item.color)}>
-                      <item.icon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-xl">{item.title}</h3>
-                      <p className="text-gray-600 text-sm">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold py-7 px-10 rounded-xl hover:shadow-xl transition-all transform active:scale-95">
-                <Link href="/contact">Book Personal Session</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              Why Choose <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Bharath Academy?</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">Comprehensive features designed for complete academic excellence</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: PieChart, title: "Parent Academic Tracking", desc: "Real-time access to student performance through our portal.", color: "bg-blue-500" },
-              { icon: CalendarDays, title: "Daily Performance Monitoring", desc: "Track homework, participation, and understanding levels daily.", color: "bg-teal-500" },
-              { icon: ShieldCheck, title: "Weekly Tests & Evaluation", desc: "Regular assessments to measure progress and identify gaps.", color: "bg-purple-500" },
-              { icon: Layers, title: "Structured Test Hierarchy", desc: "Progressive testing system built to grow student confidence.", color: "bg-orange-500" },
-              { icon: Handshake, title: "Term-wise Parent Meetings", desc: "One-on-one progress discussions with customized strategies.", color: "bg-pink-500" },
-              { icon: BookMarked, title: "Specialized Materials", desc: "Curated materials specifically designed for each curriculum.", color: "bg-indigo-500" },
-            ].map((feature, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 group">
-                <div className={cn("w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg text-white transition-transform group-hover:scale-110", feature.color)}>
-                  <feature.icon className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Results Showcase Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -548,7 +537,7 @@ export default function HomePage() {
                 <div className="text-5xl font-bold text-gray-900 mb-2">{stat.val}</div>
                 <div className="text-lg text-gray-600 font-medium">{stat.label}</div>
               </div>
-            ))}Stat
+            ))}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
