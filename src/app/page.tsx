@@ -50,6 +50,7 @@ export default function HomePage() {
       grade: "Class 10", 
       desc: "Complete chapter-wise notes and formulas", 
       themeColor: "bg-[#2b65e2]", 
+      hoverThemeColor: "hover:bg-blue-700",
       lightBg: "bg-[#eff6ff]", 
       iconContainerBg: "bg-blue-100",
       borderColor: "border-blue-100", 
@@ -61,6 +62,7 @@ export default function HomePage() {
       grade: "Class 10", 
       desc: "Physics, Chemistry & Biology notes", 
       themeColor: "bg-[#2abfaf]", 
+      hoverThemeColor: "hover:bg-teal-700",
       lightBg: "bg-[#f0fdfa]", 
       iconContainerBg: "bg-teal-100",
       borderColor: "border-teal-100", 
@@ -72,6 +74,7 @@ export default function HomePage() {
       grade: "Class 9", 
       desc: "Grammar, literature and writing skills", 
       themeColor: "bg-[#8b5cf6]", 
+      hoverThemeColor: "hover:bg-violet-700",
       lightBg: "bg-[#f5f3ff]", 
       iconContainerBg: "bg-purple-100",
       borderColor: "border-purple-100", 
@@ -83,6 +86,7 @@ export default function HomePage() {
       grade: "Class 12", 
       desc: "History, Geography & Civics notes", 
       themeColor: "bg-[#f97316]", 
+      hoverThemeColor: "hover:bg-orange-700",
       lightBg: "bg-[#fff7ed]", 
       iconContainerBg: "bg-orange-100",
       borderColor: "border-orange-100", 
@@ -94,6 +98,7 @@ export default function HomePage() {
       grade: "Class 11", 
       desc: "Concepts, formulas and problems", 
       themeColor: "bg-[#ec4899]", 
+      hoverThemeColor: "hover:bg-pink-700",
       lightBg: "bg-[#fdf2f8]", 
       iconContainerBg: "bg-pink-100",
       borderColor: "border-pink-100", 
@@ -105,6 +110,7 @@ export default function HomePage() {
       grade: "Class 11", 
       desc: "Organic, inorganic & physical chemistry", 
       themeColor: "bg-[#6366f1]", 
+      hoverThemeColor: "hover:bg-indigo-700",
       lightBg: "bg-[#eef2ff]", 
       iconContainerBg: "bg-indigo-100",
       borderColor: "border-indigo-100", 
@@ -116,6 +122,7 @@ export default function HomePage() {
       grade: "Class 12", 
       desc: "Botany and zoology comprehensive notes", 
       themeColor: "bg-[#22c55e]", 
+      hoverThemeColor: "hover:bg-green-700",
       lightBg: "bg-[#f0fdf4]", 
       iconContainerBg: "bg-green-100",
       borderColor: "border-green-100", 
@@ -127,6 +134,7 @@ export default function HomePage() {
       grade: "Class 8", 
       desc: "Grammar and literature study material", 
       themeColor: "bg-[#eab308]", 
+      hoverThemeColor: "hover:bg-yellow-700",
       lightBg: "bg-[#fefce8]", 
       iconContainerBg: "bg-yellow-100",
       borderColor: "border-yellow-100", 
@@ -339,14 +347,14 @@ export default function HomePage() {
 
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10">
-              <div className="flex gap-4">
+              <div className="flex p-2 bg-[#f1f5f9] rounded-2xl">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "px-10 py-4 font-black rounded-2xl transition-all duration-300 min-w-[160px] text-lg tracking-tight",
+                    "px-10 py-4 font-black rounded-2xl transition-all duration-500 min-w-[160px] text-lg tracking-tight",
                     activeBoard === "cbse"
-                      ? "bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
-                      : "bg-[#f1f5f9] text-[#1e293b] hover:bg-gray-200"
+                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
+                      : "text-[#1e293b] hover:bg-gray-200"
                   )}
                 >
                   CBSE
@@ -354,10 +362,10 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "px-10 py-4 font-black rounded-2xl transition-all duration-300 min-w-[160px] text-lg tracking-tight",
+                    "px-10 py-4 font-black rounded-2xl transition-all duration-500 min-w-[160px] text-lg tracking-tight",
                     activeBoard === "samacheer"
-                      ? "bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
-                      : "bg-[#f1f5f9] text-[#1e293b] hover:bg-gray-200"
+                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
+                      : "text-[#1e293b] hover:bg-gray-200"
                   )}
                 >
                   Samacheer
@@ -392,7 +400,11 @@ export default function HomePage() {
                   </div>
                   <h3 className="text-xl font-black text-gray-900 mb-2">{material.title}</h3>
                   <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed">{material.desc}</p>
-                  <Button className={cn("w-full text-white font-black rounded-xl h-12 shadow-lg hover:opacity-90 transition-all transform active:scale-95 flex items-center justify-center gap-2", material.themeColor)}>
+                  <Button className={cn(
+                    "w-full text-white font-black rounded-xl h-12 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2", 
+                    material.themeColor,
+                    material.hoverThemeColor
+                  )}>
                     <Download className="w-4 h-4" /> Download PDF
                   </Button>
                 </div>
