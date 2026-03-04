@@ -26,6 +26,7 @@ import {
   Medal,
   Zap,
   Crown,
+  UserPlus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -455,12 +456,16 @@ export default function HomePage() {
                   ))}
                 </div>
                 <div className="space-y-3">
-                  <Button variant="outline" className="w-full py-6 font-semibold rounded-xl bg-gray-50 border-gray-200">View Timetable</Button>
+                  <Button variant="outline" className="w-full py-6 font-semibold rounded-xl bg-gray-50 border-gray-200">
+                    <Clock className="mr-2 h-5 w-5" />
+                    View Timetable
+                  </Button>
                   <Button className={cn(
                     "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95",
                     program.popular ? "bg-gradient-to-r from-purple-600 to-pink-600" : "bg-gradient-to-r from-blue-600 to-blue-700"
                   )}>
                     Enroll Now
+                    <UserPlus className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
               </div>
