@@ -73,6 +73,7 @@ export default function HomePage() {
       lightBg: "bg-blue-50/50",
       iconContainerBg: "bg-blue-100",
       borderColor: "border-blue-100",
+      hoverBorderColor: "hover:border-blue-300",
       iconColor: "text-blue-600",
     },
     {
@@ -84,6 +85,7 @@ export default function HomePage() {
       lightBg: "bg-teal-50/50",
       iconContainerBg: "bg-teal-100",
       borderColor: "border-teal-100",
+      hoverBorderColor: "hover:border-teal-300",
       iconColor: "text-teal-600",
     },
     {
@@ -95,6 +97,7 @@ export default function HomePage() {
       lightBg: "bg-purple-50/50",
       iconContainerBg: "bg-purple-100",
       borderColor: "border-purple-100",
+      hoverBorderColor: "hover:border-purple-300",
       iconColor: "text-purple-600",
     },
     {
@@ -106,6 +109,7 @@ export default function HomePage() {
       lightBg: "bg-orange-50/50",
       iconContainerBg: "bg-orange-100",
       borderColor: "border-orange-100",
+      hoverBorderColor: "hover:border-orange-300",
       iconColor: "text-orange-600",
     },
     {
@@ -117,6 +121,7 @@ export default function HomePage() {
       lightBg: "bg-pink-50/50",
       iconContainerBg: "bg-pink-100",
       borderColor: "border-pink-100",
+      hoverBorderColor: "hover:border-pink-300",
       iconColor: "text-pink-600",
     },
     {
@@ -128,6 +133,7 @@ export default function HomePage() {
       lightBg: "bg-indigo-50/50",
       iconContainerBg: "bg-indigo-100",
       borderColor: "border-indigo-100",
+      hoverBorderColor: "hover:border-indigo-300",
       iconColor: "text-indigo-600",
     },
     {
@@ -139,6 +145,7 @@ export default function HomePage() {
       lightBg: "bg-green-50/50",
       iconContainerBg: "bg-green-100",
       borderColor: "border-green-100",
+      hoverBorderColor: "hover:border-green-300",
       iconColor: "text-green-600",
     },
     {
@@ -150,6 +157,7 @@ export default function HomePage() {
       lightBg: "bg-amber-50/50",
       iconContainerBg: "bg-amber-100",
       borderColor: "border-amber-100",
+      hoverBorderColor: "hover:border-amber-300",
       iconColor: "text-amber-600",
     },
   ];
@@ -476,9 +484,10 @@ export default function HomePage() {
                 <div
                   key={idx}
                   className={cn(
-                    "group rounded-[2rem] p-8 border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
+                    "group rounded-[2rem] p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
                     material.lightBg,
-                    material.borderColor
+                    material.borderColor,
+                    material.hoverBorderColor
                   )}
                 >
                   <div className="flex items-start justify-between mb-6">
