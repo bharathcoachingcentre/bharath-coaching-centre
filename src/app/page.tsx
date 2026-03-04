@@ -484,7 +484,7 @@ export default function HomePage() {
       </section>
 
       {/* Timetable Section */}
-      <section id="timetable-section" class="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -543,41 +543,41 @@ export default function HomePage() {
                 <tbody className="divide-y divide-gray-50">
                   {[
                     { day: "Monday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200" },
                     ]},
                     { day: "Tuesday", slots: [
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200" },
                     ]},
                     { day: "Wednesday", slots: [
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200" },
                     ]},
                     { day: "Thursday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200" },
                     ]},
                     { day: "Friday", slots: [
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200" },
                     ]},
                   ].map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
                       <td className="px-8 py-6 font-black text-gray-900">{row.day}</td>
                       {row.slots.map((item, iIdx) => (
                         <td key={iIdx} className="px-4 py-4 text-center">
-                          <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105 border border-transparent hover:border-gray-200 shadow-sm", item.c)}>
+                          <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105 border shadow-sm", item.c)}>
                             <div className="font-bold text-sm text-[#182d45]">{item.s}</div>
                             <div className="text-[11px] text-gray-500 font-medium mt-1">{item.t}</div>
                           </div>
