@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -32,6 +33,8 @@ import {
   PieChart,
   ClipboardCheck,
   ChevronDown,
+  Layers,
+  Handshake,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -696,6 +699,75 @@ export default function HomePage() {
                 <p className="text-gray-600 text-sm leading-relaxed font-medium italic">
                   "{testimonial.text}"
                 </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Section */}
+      <section id="why-choose-section" className="py-24 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+              Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
+            </h2>
+            <p className="text-lg text-gray-500 font-medium">
+              Comprehensive features designed for complete academic excellence
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Parent Academic Tracking",
+                desc: "Real-time access to student performance, attendance, and progress through our dedicated parent portal with detailed analytics.",
+                icon: PieChart,
+                iconBg: "bg-[#3b82f6]",
+                cardBg: "bg-[#eff6ff]"
+              },
+              {
+                title: "Daily Performance Monitoring",
+                desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.",
+                icon: Calendar,
+                iconBg: "bg-[#10b981]",
+                cardBg: "bg-[#f0fdf4]"
+              },
+              {
+                title: "Weekly Tests & Evaluation",
+                desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.",
+                icon: ClipboardCheck,
+                iconBg: "bg-[#8b5cf6]",
+                cardBg: "bg-[#f5f3ff]"
+              },
+              {
+                title: "Structured Test Hierarchy",
+                desc: "Progressive testing system from unit tests to term exams, designed to build confidence and exam readiness systematically.",
+                icon: Layers,
+                iconBg: "bg-[#f97316]",
+                cardBg: "bg-[#fff7ed]"
+              },
+              {
+                title: "Term-wise Parent Meetings",
+                desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.",
+                icon: Handshake,
+                iconBg: "bg-[#d946ef]",
+                cardBg: "bg-[#fdf4ff]"
+              },
+              {
+                title: "Specialized Learning Materials",
+                desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.",
+                icon: BookOpen,
+                iconBg: "bg-[#4f46e5]",
+                cardBg: "bg-[#eef2ff]"
+              }
+            ].map((item, idx) => (
+              <div key={idx} className={cn("p-10 rounded-[2rem] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:-translate-y-1", item.cardBg)}>
+                <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white mb-8 shadow-lg", item.iconBg)}>
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-black text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
+                <p className="text-gray-500 text-sm font-medium leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
