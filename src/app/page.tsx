@@ -71,7 +71,7 @@ export default function HomePage() {
       themeColor: "bg-blue-600",
       hoverThemeColor: "hover:bg-blue-700",
       lightBg: "bg-blue-50/50",
-      iconContainerBg: "bg-blue-100",
+      iconContainerBg: "bg-blue-100/50",
       borderColor: "border-blue-100",
       hoverBorderColor: "hover:border-blue-300",
       iconColor: "text-blue-600",
@@ -83,7 +83,7 @@ export default function HomePage() {
       themeColor: "bg-teal-600",
       hoverThemeColor: "hover:bg-teal-700",
       lightBg: "bg-teal-50/50",
-      iconContainerBg: "bg-teal-100",
+      iconContainerBg: "bg-teal-100/50",
       borderColor: "border-teal-100",
       hoverBorderColor: "hover:border-teal-300",
       iconColor: "text-teal-600",
@@ -95,7 +95,7 @@ export default function HomePage() {
       themeColor: "bg-purple-600",
       hoverThemeColor: "hover:bg-purple-700",
       lightBg: "bg-purple-50/50",
-      iconContainerBg: "bg-purple-100",
+      iconContainerBg: "bg-purple-100/50",
       borderColor: "border-purple-100",
       hoverBorderColor: "hover:border-purple-300",
       iconColor: "text-purple-600",
@@ -107,7 +107,7 @@ export default function HomePage() {
       themeColor: "bg-orange-600",
       hoverThemeColor: "hover:bg-orange-700",
       lightBg: "bg-orange-50/50",
-      iconContainerBg: "bg-orange-100",
+      iconContainerBg: "bg-orange-100/50",
       borderColor: "border-orange-100",
       hoverBorderColor: "hover:border-orange-300",
       iconColor: "text-orange-600",
@@ -119,7 +119,7 @@ export default function HomePage() {
       themeColor: "bg-pink-600",
       hoverThemeColor: "hover:bg-pink-700",
       lightBg: "bg-pink-50/50",
-      iconContainerBg: "bg-pink-100",
+      iconContainerBg: "bg-pink-100/50",
       borderColor: "border-pink-100",
       hoverBorderColor: "hover:border-pink-300",
       iconColor: "text-pink-600",
@@ -131,7 +131,7 @@ export default function HomePage() {
       themeColor: "bg-indigo-600",
       hoverThemeColor: "hover:bg-indigo-700",
       lightBg: "bg-indigo-50/50",
-      iconContainerBg: "bg-indigo-100",
+      iconContainerBg: "bg-indigo-100/50",
       borderColor: "border-indigo-100",
       hoverBorderColor: "hover:border-indigo-300",
       iconColor: "text-indigo-600",
@@ -143,7 +143,7 @@ export default function HomePage() {
       themeColor: "bg-green-600",
       hoverThemeColor: "hover:bg-green-700",
       lightBg: "bg-green-50/50",
-      iconContainerBg: "bg-green-100",
+      iconContainerBg: "bg-green-100/50",
       borderColor: "border-green-100",
       hoverBorderColor: "hover:border-green-300",
       iconColor: "text-green-600",
@@ -155,7 +155,7 @@ export default function HomePage() {
       themeColor: "bg-amber-600",
       hoverThemeColor: "hover:bg-amber-700",
       lightBg: "bg-amber-50/50",
-      iconContainerBg: "bg-amber-100",
+      iconContainerBg: "bg-amber-100/50",
       borderColor: "border-amber-100",
       hoverBorderColor: "hover:border-amber-300",
       iconColor: "text-amber-600",
@@ -484,21 +484,26 @@ export default function HomePage() {
                 <div
                   key={idx}
                   className={cn(
-                    "group rounded-[2rem] p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
+                    "group rounded-[2.5rem] p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
                     material.lightBg,
                     material.borderColor,
                     material.hoverBorderColor
                   )}
                 >
                   <div className="flex items-start justify-between mb-6">
-                    <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm relative", material.iconContainerBg)}>
-                      <FileText className={cn("w-7 h-7", material.iconColor)} />
-                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-[8px] font-black text-white bg-[#182d45] px-1.5 py-0.5 rounded-sm tracking-tighter">PDF</span>
+                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative", material.iconContainerBg)}>
+                      <div className={cn("relative flex items-center justify-center", material.iconColor)}>
+                        {/* Solid High-Fidelity PDF Icon */}
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+                          <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
+                        </svg>
+                        <span className="absolute bottom-[6px] text-[8px] font-black text-white tracking-tighter">PDF</span>
+                      </div>
                     </div>
-                    <span className={cn("px-4 py-1.5 text-white text-[10px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                    <span className={cn("px-5 py-2 text-white text-[12px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
                   <h3 className="text-2xl font-black text-[#182d45] mb-2 tracking-tight">{material.title}</h3>
-                  <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed flex-grow">{material.desc}</p>
+                  <p className="text-base text-gray-500 mb-8 font-medium leading-relaxed flex-grow">{material.desc}</p>
                   <Button
                     className={cn(
                       "w-full text-white font-black rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
