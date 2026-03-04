@@ -27,6 +27,8 @@ import {
   Zap,
   UserPlus,
   Info,
+  ClipboardList,
+  LineChart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -52,11 +54,11 @@ export default function HomePage() {
       desc: "Complete chapter-wise notes and formulas",
       themeColor: "bg-[#2b65e2]",
       hoverThemeColor: "hover:bg-blue-700",
-      lightBg: "bg-[#eff6ff]",
-      iconContainerBg: "bg-blue-100",
+      lightBg: "bg-blue-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-blue-100",
-      hoverBorderColor: "hover:border-[#2b65e2]",
-      iconColor: "text-[#2b65e2]",
+      hoverBorderColor: "hover:border-blue-600",
+      iconColor: "text-blue-600",
     },
     {
       title: "Science",
@@ -64,11 +66,11 @@ export default function HomePage() {
       desc: "Physics, Chemistry & Biology notes",
       themeColor: "bg-[#2abfaf]",
       hoverThemeColor: "hover:bg-teal-700",
-      lightBg: "bg-[#f0fdfa]",
-      iconContainerBg: "bg-teal-100",
+      lightBg: "bg-teal-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-teal-100",
-      hoverBorderColor: "hover:border-[#2abfaf]",
-      iconColor: "text-[#2abfaf]",
+      hoverBorderColor: "hover:border-teal-600",
+      iconColor: "text-teal-600",
     },
     {
       title: "English",
@@ -76,11 +78,11 @@ export default function HomePage() {
       desc: "Grammar, literature and writing skills",
       themeColor: "bg-[#8b5cf6]",
       hoverThemeColor: "hover:bg-violet-700",
-      lightBg: "bg-[#f5f3ff]",
-      iconContainerBg: "bg-purple-100",
+      lightBg: "bg-purple-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-purple-100",
-      hoverBorderColor: "hover:border-[#8b5cf6]",
-      iconColor: "text-[#8b5cf6]",
+      hoverBorderColor: "hover:border-purple-600",
+      iconColor: "text-purple-600",
     },
     {
       title: "Social Science",
@@ -88,11 +90,11 @@ export default function HomePage() {
       desc: "History, Geography & Civics notes",
       themeColor: "bg-[#f97316]",
       hoverThemeColor: "hover:bg-orange-700",
-      lightBg: "bg-[#fff7ed]",
-      iconContainerBg: "bg-orange-100",
+      lightBg: "bg-orange-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-orange-100",
-      hoverBorderColor: "hover:border-[#f97316]",
-      iconColor: "text-[#f97316]",
+      hoverBorderColor: "hover:border-orange-600",
+      iconColor: "text-orange-600",
     },
     {
       title: "Physics",
@@ -100,11 +102,11 @@ export default function HomePage() {
       desc: "Concepts, formulas and problems",
       themeColor: "bg-[#ec4899]",
       hoverThemeColor: "hover:bg-pink-700",
-      lightBg: "bg-[#fdf2f8]",
-      iconContainerBg: "bg-pink-100",
+      lightBg: "bg-pink-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-pink-100",
-      hoverBorderColor: "hover:border-[#ec4899]",
-      iconColor: "text-[#ec4899]",
+      hoverBorderColor: "hover:border-pink-600",
+      iconColor: "text-pink-600",
     },
     {
       title: "Chemistry",
@@ -112,11 +114,11 @@ export default function HomePage() {
       desc: "Organic, inorganic & physical chemistry",
       themeColor: "bg-[#6366f1]",
       hoverThemeColor: "hover:bg-indigo-700",
-      lightBg: "bg-[#eef2ff]",
-      iconContainerBg: "bg-indigo-100",
+      lightBg: "bg-indigo-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-indigo-100",
-      hoverBorderColor: "hover:border-[#6366f1]",
-      iconColor: "text-[#6366f1]",
+      hoverBorderColor: "hover:border-indigo-600",
+      iconColor: "text-indigo-600",
     },
     {
       title: "Biology",
@@ -124,11 +126,11 @@ export default function HomePage() {
       desc: "Botany and zoology comprehensive notes",
       themeColor: "bg-[#22c55e]",
       hoverThemeColor: "hover:bg-green-700",
-      lightBg: "bg-[#f0fdf4]",
-      iconContainerBg: "bg-green-100",
+      lightBg: "bg-green-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-green-100",
-      hoverBorderColor: "hover:border-[#22c55e]",
-      iconColor: "text-[#22c55e]",
+      hoverBorderColor: "hover:border-green-600",
+      iconColor: "text-green-600",
     },
     {
       title: "Hindi",
@@ -136,11 +138,11 @@ export default function HomePage() {
       desc: "Grammar and literature study material",
       themeColor: "bg-[#eab308]",
       hoverThemeColor: "hover:bg-yellow-700",
-      lightBg: "bg-[#fefce8]",
-      iconContainerBg: "bg-yellow-100",
+      lightBg: "bg-yellow-50",
+      iconContainerBg: "bg-white",
       borderColor: "border-yellow-100",
-      hoverBorderColor: "hover:border-[#eab308]",
-      iconColor: "text-[#eab308]",
+      hoverBorderColor: "hover:border-yellow-600",
+      iconColor: "text-yellow-600",
     },
   ];
 
@@ -272,7 +274,7 @@ export default function HomePage() {
 
               <div className="absolute bottom-24 left-4 lg:left-8 floating-card-delay-1 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-teal-50 to-teal-600 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center">
                     <GraduationCap className="text-white w-6 h-6" />
                   </div>
                   <div>
@@ -335,7 +337,7 @@ export default function HomePage() {
       </section>
 
       {/* Study Materials Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -354,7 +356,7 @@ export default function HomePage() {
                   className={cn(
                     "px-10 py-4 font-black rounded-2xl transition-all duration-500 min-w-[160px] text-lg tracking-tight",
                     activeBoard === "cbse"
-                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
+                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-xl"
                       : "text-[#1e293b] hover:bg-gray-200"
                   )}
                 >
@@ -365,7 +367,7 @@ export default function HomePage() {
                   className={cn(
                     "px-10 py-4 font-black rounded-2xl transition-all duration-500 min-w-[160px] text-lg tracking-tight",
                     activeBoard === "samacheer"
-                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-[0_10px_25px_rgba(43,101,226,0.3)]"
+                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-xl"
                       : "text-[#1e293b] hover:bg-gray-200"
                   )}
                 >
@@ -404,7 +406,7 @@ export default function HomePage() {
                   <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed">{material.desc}</p>
                   <Button
                     className={cn(
-                      "w-full text-white font-black rounded-xl h-12 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
+                      "w-full text-white font-black rounded-xl h-12 shadow-lg hover:opacity-90 transition-all transform active:scale-95 flex items-center justify-center gap-2",
                       material.themeColor,
                       material.hoverThemeColor
                     )}
@@ -484,7 +486,7 @@ export default function HomePage() {
       </section>
 
       {/* Timetable Section */}
-      <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section id="timetable-section" className="relative py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -534,10 +536,10 @@ export default function HomePage() {
                 <thead>
                   <tr className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white">
                     <th className="px-8 py-6 font-bold text-base whitespace-nowrap">Day / Time</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">9:00 AM - 10:30 AM</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">11:00 AM - 12:30 PM</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">2:00 PM - 3:30 PM</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">4:00 PM - 5:30 PM</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">9:00 AM - 10:30 AM</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">11:00 AM - 12:30 PM</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">2:00 PM - 3:30 PM</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">4:00 PM - 5:30 PM</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
@@ -574,9 +576,9 @@ export default function HomePage() {
                     ]},
                   ].map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-8 py-6 font-black text-gray-900">{row.day}</td>
+                      <td className="px-8 py-6 font-black text-[#182d45]">{row.day}</td>
                       {row.slots.map((item, iIdx) => (
-                        <td key={iIdx} className="px-4 py-4 text-center">
+                        <td key={iIdx} className="px-4 py-4 text-center border-l border-gray-50">
                           <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105 border shadow-sm", item.c)}>
                             <div className="font-bold text-sm text-[#182d45]">{item.s}</div>
                             <div className="text-[11px] text-gray-500 font-medium mt-1">{item.t}</div>
@@ -586,14 +588,14 @@ export default function HomePage() {
                     </tr>
                   ))}
                   <tr className="hover:bg-gray-50 transition-colors">
-                    <td className="px-8 py-6 font-black text-gray-900">Saturday</td>
-                    <td className="px-4 py-4" colSpan={2}>
+                    <td className="px-8 py-6 font-black text-[#182d45]">Saturday</td>
+                    <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-green-100 rounded-2xl p-5 text-center border border-green-200 shadow-sm">
                         <div className="font-bold text-[#182d45] text-sm">Doubt Clearing Session</div>
                         <div className="text-[11px] text-gray-500 font-medium mt-1">All Teachers Available</div>
                       </div>
                     </td>
-                    <td className="px-4 py-4" colSpan={2}>
+                    <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-yellow-100 rounded-2xl p-5 text-center border border-yellow-200 shadow-sm">
                         <div className="font-bold text-[#182d45] text-sm">Practice & Revision</div>
                         <div className="text-[11px] text-gray-500 font-medium mt-1">Self Study with Mentors</div>
@@ -604,17 +606,17 @@ export default function HomePage() {
               </table>
             </div>
 
-            <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4">
+            <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4 shadow-inner">
               <div className="bg-blue-600 rounded-full p-1.5 mt-0.5 shadow-md">
                 <Info className="text-white h-4 w-4" />
               </div>
               <div className="space-y-2">
                 <h4 className="font-black text-gray-900 text-base">Important Notes:</h4>
                 <ul className="space-y-1.5 text-gray-600 text-[13px] font-medium leading-relaxed">
-                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Sunday is a holiday for all classes</li>
-                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Each session includes a 15-minute break</li>
-                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Extra classes are conducted before exams</li>
-                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Timetable may vary based on class requirements</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Extra classes are conducted before exams</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Timetable may vary based on class requirements</li>
                 </ul>
               </div>
             </div>
@@ -622,8 +624,91 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Mentorship Section */}
+      <section id="mentorship-section" className="py-24 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left: Image */}
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-[#2b65e2]/10 to-[#2abfaf]/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white">
+                <Image
+                  src="https://images.unsplash.com/photo-1544717297-fa154da09f5b?auto=format&fit=crop&q=80&w=800&h=1000"
+                  alt="One-to-One Mentorship"
+                  fill
+                  className="object-cover"
+                  data-ai-hint="student portrait"
+                />
+              </div>
+            </div>
+
+            {/* Right: Content */}
+            <div className="space-y-10">
+              <div>
+                <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
+                  One-to-One <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Mentorship</span>
+                </h2>
+                <p className="text-lg text-gray-600 font-medium">
+                  Personalized attention to help every student reach their full potential
+                </p>
+              </div>
+
+              <div className="space-y-8">
+                {[
+                  { 
+                    icon: UserCheck, 
+                    title: "Individual Attention", 
+                    desc: "Dedicated mentor assigned to each student for personalized guidance and support throughout their academic journey.",
+                    bg: "bg-blue-100",
+                    text: "text-blue-600"
+                  },
+                  { 
+                    icon: ClipboardList, 
+                    title: "Customized Study Plan", 
+                    desc: "Tailored learning strategies based on individual strengths, weaknesses, and learning pace for optimal results.",
+                    bg: "bg-teal-100",
+                    text: "text-teal-600"
+                  },
+                  { 
+                    icon: LineChart, 
+                    title: "Weekly Academic Tracking", 
+                    desc: "Regular monitoring of progress with detailed performance analysis and timely interventions when needed.",
+                    bg: "bg-purple-100",
+                    text: "text-purple-600"
+                  },
+                  { 
+                    icon: Users, 
+                    title: "Parent Performance Updates", 
+                    desc: "Comprehensive reports shared with parents weekly, keeping them informed about their child's academic progress.",
+                    bg: "bg-orange-100",
+                    text: "text-orange-600"
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-6 group">
+                    <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm transition-transform duration-300 group-hover:scale-110", item.bg)}>
+                      <item.icon className={cn("w-7 h-7", item.text)} />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-xl font-extrabold text-[#182d45]">{item.title}</h3>
+                      <p className="text-gray-500 text-sm leading-relaxed font-medium">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                <Button size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-black text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
+                  <CalendarCheck className="h-6 w-6" />
+                  Book Personal Session
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Results Showcase Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
