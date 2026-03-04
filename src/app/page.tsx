@@ -25,8 +25,6 @@ import {
   CheckCircle2,
   Trophy,
   Medal,
-  ChevronRight,
-  ShieldCheck,
   Zap,
   PieChart,
   CalendarDays,
@@ -60,6 +58,7 @@ export default function HomePage() {
       themeColor: "bg-blue-600", 
       lightBg: "bg-blue-50", 
       borderColor: "border-blue-100", 
+      hoverBorderColor: "hover:border-blue-300",
       iconColor: "text-blue-600" 
     },
     { 
@@ -69,6 +68,7 @@ export default function HomePage() {
       themeColor: "bg-teal-600", 
       lightBg: "bg-teal-50", 
       borderColor: "border-teal-100", 
+      hoverBorderColor: "hover:border-teal-300",
       iconColor: "text-teal-600" 
     },
     { 
@@ -78,6 +78,7 @@ export default function HomePage() {
       themeColor: "bg-purple-600", 
       lightBg: "bg-purple-50", 
       borderColor: "border-purple-100", 
+      hoverBorderColor: "hover:border-purple-300",
       iconColor: "text-purple-600" 
     },
     { 
@@ -87,6 +88,7 @@ export default function HomePage() {
       themeColor: "bg-orange-600", 
       lightBg: "bg-orange-50", 
       borderColor: "border-orange-100", 
+      hoverBorderColor: "hover:border-orange-300",
       iconColor: "text-orange-600" 
     },
     { 
@@ -96,6 +98,7 @@ export default function HomePage() {
       themeColor: "bg-pink-600", 
       lightBg: "bg-pink-50", 
       borderColor: "border-pink-100", 
+      hoverBorderColor: "hover:border-pink-300",
       iconColor: "text-pink-600" 
     },
     { 
@@ -105,6 +108,7 @@ export default function HomePage() {
       themeColor: "bg-indigo-600", 
       lightBg: "bg-indigo-50", 
       borderColor: "border-indigo-100", 
+      hoverBorderColor: "hover:border-indigo-300",
       iconColor: "text-indigo-600" 
     },
     { 
@@ -114,6 +118,7 @@ export default function HomePage() {
       themeColor: "bg-green-600", 
       lightBg: "bg-green-50", 
       borderColor: "border-green-100", 
+      hoverBorderColor: "hover:border-green-300",
       iconColor: "text-green-600" 
     },
     { 
@@ -123,6 +128,7 @@ export default function HomePage() {
       themeColor: "bg-yellow-600", 
       lightBg: "bg-yellow-50", 
       borderColor: "border-yellow-100", 
+      hoverBorderColor: "hover:border-yellow-300",
       iconColor: "text-yellow-600" 
     },
   ];
@@ -365,7 +371,12 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {materials.map((material, idx) => (
-                <div key={idx} className={cn("rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1", material.lightBg, material.borderColor)}>
+                <div key={idx} className={cn(
+                  "rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-xl hover:-translate-y-1", 
+                  material.lightBg, 
+                  material.borderColor,
+                  material.hoverBorderColor
+                )}>
                   <div className="flex items-start justify-between mb-6">
                     <div className="w-12 h-12 bg-white rounded-xl flex flex-col items-center justify-center shadow-sm">
                       <FileText className={cn("w-6 h-6", material.iconColor)} />
