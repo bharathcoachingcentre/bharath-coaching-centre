@@ -36,6 +36,7 @@ import {
   Layers,
   Handshake,
   Crown,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -67,49 +68,89 @@ export default function HomePage() {
       title: "Mathematics",
       grade: "Class 10",
       desc: "Complete chapter-wise notes and formulas",
-      themeColor: "bg-[#2b65e2]",
+      themeColor: "bg-blue-600",
       hoverThemeColor: "hover:bg-blue-700",
-      lightBg: "bg-blue-50",
-      iconContainerBg: "bg-white",
+      lightBg: "bg-blue-50/50",
+      iconContainerBg: "bg-blue-100",
       borderColor: "border-blue-100",
-      hoverBorderColor: "hover:border-blue-600",
       iconColor: "text-blue-600",
     },
     {
       title: "Science",
       grade: "Class 10",
       desc: "Physics, Chemistry & Biology notes",
-      themeColor: "bg-[#2abfaf]",
+      themeColor: "bg-teal-600",
       hoverThemeColor: "hover:bg-teal-700",
-      lightBg: "bg-teal-50",
-      iconContainerBg: "bg-white",
+      lightBg: "bg-teal-50/50",
+      iconContainerBg: "bg-teal-100",
       borderColor: "border-teal-100",
-      hoverBorderColor: "hover:border-teal-600",
       iconColor: "text-teal-600",
     },
     {
       title: "English",
       grade: "Class 9",
       desc: "Grammar, literature and writing skills",
-      themeColor: "bg-[#8b5cf6]",
-      hoverThemeColor: "hover:bg-violet-700",
-      lightBg: "bg-purple-50",
-      iconContainerBg: "bg-white",
+      themeColor: "bg-purple-600",
+      hoverThemeColor: "hover:bg-purple-700",
+      lightBg: "bg-purple-50/50",
+      iconContainerBg: "bg-purple-100",
       borderColor: "border-purple-100",
-      hoverBorderColor: "hover:border-purple-600",
       iconColor: "text-purple-600",
     },
     {
       title: "Social Science",
       grade: "Class 12",
       desc: "History, Geography & Civics notes",
-      themeColor: "bg-[#f97316]",
+      themeColor: "bg-orange-600",
       hoverThemeColor: "hover:bg-orange-700",
-      lightBg: "bg-orange-50",
-      iconContainerBg: "bg-white",
+      lightBg: "bg-orange-50/50",
+      iconContainerBg: "bg-orange-100",
       borderColor: "border-orange-100",
-      hoverBorderColor: "hover:border-orange-600",
       iconColor: "text-orange-600",
+    },
+    {
+      title: "Physics",
+      grade: "Class 11",
+      desc: "Concepts, formulas and problems",
+      themeColor: "bg-pink-600",
+      hoverThemeColor: "hover:bg-pink-700",
+      lightBg: "bg-pink-50/50",
+      iconContainerBg: "bg-pink-100",
+      borderColor: "border-pink-100",
+      iconColor: "text-pink-600",
+    },
+    {
+      title: "Chemistry",
+      grade: "Class 11",
+      desc: "Organic, inorganic & physical chemistry",
+      themeColor: "bg-indigo-600",
+      hoverThemeColor: "hover:bg-indigo-700",
+      lightBg: "bg-indigo-50/50",
+      iconContainerBg: "bg-indigo-100",
+      borderColor: "border-indigo-100",
+      iconColor: "text-indigo-600",
+    },
+    {
+      title: "Biology",
+      grade: "Class 12",
+      desc: "Botany and zoology comprehensive notes",
+      themeColor: "bg-green-600",
+      hoverThemeColor: "hover:bg-green-700",
+      lightBg: "bg-green-50/50",
+      iconContainerBg: "bg-green-100",
+      borderColor: "border-green-100",
+      iconColor: "text-green-600",
+    },
+    {
+      title: "Hindi",
+      grade: "Class 8",
+      desc: "Grammar and literature study material",
+      themeColor: "bg-amber-600",
+      hoverThemeColor: "hover:bg-amber-700",
+      lightBg: "bg-amber-50/50",
+      iconContainerBg: "bg-amber-100",
+      borderColor: "border-amber-100",
+      iconColor: "text-amber-600",
     },
   ];
 
@@ -367,7 +408,10 @@ export default function HomePage() {
                 whileHover={{ y: -10 }}
                 className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col items-center text-center space-y-4 transition-all duration-300"
               >
-                <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg text-white", feature.color)}>
+                <div 
+                  className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white", feature.color)}
+                  style={{ boxShadow: `0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color)` }}
+                >
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900">{feature.title}</h3>
@@ -390,16 +434,16 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10">
-              <div className="flex p-2 bg-[#f1f5f9] rounded-2xl">
+          <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-12">
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "px-10 py-4 font-black rounded-2xl transition-all duration-500 min-w-[160px] text-lg tracking-tight",
+                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "cbse"
-                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-xl"
-                      : "text-[#1e293b] hover:bg-gray-200"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
                   )}
                 >
                   CBSE
@@ -407,17 +451,17 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "px-10 py-4 font-black rounded-2xl transition-all duration-500 min-w-[160px] text-lg tracking-tight",
+                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "samacheer"
-                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-xl"
-                      : "text-[#1e293b] hover:bg-gray-200"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
                   )}
                 >
                   Samacheer
                 </button>
               </div>
-              <div className="relative min-w-[200px]">
-                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer">
+              <div className="relative min-w-[220px]">
+                <select className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
                   <option>All Subjects</option>
                   <option>Mathematics</option>
                   <option>Science</option>
@@ -427,36 +471,33 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {materials.map((material, idx) => (
                 <div
                   key={idx}
                   className={cn(
-                    "group rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1",
+                    "group rounded-[2rem] p-8 border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
                     material.lightBg,
-                    material.borderColor,
-                    activeBoard === 'cbse' ? 'hover:border-blue-600' : 'hover:border-teal-600'
+                    material.borderColor
                   )}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110", material.iconContainerBg)}>
-                      <div className="relative flex items-center justify-center">
-                        <BookOpen className={cn("w-8 h-8", material.iconColor)} />
-                        <span className="absolute bottom-[-2px] text-[7px] font-black text-white leading-none uppercase bg-[#182d45] px-1 rounded-sm">PDF</span>
-                      </div>
+                  <div className="flex items-start justify-between mb-6">
+                    <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm relative", material.iconContainerBg)}>
+                      <FileText className={cn("w-7 h-7", material.iconColor)} />
+                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-[8px] font-black text-white bg-[#182d45] px-1.5 py-0.5 rounded-sm tracking-tighter">PDF</span>
                     </div>
                     <span className={cn("px-4 py-1.5 text-white text-[10px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{material.title}</h3>
-                  <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed">{material.desc}</p>
+                  <h3 className="text-2xl font-black text-[#182d45] mb-2 tracking-tight">{material.title}</h3>
+                  <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed flex-grow">{material.desc}</p>
                   <Button
                     className={cn(
-                      "w-full text-white font-black rounded-xl h-12 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
+                      "w-full text-white font-black rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
                       material.themeColor,
                       material.hoverThemeColor
                     )}
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="w-5 h-5" />
                     Download PDF
                   </Button>
                 </div>
@@ -593,34 +634,34 @@ export default function HomePage() {
                 <tbody className="divide-y divide-gray-50">
                   {[
                     { day: "Monday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
                     ]},
                     { day: "Tuesday", slots: [
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100 text-pink-900", tc: "text-pink-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-pink-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
                     ]},
                     { day: "Wednesday", slots: [
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
                     ]},
                     { day: "Thursday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100 text-pink-900", tc: "text-pink-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-pink-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
                     ]},
                     { day: "Friday", slots: [
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100 text-pink-900", tc: "text-pink-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-pink-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
                     ]},
                   ].map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
@@ -628,8 +669,8 @@ export default function HomePage() {
                       {row.slots.map((item, iIdx) => (
                         <td key={iIdx} className="px-4 py-4 text-center border-l border-gray-50">
                           <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105 border shadow-sm", item.c)}>
-                            <div className="font-bold text-sm">{item.s}</div>
-                            <div className={cn("text-[11px] font-bold mt-1 opacity-80", item.tc)}>{item.t}</div>
+                            <div className="font-extrabold text-[#182d45] text-sm">{item.s}</div>
+                            <div className={cn("text-[11px] font-bold mt-1", item.tc)}>{item.t}</div>
                           </div>
                         </td>
                       ))}
@@ -639,13 +680,13 @@ export default function HomePage() {
                     <td className="px-8 py-6 font-black text-[#182d45]">Saturday</td>
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-green-100 rounded-2xl p-5 text-center border border-green-200 shadow-sm">
-                        <div className="font-bold text-green-900 text-sm">Doubt Clearing Session</div>
+                        <div className="font-extrabold text-green-900 text-sm">Doubt Clearing Session</div>
                         <div className="text-[11px] text-green-700 font-bold mt-1">All Teachers Available</div>
                       </div>
                     </td>
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-yellow-100 rounded-2xl p-5 text-center border border-yellow-200 shadow-sm">
-                        <div className="font-bold text-yellow-900 text-sm">Practice & Revision</div>
+                        <div className="font-extrabold text-yellow-900 text-sm">Practice & Revision</div>
                         <div className="text-[11px] text-yellow-700 font-bold mt-1">Self Study with Mentors</div>
                       </div>
                     </td>
@@ -661,10 +702,10 @@ export default function HomePage() {
               <div className="space-y-2">
                 <h4 className="font-black text-gray-900 text-base">Important Notes:</h4>
                 <ul className="space-y-1.5 text-gray-600 text-[13px] font-medium leading-relaxed">
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Extra classes are conducted before exams</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Timetable may vary based on class requirements</li>
+                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
+                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
+                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Extra classes are conducted before exams</li>
+                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Timetable may vary based on class requirements</li>
                 </ul>
               </div>
             </div>
@@ -693,10 +734,10 @@ export default function HomePage() {
             {/* Right: Content */}
             <div className="space-y-10">
               <div>
-                <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
+                <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight leading-tight text-left">
                   One-to-One <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Mentorship</span>
                 </h2>
-                <p className="text-lg text-gray-600 font-medium">
+                <p className="text-lg text-gray-600 font-medium text-left">
                   Personalized attention to help every student reach their full potential
                 </p>
               </div>
@@ -736,7 +777,7 @@ export default function HomePage() {
                     <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm transition-transform duration-300 group-hover:scale-110", item.bg)}>
                       <item.icon className={cn("w-7 h-7", item.text)} />
                     </div>
-                    <div className="space-y-1">
+                    <div className="space-y-1 text-left">
                       <h3 className="text-xl font-extrabold text-[#182d45]">{item.title}</h3>
                       <p className="text-gray-500 text-sm leading-relaxed font-medium">{item.desc}</p>
                     </div>
@@ -744,7 +785,7 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 flex justify-start">
                 <Button size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-black text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
                   <CalendarCheck className="h-6 w-6" />
                   Book Personal Session
@@ -781,7 +822,7 @@ export default function HomePage() {
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#2abfaf]/20 shadow-inner bg-gray-100">
                     <Image src={`https://picsum.photos/seed/user${idx}/100/100`} alt={testimonial.name} fill className="object-cover" />
                   </div>
-                  <div>
+                  <div className="text-left">
                     <h4 className="font-black text-gray-900 leading-tight">{testimonial.name}</h4>
                     <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mt-0.5">{testimonial.role}</p>
                   </div>
@@ -791,7 +832,7 @@ export default function HomePage() {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed font-medium italic">
+                <p className="text-gray-600 text-sm leading-relaxed font-medium italic text-left">
                   "{testimonial.text}"
                 </p>
               </div>
@@ -857,7 +898,7 @@ export default function HomePage() {
                 cardBg: "bg-[#eef2ff]"
               }
             ].map((item, idx) => (
-              <div key={idx} className={cn("p-10 rounded-[2rem] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:-translate-y-1", item.cardBg)}>
+              <div key={idx} className={cn("p-10 rounded-[2rem] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:-translate-y-1 text-left", item.cardBg)}>
                 <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white mb-8 shadow-lg", item.iconBg)}>
                   <item.icon className="w-6 h-6" />
                 </div>
@@ -915,7 +956,7 @@ export default function HomePage() {
           {/* Top Performers Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {topPerformers.map((student, idx) => (
-              <div key={idx} className="group bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white overflow-hidden transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2">
+              <div key={idx} className="group bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white overflow-hidden transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2 text-left">
                 <div className="relative h-64 w-full overflow-hidden">
                   <Image 
                     src={student.img} 
