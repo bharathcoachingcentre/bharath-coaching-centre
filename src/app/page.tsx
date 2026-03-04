@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -42,12 +43,13 @@ import { cn } from "@/lib/utils";
 
 export default function HomePage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
+  const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
 
   const features = [
     { icon: Presentation, title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500" },
-    { icon: FilePenLine, title: "Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500" },
+    { icon: FilePenLine, title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500" },
     { icon: MessagesSquare, title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500" },
-    { icon: BookOpen, title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered", color: "bg-orange-500" },
+    { icon: BookOpen, title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500" },
     { icon: UserCheck, title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500" },
   ];
 
@@ -68,14 +70,14 @@ export default function HomePage() {
       subtitle: "Foundation Program", 
       icon: Zap, 
       iconBg: "bg-blue-500",
-      points: ["Strong fundamentals", "Interactive learning", "Reading & Arithmetic", "Parent communication", "Personalized care"] 
+      points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"] 
     },
     { 
       title: "Classes 6–8", 
       subtitle: "Middle School Program", 
       icon: BookOpen, 
       iconBg: "bg-teal-500",
-      points: ["Full coverage", "Concept-based", "Regular assessments", "Project activities", "Exam prep"] 
+      points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"] 
     },
     { 
       title: "Classes 9–12", 
@@ -83,8 +85,19 @@ export default function HomePage() {
       icon: GraduationCap, 
       iconBg: "bg-purple-500",
       popular: true,
-      points: ["Board exam focus", "JEE & NEET integrated", "Advanced techniques", "Mock analysis", "Career guidance"] 
+      points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"] 
     },
+  ];
+
+  const students = [
+    { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", color: "text-blue-600", iconBg: "bg-blue-500" },
+    { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", color: "text-teal-600", iconBg: "bg-teal-500" },
+    { name: "Divya Nair", grade: "Class 10, Samacheer", marks: "96.4%", rank: "Rank 3", color: "text-purple-600", iconBg: "bg-purple-500" },
+    { name: "Rohan Kapoor", grade: "Class 12, CBSE", marks: "95.2%", rank: "Top 10", color: "text-orange-600", iconBg: "bg-orange-500" },
+    { name: "Meera Reddy", grade: "Class 10, CBSE", marks: "94.8%", rank: "Top 10", color: "text-pink-600", iconBg: "bg-pink-500" },
+    { name: "Karthik Iyer", grade: "Class 12, Samacheer", marks: "94.2%", rank: "Top 10", color: "text-green-600", iconBg: "bg-green-500" },
+    { name: "Sneha Patel", grade: "Class 10, CBSE", marks: "93.6%", rank: "Top 10", color: "text-indigo-600", iconBg: "bg-indigo-500" },
+    { name: "Aditya Sharma", grade: "Class 12, CBSE", marks: "92.8%", rank: "Top 10", color: "text-yellow-600", iconBg: "bg-yellow-500" },
   ];
 
   return (
@@ -258,13 +271,13 @@ export default function HomePage() {
               <div className="flex gap-3">
                 <Button 
                   onClick={() => setActiveBoard("cbse")}
-                  className={cn("px-8 py-3 font-semibold rounded-xl transition-all", activeBoard === "cbse" ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg" : "bg-gray-100 text-gray-700")}
+                  className={cn("px-8 py-3 font-semibold rounded-xl transition-all", activeBoard === "cbse" ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200")}
                 >
                   CBSE
                 </Button>
                 <Button 
                   onClick={() => setActiveBoard("samacheer")}
-                  className={cn("px-8 py-3 font-semibold rounded-xl transition-all", activeBoard === "samacheer" ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg" : "bg-gray-100 text-gray-700")}
+                  className={cn("px-8 py-3 font-semibold rounded-xl transition-all", activeBoard === "samacheer" ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200")}
                 >
                   Samacheer
                 </Button>
@@ -284,11 +297,11 @@ export default function HomePage() {
                     <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm">
                       <FileText className={cn("w-8 h-8", material.iconColor)} />
                     </div>
-                    <span className="px-3 py-1 bg-white text-gray-700 text-xs font-bold rounded-full border border-gray-100">{material.grade}</span>
+                    <span className={cn("px-3 py-1 text-white text-xs font-bold rounded-full", material.iconColor.replace('text', 'bg'))}>{material.grade}</span>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{material.title}</h3>
                   <p className="text-sm text-gray-600 mb-4">Comprehensive notes and formulas</p>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl h-12 shadow-md">
+                  <Button className={cn("w-full text-white font-semibold rounded-xl h-12 shadow-md hover:opacity-90 transition-opacity", material.iconColor.replace('text', 'bg'))}>
                     <Download className="mr-2 h-4 w-4" /> Download PDF
                   </Button>
                 </div>
@@ -314,7 +327,7 @@ export default function HomePage() {
             {programs.map((program, idx) => (
               <div key={idx} className={cn(
                 "rounded-3xl p-8 flex flex-col h-full border-2 transition-all duration-500 hover:shadow-2xl relative",
-                program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 scale-105" : "bg-white border-gray-100 shadow-lg"
+                program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 lg:scale-105" : "bg-white border-gray-100 shadow-lg"
               )}>
                 {program.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -333,7 +346,7 @@ export default function HomePage() {
                 <div className="space-y-4 mb-8 flex-grow">
                   {program.points.map((point, pIdx) => (
                     <div key={pIdx} className="flex items-start gap-3">
-                      <CheckCircle2 className="text-blue-600 w-5 h-5 mt-0.5" />
+                      <CheckCircle2 className={cn("w-5 h-5 mt-0.5", program.iconBg.replace('bg', 'text'))} />
                       <span className="text-gray-700">{point}</span>
                     </div>
                   ))}
@@ -341,7 +354,7 @@ export default function HomePage() {
                 <div className="space-y-3">
                   <Button variant="outline" className="w-full py-6 font-semibold rounded-xl bg-gray-50 border-gray-200">View Timetable</Button>
                   <Button className={cn(
-                    "w-full py-6 font-bold rounded-xl text-white shadow-lg",
+                    "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95",
                     program.popular ? "bg-gradient-to-r from-purple-600 to-pink-600" : "bg-gradient-to-r from-blue-600 to-blue-700"
                   )}>
                     Enroll Now
@@ -368,8 +381,20 @@ export default function HomePage() {
           <Card className="rounded-[3rem] shadow-2xl border-none overflow-hidden bg-white p-8 md:p-12">
             <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
               <div className="flex p-1.5 bg-gray-100 rounded-2xl">
-                <Button variant="ghost" className="bg-white shadow-sm font-bold px-8 rounded-xl text-blue-600">CBSE</Button>
-                <Button variant="ghost" className="text-gray-500 font-bold px-8 rounded-xl">Samacheer</Button>
+                <Button 
+                  onClick={() => setActiveScheduleBoard("cbse")}
+                  variant="ghost" 
+                  className={cn("font-bold px-8 rounded-xl transition-all", activeScheduleBoard === "cbse" ? "bg-white shadow-sm text-blue-600" : "text-gray-500")}
+                >
+                  CBSE
+                </Button>
+                <Button 
+                  onClick={() => setActiveScheduleBoard("samacheer")}
+                  variant="ghost" 
+                  className={cn("font-bold px-8 rounded-xl transition-all", activeScheduleBoard === "samacheer" ? "bg-white shadow-sm text-blue-600" : "text-gray-500")}
+                >
+                  Samacheer
+                </Button>
               </div>
               <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-medium text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px]">
                 <option>Class 10</option>
@@ -385,26 +410,37 @@ export default function HomePage() {
                     <th className="px-8 py-6 font-bold text-lg text-center">9:00 AM - 10:30 AM</th>
                     <th className="px-8 py-6 font-bold text-lg text-center">11:00 AM - 12:30 PM</th>
                     <th className="px-8 py-6 font-bold text-lg text-center">2:00 PM - 3:30 PM</th>
+                    <th className="px-8 py-6 font-bold text-lg text-center">4:00 PM - 5:30 PM</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map((day) => (
+                  {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((day) => (
                     <tr key={day} className="hover:bg-blue-50 transition-colors">
                       <td className="px-8 py-6 font-bold text-gray-900">{day}</td>
                       {[
-                        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100" },
-                        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100" },
-                        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100" }
+                        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100", tc: "text-blue-900" },
+                        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100", tc: "text-teal-900" },
+                        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100", tc: "text-purple-900" },
+                        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100", tc: "text-orange-900" }
                       ].map((item, iIdx) => (
                         <td key={iIdx} className="px-8 py-6 text-center">
-                          <div className={cn("rounded-2xl p-4", item.c)}>
-                            <div className="font-bold text-gray-900">{item.s}</div>
-                            <div className="text-xs text-gray-600 mt-1">{item.t}</div>
+                          <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105", item.c)}>
+                            <div className={cn("font-bold", item.tc)}>{item.s}</div>
+                            <div className="text-xs opacity-70 mt-1">{item.t}</div>
                           </div>
                         </td>
                       ))}
                     </tr>
                   ))}
+                  <tr className="hover:bg-green-50 transition-colors">
+                    <td className="px-8 py-6 font-bold text-gray-900">Saturday</td>
+                    <td className="px-8 py-6" colSpan={2}>
+                      <div className="bg-green-100 rounded-2xl p-4 text-center font-bold text-green-900">Doubt Clearing Session - All Teachers</div>
+                    </td>
+                    <td className="px-8 py-6" colSpan={2}>
+                      <div className="bg-yellow-100 rounded-2xl p-4 text-center font-bold text-yellow-900">Practice & Revision - Self Study</div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -416,39 +452,41 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl group">
               <Image 
                 src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=800"
                 alt="Mentorship"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
                 data-ai-hint="teacher mentoring student"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             </div>
             <div className="space-y-8">
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
                 One-to-One <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Mentorship</span>
               </h2>
-              <p className="text-lg text-gray-600">Personalized attention to help every student reach their full potential</p>
+              <p className="text-lg text-gray-600 font-medium">Personalized attention to help every student reach their full potential</p>
               
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid gap-6">
                 {[
-                  { icon: UserCheck, title: "Individual Attention", color: "bg-blue-100 text-blue-600" },
-                  { icon: PieChart, title: "Customized Study Plan", color: "bg-teal-100 text-teal-600" },
-                  { icon: TrendingUp, title: "Weekly tracking", color: "bg-purple-100 text-purple-600" },
-                  { icon: Users, title: "Parent performance updates", color: "bg-orange-100 text-orange-600" },
+                  { icon: UserCheck, title: "Individual Attention", desc: "Dedicated mentor assigned to each student for personalized guidance.", color: "bg-blue-100 text-blue-600" },
+                  { icon: PieChart, title: "Customized Study Plan", desc: "Tailored strategies based on individual strengths and weaknesses.", color: "bg-teal-100 text-teal-600" },
+                  { icon: TrendingUp, title: "Weekly tracking", desc: "Regular progress monitoring with detailed analysis reports.", color: "bg-purple-100 text-purple-600" },
+                  { icon: Users, title: "Parent performance updates", desc: "Weekly updates keeping parents connected with the journey.", color: "bg-orange-100 text-orange-600" },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-4">
-                    <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0", item.color)}>
+                    <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm", item.color)}>
                       <item.icon className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900">{item.title}</h3>
+                      <h3 className="font-bold text-gray-900 text-xl">{item.title}</h3>
+                      <p className="text-gray-600 text-sm">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold py-7 px-10 rounded-xl hover:shadow-xl transition-all">
+              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold py-7 px-10 rounded-xl hover:shadow-xl transition-all transform active:scale-95">
                 <Link href="/contact">Book Personal Session</Link>
               </Button>
             </div>
@@ -468,15 +506,15 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: PieChart, title: "Parent Academic Tracking", desc: "Real-time access to student performance through our portal.", color: "from-blue-500 to-blue-600" },
-              { icon: CalendarDays, title: "Daily Monitoring", desc: "Track homework, participation, and understanding levels.", color: "from-teal-500 to-teal-600" },
-              { icon: ShieldCheck, title: "Weekly Evaluations", desc: "Regular assessments to measure progress and identify gaps.", color: "from-purple-500 to-purple-600" },
-              { icon: Layers, title: "Structured Hierarchy", desc: "Progressive testing system to build confidence systematically.", color: "from-orange-500 to-orange-600" },
-              { icon: Handshake, title: "Term-wise Meetings", desc: "One-on-one parent-teacher progress discussion meetings.", color: "from-pink-500 to-pink-600" },
-              { icon: BookMarked, title: "Specialized Materials", desc: "Curated materials specifically designed for each curriculum.", color: "from-indigo-500 to-indigo-600" },
+              { icon: PieChart, title: "Parent Academic Tracking", desc: "Real-time access to student performance through our portal.", color: "bg-blue-500" },
+              { icon: CalendarDays, title: "Daily Performance Monitoring", desc: "Track homework, participation, and understanding levels daily.", color: "bg-teal-500" },
+              { icon: ShieldCheck, title: "Weekly Tests & Evaluation", desc: "Regular assessments to measure progress and identify gaps.", color: "bg-purple-500" },
+              { icon: Layers, title: "Structured Test Hierarchy", desc: "Progressive testing system built to grow student confidence.", color: "bg-orange-500" },
+              { icon: Handshake, title: "Term-wise Parent Meetings", desc: "One-on-one progress discussions with customized strategies.", color: "bg-pink-500" },
+              { icon: BookMarked, title: "Specialized Materials", desc: "Curated materials specifically designed for each curriculum.", color: "bg-indigo-500" },
             ].map((feature, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                <div className={cn("w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mb-6 shadow-lg text-white", feature.color)}>
+              <div key={idx} className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 group">
+                <div className={cn("w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-lg text-white transition-transform group-hover:scale-110", feature.color)}>
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
@@ -499,30 +537,25 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
             {[
-              { icon: Trophy, val: "95%", label: "Pass Rate", color: "from-blue-500 to-blue-600" },
-              { icon: Medal, val: "120+", label: "Distinctions", color: "from-teal-500 to-teal-600" },
-              { icon: GraduationCap, val: "5000+", label: "Students", color: "from-purple-500 to-purple-600" },
+              { icon: Trophy, val: "95%", label: "Pass Rate", color: "bg-blue-500" },
+              { icon: Medal, val: "120+", label: "Distinctions", color: "bg-teal-500" },
+              { icon: GraduationCap, val: "5000+", label: "Students", color: "bg-purple-500" },
             ].map((stat, idx) => (
-              <div key={idx} className="bg-white rounded-3xl shadow-xl p-8 text-center border border-gray-100 hover:scale-105 transition-all duration-300">
-                <div className={cn("w-20 h-20 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg text-white", stat.color)}>
+              <div key={idx} className="bg-white rounded-3xl shadow-xl p-8 text-center border border-gray-100 transition-all hover:-translate-y-2">
+                <div className={cn("w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg text-white", stat.color)}>
                   <stat.icon className="w-10 h-10" />
                 </div>
                 <div className="text-5xl font-bold text-gray-900 mb-2">{stat.val}</div>
                 <div className="text-lg text-gray-600 font-medium">{stat.label}</div>
               </div>
-            ))}
+            ))}Stat
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", image: "https://picsum.photos/seed/stu1/400/500" },
-              { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", image: "https://picsum.photos/seed/stu2/400/500" },
-              { name: "Divya Nair", grade: "Class 10, Samacheer", marks: "96.4%", rank: "Rank 3", image: "https://picsum.photos/seed/stu3/400/500" },
-              { name: "Rohan Kapoor", grade: "Class 12, CBSE", marks: "95.2%", rank: "Top 10", image: "https://picsum.photos/seed/stu4/400/500" },
-            ].map((student, idx) => (
-              <div key={idx} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
-                <div className="relative h-48">
-                  <Image src={student.image} alt={student.name} fill className="object-cover" />
+            {students.map((student, idx) => (
+              <div key={idx} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 group">
+                <div className="relative h-48 overflow-hidden">
+                  <Image src={`https://picsum.photos/seed/stu${idx}/400/500`} alt={student.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                   <div className="absolute top-3 right-3">
                     <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white text-xs font-bold rounded-full shadow-lg">
                       <Crown className="w-3 h-3 inline mr-1" /> {student.rank}
@@ -534,11 +567,11 @@ export default function HomePage() {
                   <p className="text-sm text-gray-600 mb-3">{student.grade}</p>
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-3xl font-bold text-blue-600">{student.marks}</div>
-                      <div className="text-xs text-gray-500">Total Marks</div>
+                      <div className={cn("text-3xl font-bold", student.color)}>{student.marks}</div>
+                      <div className="text-xs text-gray-500 font-bold uppercase tracking-wider">Marks</div>
                     </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Star className="text-blue-600 w-6 h-6 fill-current" />
+                    <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md transition-transform group-hover:rotate-12", student.iconBg)}>
+                      <Star className="w-6 h-6 fill-current" />
                     </div>
                   </div>
                 </div>
