@@ -1,210 +1,117 @@
-
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Twitter, Send, Gitlab, Rss, Phone, Mail, MapPin } from "lucide-react";
-import { Separator } from "./ui/separator";
-import { BccFooterLogo } from "./bcc-footer-logo";
-import { Input } from "./ui/input";
+import { GraduationCap, Facebook, Instagram, Youtube, Phone, Mail, MapPin, Send } from "lucide-react";
 import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
-import React from "react";
-
+import { Input } from "./ui/input";
 
 export function Footer() {
-  const pathname = usePathname();
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const isHome2 = pathname === '/' || pathname === '/home2' || pathname === '/home-new' || pathname === '/cbse' || pathname === '/samacheer' || pathname === '/cbse-class-12-pcm' || pathname === '/courses/cbse-12th-grade' || pathname === '/courses/cbse-11th-grade' || pathname === '/courses/12th-compartment' || pathname === '/courses/cbse-class-11-pcm' || pathname === '/courses/cbse-10th-grade' || pathname === '/courses/cbse-9th-grade' || pathname === '/courses/cbse-class-8' || pathname === '/courses/cbse-class-7' || pathname === '/courses/cbse-class-6' || pathname === '/courses/samacheer-class-12-pcm' || pathname === '/courses/samacheer-12th-compartment' || pathname === '/courses/samacheer-class-11-pcm' || pathname === '/courses/samacheer-class-10' || pathname === '/courses/samacheer-class-9' || pathname === '/courses/samacheer-class-8' || pathname === '/courses/samacheer-class-7' || pathname === '/courses/samacheer-class-6' || pathname === '/one-to-one-classes' || pathname === '/our-results' || pathname === '/about' || pathname === '/training-methodology' || pathname === '/student-registration' || pathname === '/contact' || pathname === '/become-a-teacher' || pathname === '/signin' || pathname === '/free-study-material' || pathname.startsWith('/blog');
   const currentYear = new Date().getFullYear();
-  
-  const companyLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About us" },
-    { href: "/contact", label: "Contact us" },
-    { href: "/blog", label: "Blog" },
-    { href: "/our-results", label: "Our results" },
-  ];
-
-  const otherLinks = [
-    { href: "#", label: "Free Live Classes" },
-    { href: "/free-study-material", label: "Study Material" },
-    { href: "/training-methodology", label: "Our Training Methodology" },
-    { href: "/student-registration", label: "To Apply" },
-    { href: "/become-a-teacher", label: "Become a Teacher" },
-  ];
-
-  const coursesLinks = [
-    { href: "/cbse", label: "CBSE" },
-    { href: "/samacheer", label: "SAMACHEER" },
-    { href: "/one-to-one-classes", label: "ONE to ONE" },
-  ];
-
-  if (!isMounted) {
-    return (
-        <footer className={cn("border-t text-foreground", "footer-gradient")}>
-            <div className="container mx-auto px-4 py-8 md:py-12">
-                <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-                    <div className="mb-6 md:mb-0">
-                        <BccFooterLogo />
-                    </div>
-                    <div className="flex flex-col items-center gap-4">
-                        <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
-                        <div className="flex w-full md:w-auto items-center gap-2">
-                            <Input type="tel" placeholder="Enter mobile number" />
-                            <Button>Get the link</Button>
-                        </div>
-                    </div>
-                </div>
-                <Separator />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8">
-                    <div>
-                        <h3 className="text-lg font-semibold">Company</h3>
-                        <ul className="mt-4 space-y-2 text-sm">
-                            {companyLinks.map(link => (
-                                <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-semibold">Other Links</h3>
-                        <ul className="mt-4 space-y-2 text-sm">
-                            {otherLinks.map(link => (
-                                <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-semibold">Courses</h3>
-                        <ul className="mt-4 space-y-2 text-sm">
-                            {coursesLinks.map(link => (
-                                <li key={link.label}><Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link></li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="space-y-6 col-span-2 md:col-span-1">
-                        <h3 className="text-lg font-semibold">Contact us</h3>
-                        <div className="space-y-4 text-sm">
-                            <div className="flex items-start gap-3">
-                                <Mail className="h-6 w-6 mt-1 text-muted-foreground"/>
-                                <div>
-                                    <p className="font-semibold">Email</p>
-                                    <a href="mailto:bcc_try@hotmail.com" className="text-muted-foreground hover:text-primary transition-colors">bcc_try@hotmail.com</a>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3">
-                                <Phone className="h-6 w-6 mt-1 text-muted-foreground"/>
-                                <div>
-                                    <p className="font-semibold">Phone</p>
-                                    <a href="tel:+917200030307" className="text-muted-foreground hover:text-primary transition-colors">+91 7200030307</a>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3">
-                                <MapPin className="h-6 w-6 mt-1 text-muted-foreground"/>
-                                <div>
-                                    <p className="font-semibold">Address</p>
-                                    <p className="text-muted-foreground">C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="container mx-auto px-4">
-                <Separator />
-                <div className="py-8 text-center">
-                    <p className="text-base text-black">© {currentYear} Bharath Academy. All rights reserved</p>
-                </div>
-            </div>
-        </footer>
-    );
-  }
 
   return (
-    <footer className={cn(
-        !isHome2 && "border-t",
-        "text-foreground",
-        isHome2 ? 'home2-footer' : 'footer-gradient'
-      )}>
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div className="mb-6 md:mb-0">
-                <BccFooterLogo />
+    <footer className="relative bg-[#182d45] text-white pt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+          <div className="lg:col-span-1">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-10 h-10 bg-[#35a3be] rounded-lg flex items-center justify-center shadow-lg">
+                <GraduationCap className="text-white w-6 h-6" />
+              </div>
+              <span className="text-2xl font-bold">Bharath Academy</span>
             </div>
-            <div className="flex flex-col items-center gap-4">
-                <p className="text-lg font-semibold text-center md:text-left">Get link in sms to download the app</p>
-                <div className="flex w-full md:w-auto items-center gap-2">
-                    <Input type="tel" placeholder="Enter mobile number" className={cn(isHome2 && "bg-white text-black")} />
-                    <Button className={cn(isHome2 && "home2-footer-button")}>Get the link</Button>
-                </div>
+            <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+              Helping students from Class 1 to 12 achieve academic excellence through structured coaching and personalized mentorship.
+            </p>
+            <div className="flex gap-3">
+              <Link href="#" className="w-10 h-10 bg-white/5 hover:bg-[#35a3be] rounded-lg flex items-center justify-center transition-all duration-300">
+                <Facebook className="w-5 h-5" />
+              </Link>
+              <Link href="#" className="w-10 h-10 bg-white/5 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-all duration-300">
+                <Instagram className="w-5 h-5" />
+              </Link>
+              <Link href="#" className="w-10 h-10 bg-white/5 hover:bg-red-600 rounded-lg flex items-center justify-center transition-all duration-300">
+                <Youtube className="w-5 h-5" />
+              </Link>
             </div>
-        </div>
-        
-        <Separator className={cn(isHome2 && "bg-white/20")} />
+          </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8">
-            <div>
-                <h3 className="text-lg font-semibold">Company</h3>
-                <ul className="mt-4 space-y-2 text-sm">
-                {companyLinks.map(link => (
-                    <li key={link.label}><Link href={link.href} className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>{link.label}</Link></li>
-                ))}
-                </ul>
-            </div>
-            <div>
-                <h3 className="text-lg font-semibold">Other Links</h3>
-                <ul className="mt-4 space-y-2 text-sm">
-                {otherLinks.map(link => (
-                    <li key={link.label}><Link href={link.href} className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>{link.label}</Link></li>
-                ))}
-                </ul>
-            </div>
-            <div>
-                <h3 className="text-lg font-semibold">Courses</h3>
-                <ul className="mt-4 space-y-2 text-sm">
-                {coursesLinks.map(link => (
-                    <li key={link.label}><Link href={link.href} className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>{link.label}</Link></li>
-                ))}
-                </ul>
-            </div>
-            <div className="space-y-6 col-span-2 md:col-span-1">
-                <h3 className="text-lg font-semibold">Contact us</h3>
-                <div className="space-y-4 text-sm">
-                    <div className="flex items-start gap-3">
-                        <Mail className={cn("h-6 w-6 mt-1", isHome2 ? "text-white" : "text-muted-foreground")}/>
-                        <div>
-                            <p className="font-semibold">Email</p>
-                            <a href="mailto:bcc_try@hotmail.com" className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>bcc_try@hotmail.com</a>
-                        </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                        <Phone className={cn("h-6 w-6 mt-1", isHome2 ? "text-white" : "text-muted-foreground")}/>
-                        <div>
-                            <p className="font-semibold">Phone</p>
-                            <a href="tel:+917200030307" className={cn("transition-colors", isHome2 ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-primary")}>+91 7200030307</a>
-                        </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                        <MapPin className={cn("h-6 w-6 mt-1", isHome2 ? "text-white" : "text-muted-foreground")}/>
-                        <div>
-                            <p className="font-semibold">Address</p>
-                            <p className={cn(isHome2 ? "text-white/80" : "text-muted-foreground")}>C-109, 5th Cross, Thillainagar (East),<br />Trichy - 18</p>
-                        </div>
-                    </div>
+          <div>
+            <h3 className="text-lg font-bold mb-4 border-b border-white/10 pb-2">Company</h3>
+            <ul className="space-y-3">
+              <li><Link href="/" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Home</Link></li>
+              <li><Link href="/about" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">About Us</Link></li>
+              <li><Link href="/our-results" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Our Results</Link></li>
+              <li><Link href="/contact" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Contact Us</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold mb-4 border-b border-white/10 pb-2">Courses</h3>
+            <ul className="space-y-3">
+              <li><Link href="/courses" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">CBSE Coaching</Link></li>
+              <li><Link href="/courses" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Samacheer Coaching</Link></li>
+              <li><Link href="/courses" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Online Classes</Link></li>
+              <li><Link href="/courses" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">One-to-One Mentorship</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold mb-4 border-b border-white/10 pb-2">Resources</h3>
+            <ul className="space-y-3">
+              <li><Link href="/free-study-material" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Free Study Materials</Link></li>
+              <li><Link href="/blog" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Blog</Link></li>
+              <li><Link href="/student-registration" className="text-gray-400 hover:text-[#35a3be] transition-colors duration-200">Become a Teacher</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold mb-4 border-b border-white/10 pb-2">Contact</h3>
+            <ul className="space-y-4 text-gray-400 text-sm">
+              <li className="flex items-start gap-3">
+                <Phone className="text-[#35a3be] w-5 h-5 mt-1" />
+                <div>
+                  <div className="text-white font-medium">+91 72000 30307</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-500">Mon-Sat 9AM-7PM</div>
                 </div>
-            </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="text-[#35a3be] w-5 h-5 mt-1" />
+                <div className="text-white font-medium">info@bharathacademy.com</div>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin className="text-[#35a3be] w-5 h-5 mt-1" />
+                <div className="text-white font-medium">Trichy, Tamil Nadu</div>
+              </li>
+            </ul>
+          </div>
         </div>
-      
-      </div>
-      <div className="container mx-auto px-4">
-        <Separator className={cn(isHome2 && "bg-white/20")} />
-        <div className="py-8 text-center">
-            <p className={cn("text-base", isHome2 ? "text-white" : "text-black")}>© {currentYear} Bharath Academy. All rights reserved</p>
+
+        <div className="bg-gradient-to-r from-[#35a3be] to-teal-600 rounded-3xl p-8 mb-12 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
+            <div className="text-center sm:text-left">
+              <h3 className="text-2xl font-black mb-2">Subscribe to our newsletter</h3>
+              <p className="text-white/80 font-medium">Get the latest updates and study materials delivered to your inbox.</p>
+            </div>
+            <div className="flex w-full sm:w-auto gap-2">
+              <Input placeholder="Enter your email" className="bg-white/20 border-white/20 text-white placeholder:text-white/60 rounded-xl h-14 min-w-[250px]" />
+              <Button className="bg-[#182d45] hover:bg-black text-white font-black rounded-xl h-14 px-8">
+                <Send className="w-5 h-5" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-white/5 py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-gray-500 text-sm font-medium">
+              © {currentYear} Bharath Academy Hub. All rights reserved.
+            </p>
+            <div className="flex gap-6 text-sm font-bold uppercase tracking-widest">
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Privacy</Link>
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Terms</Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
