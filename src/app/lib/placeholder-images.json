@@ -27,5 +27,61 @@
     "height": 400,
     "alt": "Mastering the Art of Studying",
     "hint": "student studying"
+  },
+  "student-1": {
+    "src": "https://picsum.photos/seed/11/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 1",
+    "hint": "student portrait"
+  },
+  "student-2": {
+    "src": "https://picsum.photos/seed/12/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 2",
+    "hint": "student portrait"
+  },
+  "student-3": {
+    "src": "https://picsum.photos/seed/13/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 3",
+    "hint": "student portrait"
+  },
+  "student-4": {
+    "src": "https://picsum.photos/seed/14/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 4",
+    "hint": "student portrait"
+  },
+  "student-5": {
+    "src": "https://picsum.photos/seed/15/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 5",
+    "hint": "student portrait"
+  },
+  "student-6": {
+    "src": "https://picsum.photos/seed/16/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 6",
+    "hint": "student portrait"
+  },
+  "student-7": {
+    "src": "https://picsum.photos/seed/17/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 7",
+    "hint": "student portrait"
+  },
+  "student-8": {
+    "src": "https://picsum.photos/seed/18/400/300",
+    "width": 400,
+    "height": 300,
+    "alt": "Student Portrait 8",
+    "hint": "student portrait"
   }
 }

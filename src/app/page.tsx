@@ -48,6 +48,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import placeholderImages from "@/app/lib/placeholder-images.json";
 
 export default function HomePage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -146,7 +147,7 @@ export default function HomePage() {
       badgeColor: "bg-[#fbbf24]",
       marksColor: "text-[#2b65e2]",
       iconColor: "bg-[#2b65e2]",
-      img: "https://picsum.photos/seed/student1/400/300",
+      img: placeholderImages["student-1"].src,
       rankIcon: Crown
     },
     {
@@ -157,7 +158,7 @@ export default function HomePage() {
       badgeColor: "bg-[#94a3b8]",
       marksColor: "text-[#2abfaf]",
       iconColor: "bg-[#2abfaf]",
-      img: "https://picsum.photos/seed/student2/400/300",
+      img: placeholderImages["student-2"].src,
       rankIcon: Medal
     },
     {
@@ -168,7 +169,7 @@ export default function HomePage() {
       badgeColor: "bg-[#f59e0b]",
       marksColor: "text-[#8b5cf6]",
       iconColor: "bg-[#8b5cf6]",
-      img: "https://picsum.photos/seed/student3/400/300",
+      img: placeholderImages["student-3"].src,
       rankIcon: Award
     },
     {
@@ -179,7 +180,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-[#f97316]",
       iconColor: "bg-[#f97316]",
-      img: "https://picsum.photos/seed/student4/400/300"
+      img: placeholderImages["student-4"].src
     },
     {
       name: "Sanya Gupta",
@@ -189,7 +190,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: "https://picsum.photos/seed/st5/400/300"
+      img: placeholderImages["student-5"].src
     },
     {
       name: "Vikram Malhotra",
@@ -199,7 +200,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: "https://picsum.photos/seed/st6/400/300"
+      img: placeholderImages["student-6"].src
     },
     {
       name: "Nisha Reddy",
@@ -209,7 +210,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: "https://picsum.photos/seed/st7/400/300"
+      img: placeholderImages["student-7"].src
     },
     {
       name: "Kabir Singh",
@@ -219,7 +220,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: "https://picsum.photos/seed/st8/400/300"
+      img: placeholderImages["student-8"].src
     },
   ];
 
@@ -592,34 +593,34 @@ export default function HomePage() {
                 <tbody className="divide-y divide-gray-50">
                   {[
                     { day: "Monday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
                     ]},
                     { day: "Tuesday", slots: [
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100 text-pink-900", tc: "text-pink-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
                     ]},
                     { day: "Wednesday", slots: [
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
                     ]},
                     { day: "Thursday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100 text-pink-900", tc: "text-pink-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-50 border-teal-100 text-teal-900", tc: "text-teal-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
                     ]},
                     { day: "Friday", slots: [
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-50 border-orange-100 text-orange-900", tc: "text-orange-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-50 border-purple-100 text-purple-900", tc: "text-purple-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-50 border-pink-100 text-pink-900", tc: "text-pink-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-50 border-blue-100 text-blue-900", tc: "text-blue-600" },
                     ]},
                   ].map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
@@ -627,8 +628,8 @@ export default function HomePage() {
                       {row.slots.map((item, iIdx) => (
                         <td key={iIdx} className="px-4 py-4 text-center border-l border-gray-50">
                           <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105 border shadow-sm", item.c)}>
-                            <div className="font-bold text-sm text-[#182d45]">{item.s}</div>
-                            <div className="text-[11px] text-gray-500 font-medium mt-1">{item.t}</div>
+                            <div className="font-bold text-sm">{item.s}</div>
+                            <div className={cn("text-[11px] font-bold mt-1 opacity-80", item.tc)}>{item.t}</div>
                           </div>
                         </td>
                       ))}
@@ -637,15 +638,15 @@ export default function HomePage() {
                   <tr className="hover:bg-gray-50 transition-colors">
                     <td className="px-8 py-6 font-black text-[#182d45]">Saturday</td>
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
-                      <div className="bg-green-50 rounded-2xl p-5 text-center border border-green-100 shadow-sm">
-                        <div className="font-bold text-[#182d45] text-sm">Doubt Clearing Session</div>
-                        <div className="text-[11px] text-gray-500 font-medium mt-1">All Teachers Available</div>
+                      <div className="bg-green-100 rounded-2xl p-5 text-center border border-green-200 shadow-sm">
+                        <div className="font-bold text-green-900 text-sm">Doubt Clearing Session</div>
+                        <div className="text-[11px] text-green-700 font-bold mt-1">All Teachers Available</div>
                       </div>
                     </td>
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
-                      <div className="bg-yellow-50 rounded-2xl p-5 text-center border border-yellow-100 shadow-sm">
-                        <div className="font-bold text-[#182d45] text-sm">Practice & Revision</div>
-                        <div className="text-[11px] text-gray-500 font-medium mt-1">Self Study with Mentors</div>
+                      <div className="bg-yellow-100 rounded-2xl p-5 text-center border border-yellow-200 shadow-sm">
+                        <div className="font-bold text-yellow-900 text-sm">Practice & Revision</div>
+                        <div className="text-[11px] text-yellow-700 font-bold mt-1">Self Study with Mentors</div>
                       </div>
                     </td>
                   </tr>
@@ -916,7 +917,13 @@ export default function HomePage() {
             {topPerformers.map((student, idx) => (
               <div key={idx} className="group bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white overflow-hidden transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2">
                 <div className="relative h-64 w-full overflow-hidden">
-                  <Image src={student.img} alt={student.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <Image 
+                    src={student.img} 
+                    alt={student.name} 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-110" 
+                    data-ai-hint="student portrait"
+                  />
                   <div className={cn("absolute top-4 right-4 px-4 py-1.5 rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor)}>
                     {student.rankIcon && <student.rankIcon className="w-3 h-3" />}
                     {student.rank}
