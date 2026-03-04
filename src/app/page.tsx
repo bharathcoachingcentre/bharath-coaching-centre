@@ -356,7 +356,7 @@ export default function HomePage() {
               How We Help Students <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
-              Comprehensive learning solutions designed to ensure academic success through innovative methods.
+              Comprehensive learning solutions designed to ensure academic success
             </p>
           </div>
 
