@@ -25,8 +25,8 @@ import {
   Trophy,
   Medal,
   Zap,
-  Crown,
   UserPlus,
+  Info,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -503,17 +503,17 @@ export default function HomePage() {
                   ))}
                 </div>
                 <div className="space-y-3">
-                  <Button variant="outline" className="w-full py-6 font-semibold rounded-xl bg-gray-50 border-gray-200">
-                    <Clock className="mr-2 h-5 w-5" />
+                  <Button variant="outline" className="w-full py-6 font-semibold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
+                    <Clock className="h-5 w-5" />
                     View Timetable
                   </Button>
                   <Button
                     className={cn(
-                      "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95",
+                      "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
                       program.popular ? "bg-gradient-to-r from-purple-600 to-pink-600" : "bg-gradient-to-r from-blue-600 to-blue-700"
                     )}
                   >
-                    <UserPlus className="mr-2 h-5 w-5" />
+                    <UserPlus className="h-5 w-5" />
                     Enroll Now
                   </Button>
                 </div>
@@ -524,7 +524,7 @@ export default function HomePage() {
       </section>
 
       {/* Timetable Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section id="timetable-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -535,25 +535,33 @@ export default function HomePage() {
             </p>
           </div>
 
-          <Card className="rounded-[3rem] shadow-2xl border-none overflow-hidden bg-white p-8 md:p-12">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
-              <div className="flex p-1.5 bg-gray-100 rounded-2xl">
-                <Button
+          <Card className="rounded-[2.5rem] shadow-2xl border-none overflow-hidden bg-white p-6 md:p-10">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-6">
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
+                <button
                   onClick={() => setActiveScheduleBoard("cbse")}
-                  variant="ghost"
-                  className={cn("font-bold px-8 rounded-xl transition-all", activeScheduleBoard === "cbse" ? "bg-white shadow-sm text-blue-600" : "text-gray-500")}
+                  className={cn(
+                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 text-sm tracking-tight",
+                    activeScheduleBoard === "cbse"
+                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-lg"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
                 >
                   CBSE
-                </Button>
-                <Button
+                </button>
+                <button
                   onClick={() => setActiveScheduleBoard("samacheer")}
-                  variant="ghost"
-                  className={cn("font-bold px-8 rounded-xl transition-all", activeScheduleBoard === "samacheer" ? "bg-white shadow-sm text-blue-600" : "text-gray-500")}
+                  className={cn(
+                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 text-sm tracking-tight",
+                    activeScheduleBoard === "samacheer"
+                      ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-lg"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
                 >
                   Samacheer
-                </Button>
+                </button>
               </div>
-              <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-medium text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px]">
+              <select className="px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none min-w-[200px] shadow-sm">
                 <option>Class 10</option>
                 {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
                   <option key={c}>{c}</option>
@@ -561,47 +569,94 @@ export default function HomePage() {
               </select>
             </div>
 
-            <div className="overflow-x-auto rounded-3xl border border-gray-100">
-              <table className="w-full text-left">
-                <thead className="bg-gradient-to-r from-blue-600 to-teal-500 text-white">
-                  <tr>
-                    <th className="px-8 py-6 font-bold text-lg">Day / Time</th>
-                    <th className="px-8 py-6 font-bold text-lg text-center">9:00 AM - 10:30 AM</th>
-                    <th className="px-8 py-6 font-bold text-lg text-center">11:00 AM - 12:30 PM</th>
-                    <th className="px-8 py-6 font-bold text-lg text-center">2:00 PM - 3:30 PM</th>
-                    <th className="px-8 py-6 font-bold text-lg text-center">4:00 PM - 5:30 PM</th>
+            <div className="overflow-x-auto rounded-[1.5rem] border border-gray-100 shadow-inner">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white">
+                    <th className="px-8 py-6 font-bold text-base whitespace-nowrap">Day / Time</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">9:00 AM - 10:30 AM</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">11:00 AM - 12:30 PM</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">2:00 PM - 3:30 PM</th>
+                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap">4:00 PM - 5:30 PM</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((day) => (
-                    <tr key={day} className="hover:bg-blue-50 transition-colors">
-                      <td className="px-8 py-6 font-bold text-gray-900">{day}</td>
-                      {[
-                        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100", tc: "text-blue-900" },
-                        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100", tc: "text-teal-900" },
-                        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100", tc: "text-purple-900" },
-                        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100", tc: "text-orange-900" },
-                      ].map((item, iIdx) => (
-                        <td key={iIdx} className="px-8 py-6 text-center">
-                          <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105", item.c)}>
-                            <div className={cn("font-bold", item.tc)}>{item.s}</div>
-                            <div className="text-xs opacity-70 mt-1">{item.t}</div>
+                <tbody className="divide-y divide-gray-50">
+                  {[
+                    { day: "Monday", slots: [
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-[#eff6ff]", tc: "text-[#2b65e2]" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-[#f0fdfa]", tc: "text-[#2abfaf]" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-[#f5f3ff]", tc: "text-[#8b5cf6]" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-[#fff7ed]", tc: "text-[#f97316]" },
+                    ]},
+                    { day: "Tuesday", slots: [
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-[#f0fdfa]", tc: "text-[#2abfaf]" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-[#eff6ff]", tc: "text-[#2b65e2]" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-[#fdf2f8]", tc: "text-[#ec4899]" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-[#f5f3ff]", tc: "text-[#8b5cf6]" },
+                    ]},
+                    { day: "Wednesday", slots: [
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-[#f5f3ff]", tc: "text-[#8b5cf6]" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-[#fff7ed]", tc: "text-[#f97316]" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-[#eff6ff]", tc: "text-[#2b65e2]" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-[#f0fdfa]", tc: "text-[#2abfaf]" },
+                    ]},
+                    { day: "Thursday", slots: [
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-[#eff6ff]", tc: "text-[#2b65e2]" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-[#fdf2f8]", tc: "text-[#ec4899]" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-[#f0fdfa]", tc: "text-[#2abfaf]" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-[#fff7ed]", tc: "text-[#f97316]" },
+                    ]},
+                    { day: "Friday", slots: [
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-[#fff7ed]", tc: "text-[#f97316]" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-[#f5f3ff]", tc: "text-[#8b5cf6]" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-[#fdf2f8]", tc: "text-[#ec4899]" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-[#eff6ff]", tc: "text-[#2b65e2]" },
+                    ]},
+                  ].map((row) => (
+                    <tr key={row.day} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 font-black text-gray-900">{row.day}</td>
+                      {row.slots.map((item, iIdx) => (
+                        <td key={iIdx} className="px-4 py-4 text-center">
+                          <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105 border border-transparent hover:border-gray-200 shadow-sm", item.c)}>
+                            <div className={cn("font-black text-sm", item.tc)}>{item.s}</div>
+                            <div className="text-[11px] text-gray-500 font-medium mt-1">{item.t}</div>
                           </div>
                         </td>
                       ))}
                     </tr>
                   ))}
-                  <tr className="hover:bg-green-50 transition-colors">
-                    <td className="px-8 py-6 font-bold text-gray-900">Saturday</td>
-                    <td className="px-8 py-6" colSpan={2}>
-                      <div className="bg-green-100 rounded-2xl p-4 text-center font-bold text-green-900">Doubt Clearing Session - All Teachers</div>
+                  <tr className="hover:bg-gray-50 transition-colors">
+                    <td className="px-8 py-6 font-black text-gray-900">Saturday</td>
+                    <td className="px-4 py-4" colSpan={2}>
+                      <div className="bg-[#f0fdf4] rounded-2xl p-5 text-center border border-[#dcfce7] shadow-sm">
+                        <div className="font-black text-[#166534] text-sm">Doubt Clearing Session</div>
+                        <div className="text-[11px] text-gray-500 font-medium mt-1">All Teachers Available</div>
+                      </div>
                     </td>
-                    <td className="px-8 py-6" colSpan={2}>
-                      <div className="bg-yellow-100 rounded-2xl p-4 text-center font-bold text-yellow-900">Practice & Revision - Self Study</div>
+                    <td className="px-4 py-4" colSpan={2}>
+                      <div className="bg-[#fefce8] rounded-2xl p-5 text-center border border-[#fef9c3] shadow-sm">
+                        <div className="font-black text-[#854d0e] text-sm">Practice & Revision</div>
+                        <div className="text-[11px] text-gray-500 font-medium mt-1">Self Study with Mentors</div>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4">
+              <div className="bg-blue-600 rounded-full p-1.5 mt-0.5 shadow-md">
+                <Info className="text-white h-4 w-4" />
+              </div>
+              <div className="space-y-2">
+                <h4 className="font-black text-gray-900 text-base">Important Notes:</h4>
+                <ul className="space-y-1.5 text-gray-600 text-[13px] font-medium leading-relaxed">
+                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Sunday is a holiday for all classes</li>
+                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Each session includes a 15-minute break</li>
+                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Extra classes are conducted before exams</li>
+                  <li className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-400 rounded-full"></span> Timetable may vary based on class requirements</li>
+                </ul>
+              </div>
             </div>
           </Card>
         </div>
@@ -640,7 +695,7 @@ export default function HomePage() {
                   <Image src={`https://picsum.photos/seed/stu${idx}/400/500`} alt={student.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                   <div className="absolute top-3 right-3">
                     <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white text-xs font-bold rounded-full shadow-lg">
-                      <Crown className="w-3 h-3 inline mr-1" /> {student.rank}
+                      Rank {idx + 1}
                     </span>
                   </div>
                 </div>
