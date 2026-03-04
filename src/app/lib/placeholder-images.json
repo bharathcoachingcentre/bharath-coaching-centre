@@ -7,6 +7,13 @@
     "alt": "Mother helping teenager with homework stock photo",
     "hint": "one-to-one tutoring"
   },
+  "one-to-one-mentorship": {
+    "src": "/one-to-one-image.png",
+    "width": 800,
+    "height": 1000,
+    "alt": "One-to-One Mentorship",
+    "hint": "mentorship session"
+  },
   "blog-banner": {
     "src": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=600",
     "width": 1200,
@@ -29,59 +36,59 @@
     "hint": "student studying"
   },
   "student-1": {
-    "src": "https://picsum.photos/seed/11/400/300",
+    "src": "https://images.unsplash.com/photo-1544717305-27a7ad474753?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 1",
-    "hint": "student portrait"
+    "hint": "student male"
   },
   "student-2": {
-    "src": "https://picsum.photos/seed/12/400/300",
+    "src": "https://images.unsplash.com/photo-1544717297-fa154da09f5b?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 2",
-    "hint": "student portrait"
+    "hint": "student female"
   },
   "student-3": {
-    "src": "https://picsum.photos/seed/13/400/300",
+    "src": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 3",
-    "hint": "student portrait"
+    "hint": "student group"
   },
   "student-4": {
-    "src": "https://picsum.photos/seed/14/400/300",
+    "src": "https://images.unsplash.com/photo-1517673132405-a56a62b18acc?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 4",
-    "hint": "student portrait"
+    "hint": "student smiling"
   },
   "student-5": {
-    "src": "https://picsum.photos/seed/15/400/300",
+    "src": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 5",
-    "hint": "student portrait"
+    "hint": "student library"
   },
   "student-6": {
-    "src": "https://picsum.photos/seed/16/400/300",
+    "src": "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 6",
-    "hint": "student portrait"
+    "hint": "student working"
   },
   "student-7": {
-    "src": "https://picsum.photos/seed/17/400/300",
+    "src": "https://images.unsplash.com/photo-1523050335392-93851179ae22?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 7",
-    "hint": "student portrait"
+    "hint": "student graduation"
   },
   "student-8": {
-    "src": "https://picsum.photos/seed/18/400/300",
+    "src": "https://images.unsplash.com/photo-1524178232363-1fb28f74b573?auto=format&fit=crop&q=80&w=400&h=300",
     "width": 400,
     "height": 300,
     "alt": "Student Portrait 8",
-    "hint": "student portrait"
+    "hint": "student classroom"
   }
 }

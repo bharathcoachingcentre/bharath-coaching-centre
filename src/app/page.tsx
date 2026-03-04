@@ -207,7 +207,7 @@ export default function HomePage() {
       rank: "Rank 2",
       badgeColor: "bg-[#94a3b8]",
       marksColor: "text-[#2abfaf]",
-      iconColor: "bg-[#2abfaf]",
+      iconColor: "bg-[#94a3b8]",
       img: placeholderImages["student-2"].src,
       rankIcon: Medal
     },
@@ -218,7 +218,7 @@ export default function HomePage() {
       rank: "Rank 3",
       badgeColor: "bg-[#f59e0b]",
       marksColor: "text-[#8b5cf6]",
-      iconColor: "bg-[#8b5cf6]",
+      iconColor: "bg-[#f59e0b]",
       img: placeholderImages["student-3"].src,
       rankIcon: Award
     },
@@ -418,7 +418,7 @@ export default function HomePage() {
                 className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col items-center text-center space-y-4 transition-all duration-300"
               >
                 <div 
-                  className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white", feature.color)}
+                  className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color)}
                   style={{ boxShadow: `0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color)` }}
                 >
                   <feature.icon className="w-8 h-8" />
@@ -494,7 +494,6 @@ export default function HomePage() {
                   <div className="flex items-start justify-between mb-6">
                     <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative", material.iconContainerBg)}>
                       <div className={cn("relative flex items-center justify-center", material.iconColor)}>
-                        {/* Solid High-Fidelity PDF Icon */}
                         <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
                           <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
                         </svg>
@@ -503,8 +502,8 @@ export default function HomePage() {
                     </div>
                     <span className={cn("px-5 py-2 text-white text-[12px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
-                  <h3 className="text-2xl font-black text-[#182d45] mb-2 tracking-tight">{material.title}</h3>
-                  <p className="text-base text-gray-500 mb-8 font-medium leading-relaxed flex-grow">{material.desc}</p>
+                  <h3 className="text-2xl font-black text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
+                  <p className="text-base text-gray-500 mb-8 font-medium leading-relaxed flex-grow text-left">{material.desc}</p>
                   <Button
                     className={cn(
                       "w-full text-white font-black rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
@@ -554,8 +553,8 @@ export default function HomePage() {
                   <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg)}>
                     <program.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{program.title}</h3>
-                  <p className="text-gray-600 font-medium">{program.subtitle}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left">{program.title}</h3>
+                  <p className="text-gray-600 font-medium text-left">{program.subtitle}</p>
                 </div>
                 <div className="space-y-4 mb-8 flex-grow">
                   {program.points.map((point, pIdx) => (
@@ -563,7 +562,7 @@ export default function HomePage() {
                       <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg)}>
                         <Check className="w-3 h-3 text-white" strokeWidth={4} />
                       </div>
-                      <span className="text-gray-700">{point}</span>
+                      <span className="text-gray-700 text-left">{point}</span>
                     </div>
                   ))}
                 </div>
@@ -739,11 +738,11 @@ export default function HomePage() {
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#2b65e2]/10 to-[#2abfaf]/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white">
                 <Image
-                  src="https://images.unsplash.com/photo-1544717297-fa154da09f5b?auto=format&fit=crop&q=80&w=800&h=1000"
-                  alt="One-to-One Mentorship"
+                  src={placeholderImages["one-to-one-mentorship"].src}
+                  alt={placeholderImages["one-to-one-mentorship"].alt}
                   fill
                   className="object-cover"
-                  data-ai-hint="student portrait"
+                  data-ai-hint={placeholderImages["one-to-one-mentorship"].hint}
                 />
               </div>
             </div>
