@@ -650,34 +650,34 @@ export default function HomePage() {
                 <tbody className="divide-y divide-gray-50">
                   {[
                     { day: "Monday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
                     ]},
                     { day: "Tuesday", slots: [
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-pink-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-gray-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
                     ]},
                     { day: "Wednesday", slots: [
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
                     ]},
                     { day: "Thursday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-pink-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-teal-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-gray-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
                     ]},
                     { day: "Friday", slots: [
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-orange-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-purple-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-pink-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-gray-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
                     ]},
                   ].map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
@@ -697,13 +697,13 @@ export default function HomePage() {
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-green-100 rounded-2xl p-5 text-center border border-green-200 shadow-sm">
                         <div className="font-extrabold text-green-900 text-sm">Doubt Clearing Session</div>
-                        <div className="text-[11px] text-green-700 font-bold mt-1">All Teachers Available</div>
+                        <div className="text-[11px] text-gray-600 font-bold mt-1">All Teachers Available</div>
                       </div>
                     </td>
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-yellow-100 rounded-2xl p-5 text-center border border-yellow-200 shadow-sm">
                         <div className="font-extrabold text-yellow-900 text-sm">Practice & Revision</div>
-                        <div className="text-[11px] text-yellow-700 font-bold mt-1">Self Study with Mentors</div>
+                        <div className="text-[11px] text-gray-600 font-bold mt-1">Self Study with Mentors</div>
                       </div>
                     </td>
                   </tr>
