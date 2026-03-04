@@ -19,18 +19,12 @@ import {
   MessagesSquare,
   BookOpen,
   UserCheck,
-  FileText,
   Download,
   Star,
   CheckCircle2,
   Trophy,
   Medal,
   Zap,
-  PieChart,
-  CalendarDays,
-  Layers,
-  Handshake,
-  BookMarked,
   Crown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -55,81 +49,89 @@ export default function HomePage() {
       title: "Mathematics", 
       grade: "Class 10", 
       desc: "Complete chapter-wise notes and formulas", 
-      themeColor: "bg-blue-600", 
-      lightBg: "bg-blue-50", 
+      themeColor: "bg-[#2b65e2]", 
+      lightBg: "bg-[#eff6ff]", 
+      iconContainerBg: "bg-blue-100",
       borderColor: "border-blue-100", 
-      hoverBorderColor: "hover:border-blue-300",
-      iconColor: "text-blue-600" 
+      hoverBorderColor: "hover:border-[#2b65e2]",
+      iconColor: "text-[#2b65e2]" 
     },
     { 
       title: "Science", 
       grade: "Class 10", 
       desc: "Physics, Chemistry & Biology notes", 
-      themeColor: "bg-teal-600", 
-      lightBg: "bg-teal-50", 
+      themeColor: "bg-[#2abfaf]", 
+      lightBg: "bg-[#f0fdfa]", 
+      iconContainerBg: "bg-teal-100",
       borderColor: "border-teal-100", 
-      hoverBorderColor: "hover:border-teal-300",
-      iconColor: "text-teal-600" 
+      hoverBorderColor: "hover:border-[#2abfaf]",
+      iconColor: "text-[#2abfaf]" 
     },
     { 
       title: "English", 
       grade: "Class 9", 
       desc: "Grammar, literature and writing skills", 
-      themeColor: "bg-purple-600", 
-      lightBg: "bg-purple-50", 
+      themeColor: "bg-[#8b5cf6]", 
+      lightBg: "bg-[#f5f3ff]", 
+      iconContainerBg: "bg-purple-100",
       borderColor: "border-purple-100", 
-      hoverBorderColor: "hover:border-purple-300",
-      iconColor: "text-purple-600" 
+      hoverBorderColor: "hover:border-[#8b5cf6]",
+      iconColor: "text-[#8b5cf6]" 
     },
     { 
       title: "Social Science", 
       grade: "Class 12", 
       desc: "History, Geography & Civics notes", 
-      themeColor: "bg-orange-600", 
-      lightBg: "bg-orange-50", 
+      themeColor: "bg-[#f97316]", 
+      lightBg: "bg-[#fff7ed]", 
+      iconContainerBg: "bg-orange-100",
       borderColor: "border-orange-100", 
-      hoverBorderColor: "hover:border-orange-300",
-      iconColor: "text-orange-600" 
+      hoverBorderColor: "hover:border-[#f97316]",
+      iconColor: "text-[#f97316]" 
     },
     { 
       title: "Physics", 
       grade: "Class 11", 
       desc: "Concepts, formulas and problems", 
-      themeColor: "bg-pink-600", 
-      lightBg: "bg-pink-50", 
+      themeColor: "bg-[#ec4899]", 
+      lightBg: "bg-[#fdf2f8]", 
+      iconContainerBg: "bg-pink-100",
       borderColor: "border-pink-100", 
-      hoverBorderColor: "hover:border-pink-300",
-      iconColor: "text-pink-600" 
+      hoverBorderColor: "hover:border-[#ec4899]",
+      iconColor: "text-[#ec4899]" 
     },
     { 
       title: "Chemistry", 
       grade: "Class 11", 
       desc: "Organic, inorganic & physical chemistry", 
-      themeColor: "bg-indigo-600", 
-      lightBg: "bg-indigo-50", 
+      themeColor: "bg-[#6366f1]", 
+      lightBg: "bg-[#eef2ff]", 
+      iconContainerBg: "bg-indigo-100",
       borderColor: "border-indigo-100", 
-      hoverBorderColor: "hover:border-indigo-300",
-      iconColor: "text-indigo-600" 
+      hoverBorderColor: "hover:border-[#6366f1]",
+      iconColor: "text-[#6366f1]" 
     },
     { 
       title: "Biology", 
       grade: "Class 12", 
       desc: "Botany and zoology comprehensive notes", 
-      themeColor: "bg-green-600", 
-      lightBg: "bg-green-50", 
+      themeColor: "bg-[#22c55e]", 
+      lightBg: "bg-[#f0fdf4]", 
+      iconContainerBg: "bg-green-100",
       borderColor: "border-green-100", 
-      hoverBorderColor: "hover:border-green-300",
-      iconColor: "text-green-600" 
+      hoverBorderColor: "hover:border-[#22c55e]",
+      iconColor: "text-[#22c55e]" 
     },
     { 
       title: "Hindi", 
       grade: "Class 8", 
       desc: "Grammar and literature study material", 
-      themeColor: "bg-yellow-600", 
-      lightBg: "bg-yellow-50", 
+      themeColor: "bg-[#eab308]", 
+      lightBg: "bg-[#fefce8]", 
+      iconContainerBg: "bg-yellow-100",
       borderColor: "border-yellow-100", 
-      hoverBorderColor: "hover:border-yellow-300",
-      iconColor: "text-yellow-600" 
+      hoverBorderColor: "hover:border-[#eab308]",
+      iconColor: "text-[#eab308]" 
     },
   ];
 
@@ -372,17 +374,21 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {materials.map((material, idx) => (
                 <div key={idx} className={cn(
-                  "rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-xl hover:-translate-y-1", 
+                  "group rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1", 
                   material.lightBg, 
                   material.borderColor,
                   material.hoverBorderColor
                 )}>
                   <div className="flex items-start justify-between mb-6">
-                    <div className="w-12 h-12 bg-white rounded-xl flex flex-col items-center justify-center shadow-sm">
-                      <FileText className={cn("w-6 h-6", material.iconColor)} />
-                      <span className={cn("text-[8px] font-black uppercase", material.iconColor)}>PDF</span>
+                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110", material.iconContainerBg)}>
+                      <div className="relative flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={cn("w-9 h-11", material.iconColor)}>
+                          <path d="M4 2C2.89543 2 2 2.89543 2 4V20C2 21.1046 2.89543 22 4 22H16C17.1046 22 18 21.1046 18 20V8L12 2H4Z" />
+                        </svg>
+                        <span className="absolute bottom-2 text-[7px] font-black text-white leading-none uppercase">PDF</span>
+                      </div>
                     </div>
-                    <span className={cn("px-4 py-1 text-white text-[10px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                    <span className={cn("px-4 py-1.5 text-white text-[10px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
                   <h3 className="text-xl font-black text-gray-900 mb-2">{material.title}</h3>
                   <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed">{material.desc}</p>
