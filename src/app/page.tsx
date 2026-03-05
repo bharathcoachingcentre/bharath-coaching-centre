@@ -66,7 +66,7 @@ const SolidClipboardList = ({ className }: { className?: string }) => (
 
 const SolidLineChart = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
+    <path d="M3.5 18.49l6-6-4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
   </svg>
 );
 
@@ -818,7 +818,7 @@ export default function HomePage() {
                       <item.icon className={cn("w-7 h-7", item.text)} />
                     </div>
                     <div className="space-y-1 text-left">
-                      <h3 className="text-xl font-extrabold text-[#182d45]">{item.title}</h3>
+                      <h3 className="text-xl font-bold text-[#182d45]">{item.title}</h3>
                       <p className="text-gray-500 text-sm leading-relaxed font-medium font-body">{item.desc}</p>
                     </div>
                   </div>
