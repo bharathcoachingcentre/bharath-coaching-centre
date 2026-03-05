@@ -89,7 +89,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-600 to-teal-500 rounded-[2.5rem] p-10 mb-16 shadow-2xl relative overflow-hidden group">
+        <div className="bg-gradient-to-r from-blue-600 to-teal-500 rounded-[2.5rem] p-10 mb-[42px] shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24 group-hover:scale-110 transition-transform duration-700"></div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
             <div className="text-center md:text-left">
