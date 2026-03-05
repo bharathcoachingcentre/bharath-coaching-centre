@@ -317,7 +317,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                   <Link href="/contact">
                     <CalendarCheck className="mr-2 h-6 w-6" />
