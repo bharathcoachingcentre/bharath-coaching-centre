@@ -65,9 +65,9 @@ const SolidClipboardList = ({ className }: { className?: string }) => (
 );
 
 const SolidLineChart = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M3.5 18.5L9.5 12.5L13.5 15.5L20.5 7.5" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M3 20H21" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 3v18h18" />
+    <path d="M18.5 9l-5 5-4-4-3.5 3.5" />
   </svg>
 );
 
@@ -379,7 +379,7 @@ export default function HomePage() {
 
               <div className="absolute top-8 right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-505 to-blue-600 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
                     <Book className="text-white w-6 h-6" />
                   </div>
                   <div className="text-left">
@@ -742,7 +742,7 @@ export default function HomePage() {
               </div>
               <div className="space-y-2 text-left">
                 <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
-                <ul className="space-y-1.5 text-gray-600 text-[13px] font-bold leading-relaxed font-body">
+                <ul className="space-y-1.5 text-gray-600 text-[13px] font-normal leading-relaxed font-body">
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Extra classes are conducted before exams</li>
@@ -978,7 +978,7 @@ export default function HomePage() {
                   <stat.icon className="w-10 h-10" />
                 </div>
                 <div className="text-5xl font-bold text-gray-900 mb-2">{stat.val}</div>
-                <div className="text-lg text-gray-600 font-bold">{stat.label}</div>
+                <div className="text-lg text-gray-600 font-normal">{stat.label}</div>
               </div>
             ))}
           </div>
