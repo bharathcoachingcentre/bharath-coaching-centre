@@ -600,7 +600,7 @@ export default function HomePage() {
                   <Button
                     className={cn(
                       "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
-                      program.popular ? "bg-gradient-to-r from-purple-600 to-pink-600" : "bg-gradient-to-r from-blue-600 to-blue-700"
+                      program.iconBg
                     )}
                   >
                     <UserPlus className="h-5 w-5" />
