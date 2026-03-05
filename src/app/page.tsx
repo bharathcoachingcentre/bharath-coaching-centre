@@ -123,7 +123,7 @@ export default function HomePage() {
       lightBg: "bg-purple-50/50",
       iconContainerBg: "bg-purple-100/50",
       borderColor: "border-purple-100",
-      hoverBorderColor: "hover:border-purple-300",
+      hoverBorderColor: "hover:border-blue-300",
       iconColor: "text-purple-600",
     },
     {
@@ -631,10 +631,10 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveScheduleBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 text-sm tracking-tight",
+                    "px-10 py-3.5 font-semibold rounded-2xl transition-all duration-500 text-[16px] tracking-tight",
                     activeScheduleBoard === "cbse"
                       ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-lg"
-                      : "text-gray-500 hover:bg-gray-200"
+                      : "text-[#374151] hover:bg-gray-200"
                   )}
                 >
                   CBSE
@@ -642,10 +642,10 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveScheduleBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 text-sm tracking-tight",
+                    "px-10 py-3.5 font-semibold rounded-2xl transition-all duration-500 text-[16px] tracking-tight",
                     activeScheduleBoard === "samacheer"
                       ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-lg"
-                      : "text-gray-500 hover:bg-gray-200"
+                      : "text-[#374151] hover:bg-gray-200"
                   )}
                 >
                   Samacheer
