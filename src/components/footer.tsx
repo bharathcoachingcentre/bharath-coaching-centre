@@ -15,7 +15,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-lg">
-                <GraduationCap className="text-white w-6 h-6" />
+                < GraduationCap className="text-white w-6 h-6" />
               </div>
               <span className="text-2xl font-bold">Bharath Academy</span>
             </div>
@@ -93,8 +93,8 @@ export function Footer() {
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24 group-hover:scale-110 transition-transform duration-700"></div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
             <div className="text-center md:text-left">
-              <h3 className="text-3xl font-extrabold mb-2 text-white">Get the Bharath Academy App</h3>
-              <p className="text-blue-100 text-lg font-medium">Learn anytime, anywhere with our mobile app</p>
+              <h3 className="text-[20px] font-extrabold mb-2 text-white">Get the Bharath Academy App</h3>
+              <p className="text-blue-100 text-[14px] font-medium">Learn anytime, anywhere with our mobile app</p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
               <Button className="bg-white text-gray-900 font-bold rounded-2xl h-16 px-10 hover:bg-gray-100 shadow-xl transition-all transform active:scale-95">
