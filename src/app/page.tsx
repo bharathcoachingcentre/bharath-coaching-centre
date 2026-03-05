@@ -66,7 +66,8 @@ const SolidClipboardList = ({ className }: { className?: string }) => (
 
 const SolidLineChart = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M23,8L17,14L13,10L3,20L4.41,21.41L13,12.83L17,16.83L24.41,9.41L23,8Z" />
+    <path d="M3.5 18.5L9.5 12.5L13.5 15.5L20.5 7.5" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M3 20H21" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
   </svg>
 );
 
@@ -378,7 +379,7 @@ export default function HomePage() {
 
               <div className="absolute top-8 right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-505 to-blue-600 rounded-xl flex items-center justify-center">
                     <Book className="text-white w-6 h-6" />
                   </div>
                   <div className="text-left">
@@ -826,7 +827,7 @@ export default function HomePage() {
               </div>
 
               <div className="pt-4 flex justify-start">
-                <Button size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-bold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
+                <Button size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-semibold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
                   <CalendarCheck className="h-6 w-6" />
                   Book Personal Session
                 </Button>
