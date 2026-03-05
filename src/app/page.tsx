@@ -863,7 +863,7 @@ export default function HomePage() {
                   </div>
                   <div className="text-left">
                     <h4 className="font-bold text-gray-900 leading-tight">{testimonial.name}</h4>
-                    <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mt-0.5">{testimonial.role}</p>
+                    <p className="text-xs text-gray-600 font-normal mt-0.5">{testimonial.role}</p>
                   </div>
                 </div>
                 <div className="flex gap-1 mb-4">
