@@ -262,8 +262,8 @@ export default function HomePage() {
       marks: "94.8%",
       rank: "Top 10",
       badgeColor: "bg-[#3b82f6]",
-      marksColor: "text-amber-600",
-      iconColor: "bg-amber-600",
+      marksColor: "text-pink-600",
+      iconColor: "bg-pink-600",
       img: "/sunita-patel.jpg"
     },
     {
