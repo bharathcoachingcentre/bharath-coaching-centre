@@ -985,7 +985,7 @@ export default function HomePage() {
           </div>
 
           {/* Top Performers Header */}
-          <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+          <div className="bg-white rounded-[16px] shadow-xl p-6 md:p-8 border border-gray-100 flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
             <h3 className="text-[24px] font-bold text-[#182d45] tracking-tight">Top Performers 2025</h3>
             <div className="w-full md:w-auto min-w-[180px]">
               <Select defaultValue="2025">
@@ -1004,7 +1004,7 @@ export default function HomePage() {
           {/* Top Performers Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {topPerformers.map((student, idx) => (
-              <div key={idx} className="group bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white overflow-hidden transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2 text-left">
+              <div key={idx} className="group bg-white rounded-[16px] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white overflow-hidden transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2 text-left">
                 <div className="relative h-64 w-full overflow-hidden">
                   <Image 
                     src={student.img} 
