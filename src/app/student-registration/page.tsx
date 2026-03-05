@@ -132,7 +132,7 @@ export default function StudentRegistrationPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight drop-shadow-lg">
             Registration
           </h1>
         </div>
@@ -144,7 +144,7 @@ export default function StudentRegistrationPage() {
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-black text-[#182d45] tracking-tight mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#182d45] tracking-tight mb-3">
               Registration Form
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto font-medium text-sm md:text-base">
@@ -163,7 +163,7 @@ export default function StudentRegistrationPage() {
                         <div className="w-9 h-9 rounded-lg bg-cyan-100 flex items-center justify-center">
                             <User className="w-4 h-4 text-[#35a3be]" />
                         </div>
-                        <h3 className="text-lg font-extrabold text-[#182d45]">Student Details</h3>
+                        <h3 className="text-lg font-bold text-[#182d45]">Student Details</h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
@@ -311,7 +311,7 @@ export default function StudentRegistrationPage() {
                         <div className="w-9 h-9 rounded-lg bg-purple-100 flex items-center justify-center">
                             <Users className="w-4 h-4 text-purple-600" />
                         </div>
-                        <h3 className="text-lg font-extrabold text-[#182d45]">Family Background</h3>
+                        <h3 className="text-lg font-bold text-[#182d45]">Family Background</h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
@@ -379,7 +379,7 @@ export default function StudentRegistrationPage() {
                         <div className="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center">
                             <Phone className="w-4 h-4 text-green-600" />
                         </div>
-                        <h3 className="text-lg font-extrabold text-[#182d45]">Contact Channels</h3>
+                        <h3 className="text-lg font-bold text-[#182d45]">Contact Channels</h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <FormField
@@ -432,7 +432,7 @@ export default function StudentRegistrationPage() {
                         <div className="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center">
                             <GraduationCap className="w-4 h-4 text-orange-600" />
                         </div>
-                        <h3 className="text-lg font-extrabold text-[#182d45]">Academic & Source</h3>
+                        <h3 className="text-lg font-bold text-[#182d45]">Academic & Source</h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <FormField
@@ -591,7 +591,7 @@ export default function StudentRegistrationPage() {
                     />
 
                     <div className="mt-6 text-center">
-                    <Button type="submit" size="lg" className="w-full md:w-auto min-w-[260px] h-14 text-base font-black text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 group" style={{ backgroundColor: '#35a3be' }}>
+                    <Button type="submit" size="lg" className="w-full md:w-auto min-w-[260px] h-14 text-base font-bold text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 group" style={{ backgroundColor: '#35a3be' }}>
                         <Send className="w-4 h-4 mr-2.5 group-hover:animate-bounce" />
                         Submit Application
                     </Button>

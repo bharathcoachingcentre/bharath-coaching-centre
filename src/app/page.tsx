@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -459,7 +458,7 @@ export default function HomePage() {
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5 font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
@@ -473,7 +472,7 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "cbse"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -484,7 +483,7 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "samacheer"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -521,16 +520,16 @@ export default function HomePage() {
                         <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
                           <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
                         </svg>
-                        <span className="absolute bottom-[6px] text-[8px] font-black text-white tracking-tighter">PDF</span>
+                        <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
                       </div>
                     </div>
-                    <span className={cn("px-5 py-2 text-white text-[12px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                    <span className={cn("px-5 py-2 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
-                  <h3 className="text-2xl font-black text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
+                  <h3 className="text-2xl font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
                   <p className="text-base text-gray-500 mb-8 font-medium leading-relaxed font-body flex-grow text-left">{material.desc}</p>
                   <Button
                     className={cn(
-                      "w-full text-white font-black rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
+                      "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
                       material.themeColor,
                       material.hoverThemeColor
                     )}
@@ -549,7 +548,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5 font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Explore Our <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Academic Programs</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
@@ -629,7 +628,7 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveScheduleBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 text-sm tracking-tight",
                     activeScheduleBoard === "cbse"
                       ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-lg"
                       : "text-gray-500 hover:bg-gray-200"
@@ -640,7 +639,7 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveScheduleBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-black rounded-2xl transition-all duration-500 text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 text-sm tracking-tight",
                     activeScheduleBoard === "samacheer"
                       ? "bg-gradient-to-tr from-[#2b65e2] to-[#2abfaf] text-white shadow-lg"
                       : "text-gray-500 hover:bg-gray-200"
@@ -705,11 +704,11 @@ export default function HomePage() {
                     ]},
                   ].map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-8 py-6 font-black text-[#182d45]">{row.day}</td>
+                      <td className="px-8 py-6 font-bold text-[#182d45]">{row.day}</td>
                       {row.slots.map((item, iIdx) => (
                         <td key={iIdx} className="px-4 py-4 text-center border-l border-gray-50">
                           <div className={cn("rounded-2xl p-4 transition-transform hover:scale-105 border shadow-sm", item.c)}>
-                            <div className="font-extrabold text-[#182d45] text-sm">{item.s}</div>
+                            <div className="font-bold text-[#182d45] text-sm">{item.s}</div>
                             <div className={cn("text-[11px] font-bold mt-1", item.tc)}>{item.t}</div>
                           </div>
                         </td>
@@ -717,16 +716,16 @@ export default function HomePage() {
                     </tr>
                   ))}
                   <tr className="hover:bg-gray-50 transition-colors">
-                    <td className="px-8 py-6 font-black text-[#182d45]">Saturday</td>
+                    <td className="px-8 py-6 font-bold text-[#182d45]">Saturday</td>
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-green-100 rounded-2xl p-5 text-center border border-green-200 shadow-sm">
-                        <div className="font-extrabold text-green-900 text-sm">Doubt Clearing Session</div>
+                        <div className="font-bold text-green-900 text-sm">Doubt Clearing Session</div>
                         <div className="text-[11px] text-gray-600 font-bold mt-1">All Teachers Available</div>
                       </div>
                     </td>
                     <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
                       <div className="bg-yellow-100 rounded-2xl p-5 text-center border border-yellow-200 shadow-sm">
-                        <div className="font-extrabold text-yellow-900 text-sm">Practice & Revision</div>
+                        <div className="font-bold text-yellow-900 text-sm">Practice & Revision</div>
                         <div className="text-[11px] text-gray-600 font-bold mt-1">Self Study with Mentors</div>
                       </div>
                     </td>
@@ -740,7 +739,7 @@ export default function HomePage() {
                 <Info className="text-white h-4 w-4" />
               </div>
               <div className="space-y-2">
-                <h4 className="font-black text-gray-900 text-base">Important Notes:</h4>
+                <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
                 <ul className="space-y-1.5 text-gray-600 text-[13px] font-medium leading-relaxed font-body">
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
@@ -826,7 +825,7 @@ export default function HomePage() {
               </div>
 
               <div className="pt-4 flex justify-start">
-                <Button size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-black text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
+                <Button size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-bold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
                   <CalendarCheck className="h-6 w-6" />
                   Book Personal Session
                 </Button>
@@ -840,7 +839,7 @@ export default function HomePage() {
       <section id="testimonials-section" className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
             </h2>
             <p className="text-lg text-gray-500 font-medium">
@@ -863,7 +862,7 @@ export default function HomePage() {
                     <Image src={`https://picsum.photos/seed/user${idx}/100/100`} alt={testimonial.name} fill className="object-cover" />
                   </div>
                   <div className="text-left">
-                    <h4 className="font-black text-gray-900 leading-tight">{testimonial.name}</h4>
+                    <h4 className="font-bold text-gray-900 leading-tight">{testimonial.name}</h4>
                     <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mt-0.5">{testimonial.role}</p>
                   </div>
                 </div>
@@ -885,7 +884,7 @@ export default function HomePage() {
       <section id="why-choose-section" className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
             </h2>
             <p className="text-lg text-gray-500 font-medium">
@@ -942,7 +941,7 @@ export default function HomePage() {
                 <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white mb-8 shadow-lg", item.iconBg)}>
                   <item.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-black text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
+                <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
                 <p className="text-gray-500 text-sm font-medium leading-relaxed font-body">{item.desc}</p>
               </div>
             ))}
@@ -978,7 +977,7 @@ export default function HomePage() {
 
           {/* Top Performers Header */}
           <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <h3 className="text-3xl font-black text-[#182d45] tracking-tight">Top Performers 2025</h3>
+            <h3 className="text-3xl font-bold text-[#182d45] tracking-tight">Top Performers 2025</h3>
             <div className="w-full md:w-auto min-w-[180px]">
               <Select defaultValue="2025">
                 <SelectTrigger className="h-12 bg-[#f8fafc] border-gray-200 rounded-xl font-bold text-gray-700 shadow-sm">
@@ -1005,19 +1004,19 @@ export default function HomePage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-110" 
                     data-ai-hint="student portrait"
                   />
-                  <div className={cn("absolute top-4 right-4 px-4 py-1.5 rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor)}>
+                  <div className={cn("absolute top-4 right-4 px-4 py-1.5 rounded-full text-white text-[10px] font-bold uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor)}>
                     {student.rankIcon && <student.rankIcon className="w-3 h-3" />}
                     {student.rank}
                   </div>
                 </div>
                 <div className="p-8">
-                  <h4 className="text-2xl font-black text-[#182d45] tracking-tight mb-1">{student.name}</h4>
-                  <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] mb-8">{student.grade}</p>
+                  <h4 className="text-2xl font-bold text-[#182d45] tracking-tight mb-1">{student.name}</h4>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-8">{student.grade}</p>
                   
                   <div className="flex justify-between items-end">
                     <div className="space-y-1">
-                      <div className={cn("text-4xl font-black tracking-tighter", student.marksColor)}>{student.marks}</div>
-                      <div className="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em]">Total Marks</div>
+                      <div className={cn("text-4xl font-bold tracking-tighter", student.marksColor)}>{student.marks}</div>
+                      <div className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em]">Total Marks</div>
                     </div>
                     <div className={cn("w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-transform duration-500 group-hover:rotate-12", student.iconColor)}>
                       <Star className="w-7 h-7 fill-white" />

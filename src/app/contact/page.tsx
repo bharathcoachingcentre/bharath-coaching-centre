@@ -34,7 +34,7 @@ export default function ContactPage() {
             >
               Get in touch
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight">With Bharath Academy</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight">With Bharath Academy</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
@@ -47,7 +47,7 @@ export default function ContactPage() {
                   <MapPin className="w-10 h-10 text-white" />
                 </div>
               </div>
-              <h3 className="text-2xl font-extrabold text-[#182d45] mb-4 tracking-tight">Our Address</h3>
+              <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">Our Address</h3>
               <a 
                 href="https://maps.app.goo.gl/gUFgpDmZH1xUzhF56" 
                 target="_blank" 
@@ -59,7 +59,7 @@ export default function ContactPage() {
                   <span className="block">Thillainagar (East),</span>
                   <span className="block">Trichy - 18</span>
                 </div>
-                <div className="mt-4 inline-flex items-center text-[10px] font-black uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div className="mt-4 inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                   Navigate Now <ArrowRight className="ml-1 w-3 h-3" />
                 </div>
               </a>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                   <Mail className="w-10 h-10 text-white" />
                 </div>
               </div>
-              <h3 className="text-2xl font-extrabold text-[#182d45] mb-4 tracking-tight">Email Us</h3>
+              <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">Email Us</h3>
               <a 
                 href="mailto:bcc_try@hotmail.com" 
                 className="relative z-10 text-gray-600 font-semibold hover:text-[#35a3be] transition-colors group/link flex flex-col items-center flex-grow w-full"
@@ -82,7 +82,7 @@ export default function ContactPage() {
                 <div className="flex-grow flex flex-col justify-center">
                   <span>bcc_try@hotmail.com</span>
                 </div>
-                <div className="mt-4 inline-flex items-center text-[10px] font-black uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div className="mt-4 inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                   Send Mail <ArrowRight className="ml-1 w-3 h-3" />
                 </div>
               </a>
@@ -97,7 +97,7 @@ export default function ContactPage() {
                   <Phone className="w-10 h-10 text-white" />
                 </div>
               </div>
-              <h3 className="text-2xl font-extrabold text-[#182d45] mb-4 tracking-tight">Call Us</h3>
+              <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">Call Us</h3>
               <a 
                 href="tel:+917200030307" 
                 className="relative z-10 text-gray-600 font-semibold hover:text-[#35a3be] transition-colors group/link flex flex-col items-center flex-grow w-full"
@@ -105,7 +105,7 @@ export default function ContactPage() {
                 <div className="flex-grow flex flex-col justify-center">
                   <span>+91 7200030307</span>
                 </div>
-                <div className="mt-4 inline-flex items-center text-[10px] font-black uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div className="mt-4 inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-[#35a3be] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                   Call Now <ArrowRight className="ml-1 w-3 h-3" />
                 </div>
               </a>

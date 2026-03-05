@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -56,7 +55,7 @@ export default function FreeStudyMaterialPage() {
             >
               Academic Resources
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight">Access Premium Learning</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight">Access Premium Learning</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-10">
@@ -71,7 +70,7 @@ export default function FreeStudyMaterialPage() {
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-extrabold text-[#182d45]">CBSE</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-[#182d45]">CBSE</CardTitle>
                   <p className="text-sm text-gray-500 font-medium mt-2">Complete NCERT solutions and chapter-wise practice questions</p>
                 </div>
               </CardHeader>
@@ -108,7 +107,7 @@ export default function FreeStudyMaterialPage() {
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-extrabold text-[#182d45]">Model Papers</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-[#182d45]">Model Papers</CardTitle>
                   <p className="text-sm text-gray-500 font-medium mt-2">Board question papers and previous year papers for preparation</p>
                 </div>
               </CardHeader>
@@ -145,7 +144,7 @@ export default function FreeStudyMaterialPage() {
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-extrabold text-[#182d45]">Samacheer</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-[#182d45]">Samacheer</CardTitle>
                   <p className="text-sm text-gray-500 font-medium mt-2">Book back solutions and comprehensive test materials for state board</p>
                 </div>
               </CardHeader>

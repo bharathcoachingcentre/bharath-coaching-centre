@@ -41,7 +41,7 @@ export default function BlogPage() {
             >
               Latest Updates
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight">Insights & Stories</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight">Insights & Stories</h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
               Insights, articles, and news from the heart of Bharath Academy.
             </p>
@@ -73,7 +73,7 @@ export default function BlogPage() {
                         </div>
                     </div>
                     <CardHeader className="p-0 text-left">
-                      <CardTitle className="text-2xl font-black text-[#182d45] hover:text-[#35a3be] transition-colors leading-tight !text-left">
+                      <CardTitle className="text-2xl font-bold text-[#182d45] hover:text-[#35a3be] transition-colors leading-tight !text-left">
                         <Link href={`/blog/${post.slug}`} className="!text-left">{post.title}</Link>
                       </CardTitle>
                     </CardHeader>
@@ -84,7 +84,7 @@ export default function BlogPage() {
                     </CardContent>
                   </div>
                   <div className="mt-8 text-left">
-                    <Button asChild variant="link" className="p-0 h-auto text-[#35a3be] font-black uppercase tracking-widest text-xs group/btn">
+                    <Button asChild variant="link" className="p-0 h-auto text-[#35a3be] font-bold uppercase tracking-widest text-xs group/btn">
                       <Link href={`/blog/${post.slug}`} className="flex items-center">
                         Read More <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>

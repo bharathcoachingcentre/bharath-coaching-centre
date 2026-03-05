@@ -54,7 +54,7 @@ export default function BecomeATeacherPage() {
             <span className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm" style={{ color: '#35a3be', backgroundColor: 'rgba(53, 163, 190, 0.1)', borderColor: 'rgba(53, 163, 190, 0.2)' }}>
               Join Our Faculty
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-[#182d45] tracking-tight mb-6">Shape The Future With Us</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight mb-6">Shape The Future With Us</h2>
             <p className="text-lg text-gray-600 font-medium">
               At Bharath Academy, we believe that everyone is an achiever. We are looking for dedicated educators who can deliver complex concepts through unique and interactive methods.
             </p>
@@ -69,7 +69,7 @@ export default function BecomeATeacherPage() {
                     <item.icon className="w-10 h-10 text-white" />
                   </div>
                 </div>
-                <h3 className="text-xl font-black text-[#182d45] mb-4 uppercase tracking-tighter">{item.title}</h3>
+                <h3 className="text-xl font-bold text-[#182d45] mb-4 uppercase tracking-tighter">{item.title}</h3>
                 <p className="text-gray-500 font-medium text-sm leading-relaxed">{item.description}</p>
               </div>
             ))}
@@ -81,7 +81,7 @@ export default function BecomeATeacherPage() {
               <p className="text-gray-600 mb-8">
                 If you have the passion to transform a student into an achiever, we want to hear from you. Please send your detailed resume and a brief introduction to our team.
               </p>
-              <Button asChild size="lg" className="bg-[#35a3be] hover:bg-[#174f5f] font-black py-7 px-10 rounded-2xl text-lg shadow-xl shadow-[#35a3be]/20 transition-all duration-300 group">
+              <Button asChild size="lg" className="bg-[#35a3be] hover:bg-[#174f5f] font-bold py-7 px-10 rounded-2xl text-lg shadow-xl shadow-[#35a3be]/20 transition-all duration-300 group">
                 <Link href="/contact" className="flex items-center">
                   Apply Now <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </Link>

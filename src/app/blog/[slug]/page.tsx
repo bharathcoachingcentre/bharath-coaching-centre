@@ -1,4 +1,3 @@
-
 import { getPostBySlug } from '@/lib/mock-data';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -35,8 +34,8 @@ export default function BlogPostPage({ params }: { params: { slug: string }; sea
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
         <div className="relative z-10 container mx-auto px-4 pt-24 text-center">
             <div className="flex flex-col items-center max-w-4xl mx-auto">
-                <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white border border-white/20 text-xs font-black uppercase tracking-widest mb-6">Article</span>
-                <h1 className="font-headline text-3xl font-black text-white md:text-5xl drop-shadow-2xl leading-tight mb-8">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white border border-white/20 text-xs font-bold uppercase tracking-widest mb-6">Article</span>
+                <h1 className="font-headline text-3xl font-bold text-white md:text-5xl drop-shadow-2xl leading-tight mb-8">
                     {post.title}
                 </h1>
                 <div className="flex justify-center items-center space-x-6 text-sm font-bold text-white/80">
@@ -63,7 +62,7 @@ export default function BlogPostPage({ params }: { params: { slug: string }; sea
         <div className="bg-white/80 backdrop-blur-md rounded-[2.5rem] p-8 md:p-16 shadow-[0_30px_80px_rgba(8,112,184,0.08)] border border-white relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#35a3be] to-[#174f5f]" />
             <div
-                className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-[#182d45] prose-headings:font-black prose-p:text-gray-600 prose-p:font-medium prose-p:leading-relaxed prose-strong:text-[#182d45]"
+                className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-[#182d45] prose-headings:font-bold prose-p:text-gray-600 prose-p:font-medium prose-p:leading-relaxed prose-strong:text-[#182d45]"
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
         </div>

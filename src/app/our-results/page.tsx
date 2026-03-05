@@ -47,7 +47,7 @@ export default function OurResultsPage() {
             <span className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-4 shadow-sm" style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}>
                 Achievements
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-[#182d45] tracking-tight">Our Achievements</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight">Our Achievements</h2>
           </div>
 
           <div className="flex justify-center mb-16">
@@ -57,7 +57,7 @@ export default function OurResultsPage() {
                         key={year}
                         onClick={() => setSelectedYear(year)}
                         className={cn(
-                            "relative px-8 py-3.5 rounded-full text-sm font-black transition-all duration-500 uppercase tracking-widest overflow-hidden group",
+                            "relative px-8 py-3.5 rounded-full text-sm font-bold transition-all duration-500 uppercase tracking-widest overflow-hidden group",
                             selectedYear === year 
                                 ? "text-white" 
                                 : "text-[#182d45] hover:text-[#35a3be]"
