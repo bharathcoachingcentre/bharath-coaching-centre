@@ -900,45 +900,51 @@ export default function HomePage() {
                 desc: "Real-time access to student performance, attendance, and progress through our dedicated parent portal with detailed analytics.",
                 icon: PieChart,
                 iconBg: "bg-[#3b82f6]",
-                cardBg: "bg-[#eff6ff]"
+                cardBg: "bg-[#eff6ff]",
+                borderColor: "border-blue-200"
               },
               {
                 title: "Daily Performance Monitoring",
                 desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.",
                 icon: Calendar,
                 iconBg: "bg-[#10b981]",
-                cardBg: "bg-[#f0fdf4]"
+                cardBg: "bg-[#f0fdf4]",
+                borderColor: "border-emerald-200"
               },
               {
                 title: "Weekly Tests & Evaluation",
                 desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.",
                 icon: ClipboardCheck,
                 iconBg: "bg-[#8b5cf6]",
-                cardBg: "bg-[#f5f3ff]"
+                cardBg: "bg-[#f5f3ff]",
+                borderColor: "border-violet-200"
               },
               {
                 title: "Structured Test Hierarchy",
                 desc: "Progressive testing system from unit tests to term exams, designed to build confidence and exam readiness systematically.",
                 icon: Layers,
                 iconBg: "bg-[#f97316]",
-                cardBg: "bg-[#fff7ed]"
+                cardBg: "bg-[#fff7ed]",
+                borderColor: "border-orange-200"
               },
               {
                 title: "Term-wise Parent Meetings",
                 desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.",
                 icon: Handshake,
                 iconBg: "bg-[#d946ef]",
-                cardBg: "bg-[#fdf4ff]"
+                cardBg: "bg-[#fdf4ff]",
+                borderColor: "border-fuchsia-200"
               },
               {
                 title: "Specialized Learning Materials",
                 desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.",
                 icon: BookOpen,
                 iconBg: "bg-[#4f46e5]",
-                cardBg: "bg-[#eef2ff]"
+                cardBg: "bg-[#eef2ff]",
+                borderColor: "border-indigo-200"
               }
             ].map((item, idx) => (
-              <div key={idx} className={cn("p-10 rounded-[2rem] border border-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:-translate-y-1 text-left", item.cardBg)}>
+              <div key={idx} className={cn("p-10 rounded-[16px] border shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:-translate-y-1 text-left", item.cardBg, item.borderColor)}>
                 <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white mb-8 shadow-lg", item.iconBg)}>
                   <item.icon className="w-6 h-6" />
                 </div>
