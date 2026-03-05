@@ -109,7 +109,7 @@ export function Footer() {
                 </div>
                 <div className="flex flex-col items-start leading-tight">
                   <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">GET IT ON</span>
-                  <span className="text-lg font-black tracking-tight">Google Play</span>
+                  <span className="text-[14px] font-semibold tracking-tight">Google Play</span>
                 </div>
               </Link>
 
@@ -125,7 +125,7 @@ export function Footer() {
                 </div>
                 <div className="flex flex-col items-start leading-tight">
                   <span className="text-[10px] font-bold opacity-80">Download on the</span>
-                  <span className="text-lg font-black tracking-tight">App Store</span>
+                  <span className="text-[14px] font-semibold tracking-tight">App Store</span>
                 </div>
               </Link>
             </div>
