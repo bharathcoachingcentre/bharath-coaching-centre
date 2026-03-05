@@ -233,7 +233,7 @@ export default function HomePage() {
       badgeColor: "bg-[#94a3b8]",
       marksColor: "text-teal-600",
       iconColor: "bg-teal-600",
-      img: placeholderImages["student-2"].src,
+      img: "/arjun-mehta.jpg",
       rankIcon: Medal
     },
     {
@@ -244,7 +244,7 @@ export default function HomePage() {
       badgeColor: "bg-[#f59e0b]",
       marksColor: "text-purple-600",
       iconColor: "bg-purple-600",
-      img: placeholderImages["student-3"].src,
+      img: "/divya-nair.jpg",
       rankIcon: Award
     },
     {
@@ -255,7 +255,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-orange-600",
       iconColor: "bg-orange-600",
-      img: placeholderImages["student-4"].src
+      img: "/rohan-kappoor.jpg"
     },
     {
       name: "Sanya Gupta",
