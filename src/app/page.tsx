@@ -221,7 +221,7 @@ export default function HomePage() {
       badgeColor: "bg-[#fbbf24]",
       marksColor: "text-[#2b65e2]",
       iconColor: "bg-[#2b65e2]",
-      img: placeholderImages["student-1"].src,
+      img: "/priya-sharma.jpg",
       rankIcon: Crown
     },
     {
@@ -232,7 +232,7 @@ export default function HomePage() {
       badgeColor: "bg-[#94a3b8]",
       marksColor: "text-[#2abfaf]",
       iconColor: "bg-[#94a3b8]",
-      img: placeholderImages["student-2"].src,
+      img: "/rajesh-kumar.jpg",
       rankIcon: Medal
     },
     {
@@ -243,7 +243,7 @@ export default function HomePage() {
       badgeColor: "bg-[#f59e0b]",
       marksColor: "text-[#8b5cf6]",
       iconColor: "bg-[#f59e0b]",
-      img: placeholderImages["student-3"].src,
+      img: "/arun-reddy.jpg",
       rankIcon: Award
     },
     {
@@ -254,7 +254,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-[#f97316]",
       iconColor: "bg-[#f97316]",
-      img: placeholderImages["student-4"].src
+      img: "/kavya-iyer.jpg"
     },
     {
       name: "Sanya Gupta",
@@ -264,7 +264,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: placeholderImages["student-5"].src
+      img: "/sunita-patel.jpg"
     },
     {
       name: "Vikram Malhotra",
@@ -274,7 +274,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: placeholderImages["student-6"].src
+      img: "/vikram-singh.jpg"
     },
     {
       name: "Nisha Reddy",
@@ -284,7 +284,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: placeholderImages["student-7"].src
+      img: "/priya-sharma.jpg"
     },
     {
       name: "Kabir Singh",
@@ -294,7 +294,7 @@ export default function HomePage() {
       badgeColor: "bg-[#3b82f6]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: placeholderImages["student-8"].src
+      img: "/rajesh-kumar.jpg"
     },
   ];
 
@@ -888,7 +888,7 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
             </h2>
-            <p className="text-lg text-gray-500 font-bold">
+            <p className="text-lg text-gray-500 font-normal">
               Comprehensive features designed for complete academic excellence
             </p>
           </div>
