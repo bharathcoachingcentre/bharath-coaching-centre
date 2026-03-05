@@ -514,7 +514,7 @@ export default function HomePage() {
                 <div
                   key={idx}
                   className={cn(
-                    "group rounded-[2.5rem] p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
+                    "group rounded-[2.5rem] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
                     material.lightBg,
                     material.borderColor,
                     material.hoverBorderColor
