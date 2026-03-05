@@ -97,12 +97,37 @@ export function Footer() {
               <p className="text-blue-100 text-[14px] font-medium">Learn anytime, anywhere with our mobile app</p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button className="bg-white text-gray-900 font-bold rounded-2xl h-16 px-10 hover:bg-gray-100 shadow-xl transition-all transform active:scale-95">
-                Google Play
-              </Button>
-              <Button className="bg-white text-gray-900 font-bold rounded-2xl h-16 px-10 hover:bg-gray-100 shadow-xl transition-all transform active:scale-95">
-                App Store
-              </Button>
+              {/* Google Play Button */}
+              <Link 
+                href="#" 
+                className="flex items-center gap-3 bg-white text-gray-900 px-6 py-3 rounded-[1.25rem] shadow-xl transition-all transform active:scale-95 hover:bg-gray-50 border border-white/60 min-w-[200px]"
+              >
+                <div className="flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#182d45]">
+                    <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L18.81,16.23C19.46,16.55 19.46,17.45 18.81,17.77L4.56,25.53L14.41,15.68L16.81,15.12M20.16,12C20.16,12.55 19.84,13.07 19.34,13.31L17.53,14.33L14.7,11.52L17.53,8.69L19.34,9.71C19.84,9.95 20.16,10.47 20.16,11V12M14.41,8.34L4.56,-1.51L18.81,6.25C19.46,6.57 19.46,7.47 18.81,7.79L16.81,8.9L14.41,8.34Z" />
+                  </svg>
+                </div>
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">GET IT ON</span>
+                  <span className="text-lg font-black tracking-tight">Google Play</span>
+                </div>
+              </Link>
+
+              {/* App Store Button */}
+              <Link 
+                href="#" 
+                className="flex items-center gap-3 bg-white text-gray-900 px-6 py-3 rounded-[1.25rem] shadow-xl transition-all transform active:scale-95 hover:bg-gray-50 border border-white/60 min-w-[200px]"
+              >
+                <div className="flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#182d45]">
+                    <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.24C19.47,8.31 17.39,9.37 17.41,11.87C17.43,14.89 20.08,15.89 20.11,15.91C20.09,16.01 19.67,17.4 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z" />
+                  </svg>
+                </div>
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-[10px] font-bold opacity-80">Download on the</span>
+                  <span className="text-lg font-black tracking-tight">App Store</span>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
