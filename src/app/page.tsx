@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -532,8 +531,8 @@ export default function HomePage() {
                     </div>
                     <span className={cn("px-5 py-2 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                  <p className="text-base text-gray-500 mb-8 font-normal leading-relaxed font-body flex-grow text-left">{material.desc}</p>
+                  <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
+                  <p className="text-sm text-gray-500 mb-8 font-normal leading-relaxed font-body flex-grow text-left">{material.desc}</p>
                   <Button
                     asChild
                     className={cn(
