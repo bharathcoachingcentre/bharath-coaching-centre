@@ -984,7 +984,7 @@ export default function HomePage() {
 
           {/* Top Performers Header */}
           <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <h3 className="text-3xl font-bold text-[#182d45] tracking-tight">Top Performers 2025</h3>
+            <h3 className="text-[24px] font-bold text-[#182d45] tracking-tight">Top Performers 2025</h3>
             <div className="w-full md:w-auto min-w-[180px]">
               <Select defaultValue="2025">
                 <SelectTrigger className="h-12 bg-[#f8fafc] border-gray-200 rounded-xl font-bold text-gray-700 shadow-sm">
