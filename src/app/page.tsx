@@ -650,7 +650,7 @@ export default function HomePage() {
                 </button>
               </div>
               <div className="relative min-w-[200px]">
-                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
+                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
                   <option>Class 10</option>
                   {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
                     <option key={c}>{c}</option>
@@ -869,7 +869,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-[1em] h-[1em] text-yellow-400 fill-yellow-400" />
+                    <Star key={i} className="w-[18px] h-[18px] text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
                 <p className="text-[#374151] text-base leading-relaxed font-normal font-body text-left">
