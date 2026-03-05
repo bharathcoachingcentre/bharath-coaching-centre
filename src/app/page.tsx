@@ -857,7 +857,7 @@ export default function HomePage() {
               { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused.", img: "/sunita-patel.jpg" },
               { name: "Vikram Singh", role: "Class 12, CBSE", text: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!", img: "/vikram-singh.jpg" }
             ].map((testimonial, idx) => (
-              <div key={idx} className="bg-white rounded-[2.5rem] shadow-xl p-8 border border-gray-50 flex flex-col items-start text-left transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+              <div key={idx} className="bg-white rounded-[24px] shadow-lg p-8 border border-gray-50 flex flex-col items-start text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#2abfaf]/20 shadow-inner bg-gray-100">
                     <Image src={testimonial.img} alt={testimonial.name} fill className="object-cover" />
