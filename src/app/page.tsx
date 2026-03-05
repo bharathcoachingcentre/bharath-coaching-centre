@@ -308,10 +308,10 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="text-center lg:text-left space-y-8">
               <div className="space-y-6">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight text-left">
                   Empowering Students from <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Class 1 to 12</span>
                 </h1>
-                <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-medium">
+                <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
                   Interactive coaching for CBSE and Samacheer with personalized mentorship.
                 </p>
               </div>
@@ -339,7 +339,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-left">
                       <div className="text-2xl font-bold text-gray-900">5000+</div>
-                      <div className="text-sm text-gray-600">Students</div>
+                      <div className="text-sm text-gray-600 font-bold">Students</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-center lg:justify-start space-x-3">
@@ -348,7 +348,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-left">
                       <div className="text-2xl font-bold text-gray-900">95%</div>
-                      <div className="text-sm text-gray-600">Success Rate</div>
+                      <div className="text-sm text-gray-600 font-bold">Success Rate</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-center lg:justify-start space-x-3">
@@ -357,7 +357,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-left">
                       <div className="text-2xl font-bold text-gray-900">10+</div>
-                      <div className="text-sm text-gray-600">Years Experience</div>
+                      <div className="text-sm text-gray-600 font-bold">Years Experience</div>
                     </div>
                   </div>
                 </div>
@@ -380,8 +380,8 @@ export default function HomePage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
                     <Book className="text-white w-6 h-6" />
                   </div>
-                  <div>
-                    <div className="text-sm text-gray-500 font-medium">Board</div>
+                  <div className="text-left">
+                    <div className="text-sm text-gray-500 font-bold">Board</div>
                     <div className="text-lg font-bold text-gray-900">CBSE</div>
                   </div>
                 </div>
@@ -392,8 +392,8 @@ export default function HomePage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center">
                     <GraduationCap className="text-white w-6 h-6" />
                   </div>
-                  <div>
-                    <div className="text-sm text-gray-500 font-medium">Board</div>
+                  <div className="text-left">
+                    <div className="text-sm text-gray-500 font-bold">Board</div>
                     <div className="text-lg font-bold text-gray-900">Samacheer</div>
                   </div>
                 </div>
@@ -425,10 +425,10 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               How We Help Students <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
               Comprehensive learning solutions designed to ensure academic success
             </p>
           </div>
@@ -446,8 +446,8 @@ export default function HomePage() {
                 >
                   <feature.icon className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.desc}</p>
+                <h3 className="text-xl font-bold text-gray-900 tracking-tight">{feature.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -458,10 +458,10 @@ export default function HomePage() {
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
               Access comprehensive study resources for all subjects and classes
             </p>
           </div>
@@ -548,10 +548,10 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Explore Our <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Academic Programs</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
               Choose the perfect learning path for your child's academic journey
             </p>
           </div>
@@ -576,8 +576,8 @@ export default function HomePage() {
                   <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg)}>
                     <program.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left">{program.title}</h3>
-                  <p className="text-gray-600 font-bold text-left">{program.subtitle}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left tracking-tight">{program.title}</h3>
+                  <p className="text-gray-600 font-bold text-left text-sm uppercase tracking-wider">{program.subtitle}</p>
                 </div>
                 <div className="space-y-4 mb-8 flex-grow">
                   {program.points.map((point, pIdx) => (
@@ -614,10 +614,10 @@ export default function HomePage() {
       <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Offline Class <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Timetable</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
               View our structured class schedules for offline sessions
             </p>
           </div>
@@ -649,7 +649,7 @@ export default function HomePage() {
                 </button>
               </div>
               <div className="relative min-w-[200px]">
-                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer">
+                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-200 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
                   <option>Class 10</option>
                   {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
                     <option key={c}>{c}</option>
@@ -738,7 +738,7 @@ export default function HomePage() {
               <div className="bg-blue-600 rounded-full p-1.5 mt-0.5 shadow-md">
                 <Info className="text-white h-4 w-4" />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 text-left">
                 <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
                 <ul className="space-y-1.5 text-gray-600 text-[13px] font-bold leading-relaxed font-body">
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
@@ -871,7 +871,7 @@ export default function HomePage() {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed font-bold font-body italic text-left">
+                <p className="text-gray-600 text-sm leading-relaxed font-normal font-body text-left">
                   "{testimonial.text}"
                 </p>
               </div>
@@ -953,10 +953,10 @@ export default function HomePage() {
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Our Students' <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">Celebrating exceptional achievements and academic excellence</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">Celebrating exceptional achievements and academic excellence</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
