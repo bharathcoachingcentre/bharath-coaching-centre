@@ -964,8 +964,7 @@ export default function HomePage() {
                 <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white mb-8 shadow-lg", item.iconBg)}>
                   <item.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
-                <p className="text-[#374151] text-base font-normal leading-relaxed font-body">{item.desc}</p>
+                <h3 className="text-2xl font-bold text-[#182d45] tracking-tight">{item.title}</h3>
               </div>
             ))}
           </div>
