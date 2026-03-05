@@ -377,44 +377,45 @@ export default function HomePage() {
                 data-ai-hint="student success"
               />
 
-              <div className="absolute top-8 right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 z-20">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-                    <Book className="text-white w-6 h-6" />
+              {/* Floating Labels - Optimized for Mobile */}
+              <div className="absolute top-4 right-2 sm:top-8 sm:right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-6 border border-white/50 z-20">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                    <Book className="text-white w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-sm text-gray-500 font-bold">Board</div>
-                    <div className="text-lg font-bold text-gray-900">CBSE</div>
+                    <div className="text-[10px] sm:text-sm text-gray-500 font-bold">Board</div>
+                    <div className="text-sm sm:text-lg font-bold text-gray-900">CBSE</div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute bottom-24 left-4 lg:left-8 floating-card-delay-1 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 z-20">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center">
-                    <GraduationCap className="text-white w-6 h-6" />
+              <div className="absolute bottom-16 left-2 sm:bottom-24 sm:left-4 lg:left-8 floating-card-delay-1 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-6 border border-white/50 z-20">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                    <GraduationCap className="text-white w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-sm text-gray-500 font-bold">Board</div>
-                    <div className="text-lg font-bold text-gray-900">Samacheer</div>
+                    <div className="text-[10px] sm:text-sm text-gray-500 font-bold">Board</div>
+                    <div className="text-sm sm:text-lg font-bold text-gray-900">Samacheer</div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute top-1/2 -right-4 lg:right-0 transform -translate-y-1/2 floating-card-delay-2 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 z-20">
-                <div className="space-y-3">
+              <div className="absolute top-1/2 -right-2 sm:-right-4 lg:right-0 transform -translate-y-1/2 floating-card-delay-2 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-6 border border-white/50 z-20">
+                <div className="space-y-2 sm:space-y-3">
                   <div className="flex items-center space-x-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                      <Laptop className="text-white w-5 h-5" />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                      <Laptop className="text-white w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-sm font-bold text-gray-900">Online</span>
+                    <span className="text-xs sm:text-sm font-bold text-gray-900">Online</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                      <Building className="text-white w-5 h-5" />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                      <Building className="text-white w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-sm font-bold text-gray-900">Offline</span>
+                    <span className="text-xs sm:text-sm font-bold text-gray-900">Offline</span>
                   </div>
                 </div>
               </div>
