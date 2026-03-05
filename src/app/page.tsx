@@ -862,8 +862,8 @@ export default function HomePage() {
                     <Image src={`https://picsum.photos/seed/user${idx}/100/100`} alt={testimonial.name} fill className="object-cover" />
                   </div>
                   <div className="text-left">
-                    <h4 className="font-bold text-gray-900 leading-tight">{testimonial.name}</h4>
-                    <p className="text-xs text-[#4b5563] font-normal mt-0.5">{testimonial.role}</p>
+                    <h4 className="text-[18px] font-bold text-gray-900 leading-tight">{testimonial.name}</h4>
+                    <p className="text-[16px] text-[#4b5563] font-normal mt-0.5">{testimonial.role}</p>
                   </div>
                 </div>
                 <div className="flex gap-1 mb-4">
