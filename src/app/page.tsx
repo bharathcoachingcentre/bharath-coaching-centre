@@ -340,7 +340,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-left">
                       <div className="text-2xl font-bold text-gray-900">5000+</div>
-                      <div className="text-sm text-gray-600 font-bold">Students</div>
+                      <div className="text-sm text-gray-600 font-normal">Students</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-center lg:justify-start space-x-3">
@@ -349,7 +349,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-left">
                       <div className="text-2xl font-bold text-gray-900">95%</div>
-                      <div className="text-sm text-gray-600 font-bold">Success Rate</div>
+                      <div className="text-sm text-gray-600 font-normal">Success Rate</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-center lg:justify-start space-x-3">
@@ -358,7 +358,7 @@ export default function HomePage() {
                     </div>
                     <div className="text-left">
                       <div className="text-2xl font-bold text-gray-900">10+</div>
-                      <div className="text-sm text-gray-600 font-bold">Years Experience</div>
+                      <div className="text-sm text-gray-600 font-normal">Years Experience</div>
                     </div>
                   </div>
                 </div>
