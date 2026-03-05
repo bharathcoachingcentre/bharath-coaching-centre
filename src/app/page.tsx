@@ -949,7 +949,7 @@ export default function HomePage() {
                   <item.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
-                <p className="text-gray-500 text-sm font-bold leading-relaxed font-body">{item.desc}</p>
+                <p className="text-gray-500 text-base font-normal leading-relaxed font-body">{item.desc}</p>
               </div>
             ))}
           </div>
