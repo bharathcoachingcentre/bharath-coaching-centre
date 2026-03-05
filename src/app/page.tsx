@@ -527,7 +527,7 @@ export default function HomePage() {
                     <span className={cn("px-5 py-2 text-white text-[12px] font-black rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
                   <h3 className="text-2xl font-black text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                  <p className="text-base text-gray-500 mb-8 font-medium leading-relaxed flex-grow text-left">{material.desc}</p>
+                  <p className="text-base text-gray-500 mb-8 font-medium leading-relaxed font-body flex-grow text-left">{material.desc}</p>
                   <Button
                     className={cn(
                       "w-full text-white font-black rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
@@ -741,7 +741,7 @@ export default function HomePage() {
               </div>
               <div className="space-y-2">
                 <h4 className="font-black text-gray-900 text-base">Important Notes:</h4>
-                <ul className="space-y-1.5 text-gray-600 text-[13px] font-medium leading-relaxed">
+                <ul className="space-y-1.5 text-gray-600 text-[13px] font-medium leading-relaxed font-body">
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Extra classes are conducted before exams</li>
@@ -774,7 +774,7 @@ export default function HomePage() {
             {/* Right: Content */}
             <div className="space-y-10">
               <div>
-                <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight leading-tight text-left">
+                <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight leading-tight text-left">
                   One-to-One <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Mentorship</span>
                 </h2>
                 <p className="text-lg text-gray-600 font-medium text-left">
@@ -819,7 +819,7 @@ export default function HomePage() {
                     </div>
                     <div className="space-y-1 text-left">
                       <h3 className="text-xl font-extrabold text-[#182d45]">{item.title}</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed font-medium">{item.desc}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed font-medium font-body">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -872,7 +872,7 @@ export default function HomePage() {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed font-medium italic text-left">
+                <p className="text-gray-600 text-sm leading-relaxed font-medium font-body italic text-left">
                   "{testimonial.text}"
                 </p>
               </div>
@@ -943,7 +943,7 @@ export default function HomePage() {
                   <item.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-black text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
-                <p className="text-gray-500 text-sm font-medium leading-relaxed">{item.desc}</p>
+                <p className="text-gray-500 text-sm font-medium leading-relaxed font-body">{item.desc}</p>
               </div>
             ))}
           </div>
