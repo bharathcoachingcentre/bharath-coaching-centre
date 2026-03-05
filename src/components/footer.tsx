@@ -19,7 +19,7 @@ export function Footer() {
               </div>
               <span className="text-2xl font-bold">Bharath Academy</span>
             </div>
-            <p className="text-gray-400 text-sm mb-8 leading-relaxed font-medium">
+            <p className="text-gray-400 text-base mb-8 leading-relaxed font-medium">
               Helping students from Class 1 to 12 achieve academic excellence through structured coaching and personalized mentorship.
             </p>
             <div className="flex gap-4">
@@ -36,8 +36,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Company</h3>
-            <ul className="space-y-4 font-medium text-sm">
+            <h3 className="text-lg font-bold mb-6 text-white">Company</h3>
+            <ul className="space-y-4 font-medium text-base">
               <li><Link href="/" className="text-gray-400 hover:text-white transition-colors duration-200">Home</Link></li>
               <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors duration-200">About Us</Link></li>
               <li><Link href="/our-results" className="text-gray-400 hover:text-white transition-colors duration-200">Our Results</Link></li>
@@ -46,8 +46,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Courses</h3>
-            <ul className="space-y-4 font-medium text-sm">
+            <h3 className="text-lg font-bold mb-6 text-white">Courses</h3>
+            <ul className="space-y-4 font-medium text-base">
               <li><Link href="/courses" className="text-gray-400 hover:text-white transition-colors duration-200">CBSE Coaching</Link></li>
               <li><Link href="/courses" className="text-gray-400 hover:text-white transition-colors duration-200">Samacheer Coaching</Link></li>
               <li><Link href="/online-courses" className="text-gray-400 hover:text-white transition-colors duration-200">Online Classes</Link></li>
@@ -56,8 +56,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Resources</h3>
-            <ul className="space-y-4 font-medium text-sm">
+            <h3 className="text-lg font-bold mb-6 text-white">Resources</h3>
+            <ul className="space-y-4 font-medium text-base">
               <li><Link href="/free-study-material" className="text-gray-400 hover:text-white transition-colors duration-200">Free Study Materials</Link></li>
               <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors duration-200">Blog</Link></li>
               <li><Link href="/student-registration" className="text-gray-400 hover:text-white transition-colors duration-200">Become a Teacher</Link></li>
@@ -65,8 +65,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-6 text-white uppercase tracking-widest text-xs">Contact</h3>
-            <ul className="space-y-5 text-gray-400 font-medium text-sm">
+            <h3 className="text-lg font-bold mb-6 text-white">Contact</h3>
+            <ul className="space-y-5 text-gray-400 font-medium text-base">
               <li className="flex items-start gap-3">
                 <Phone className="text-blue-500 w-5 h-5 mt-1" />
                 <div>
