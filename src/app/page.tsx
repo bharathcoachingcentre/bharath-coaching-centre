@@ -907,12 +907,9 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
             </h2>
-            <p className="text-lg text-gray-500 font-normal">
-              Comprehensive features designed for complete academic excellence
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
                 title: "Parent Academic Tracking",
