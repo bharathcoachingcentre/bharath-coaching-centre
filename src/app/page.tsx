@@ -850,17 +850,17 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { name: "Priya Sharma", role: "Class 10, CBSE", text: "The teachers at Bharath Academy are amazing! They explain every concept so clearly and are always available for doubt clearing. I improved my marks from 75% to 92% in just one year!" },
-              { name: "Rajesh Kumar", role: "Parent, Class 12", text: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!" },
-              { name: "Arun Reddy", role: "Class 11, Samacheer", text: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!" },
-              { name: "Kavya Iyer", role: "Class 9, CBSE", text: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore." },
-              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused." },
-              { name: "Vikram Singh", role: "Class 12, CBSE", text: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!" }
+              { name: "Priya Sharma", role: "Class 10, CBSE", text: "The teachers at Bharath Academy are amazing! They explain every concept so clearly and are always available for doubt clearing. I improved my marks from 75% to 92% in just one year!", img: "/priya-sharma.jpg" },
+              { name: "Rajesh Kumar", role: "Parent, Class 12", text: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", img: "/rajesh-kumar.jpg" },
+              { name: "Arun Reddy", role: "Class 11, Samacheer", text: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!", img: "/arun-reddy.jpg" },
+              { name: "Kavya Iyer", role: "Class 9, CBSE", text: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", img: "/kavya-iyer.jpg" },
+              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused.", img: "/sunita-patel.jpg" },
+              { name: "Vikram Singh", role: "Class 12, CBSE", text: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!", img: "/vikram-singh.jpg" }
             ].map((testimonial, idx) => (
               <div key={idx} className="bg-white rounded-[2.5rem] shadow-xl p-8 border border-gray-50 flex flex-col items-start text-left transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#2abfaf]/20 shadow-inner bg-gray-100">
-                    <Image src={`https://picsum.photos/seed/user${idx}/100/100`} alt={testimonial.name} fill className="object-cover" />
+                    <Image src={testimonial.img} alt={testimonial.name} fill className="object-cover" />
                   </div>
                   <div className="text-left">
                     <h4 className="text-[18px] font-bold text-gray-900 leading-tight">{testimonial.name}</h4>
