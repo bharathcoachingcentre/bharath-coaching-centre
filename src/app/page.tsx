@@ -317,13 +317,13 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-semibold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                   <Link href="/contact">
                     <CalendarCheck className="mr-2 h-6 w-6" />
                     Book Free Consultation
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-semibold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
+                <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-bold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
                   <Link href="/courses">
                     <Clock className="mr-2 h-6 w-6" />
                     View Timetable
@@ -405,14 +405,14 @@ export default function HomePage() {
                     <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
                       <Laptop className="text-white w-5 h-5" />
                     </div>
-                    <span className="text-sm font-semibold text-gray-900">Online</span>
+                    <span className="text-sm font-bold text-gray-900">Online</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
                     <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
                       <Building className="text-white w-5 h-5" />
                     </div>
-                    <span className="text-sm font-semibold text-gray-900">Offline</span>
+                    <span className="text-sm font-bold text-gray-900">Offline</span>
                   </div>
                 </div>
               </div>
@@ -526,7 +526,7 @@ export default function HomePage() {
                     <span className={cn("px-5 py-2 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
                   <h3 className="text-2xl font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                  <p className="text-base text-gray-500 mb-8 font-medium leading-relaxed font-body flex-grow text-left">{material.desc}</p>
+                  <p className="text-base text-gray-500 mb-8 font-normal leading-relaxed font-body flex-grow text-left">{material.desc}</p>
                   <Button
                     className={cn(
                       "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
@@ -577,7 +577,7 @@ export default function HomePage() {
                     <program.icon className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left">{program.title}</h3>
-                  <p className="text-gray-600 font-medium text-left">{program.subtitle}</p>
+                  <p className="text-gray-600 font-bold text-left">{program.subtitle}</p>
                 </div>
                 <div className="space-y-4 mb-8 flex-grow">
                   {program.points.map((point, pIdx) => (
@@ -585,12 +585,12 @@ export default function HomePage() {
                       <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg)}>
                         <Check className="w-3 h-3 text-white" strokeWidth={4} />
                       </div>
-                      <span className="text-gray-700 text-left">{point}</span>
+                      <span className="text-gray-700 text-left font-normal">{point}</span>
                     </div>
                   ))}
                 </div>
                 <div className="space-y-3">
-                  <Button variant="outline" className="w-full py-6 font-semibold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
+                  <Button variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
                     <Clock className="h-5 w-5" />
                     View Timetable
                   </Button>
@@ -740,7 +740,7 @@ export default function HomePage() {
               </div>
               <div className="space-y-2">
                 <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
-                <ul className="space-y-1.5 text-gray-600 text-[13px] font-medium leading-relaxed font-body">
+                <ul className="space-y-1.5 text-gray-600 text-[13px] font-bold leading-relaxed font-body">
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
                   <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Extra classes are conducted before exams</li>
@@ -818,7 +818,7 @@ export default function HomePage() {
                     </div>
                     <div className="space-y-1 text-left">
                       <h3 className="text-xl font-bold text-[#182d45]">{item.title}</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed font-medium font-body">{item.desc}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed font-normal font-body">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -836,13 +836,13 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials-section" className="py-24 bg-white relative">
+      <section id="testimonials-section" className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
             </h2>
-            <p className="text-lg text-gray-500 font-medium">
+            <p className="text-lg text-gray-500 font-bold">
               Real stories from our successful students and satisfied parents
             </p>
           </div>
@@ -853,7 +853,7 @@ export default function HomePage() {
               { name: "Rajesh Kumar", role: "Parent, Class 12", text: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!" },
               { name: "Arun Reddy", role: "Class 11, Samacheer", text: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!" },
               { name: "Kavya Iyer", role: "Class 9, CBSE", text: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore." },
-              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused." },
+              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motived and focused." },
               { name: "Vikram Singh", role: "Class 12, CBSE", text: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!" }
             ].map((testimonial, idx) => (
               <div key={idx} className="bg-white rounded-[2.5rem] shadow-xl p-8 border border-gray-50 flex flex-col items-start text-left transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
@@ -871,7 +871,7 @@ export default function HomePage() {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed font-medium font-body italic text-left">
+                <p className="text-gray-600 text-sm leading-relaxed font-bold font-body italic text-left">
                   "{testimonial.text}"
                 </p>
               </div>
@@ -887,7 +887,7 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
             </h2>
-            <p className="text-lg text-gray-500 font-medium">
+            <p className="text-lg text-gray-500 font-bold">
               Comprehensive features designed for complete academic excellence
             </p>
           </div>
@@ -942,7 +942,7 @@ export default function HomePage() {
                   <item.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
-                <p className="text-gray-500 text-sm font-medium leading-relaxed font-body">{item.desc}</p>
+                <p className="text-gray-500 text-sm font-bold leading-relaxed font-body">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -970,7 +970,7 @@ export default function HomePage() {
                   <stat.icon className="w-10 h-10" />
                 </div>
                 <div className="text-5xl font-bold text-gray-900 mb-2">{stat.val}</div>
-                <div className="text-lg text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-lg text-gray-600 font-bold">{stat.label}</div>
               </div>
             ))}
           </div>
