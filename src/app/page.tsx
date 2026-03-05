@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -194,6 +195,7 @@ export default function HomePage() {
       subtitle: "Foundation Program",
       icon: Zap,
       iconBg: "bg-blue-500",
+      enrollColor: "bg-blue-500",
       points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
     },
     {
@@ -201,6 +203,7 @@ export default function HomePage() {
       subtitle: "Middle School Program",
       icon: BookOpen,
       iconBg: "bg-teal-500",
+      enrollColor: "bg-teal-500",
       points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
     },
     {
@@ -208,6 +211,7 @@ export default function HomePage() {
       subtitle: "Senior Secondary Program",
       icon: GraduationCap,
       iconBg: "bg-purple-500",
+      enrollColor: "bg-purple-500",
       popular: true,
       points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
     },
@@ -320,13 +324,13 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                  <Link href="/contact">
+                  <Link href="#">
                     <CalendarCheck className="mr-2 h-6 w-6" />
                     Book Free Consultation
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-bold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <Link href="/courses">
+                  <Link href="#">
                     <Clock className="mr-2 h-6 w-6" />
                     View Timetable
                   </Link>
@@ -377,45 +381,45 @@ export default function HomePage() {
                 data-ai-hint="student success"
               />
 
-              {/* Floating Labels - Optimized for Mobile */}
-              <div className="absolute top-4 right-2 sm:top-8 sm:right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-6 border border-white/50 z-20">
+              {/* Floating Labels - Responsive Mobile Overlap Fix */}
+              <div className="absolute top-2 right-2 sm:top-8 sm:right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center">
-                    <Book className="text-white w-5 h-5 sm:w-6 sm:h-6" />
+                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                    <Book className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] sm:text-sm text-gray-500 font-bold">Board</div>
-                    <div className="text-sm sm:text-lg font-bold text-gray-900">CBSE</div>
+                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">Board</div>
+                    <div className="text-xs sm:text-lg font-bold text-gray-900">CBSE</div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute bottom-16 left-2 sm:bottom-24 sm:left-4 lg:left-8 floating-card-delay-1 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-6 border border-white/50 z-20">
+              <div className="absolute bottom-10 left-2 sm:bottom-24 sm:left-4 lg:left-8 floating-card-delay-1 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg sm:rounded-xl flex items-center justify-center">
-                    <GraduationCap className="text-white w-5 h-5 sm:w-6 sm:h-6" />
+                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                    <GraduationCap className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] sm:text-sm text-gray-500 font-bold">Board</div>
-                    <div className="text-sm sm:text-lg font-bold text-gray-900">Samacheer</div>
+                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">Board</div>
+                    <div className="text-xs sm:text-lg font-bold text-gray-900">Samacheer</div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute top-1/2 -right-2 sm:-right-4 lg:right-0 transform -translate-y-1/2 floating-card-delay-2 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-6 border border-white/50 z-20">
-                <div className="space-y-2 sm:space-y-3">
+              <div className="absolute top-1/2 -right-2 sm:-right-4 lg:right-0 transform -translate-y-1/2 floating-card-delay-2 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
+                <div className="space-y-1 sm:space-y-3">
                   <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                      <Laptop className="text-white w-4 h-4 sm:w-5 sm:h-5" />
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                      <Laptop className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-xs sm:text-sm font-bold text-gray-900">Online</span>
+                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">Online</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                      <Building className="text-white w-4 h-4 sm:w-5 sm:h-5" />
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                      <Building className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-xs sm:text-sm font-bold text-gray-900">Offline</span>
+                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">Offline</span>
                   </div>
                 </div>
               </div>
@@ -531,14 +535,17 @@ export default function HomePage() {
                   <h3 className="text-2xl font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
                   <p className="text-base text-gray-500 mb-8 font-normal leading-relaxed font-body flex-grow text-left">{material.desc}</p>
                   <Button
+                    asChild
                     className={cn(
                       "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
                       material.themeColor,
                       material.hoverThemeColor
                     )}
                   >
-                    <Download className="w-5 h-5" />
-                    Download PDF
+                    <Link href="#">
+                      <Download className="w-5 h-5" />
+                      Download PDF
+                    </Link>
                   </Button>
                 </div>
               ))}
@@ -593,18 +600,23 @@ export default function HomePage() {
                   ))}
                 </div>
                 <div className="space-y-3">
-                  <Button variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
-                    <Clock className="h-5 w-5" />
-                    View Timetable
+                  <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
+                    <Link href="#">
+                      <Clock className="h-5 w-5" />
+                      View Timetable
+                    </Link>
                   </Button>
                   <Button
+                    asChild
                     className={cn(
                       "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
-                      program.iconBg
+                      program.enrollColor
                     )}
                   >
-                    <UserPlus className="h-5 w-5" />
-                    Enroll Now
+                    <Link href="#">
+                      <UserPlus className="h-5 w-5" />
+                      Enroll Now
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -828,9 +840,11 @@ export default function HomePage() {
               </div>
 
               <div className="pt-4 flex justify-start">
-                <Button size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-semibold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
-                  <CalendarCheck className="h-6 w-6" />
-                  Book Personal Session
+                <Button asChild size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-semibold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
+                  <Link href="#">
+                    <CalendarCheck className="h-6 w-6" />
+                    Book Personal Session
+                  </Link>
                 </Button>
               </div>
             </div>
