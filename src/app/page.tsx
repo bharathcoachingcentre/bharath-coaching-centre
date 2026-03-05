@@ -251,7 +251,7 @@ export default function HomePage() {
       grade: "Class 12, CBSE",
       marks: "95.2%",
       rank: "Top 10",
-      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
+      badgeColor: "from-blue-400 to-blue-500",
       marksColor: "text-orange-600",
       iconColor: "bg-orange-600",
       img: "/rohan-kappoor.jpg"
@@ -261,7 +261,7 @@ export default function HomePage() {
       grade: "Class 10, CBSE",
       marks: "94.8%",
       rank: "Top 10",
-      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
+      badgeColor: "from-blue-400 to-blue-500",
       marksColor: "text-pink-600",
       iconColor: "bg-pink-600",
       img: "/sanya-gupta.jpg"
@@ -271,7 +271,7 @@ export default function HomePage() {
       grade: "Class 12, Samacheer",
       marks: "94.2%",
       rank: "Top 10",
-      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
+      badgeColor: "from-blue-400 to-blue-500",
       marksColor: "text-green-600",
       iconColor: "bg-green-600",
       img: "/vikram-malhotra.jpg"
@@ -281,7 +281,7 @@ export default function HomePage() {
       grade: "Class 10, CBSE",
       marks: "93.9%",
       rank: "Top 10",
-      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
+      badgeColor: "from-blue-400 to-blue-500",
       marksColor: "text-indigo-600",
       iconColor: "bg-indigo-600",
       img: "/nisha-reddy.jpg"
@@ -291,7 +291,7 @@ export default function HomePage() {
       grade: "Class 12, CBSE",
       marks: "93.5%",
       rank: "Top 10",
-      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
+      badgeColor: "from-blue-400 to-blue-500",
       marksColor: "text-amber-600",
       iconColor: "bg-amber-600",
       img: "/kabir-singh.jpg"
@@ -1011,7 +1011,7 @@ export default function HomePage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-110" 
                     data-ai-hint="student portrait"
                   />
-                  <div className={cn("absolute top-4 right-4 px-4 py-1.5 rounded-full text-white text-[10px] font-bold uppercase tracking-widest shadow-lg flex items-center gap-1.5 bg-gradient-to-tr from-blue-400 to-blue-500", student.badgeColor)}>
+                  <div className={cn("absolute top-4 right-4 px-4 py-1.5 rounded-full text-white text-[10px] font-bold uppercase tracking-widest shadow-lg flex items-center gap-1.5 bg-gradient-to-tr", student.badgeColor)}>
                     {student.rankIcon && <student.rankIcon className="w-3 h-3" />}
                     {student.rank}
                   </div>
@@ -1023,7 +1023,7 @@ export default function HomePage() {
                   <div className="flex justify-between items-end">
                     <div className="space-y-1">
                       <div className={cn("text-4xl font-bold tracking-tighter", student.marksColor)}>{student.marks}</div>
-                      <div className="text-[12px] text-gray-400 font-normal uppercase tracking-[0.2em]">Total Marks</div>
+                      <div className="text-[12px] text-gray-400 font-normal uppercase tracking-[0.2em]">TOTAL MARKS</div>
                     </div>
                     <div className={cn("w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-transform duration-500 group-hover:rotate-12", student.iconColor)}>
                       <Star className="w-7 h-7 fill-white" />
