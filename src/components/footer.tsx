@@ -137,7 +137,7 @@ export function Footer() {
             <p className="text-gray-500 text-sm font-medium">
               © {currentYear} Bharath Academy Hub. All rights reserved.
             </p>
-            <div className="flex gap-8 text-sm font-bold">
+            <div className="flex gap-8 text-sm font-normal">
               <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Privacy Policy</Link>
               <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Terms</Link>
               <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Refund Policy</Link>
