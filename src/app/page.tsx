@@ -1023,7 +1023,7 @@ export default function HomePage() {
                   <div className="flex justify-between items-end">
                     <div className="space-y-1">
                       <div className={cn("text-4xl font-bold tracking-tighter", student.marksColor)}>{student.marks}</div>
-                      <div className="text-[12px] text-gray-400 font-normal uppercase tracking-[0.2em]">TOTAL MARKS</div>
+                      <div className="text-[12px] text-gray-400 font-normal">Total Marks</div>
                     </div>
                     <div className={cn("w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-transform duration-500 group-hover:rotate-12", student.iconColor)}>
                       <Star className="w-7 h-7 fill-white" />
