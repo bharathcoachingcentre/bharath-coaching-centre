@@ -19,8 +19,8 @@ export function Footer() {
               </div>
               <span className="text-2xl font-bold">Bharath Academy</span>
             </div>
-            <p className="text-gray-400 text-base mb-8 leading-relaxed font-medium">
-              Helping students from Class 1 to 12 achieve academic excellence through structured coaching and personalized mentorship.
+            <p className="text-gray-400 text-sm mb-8 leading-relaxed font-medium">
+              Helping students from Class 1 to 12 achieve academic excellence through structured coaching.
             </p>
             <div className="flex gap-4">
               <Link href="#" className="w-11 h-11 bg-gray-800 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
