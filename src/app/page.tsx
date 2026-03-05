@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -222,7 +221,7 @@ export default function HomePage() {
       badgeColor: "bg-[#fbbf24]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: placeholderImages["student-1"].src,
+      img: "/ananya-krishnan.jpg",
       rankIcon: Crown
     },
     {
@@ -265,7 +264,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-pink-600",
       iconColor: "bg-pink-600",
-      img: placeholderImages["student-5"].src
+      img: "/sanya-gupta.jpg"
     },
     {
       name: "Vikram Malhotra",
@@ -275,7 +274,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-green-600",
       iconColor: "bg-green-600",
-      img: placeholderImages["student-6"].src
+      img: "/vikram-malhotra.jpg"
     },
     {
       name: "Nisha Reddy",
@@ -285,7 +284,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-indigo-600",
       iconColor: "bg-indigo-600",
-      img: placeholderImages["student-7"].src
+      img: "/nisha-reddy.jpg"
     },
     {
       name: "Kabir Singh",
@@ -295,7 +294,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-amber-600",
       iconColor: "bg-amber-600",
-      img: placeholderImages["student-8"].src
+      img: "/kabir-singh.jpg"
     },
   ];
 
@@ -945,7 +944,7 @@ export default function HomePage() {
                 borderColor: "border-indigo-200"
               }
             ].map((item, idx) => (
-              <div key={idx} className={cn("p-10 rounded-[16px] border shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-300 hover:shadow-xl hover:scale-105 text-left", item.cardBg, item.borderColor)}>
+              <div key={idx} className={cn("p-10 rounded-[16px] border shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:scale-105 text-left", item.cardBg, item.borderColor)}>
                 <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white mb-8 shadow-lg", item.iconBg)}>
                   <item.icon className="w-6 h-6" />
                 </div>
