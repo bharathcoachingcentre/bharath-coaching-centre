@@ -476,8 +476,18 @@ export default function HomePage() {
           </div>
 
           <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-12">
-              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
+              <div className="relative min-w-[180px] w-full lg:w-auto">
+                <select className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
+                  <option>Class 10</option>
+                  {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
+
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
@@ -501,7 +511,8 @@ export default function HomePage() {
                   Samacheer
                 </button>
               </div>
-              <div className="relative min-w-[220px]">
+
+              <div className="relative min-w-[180px] w-full lg:w-auto lg:ml-auto">
                 <select className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
                   <option>All Subjects</option>
                   <option>Mathematics</option>
@@ -535,7 +546,7 @@ export default function HomePage() {
                     <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
                   <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                  <p className="text-sm text-gray-500 mb-8 font-normal leading-relaxed font-body flex-grow text-left">{material.desc}</p>
+                  <p className="text-sm text-gray-400 mt-4 flex-grow text-left">{material.desc}</p>
                   <Button
                     asChild
                     className={cn(
@@ -641,8 +652,18 @@ export default function HomePage() {
           </div>
 
           <Card className="rounded-[2.5rem] shadow-2xl border-none overflow-hidden bg-white p-6 md:p-10">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-6">
-              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-8">
+              <div className="relative min-w-[180px] w-full lg:w-auto">
+                <select className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
+                  <option>Class 10</option>
+                  {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
+
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
                 <button
                   onClick={() => setActiveScheduleBoard("cbse")}
                   className={cn(
@@ -666,15 +687,8 @@ export default function HomePage() {
                   Samacheer
                 </button>
               </div>
-              <div className="relative min-w-[200px]">
-                <select className="appearance-none w-full px-6 py-3 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
-                  <option>Class 10</option>
-                  {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-              </div>
+
+              <div className="hidden lg:block"></div>
             </div>
 
             <div className="overflow-x-auto rounded-[1.5rem] border border-gray-100 shadow-inner">
@@ -873,7 +887,7 @@ export default function HomePage() {
               { name: "Rajesh Kumar", role: "Parent, Class 12", text: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", img: "/rajesh-kumar.jpg" },
               { name: "Arun Reddy", role: "Class 11, Samacheer", text: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!", img: "/arun-reddy.jpg" },
               { name: "Kavya Iyer", role: "Class 9, CBSE", text: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", img: "/kavya-iyer.jpg" },
-              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused.", img: "/sunita-patel.jpg" },
+              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her mobile and focused.", img: "/sunita-patel.jpg" },
               { name: "Vikram Singh", role: "Class 12, CBSE", text: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!", img: "/vikram-singh.jpg" }
             ].map((testimonial, idx) => (
               <div key={idx} className="bg-white rounded-[24px] shadow-lg p-8 border border-gray-50 flex flex-col items-start text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
