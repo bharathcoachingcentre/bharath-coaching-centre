@@ -251,7 +251,7 @@ export default function HomePage() {
       grade: "Class 12, CBSE",
       marks: "95.2%",
       rank: "Top 10",
-      badgeColor: "bg-[#3b82f6]",
+      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-orange-600",
       iconColor: "bg-orange-600",
       img: "/kavya-iyer.jpg"
@@ -261,7 +261,7 @@ export default function HomePage() {
       grade: "Class 10, CBSE",
       marks: "94.8%",
       rank: "Top 10",
-      badgeColor: "bg-[#3b82f6]",
+      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-pink-600",
       iconColor: "bg-pink-600",
       img: "/sunita-patel.jpg"
@@ -271,7 +271,7 @@ export default function HomePage() {
       grade: "Class 12, Samacheer",
       marks: "94.2%",
       rank: "Top 10",
-      badgeColor: "bg-[#3b82f6]",
+      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-green-600",
       iconColor: "bg-green-600",
       img: "/vikram-singh.jpg"
@@ -281,7 +281,7 @@ export default function HomePage() {
       grade: "Class 10, CBSE",
       marks: "93.9%",
       rank: "Top 10",
-      badgeColor: "bg-[#3b82f6]",
+      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-indigo-600",
       iconColor: "bg-indigo-600",
       img: "/priya-sharma.jpg"
@@ -291,7 +291,7 @@ export default function HomePage() {
       grade: "Class 12, CBSE",
       marks: "93.5%",
       rank: "Top 10",
-      badgeColor: "bg-[#3b82f6]",
+      badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-amber-600",
       iconColor: "bg-amber-600",
       img: "/rajesh-kumar.jpg"
