@@ -195,6 +195,7 @@ export default function HomePage() {
       icon: Zap,
       iconBg: "bg-blue-500",
       enrollColor: "bg-blue-500",
+      enrollHoverColor: "hover:bg-blue-600",
       points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
     },
     {
@@ -203,6 +204,7 @@ export default function HomePage() {
       icon: BookOpen,
       iconBg: "bg-teal-500",
       enrollColor: "bg-teal-500",
+      enrollHoverColor: "hover:bg-teal-600",
       points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
     },
     {
@@ -211,6 +213,7 @@ export default function HomePage() {
       icon: GraduationCap,
       iconBg: "bg-purple-500",
       enrollColor: "bg-purple-500",
+      enrollHoverColor: "hover:bg-purple-600",
       popular: true,
       points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
     },
@@ -609,7 +612,8 @@ export default function HomePage() {
                     asChild
                     className={cn(
                       "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
-                      program.enrollColor
+                      program.enrollColor,
+                      program.enrollHoverColor
                     )}
                   >
                     <Link href="#">
