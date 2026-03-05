@@ -219,8 +219,8 @@ export default function HomePage() {
       marks: "98.6%",
       rank: "Rank 1",
       badgeColor: "bg-[#fbbf24]",
-      marksColor: "text-[#2b65e2]",
-      iconColor: "bg-[#2b65e2]",
+      marksColor: "text-blue-600",
+      iconColor: "bg-blue-600",
       img: "/priya-sharma.jpg",
       rankIcon: Crown
     },
@@ -230,8 +230,8 @@ export default function HomePage() {
       marks: "97.8%",
       rank: "Rank 2",
       badgeColor: "bg-[#94a3b8]",
-      marksColor: "text-[#2abfaf]",
-      iconColor: "bg-[#94a3b8]",
+      marksColor: "text-teal-600",
+      iconColor: "bg-teal-600",
       img: "/rajesh-kumar.jpg",
       rankIcon: Medal
     },
@@ -241,8 +241,8 @@ export default function HomePage() {
       marks: "96.4%",
       rank: "Rank 3",
       badgeColor: "bg-[#f59e0b]",
-      marksColor: "text-[#8b5cf6]",
-      iconColor: "bg-[#f59e0b]",
+      marksColor: "text-purple-600",
+      iconColor: "bg-purple-600",
       img: "/arun-reddy.jpg",
       rankIcon: Award
     },
@@ -252,8 +252,8 @@ export default function HomePage() {
       marks: "95.2%",
       rank: "Top 10",
       badgeColor: "bg-[#3b82f6]",
-      marksColor: "text-[#f97316]",
-      iconColor: "bg-[#f97316]",
+      marksColor: "text-orange-600",
+      iconColor: "bg-orange-600",
       img: "/kavya-iyer.jpg"
     },
     {
