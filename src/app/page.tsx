@@ -262,8 +262,8 @@ export default function HomePage() {
       marks: "94.8%",
       rank: "Top 10",
       badgeColor: "bg-[#3b82f6]",
-      marksColor: "text-blue-600",
-      iconColor: "bg-blue-600",
+      marksColor: "text-amber-600",
+      iconColor: "bg-amber-600",
       img: "/sunita-patel.jpg"
     },
     {
@@ -272,8 +272,8 @@ export default function HomePage() {
       marks: "94.2%",
       rank: "Top 10",
       badgeColor: "bg-[#3b82f6]",
-      marksColor: "text-blue-600",
-      iconColor: "bg-blue-600",
+      marksColor: "text-green-600",
+      iconColor: "bg-green-600",
       img: "/vikram-singh.jpg"
     },
     {
@@ -282,8 +282,8 @@ export default function HomePage() {
       marks: "93.9%",
       rank: "Top 10",
       badgeColor: "bg-[#3b82f6]",
-      marksColor: "text-blue-600",
-      iconColor: "bg-blue-600",
+      marksColor: "text-indigo-600",
+      iconColor: "bg-indigo-600",
       img: "/priya-sharma.jpg"
     },
     {
@@ -292,8 +292,8 @@ export default function HomePage() {
       marks: "93.5%",
       rank: "Top 10",
       badgeColor: "bg-[#3b82f6]",
-      marksColor: "text-blue-600",
-      iconColor: "bg-blue-600",
+      marksColor: "text-amber-600",
+      iconColor: "bg-amber-600",
       img: "/rajesh-kumar.jpg"
     },
   ];
