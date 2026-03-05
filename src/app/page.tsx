@@ -316,7 +316,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                   <Link href="/contact">
                     <CalendarCheck className="mr-2 h-6 w-6" />
@@ -853,7 +853,7 @@ export default function HomePage() {
               { name: "Rajesh Kumar", role: "Parent, Class 12", text: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!" },
               { name: "Arun Reddy", role: "Class 11, Samacheer", text: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!" },
               { name: "Kavya Iyer", role: "Class 9, CBSE", text: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore." },
-              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motived and focused." },
+              { name: "Sunita Patel", role: "Parent, Class 8", text: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused." },
               { name: "Vikram Singh", role: "Class 12, CBSE", text: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!" }
             ].map((testimonial, idx) => (
               <div key={idx} className="bg-white rounded-[2.5rem] shadow-xl p-8 border border-gray-50 flex flex-col items-start text-left transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
@@ -863,7 +863,7 @@ export default function HomePage() {
                   </div>
                   <div className="text-left">
                     <h4 className="font-bold text-gray-900 leading-tight">{testimonial.name}</h4>
-                    <p className="text-xs text-gray-600 font-normal mt-0.5">{testimonial.role}</p>
+                    <p className="text-xs text-[#4b5563] font-normal mt-0.5">{testimonial.role}</p>
                   </div>
                 </div>
                 <div className="flex gap-1 mb-4">
@@ -871,7 +871,7 @@ export default function HomePage() {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed font-normal font-body text-left">
+                <p className="text-[#374151] text-base leading-relaxed font-normal font-body text-left">
                   "{testimonial.text}"
                 </p>
               </div>
