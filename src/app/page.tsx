@@ -51,6 +51,7 @@ import {
 } from "@/components/ui/select";
 import placeholderImages from "@/app/lib/placeholder-images.json";
 
+// True Solid/Filled Icons
 const SolidUserCheck = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm9.29-4.71L17 13.59l-2.29-2.3-1.42 1.42L17 16.41l5.71-5.71-1.42-1.42z"/>
@@ -673,34 +674,34 @@ export default function HomePage() {
                 <tbody className="divide-y divide-gray-50">
                   {[
                     { day: "Monday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
                     ]},
                     { day: "Tuesday", slots: [
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-gray-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
                     ]},
                     { day: "Wednesday", slots: [
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
                     ]},
                     { day: "Thursday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-gray-600" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-gray-600" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
+                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
                     ]},
                     { day: "Friday", slots: [
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-gray-600" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-gray-600" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-gray-600" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-gray-600" },
+                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
+                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
+                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
+                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
                     ]},
                   ].map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
@@ -868,7 +869,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                    <Star key={i} className="w-[1em] h-[1em] text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
                 <p className="text-[#374151] text-base leading-relaxed font-normal font-body text-left">
