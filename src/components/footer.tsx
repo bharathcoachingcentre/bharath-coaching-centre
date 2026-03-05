@@ -138,8 +138,9 @@ export function Footer() {
               © {currentYear} Bharath Academy Hub. All rights reserved.
             </p>
             <div className="flex gap-8 text-sm font-bold">
-              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200 uppercase tracking-widest">Privacy Policy</Link>
-              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200 uppercase tracking-widest">Terms</Link>
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Privacy Policy</Link>
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Terms</Link>
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Refund Policy</Link>
             </div>
           </div>
         </div>
