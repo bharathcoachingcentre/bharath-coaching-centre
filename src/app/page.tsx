@@ -944,12 +944,12 @@ export default function HomePage() {
                 borderColor: "border-indigo-200"
               }
             ].map((item, idx) => (
-              <div key={idx} className={cn("p-10 rounded-[16px] border shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:-translate-y-1 text-left", item.cardBg, item.borderColor)}>
+              <div key={idx} className={cn("p-10 rounded-[16px] border shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-300 hover:shadow-xl hover:scale-105 text-left", item.cardBg, item.borderColor)}>
                 <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white mb-8 shadow-lg", item.iconBg)}>
                   <item.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold text-[#182d45] mb-4 tracking-tight">{item.title}</h3>
-                <p className="text-gray-500 text-base font-normal leading-relaxed font-body">{item.desc}</p>
+                <p className="text-[#374151] text-base font-normal leading-relaxed font-body">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -1017,7 +1017,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="p-8">
-                  <h4 className="text-2xl font-bold text-[#182d45] tracking-tight mb-1">{student.name}</h4>
+                  <h4 className="text-[18px] font-bold text-[#182d45] tracking-tight mb-1">{student.name}</h4>
                   <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-8">{student.grade}</p>
                   
                   <div className="flex justify-between items-end">
