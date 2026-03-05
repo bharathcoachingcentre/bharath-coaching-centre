@@ -843,7 +843,7 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
             </h2>
-            <p className="text-lg text-gray-500 font-bold">
+            <p className="text-lg text-gray-500 font-normal">
               Real stories from our successful students and satisfied parents
             </p>
           </div>
