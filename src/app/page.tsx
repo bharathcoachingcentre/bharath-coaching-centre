@@ -569,9 +569,9 @@ export default function HomePage() {
                 )}
               >
                 {program.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-sm">
-                      <Star className="w-4 h-4 mr-1 inline" /> MOST POPULAR
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <span className="whitespace-nowrap px-4 py-1.5 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-[10px] sm:text-sm flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" /> MOST POPULAR
                     </span>
                   </div>
                 )}
