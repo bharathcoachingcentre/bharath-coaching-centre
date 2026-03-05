@@ -66,21 +66,24 @@ export function Footer() {
 
           <div>
             <h3 className="text-lg font-bold mb-6 text-white">Contact</h3>
-            <ul className="space-y-5 text-gray-400 font-medium text-base">
+            <ul className="space-y-5 text-gray-400 font-medium text-sm">
               <li className="flex items-start gap-3">
                 <Phone className="text-blue-500 w-5 h-5 mt-1" />
                 <div>
-                  <div className="text-white font-bold text-base">+91 72000 30307</div>
+                  <div className="text-white font-bold text-sm">+91 72000 30307</div>
                   <div className="text-xs opacity-70">Mon-Sat 9AM-7PM</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="text-blue-500 w-5 h-5 mt-1" />
-                <div className="text-white font-bold text-base">info@bharathacademy.com</div>
+                <div className="text-white font-bold text-sm">info@bharathacademy.com</div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="text-blue-500 w-5 h-5 mt-1" />
-                <div className="text-white font-bold text-base">Trichy, Tamil Nadu</div>
+                <div>
+                  <div className="text-white font-bold text-sm">Trichy, Tamil Nadu</div>
+                  <div className="text-xs opacity-70 mt-1">Multiple branches available</div>
+                </div>
               </li>
             </ul>
           </div>
