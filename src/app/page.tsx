@@ -66,7 +66,7 @@ const SolidClipboardList = ({ className }: { className?: string }) => (
 
 const SolidLineChart = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M3.5 18.49l6-6-4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
+    <path d="M23,8L17,14L13,10L3,20L4.41,21.41L13,12.83L17,16.83L24.41,9.41L23,8Z" />
   </svg>
 );
 
