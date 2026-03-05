@@ -1011,19 +1011,19 @@ export default function HomePage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-110" 
                     data-ai-hint="student portrait"
                   />
-                  <div className={cn("absolute top-4 right-4 px-4 py-1.5 rounded-full text-white text-[10px] font-bold uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor)}>
+                  <div className={cn("absolute top-4 right-4 px-4 py-1.5 rounded-full text-white text-[10px] font-bold uppercase tracking-widest shadow-lg flex items-center gap-1.5 bg-gradient-to-tr from-blue-400 to-blue-500", student.badgeColor)}>
                     {student.rankIcon && <student.rankIcon className="w-3 h-3" />}
                     {student.rank}
                   </div>
                 </div>
                 <div className="p-8">
-                  <h4 className="text-[18px] font-bold text-[#182d45] tracking-tight mb-1">{student.name}</h4>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-8">{student.grade}</p>
+                  <h4 className="text-[20px] font-bold text-[#182d45] tracking-tight mb-1">{student.name}</h4>
+                  <p className="text-[14px] text-gray-400 font-bold mb-8">{student.grade}</p>
                   
                   <div className="flex justify-between items-end">
                     <div className="space-y-1">
                       <div className={cn("text-4xl font-bold tracking-tighter", student.marksColor)}>{student.marks}</div>
-                      <div className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em]">Total Marks</div>
+                      <div className="text-[12px] text-gray-400 font-normal uppercase tracking-[0.2em]">Total Marks</div>
                     </div>
                     <div className={cn("w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-transform duration-500 group-hover:rotate-12", student.iconColor)}>
                       <Star className="w-7 h-7 fill-white" />
