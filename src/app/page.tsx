@@ -459,7 +459,7 @@ export default function HomePage() {
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5 font-bold text-gray-900 mb-4">
               Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
@@ -549,7 +549,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5 font-bold text-gray-900 mb-4">
               Explore Our <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Academic Programs</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
@@ -777,7 +777,7 @@ export default function HomePage() {
                 <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight leading-tight text-left">
                   One-to-One <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Mentorship</span>
                 </h2>
-                <p className="text-lg text-gray-600 font-medium text-left">
+                <p className="text-lg text-gray-600 font-normal text-left">
                   Personalized attention to help every student reach their full potential
                 </p>
               </div>
