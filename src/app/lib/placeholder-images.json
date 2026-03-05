@@ -36,59 +36,59 @@
     "hint": "student studying"
   },
   "student-1": {
-    "src": "https://images.unsplash.com/photo-1544717305-27a7ad474753?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 1",
-    "hint": "student male"
+    "src": "https://images.unsplash.com/photo-1544717305-27a7ad474753?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Female student portrait",
+    "hint": "female student"
   },
   "student-2": {
-    "src": "https://images.unsplash.com/photo-1544717297-fa154da09f5b?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 2",
-    "hint": "student female"
+    "src": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Male student portrait",
+    "hint": "male student"
   },
   "student-3": {
-    "src": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 3",
-    "hint": "student group"
+    "src": "https://images.unsplash.com/photo-1544717297-fa154da09f5b?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Indian female student portrait",
+    "hint": "indian student"
   },
   "student-4": {
-    "src": "https://images.unsplash.com/photo-1517673132405-a56a62b18acc?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 4",
-    "hint": "student smiling"
+    "src": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Smiling male student",
+    "hint": "smiling student"
   },
   "student-5": {
-    "src": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 5",
+    "src": "https://images.unsplash.com/photo-1517673132405-a56a62b18acc?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Female student in library",
     "hint": "student library"
   },
   "student-6": {
-    "src": "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 6",
+    "src": "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Male student working",
     "hint": "student working"
   },
   "student-7": {
-    "src": "https://images.unsplash.com/photo-1523050335392-93851179ae22?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 7",
-    "hint": "student graduation"
+    "src": "https://images.unsplash.com/photo-1524178232363-1fb28f74b573?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Female student portrait",
+    "hint": "student portrait"
   },
   "student-8": {
-    "src": "https://images.unsplash.com/photo-1524178232363-1fb28f74b573?auto=format&fit=crop&q=80&w=400&h=300",
-    "width": 400,
-    "height": 300,
-    "alt": "Student Portrait 8",
-    "hint": "student classroom"
+    "src": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800&h=1000",
+    "width": 800,
+    "height": 1000,
+    "alt": "Young male student",
+    "hint": "young student"
   }
 }

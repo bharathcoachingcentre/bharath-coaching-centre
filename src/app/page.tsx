@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -221,7 +222,7 @@ export default function HomePage() {
       badgeColor: "bg-[#fbbf24]",
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
-      img: "/priya-sharma.jpg",
+      img: placeholderImages["student-1"].src,
       rankIcon: Crown
     },
     {
@@ -232,7 +233,7 @@ export default function HomePage() {
       badgeColor: "bg-[#94a3b8]",
       marksColor: "text-teal-600",
       iconColor: "bg-teal-600",
-      img: "/rajesh-kumar.jpg",
+      img: placeholderImages["student-2"].src,
       rankIcon: Medal
     },
     {
@@ -243,7 +244,7 @@ export default function HomePage() {
       badgeColor: "bg-[#f59e0b]",
       marksColor: "text-purple-600",
       iconColor: "bg-purple-600",
-      img: "/arun-reddy.jpg",
+      img: placeholderImages["student-3"].src,
       rankIcon: Award
     },
     {
@@ -254,7 +255,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-orange-600",
       iconColor: "bg-orange-600",
-      img: "/kavya-iyer.jpg"
+      img: placeholderImages["student-4"].src
     },
     {
       name: "Sanya Gupta",
@@ -264,7 +265,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-pink-600",
       iconColor: "bg-pink-600",
-      img: "/sunita-patel.jpg"
+      img: placeholderImages["student-5"].src
     },
     {
       name: "Vikram Malhotra",
@@ -274,7 +275,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-green-600",
       iconColor: "bg-green-600",
-      img: "/vikram-singh.jpg"
+      img: placeholderImages["student-6"].src
     },
     {
       name: "Nisha Reddy",
@@ -284,7 +285,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-indigo-600",
       iconColor: "bg-indigo-600",
-      img: "/priya-sharma.jpg"
+      img: placeholderImages["student-7"].src
     },
     {
       name: "Kabir Singh",
@@ -294,7 +295,7 @@ export default function HomePage() {
       badgeColor: "bg-gradient-to-tr from-blue-400 to-blue-500",
       marksColor: "text-amber-600",
       iconColor: "bg-amber-600",
-      img: "/rajesh-kumar.jpg"
+      img: placeholderImages["student-8"].src
     },
   ];
 
