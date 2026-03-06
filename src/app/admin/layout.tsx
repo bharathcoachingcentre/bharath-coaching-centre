@@ -1,4 +1,3 @@
-
 "use client";
 
 import type { Metadata } from 'next';
@@ -58,7 +57,7 @@ export default function AdminLayout({
             <GraduationCap className="w-6 h-6" />
           </div>
           <div className="flex flex-col">
-            <span className="text-white font-bold text-lg leading-none">EduAdmin</span>
+            <span className="text-white font-bold text-lg leading-none">Bharath Academy</span>
             <span className="text-[10px] font-medium uppercase tracking-wider opacity-50">Management Panel</span>
           </div>
         </div>
