@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -18,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const materials = [
   { 
@@ -122,8 +122,10 @@ export default function StudyMaterialsPage() {
             className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-indigo-500"
           />
         </div>
-        <Button className="h-14 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[18px] shadow-lg shadow-indigo-200 gap-2 text-base">
-          <Plus className="w-6 h-6" /> Upload Material
+        <Button asChild className="h-14 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[18px] shadow-lg shadow-indigo-200 gap-2 text-base cursor-pointer">
+          <Link href="/admin/study-materials/upload">
+            <Plus className="w-6 h-6" /> Upload Material
+          </Link>
         </Button>
       </div>
 
