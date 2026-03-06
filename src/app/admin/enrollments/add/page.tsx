@@ -75,12 +75,26 @@ export default function AddEnrollmentPage() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    if (!firestore) return;
+    if (!firestore) {
+        toast({
+            variant: "destructive",
+            title: "Database Error",
+            description: "Firestore is not initialized. Please check your configuration.",
+        });
+        return;
+    }
     setIsSubmitting(true);
 
     const admissionNo = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
     const submissionData = {
-      ...values,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      whatsappNo: values.phone, // mapping phone to whatsappNo for entity consistency
+      course: values.course,
+      admissionDate: values.startDate,
+      feesDetails: values.paymentPlan,
+      notes: values.notes || "",
       admissionNo,
       status: "Active",
       progress: 0,
@@ -89,7 +103,6 @@ export default function AddEnrollmentPage() {
 
     const enrollmentsRef = collection(firestore, 'enrollments');
 
-    // Pattern: Non-blocking write with contextual error emission
     addDoc(enrollmentsRef, submissionData)
       .then(() => {
         toast({
@@ -99,13 +112,13 @@ export default function AddEnrollmentPage() {
         router.push("/admin/enrollments");
       })
       .catch(async (serverError) => {
+        setIsSubmitting(false);
         const permissionError = new FirestorePermissionError({
           path: 'enrollments',
           operation: 'create',
           requestResourceData: submissionData,
         });
         errorEmitter.emit('permission-error', permissionError);
-        setIsSubmitting(false);
       });
   };
 

@@ -7,7 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CalendarIcon, User, Users, Phone, BookOpen, Send, GraduationCap, Trash2 } from "lucide-react"
+import { CalendarIcon, User, Users, Phone, BookOpen, Send, GraduationCap, Trash2, Loader2 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
 import ReactCalendar from 'react-calendar'
 import { cn } from "@/lib/utils"
@@ -69,6 +69,7 @@ export default function StudentRegistrationPage() {
     const { toast } = useToast();
     const firestore = useFirestore();
     const [isMounted, setIsMounted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -118,10 +119,28 @@ export default function StudentRegistrationPage() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         if (!firestore) return;
 
+        setIsSubmitting(true);
         const enrollmentsRef = collection(firestore, 'enrollments');
+        
+        // Remove raw File/FileList from Firestore data to avoid serialization errors
+        const { photo, ...cleanValues } = values;
+        
         const submissionData = {
-            ...values,
+            firstName: values.candidateName.split(' ')[0] || values.candidateName,
+            lastName: values.candidateName.split(' ').slice(1).join(' ') || "",
+            fatherName: values.parentName,
+            fatherOccupation: values.fatherOccupation,
+            motherOccupation: values.motherOccupation,
+            standard: values.standard,
+            institutionName: values.institutionName,
             dob: values.dob.toISOString(),
+            gender: values.gender,
+            residentialAddress: values.residentialAddress,
+            fatherNo: values.fatherContact,
+            motherNo: values.motherContact,
+            whatsappNo: values.whatsappNumber,
+            board: values.board,
+            subjects: values.subjects,
             status: 'pending',
             createdAt: serverTimestamp(),
         };
@@ -134,8 +153,10 @@ export default function StudentRegistrationPage() {
                 });
                 form.reset();
                 setSelectedFileName(null);
+                setIsSubmitting(false);
             })
             .catch(async (error) => {
+                setIsSubmitting(false);
                 const permissionError = new FirestorePermissionError({
                     path: 'enrollments',
                     operation: 'create',
@@ -616,9 +637,15 @@ export default function StudentRegistrationPage() {
                     />
 
                     <div className="mt-6 text-center">
-                    <Button type="submit" size="lg" className="w-full md:w-auto min-w-[260px] h-14 text-base font-bold text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 group" style={{ backgroundColor: '#35a3be' }}>
-                        <Send className="w-4 h-4 mr-2.5 group-hover:animate-bounce" />
-                        Submit Application
+                    <Button 
+                        type="submit" 
+                        size="lg" 
+                        disabled={isSubmitting}
+                        className="w-full md:w-auto min-w-[260px] h-14 text-base font-bold text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 group disabled:opacity-70" 
+                        style={{ backgroundColor: '#35a3be' }}
+                    >
+                        {isSubmitting ? <Loader2 className="w-4 h-4 mr-2.5 animate-spin" /> : <Send className="w-4 h-4 mr-2.5 group-hover:animate-bounce" />}
+                        {isSubmitting ? "Processing..." : "Submit Application"}
                     </Button>
                     </div>
                   </div>

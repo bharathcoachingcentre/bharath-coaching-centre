@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -25,7 +24,8 @@ import {
     IndianRupee,
     Info,
     Clock,
-    Download
+    Download,
+    Loader2
 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
 import ReactCalendar from 'react-calendar'
@@ -94,6 +94,7 @@ export default function EnrollmentPage() {
     const { toast } = useToast();
     const firestore = useFirestore();
     const [isMounted, setIsMounted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -128,7 +129,6 @@ export default function EnrollmentPage() {
 
     useEffect(() => {
         setIsMounted(true);
-        // Auto generate Admission No
         const generatedId = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
         form.setValue("admissionNo", generatedId);
     }, [form]);
@@ -150,11 +150,22 @@ export default function EnrollmentPage() {
     };
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        if (!firestore) return;
+        if (!firestore) {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Firestore database not found.",
+            });
+            return;
+        }
 
+        setIsSubmitting(true);
         const enrollmentsRef = collection(firestore, 'enrollments');
+        
+        // Sanitize data for Firestore (remove non-serializable photo/FileList)
+        const { photo, ...cleanValues } = values;
         const submissionData = {
-            ...values,
+            ...cleanValues,
             dob: values.dob.toISOString(),
             admissionDate: values.admissionDate.toISOString(),
             status: 'pending',
@@ -170,8 +181,10 @@ export default function EnrollmentPage() {
                 const nextId = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
                 form.reset({ admissionNo: nextId, admissionDate: new Date(), academicYear: "2025-2026" });
                 setSelectedFileName(null);
+                setIsSubmitting(false);
             })
             .catch(async (error) => {
+                setIsSubmitting(false);
                 const permissionError = new FirestorePermissionError({
                     path: 'enrollments',
                     operation: 'create',
@@ -736,10 +749,11 @@ export default function EnrollmentPage() {
                             <Button 
                                 type="submit" 
                                 size="lg" 
-                                className="w-full md:w-auto min-w-[320px] h-16 text-xl font-bold text-white rounded-[1.25rem] shadow-2xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/40 transition-all duration-500 transform active:scale-95 group"
+                                disabled={isSubmitting}
+                                className="w-full md:w-auto min-w-[320px] h-16 text-xl font-bold text-white rounded-[1.25rem] shadow-2xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/40 transition-all duration-500 transform active:scale-95 group disabled:opacity-70"
                             >
-                                <Send className="w-6 h-6 mr-3 group-hover:animate-pulse" />
-                                Submit Application
+                                {isSubmitting ? <Loader2 className="w-6 h-6 mr-3 animate-spin" /> : <Send className="w-6 h-6 mr-3 group-hover:animate-pulse" />}
+                                {isSubmitting ? "Submitting..." : "Submit Application"}
                             </Button>
                         </div>
                     </form>
