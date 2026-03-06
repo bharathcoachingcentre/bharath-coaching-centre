@@ -74,7 +74,7 @@ export default function AddEnrollmentPage() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (!firestore) {
         toast({
             variant: "destructive",
@@ -83,43 +83,53 @@ export default function AddEnrollmentPage() {
         });
         return;
     }
+    
     setIsSubmitting(true);
 
-    const admissionNo = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
-    const submissionData = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      whatsappNo: values.phone, // mapping phone to whatsappNo for entity consistency
-      course: values.course,
-      admissionDate: values.startDate,
-      feesDetails: values.paymentPlan,
-      notes: values.notes || "",
-      admissionNo,
-      status: "Active",
-      progress: 0,
-      createdAt: serverTimestamp(),
-    };
+    try {
+        const admissionNo = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+        const submissionData = {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          whatsappNo: values.phone,
+          course: values.course,
+          admissionDate: values.startDate,
+          feesDetails: values.paymentPlan,
+          notes: values.notes || "",
+          admissionNo,
+          status: "Active",
+          progress: 0,
+          createdAt: serverTimestamp(),
+        };
 
-    const enrollmentsRef = collection(firestore, 'enrollments');
+        const enrollmentsRef = collection(firestore, 'enrollments');
+        await addDoc(enrollmentsRef, submissionData);
 
-    addDoc(enrollmentsRef, submissionData)
-      .then(() => {
         toast({
           title: "Enrollment Created",
           description: `Student ${values.firstName} has been successfully registered. Admission No: ${admissionNo}`,
         });
+        
         router.push("/admin/enrollments");
-      })
-      .catch(async (serverError) => {
+    } catch (error: any) {
+        console.error("Firestore submission error:", error);
         setIsSubmitting(false);
-        const permissionError = new FirestorePermissionError({
-          path: 'enrollments',
-          operation: 'create',
-          requestResourceData: submissionData,
+        
+        toast({
+            variant: "destructive",
+            title: "Submission Failed",
+            description: error.message || "Failed to create enrollment. Please try again.",
         });
-        errorEmitter.emit('permission-error', permissionError);
-      });
+
+        if (error.code === 'permission-denied') {
+            const permissionError = new FirestorePermissionError({
+                path: 'enrollments',
+                operation: 'create',
+            });
+            errorEmitter.emit('permission-error', permissionError);
+        }
+    }
   };
 
   return (

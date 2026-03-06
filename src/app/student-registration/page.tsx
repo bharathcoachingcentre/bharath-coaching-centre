@@ -116,54 +116,70 @@ export default function StudentRegistrationPage() {
         }
     };
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        if (!firestore) return;
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        if (!firestore) {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Firestore is not initialized.",
+            });
+            return;
+        }
 
         setIsSubmitting(true);
-        const enrollmentsRef = collection(firestore, 'enrollments');
-        
-        // Remove raw File/FileList from Firestore data to avoid serialization errors
-        const { photo, ...cleanValues } = values;
-        
-        const submissionData = {
-            firstName: values.candidateName.split(' ')[0] || values.candidateName,
-            lastName: values.candidateName.split(' ').slice(1).join(' ') || "",
-            fatherName: values.parentName,
-            fatherOccupation: values.fatherOccupation,
-            motherOccupation: values.motherOccupation,
-            standard: values.standard,
-            institutionName: values.institutionName,
-            dob: values.dob.toISOString(),
-            gender: values.gender,
-            residentialAddress: values.residentialAddress,
-            fatherNo: values.fatherContact,
-            motherNo: values.motherContact,
-            whatsappNo: values.whatsappNumber,
-            board: values.board,
-            subjects: values.subjects,
-            status: 'pending',
-            createdAt: serverTimestamp(),
-        };
 
-        addDoc(enrollmentsRef, submissionData)
-            .then(() => {
-                toast({
-                    title: "Registration Submitted!",
-                    description: "Thank you for registering. We will be in touch shortly.",
-                });
-                form.reset();
-                setSelectedFileName(null);
-                setIsSubmitting(false);
-            })
-            .catch(async (error) => {
-                setIsSubmitting(false);
+        try {
+            const admissionNo = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+            const submissionData = {
+                firstName: values.candidateName.split(' ')[0] || values.candidateName,
+                lastName: values.candidateName.split(' ').slice(1).join(' ') || "",
+                fatherName: values.parentName,
+                fatherOccupation: values.fatherOccupation,
+                motherOccupation: values.motherOccupation,
+                standard: values.standard,
+                institutionName: values.institutionName,
+                dob: values.dob.toISOString(),
+                gender: values.gender,
+                residentialAddress: values.residentialAddress,
+                fatherNo: values.fatherContact,
+                motherNo: values.motherContact,
+                whatsappNo: values.whatsappNumber,
+                board: values.board,
+                subjects: values.subjects,
+                admissionNo,
+                status: 'pending',
+                createdAt: serverTimestamp(),
+            };
+
+            const enrollmentsRef = collection(firestore, 'enrollments');
+            await addDoc(enrollmentsRef, submissionData);
+
+            toast({
+                title: "Registration Submitted!",
+                description: "Thank you for registering. We will be in touch shortly.",
+            });
+            
+            form.reset();
+            setSelectedFileName(null);
+            setIsSubmitting(false);
+        } catch (error: any) {
+            console.error("Registration error:", error);
+            setIsSubmitting(false);
+            
+            toast({
+                variant: "destructive",
+                title: "Registration Failed",
+                description: error.message || "An unexpected error occurred. Please try again.",
+            });
+
+            if (error.code === 'permission-denied') {
                 const permissionError = new FirestorePermissionError({
                     path: 'enrollments',
                     operation: 'create',
-                    requestResourceData: submissionData,
                 });
                 errorEmitter.emit('permission-error', permissionError);
-            });
+            }
+        }
     }
 
   return (

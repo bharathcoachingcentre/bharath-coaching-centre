@@ -129,7 +129,7 @@ export default function EnrollmentPage() {
 
     useEffect(() => {
         setIsMounted(true);
-        const generatedId = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
+        const generatedId = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
         form.setValue("admissionNo", generatedId);
     }, [form]);
 
@@ -149,49 +149,61 @@ export default function EnrollmentPage() {
         }
     };
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         if (!firestore) {
             toast({
                 variant: "destructive",
                 title: "Error",
-                description: "Firestore database not found.",
+                description: "Firestore is not initialized.",
             });
             return;
         }
 
         setIsSubmitting(true);
-        const enrollmentsRef = collection(firestore, 'enrollments');
-        
-        // Sanitize data for Firestore (remove non-serializable photo/FileList)
-        const { photo, ...cleanValues } = values;
-        const submissionData = {
-            ...cleanValues,
-            dob: values.dob.toISOString(),
-            admissionDate: values.admissionDate.toISOString(),
-            status: 'pending',
-            createdAt: serverTimestamp(),
-        };
 
-        addDoc(enrollmentsRef, submissionData)
-            .then(() => {
-                toast({
-                    title: "Application Submitted Successfully!",
-                    description: `Application for ${values.firstName} ${values.lastName} has been received. Admission No: ${values.admissionNo}`,
-                });
-                const nextId = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
-                form.reset({ admissionNo: nextId, admissionDate: new Date(), academicYear: "2025-2026" });
-                setSelectedFileName(null);
-                setIsSubmitting(false);
-            })
-            .catch(async (error) => {
-                setIsSubmitting(false);
+        try {
+            const enrollmentsRef = collection(firestore, 'enrollments');
+            
+            // Remove raw File objects to avoid serialization errors
+            const { photo, ...cleanValues } = values;
+            
+            const submissionData = {
+                ...cleanValues,
+                dob: values.dob.toISOString(),
+                admissionDate: values.admissionDate.toISOString(),
+                status: 'pending',
+                createdAt: serverTimestamp(),
+            };
+
+            await addDoc(enrollmentsRef, submissionData);
+
+            toast({
+                title: "Application Submitted!",
+                description: `Application for ${values.firstName} ${values.lastName} has been received.`,
+            });
+            
+            const nextId = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+            form.reset({ admissionNo: nextId, admissionDate: new Date(), academicYear: "2025-2026" });
+            setSelectedFileName(null);
+            setIsSubmitting(false);
+        } catch (error: any) {
+            console.error("Submission error:", error);
+            setIsSubmitting(false);
+            
+            toast({
+                variant: "destructive",
+                title: "Submission Failed",
+                description: error.message || "An unexpected error occurred. Please try again.",
+            });
+
+            if (error.code === 'permission-denied') {
                 const permissionError = new FirestorePermissionError({
                     path: 'enrollments',
                     operation: 'create',
-                    requestResourceData: submissionData,
                 });
                 errorEmitter.emit('permission-error', permissionError);
-            });
+            }
+        }
     }
 
     return (
