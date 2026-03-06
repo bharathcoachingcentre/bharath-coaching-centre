@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { GraduationCap, Facebook, Instagram, Youtube, Phone, Mail, MapPin } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+
+  // Do not show the frontend footer on admin pages
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white pt-20">

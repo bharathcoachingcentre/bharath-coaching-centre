@@ -103,10 +103,10 @@ export default function AdminLayout({
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Header */}
+        {/* Header - EXACTLY AS PER SCREENSHOT */}
         <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="md:hidden">
+            <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100">
               <PanelLeft className="w-5 h-5" />
             </Button>
             <div className="flex flex-col">
