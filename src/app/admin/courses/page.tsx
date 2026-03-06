@@ -9,10 +9,7 @@ import {
   Rocket, 
   Atom, 
   BookOpen, 
-  Bot, 
   Calculator, 
-  Globe, 
-  Layers, 
   Terminal,
   Users,
   Clock,
@@ -111,12 +108,12 @@ export default function CoursesManagementPage() {
       toast({ title: "Mock Data", description: "Sample data cannot be deleted." });
       return;
     }
-    if (!confirm("Are you sure you want to delete this course?")) return;
+    if (!confirm("Are you sure you want to delete this course? This action cannot be undone.")) return;
 
     const docRef = doc(firestore, 'courses', courseId);
     deleteDoc(docRef)
       .then(() => {
-        toast({ title: "Deleted", description: "Course has been removed." });
+        toast({ title: "Course Deleted", description: "The course has been permanently removed." });
       })
       .catch(async (error) => {
         const permissionError = new FirestorePermissionError({
@@ -127,7 +124,7 @@ export default function CoursesManagementPage() {
         toast({
           variant: "destructive",
           title: "Delete Failed",
-          description: error.message || "Failed to delete course.",
+          description: error.message || "Could not delete the course record.",
         });
       });
   };
@@ -187,13 +184,17 @@ export default function CoursesManagementPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
-                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                          <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                          <span className="font-bold text-xs text-gray-700">View Course</span>
+                        <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Link href={`/admin/courses/${course.id}`} className="flex items-center w-full">
+                            <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                            <span className="font-bold text-xs text-gray-700">View Course</span>
+                          </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                          <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
-                          <span className="font-bold text-xs text-gray-700">Edit Details</span>
+                        <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Link href={`/admin/courses/${course.id}?edit=true`} className="flex items-center w-full">
+                            <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                            <span className="font-bold text-xs text-gray-700">Edit Details</span>
+                          </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-gray-50" />
                         <DropdownMenuItem 

@@ -35,6 +35,28 @@
       },
       "required": ["firstName", "lastName", "admissionNo"]
     },
+    "Course": {
+      "title": "Course",
+      "description": "Academy course offerings and details.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "level": { "type": "string" },
+        "price": { "type": "string" },
+        "duration": { "type": "string" },
+        "hasCertificate": { "type": "boolean" },
+        "isPublished": { "type": "boolean" },
+        "modules": { "type": "array", "items": { "type": "string" } },
+        "students": { "type": "number" },
+        "rating": { "type": "number" },
+        "status": { "type": "string", "enum": ["Active", "Draft"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "duration"]
+    },
     "StudyMaterial": {
       "title": "Study Material",
       "description": "Educational resources available for download.",
@@ -71,6 +93,10 @@
     "/enrollments/{enrollmentId}": {
       "schema": { "$ref": "#/entities/Enrollment" },
       "description": "Collection of student applications."
+    },
+    "/courses/{courseId}": {
+      "schema": { "$ref": "#/entities/Course" },
+      "description": "Collection of available courses."
     },
     "/study-materials/{materialId}": {
       "schema": { "$ref": "#/entities/StudyMaterial" },
