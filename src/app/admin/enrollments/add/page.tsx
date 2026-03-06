@@ -1,7 +1,6 @@
-
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { 
   ArrowLeft, 
   UserPlus, 
@@ -11,6 +10,7 @@ import {
   FileText, 
   Mail, 
   Phone,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -58,6 +58,7 @@ export default function AddEnrollmentPage() {
   const { toast } = useToast();
   const router = useRouter();
   const firestore = useFirestore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,6 +76,7 @@ export default function AddEnrollmentPage() {
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (!firestore) return;
+    setIsSubmitting(true);
 
     const admissionNo = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
     const submissionData = {
@@ -87,6 +89,7 @@ export default function AddEnrollmentPage() {
 
     const enrollmentsRef = collection(firestore, 'enrollments');
 
+    // Pattern: Non-blocking write with contextual error emission
     addDoc(enrollmentsRef, submissionData)
       .then(() => {
         toast({
@@ -95,19 +98,19 @@ export default function AddEnrollmentPage() {
         });
         router.push("/admin/enrollments");
       })
-      .catch(async (error) => {
+      .catch(async (serverError) => {
         const permissionError = new FirestorePermissionError({
           path: 'enrollments',
           operation: 'create',
           requestResourceData: submissionData,
         });
         errorEmitter.emit('permission-error', permissionError);
+        setIsSubmitting(false);
       });
   };
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      {/* Back Link */}
       <Link 
         href="/admin/enrollments" 
         className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#35a3be] transition-colors group"
@@ -118,7 +121,6 @@ export default function AddEnrollmentPage() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 pb-12">
-          {/* Section 1: Student Information */}
           <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
@@ -192,7 +194,6 @@ export default function AddEnrollmentPage() {
             </CardContent>
           </Card>
 
-          {/* Section 2: Course Details */}
           <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
@@ -292,21 +293,27 @@ export default function AddEnrollmentPage() {
             </CardContent>
           </Card>
 
-          {/* Action Buttons */}
           <div className="flex items-center justify-end gap-4 pt-4">
             <Button 
               type="button"
               variant="ghost" 
               className="h-14 px-10 text-gray-500 font-bold rounded-xl hover:bg-gray-100"
               onClick={() => router.push("/admin/enrollments")}
+              disabled={isSubmitting}
             >
               Cancel
             </Button>
             <Button 
               type="submit"
-              className="h-14 px-10 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 gap-3 transition-all active:scale-95 border-none"
+              className="h-14 px-10 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 gap-3 transition-all active:scale-95 border-none disabled:opacity-70"
+              disabled={isSubmitting}
             >
-              <UserPlus className="w-5 h-5" /> Create Enrollment
+              {isSubmitting ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <UserPlus className="w-5 h-5" />
+              )}
+              {isSubmitting ? "Creating..." : "Create Enrollment"}
             </Button>
           </div>
         </form>

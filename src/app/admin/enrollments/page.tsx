@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo } from "react";
@@ -18,7 +17,8 @@ import {
   MoreVertical,
   Eye,
   Pencil,
-  Trash2
+  Trash2,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +46,7 @@ const statusStyles: Record<string, string> = {
 export default function EnrollmentsPage() {
   const firestore = useFirestore();
   
+  // Memoize query for stability
   const enrollmentsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'));
@@ -55,7 +56,6 @@ export default function EnrollmentsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Search & Actions Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="relative w-full max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -79,7 +79,6 @@ export default function EnrollmentsPage() {
         </div>
       </div>
 
-      {/* Table Card */}
       <div className="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
         <Table>
           <TableHeader className="bg-gray-50/50">
@@ -96,20 +95,23 @@ export default function EnrollmentsPage() {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-12 text-gray-400 font-medium">
-                  Loading enrollments...
+                <TableCell colSpan={7} className="text-center py-12">
+                  <div className="flex items-center justify-center gap-2 text-gray-400 font-medium">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Loading enrollments...
+                  </div>
                 </TableCell>
               </TableRow>
             ) : !enrollments || enrollments.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center py-12 text-gray-400 font-medium">
-                  No enrollments found.
+                  No enrollments found in the database.
                 </TableCell>
               </TableRow>
             ) : (
               enrollments.map((enrollment) => (
                 <TableRow key={enrollment.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
-                  <TableCell className="px-8 py-6 font-bold text-gray-400 text-sm">{enrollment.admissionNo}</TableCell>
+                  <TableCell className="px-8 py-6 font-bold text-gray-400 text-sm">{enrollment.admissionNo || "N/A"}</TableCell>
                   <TableCell className="px-8 py-6">
                     <div className="flex flex-col">
                       <span className="font-bold text-gray-900">{enrollment.firstName} {enrollment.lastName}</span>
@@ -117,17 +119,16 @@ export default function EnrollmentsPage() {
                     </div>
                   </TableCell>
                   <TableCell className="px-8 py-6">
-                    <span className="font-bold text-gray-700">{enrollment.course}</span>
+                    <span className="font-bold text-gray-700 capitalize">{enrollment.course?.replace(/-/g, ' ')}</span>
                   </TableCell>
                   <TableCell className="px-8 py-6">
-                    <span className="font-bold text-gray-400 text-sm">{enrollment.startDate || enrollment.admissionDate?.split('T')[0]}</span>
+                    <span className="font-bold text-gray-400 text-sm">{enrollment.startDate || "Not Set"}</span>
                   </TableCell>
                   <TableCell className="px-8 py-6 min-w-[180px]">
                     <div className="flex items-center gap-4">
                       <Progress 
                         value={enrollment.progress || 0} 
                         className="h-2 flex-1 bg-gray-100" 
-                        style={{ "--progress-foreground": "#35a3be" } as React.CSSProperties}
                       />
                       <span className="font-bold text-gray-900 text-xs w-8">{enrollment.progress || 0}%</span>
                     </div>
@@ -135,7 +136,7 @@ export default function EnrollmentsPage() {
                   <TableCell className="px-8 py-6">
                     <Badge className={cn(
                       "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border-none shadow-none",
-                      statusStyles[enrollment.status || "Pending"]
+                      statusStyles[enrollment.status] || statusStyles.Pending
                     )}>
                       {enrollment.status || "Pending"}
                     </Badge>
