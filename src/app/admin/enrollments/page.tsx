@@ -53,7 +53,6 @@ export default function EnrollmentsPage() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   
-  // Memoize query for stability
   const enrollmentsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'));
@@ -75,7 +74,7 @@ export default function EnrollmentsPage() {
 
   const handleDelete = async (enrollmentId: string) => {
     if (!firestore) return;
-    if (!confirm("Are you sure you want to delete this enrollment?")) return;
+    if (!confirm("Are you sure you want to delete this enrollment? This action cannot be undone.")) return;
 
     const docRef = doc(firestore, 'enrollments', enrollmentId);
     
@@ -115,9 +114,6 @@ export default function EnrollmentsPage() {
         <div className="flex items-center gap-3">
           <Button variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
             <Filter className="w-4 h-4" /> Filter
-          </Button>
-          <Button variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
-            <ExportIcon className="w-4 h-4" /> Export
           </Button>
           <Button asChild className="h-12 px-6 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 gap-2 cursor-pointer border-none">
             <Link href="/admin/enrollments/add">
@@ -162,7 +158,7 @@ export default function EnrollmentsPage() {
                   <TableCell className="px-8 py-6 font-bold text-gray-400 text-sm">{enrollment.admissionNo || "N/A"}</TableCell>
                   <TableCell className="px-8 py-6">
                     <div className="flex flex-col">
-                      <span className="font-bold text-gray-900">{enrollment.firstName} {enrollment.lastName || enrollment.candidateName}</span>
+                      <span className="font-bold text-gray-900">{enrollment.firstName} {enrollment.lastName}</span>
                       <span className="text-[11px] font-medium text-gray-400">{enrollment.email || enrollment.whatsappNo}</span>
                     </div>
                   </TableCell>
@@ -203,13 +199,17 @@ export default function EnrollmentsPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
-                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                          <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                          <span className="font-bold text-xs text-gray-700">View Profile</span>
+                        <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Link href={`/admin/enrollments/${enrollment.id}`} className="flex items-center w-full">
+                            <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                            <span className="font-bold text-xs text-gray-700">View Profile</span>
+                          </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                          <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
-                          <span className="font-bold text-xs text-gray-700">Edit Info</span>
+                        <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Link href={`/admin/enrollments/${enrollment.id}?edit=true`} className="flex items-center w-full">
+                            <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                            <span className="font-bold text-xs text-gray-700">Edit Info</span>
+                          </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-gray-50" />
                         <DropdownMenuItem 
@@ -217,7 +217,7 @@ export default function EnrollmentsPage() {
                             className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
-                          <span className="font-bold text-xs">Delete</span>
+                          <span className="font-bold text-xs">Delete Record</span>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
