@@ -19,6 +19,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
 import { Separator } from "@/components/ui/separator"
+import { useFirestore } from "@/firebase"
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 const formSchema = z.object({
     candidateName: z.string().min(1, { message: "Candidate name is required." }),
@@ -31,9 +35,9 @@ const formSchema = z.object({
     dob: z.date({ required_error: "Date of birth is required." }),
     gender: z.enum(["male", "female"], { required_error: "Please select a gender." }),
     residentialAddress: z.string().min(1, { message: "Residential address is required." }),
-    fatherContact: z.string().min(10, { message: "Please enter a valid 10-digit phone number." }).max(10),
-    motherContact: z.string().min(10, { message: "Please enter a valid 10-digit phone number." }).max(10),
-    whatsappNumber: z.string().min(10, { message: "Please enter a valid 10-digit phone number." }).max(10),
+    fatherContact: z.string().min(10, { message: "Please enter a valid 10-digit phone number." }).max(15),
+    motherContact: z.string().min(10, { message: "Please enter a valid 10-digit phone number." }).max(15),
+    whatsappNumber: z.string().min(10, { message: "Please enter a valid 10-digit phone number." }).max(15),
     board: z.enum(["cbse", "samacheer", "other-board"], { required_error: "Please select a board." }),
     subjects: z.array(z.string()).refine((value) => value.some((item) => item), {
         message: "You have to select at least one subject.",
@@ -63,6 +67,7 @@ const howHeardItems = [
 
 export default function StudentRegistrationPage() {
     const { toast } = useToast();
+    const firestore = useFirestore();
     const [isMounted, setIsMounted] = useState(false);
     const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -82,12 +87,12 @@ export default function StudentRegistrationPage() {
             fatherOccupation: "",
             institutionName: "",
             dob: undefined,
-            gender: "" as "male" | "female" | undefined,
+            gender: undefined,
             residentialAddress: "",
             fatherContact: "",
             motherContact: "",
             whatsappNumber: "",
-            board: "" as "cbse" | "samacheer" | "other-board" | undefined,
+            board: undefined,
             subjects: [],
             howHeard: [],
             terms: false,
@@ -111,13 +116,33 @@ export default function StudentRegistrationPage() {
     };
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
-        toast({
-            title: "Registration Submitted!",
-            description: "Thank you for registering. We will be in touch shortly.",
-        });
-        form.reset();
-        setSelectedFileName(null);
+        if (!firestore) return;
+
+        const enrollmentsRef = collection(firestore, 'enrollments');
+        const submissionData = {
+            ...values,
+            dob: values.dob.toISOString(),
+            status: 'pending',
+            createdAt: serverTimestamp(),
+        };
+
+        addDoc(enrollmentsRef, submissionData)
+            .then(() => {
+                toast({
+                    title: "Registration Submitted!",
+                    description: "Thank you for registering. We will be in touch shortly.",
+                });
+                form.reset();
+                setSelectedFileName(null);
+            })
+            .catch(async (error) => {
+                const permissionError = new FirestorePermissionError({
+                    path: 'enrollments',
+                    operation: 'create',
+                    requestResourceData: submissionData,
+                });
+                errorEmitter.emit('permission-error', permissionError);
+            });
     }
 
   return (
