@@ -118,21 +118,25 @@ export default function OurResultsPage() {
         </div>
       </section>
 
-      {/* Success Stats Section */}
-      <section className="py-24 bg-white relative z-10 -mt-12 mx-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
+      {/* Success Stats Section with Curvy Design */}
+      <section className="relative py-20 z-10 -mt-24 px-4 overflow-hidden">
+        {/* Curvy Background Shape */}
+        <div className="absolute inset-0 top-16 bg-white rounded-t-[100px] shadow-[0_-25px_60px_rgba(0,0,0,0.04)]"></div>
+        <div className="absolute inset-0 top-16 bg-gradient-to-br from-blue-50/30 to-teal-50/30 rounded-t-[100px]"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
               { icon: Trophy, val: "95%", label: "Pass Rate", color: "bg-blue-500" },
               { icon: Medal, val: "120+", label: "Distinctions", color: "bg-teal-500" },
               { icon: GraduationCap, val: "5000+", label: "Students", color: "bg-purple-500" },
             ].map((stat, idx) => (
-              <div key={idx} className="bg-white rounded-3xl shadow-xl p-8 text-center border border-gray-100 transition-all hover:-translate-y-2">
-                <div className={cn("w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg text-white", stat.color)}>
+              <div key={idx} className="bg-white rounded-[2.5rem] shadow-[0_30px_70px_rgba(8,112,184,0.06)] p-10 text-center border border-white transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_40px_90px_rgba(8,112,184,0.12)]">
+                <div className={cn("w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl text-white transform transition-transform group-hover:scale-110", stat.color)}>
                   <stat.icon className="w-10 h-10" />
                 </div>
-                <div className="text-5xl font-bold text-gray-900 mb-2">{stat.val}</div>
-                <div className="text-lg text-gray-600 font-normal">{stat.label}</div>
+                <div className="text-5xl font-black text-[#182d45] mb-2 tracking-tighter">{stat.val}</div>
+                <div className="text-sm font-bold text-[#35a3be] uppercase tracking-[0.25em]">{stat.label}</div>
               </div>
             ))}
           </div>
