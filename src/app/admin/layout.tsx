@@ -53,7 +53,7 @@ export default function AdminLayout({
       {/* Sidebar */}
       <aside className="w-64 bg-[#1e1e2d] text-gray-400 flex flex-col hidden md:flex sticky top-0 h-screen shrink-0">
         <div className="p-6 flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+          <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#14b8a6]/20">
             <GraduationCap className="w-6 h-6" />
           </div>
           <div className="flex flex-col">
@@ -75,13 +75,13 @@ export default function AdminLayout({
                     className={cn(
                       "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
                       isActive 
-                        ? "bg-white/10 text-white shadow-sm" 
+                        ? "bg-[#35a3be]/10 text-[#35a3be] shadow-sm" 
                         : "hover:bg-white/5 hover:text-gray-200"
                     )}
                   >
                     <item.icon className={cn(
                       "w-5 h-5",
-                      isActive ? "text-indigo-400" : "group-hover:text-gray-200"
+                      isActive ? "text-[#35a3be]" : "group-hover:text-gray-200"
                     )} />
                     <span className="font-medium text-sm">{item.label}</span>
                   </Link>
@@ -96,10 +96,13 @@ export default function AdminLayout({
               href="/admin/settings"
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
-                pathname === "/admin/settings" ? "bg-white/10 text-white" : "hover:bg-white/5 hover:text-gray-200"
+                pathname === "/admin/settings" ? "bg-[#35a3be]/10 text-[#35a3be]" : "hover:bg-white/5 hover:text-gray-200"
               )}
             >
-              <Settings className="w-5 h-5 group-hover:text-gray-200" />
+              <Settings className={cn(
+                "w-5 h-5",
+                pathname === "/admin/settings" ? "text-[#35a3be]" : "group-hover:text-gray-200"
+              )} />
               <span className="font-medium text-sm">Settings</span>
             </Link>
           </div>
@@ -108,7 +111,7 @@ export default function AdminLayout({
         <div className="p-4 border-t border-white/5">
           <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between">
             <div className="flex items-center gap-3 overflow-hidden">
-              <Avatar className="h-10 w-10 border-2 border-white/10">
+              <Avatar className="h-10 w-10 border-2 border-[#35a3be]/20">
                 <AvatarImage src="https://picsum.photos/seed/admin/100" />
                 <AvatarFallback>AU</AvatarFallback>
               </Avatar>
@@ -142,14 +145,14 @@ export default function AdminLayout({
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input 
                 placeholder="Search..." 
-                className="w-64 pl-10 h-10 bg-gray-50 border-none rounded-xl focus-visible:ring-1 focus-visible:ring-indigo-500" 
+                className="w-64 pl-10 h-10 bg-gray-50 border-none rounded-xl focus-visible:ring-1 focus-visible:ring-[#35a3be]" 
               />
             </div>
             <div className="relative">
               <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-gray-100 text-gray-500">
                 <Bell className="w-5 h-5" />
               </Button>
-              <span className="absolute top-2 right-2.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>
+              <span className="absolute top-2 right-2.5 w-2 h-2 bg-[#14b8a6] rounded-full border-2 border-white"></span>
             </div>
           </div>
         </header>

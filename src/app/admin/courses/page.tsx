@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -151,10 +150,10 @@ export default function CoursesManagementPage() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
             placeholder="Search courses..." 
-            className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-indigo-500"
+            className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-[#35a3be]"
           />
         </div>
-        <Button asChild className="h-14 px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[18px] shadow-lg shadow-indigo-200 gap-2 text-base cursor-pointer">
+        <Button asChild className="h-14 px-8 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-[18px] shadow-lg shadow-[#35a3be]/20 gap-2 text-base cursor-pointer border-none">
           <Link href="/admin/courses/create">
             <Plus className="w-6 h-6" /> Create Course
           </Link>
@@ -165,7 +164,7 @@ export default function CoursesManagementPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {courses.map((course) => (
           <Card key={course.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
-            <div className="h-1.5 w-full bg-gradient-to-r from-purple-500 to-indigo-600"></div>
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-6 gap-2">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -173,7 +172,7 @@ export default function CoursesManagementPage() {
                     <course.icon className={cn("w-6 h-6", course.iconColor)} />
                   </div>
                   <div className="flex flex-col min-w-0 flex-1">
-                    <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-indigo-600 transition-colors truncate">
+                    <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-[#35a3be] transition-colors truncate">
                       {course.title}
                     </h3>
                     <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate">
@@ -184,21 +183,21 @@ export default function CoursesManagementPage() {
                 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg flex-shrink-0">
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-[#35a3be] hover:bg-[#35a3be]/5 rounded-lg flex-shrink-0">
                       <MoreVertical className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
-                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                  <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
+                    <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
                       <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                      <span className="font-bold text-xs">View Course</span>
+                      <span className="font-bold text-xs text-gray-700">View Course</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
-                      <Pencil className="mr-2 h-4 w-4 text-indigo-500" />
-                      <span className="font-bold text-xs">Edit Modules</span>
+                    <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                      <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                      <span className="font-bold text-xs text-gray-700">Edit Modules</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-gray-50" />
-                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
+                    <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
                       <Trash2 className="mr-2 h-4 w-4" />
                       <span className="font-bold text-xs">Delete Course</span>
                     </DropdownMenuItem>
@@ -227,12 +226,12 @@ export default function CoursesManagementPage() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                  <Star className="w-3.5 h-3.5 text-[#fbbf24] fill-[#fbbf24]" />
                   <span className="text-xs font-black text-gray-900">{course.rating}</span>
                 </div>
                 <Badge className={cn(
                   "px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider border-none shadow-none",
-                  course.status === "Active" ? "bg-indigo-100 text-indigo-600" : "bg-gray-100 text-gray-500"
+                  course.status === "Active" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
                 )}>
                   {course.status}
                 </Badge>

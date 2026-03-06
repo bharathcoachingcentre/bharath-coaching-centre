@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -46,7 +45,7 @@ const enrollments = [
 ];
 
 const statusStyles: Record<string, string> = {
-  Active: "bg-indigo-100 text-indigo-600",
+  Active: "bg-[#35a3be]/10 text-[#35a3be]",
   Pending: "bg-gray-100 text-gray-500",
   Completed: "bg-emerald-100 text-emerald-600",
   Dropped: "bg-rose-100 text-rose-600",
@@ -61,7 +60,7 @@ export default function EnrollmentsPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <Input 
             placeholder="Search students..." 
-            className="pl-10 h-12 bg-white border-gray-200 rounded-xl focus-visible:ring-indigo-500 shadow-sm"
+            className="pl-10 h-12 bg-white border-gray-200 rounded-xl focus-visible:ring-[#35a3be] shadow-sm"
           />
         </div>
         <div className="flex items-center gap-3">
@@ -71,7 +70,7 @@ export default function EnrollmentsPage() {
           <Button variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
             <ExportIcon className="w-4 h-4" /> Export
           </Button>
-          <Button asChild className="h-12 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 gap-2 cursor-pointer">
+          <Button asChild className="h-12 px-6 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 gap-2 cursor-pointer border-none">
             <Link href="/admin/enrollments/add">
               <Plus className="w-5 h-5" /> Add Enrollment
             </Link>
@@ -114,6 +113,7 @@ export default function EnrollmentsPage() {
                     <Progress 
                       value={enrollment.progress} 
                       className="h-2 flex-1 bg-gray-100" 
+                      style={{ "--progress-foreground": "#35a3be" } as React.CSSProperties}
                     />
                     <span className="font-bold text-gray-900 text-xs w-8">{enrollment.progress}%</span>
                   </div>
@@ -129,21 +129,21 @@ export default function EnrollmentsPage() {
                 <TableCell className="px-8 py-6 text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-600 rounded-lg">
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-[#35a3be] hover:bg-[#35a3be]/10 rounded-lg">
                         <MoreVertical className="w-4 h-4" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
-                      <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                    <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
+                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
                         <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                        <span className="font-bold text-xs">View Profile</span>
+                        <span className="font-bold text-xs text-gray-700">View Profile</span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
-                        <Pencil className="mr-2 h-4 w-4 text-indigo-500" />
-                        <span className="font-bold text-xs">Edit Info</span>
+                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                        <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                        <span className="font-bold text-xs text-gray-700">Edit Info</span>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator className="bg-gray-50" />
-                      <DropdownMenuItem className="p-2 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
+                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
                         <Trash2 className="mr-2 h-4 w-4" />
                         <span className="font-bold text-xs">Delete</span>
                       </DropdownMenuItem>
