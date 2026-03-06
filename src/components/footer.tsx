@@ -1,9 +1,7 @@
-
 "use client";
 
 import Link from "next/link";
-import { GraduationCap, Facebook, Instagram, Youtube, Phone, Mail, MapPin, Send } from "lucide-react";
-import { Button } from "./ui/button";
+import { GraduationCap, Facebook, Instagram, Youtube, Phone, Mail, MapPin } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,12 +11,12 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-6">
+            <Link href="/" className="flex items-center space-x-2 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-lg">
                 < GraduationCap className="text-white w-6 h-6" />
               </div>
               <span className="text-2xl font-bold">Bharath Academy</span>
-            </div>
+            </Link>
             <p className="text-gray-400 text-sm mb-8 leading-relaxed font-medium">
               Helping students from Class 1 to 12 achieve academic excellence through structured coaching.
             </p>
@@ -38,9 +36,9 @@ export function Footer() {
           <div>
             <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Company</h3>
             <ul className="space-y-4 font-medium text-[16px]">
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Home</Link></li>
+              <li><Link href="/" className="text-gray-400 hover:text-white transition-colors duration-200">Home</Link></li>
               <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">About Us</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Our Results</Link></li>
+              <li><Link href="/our-results" className="text-gray-400 hover:text-white transition-colors duration-200">Our Results</Link></li>
               <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Contact Us</Link></li>
             </ul>
           </div>
@@ -97,7 +95,6 @@ export function Footer() {
               <p className="text-blue-100 text-[14px] font-medium">Learn anytime, anywhere with our mobile app</p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              {/* Google Play Button */}
               <Link 
                 href="#" 
                 className="flex items-center gap-3 bg-white text-gray-900 px-6 py-3 rounded-[1.25rem] shadow-xl transition-all transform active:scale-95 hover:bg-gray-50 border border-white/60 min-w-[200px]"
@@ -113,7 +110,6 @@ export function Footer() {
                 </div>
               </Link>
 
-              {/* App Store Button */}
               <Link 
                 href="#" 
                 className="flex items-center gap-3 bg-white text-gray-900 px-6 py-3 rounded-[1.25rem] shadow-xl transition-all transform active:scale-95 hover:bg-gray-50 border border-white/60 min-w-[200px]"
