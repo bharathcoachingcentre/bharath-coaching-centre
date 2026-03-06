@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -80,6 +81,8 @@ const SolidUsers = ({ className }: { className?: string }) => (
 export default function HomePage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
+
+  const heroImageData = (placeholderImages as any)["hero-education"];
 
   const features = [
     { icon: Presentation, title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
@@ -374,13 +377,13 @@ export default function HomePage() {
 
             <div className="relative h-[500px] lg:h-[650px] flex items-center justify-center">
               <Image
-                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a8a9fae2e1-8efab94f8657d56caa94.png"
-                alt="Empowering Education"
-                width={600}
-                height={800}
+                src={heroImageData.src}
+                alt={heroImageData.alt}
+                width={heroImageData.width}
+                height={heroImageData.height}
                 className="w-full h-full object-contain relative z-10"
                 priority
-                data-ai-hint="student success"
+                data-ai-hint={heroImageData.hint}
               />
 
               {/* Floating Labels - Responsive Mobile Overlap Fix */}

@@ -1,3 +1,4 @@
+
 {
   "one-to-one-tutoring-session": {
     "src": "https://images.unsplash.com/photo-1758525861536-15fb8a3ee629?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxN3x8TW90aGVyJTIwaGVscGluZyUyMHRlZW5hZ2VyJTIwd2l0aCUyMGhvbWV3b3JrJTIwc3RvY2slMjBwaG90b3xlbnwwfHx8fDE3NjYwNTQxMTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -12,6 +13,13 @@
     "height": 1000,
     "alt": "One-to-One Mentorship",
     "hint": "mentorship session"
+  },
+  "hero-education": {
+    "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/a8a9fae2e1-8efab94f8657d56caa94.png",
+    "width": 576,
+    "height": 650,
+    "alt": "Empowering Education",
+    "hint": "student success"
   },
   "blog-banner": {
     "src": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=600",
@@ -80,7 +88,7 @@
     "src": "https://images.unsplash.com/photo-1524178232363-1fb28f74b573?auto=format&fit=crop&q=80&w=800&h=1000",
     "width": 800,
     "height": 1000,
-    "alt": "Female student portrait",
+    "alt": "student portrait",
     "hint": "student portrait"
   },
   "student-8": {
