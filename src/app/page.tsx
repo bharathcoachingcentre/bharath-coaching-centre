@@ -551,7 +551,7 @@ export default function HomePage() {
                     <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                   </div>
                   <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                  <p className="text-sm text-gray-400 mt-4 flex-grow text-left">{material.desc}</p>
+                  <p className="text-[14px] text-[#4b5563] font-normal mt-4 mb-4 flex-grow text-left">{material.desc}</p>
                   <Button
                     asChild
                     className={cn(
