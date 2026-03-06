@@ -12,7 +12,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string }; searchParams: { [key: string]: string | string[] | undefined } }) {
+export default async function BlogPostPage(props: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await props.params;
   const { slug } = params;
   const post = getPostBySlug(slug);
 
