@@ -1,6 +1,7 @@
+
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { 
   Table, 
   TableBody, 
@@ -32,17 +33,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-
-const enrollments = [
-  { id: "ENR-001", name: "Ananya Krishnan", email: "ananya@email.com", course: "Class 10 CBSE Maths", date: "2025-03-01", progress: 72, status: "Active" },
-  { id: "ENR-002", name: "Arjun Mehta", email: "arjun@email.com", course: "Class 12 Samacheer Physics", date: "2025-02-28", progress: 45, status: "Active" },
-  { id: "ENR-003", name: "Divya Nair", email: "divya@email.com", course: "Class 9 CBSE Science", date: "2025-02-25", progress: 0, status: "Pending" },
-  { id: "ENR-004", name: "Rohan Kapoor", email: "rohan@email.com", course: "NEET Crash Course", date: "2025-02-20", progress: 88, status: "Active" },
-  { id: "ENR-005", name: "Sanya Gupta", email: "sanya@email.com", course: "Class 11 Samacheer Chemistry", date: "2025-02-18", progress: 100, status: "Completed" },
-  { id: "ENR-006", name: "Vikram Malhotra", email: "vikram@email.com", course: "Class 12 CBSE Maths", date: "2025-02-15", progress: 60, status: "Active" },
-  { id: "ENR-007", name: "Nisha Reddy", email: "nisha@email.com", course: "Class 8 CBSE Foundation", date: "2025-02-10", progress: 15, status: "Dropped" },
-  { id: "ENR-008", name: "Kabir Singh", email: "kabir@email.com", course: "JEE Advanced Prep", date: "2025-02-05", progress: 33, status: "Active" },
-];
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, query, orderBy } from "firebase/firestore";
 
 const statusStyles: Record<string, string> = {
   Active: "bg-[#35a3be]/10 text-[#35a3be]",
@@ -52,6 +44,15 @@ const statusStyles: Record<string, string> = {
 };
 
 export default function EnrollmentsPage() {
+  const firestore = useFirestore();
+  
+  const enrollmentsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+
+  const { data: enrollments, loading } = useCollection(enrollmentsQuery);
+
   return (
     <div className="space-y-6">
       {/* Search & Actions Bar */}
@@ -93,65 +94,79 @@ export default function EnrollmentsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {enrollments.map((enrollment) => (
-              <TableRow key={enrollment.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
-                <TableCell className="px-8 py-6 font-bold text-gray-400 text-sm">{enrollment.id}</TableCell>
-                <TableCell className="px-8 py-6">
-                  <div className="flex flex-col">
-                    <span className="font-bold text-gray-900">{enrollment.name}</span>
-                    <span className="text-[11px] font-medium text-gray-400">{enrollment.email}</span>
-                  </div>
-                </TableCell>
-                <TableCell className="px-8 py-6">
-                  <span className="font-bold text-gray-700">{enrollment.course}</span>
-                </TableCell>
-                <TableCell className="px-8 py-6">
-                  <span className="font-bold text-gray-400 text-sm">{enrollment.date}</span>
-                </TableCell>
-                <TableCell className="px-8 py-6 min-w-[180px]">
-                  <div className="flex items-center gap-4">
-                    <Progress 
-                      value={enrollment.progress} 
-                      className="h-2 flex-1 bg-gray-100" 
-                      style={{ "--progress-foreground": "#35a3be" } as React.CSSProperties}
-                    />
-                    <span className="font-bold text-gray-900 text-xs w-8">{enrollment.progress}%</span>
-                  </div>
-                </TableCell>
-                <TableCell className="px-8 py-6">
-                  <Badge className={cn(
-                    "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border-none shadow-none",
-                    statusStyles[enrollment.status]
-                  )}>
-                    {enrollment.status}
-                  </Badge>
-                </TableCell>
-                <TableCell className="px-8 py-6 text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-[#35a3be] hover:bg-[#35a3be]/10 rounded-lg">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
-                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                        <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                        <span className="font-bold text-xs text-gray-700">View Profile</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                        <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
-                        <span className="font-bold text-xs text-gray-700">Edit Info</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator className="bg-gray-50" />
-                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        <span className="font-bold text-xs">Delete</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={7} className="text-center py-12 text-gray-400 font-medium">
+                  Loading enrollments...
                 </TableCell>
               </TableRow>
-            ))}
+            ) : !enrollments || enrollments.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={7} className="text-center py-12 text-gray-400 font-medium">
+                  No enrollments found.
+                </TableCell>
+              </TableRow>
+            ) : (
+              enrollments.map((enrollment) => (
+                <TableRow key={enrollment.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
+                  <TableCell className="px-8 py-6 font-bold text-gray-400 text-sm">{enrollment.admissionNo}</TableCell>
+                  <TableCell className="px-8 py-6">
+                    <div className="flex flex-col">
+                      <span className="font-bold text-gray-900">{enrollment.firstName} {enrollment.lastName}</span>
+                      <span className="text-[11px] font-medium text-gray-400">{enrollment.email}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="px-8 py-6">
+                    <span className="font-bold text-gray-700">{enrollment.course}</span>
+                  </TableCell>
+                  <TableCell className="px-8 py-6">
+                    <span className="font-bold text-gray-400 text-sm">{enrollment.startDate || enrollment.admissionDate?.split('T')[0]}</span>
+                  </TableCell>
+                  <TableCell className="px-8 py-6 min-w-[180px]">
+                    <div className="flex items-center gap-4">
+                      <Progress 
+                        value={enrollment.progress || 0} 
+                        className="h-2 flex-1 bg-gray-100" 
+                        style={{ "--progress-foreground": "#35a3be" } as React.CSSProperties}
+                      />
+                      <span className="font-bold text-gray-900 text-xs w-8">{enrollment.progress || 0}%</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="px-8 py-6">
+                    <Badge className={cn(
+                      "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border-none shadow-none",
+                      statusStyles[enrollment.status || "Pending"]
+                    )}>
+                      {enrollment.status || "Pending"}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="px-8 py-6 text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-[#35a3be] hover:bg-[#35a3be]/10 rounded-lg">
+                          <MoreVertical className="w-4 h-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
+                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                          <span className="font-bold text-xs text-gray-700">View Profile</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                          <span className="font-bold text-xs text-gray-700">Edit Info</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-gray-50" />
+                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
+                          <Trash2 className="mr-2 h-4 w-4" />
+                          <span className="font-bold text-xs">Delete</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
