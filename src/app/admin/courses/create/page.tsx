@@ -11,7 +11,8 @@ import {
   X,
   DollarSign,
   Clock,
-  CheckCircle2
+  CheckCircle2,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,32 +27,125 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { useFirestore } from "@/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
+
+const formSchema = z.object({
+  title: z.string().min(1, "Course title is required"),
+  description: z.string().min(1, "Description is required"),
+  category: z.string().min(1, "Please select a category"),
+  level: z.string().min(1, "Please select a difficulty level"),
+  price: z.string().min(1, "Price is required"),
+  duration: z.string().min(1, "Duration is required"),
+  hasCertificate: z.boolean().default(false),
+  isPublished: z.boolean().default(true),
+});
 
 export default function CreateCoursePage() {
   const { toast } = useToast();
   const router = useRouter();
+  const firestore = useFirestore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [modules, setModules] = useState([{ id: 1, title: "" }]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      category: "",
+      level: "",
+      price: "",
+      duration: "",
+      hasCertificate: false,
+      isPublished: true,
+    },
+  });
 
   const addModule = () => {
     setModules([...modules, { id: modules.length + 1, title: "" }]);
   };
 
-  const handlePublish = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Course Published",
-      description: "Your new course has been successfully created and published.",
-    });
-    router.push("/admin/courses");
+  const handleModuleChange = (index: number, title: string) => {
+    const updatedModules = [...modules];
+    updatedModules[index].title = title;
+    setModules(updatedModules);
+  };
+
+  const removeModule = (index: number) => {
+    if (modules.length > 1) {
+      setModules(modules.filter((_, i) => i !== index));
+    }
+  };
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!firestore) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Firestore not initialized. Please refresh.",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const coursesRef = collection(firestore, 'courses');
+      const submissionData = {
+        ...values,
+        modules: modules.filter(m => m.title.trim() !== "").map(m => m.title),
+        students: 0,
+        rating: 5.0,
+        status: values.isPublished ? "Active" : "Draft",
+        createdAt: serverTimestamp(),
+      };
+
+      await addDoc(coursesRef, submissionData);
+
+      toast({
+        title: "Course Published",
+        description: `${values.title} has been successfully created.`,
+      });
+      router.push("/admin/courses");
+    } catch (error: any) {
+      console.error("Course creation error:", error);
+      setIsSubmitting(false);
+      
+      toast({
+        variant: "destructive",
+        title: "Publish Failed",
+        description: error.message || "Failed to save course to database.",
+      });
+
+      if (error.code === 'permission-denied') {
+        const permissionError = new FirestorePermissionError({
+          path: 'courses',
+          operation: 'create',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+      }
+    }
   };
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      {/* Back Link */}
       <Link 
         href="/admin/courses" 
         className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-indigo-600 transition-colors group"
@@ -60,194 +154,258 @@ export default function CreateCoursePage() {
         Back to Courses
       </Link>
 
-      <form onSubmit={handlePublish} className="space-y-8 pb-12">
-        {/* Section 1: Course Information */}
-        <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
-          <CardContent className="p-10">
-            <div className="flex items-center gap-5 mb-10">
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-indigo-600" />
-              </div>
-              <div className="text-left">
-                <h3 className="text-xl font-bold text-gray-900 tracking-tight">Course Information</h3>
-                <p className="text-sm text-gray-400 font-medium">Basic details about the course</p>
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <div className="space-y-3">
-                <Label className="text-sm font-bold text-gray-700">Course Title</Label>
-                <Input 
-                  placeholder="e.g. Advanced React Patterns" 
-                  className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-indigo-500 px-6 font-medium"
-                />
-              </div>
-
-              <div className="space-y-3">
-                <Label className="text-sm font-bold text-gray-700">Description</Label>
-                <Textarea 
-                  placeholder="What students will learn in this course..." 
-                  className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-indigo-500 p-6 font-medium text-gray-600 resize-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                <div className="space-y-3 text-left">
-                  <Label className="text-sm font-bold text-gray-700">Category</Label>
-                  <Select>
-                    <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-indigo-500 px-6 font-medium text-gray-500">
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-xl border-gray-100 shadow-xl">
-                      <SelectItem value="web">Web Development</SelectItem>
-                      <SelectItem value="data">Data Science</SelectItem>
-                      <SelectItem value="design">Design</SelectItem>
-                      <SelectItem value="mobile">Mobile Development</SelectItem>
-                    </SelectContent>
-                  </Select>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 pb-12">
+          {/* Section 1: Course Information */}
+          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
+            <CardContent className="p-10">
+              <div className="flex items-center gap-5 mb-10">
+                <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-indigo-600" />
                 </div>
-
-                <div className="space-y-3 text-left">
-                  <Label className="text-sm font-bold text-gray-700">Difficulty Level</Label>
-                  <Select>
-                    <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-indigo-500 px-6 font-medium text-gray-500">
-                      <SelectValue placeholder="Select level" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-xl border-gray-100 shadow-xl">
-                      <SelectItem value="beginner">Beginner</SelectItem>
-                      <SelectItem value="intermediate">Intermediate</SelectItem>
-                      <SelectItem value="advanced">Advanced</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="text-left">
+                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">Course Information</h3>
+                  <p className="text-sm text-gray-400 font-medium">Basic details about the course</p>
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <Label className="text-sm font-bold text-gray-700">Tags</Label>
-                <div className="relative">
-                  <Input 
-                    placeholder="Add a tag and press Enter" 
-                    className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-indigo-500 px-6 font-medium pr-16"
+              <div className="space-y-8">
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-sm font-bold text-gray-700">Course Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Advanced React Patterns" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-indigo-500 px-6 font-medium" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-sm font-bold text-gray-700">Description</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="What students will learn in this course..." {...field} className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-indigo-500 p-6 font-medium text-gray-600 resize-none" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                  <FormField
+                    control={form.control}
+                    name="category"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3 text-left">
+                        <FormLabel className="text-sm font-bold text-gray-700">Category</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-indigo-500 px-6 font-medium text-gray-500">
+                              <SelectValue placeholder="Select category" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                            <SelectItem value="CBSE Curriculum">CBSE Curriculum</SelectItem>
+                            <SelectItem value="State Board">State Board</SelectItem>
+                            <SelectItem value="Competitive">Competitive</SelectItem>
+                            <SelectItem value="Foundation">Foundation</SelectItem>
+                            <SelectItem value="Language">Language</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                  <Button type="button" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 bg-white hover:bg-gray-100 text-gray-400 rounded-lg shadow-sm">
-                    <Plus className="w-5 h-5" />
-                  </Button>
+
+                  <FormField
+                    control={form.control}
+                    name="level"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3 text-left">
+                        <FormLabel className="text-sm font-bold text-gray-700">Difficulty Level</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-indigo-500 px-6 font-medium text-gray-500">
+                              <SelectValue placeholder="Select level" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                            <SelectItem value="beginner">Beginner</SelectItem>
+                            <SelectItem value="intermediate">Intermediate</SelectItem>
+                            <SelectItem value="advanced">Advanced</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        {/* Section 2: Curriculum */}
-        <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
-          <CardContent className="p-10">
-            <div className="flex items-center gap-5 mb-10">
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center">
-                <Layout className="w-6 h-6 text-emerald-600" />
+          {/* Section 2: Curriculum */}
+          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
+            <CardContent className="p-10">
+              <div className="flex items-center gap-5 mb-10">
+                <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center">
+                  <Layout className="w-6 h-6 text-emerald-600" />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">Curriculum</h3>
+                  <p className="text-sm text-gray-400 font-medium">Define course modules and structure</p>
+                </div>
               </div>
-              <div className="text-left">
-                <h3 className="text-xl font-bold text-gray-900 tracking-tight">Curriculum</h3>
-                <p className="text-sm text-gray-400 font-medium">Define course modules and structure</p>
-              </div>
-            </div>
 
-            <div className="space-y-4 mb-8">
-              {modules.map((module, index) => (
-                <div key={module.id} className="flex items-center gap-6">
-                  <span className="text-sm font-bold text-gray-300 w-4">{index + 1}</span>
-                  <div className="relative flex-1">
-                    <Input 
-                      placeholder={`Module ${index + 1} title`} 
-                      className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-emerald-500 px-6 font-medium"
-                    />
+              <div className="space-y-4 mb-8">
+                {modules.map((module, index) => (
+                  <div key={module.id} className="flex items-center gap-6">
+                    <span className="text-sm font-bold text-gray-300 w-4">{index + 1}</span>
+                    <div className="relative flex-1">
+                      <Input 
+                        placeholder={`Module ${index + 1} title`} 
+                        value={module.title}
+                        onChange={(e) => handleModuleChange(index, e.target.value)}
+                        className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-emerald-500 px-6 font-medium"
+                      />
+                    </div>
+                    {modules.length > 1 && (
+                      <Button 
+                        type="button" 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={() => removeModule(index)}
+                        className="text-gray-300 hover:text-red-500"
+                      >
+                        <X className="w-5 h-5" />
+                      </Button>
+                    )}
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
+              <Button 
+                type="button"
+                variant="outline" 
+                onClick={addModule}
+                className="h-12 border-none bg-gray-50 hover:bg-gray-100 rounded-xl px-6 font-bold text-gray-600 gap-2 shadow-sm"
+              >
+                <Plus className="w-4 h-4" /> Add Module
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Section 3: Pricing & Settings */}
+          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
+            <CardContent className="p-10">
+              <div className="flex items-center gap-5 mb-10">
+                <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                  <Settings className="w-6 h-6 text-orange-600" />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">Pricing & Settings</h3>
+                  <p className="text-sm text-gray-400 font-medium">Configure pricing and access options</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 mb-10">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <DollarSign className="w-4 h-4 text-gray-400" /> Price (USD / INR)
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="49.99" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="duration"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-gray-400" /> Duration
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. 8 weeks" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="hasCertificate"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-50 space-y-0">
+                      <div className="space-y-1">
+                        <FormLabel className="text-base font-bold text-gray-900">Certificate on Completion</FormLabel>
+                        <p className="text-sm text-gray-400 font-medium">Issue a certificate when students finish</p>
+                      </div>
+                      <FormControl>
+                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-indigo-600" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="isPublished"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-50 space-y-0">
+                      <div className="space-y-1">
+                        <FormLabel className="text-base font-bold text-gray-900">Published</FormLabel>
+                        <p className="text-sm text-gray-400 font-medium">Make this course visible to students</p>
+                      </div>
+                      <FormControl>
+                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-indigo-600" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Action Buttons */}
+          <div className="flex items-center justify-end gap-4 pt-4">
             <Button 
               type="button"
-              variant="outline" 
-              onClick={addModule}
-              className="h-12 border-none bg-gray-50 hover:bg-gray-100 rounded-xl px-6 font-bold text-gray-600 gap-2 shadow-sm"
+              variant="ghost" 
+              className="h-14 px-10 text-gray-500 font-bold rounded-xl hover:bg-gray-100"
+              onClick={() => router.push("/admin/courses")}
+              disabled={isSubmitting}
             >
-              <Plus className="w-4 h-4" /> Add Module
+              Cancel
             </Button>
-          </CardContent>
-        </Card>
-
-        {/* Section 3: Pricing & Settings */}
-        <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
-          <CardContent className="p-10">
-            <div className="flex items-center gap-5 mb-10">
-              <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
-                <Settings className="w-6 h-6 text-orange-600" />
-              </div>
-              <div className="text-left">
-                <h3 className="text-xl font-bold text-gray-900 tracking-tight">Pricing & Settings</h3>
-                <p className="text-sm text-gray-400 font-medium">Configure pricing and access options</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 mb-10">
-              <div className="space-y-3">
-                <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                  <DollarSign className="w-4 h-4 text-gray-400" /> Price (USD)
-                </Label>
-                <Input 
-                  placeholder="49.99" 
-                  className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium"
-                />
-              </div>
-              <div className="space-y-3">
-                <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-gray-400" /> Duration
-                </Label>
-                <Input 
-                  placeholder="e.g. 8 weeks" 
-                  className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-50">
-                <div className="space-y-1">
-                  <Label className="text-base font-bold text-gray-900">Certificate on Completion</Label>
-                  <p className="text-sm text-gray-400 font-medium">Issue a certificate when students finish</p>
-                </div>
-                <Switch className="data-[state=checked]:bg-indigo-600" />
-              </div>
-
-              <div className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-50">
-                <div className="space-y-1">
-                  <Label className="text-base font-bold text-gray-900">Published</Label>
-                  <p className="text-sm text-gray-400 font-medium">Make this course visible to students</p>
-                </div>
-                <Switch defaultChecked className="data-[state=checked]:bg-indigo-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Action Buttons */}
-        <div className="flex items-center justify-end gap-4 pt-4">
-          <Button 
-            type="button"
-            variant="ghost" 
-            className="h-14 px-10 text-gray-500 font-bold rounded-xl hover:bg-gray-100"
-            onClick={() => router.push("/admin/courses")}
-          >
-            Cancel
-          </Button>
-          <Button 
-            type="submit"
-            className="h-14 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 gap-3 transition-all active:scale-95"
-          >
-            <BookOpen className="w-5 h-5" /> Publish Course
-          </Button>
-        </div>
-      </form>
+            <Button 
+              type="submit"
+              disabled={isSubmitting}
+              className="h-14 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 gap-3 transition-all active:scale-95 border-none"
+            >
+              {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <BookOpen className="w-5 h-5" />}
+              {isSubmitting ? "Publishing..." : "Publish Course"}
+            </Button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

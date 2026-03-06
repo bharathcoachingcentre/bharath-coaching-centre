@@ -1,6 +1,7 @@
+
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Search, 
@@ -19,7 +20,8 @@ import {
   MoreVertical,
   Eye,
   Pencil,
-  Trash2
+  Trash2,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,115 +35,103 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, query, orderBy, deleteDoc, doc } from "firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
-const courses = [
+// Default mock courses to show if database is empty
+const mockCourses = [
   { 
-    id: 1, 
+    id: "mock-1", 
     title: "Class 10 CBSE Mathematics", 
     category: "CBSE Curriculum", 
-    students: "342", 
-    lessons: "48", 
+    students: 342, 
+    lessons: 48, 
     duration: "Full Year", 
-    rating: "4.9", 
+    rating: 4.9, 
     status: "Active",
     icon: Calculator,
     iconColor: "text-rose-500",
     iconBg: "bg-rose-50"
   },
   { 
-    id: 2, 
+    id: "mock-2", 
     title: "Class 12 Samacheer Physics", 
     category: "State Board", 
-    students: "891", 
-    lessons: "64", 
+    students: 891, 
+    lessons: 64, 
     duration: "Full Year", 
-    rating: "4.8", 
+    rating: 4.8, 
     status: "Active",
     icon: Atom,
     iconColor: "text-indigo-500",
     iconBg: "bg-indigo-50"
   },
-  { 
-    id: 3, 
-    title: "NEET Crash Course 2025", 
-    category: "Competitive", 
-    students: "567", 
-    lessons: "36", 
-    duration: "3 Months", 
-    rating: "4.7", 
-    status: "Active",
-    icon: Rocket,
-    iconColor: "text-orange-500",
-    iconBg: "bg-orange-50"
-  },
-  { 
-    id: 4, 
-    title: "Class 9 CBSE Science", 
-    category: "CBSE Curriculum", 
-    students: "1203", 
-    lessons: "80", 
-    duration: "Full Year", 
-    rating: "4.9", 
-    status: "Active",
-    icon: Bot,
-    iconColor: "text-purple-500",
-    iconBg: "bg-purple-50"
-  },
-  { 
-    id: 5, 
-    title: "JEE Main Preparation", 
-    category: "Competitive", 
-    students: "456", 
-    lessons: "52", 
-    duration: "2 Years", 
-    rating: "4.6", 
-    status: "Active",
-    icon: Layers,
-    iconColor: "text-blue-500",
-    iconBg: "bg-blue-50"
-  },
-  { 
-    id: 6, 
-    title: "Class 11 Samacheer Chemistry", 
-    category: "State Board", 
-    students: "234", 
-    lessons: "32", 
-    duration: "Full Year", 
-    rating: "4.5", 
-    status: "Draft",
-    icon: Globe,
-    iconColor: "text-sky-500",
-    iconBg: "bg-sky-50"
-  },
-  { 
-    id: 7, 
-    title: "Class 8 CBSE Foundation", 
-    category: "Foundation", 
-    students: "623", 
-    lessons: "44", 
-    duration: "Full Year", 
-    rating: "4.8", 
-    status: "Active",
-    icon: BookOpen,
-    iconColor: "text-violet-500",
-    iconBg: "bg-violet-50"
-  },
-  { 
-    id: 8, 
-    title: "Class 10 Samacheer Tamil", 
-    category: "Language", 
-    students: "1580", 
-    lessons: "28", 
-    duration: "Full Year", 
-    rating: "4.7", 
-    status: "Active",
-    icon: Terminal,
-    iconColor: "text-emerald-500",
-    iconBg: "bg-emerald-50"
-  },
 ];
 
+const categoryIconMap: Record<string, any> = {
+  "CBSE Curriculum": Calculator,
+  "State Board": Atom,
+  "Competitive": Rocket,
+  "Foundation": BookOpen,
+  "Language": Terminal,
+};
+
 export default function CoursesManagementPage() {
+  const firestore = useFirestore();
+  const { toast } = useToast();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const coursesQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'courses'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+
+  const { data: realCourses, loading } = useCollection(coursesQuery);
+
+  const allCourses = useMemo(() => {
+    const fromDb = realCourses || [];
+    return fromDb.length > 0 ? fromDb : mockCourses;
+  }, [realCourses]);
+
+  const filteredCourses = useMemo(() => {
+    if (!searchTerm) return allCourses;
+    const lower = searchTerm.toLowerCase();
+    return allCourses.filter(c => 
+      c.title?.toLowerCase().includes(lower) || 
+      c.category?.toLowerCase().includes(lower)
+    );
+  }, [allCourses, searchTerm]);
+
+  const handleDelete = async (courseId: string) => {
+    if (!firestore) return;
+    if (courseId.startsWith('mock-')) {
+      toast({ title: "Mock Data", description: "Sample data cannot be deleted." });
+      return;
+    }
+    if (!confirm("Are you sure you want to delete this course?")) return;
+
+    const docRef = doc(firestore, 'courses', courseId);
+    deleteDoc(docRef)
+      .then(() => {
+        toast({ title: "Deleted", description: "Course has been removed." });
+      })
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: docRef.path,
+          operation: 'delete',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        toast({
+          variant: "destructive",
+          title: "Delete Failed",
+          description: error.message || "Failed to delete course.",
+        });
+      });
+  };
+
   return (
     <div className="space-y-8">
       {/* Search & Actions Bar */}
@@ -150,6 +140,8 @@ export default function CoursesManagementPage() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
             placeholder="Search courses..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-[#35a3be]"
           />
         </div>
@@ -160,86 +152,98 @@ export default function CoursesManagementPage() {
         </Button>
       </div>
 
-      {/* Courses Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {courses.map((course) => (
-          <Card key={course.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
-            <div className="h-1.5 w-full bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between mb-6 gap-2">
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0", course.iconBg)}>
-                    <course.icon className={cn("w-6 h-6", course.iconColor)} />
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
+          <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+          <p className="font-bold">Syncing Courses Catalog...</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredCourses.map((course) => {
+            const Icon = course.icon || categoryIconMap[course.category] || BookOpen;
+            return (
+              <Card key={course.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
+                <div className="h-1.5 w-full bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-6 gap-2">
+                    <div className="flex items-center gap-3 flex-1 min-w-0 text-left">
+                      <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0", course.iconBg || "bg-blue-50")}>
+                        <Icon className={cn("w-6 h-6", course.iconColor || "text-blue-500")} />
+                      </div>
+                      <div className="flex flex-col min-w-0 flex-1">
+                        <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-[#35a3be] transition-colors truncate">
+                          {course.title}
+                        </h3>
+                        <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate uppercase tracking-tighter">
+                          {course.category}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-[#35a3be] hover:bg-[#35a3be]/5 rounded-lg flex-shrink-0">
+                          <MoreVertical className="w-4 h-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
+                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                          <span className="font-bold text-xs text-gray-700">View Course</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                          <span className="font-bold text-xs text-gray-700">Edit Details</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-gray-50" />
+                        <DropdownMenuItem 
+                          onClick={() => handleDelete(course.id)}
+                          className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
+                        >
+                          <Trash2 className="mr-2 h-4 w-4" />
+                          <span className="font-bold text-xs">Delete Course</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
-                  <div className="flex flex-col min-w-0 flex-1">
-                    <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-[#35a3be] transition-colors truncate">
-                      {course.title}
-                    </h3>
-                    <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate">
-                      {course.category}
-                    </p>
+
+                  {/* Internal stats grid */}
+                  <div className="grid grid-cols-3 gap-2 mb-6 bg-gray-50/50 rounded-2xl p-3 border border-gray-50">
+                    <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
+                      <Users className="w-3.5 h-3.5 text-gray-400" />
+                      <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.students || 0}</span>
+                      <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Students</span>
+                    </div>
+                    <div className="flex flex-col items-center text-center space-y-0.5 border-x border-gray-100 min-w-0">
+                      <BookOpen className="w-3.5 h-3.5 text-gray-400" />
+                      <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.modules?.length || course.lessons || 0}</span>
+                      <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Lessons</span>
+                    </div>
+                    <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
+                      <Clock className="w-3.5 h-3.5 text-gray-400" />
+                      <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.duration}</span>
+                      <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Term</span>
+                    </div>
                   </div>
-                </div>
-                
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-[#35a3be] hover:bg-[#35a3be]/5 rounded-lg flex-shrink-0">
-                      <MoreVertical className="w-4 h-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
-                    <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                      <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                      <span className="font-bold text-xs text-gray-700">View Course</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                      <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
-                      <span className="font-bold text-xs text-gray-700">Edit Modules</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-gray-50" />
-                    <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      <span className="font-bold text-xs">Delete Course</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
 
-              {/* Internal stats grid */}
-              <div className="grid grid-cols-3 gap-2 mb-6 bg-gray-50/50 rounded-2xl p-3 border border-gray-50">
-                <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
-                  <Users className="w-3.5 h-3.5 text-gray-400" />
-                  <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.students}</span>
-                  <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Students</span>
-                </div>
-                <div className="flex flex-col items-center text-center space-y-0.5 border-x border-gray-100 min-w-0">
-                  <BookOpen className="w-3.5 h-3.5 text-gray-400" />
-                  <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.lessons}</span>
-                  <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Lessons</span>
-                </div>
-                <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
-                  <Clock className="w-3.5 h-3.5 text-gray-400" />
-                  <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.duration}</span>
-                  <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Term</span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <Star className="w-3.5 h-3.5 text-[#fbbf24] fill-[#fbbf24]" />
-                  <span className="text-xs font-black text-gray-900">{course.rating}</span>
-                </div>
-                <Badge className={cn(
-                  "px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider border-none shadow-none",
-                  course.status === "Active" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
-                )}>
-                  {course.status}
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 text-[#fbbf24] fill-[#fbbf24]" />
+                      <span className="text-xs font-black text-gray-900">{course.rating || 5.0}</span>
+                    </div>
+                    <Badge className={cn(
+                      "px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider border-none shadow-none",
+                      course.status === "Active" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
+                    )}>
+                      {course.status}
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
