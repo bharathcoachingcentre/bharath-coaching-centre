@@ -125,6 +125,13 @@ export default function OurResultsPage() {
         <div className="absolute inset-0 top-16 bg-gradient-to-br from-blue-50/30 to-teal-50/30 rounded-t-[100px]"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              Our Students' <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">Celebrating exceptional achievements and academic excellence</p>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
               { icon: Trophy, val: "95%", label: "Pass Rate", color: "bg-blue-500" },
