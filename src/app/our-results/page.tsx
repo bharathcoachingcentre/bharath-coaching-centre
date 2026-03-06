@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Star, Trophy, Medal, GraduationCap, Crown } from "lucide-react";
+import { Star, Trophy, Medal, GraduationCap, Crown, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -108,12 +108,6 @@ const topPerformers = [
     img: "/kabir-singh.jpg"
   },
 ];
-
-const Award = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 15l-3.5 2 1-4-3-3 4-.5 1.5-4 1.5 4 4 .5-3 3 1 4L12 15z" />
-  </svg>
-);
 
 export default function OurResultsPage() {
   const [selectedYear, setSelectedYear] = React.useState<string>(years[0]);
@@ -235,7 +229,7 @@ export default function OurResultsPage() {
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">Celebrating the hard work and dedication of our brilliant students</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100 flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+          <div className="bg-white rounded-[16px] shadow-xl p-6 md:p-8 border border-gray-100 flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
             <h3 className="text-[24px] font-bold text-[#182d45] tracking-tight">Top Achievers 2025</h3>
             <div className="w-full md:w-auto min-w-[180px]">
               <Select defaultValue="2025">
@@ -253,7 +247,7 @@ export default function OurResultsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {topPerformers.map((student, idx) => (
-              <div key={idx} className="group bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white overflow-hidden transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2 text-left">
+              <div key={idx} className="group bg-white rounded-[16px] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white overflow-hidden transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.1)] hover:-translate-y-2 text-left">
                 <div className="relative h-64 w-full overflow-hidden">
                   <Image 
                     src={student.img} 
