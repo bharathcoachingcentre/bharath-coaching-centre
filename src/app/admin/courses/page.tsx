@@ -32,7 +32,7 @@ const courses = [
     category: "Web Development", 
     students: "342", 
     lessons: "48", 
-    duration: "12 weeks", 
+    duration: "12 w", 
     rating: "4.9", 
     status: "Active",
     icon: Rocket,
@@ -45,7 +45,7 @@ const courses = [
     category: "Data Science", 
     students: "891", 
     lessons: "64", 
-    duration: "16 weeks", 
+    duration: "16 w", 
     rating: "4.8", 
     status: "Active",
     icon: BarChart3,
@@ -58,7 +58,7 @@ const courses = [
     category: "Design", 
     students: "567", 
     lessons: "36", 
-    duration: "10 weeks", 
+    duration: "10 w", 
     rating: "4.7", 
     status: "Active",
     icon: Palette,
@@ -71,7 +71,7 @@ const courses = [
     category: "AI/ML", 
     students: "1203", 
     lessons: "80", 
-    duration: "20 weeks", 
+    duration: "20 w", 
     rating: "4.9", 
     status: "Active",
     icon: Bot,
@@ -84,7 +84,7 @@ const courses = [
     category: "Mobile", 
     students: "456", 
     lessons: "52", 
-    duration: "14 weeks", 
+    duration: "14 w", 
     rating: "4.6", 
     status: "Active",
     icon: Smartphone,
@@ -97,7 +97,7 @@ const courses = [
     category: "Cloud", 
     students: "234", 
     lessons: "32", 
-    duration: "8 weeks", 
+    duration: "8 w", 
     rating: "4.5", 
     status: "Draft",
     icon: Cloud,
@@ -110,7 +110,7 @@ const courses = [
     category: "Backend", 
     students: "623", 
     lessons: "44", 
-    duration: "12 weeks", 
+    duration: "12 w", 
     rating: "4.8", 
     status: "Active",
     icon: Cpu,
@@ -123,7 +123,7 @@ const courses = [
     category: "Programming", 
     students: "1580", 
     lessons: "28", 
-    duration: "8 weeks", 
+    duration: "8 w", 
     rating: "4.7", 
     status: "Active",
     icon: Terminal,
@@ -149,52 +149,53 @@ export default function CoursesManagementPage() {
         </Button>
       </div>
 
-      {/* Courses Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Courses Grid - 4 columns on large screens for "one row" consistency */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {courses.map((course) => (
           <Card key={course.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
             <div className="h-1.5 w-full bg-gradient-to-r from-purple-500 to-indigo-600"></div>
-            <CardContent className="p-8">
-              <div className="flex items-start justify-between mb-8">
-                <div className="flex items-center gap-4">
-                  <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", course.iconBg)}>
-                    <course.icon className={cn("w-7 h-7", course.iconColor)} />
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0", course.iconBg)}>
+                    <course.icon className={cn("w-6 h-6", course.iconColor)} />
                   </div>
-                  <div className="flex flex-col">
-                    <h3 className="font-bold text-gray-900 text-lg leading-tight group-hover:text-indigo-600 transition-colors">{course.title}</h3>
-                    <p className="text-sm font-medium text-gray-400 mt-1">{course.category}</p>
+                  <div className="flex flex-col min-w-0">
+                    <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-indigo-600 transition-colors truncate">{course.title}</h3>
+                    <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate">{course.category}</p>
                   </div>
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg">
-                  <MoreVertical className="w-5 h-5" />
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg flex-shrink-0">
+                  <MoreVertical className="w-4 h-4" />
                 </Button>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 rounded-2xl p-4 border border-gray-50">
-                <div className="flex flex-col items-center text-center space-y-1">
-                  <Users className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs font-black text-gray-900">{course.students}</span>
-                  <span className="text-[10px] text-gray-400 font-medium">Students</span>
+              {/* Internal stats grid - specifically ensuring it stays in one row */}
+              <div className="grid grid-cols-3 gap-2 mb-6 bg-gray-50/50 rounded-2xl p-3 border border-gray-50">
+                <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
+                  <Users className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.students}</span>
+                  <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Students</span>
                 </div>
-                <div className="flex flex-col items-center text-center space-y-1 border-x border-gray-100">
-                  <BookOpen className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs font-black text-gray-900">{course.lessons}</span>
-                  <span className="text-[10px] text-gray-400 font-medium">Lessons</span>
+                <div className="flex flex-col items-center text-center space-y-0.5 border-x border-gray-100 min-w-0">
+                  <BookOpen className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.lessons}</span>
+                  <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Lessons</span>
                 </div>
-                <div className="flex flex-col items-center text-center space-y-1">
-                  <Clock className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs font-black text-gray-900 truncate w-full px-1">{course.duration.split(' ')[0]} {course.duration.split(' ')[1].charAt(0)}</span>
-                  <span className="text-[10px] text-gray-400 font-medium">Duration</span>
+                <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
+                  <Clock className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.duration}</span>
+                  <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Duration</span>
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  <span className="text-sm font-black text-gray-900">{course.rating}</span>
+                <div className="flex items-center gap-1">
+                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                  <span className="text-xs font-black text-gray-900">{course.rating}</span>
                 </div>
                 <Badge className={cn(
-                  "px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border-none shadow-none",
+                  "px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider border-none shadow-none",
                   course.status === "Active" ? "bg-indigo-100 text-indigo-600" : "bg-gray-100 text-gray-500"
                 )}>
                   {course.status}
