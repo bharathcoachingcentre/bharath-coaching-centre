@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Users, 
@@ -25,13 +25,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-
-const stats = [
-  { label: "Total Enrollments", value: "2,847", trend: "+12.5% from last month", icon: Users, iconColor: "text-[#3b82f6]", iconBg: "bg-[#3b82f6]/10" },
-  { label: "Study Materials", value: "1,234", trend: "+8 new this week", icon: BookOpen, iconColor: "text-[#10b981]", iconBg: "bg-[#10b981]/10" },
-  { label: "Top Performers", value: "156", trend: "+23 this semester", icon: Trophy, iconColor: "text-[#f59e0b]", iconBg: "bg-[#f59e0b]/10" },
-  { label: "Active Courses", value: "48", trend: "3 launching soon", icon: GraduationCap, iconColor: "text-[#8b5cf6]", iconBg: "bg-[#8b5cf6]/10" },
-];
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, query, orderBy, limit } from "firebase/firestore";
+import Link from "next/link";
 
 const enrollmentData = [
   { name: "Jan", total: 120 },
@@ -49,22 +45,37 @@ const distributionData = [
   { name: "Competitive", value: 10, color: "#3b82f6" },
 ];
 
-const recentEnrollments = [
-  { name: "Ananya Krishnan", course: "Class 10 CBSE Maths", status: "Active", time: "2 hours ago", img: "https://picsum.photos/seed/ananya/100" },
-  { name: "Arjun Mehta", course: "Class 12 Samacheer Physics", status: "Active", time: "4 hours ago", img: "https://picsum.photos/seed/arjun/100" },
-  { name: "Divya Nair", course: "Class 9 CBSE Science", status: "Pending", time: "6 hours ago", img: "https://picsum.photos/seed/divya/100" },
-  { name: "Rohan Kapoor", course: "NEET Crash Course", status: "Active", time: "8 hours ago", img: "https://picsum.photos/seed/rohan/100" },
-  { name: "Sanya Gupta", course: "Class 11 Samacheer Chemistry", status: "Active", time: "12 hours ago", img: "https://picsum.photos/seed/sanya/100" },
-];
-
-const topPerformers = [
-  { name: "Vikram Malhotra", category: "Class 12 CBSE", score: "98%", rank: "#1", color: "bg-[#f59e0b]/10 text-[#f59e0b]" },
-  { name: "Nisha Reddy", category: "Class 10 Samacheer", score: "96%", rank: "#2", color: "bg-gray-100 text-gray-600" },
-  { name: "Kabir Singh", category: "JEE Advanced Prep", score: "95%", rank: "#3", color: "bg-amber-100 text-amber-600" },
-  { name: "Zara Ali", category: "Class 9 CBSE", score: "94%", rank: "#4", color: "bg-slate-100 text-slate-600" },
-];
-
 export default function AdminDashboard() {
+  const firestore = useFirestore();
+  
+  // Memoize queries for efficiency
+  const enrollmentsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+
+  const recentEnrollmentsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'), limit(5));
+  }, [firestore]);
+
+  const { data: allEnrollments } = useCollection(enrollmentsQuery);
+  const { data: recentEnrollments } = useCollection(recentEnrollmentsQuery);
+
+  const stats = [
+    { label: "Total Enrollments", value: allEnrollments?.length?.toString() || "0", trend: "+12.5% from last month", icon: Users, iconColor: "text-[#3b82f6]", iconBg: "bg-[#3b82f6]/10" },
+    { label: "Study Materials", value: "1,234", trend: "+8 new this week", icon: BookOpen, iconColor: "text-[#10b981]", iconBg: "bg-[#10b981]/10" },
+    { label: "Top Performers", value: "156", trend: "+23 this semester", icon: Trophy, iconColor: "text-[#f59e0b]", iconBg: "bg-[#f59e0b]/10" },
+    { label: "Active Courses", value: "48", trend: "3 launching soon", icon: GraduationCap, iconColor: "text-[#8b5cf6]", iconBg: "bg-[#8b5cf6]/10" },
+  ];
+
+  const topPerformers = [
+    { name: "Vikram Malhotra", category: "Class 12 CBSE", score: "98%", rank: "#1", color: "bg-[#f59e0b]/10 text-[#f59e0b]" },
+    { name: "Nisha Reddy", category: "Class 10 Samacheer", score: "96%", rank: "#2", color: "bg-gray-100 text-gray-600" },
+    { name: "Kabir Singh", category: "JEE Advanced Prep", score: "95%", rank: "#3", color: "bg-amber-100 text-amber-600" },
+    { name: "Zara Ali", category: "Class 9 CBSE", score: "94%", rank: "#4", color: "bg-slate-100 text-slate-600" },
+  ];
+
   return (
     <div className="space-y-8">
       {/* Stats Grid */}
@@ -177,33 +188,41 @@ export default function AdminDashboard() {
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <div className="p-8 pb-4 flex items-center justify-between">
             <h3 className="text-xl font-bold text-gray-900 tracking-tight">Recent Enrollments</h3>
-            <Button variant="link" className="text-[#35a3be] font-bold text-sm h-auto p-0 flex items-center gap-1 group">
-              View all <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <Button asChild variant="link" className="text-[#35a3be] font-bold text-sm h-auto p-0 flex items-center gap-1 group">
+              <Link href="/admin/enrollments">
+                View all <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
           </div>
           <CardContent className="p-4 pt-0">
             <div className="space-y-1">
-              {recentEnrollments.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors group">
-                  <Avatar className="h-12 w-12 rounded-xl">
-                    <AvatarImage src={item.img} />
-                    <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col flex-1 min-w-0">
-                    <span className="text-sm font-bold text-gray-900 truncate">{item.name}</span>
-                    <span className="text-[11px] font-medium text-gray-500">{item.course}</span>
+              {!recentEnrollments || recentEnrollments.length === 0 ? (
+                <div className="p-8 text-center text-gray-400 font-medium">No recent enrollments.</div>
+              ) : (
+                recentEnrollments.map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors group">
+                    <Avatar className="h-12 w-12 rounded-xl">
+                      <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${item.firstName}`} />
+                      <AvatarFallback>{item.firstName?.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col flex-1 min-w-0">
+                      <span className="text-sm font-bold text-gray-900 truncate">{item.firstName} {item.lastName}</span>
+                      <span className="text-[11px] font-medium text-gray-500 capitalize">{item.course?.replace(/-/g, ' ') || item.board}</span>
+                    </div>
+                    <div className="flex flex-col items-end gap-2">
+                      <Badge className={cn(
+                        "px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-none border-none",
+                        item.status === "Active" || item.status === "approved" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
+                      )}>
+                        {item.status || "Pending"}
+                      </Badge>
+                      <span className="text-[10px] font-medium text-gray-400">
+                        {item.createdAt?.toDate ? new Date(item.createdAt.toDate()).toLocaleDateString() : 'Just now'}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <Badge className={cn(
-                      "px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-none border-none",
-                      item.status === "Active" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
-                    )}>
-                      {item.status}
-                    </Badge>
-                    <span className="text-[10px] font-medium text-gray-400">{item.time}</span>
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </CardContent>
         </Card>
@@ -212,8 +231,10 @@ export default function AdminDashboard() {
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <div className="p-8 pb-4 flex items-center justify-between">
             <h3 className="text-xl font-bold text-gray-900 tracking-tight">Top Performers</h3>
-            <Button variant="link" className="text-[#35a3be] font-bold text-sm h-auto p-0 flex items-center gap-1 group">
-              View all <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <Button asChild variant="link" className="text-[#35a3be] font-bold text-sm h-auto p-0 flex items-center gap-1 group">
+              <Link href="/admin/results">
+                View all <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
           </div>
           <CardContent className="p-4 pt-0">

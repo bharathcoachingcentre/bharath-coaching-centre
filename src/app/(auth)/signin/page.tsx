@@ -16,14 +16,57 @@ import {
   DialogFooter,
   DialogTrigger 
 } from "@/components/ui/dialog";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { initializeFirebase } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { Loader2, Mail, Lock } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
 export default function SignInPage() {
     const { toast } = useToast();
+    const router = useRouter();
     const [resetEmail, setResetEmail] = useState("");
     const [isResetting, setIsResetting] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const form = useForm<z.infer<typeof loginSchema>>({
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+    });
+
+    const onLogin = async (values: z.infer<typeof loginSchema>) => {
+        setIsLoading(true);
+        try {
+            const { auth } = initializeFirebase();
+            await signInWithEmailAndPassword(auth, values.email, values.password);
+            toast({
+                title: "Welcome Back",
+                description: "Successfully signed in to your account.",
+            });
+            router.push("/admin");
+        } catch (error: any) {
+            console.error("Login error:", error);
+            toast({
+                variant: "destructive",
+                title: "Authentication Failed",
+                description: error.message || "Invalid email or password.",
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const handleForgotPassword = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -66,54 +109,89 @@ export default function SignInPage() {
                         <CardDescription className="text-gray-500 font-medium">Enter your email below to login to your account</CardDescription>
                     </CardHeader>
                     <CardContent className="p-8 pt-0">
-                        <form className="space-y-6">
-                            <div className="space-y-2">
-                                <Label htmlFor="email" className="font-bold text-[#182d45] text-sm">Email Address</Label>
-                                <Input id="email" type="email" placeholder="m@example.com" required className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be]" />
-                            </div>
-                            <div className="space-y-2">
-                                <div className="flex items-center justify-between">
-                                    <Label htmlFor="password" title="password" className="font-bold text-[#182d45] text-sm">Password</Label>
-                                    
-                                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                                        <DialogTrigger asChild>
-                                            <button type="button" className="text-xs font-bold text-[#35a3be] hover:underline">Forgot password?</button>
-                                        </DialogTrigger>
-                                        <DialogContent className="sm:max-w-md">
-                                            <DialogHeader>
-                                                <DialogTitle className="text-xl font-bold">Reset Password</DialogTitle>
-                                                <DialogDescription className="text-gray-500">
-                                                    Enter your email address and we'll send you a link to reset your password.
-                                                </DialogDescription>
-                                            </DialogHeader>
-                                            <div className="space-y-4 py-4">
-                                                <div className="space-y-2">
-                                                    <Label htmlFor="reset-email" className="font-bold">Email Address</Label>
-                                                    <Input 
-                                                        id="reset-email" 
-                                                        placeholder="m@example.com" 
-                                                        value={resetEmail} 
-                                                        onChange={(e) => setResetEmail(e.target.value)}
-                                                        className="rounded-xl"
-                                                    />
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onLogin)} className="space-y-6">
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-2">
+                                            <FormLabel className="font-bold text-[#182d45] text-sm">Email Address</FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                                    <Input placeholder="m@example.com" {...field} className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] pl-11" />
                                                 </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                
+                                <FormField
+                                    control={form.control}
+                                    name="password"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-2">
+                                            <div className="flex items-center justify-between">
+                                                <FormLabel className="font-bold text-[#182d45] text-sm">Password</FormLabel>
+                                                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                                                    <DialogTrigger asChild>
+                                                        <button type="button" className="text-xs font-bold text-[#35a3be] hover:underline">Forgot password?</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="sm:max-w-md">
+                                                        <DialogHeader>
+                                                            <DialogTitle className="text-xl font-bold">Reset Password</DialogTitle>
+                                                            <DialogDescription className="text-gray-500">
+                                                                Enter your email address and we'll send you a link to reset your password.
+                                                            </DialogDescription>
+                                                        </DialogHeader>
+                                                        <div className="space-y-4 py-4">
+                                                            <div className="space-y-2">
+                                                                <Label htmlFor="reset-email" className="font-bold">Email Address</Label>
+                                                                <Input 
+                                                                    id="reset-email" 
+                                                                    placeholder="m@example.com" 
+                                                                    value={resetEmail} 
+                                                                    onChange={(e) => setResetEmail(e.target.value)}
+                                                                    className="rounded-xl"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <DialogFooter>
+                                                            <Button 
+                                                                onClick={handleForgotPassword} 
+                                                                disabled={isResetting}
+                                                                className="w-full bg-[#35a3be] hover:bg-[#174f5f] rounded-xl h-12 font-bold"
+                                                            >
+                                                                {isResetting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                                                                {isResetting ? "Sending..." : "Send Reset Link"}
+                                                            </Button>
+                                                        </DialogFooter>
+                                                    </DialogContent>
+                                                </Dialog>
                                             </div>
-                                            <DialogFooter>
-                                                <Button 
-                                                    onClick={handleForgotPassword} 
-                                                    disabled={isResetting}
-                                                    className="w-full bg-[#35a3be] hover:bg-[#174f5f] rounded-xl h-12 font-bold"
-                                                >
-                                                    {isResetting ? "Sending..." : "Send Reset Link"}
-                                                </Button>
-                                            </DialogFooter>
-                                        </DialogContent>
-                                    </Dialog>
-                                </div>
-                                <Input id="password" type="password" required placeholder="••••••••" className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be]" />
-                            </div>
-                            <Button type="submit" className="w-full h-14 bg-[#35a3be] hover:bg-[#174f5f] text-white font-black text-lg rounded-2xl shadow-xl shadow-[#35a3be]/20 transition-all duration-300 transform active:scale-95">Sign In</Button>
-                        </form>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                                    <Input type="password" placeholder="••••••••" {...field} className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] pl-11" />
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <Button 
+                                    type="submit" 
+                                    disabled={isLoading}
+                                    className="w-full h-14 bg-[#35a3be] hover:bg-[#174f5f] text-white font-black text-lg rounded-2xl shadow-xl shadow-[#35a3be]/20 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2"
+                                >
+                                    {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
+                                    {isLoading ? "Signing In..." : "Sign In"}
+                                </Button>
+                            </form>
+                        </Form>
                         <div className="mt-8 text-center">
                             <p className="text-sm text-gray-500 font-medium">
                                 Don't have an account? <Link href="/student-registration" className="text-[#35a3be] font-bold hover:underline">Register Now</Link>

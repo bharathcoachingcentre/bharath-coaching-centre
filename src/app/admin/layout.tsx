@@ -1,6 +1,5 @@
 "use client";
 
-import type { Metadata } from 'next';
 import '../globals.css';
 import { 
   LayoutDashboard, 
@@ -17,9 +16,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { initializeFirebase, useUser } from "@/firebase";
+import { signOut } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
@@ -35,6 +37,27 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { toast } = useToast();
+  const { user } = useUser();
+
+  const handleSignOut = async () => {
+    try {
+        const { auth } = initializeFirebase();
+        await signOut(auth);
+        toast({
+            title: "Signed Out",
+            description: "You have been securely signed out.",
+        });
+        router.push("/signin");
+    } catch (error: any) {
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Failed to sign out. Please try again.",
+        });
+    }
+  };
 
   const getPageTitle = () => {
     const item = menuItems.find(item => item.href === pathname);
@@ -112,15 +135,20 @@ export default function AdminLayout({
           <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between">
             <div className="flex items-center gap-3 overflow-hidden">
               <Avatar className="h-10 w-10 border-2 border-[#35a3be]/20">
-                <AvatarImage src="https://picsum.photos/seed/admin/100" />
+                <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
                 <AvatarFallback>AU</AvatarFallback>
               </Avatar>
               <div className="flex flex-col truncate">
-                <span className="text-white text-sm font-bold truncate">Admin User</span>
-                <span className="text-[10px] truncate opacity-50 font-medium">admin@edu.com</span>
+                <span className="text-white text-sm font-bold truncate">{user?.displayName || "Admin User"}</span>
+                <span className="text-[10px] truncate opacity-50 font-medium">{user?.email || "admin@edu.com"}</span>
               </div>
             </div>
-            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10">
+            <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={handleSignOut}
+                className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10"
+            >
               <LogOut className="w-4 h-4" />
             </Button>
           </div>
