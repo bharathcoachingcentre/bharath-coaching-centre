@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -21,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const enrollments = [
   { id: "ENR-001", name: "Sarah Chen", email: "sarah@email.com", course: "Advanced React", date: "2026-03-01", progress: 72, status: "Active" },
@@ -59,8 +61,10 @@ export default function EnrollmentsPage() {
           <Button variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
             <ExportIcon className="w-4 h-4" /> Export
           </Button>
-          <Button className="h-12 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 gap-2">
-            <Plus className="w-5 h-5" /> Add Enrollment
+          <Button asChild className="h-12 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 gap-2 cursor-pointer">
+            <Link href="/admin/enrollments/add">
+              <Plus className="w-5 h-5" /> Add Enrollment
+            </Link>
           </Button>
         </div>
       </div>
@@ -116,7 +120,7 @@ export default function EnrollmentsPage() {
                   </Badge>
                 </TableCell>
                 <TableCell className="px-8 py-6 text-right">
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:bg-gray-100 rounded-lg">
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-600 rounded-lg">
                     <MoreVertical className="w-4 h-4" />
                   </Button>
                 </TableCell>
