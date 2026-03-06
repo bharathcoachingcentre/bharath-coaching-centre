@@ -102,7 +102,7 @@ const topPerformers = [
 export default function OurResultsPage() {
   return (
     <div>
-      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
+      <section className="relative w-full flex items-center justify-center pt-20" style={{ height: '500px' }}>
         <Image
           src="/Our-result.jpg"
           alt="Our Results Banner"
@@ -129,7 +129,7 @@ export default function OurResultsPage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Our Students' <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">Celebrating exceptional achievements and academic excellence</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">Celebrating exceptional achievements and academic excellence.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -142,7 +142,9 @@ export default function OurResultsPage() {
                 <div className={cn("w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl text-white transform transition-transform group-hover:scale-110", stat.color)}>
                   <stat.icon className="w-10 h-10" />
                 </div>
-                <div className="text-5xl font-black text-[#182d45] mb-2 tracking-tighter">{stat.val}</div>
+                <div className="text-5xl font-black text-[#182d45] mb-2 tracking-tighter">
+                  {stat.val}
+                </div>
                 <div className="text-sm font-bold text-[#35a3be] uppercase tracking-[0.25em]">{stat.label}</div>
               </div>
             ))}
