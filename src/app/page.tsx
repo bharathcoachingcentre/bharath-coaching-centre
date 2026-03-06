@@ -428,6 +428,9 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        {/* Bottom Fade Effect */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-20 pointer-events-none"></div>
       </section>
 
       {/* Features Section */}
@@ -456,7 +459,7 @@ export default function HomePage() {
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 tracking-tight">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
+                <p className="text-getay-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
