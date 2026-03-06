@@ -88,11 +88,11 @@ export function Header() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="ghost" asChild className="text-gray-700 font-semibold hover:text-blue-600 hover:bg-blue-50 border-2 border-transparent hover:border-blue-100 rounded-lg px-6 transition-all">
-              <Link href="#">Explore Courses</Link>
-            </Button>
             <Button asChild className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-200 transform hover:scale-105 px-8 h-11">
               <Link href="#">Book Free Demo</Link>
+            </Button>
+            <Button variant="ghost" asChild className="text-gray-700 font-semibold hover:text-blue-600 hover:bg-blue-50 border-2 border-transparent hover:border-blue-100 rounded-lg px-6 transition-all">
+              <Link href="/signin">Login</Link>
             </Button>
           </div>
 
@@ -126,6 +126,11 @@ export function Header() {
                     <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold h-14 rounded-xl text-lg shadow-lg">
                       <Link href="#">Book Free Demo</Link>
                     </Button>
+                    <SheetClose asChild>
+                      <Button variant="outline" asChild className="w-full h-14 rounded-xl font-bold text-lg">
+                        <Link href="/signin">Login</Link>
+                      </Button>
+                    </SheetClose>
                   </div>
                 </div>
               </SheetContent>
