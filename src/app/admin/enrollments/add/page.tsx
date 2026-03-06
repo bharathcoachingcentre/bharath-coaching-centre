@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   ArrowLeft, 
   UserPlus, 
@@ -59,6 +60,12 @@ export default function AddEnrollmentPage() {
   const router = useRouter();
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [generatedAdmissionNo, setGeneratedAdmissionNo] = useState("");
+
+  useEffect(() => {
+    // Generate admission number on mount
+    setGeneratedAdmissionNo(`ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`);
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -79,7 +86,7 @@ export default function AddEnrollmentPage() {
         toast({
             variant: "destructive",
             title: "Database Error",
-            description: "Firestore is not initialized. Please check your configuration.",
+            description: "Firestore is not initialized. Please refresh the page.",
         });
         return;
     }
@@ -87,7 +94,6 @@ export default function AddEnrollmentPage() {
     setIsSubmitting(true);
 
     try {
-        const admissionNo = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
         const submissionData = {
           firstName: values.firstName,
           lastName: values.lastName,
@@ -97,7 +103,7 @@ export default function AddEnrollmentPage() {
           admissionDate: values.startDate,
           feesDetails: values.paymentPlan,
           notes: values.notes || "",
-          admissionNo,
+          admissionNo: generatedAdmissionNo,
           status: "Active",
           progress: 0,
           createdAt: serverTimestamp(),
@@ -108,7 +114,7 @@ export default function AddEnrollmentPage() {
 
         toast({
           title: "Enrollment Created",
-          description: `Student ${values.firstName} has been successfully registered. Admission No: ${admissionNo}`,
+          description: `Student ${values.firstName} has been successfully registered.`,
         });
         
         router.push("/admin/enrollments");
@@ -119,7 +125,7 @@ export default function AddEnrollmentPage() {
         toast({
             variant: "destructive",
             title: "Submission Failed",
-            description: error.message || "Failed to create enrollment. Please try again.",
+            description: error.message || "Could not save enrollment. Please check your network.",
         });
 
         if (error.code === 'permission-denied') {

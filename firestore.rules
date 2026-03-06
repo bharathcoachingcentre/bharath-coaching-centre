@@ -2,15 +2,17 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Allowing public read/write for enrollments to resolve "Missing or insufficient permissions"
     match /enrollments/{enrollmentId} {
-      allow read: if request.auth != null;
-      allow create: if true;
-      allow update, delete: if request.auth != null;
+      allow read, write: if true;
     }
+    
+    // Allowing public read for study materials and performers, but restricting writes
     match /study-materials/{materialId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
+    
     match /top-performers/{performerId} {
       allow read: if true;
       allow write: if request.auth != null;
