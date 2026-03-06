@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -44,6 +45,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useFirestore } from "@/firebase"
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 const formSchema = z.object({
     firstName: z.string().min(1, { message: "First name is required." }),
@@ -87,6 +92,7 @@ const subjectItems = [
 
 export default function EnrollmentPage() {
     const { toast } = useToast();
+    const firestore = useFirestore();
     const [isMounted, setIsMounted] = useState(false);
     const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -144,15 +150,35 @@ export default function EnrollmentPage() {
     };
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
-        toast({
-            title: "Application Submitted Successfully!",
-            description: `Application for ${values.firstName} ${values.lastName} has been received. Admission No: ${values.admissionNo}`,
-        });
-        // Generate new ID for next possible entry if not navigating away
-        const nextId = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
-        form.reset({ admissionNo: nextId, admissionDate: new Date(), academicYear: "2025-2026" });
-        setSelectedFileName(null);
+        if (!firestore) return;
+
+        const enrollmentsRef = collection(firestore, 'enrollments');
+        const submissionData = {
+            ...values,
+            dob: values.dob.toISOString(),
+            admissionDate: values.admissionDate.toISOString(),
+            status: 'pending',
+            createdAt: serverTimestamp(),
+        };
+
+        addDoc(enrollmentsRef, submissionData)
+            .then(() => {
+                toast({
+                    title: "Application Submitted Successfully!",
+                    description: `Application for ${values.firstName} ${values.lastName} has been received. Admission No: ${values.admissionNo}`,
+                });
+                const nextId = `ADM-${Math.random().toString(36).substr(2, 7).toUpperCase()}`;
+                form.reset({ admissionNo: nextId, admissionDate: new Date(), academicYear: "2025-2026" });
+                setSelectedFileName(null);
+            })
+            .catch(async (error) => {
+                const permissionError = new FirestorePermissionError({
+                    path: 'enrollments',
+                    operation: 'create',
+                    requestResourceData: submissionData,
+                });
+                errorEmitter.emit('permission-error', permissionError);
+            });
     }
 
     return (
@@ -710,7 +736,7 @@ export default function EnrollmentPage() {
                             <Button 
                                 type="submit" 
                                 size="lg" 
-                                className="w-full md:w-auto min-w-[320px] h-16 text-xl font-black text-white rounded-[1.25rem] shadow-2xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/40 transition-all duration-500 transform active:scale-95 group"
+                                className="w-full md:w-auto min-w-[320px] h-16 text-xl font-bold text-white rounded-[1.25rem] shadow-2xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/40 transition-all duration-500 transform active:scale-95 group"
                             >
                                 <Send className="w-6 h-6 mr-3 group-hover:animate-pulse" />
                                 Submit Application

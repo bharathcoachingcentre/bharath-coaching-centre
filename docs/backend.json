@@ -1,0 +1,82 @@
+
+{
+  "entities": {
+    "Enrollment": {
+      "title": "Enrollment",
+      "description": "Student enrollment application data.",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "gender": { "type": "string" },
+        "dob": { "type": "string", "format": "date" },
+        "religion": { "type": "string" },
+        "fatherName": { "type": "string" },
+        "fatherOccupation": { "type": "string" },
+        "motherName": { "type": "string" },
+        "motherOccupation": { "type": "string" },
+        "academicYear": { "type": "string" },
+        "standard": { "type": "string" },
+        "subjects": { "type": "array", "items": { "type": "string" } },
+        "institutionName": { "type": "string" },
+        "board": { "type": "string" },
+        "batchTiming": { "type": "string" },
+        "feesDetails": { "type": "string" },
+        "admissionDate": { "type": "string", "format": "date" },
+        "admissionNo": { "type": "string" },
+        "fatherNo": { "type": "string" },
+        "motherNo": { "type": "string" },
+        "whatsappNo": { "type": "string" },
+        "residentialAddress": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["firstName", "lastName", "admissionNo"]
+    },
+    "StudyMaterial": {
+      "title": "Study Material",
+      "description": "Educational resources available for download.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "grade": { "type": "string" },
+        "pdfUrl": { "type": "string" },
+        "subject": { "type": "string" }
+      },
+      "required": ["title", "category", "grade"]
+    },
+    "TopPerformer": {
+      "title": "Top Performer",
+      "description": "Student achievement data for the results page.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "grade": { "type": "string" },
+        "marks": { "type": "string" },
+        "rank": { "type": "string" },
+        "year": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["name", "marks", "year"]
+    }
+  },
+  "auth": {
+    "providers": ["email"]
+  },
+  "firestore": {
+    "/enrollments/{enrollmentId}": {
+      "schema": { "$ref": "#/entities/Enrollment" },
+      "description": "Collection of student applications."
+    },
+    "/study-materials/{materialId}": {
+      "schema": { "$ref": "#/entities/StudyMaterial" },
+      "description": "Collection of downloadable study resources."
+    },
+    "/top-performers/{performerId}": {
+      "schema": { "$ref": "#/entities/TopPerformer" },
+      "description": "Collection of top performing students."
+    }
+  }
+}
