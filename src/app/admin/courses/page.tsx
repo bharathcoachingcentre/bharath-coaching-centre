@@ -17,11 +17,21 @@ import {
   Users,
   Clock,
   Star,
-  MoreVertical
+  MoreVertical,
+  Eye,
+  Pencil,
+  Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -171,9 +181,29 @@ export default function CoursesManagementPage() {
                     </p>
                   </div>
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg flex-shrink-0">
-                  <MoreVertical className="w-4 h-4" />
-                </Button>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg flex-shrink-0">
+                      <MoreVertical className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
+                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                      <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                      <span className="font-bold text-xs">View Course</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                      <Pencil className="mr-2 h-4 w-4 text-indigo-500" />
+                      <span className="font-bold text-xs">Edit Modules</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-gray-50" />
+                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      <span className="font-bold text-xs">Delete Course</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
 
               {/* Internal stats grid */}

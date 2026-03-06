@@ -12,11 +12,20 @@ import {
   File, 
   Download, 
   Eye,
-  MoreVertical
+  MoreVertical,
+  Pencil,
+  Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -139,9 +148,29 @@ export default function StudyMaterialsPage() {
                 <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", item.iconBg)}>
                   <item.icon className={cn("w-7 h-7", item.iconColor)} />
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg">
-                  <MoreVertical className="w-5 h-5" />
-                </Button>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg">
+                      <MoreVertical className="w-5 h-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
+                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                      <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                      <span className="font-bold text-xs">Preview</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                      <Pencil className="mr-2 h-4 w-4 text-indigo-500" />
+                      <span className="font-bold text-xs">Edit Metadata</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-gray-50" />
+                    <DropdownMenuItem className="p-2 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg">
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      <span className="font-bold text-xs">Delete File</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
 
               <div className="space-y-1 mb-6">
