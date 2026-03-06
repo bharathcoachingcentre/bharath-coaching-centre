@@ -8,6 +8,7 @@
       "properties": {
         "firstName": { "type": "string" },
         "lastName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
         "gender": { "type": "string" },
         "dob": { "type": "string", "format": "date" },
         "religion": { "type": "string" },
@@ -28,8 +29,9 @@
         "motherNo": { "type": "string" },
         "whatsappNo": { "type": "string" },
         "residentialAddress": { "type": "string" },
-        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
-        "createdAt": { "type": "string", "format": "date-time" }
+        "status": { "type": "string", "enum": ["Active", "pending", "Completed", "Dropped"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
       },
       "required": ["firstName", "lastName", "admissionNo"]
     },

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState } from "react";
@@ -37,13 +38,13 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { useFirestore, useDoc } from "@/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from "@/firebase/error-emitter";
-import { FirestorePermissionError } from "@/firebase/errors";
+import { FirestorePermissionError, type SecurityRuleContext } from "@/firebase/errors";
 import Link from "next/link";
 
 const formSchema = z.object({
@@ -63,7 +64,7 @@ export default function EnrollmentDetailPage() {
   const router = useRouter();
   const { toast } = useToast();
   const firestore = useFirestore();
-  const enrollmentId = params.id as string;
+  const enrollmentId = params?.id as string;
   const isEditModeParam = searchParams.get("edit") === "true";
   
   const [isEditing, setIsEditMode] = useState(isEditModeParam);
@@ -91,7 +92,7 @@ export default function EnrollmentDetailPage() {
   });
 
   useEffect(() => {
-    if (enrollment) {
+    if (enrollment && !isSaving && !form.formState.isDirty) {
       form.reset({
         firstName: enrollment.firstName || "",
         lastName: enrollment.lastName || "",
@@ -103,16 +104,18 @@ export default function EnrollmentDetailPage() {
         residentialAddress: enrollment.residentialAddress || "",
       });
     }
-  }, [enrollment, form]);
+  }, [enrollment, form, isSaving]);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !enrollmentId) return;
     setIsSaving(true);
 
     const ref = doc(firestore, "enrollments", enrollmentId);
+    
+    // Non-blocking write per guidelines
     updateDoc(ref, {
       ...values,
-      updatedAt: new Date().toISOString(),
+      updatedAt: serverTimestamp(),
     })
       .then(() => {
         toast({
@@ -121,14 +124,18 @@ export default function EnrollmentDetailPage() {
         });
         setIsEditMode(false);
         setIsSaving(false);
+        // Explicitly reset form to clear dirty state after success
+        form.reset(values);
       })
       .catch(async (error) => {
         const permissionError = new FirestorePermissionError({
           path: ref.path,
           operation: "update",
           requestResourceData: values,
-        });
-        errorEmitter.emit("permission-error", permissionError);
+        } satisfies SecurityRuleContext);
+        
+        errorEmitter.emit('permission-error', permissionError);
+        
         toast({
           variant: "destructive",
           title: "Update Failed",
