@@ -165,7 +165,7 @@ export default function EnrollmentPage() {
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-[0.2em] mb-6">
                         <GraduationCap className="w-4 h-4" /> Admission 2025-26
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight">
+                    <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight">
                         Student <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">Application Form</span>
                     </h1>
                     <p className="mt-4 text-gray-400 max-w-2xl mx-auto font-medium">
