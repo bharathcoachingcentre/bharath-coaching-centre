@@ -1,3 +1,5 @@
+"use client";
+
 import type { Metadata } from 'next';
 import '../globals.css';
 import { 
@@ -15,19 +17,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-export const metadata: Metadata = {
-  title: 'EduAdmin - Management Panel',
-  description: 'Overview of your education platform',
-};
+import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/admin", active: true },
-  { icon: Users, label: "Enrollments", href: "/admin" },
-  { icon: BookOpen, label: "Study Materials", href: "/admin" },
-  { icon: Trophy, label: "Results", href: "/admin" },
-  { icon: GraduationCap, label: "Courses", href: "/admin" },
+  { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
+  { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
+  { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
+  { icon: Trophy, label: "Results", href: "/admin/results" },
+  { icon: GraduationCap, label: "Courses", href: "/admin/courses" },
 ];
 
 export default function AdminLayout({
@@ -35,10 +34,22 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+
+  const getPageTitle = () => {
+    const item = menuItems.find(item => item.href === pathname);
+    return item ? item.label : "Admin";
+  };
+
+  const getPageSubtitle = () => {
+    if (pathname === "/admin/enrollments") return "Manage student enrollments";
+    return "Overview of your education platform";
+  };
+
   return (
     <div className="flex min-h-screen bg-[#f8fafc]">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#1e1e2d] text-gray-400 flex flex-col hidden md:flex">
+      <aside className="w-64 bg-[#1e1e2d] text-gray-400 flex flex-col hidden md:flex sticky top-0 h-screen">
         <div className="p-6 flex items-center gap-3">
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
             <GraduationCap className="w-6 h-6" />
@@ -53,28 +64,38 @@ export default function AdminLayout({
           <div>
             <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">Main Menu</p>
             <div className="space-y-1">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
-                    item.active 
-                      ? "bg-white/10 text-white" 
-                      : "hover:bg-white/5 hover:text-gray-200"
-                  }`}
-                >
-                  <item.icon className={`w-5 h-5 ${item.active ? "text-indigo-400" : "group-hover:text-gray-200"}`} />
-                  <span className="font-medium text-sm">{item.label}</span>
-                </Link>
-              ))}
+              {menuItems.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
+                      isActive 
+                        ? "bg-white/10 text-white shadow-sm" 
+                        : "hover:bg-white/5 hover:text-gray-200"
+                    )}
+                  >
+                    <item.icon className={cn(
+                      "w-5 h-5",
+                      isActive ? "text-indigo-400" : "group-hover:text-gray-200"
+                    )} />
+                    <span className="font-medium text-sm">{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           <div>
             <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">System</p>
             <Link
-              href="/admin"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group hover:text-gray-200"
+              href="/admin/settings"
+              className={cn(
+                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
+                pathname === "/admin/settings" ? "bg-white/10 text-white" : "hover:bg-white/5 hover:text-gray-200"
+              )}
             >
               <Settings className="w-5 h-5 group-hover:text-gray-200" />
               <span className="font-medium text-sm">Settings</span>
@@ -102,16 +123,15 @@ export default function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Header - EXACTLY AS PER SCREENSHOT */}
-        <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 shrink-0">
+      <div className="flex-1 flex flex-col min-w-0">
+        <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 shrink-0 sticky top-0 z-30">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100">
               <PanelLeft className="w-5 h-5" />
             </Button>
             <div className="flex flex-col">
-              <h1 className="text-xl font-bold text-gray-900 leading-none">Dashboard</h1>
-              <p className="text-xs text-gray-500 font-medium mt-1">Overview of your education platform</p>
+              <h1 className="text-xl font-bold text-gray-900 leading-none">{getPageTitle()}</h1>
+              <p className="text-xs text-gray-500 font-medium mt-1">{getPageSubtitle()}</p>
             </div>
           </div>
 
@@ -132,7 +152,6 @@ export default function AdminLayout({
           </div>
         </header>
 
-        {/* Viewport */}
         <main className="flex-1 overflow-y-auto p-8 no-scrollbar">
           <div className="max-w-7xl mx-auto space-y-8 pb-8">
             {children}
