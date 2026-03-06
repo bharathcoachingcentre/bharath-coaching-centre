@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -8,7 +9,6 @@ import {
   Trophy, 
   GraduationCap, 
   ArrowUpRight,
-  MoreVertical,
   ChevronRight
 } from "lucide-react";
 import { 
@@ -22,11 +22,6 @@ import {
   PieChart,
   Pie
 } from "recharts";
-import { 
-  ChartContainer, 
-  ChartTooltip, 
-  ChartTooltipContent 
-} from "@/components/ui/chart";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -49,25 +44,25 @@ const enrollmentData = [
 ];
 
 const distributionData = [
-  { name: "Web Dev", value: 35, color: "#4f46e5" },
-  { name: "Data Science", value: 28, color: "#10b981" },
-  { name: "Design", value: 20, color: "#f59e0b" },
-  { name: "Mobile", value: 17, color: "#3b82f6" },
+  { name: "CBSE (9-12)", value: 45, color: "#4f46e5" },
+  { name: "Samacheer (9-12)", value: 30, color: "#10b981" },
+  { name: "Foundation (1-8)", value: 15, color: "#f59e0b" },
+  { name: "Competitive", value: 10, color: "#3b82f6" },
 ];
 
 const recentEnrollments = [
-  { name: "Sarah Chen", course: "Advanced React", status: "Active", time: "2 hours ago", img: "https://picsum.photos/seed/sarah/100" },
-  { name: "James Wilson", course: "Data Science 101", status: "Active", time: "4 hours ago", img: "https://picsum.photos/seed/james/100" },
-  { name: "Emma Davis", course: "UX Design", status: "Pending", time: "6 hours ago", img: "https://picsum.photos/seed/emma/100" },
-  { name: "Raj Patel", course: "Machine Learning", status: "Active", time: "8 hours ago", img: "https://picsum.photos/seed/raj/100" },
-  { name: "Lisa Park", course: "Flutter Dev", status: "Active", time: "12 hours ago", img: "https://picsum.photos/seed/lisa/100" },
+  { name: "Ananya Krishnan", course: "Class 10 CBSE Maths", status: "Active", time: "2 hours ago", img: "https://picsum.photos/seed/ananya/100" },
+  { name: "Arjun Mehta", course: "Class 12 Samacheer Physics", status: "Active", time: "4 hours ago", img: "https://picsum.photos/seed/arjun/100" },
+  { name: "Divya Nair", course: "Class 9 CBSE Science", status: "Pending", time: "6 hours ago", img: "https://picsum.photos/seed/divya/100" },
+  { name: "Rohan Kapoor", course: "NEET Crash Course", status: "Active", time: "8 hours ago", img: "https://picsum.photos/seed/rohan/100" },
+  { name: "Sanya Gupta", course: "Class 11 Samacheer Chemistry", status: "Active", time: "12 hours ago", img: "https://picsum.photos/seed/sanya/100" },
 ];
 
 const topPerformers = [
-  { name: "Alex Johnson", category: "Web Dev", score: "98%", rank: "#1", color: "bg-orange-100 text-orange-600" },
-  { name: "Maria Garcia", category: "Data Science", score: "96%", rank: "#2", color: "bg-gray-100 text-gray-600" },
-  { name: "Tom Lee", category: "React Advanced", score: "95%", rank: "#3", color: "bg-amber-100 text-amber-600" },
-  { name: "Nina Wolf", category: "UX Design", score: "94%", rank: "#4", color: "bg-slate-100 text-slate-600" },
+  { name: "Vikram Malhotra", category: "Class 12 CBSE", score: "98%", rank: "#1", color: "bg-orange-100 text-orange-600" },
+  { name: "Nisha Reddy", category: "Class 10 Samacheer", score: "96%", rank: "#2", color: "bg-gray-100 text-gray-600" },
+  { name: "Kabir Singh", category: "JEE Advanced Prep", score: "95%", rank: "#3", color: "bg-amber-100 text-amber-600" },
+  { name: "Zara Ali", category: "Class 9 CBSE", score: "94%", rank: "#4", color: "bg-slate-100 text-slate-600" },
 ];
 
 export default function AdminDashboard() {
@@ -138,7 +133,7 @@ export default function AdminDashboard() {
         {/* Distribution Chart */}
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <CardContent className="p-8">
-            <h3 className="text-xl font-bold text-gray-900 tracking-tight mb-8">Course Distribution</h3>
+            <h3 className="text-xl font-bold text-gray-900 tracking-tight mb-8">Board Distribution</h3>
             <div className="h-[220px] w-full relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>

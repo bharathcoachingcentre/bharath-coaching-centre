@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -22,19 +23,19 @@ import Link from "next/link";
 const materials = [
   { 
     id: 1, 
-    title: "React Fundamentals Guide", 
-    course: "Advanced React", 
+    title: "Class 10 CBSE Maths NCERT Solutions", 
+    course: "Class 10 CBSE", 
     type: "PDF", 
-    size: "2.4 MB", 
-    downloads: 342, 
+    size: "4.2 MB", 
+    downloads: 1242, 
     icon: FileText, 
     iconColor: "text-purple-600", 
     iconBg: "bg-purple-100" 
   },
   { 
     id: 2, 
-    title: "Data Structures Video Series", 
-    course: "Data Science 101", 
+    title: "Class 12 Physics derivation series", 
+    course: "Class 12 Samacheer", 
     type: "Video", 
     size: "1.2 GB", 
     downloads: 891, 
@@ -44,10 +45,10 @@ const materials = [
   },
   { 
     id: 3, 
-    title: "UI/UX Design Principles", 
-    course: "UX Design Pro", 
+    title: "Class 9 CBSE Science Chapter 1 Notes", 
+    course: "Class 9 CBSE", 
     type: "PDF", 
-    size: "5.8 MB", 
+    size: "2.8 MB", 
     downloads: 567, 
     icon: FileText, 
     iconColor: "text-indigo-600", 
@@ -55,19 +56,19 @@ const materials = [
   },
   { 
     id: 4, 
-    title: "ML Algorithm Cheatsheet", 
-    course: "Machine Learning", 
+    title: "NEET Biology Formula Sheet", 
+    course: "NEET Crash Course", 
     type: "Image", 
     size: "800 KB", 
-    downloads: 1203, 
+    downloads: 3203, 
     icon: ImageIcon, 
     iconColor: "text-orange-600", 
     iconBg: "bg-orange-100" 
   },
   { 
     id: 5, 
-    title: "API Development Workshop", 
-    course: "Node.js Backend", 
+    title: "Class 11 Chemistry Periodic Table Guide", 
+    course: "Class 11 Samacheer", 
     type: "Video", 
     size: "890 MB", 
     downloads: 456, 
@@ -77,8 +78,8 @@ const materials = [
   },
   { 
     id: 6, 
-    title: "Cloud Architecture Guide", 
-    course: "AWS Cloud", 
+    title: "JEE Main Physics Practice Paper", 
+    course: "JEE Main Prep", 
     type: "PDF", 
     size: "3.1 MB", 
     downloads: 234, 
@@ -88,8 +89,8 @@ const materials = [
   },
   { 
     id: 7, 
-    title: "Flutter Widget Catalog", 
-    course: "Flutter Dev", 
+    title: "Class 8 English Grammar Workbook", 
+    course: "Class 8 CBSE", 
     type: "Document", 
     size: "1.5 MB", 
     downloads: 178, 
@@ -99,8 +100,8 @@ const materials = [
   },
   { 
     id: 8, 
-    title: "Python Practice Problems", 
-    course: "Python Basics", 
+    title: "Class 10 Samacheer Tamil Solutions", 
+    course: "Class 10 Samacheer", 
     type: "PDF", 
     size: "900 KB", 
     downloads: 623, 

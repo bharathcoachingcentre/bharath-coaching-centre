@@ -9,7 +9,6 @@ import {
   Trophy, 
   Medal, 
   Award,
-  ArrowUpRight,
 } from "lucide-react";
 import { 
   BarChart, 
@@ -50,16 +49,16 @@ const gradeData = [
 ];
 
 const leaderboard = [
-  { rank: "#1", name: "Alex Johnson", course: "Advanced React", score: "98.5%", grade: "A+", icon: "🥇" },
-  { rank: "#2", name: "Maria Garcia", course: "Data Science 101", score: "97.2%", grade: "A+", icon: "🥈" },
-  { rank: "#3", name: "Tom Lee", course: "React Advanced", score: "96.8%", grade: "A+", icon: "🥉" },
-  { rank: "#4", name: "Nina Wolf", course: "UX Design Pro", score: "95.1%", grade: "A+", icon: null },
-  { rank: "#5", name: "David Kim", course: "Machine Learning", score: "94.7%", grade: "A", icon: null },
-  { rank: "#6", name: "Sophie Turner", course: "AWS Cloud", score: "93.9%", grade: "A", icon: null },
-  { rank: "#7", name: "Chris Evans", course: "Flutter Dev", score: "93.2%", grade: "A", icon: null },
-  { rank: "#8", name: "Priya Sharma", course: "Python Basics", score: "92.8%", grade: "A", icon: null },
-  { rank: "#9", name: "Luke Anderson", course: "Node.js Backend", score: "91.5%", grade: "A", icon: null },
-  { rank: "#10", name: "Zara Ali", course: "Data Science 101", score: "91%", grade: "A", icon: null },
+  { rank: "#1", name: "Ananya Krishnan", course: "Class 10 CBSE", score: "98.6%", grade: "A+", icon: "🥇" },
+  { rank: "#2", name: "Arjun Mehta", course: "Class 12 CBSE", score: "97.8%", grade: "A+", icon: "🥈" },
+  { rank: "#3", name: "Divya Nair", course: "Class 10 Samacheer", score: "96.4%", grade: "A+", icon: "🥉" },
+  { rank: "#4", name: "Rohan Kapoor", course: "Class 12 CBSE", score: "95.2%", grade: "A+", icon: null },
+  { rank: "#5", name: "Sanya Gupta", course: "Class 10 CBSE", score: "94.8%", grade: "A", icon: null },
+  { rank: "#6", name: "Vikram Malhotra", course: "Class 12 Samacheer", score: "94.2%", grade: "A", icon: null },
+  { rank: "#7", name: "Nisha Reddy", course: "Class 10 CBSE", score: "93.9%", grade: "A", icon: null },
+  { rank: "#8", name: "Kabir Singh", course: "Class 12 CBSE", score: "93.5%", grade: "A", icon: null },
+  { rank: "#9", name: "Alex Johnson", course: "Class 10 CBSE", score: "91.5%", grade: "A", icon: null },
+  { rank: "#10", name: "Maria Garcia", course: "Class 12 CBSE", score: "91%", grade: "A", icon: null },
 ];
 
 export default function ResultsPage() {
@@ -92,7 +91,7 @@ export default function ResultsPage() {
         <Card className="lg:col-span-2 border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <CardContent className="p-8">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-bold text-gray-900 tracking-tight">Grade Distribution</h3>
+              <h3 className="text-xl font-bold text-gray-900 tracking-tight">Academic Grade Distribution</h3>
             </div>
             <div className="h-[350px] w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -171,10 +170,10 @@ export default function ResultsPage() {
           <div className="rounded-[24px] border border-gray-50 overflow-hidden">
             <Table>
               <TableHeader className="bg-gray-50/50">
-                <TableRow className="border-gray-50 hover:bg-transparent">
+                <TableRow className="border-gray-100 hover:bg-transparent">
                   <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Rank</TableHead>
                   <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Student</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Course</TableHead>
+                  <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Board/Class</TableHead>
                   <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Score</TableHead>
                   <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Grade</TableHead>
                 </TableRow>
