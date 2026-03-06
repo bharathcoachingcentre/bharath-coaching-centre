@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -59,6 +60,7 @@ const mockMaterials = [
     category: "PDF", 
     size: "4.2 MB", 
     downloads: 1242,
+    pdfUrl: "#"
   },
   { 
     id: "mock-2", 
@@ -67,6 +69,7 @@ const mockMaterials = [
     category: "Video", 
     size: "1.2 GB", 
     downloads: 891, 
+    pdfUrl: "#"
   },
 ];
 
@@ -84,7 +87,6 @@ export default function StudyMaterialsPage() {
 
   const allMaterials = useMemo(() => {
     const fromDb = realMaterials || [];
-    // If no real materials yet, show mock ones so the page isn't empty during demo
     return fromDb.length > 0 ? fromDb : mockMaterials;
   }, [realMaterials]);
 
@@ -103,7 +105,7 @@ export default function StudyMaterialsPage() {
       toast({ title: "Mock Data", description: "You cannot delete sample data." });
       return;
     }
-    if (!confirm("Are you sure you want to delete this material?")) return;
+    if (!confirm("Are you sure you want to delete this material? This action cannot be undone.")) return;
 
     const docRef = doc(firestore, 'study-materials', id);
     deleteDoc(docRef)
@@ -122,6 +124,14 @@ export default function StudyMaterialsPage() {
           description: "Failed to delete resource.",
         });
       });
+  };
+
+  const handlePreview = (url?: string) => {
+    if (url && url !== "#") {
+      window.open(url, '_blank');
+    } else {
+      toast({ title: "No URL", description: "This resource does not have a preview URL yet." });
+    }
   };
 
   return (
@@ -168,13 +178,18 @@ export default function StudyMaterialsPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
-                        <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                        <DropdownMenuItem 
+                          onClick={() => handlePreview(item.pdfUrl)}
+                          className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg"
+                        >
                           <Eye className="mr-2 h-4 w-4 text-blue-500" />
                           <span className="font-bold text-xs">Preview</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
-                          <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
-                          <span className="font-bold text-xs">Edit Metadata</span>
+                        <DropdownMenuItem asChild className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          <Link href={`/admin/study-materials/${item.id}`} className="flex items-center w-full">
+                            <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                            <span className="font-bold text-xs">Edit Metadata</span>
+                          </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-gray-50" />
                         <DropdownMenuItem 
@@ -206,11 +221,23 @@ export default function StudyMaterialsPage() {
                       <span className="text-sm font-bold">{item.downloads || 0}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <Button variant="ghost" size="icon" className="h-9 w-9 text-gray-400 hover:text-[#35a3be] hover:bg-cyan-50 rounded-xl">
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-9 w-9 text-gray-400 hover:text-[#35a3be] hover:bg-cyan-50 rounded-xl"
+                        onClick={() => handlePreview(item.pdfUrl)}
+                      >
                         <Eye className="w-5 h-5" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="h-9 w-9 text-gray-400 hover:text-[#35a3be] hover:bg-cyan-50 rounded-xl">
-                        <Download className="w-5 h-5" />
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-9 w-9 text-gray-400 hover:text-[#35a3be] hover:bg-cyan-50 rounded-xl"
+                        asChild
+                      >
+                        <a href={item.pdfUrl} download target="_blank" rel="noopener noreferrer">
+                          <Download className="w-5 h-5" />
+                        </a>
                       </Button>
                     </div>
                   </div>
