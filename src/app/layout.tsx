@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ClientHeader } from '@/components/client-header';
 import { FooterWrapper } from '@/components/footer-wrapper';
 import { Inter } from 'next/font/google';
+import { FirebaseClientProvider } from '@/firebase';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,10 +29,12 @@ export default function RootLayout({
         <link rel="icon" href="/fav.png" type="image/png" />
       </head>
       <body className={`${inter.variable} font-body antialiased flex flex-col min-h-screen`}>
-        <ClientHeader />
-        <main className="flex-grow">{children}</main>
-        <FooterWrapper />
-        <Toaster />
+        <FirebaseClientProvider>
+          <ClientHeader />
+          <main className="flex-grow">{children}</main>
+          <FooterWrapper />
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );

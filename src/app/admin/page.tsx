@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -23,6 +22,7 @@ import {
 } from "lucide-react";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { cn } from "@/lib/utils";
 
 export default function AdminDashboard() {
   const firestore = useFirestore();
