@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -311,7 +310,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-20 overflow-hidden min-h-[871px] flex items-center bg-gradient-to-br from-[#EFF6FF] to-[#CCFBF1]">
+      <section className="relative pt-20 overflow-hidden h-[871px] flex items-center bg-gradient-to-br from-[#EFF6FF] to-[#CCFBF1]">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 gradient-blob rounded-full"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 gradient-blob rounded-full"></div>
 
