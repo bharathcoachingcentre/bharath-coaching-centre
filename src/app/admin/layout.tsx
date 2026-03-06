@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { Metadata } from 'next';
@@ -42,14 +43,16 @@ export default function AdminLayout({
   };
 
   const getPageSubtitle = () => {
+    if (pathname === "/admin/results") return "Academic performance analytics";
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
+    if (pathname === "/admin/study-materials") return "Resources and material hub";
     return "Overview of your education platform";
   };
 
   return (
     <div className="flex min-h-screen bg-[#f8fafc]">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#1e1e2d] text-gray-400 flex flex-col hidden md:flex sticky top-0 h-screen">
+      <aside className="w-64 bg-[#1e1e2d] text-gray-400 flex flex-col hidden md:flex sticky top-0 h-screen shrink-0">
         <div className="p-6 flex items-center gap-3">
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
             <GraduationCap className="w-6 h-6" />
