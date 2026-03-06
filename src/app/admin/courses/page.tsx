@@ -149,20 +149,24 @@ export default function CoursesManagementPage() {
         </Button>
       </div>
 
-      {/* Courses Grid - 4 columns on large screens for "one row" consistency */}
+      {/* Courses Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {courses.map((course) => (
           <Card key={course.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
             <div className="h-1.5 w-full bg-gradient-to-r from-purple-500 to-indigo-600"></div>
             <CardContent className="p-6">
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center gap-3">
+              <div className="flex items-start justify-between mb-6 gap-2">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0", course.iconBg)}>
                     <course.icon className={cn("w-6 h-6", course.iconColor)} />
                   </div>
-                  <div className="flex flex-col min-w-0">
-                    <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-indigo-600 transition-colors truncate">{course.title}</h3>
-                    <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate">{course.category}</p>
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-indigo-600 transition-colors truncate">
+                      {course.title}
+                    </h3>
+                    <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate">
+                      {course.category}
+                    </p>
                   </div>
                 </div>
                 <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg flex-shrink-0">
@@ -170,7 +174,7 @@ export default function CoursesManagementPage() {
                 </Button>
               </div>
 
-              {/* Internal stats grid - specifically ensuring it stays in one row */}
+              {/* Internal stats grid */}
               <div className="grid grid-cols-3 gap-2 mb-6 bg-gray-50/50 rounded-2xl p-3 border border-gray-50">
                 <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
                   <Users className="w-3.5 h-3.5 text-gray-400" />
