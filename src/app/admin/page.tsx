@@ -30,6 +30,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 const stats = [
   { label: "Total Enrollments", value: "2,847", trend: "+12.5% from last month", icon: Users, iconColor: "text-purple-600", iconBg: "bg-purple-100" },
