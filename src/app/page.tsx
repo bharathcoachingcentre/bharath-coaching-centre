@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -20,14 +21,9 @@ import {
   UserCheck,
   Download,
   Star,
-  CheckCircle2,
-  Trophy,
-  Medal,
   Zap,
   UserPlus,
   Info,
-  ClipboardList,
-  LineChart,
   Calendar,
   PieChart,
   ClipboardCheck,
@@ -35,8 +31,8 @@ import {
   Layers,
   Handshake,
   Crown,
-  FileText,
   Check,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -50,6 +46,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import placeholderImages from "@/app/lib/placeholder-images.json";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, query, orderBy } from "firebase/firestore";
 
 // True Solid/Filled Icons
 const SolidUserCheck = ({ className }: { className?: string }) => (
@@ -77,9 +75,113 @@ const SolidUsers = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const materialStyles = [
+  {
+    themeColor: "bg-blue-600",
+    hoverThemeColor: "hover:bg-blue-700",
+    lightBg: "bg-blue-50/50",
+    iconContainerBg: "bg-blue-100/50",
+    borderColor: "border-blue-100",
+    hoverBorderColor: "hover:border-blue-300",
+    iconColor: "text-blue-600",
+  },
+  {
+    themeColor: "bg-teal-600",
+    hoverThemeColor: "hover:bg-teal-700",
+    lightBg: "bg-teal-50/50",
+    iconContainerBg: "bg-teal-100/50",
+    borderColor: "border-teal-100",
+    hoverBorderColor: "hover:border-teal-300",
+    iconColor: "text-teal-600",
+  },
+  {
+    themeColor: "bg-purple-600",
+    hoverThemeColor: "hover:bg-purple-700",
+    lightBg: "bg-purple-50/50",
+    iconContainerBg: "bg-purple-100/50",
+    borderColor: "border-purple-100",
+    hoverBorderColor: "hover:border-blue-300",
+    iconColor: "text-purple-600",
+  },
+  {
+    themeColor: "bg-orange-600",
+    hoverThemeColor: "hover:bg-orange-700",
+    lightBg: "bg-orange-50/50",
+    iconContainerBg: "bg-orange-100/50",
+    borderColor: "border-orange-100",
+    hoverBorderColor: "hover:border-orange-300",
+    iconColor: "text-orange-600",
+  },
+  {
+    themeColor: "bg-pink-600",
+    hoverThemeColor: "hover:bg-pink-700",
+    lightBg: "bg-pink-50/50",
+    iconContainerBg: "bg-pink-100/50",
+    borderColor: "border-pink-100",
+    hoverBorderColor: "hover:border-pink-300",
+    iconColor: "text-pink-600",
+  },
+  {
+    themeColor: "bg-indigo-600",
+    hoverThemeColor: "hover:bg-indigo-700",
+    lightBg: "bg-indigo-50/50",
+    iconContainerBg: "bg-indigo-100/50",
+    borderColor: "border-indigo-100",
+    hoverBorderColor: "hover:border-indigo-300",
+    iconColor: "text-indigo-600",
+  },
+  {
+    themeColor: "bg-green-600",
+    hoverThemeColor: "hover:bg-green-700",
+    lightBg: "bg-green-50/50",
+    iconContainerBg: "bg-green-100/50",
+    borderColor: "border-green-100",
+    hoverBorderColor: "hover:border-green-300",
+    iconColor: "text-green-600",
+  },
+  {
+    themeColor: "bg-amber-600",
+    hoverThemeColor: "hover:bg-amber-700",
+    lightBg: "bg-amber-50/50",
+    iconContainerBg: "bg-amber-100/50",
+    borderColor: "border-amber-100",
+    hoverBorderColor: "hover:border-amber-300",
+    iconColor: "text-amber-600",
+  },
+];
+
 export default function HomePage() {
+  const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
+  const [selectedClass, setSelectedClass] = useState("Class 10");
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
+
+  const materialsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+
+  const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
+
+  const displayMaterials = useMemo(() => {
+    if (!allMaterials) return [];
+    
+    return allMaterials
+      .filter(m => {
+        const matchesVisibility = m.isVisible !== false;
+        const matchesGrade = m.grade === selectedClass;
+        const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
+        return matchesVisibility && matchesGrade && matchesBoard;
+      })
+      .map((m, idx) => {
+        const styleIdx = idx % materialStyles.length;
+        return {
+          ...m,
+          desc: m.description,
+          ...materialStyles[styleIdx]
+        };
+      });
+  }, [allMaterials, selectedClass, activeBoard]);
 
   const heroImageData = (placeholderImages as any)["hero-education"];
 
@@ -89,105 +191,6 @@ export default function HomePage() {
     { icon: MessagesSquare, title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
     { icon: BookOpen, title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
     { icon: UserCheck, title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
-  ];
-
-  const materials = [
-    {
-      title: "Mathematics",
-      grade: "Class 10",
-      desc: "Complete chapter-wise notes and formulas",
-      themeColor: "bg-blue-600",
-      hoverThemeColor: "hover:bg-blue-700",
-      lightBg: "bg-blue-50/50",
-      iconContainerBg: "bg-blue-100/50",
-      borderColor: "border-blue-100",
-      hoverBorderColor: "hover:border-blue-300",
-      iconColor: "text-blue-600",
-    },
-    {
-      title: "Science",
-      grade: "Class 10",
-      desc: "Physics, Chemistry & Biology notes",
-      themeColor: "bg-teal-600",
-      hoverThemeColor: "hover:bg-teal-700",
-      lightBg: "bg-teal-50/50",
-      iconContainerBg: "bg-teal-100/50",
-      borderColor: "border-teal-100",
-      hoverBorderColor: "hover:border-teal-300",
-      iconColor: "text-teal-600",
-    },
-    {
-      title: "English",
-      grade: "Class 9",
-      desc: "Grammar, literature and writing skills",
-      themeColor: "bg-purple-600",
-      hoverThemeColor: "hover:bg-purple-700",
-      lightBg: "bg-purple-50/50",
-      iconContainerBg: "bg-purple-100/50",
-      borderColor: "border-purple-100",
-      hoverBorderColor: "hover:border-blue-300",
-      iconColor: "text-purple-600",
-    },
-    {
-      title: "Social Science",
-      grade: "Class 12",
-      desc: "History, Geography & Civics notes",
-      themeColor: "bg-orange-600",
-      hoverThemeColor: "hover:bg-orange-700",
-      lightBg: "bg-orange-50/50",
-      iconContainerBg: "bg-orange-100/50",
-      borderColor: "border-orange-100",
-      hoverBorderColor: "hover:border-orange-300",
-      iconColor: "text-orange-600",
-    },
-    {
-      title: "Physics",
-      grade: "Class 11",
-      desc: "Concepts, formulas and problems",
-      themeColor: "bg-pink-600",
-      hoverThemeColor: "hover:bg-pink-700",
-      lightBg: "bg-pink-50/50",
-      iconContainerBg: "bg-pink-100/50",
-      borderColor: "border-pink-100",
-      hoverBorderColor: "hover:border-pink-300",
-      iconColor: "text-pink-600",
-    },
-    {
-      title: "Chemistry",
-      grade: "Class 11",
-      desc: "Organic, inorganic & physical chemistry",
-      themeColor: "bg-indigo-600",
-      hoverThemeColor: "hover:bg-indigo-700",
-      lightBg: "bg-indigo-50/50",
-      iconContainerBg: "bg-indigo-100/50",
-      borderColor: "border-indigo-100",
-      hoverBorderColor: "hover:border-indigo-300",
-      iconColor: "text-indigo-600",
-    },
-    {
-      title: "Biology",
-      grade: "Class 12",
-      desc: "Botany and zoology comprehensive notes",
-      themeColor: "bg-green-600",
-      hoverThemeColor: "hover:bg-green-700",
-      lightBg: "bg-green-50/50",
-      iconContainerBg: "bg-green-100/50",
-      borderColor: "border-green-100",
-      hoverBorderColor: "hover:border-green-300",
-      iconColor: "text-green-600",
-    },
-    {
-      title: "Hindi",
-      grade: "Class 8",
-      desc: "Grammar and literature study material",
-      themeColor: "bg-amber-600",
-      hoverThemeColor: "hover:bg-amber-700",
-      lightBg: "bg-amber-50/50",
-      iconContainerBg: "bg-amber-100/50",
-      borderColor: "border-amber-100",
-      hoverBorderColor: "hover:border-amber-300",
-      iconColor: "text-amber-600",
-    },
   ];
 
   const programs = [
@@ -334,7 +337,7 @@ export default function HomePage() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-bold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <Link href="#">
+                  <Link href="#timetable-section">
                     <Clock className="mr-2 h-6 w-6" />
                     View Timetable
                   </Link>
@@ -456,7 +459,6 @@ export default function HomePage() {
               >
                 <div 
                   className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color)}
-                  style={{ boxShadow: `0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color)` }}
                 >
                   <feature.icon className="w-8 h-8" />
                 </div>
@@ -483,11 +485,20 @@ export default function HomePage() {
           <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
               <div className="relative min-w-[180px] w-full lg:w-auto">
-                <select className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
-                  <option>Class 10</option>
+                <select 
+                  value={selectedClass}
+                  onChange={(e) => setSelectedClass(e.target.value)}
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
+                >
+                  <option value="Class 10">Class 10</option>
                   {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
-                    <option key={c}>{c}</option>
+                    <option key={c} value={c}>{c}</option>
                   ))}
+                  <option value="Class 1">Class 1</option>
+                  <option value="Class 2">Class 2</option>
+                  <option value="Class 3">Class 3</option>
+                  <option value="Class 4">Class 4</option>
+                  <option value="Class 5">Class 5</option>
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
@@ -517,57 +528,62 @@ export default function HomePage() {
                 </button>
               </div>
 
-              <div className="relative min-w-[180px] w-full lg:w-auto lg:ml-auto">
-                <select className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
-                  <option>All Subjects</option>
-                  <option>Mathematics</option>
-                  <option>Science</option>
-                  <option>English</option>
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-              </div>
+              <div className="hidden lg:block"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {materials.map((material, idx) => (
-                <div
-                  key={idx}
-                  className={cn(
-                    "group rounded-[16px] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
-                    material.lightBg,
-                    material.borderColor,
-                    material.hoverBorderColor
-                  )}
-                >
-                  <div className="flex items-start justify-between mb-6">
-                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative", material.iconContainerBg)}>
-                      <div className={cn("relative flex items-center justify-center", material.iconColor)}>
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
-                          <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
-                        </svg>
-                        <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
-                      </div>
-                    </div>
-                    <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
-                  </div>
-                  <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                  <p className="text-[14px] text-[#4b5563] font-normal mb-4 flex-grow text-left">{material.desc}</p>
-                  <Button
-                    asChild
+            {materialsLoading ? (
+              <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
+                <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+                <p className="font-bold">Loading Materials...</p>
+              </div>
+            ) : displayMaterials.length === 0 ? (
+              <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                <p className="text-gray-500 font-bold">No study materials found for {selectedClass} ({activeBoard.toUpperCase()}).</p>
+                <p className="text-gray-400 text-sm mt-1">Please try another class or check back later.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {displayMaterials.map((material, idx) => (
+                  <div
+                    key={idx}
                     className={cn(
-                      "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
-                      material.themeColor,
-                      material.hoverThemeColor
+                      "group rounded-[16px] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
+                      material.lightBg,
+                      material.borderColor,
+                      material.hoverBorderColor
                     )}
                   >
-                    <Link href="#">
-                      <Download className="w-5 h-5" />
-                      Download PDF
-                    </Link>
-                  </Button>
-                </div>
-              ))}
-            </div>
+                    <div className="flex items-start justify-between mb-6">
+                      <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative", material.iconContainerBg)}>
+                        <div className={cn("relative flex items-center justify-center", material.iconColor)}>
+                          <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+                            <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
+                          </svg>
+                          <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
+                        </div>
+                      </div>
+                      <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                    </div>
+                    <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
+                    <p className="text-[14px] text-[#4b5563] font-normal mb-4 flex-grow text-left">{material.desc}</p>
+                    <Button
+                      asChild
+                      className={cn(
+                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
+                        material.themeColor,
+                        material.hoverThemeColor
+                      )}
+                    >
+                      <a href={material.pdfUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="w-5 h-5" />
+                        Download PDF
+                      </a>
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -619,7 +635,7 @@ export default function HomePage() {
                 </div>
                 <div className="space-y-3">
                   <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
-                    <Link href="#">
+                    <Link href="#timetable-section">
                       <Clock className="h-5 w-5" />
                       View Timetable
                     </Link>
@@ -632,7 +648,7 @@ export default function HomePage() {
                       program.enrollHoverColor
                     )}
                   >
-                    <Link href="#">
+                    <Link href="/enrollment">
                       <UserPlus className="h-5 w-5" />
                       Enroll Now
                     </Link>
@@ -863,7 +879,7 @@ export default function HomePage() {
 
               <div className="pt-4 flex justify-start">
                 <Button asChild size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-semibold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
-                  <Link href="#">
+                  <Link href="/enrollment">
                     <CalendarCheck className="h-6 w-6" />
                     Book Personal Session
                   </Link>

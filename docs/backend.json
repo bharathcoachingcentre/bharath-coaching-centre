@@ -66,10 +66,13 @@
         "description": { "type": "string" },
         "category": { "type": "string" },
         "grade": { "type": "string" },
+        "board": { "type": "string", "enum": ["CBSE", "Samacheer"] },
         "pdfUrl": { "type": "string" },
-        "subject": { "type": "string" }
+        "subject": { "type": "string" },
+        "isVisible": { "type": "boolean" },
+        "allowDownloads": { "type": "boolean" }
       },
-      "required": ["title", "category", "grade"]
+      "required": ["title", "category", "grade", "board"]
     },
     "TopPerformer": {
       "title": "Top Performer",

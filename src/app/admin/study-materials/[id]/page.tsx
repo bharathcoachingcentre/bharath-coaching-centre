@@ -5,14 +5,12 @@ import React, { useMemo, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
-  BookOpen, 
   FileText, 
   Save, 
   Loader2, 
   Info,
   ShieldCheck,
   Eye,
-  FileUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +46,7 @@ import Link from "next/link";
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   grade: z.string().min(1, "Grade is required"),
+  board: z.string().min(1, "Board is required"),
   category: z.string().min(1, "Category is required"),
   description: z.string().min(1, "Description is required"),
   isVisible: z.boolean().default(true),
@@ -74,8 +73,9 @@ export default function StudyMaterialEditPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      grade: "",
-      category: "",
+      grade: "Class 10",
+      board: "CBSE",
+      category: "pdf",
       description: "",
       isVisible: true,
       allowDownloads: true,
@@ -86,7 +86,8 @@ export default function StudyMaterialEditPage() {
     if (material) {
       form.reset({
         title: material.title || "",
-        grade: material.grade || "",
+        grade: material.grade || "Class 10",
+        board: material.board || "CBSE",
         category: material.category || "pdf",
         description: material.description || "",
         isVisible: material.isVisible !== undefined ? material.isVisible : true,
@@ -223,6 +224,27 @@ export default function StudyMaterialEditPage() {
                           <FormControl>
                             <Input {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-[#35a3be]" />
                           </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="board"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Board</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                                <SelectValue placeholder="Select board" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="CBSE">CBSE</SelectItem>
+                              <SelectItem value="Samacheer">Samacheer</SelectItem>
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}

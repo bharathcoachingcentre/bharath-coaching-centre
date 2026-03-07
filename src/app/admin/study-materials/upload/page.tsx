@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -46,6 +47,7 @@ import { FirestorePermissionError } from '@/firebase/errors';
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   course: z.string().min(1, "Please select a course"),
+  board: z.string().min(1, "Please select a board"),
   materialType: z.string().min(1, "Material type is required"),
   description: z.string().min(1, "Description is required"),
   allowDownloads: z.boolean().default(true),
@@ -63,7 +65,8 @@ export default function UploadMaterialPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      course: "",
+      course: "Class 10",
+      board: "CBSE",
       materialType: "pdf",
       description: "",
       allowDownloads: true,
@@ -88,7 +91,8 @@ export default function UploadMaterialPage() {
       
       const submissionData = {
         title: values.title,
-        grade: values.course, // Mapping course selection to grade field in schema
+        grade: values.course,
+        board: values.board,
         category: values.materialType,
         description: values.description,
         pdfUrl: "https://example.com/placeholder.pdf", // Mock URL for now
@@ -97,32 +101,32 @@ export default function UploadMaterialPage() {
         createdAt: serverTimestamp(),
       };
 
-      addDoc(materialsRef, submissionData)
-        .then(() => {
-          toast({
-            title: "Material Uploaded",
-            description: "Your study resource has been successfully published.",
-          });
-          router.push("/admin/study-materials");
-        })
-        .catch(async (error) => {
-          const permissionError = new FirestorePermissionError({
-            path: materialsRef.path,
-            operation: 'create',
-            requestResourceData: submissionData,
-          });
-          errorEmitter.emit('permission-error', permissionError);
-          throw error;
-        });
+      await addDoc(materialsRef, submissionData);
+      
+      toast({
+        title: "Material Uploaded",
+        description: "Your study resource has been successfully published.",
+      });
+      router.push("/admin/study-materials");
 
     } catch (error: any) {
       console.error("Upload error:", error);
+      setIsSubmitting(false);
+      
       toast({
         variant: "destructive",
         title: "Upload Failed",
         description: error.message || "Failed to save material to database.",
       });
-      setIsSubmitting(false);
+
+      if (error.code === 'permission-denied') {
+        const permissionError = new FirestorePermissionError({
+          path: 'study-materials',
+          operation: 'create',
+          requestResourceData: values,
+        });
+        errorEmitter.emit('permission-error', permissionError);
+      }
     }
   };
 
@@ -207,7 +211,29 @@ export default function UploadMaterialPage() {
                   )}
                 />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-8">
+                  <FormField
+                    control={form.control}
+                    name="board"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3 text-left">
+                        <FormLabel className="text-sm font-bold text-gray-700">Board</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
+                              <SelectValue placeholder="Select board" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                            <SelectItem value="CBSE">CBSE</SelectItem>
+                            <SelectItem value="Samacheer">Samacheer</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <FormField
                     control={form.control}
                     name="course"
