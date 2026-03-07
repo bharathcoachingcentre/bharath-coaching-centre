@@ -33,6 +33,8 @@ import {
   Crown,
   Check,
   Loader2,
+  Medal,
+  Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
