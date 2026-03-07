@@ -307,7 +307,7 @@ export default function StudyMaterialPage() {
           {/* Dynamic Filter Section */}
           <div id="study-materials-section" className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
                 Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
               </h2>
               <p className="text-lg text-gray-500 font-normal">
