@@ -103,7 +103,7 @@ export default function SignInPage() {
     return (
         <div className="flex flex-col min-h-screen pt-16 pb-24 gradient-bg" style={{ marginTop: '-140px' }}>
             <main className="flex-grow flex items-center justify-center p-4 pt-48 md:pt-56">
-                <Card className="w-full max-w-sm shadow-[0_30px_80px_rgba(8,112,184,0.1)] border-white/60 bg-white/80 backdrop-blur-md rounded-[20px] overflow-hidden">
+                <Card className="w-full max-w-sm shadow-[0_30px_80px_rgba(37,99,235,0.1)] border-white/60 bg-white/80 backdrop-blur-md rounded-[20px] overflow-hidden">
                     <CardHeader className="text-left p-8 pb-4">
                         <CardTitle className="text-3xl font-black text-[#182d45] tracking-tight">Sign In</CardTitle>
                         <CardDescription className="text-gray-500 font-medium">Enter your email below to login to your account</CardDescription>
@@ -120,7 +120,7 @@ export default function SignInPage() {
                                             <FormControl>
                                                 <div className="relative">
                                                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                                                    <Input placeholder="m@example.com" {...field} className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] pl-11" />
+                                                    <Input placeholder="m@example.com" {...field} className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-blue-500 pl-11 shadow-sm transition-all" />
                                                 </div>
                                             </FormControl>
                                             <FormMessage />
@@ -137,7 +137,7 @@ export default function SignInPage() {
                                                 <FormLabel className="font-bold text-[#182d45] text-sm">Password</FormLabel>
                                                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                                                     <DialogTrigger asChild>
-                                                        <button type="button" className="text-xs font-bold text-[#35a3be] hover:underline">Forgot password?</button>
+                                                        <button type="button" className="text-xs font-bold text-blue-600 hover:underline">Forgot password?</button>
                                                     </DialogTrigger>
                                                     <DialogContent className="sm:max-w-md">
                                                         <DialogHeader>
@@ -162,7 +162,7 @@ export default function SignInPage() {
                                                             <Button 
                                                                 onClick={handleForgotPassword} 
                                                                 disabled={isResetting}
-                                                                className="w-full bg-[#35a3be] hover:bg-[#174f5f] rounded-xl h-12 font-bold"
+                                                                className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 border-none text-white rounded-xl h-12 font-bold shadow-lg shadow-blue-500/20"
                                                             >
                                                                 {isResetting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
                                                                 {isResetting ? "Sending..." : "Send Reset Link"}
@@ -174,7 +174,7 @@ export default function SignInPage() {
                                             <FormControl>
                                                 <div className="relative">
                                                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                                                    <Input type="password" placeholder="••••••••" {...field} className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] pl-11" />
+                                                    <Input type="password" placeholder="••••••••" {...field} className="h-12 bg-gray-50/50 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-blue-500 pl-11 shadow-sm transition-all" />
                                                 </div>
                                             </FormControl>
                                             <FormMessage />
@@ -185,7 +185,7 @@ export default function SignInPage() {
                                 <Button 
                                     type="submit" 
                                     disabled={isLoading}
-                                    className="w-full h-14 bg-[#35a3be] hover:bg-[#174f5f] text-white font-black text-lg rounded-2xl shadow-xl shadow-[#35a3be]/20 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2"
+                                    className="w-full h-14 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-black text-lg rounded-2xl shadow-xl shadow-blue-500/20 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2 border-none"
                                 >
                                     {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
                                     {isLoading ? "Signing In..." : "Sign In"}
@@ -194,7 +194,7 @@ export default function SignInPage() {
                         </Form>
                         <div className="mt-8 text-center">
                             <p className="text-sm text-gray-500 font-medium">
-                                Don't have an account? <Link href="/registration" className="text-[#35a3be] font-bold hover:underline">Register Now</Link>
+                                Don't have an account? <Link href="/registration" className="text-blue-600 font-bold hover:underline">Register Now</Link>
                             </p>
                         </div>
                     </CardContent>
