@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -101,7 +102,7 @@ export default function EnrollmentsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="relative w-full max-w-md">
+        <div className="relative w-full max-w-md text-left">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <Input 
             placeholder="Search students..." 
@@ -114,7 +115,7 @@ export default function EnrollmentsPage() {
           <Button variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
             <Filter className="w-4 h-4" /> Filter
           </Button>
-          <Button asChild className="h-12 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 gap-2 cursor-pointer border-none transition-all hover:scale-[1.02] active:scale-95">
+          <Button asChild className="h-12 px-6 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 gap-2 cursor-pointer border-none transition-all hover:scale-[1.02] active:scale-95">
             <Link href="/admin/enrollments/add">
               <Plus className="w-5 h-5" /> Add Enrollment
             </Link>
@@ -122,7 +123,7 @@ export default function EnrollmentsPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden text-left">
         <Table>
           <TableHeader className="bg-gray-50/80 border-b border-gray-100">
             <TableRow className="hover:bg-transparent border-none">

@@ -9,7 +9,6 @@ import {
   MoreVertical,
   Eye,
   ShieldAlert,
-  ShieldCheck,
   UserCog,
   Loader2,
   Mail,
@@ -34,8 +33,6 @@ import { collection, query, orderBy, where } from "firebase/firestore";
 
 const roleStyles: Record<string, string> = {
   admin: "bg-purple-100 text-purple-700 border-purple-200",
-  teacher: "bg-blue-100 text-blue-700 border-blue-200",
-  student: "bg-teal-100 text-teal-700 border-teal-200",
 };
 
 const statusStyles: Record<string, string> = {
@@ -71,16 +68,16 @@ export default function AdminsManagementPage() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="relative w-full max-w-md">
+        <div className="relative w-full max-w-md text-left">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
             placeholder="Search admins..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-[#35a3be]"
+            className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
           />
         </div>
-        <Button asChild className="h-14 px-8 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-[18px] shadow-lg shadow-purple-200 gap-2 text-base cursor-pointer border-none">
+        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base cursor-pointer border-none transition-all active:scale-95">
           <Link href="/admin/users/create">
             <UserPlus className="w-6 h-6" /> Add Admin
           </Link>
@@ -89,7 +86,7 @@ export default function AdminsManagementPage() {
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
-          <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+          <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
           <p className="font-bold">Syncing Admin Directory...</p>
         </div>
       ) : filteredUsers.length === 0 ? (
@@ -118,7 +115,7 @@ export default function AdminsManagementPage() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="text-left">
-                      <h3 className="font-bold text-gray-900 text-lg group-hover:text-[#35a3be] transition-colors line-clamp-1">
+                      <h3 className="font-bold text-gray-900 text-lg group-hover:text-blue-600 transition-colors line-clamp-1">
                         {user.displayName || "Unknown Admin"}
                       </h3>
                       <Badge variant="outline" className={cn("mt-1.5 px-2.5 py-0.5 rounded-lg font-black text-[9px] uppercase tracking-widest border shadow-none", roleStyles[user.role] || "bg-gray-100 text-gray-500")}>
@@ -142,7 +139,7 @@ export default function AdminsManagementPage() {
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
                         <Link href={`/admin/users/${user.id}?edit=true`} className="flex items-center w-full">
-                          <UserCog className="mr-2 h-4 w-4 text-[#35a3be]" />
+                          <UserCog className="mr-2 h-4 w-4 text-blue-600" />
                           <span className="font-bold text-xs text-gray-700">Edit Access</span>
                         </Link>
                       </DropdownMenuItem>
@@ -156,11 +153,11 @@ export default function AdminsManagementPage() {
                 </div>
 
                 <div className="space-y-4 pt-6 border-t border-gray-50">
-                  <div className="flex items-center gap-3 text-sm text-gray-500 font-medium">
+                  <div className="flex items-center gap-3 text-sm text-gray-500 font-medium text-left">
                     <Mail className="w-4 h-4 text-gray-300" />
                     <span className="truncate">{user.email}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-500 font-medium">
+                  <div className="flex items-center gap-3 text-sm text-gray-500 font-medium text-left">
                     <Calendar className="w-4 h-4 text-gray-300" />
                     <span>Joined {user.createdAt?.toDate ? new Date(user.createdAt.toDate()).toLocaleDateString() : 'Recently'}</span>
                   </div>

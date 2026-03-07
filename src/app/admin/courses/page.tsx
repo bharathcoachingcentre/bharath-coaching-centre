@@ -18,7 +18,8 @@ import {
   Eye,
   Pencil,
   Trash2,
-  Loader2
+  Loader2,
+  GraduationCap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -94,16 +95,16 @@ export default function CoursesManagementPage() {
     <div className="space-y-8">
       {/* Search & Actions Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="relative w-full max-w-md">
+        <div className="relative w-full max-w-md text-left">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
             placeholder="Search courses..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-[#35a3be]"
+            className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
           />
         </div>
-        <Button asChild className="h-14 px-8 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-[18px] shadow-lg shadow-[#35a3be]/20 gap-2 text-base cursor-pointer border-none">
+        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base cursor-pointer border-none transition-all active:scale-95">
           <Link href="/admin/courses/create">
             <Plus className="w-6 h-6" /> Create Course
           </Link>
@@ -112,7 +113,7 @@ export default function CoursesManagementPage() {
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
-          <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+          <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
           <p className="font-bold">Syncing Courses Catalog...</p>
         </div>
       ) : filteredCourses.length === 0 ? (
@@ -132,7 +133,7 @@ export default function CoursesManagementPage() {
             const Icon = course.icon || categoryIconMap[course.category] || BookOpen;
             return (
               <Card key={course.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
-                <div className="h-1.5 w-full bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
+                <div className="h-1.5 w-full bg-gradient-to-r from-blue-600 to-teal-500"></div>
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-6 gap-2">
                     <div className="flex items-center gap-3 flex-1 min-w-0 text-left">
@@ -140,7 +141,7 @@ export default function CoursesManagementPage() {
                         <Icon className={cn("w-6 h-6", course.iconColor || "text-blue-500")} />
                       </div>
                       <div className="flex flex-col min-w-0 flex-1">
-                        <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-[#35a3be] transition-colors truncate">
+                        <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-blue-600 transition-colors truncate">
                           {course.title}
                         </h3>
                         <p className="text-[10px] font-medium text-gray-400 mt-0.5 truncate uppercase tracking-tighter">
@@ -151,7 +152,7 @@ export default function CoursesManagementPage() {
                     
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-[#35a3be] hover:bg-[#35a3be]/5 rounded-lg flex-shrink-0">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-blue-600 hover:bg-blue-600/5 rounded-lg flex-shrink-0">
                           <MoreVertical className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -164,7 +165,7 @@ export default function CoursesManagementPage() {
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
                           <Link href={`/admin/courses/${course.id}?edit=true`} className="flex items-center w-full">
-                            <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                            <Pencil className="mr-2 h-4 w-4 text-blue-600" />
                             <span className="font-bold text-xs text-gray-700">Edit Details</span>
                           </Link>
                         </DropdownMenuItem>
@@ -205,7 +206,7 @@ export default function CoursesManagementPage() {
                     </div>
                     <Badge className={cn(
                       "px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider border-none shadow-none",
-                      course.status === "Active" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
+                      course.status === "Active" ? "bg-blue-600/10 text-blue-600" : "bg-gray-100 text-gray-500"
                     )}>
                       {course.status}
                     </Badge>
