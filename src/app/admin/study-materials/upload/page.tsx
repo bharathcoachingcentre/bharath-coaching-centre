@@ -47,7 +47,7 @@ import { FirestorePermissionError } from '@/firebase/errors';
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  course: z.string().min(1, "Please select a course"),
+  grade: z.string().min(1, "Please select a grade"),
   board: z.string().min(1, "Please select a board"),
   materialType: z.string().min(1, "Material type is required"),
   description: z.string().min(1, "Description is required"),
@@ -60,14 +60,13 @@ export default function UploadMaterialPage() {
   const { toast } = useToast();
   const router = useRouter();
   const firestore = useFirestore();
-  const [isDragging, setIsDragging] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      course: "Class 10",
+      grade: "",
       board: "CBSE",
       materialType: "pdf",
       description: "",
@@ -94,7 +93,7 @@ export default function UploadMaterialPage() {
       
       const submissionData = {
         title: values.title,
-        grade: values.course,
+        grade: values.grade,
         board: values.board,
         category: values.materialType,
         description: values.description,
@@ -239,14 +238,14 @@ export default function UploadMaterialPage() {
 
                   <FormField
                     control={form.control}
-                    name="course"
+                    name="grade"
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
-                              <SelectValue placeholder="Assign to class" />
+                              <SelectValue placeholder="Select class" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="rounded-xl border-gray-100 shadow-xl">

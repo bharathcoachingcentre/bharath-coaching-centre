@@ -75,7 +75,7 @@ export default function StudyMaterialEditPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      grade: "Class 10",
+      grade: "",
       board: "CBSE",
       category: "pdf",
       description: "",
@@ -89,7 +89,7 @@ export default function StudyMaterialEditPage() {
     if (material) {
       form.reset({
         title: material.title || "",
-        grade: material.grade || "Class 10",
+        grade: material.grade || "",
         board: material.board || "CBSE",
         category: material.category || "pdf",
         description: material.description || "",
