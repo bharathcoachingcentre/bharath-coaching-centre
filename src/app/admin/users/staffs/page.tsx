@@ -14,7 +14,8 @@ import {
   Loader2,
   Mail,
   Calendar,
-  Users
+  Users,
+  Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,7 +31,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, where } from "firebase/firestore";
+import { collection, query, orderBy, where, deleteDoc, doc } from "firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 const roleStyles: Record<string, string> = {
   admin: "bg-purple-100 text-purple-700 border-purple-200",
@@ -46,11 +50,11 @@ const statusStyles: Record<string, string> = {
 
 export default function StaffsManagementPage() {
   const firestore = useFirestore();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
 
   const usersQuery = useMemo(() => {
     if (!firestore) return null;
-    // Filtering for 'teacher' as staffs
     return query(
       collection(firestore, 'users'), 
       where('role', '==', 'teacher'),
@@ -69,6 +73,32 @@ export default function StaffsManagementPage() {
     );
   }, [users, searchTerm]);
 
+  const handleDelete = async (userId: string) => {
+    if (!firestore) return;
+    if (!confirm("Are you sure you want to delete this staff record? This action cannot be undone.")) return;
+
+    const docRef = doc(firestore, 'users', userId);
+    deleteDoc(docRef)
+      .then(() => {
+        toast({
+          title: "Record Deleted",
+          description: "The staff record has been removed successfully.",
+        });
+      })
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: docRef.path,
+          operation: 'delete',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        toast({
+          variant: "destructive",
+          title: "Delete Failed",
+          description: error.message || "Could not delete the record.",
+        });
+      });
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -78,10 +108,10 @@ export default function StaffsManagementPage() {
             placeholder="Search staffs..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-[#35a3be]"
+            className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
           />
         </div>
-        <Button asChild className="h-14 px-8 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-[18px] shadow-lg shadow-[#35a3be]/20 gap-2 text-base cursor-pointer border-none">
+        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base cursor-pointer border-none transition-all active:scale-95">
           <Link href="/admin/users/create">
             <UserPlus className="w-6 h-6" /> Add Staff
           </Link>
@@ -90,7 +120,7 @@ export default function StaffsManagementPage() {
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
-          <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+          <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
           <p className="font-bold">Syncing Staff Directory...</p>
         </div>
       ) : filteredUsers.length === 0 ? (
@@ -119,7 +149,7 @@ export default function StaffsManagementPage() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="text-left">
-                      <h3 className="font-bold text-gray-900 text-lg group-hover:text-[#35a3be] transition-colors line-clamp-1">
+                      <h3 className="font-bold text-gray-900 text-lg group-hover:text-blue-600 transition-colors line-clamp-1">
                         {user.displayName || "Unknown Staff"}
                       </h3>
                       <Badge variant="outline" className={cn("mt-1.5 px-2.5 py-0.5 rounded-lg font-black text-[9px] uppercase tracking-widest border shadow-none", roleStyles[user.role] || "bg-gray-100 text-gray-500")}>
@@ -143,14 +173,17 @@ export default function StaffsManagementPage() {
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
                         <Link href={`/admin/users/${user.id}?edit=true`} className="flex items-center w-full">
-                          <UserCog className="mr-2 h-4 w-4 text-[#35a3be]" />
+                          <UserCog className="mr-2 h-4 w-4 text-blue-600" />
                           <span className="font-bold text-xs text-gray-700">Edit Access</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator className="bg-gray-50" />
-                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-rose-50 text-rose-600 rounded-lg">
-                        <ShieldAlert className="mr-2 h-4 w-4" />
-                        <span className="font-bold text-xs">Suspend User</span>
+                      <DropdownMenuItem 
+                        onClick={() => handleDelete(user.id)}
+                        className="p-2.5 cursor-pointer hover:bg-rose-50 text-rose-600 rounded-lg"
+                      >
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        <span className="font-bold text-xs">Delete Record</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

@@ -13,7 +13,8 @@ import {
   Loader2,
   Mail,
   Calendar,
-  Lock
+  Lock,
+  Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +30,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, where } from "firebase/firestore";
+import { collection, query, orderBy, where, deleteDoc, doc } from "firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 const roleStyles: Record<string, string> = {
   admin: "bg-purple-100 text-purple-700 border-purple-200",
@@ -43,6 +47,7 @@ const statusStyles: Record<string, string> = {
 
 export default function AdminsManagementPage() {
   const firestore = useFirestore();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
 
   const usersQuery = useMemo(() => {
@@ -64,6 +69,32 @@ export default function AdminsManagementPage() {
       u.email?.toLowerCase().includes(lowerSearch)
     );
   }, [users, searchTerm]);
+
+  const handleDelete = async (userId: string) => {
+    if (!firestore) return;
+    if (!confirm("Are you sure you want to delete this administrator? This action cannot be undone and may affect system access.")) return;
+
+    const docRef = doc(firestore, 'users', userId);
+    deleteDoc(docRef)
+      .then(() => {
+        toast({
+          title: "Record Deleted",
+          description: "The admin record has been removed successfully.",
+        });
+      })
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: docRef.path,
+          operation: 'delete',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        toast({
+          variant: "destructive",
+          title: "Delete Failed",
+          description: error.message || "Could not delete the record.",
+        });
+      });
+  };
 
   return (
     <div className="space-y-8">
@@ -144,9 +175,12 @@ export default function AdminsManagementPage() {
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator className="bg-gray-50" />
-                      <DropdownMenuItem className="p-2.5 cursor-pointer hover:bg-rose-50 text-rose-600 rounded-lg">
-                        <ShieldAlert className="mr-2 h-4 w-4" />
-                        <span className="font-bold text-xs">Suspend User</span>
+                      <DropdownMenuItem 
+                        onClick={() => handleDelete(user.id)}
+                        className="p-2.5 cursor-pointer hover:bg-rose-50 text-rose-600 rounded-lg"
+                      >
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        <span className="font-bold text-xs">Delete Record</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

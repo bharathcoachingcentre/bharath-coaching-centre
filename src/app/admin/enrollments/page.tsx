@@ -81,8 +81,8 @@ export default function EnrollmentsPage() {
     deleteDoc(docRef)
       .then(() => {
         toast({
-          title: "Enrollment Deleted",
-          description: "The student record has been removed successfully.",
+          title: "Record Deleted",
+          description: "The enrollment record has been removed successfully.",
         });
       })
       .catch(async (error) => {
