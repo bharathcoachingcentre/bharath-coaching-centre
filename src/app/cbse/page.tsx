@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { cn } from "@/lib/utils";
 
 const classes = [
   { name: "Class 6", number: 6, href: "/courses/cbse-class-6" },
@@ -24,6 +25,17 @@ const studyMaterials = [
     { name: "NCERT Chapterwise Test QP", icon: FileText },
     { name: "Model Board Question Paper", icon: Award },
     { name: "Previous Year Board QP", icon: Award },
+];
+
+const numberStyles = [
+  { bg: "bg-blue-600", shadow: "shadow-blue-200" },
+  { bg: "bg-teal-600", shadow: "shadow-teal-200" },
+  { bg: "bg-purple-600", shadow: "shadow-purple-200" },
+  { bg: "bg-orange-600", shadow: "shadow-orange-200" },
+  { bg: "bg-pink-600", shadow: "shadow-pink-200" },
+  { bg: "bg-indigo-600", shadow: "shadow-indigo-200" },
+  { bg: "bg-green-600", shadow: "shadow-green-200" },
+  { bg: "bg-amber-600", shadow: "shadow-amber-200" },
 ];
 
 export default function CbsePage() {
@@ -116,7 +128,11 @@ export default function CbsePage() {
                             {/* Front side */}
                             <Card className="absolute h-full w-full [backface-visibility:hidden] bg-white rounded-[2rem] shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center p-8 flex flex-col justify-between border border-white">
                                 <CardContent className="p-0 flex flex-col items-center">
-                                    <div className="w-24 h-24 rounded-3xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 bg-gradient-to-br from-blue-600 to-teal-500 shadow-lg shadow-blue-200">
+                                    <div className={cn(
+                                        "w-24 h-24 rounded-3xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 shadow-lg",
+                                        numberStyles[index % numberStyles.length].bg,
+                                        numberStyles[index % numberStyles.length].shadow
+                                    )}>
                                         <span className="text-4xl font-black text-white">{item.number}</span>
                                     </div>
                                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.name}</h3>
