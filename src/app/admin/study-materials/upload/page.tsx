@@ -132,7 +132,7 @@ export default function UploadMaterialPage() {
     <div className="max-w-5xl mx-auto space-y-8">
       <Link 
         href="/admin/study-materials" 
-        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#35a3be] transition-colors group"
+        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors group"
       >
         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
         Back to Materials
@@ -157,7 +157,7 @@ export default function UploadMaterialPage() {
                   control={form.control}
                   name="pdfUrl"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Resource URL (e.g. Drive, Dropbox, PDF link) *</FormLabel>
                       <FormControl>
                         <div className="relative">
@@ -165,7 +165,7 @@ export default function UploadMaterialPage() {
                           <Input 
                             placeholder="https://example.com/file.pdf" 
                             {...field}
-                            className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] pl-11 font-medium"
+                            className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm"
                           />
                         </div>
                       </FormControl>
@@ -173,7 +173,7 @@ export default function UploadMaterialPage() {
                     </FormItem>
                   )}
                 />
-                <p className="text-xs text-gray-400 px-2 italic">Note: Please ensure the link is publicly accessible for students to download.</p>
+                <p className="text-xs text-gray-400 px-2 italic text-left">Note: Please ensure the link is publicly accessible for students to download.</p>
               </div>
             </CardContent>
           </Card>
@@ -195,13 +195,13 @@ export default function UploadMaterialPage() {
                   control={form.control}
                   name="title"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Title</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="e.g. Class 10 Maths NCERT Solutions" 
                           {...field}
-                          className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] px-6 font-medium"
+                          className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm"
                         />
                       </FormControl>
                       <FormMessage />
@@ -218,7 +218,7 @@ export default function UploadMaterialPage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Board</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select board" />
                             </SelectTrigger>
                           </FormControl>
@@ -240,7 +240,7 @@ export default function UploadMaterialPage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select class" />
                             </SelectTrigger>
                           </FormControl>
@@ -268,7 +268,7 @@ export default function UploadMaterialPage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Material Type</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select type" />
                             </SelectTrigger>
                           </FormControl>
@@ -295,7 +295,7 @@ export default function UploadMaterialPage() {
                         <Textarea 
                           placeholder="Brief description of this material..." 
                           {...field}
-                          className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-[#35a3be] p-6 font-medium text-gray-600 resize-none"
+                          className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-blue-500 p-6 font-medium text-gray-600 resize-none shadow-sm"
                         />
                       </FormControl>
                       <FormMessage />
@@ -309,15 +309,15 @@ export default function UploadMaterialPage() {
                     name="allowDownloads"
                     render={({ field }) => (
                       <FormItem className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-100 space-y-0">
-                        <div className="space-y-1">
+                        <div className="space-y-1 text-left">
                           <FormLabel className="text-base font-bold text-gray-900">Allow Downloads</FormLabel>
-                          <p className="text-sm text-gray-400 font-medium font-body">Students can download this material</p>
+                          <p className="text-sm text-gray-400 font-medium">Students can download this material</p>
                         </div>
                         <FormControl>
                           <Switch 
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            className="data-[state=checked]:bg-[#14b8a6]" 
+                            className="data-[state=checked]:bg-blue-600" 
                           />
                         </FormControl>
                       </FormItem>
@@ -329,15 +329,15 @@ export default function UploadMaterialPage() {
                     name="visibleToStudents"
                     render={({ field }) => (
                       <FormItem className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-100 space-y-0">
-                        <div className="space-y-1">
+                        <div className="space-y-1 text-left">
                           <FormLabel className="text-base font-bold text-gray-900">Visible to Students</FormLabel>
-                          <p className="text-sm text-gray-400 font-medium font-body">Publish immediately after upload</p>
+                          <p className="text-sm text-gray-400 font-medium">Publish immediately after upload</p>
                         </div>
                         <FormControl>
                           <Switch 
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            className="data-[state=checked]:bg-[#14b8a6]" 
+                            className="data-[state=checked]:bg-blue-600" 
                           />
                         </FormControl>
                       </FormItem>
@@ -360,7 +360,7 @@ export default function UploadMaterialPage() {
             </Button>
             <Button 
               type="submit"
-              className="h-14 px-10 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 gap-3 transition-all active:scale-95 border-none disabled:opacity-70"
+              className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 gap-3 transition-all active:scale-95 border-none disabled:opacity-70"
               disabled={isSubmitting}
             >
               {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}

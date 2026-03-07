@@ -142,7 +142,7 @@ export default function AddEnrollmentPage() {
     <div className="max-w-5xl mx-auto space-y-8">
       <Link 
         href="/admin/enrollments" 
-        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#35a3be] transition-colors group"
+        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors group"
       >
         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
         Back to Enrollments
@@ -153,8 +153,8 @@ export default function AddEnrollmentPage() {
           <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
-                <div className="w-14 h-14 rounded-2xl bg-[#35a3be]/10 flex items-center justify-center">
-                  <UserPlus className="w-7 h-7 text-[#35a3be]" />
+                <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
+                  <UserPlus className="w-7 h-7 text-blue-600" />
                 </div>
                 <div className="text-left">
                   <h3 className="text-xl font-bold text-gray-900 tracking-tight">Student Information</h3>
@@ -167,10 +167,10 @@ export default function AddEnrollmentPage() {
                   control={form.control}
                   name="firstName"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">First Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] px-6 font-medium" />
+                        <Input placeholder="John" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -180,10 +180,10 @@ export default function AddEnrollmentPage() {
                   control={form.control}
                   name="lastName"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Last Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Doe" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] px-6 font-medium" />
+                        <Input placeholder="Doe" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -198,7 +198,7 @@ export default function AddEnrollmentPage() {
                         <Mail className="w-4 h-4 text-gray-400" /> Email Address
                       </FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="john@example.com" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] px-6 font-medium" />
+                        <Input type="email" placeholder="john@example.com" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -213,7 +213,7 @@ export default function AddEnrollmentPage() {
                         <Phone className="w-4 h-4 text-gray-400" /> Phone Number
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="+91 72000 00000" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] px-6 font-medium" />
+                        <Input placeholder="+91 72000 00000" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -226,8 +226,8 @@ export default function AddEnrollmentPage() {
           <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
-                <div className="w-14 h-14 rounded-2xl bg-[#35a3be]/10 flex items-center justify-center">
-                  <GraduationCap className="w-7 h-7 text-[#35a3be]" />
+                <div className="w-14 h-14 rounded-2xl bg-teal-50 flex items-center justify-center">
+                  <GraduationCap className="w-7 h-7 text-teal-600" />
                 </div>
                 <div className="text-left">
                   <h3 className="text-xl font-bold text-gray-900 tracking-tight">Course Details</h3>
@@ -244,7 +244,7 @@ export default function AddEnrollmentPage() {
                       <FormLabel className="text-sm font-bold text-gray-700">Course</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
+                          <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                             <SelectValue placeholder="Select a course" />
                           </SelectTrigger>
                         </FormControl>
@@ -269,7 +269,7 @@ export default function AddEnrollmentPage() {
                         <Calendar className="w-4 h-4 text-gray-400" /> Start Date
                       </FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] px-6 font-medium text-gray-500 appearance-none" />
+                        <Input type="date" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium text-gray-500 appearance-none shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -288,7 +288,7 @@ export default function AddEnrollmentPage() {
                       </FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
+                          <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                             <SelectValue placeholder="Select payment plan" />
                           </SelectTrigger>
                         </FormControl>
@@ -312,7 +312,7 @@ export default function AddEnrollmentPage() {
                         <FileText className="w-4 h-4 text-gray-400" /> Additional Notes
                       </FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Any additional information..." {...field} className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-[#35a3be] p-6 font-medium text-gray-600 resize-none" />
+                        <Textarea placeholder="Any additional information..." {...field} className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-blue-500 p-6 font-medium text-gray-600 resize-none shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -334,7 +334,7 @@ export default function AddEnrollmentPage() {
             </Button>
             <Button 
               type="submit"
-              className="h-14 px-10 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 gap-3 transition-all active:scale-95 border-none disabled:opacity-70"
+              className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 gap-3 transition-all active:scale-95 border-none disabled:opacity-70"
               disabled={isSubmitting}
             >
               {isSubmitting ? (

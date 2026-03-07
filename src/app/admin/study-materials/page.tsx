@@ -108,16 +108,16 @@ export default function StudyMaterialsPage() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="relative w-full max-w-md">
+        <div className="relative w-full max-w-md text-left">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
             placeholder="Search materials..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-12 h-14 bg-white border-none rounded-[18px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-visible:ring-[#35a3be]"
+            className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
           />
         </div>
-        <Button asChild className="h-14 px-8 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-[18px] shadow-lg shadow-[#35a3be]/20 gap-2 text-base cursor-pointer border-none">
+        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base cursor-pointer border-none transition-all active:scale-95">
           <Link href="/admin/study-materials/upload">
             <Plus className="w-6 h-6" /> Upload Material
           </Link>
@@ -185,8 +185,8 @@ export default function StudyMaterialsPage() {
                     </DropdownMenu>
                   </div>
 
-                  <div className="space-y-1 mb-6">
-                    <h3 className="font-bold text-gray-900 text-lg leading-snug group-hover:text-[#35a3be] transition-colors line-clamp-2 min-h-[3.5rem]">{item.title}</h3>
+                  <div className="space-y-1 mb-6 text-left">
+                    <h3 className="font-bold text-gray-900 text-lg leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[3.5rem]">{item.title}</h3>
                     <p className="text-sm font-medium text-gray-400">{item.grade}</p>
                   </div>
 
@@ -206,7 +206,7 @@ export default function StudyMaterialsPage() {
                       <Button 
                         variant="ghost" 
                         size="icon" 
-                        className="h-9 w-9 text-gray-400 hover:text-[#35a3be] hover:bg-cyan-50 rounded-xl"
+                        className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
                         onClick={() => handlePreview(item.pdfUrl)}
                       >
                         <Eye className="w-5 h-5" />
@@ -214,7 +214,7 @@ export default function StudyMaterialsPage() {
                       <Button 
                         variant="ghost" 
                         size="icon" 
-                        className="h-9 w-9 text-gray-400 hover:text-[#35a3be] hover:bg-cyan-50 rounded-xl"
+                        className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
                         disabled={!item.pdfUrl}
                         asChild
                       >

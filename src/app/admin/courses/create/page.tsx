@@ -148,7 +148,7 @@ export default function CreateCoursePage() {
     <div className="max-w-5xl mx-auto space-y-8">
       <Link 
         href="/admin/courses" 
-        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-indigo-600 transition-colors group"
+        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors group"
       >
         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
         Back to Courses
@@ -160,8 +160,8 @@ export default function CreateCoursePage() {
           <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
             <CardContent className="p-10">
               <div className="flex items-center gap-5 mb-10">
-                <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-indigo-600" />
+                <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-blue-600" />
                 </div>
                 <div className="text-left">
                   <h3 className="text-xl font-bold text-gray-900 tracking-tight">Course Information</h3>
@@ -174,10 +174,10 @@ export default function CreateCoursePage() {
                   control={form.control}
                   name="title"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Course Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. Advanced React Patterns" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-indigo-500 px-6 font-medium" />
+                        <Input placeholder="e.g. Advanced React Patterns" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -188,10 +188,10 @@ export default function CreateCoursePage() {
                   control={form.control}
                   name="description"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Description</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="What students will learn in this course..." {...field} className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-indigo-500 p-6 font-medium text-gray-600 resize-none" />
+                        <Textarea placeholder="What students will learn in this course..." {...field} className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-blue-500 p-6 font-medium text-gray-600 resize-none shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -207,7 +207,7 @@ export default function CreateCoursePage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Category</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-indigo-500 px-6 font-medium text-gray-500">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                           </FormControl>
@@ -232,7 +232,7 @@ export default function CreateCoursePage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Difficulty Level</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-indigo-500 px-6 font-medium text-gray-500">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select level" />
                             </SelectTrigger>
                           </FormControl>
@@ -255,8 +255,8 @@ export default function CreateCoursePage() {
           <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
             <CardContent className="p-10">
               <div className="flex items-center gap-5 mb-10">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center">
-                  <Layout className="w-6 h-6 text-emerald-600" />
+                <div className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center">
+                  <Layout className="w-6 h-6 text-teal-600" />
                 </div>
                 <div className="text-left">
                   <h3 className="text-xl font-bold text-gray-900 tracking-tight">Curriculum</h3>
@@ -273,7 +273,7 @@ export default function CreateCoursePage() {
                         placeholder={`Module ${index + 1} title`} 
                         value={module.title}
                         onChange={(e) => handleModuleChange(index, e.target.value)}
-                        className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-emerald-500 px-6 font-medium"
+                        className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-teal-500 px-6 font-medium shadow-sm"
                       />
                     </div>
                     {modules.length > 1 && (
@@ -320,12 +320,12 @@ export default function CreateCoursePage() {
                   control={form.control}
                   name="price"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                        <DollarSign className="w-4 h-4 text-gray-400" /> Price (USD / INR)
+                        <DollarSign className="w-4 h-4 text-gray-400" /> Price (INR)
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="49.99" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium" />
+                        <Input placeholder="4999" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -335,12 +335,12 @@ export default function CreateCoursePage() {
                   control={form.control}
                   name="duration"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700 flex items-center gap-2">
                         <Clock className="w-4 h-4 text-gray-400" /> Duration
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. 8 weeks" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium" />
+                        <Input placeholder="e.g. 8 weeks" {...field} className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-orange-500 px-6 font-medium shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -354,12 +354,12 @@ export default function CreateCoursePage() {
                   name="hasCertificate"
                   render={({ field }) => (
                     <FormItem className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-50 space-y-0">
-                      <div className="space-y-1">
+                      <div className="space-y-1 text-left">
                         <FormLabel className="text-base font-bold text-gray-900">Certificate on Completion</FormLabel>
                         <p className="text-sm text-gray-400 font-medium">Issue a certificate when students finish</p>
                       </div>
                       <FormControl>
-                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-indigo-600" />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-blue-600" />
                       </FormControl>
                     </FormItem>
                   )}
@@ -370,12 +370,12 @@ export default function CreateCoursePage() {
                   name="isPublished"
                   render={({ field }) => (
                     <FormItem className="flex items-center justify-between p-6 bg-gray-50/50 rounded-2xl border border-gray-50 space-y-0">
-                      <div className="space-y-1">
+                      <div className="space-y-1 text-left">
                         <FormLabel className="text-base font-bold text-gray-900">Published</FormLabel>
                         <p className="text-sm text-gray-400 font-medium">Make this course visible to students</p>
                       </div>
                       <FormControl>
-                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-indigo-600" />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-blue-600" />
                       </FormControl>
                     </FormItem>
                   )}
@@ -398,7 +398,7 @@ export default function CreateCoursePage() {
             <Button 
               type="submit"
               disabled={isSubmitting}
-              className="h-14 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 gap-3 transition-all active:scale-95 border-none"
+              className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 gap-3 transition-all active:scale-95 border-none"
             >
               {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <BookOpen className="w-5 h-5" />}
               {isSubmitting ? "Publishing..." : "Publish Course"}
