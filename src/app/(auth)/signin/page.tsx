@@ -194,7 +194,7 @@ export default function SignInPage() {
                         </Form>
                         <div className="mt-8 text-center">
                             <p className="text-sm text-gray-500 font-medium">
-                                Don't have an account? <Link href="/student-registration" className="text-[#35a3be] font-bold hover:underline">Register Now</Link>
+                                Don't have an account? <Link href="/registration" className="text-[#35a3be] font-bold hover:underline">Register Now</Link>
                             </p>
                         </div>
                     </CardContent>
