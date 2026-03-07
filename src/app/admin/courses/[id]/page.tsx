@@ -49,6 +49,7 @@ import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError, type SecurityRuleContext } from '@/firebase/errors';
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z.string().min(1, "Course title is required"),
