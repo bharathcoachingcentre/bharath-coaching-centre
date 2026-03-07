@@ -5,16 +5,13 @@ import React, { useState } from "react";
 import { 
   ArrowLeft, 
   Upload, 
-  CloudUpload, 
   BookOpen, 
   FileUp,
   Loader2,
-  Info,
   Link as LinkIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
@@ -33,7 +30,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
@@ -220,7 +216,7 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Board</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
                               <SelectValue placeholder="Select board" />
@@ -242,13 +238,18 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
                               <SelectValue placeholder="Select class" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                            <SelectItem value="Class 1">Class 1</SelectItem>
+                            <SelectItem value="Class 2">Class 2</SelectItem>
+                            <SelectItem value="Class 3">Class 3</SelectItem>
+                            <SelectItem value="Class 4">Class 4</SelectItem>
+                            <SelectItem value="Class 5">Class 5</SelectItem>
                             {Array.from({ length: 7 }, (_, i) => i + 6).map(grade => (
                               <SelectItem key={grade} value={`Class ${grade}`}>Class {grade}</SelectItem>
                             ))}
@@ -265,7 +266,7 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Material Type</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-[#35a3be] px-6 font-medium text-gray-500">
                               <SelectValue placeholder="Select type" />

@@ -1,15 +1,18 @@
+
 'use client';
 
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { X, Download, CheckCircle, BookOpen, FileCheck, Layers, GraduationCap, FileText, ArrowRight, Calendar } from "lucide-react";
+import { X, Download, CheckCircle, BookOpen, FileCheck, Layers, GraduationCap, FileText, ArrowRight, Calendar, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { Badge } from "@/components/ui/badge";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, query, where, orderBy } from "firebase/firestore";
 
 const AnimatedSection = ({ children, className, id, style, ...props }: { children: React.ReactNode; className?: string; id?: string, style?: React.CSSProperties } & React.HTMLAttributes<HTMLDivElement>) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
@@ -37,12 +40,26 @@ const AnimatedSection = ({ children, className, id, style, ...props }: { childre
 
 export default function Cbse10thGradePage() {
     const searchParams = useSearchParams();
+    const firestore = useFirestore();
     const studyMaterialSectionRef = useRef<HTMLDivElement>(null);
     const materialButtonsRef = useRef<(HTMLAnchorElement | null)[]>([]);
     
     const [showTimetableDownload, setShowTimetableDownload] = React.useState(false);
     const [timetableBoard, setTimetableBoard] = React.useState<string | null>(null);
     const [selectedTimetableClass, setSelectedTimetableClass] = React.useState<any | null>(null);
+
+    // Fetch dynamic materials from Firestore
+    const materialsQuery = useMemo(() => {
+      if (!firestore) return null;
+      return query(
+        collection(firestore, 'study-materials'),
+        where('grade', '==', 'Class 10'),
+        where('board', '==', 'CBSE'),
+        where('isVisible', '==', true)
+      );
+    }, [firestore]);
+
+    const { data: materials, loading: materialsLoading } = useCollection(materialsQuery);
 
     useEffect(() => {
         const showMaterial = searchParams.get('showMaterial');
@@ -52,8 +69,8 @@ export default function Cbse10thGradePage() {
             setTimeout(() => {
                 studyMaterialSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                if (materialToHighlight) {
-                    const buttonIndex = studyMaterials.findIndex(m => m.title === materialToHighlight);
+                if (materialToHighlight && materials) {
+                    const buttonIndex = materials.findIndex(m => m.title === materialToHighlight);
                     if (buttonIndex !== -1) {
                         const buttonElement = materialButtonsRef.current[buttonIndex];
                         if (buttonElement) {
@@ -64,9 +81,9 @@ export default function Cbse10thGradePage() {
                         }
                     }
                 }
-            }, 100);
+            }, 500);
         }
-    }, [searchParams]);
+    }, [searchParams, materials]);
 
     const benefits = [
         "18+ years experienced faculties specialized in each subject.",
@@ -93,49 +110,6 @@ export default function Cbse10thGradePage() {
             { class: "Class 9", pdf: "/pdfs/timetable_samacheer_9.pdf" },
         ]
       };
-      
-      const studyMaterials = [
-        {
-          title: "NCERT Book PDF",
-          description: "Complete NCERT textbooks in PDF format",
-          icon: BookOpen,
-          pdf: "/pdfs/cbse_10_ncert.pdf",
-          iconBg: "bg-blue-500/20",
-          iconColor: "text-blue-400",
-        },
-        {
-          title: "NCERT Book Back Solution",
-          description: "Detailed solutions for all exercises",
-          icon: FileCheck,
-          pdf: "/pdfs/cbse_10_solutions.pdf",
-          iconBg: "bg-green-500/20",
-          iconColor: "text-green-400",
-        },
-        {
-          title: "NCERT Chapterwise Test Question Paper",
-          description: "Practice papers for each chapter",
-          icon: Layers,
-          pdf: "/pdfs/cbse_10_unit_questions.pdf",
-          iconBg: "bg-purple-500/20",
-          iconColor: "text-purple-400",
-        },
-        {
-          title: "Model Board Question Paper",
-          description: "Latest model papers for practice",
-          icon: GraduationCap,
-          pdf: "/pdfs/cbse_10_model_paper.pdf",
-          iconBg: "bg-orange-500/20",
-          iconColor: "text-orange-400",
-        },
-        {
-          title: "Previous Year Board Question Paper",
-          description: "Last 10 years question papers",
-          icon: FileText,
-          pdf: "/pdfs/cbse_10_model_paper.pdf",
-          iconBg: "bg-pink-500/20",
-          iconColor: "text-pink-400",
-        },
-      ];
 
   return (
     <div>
@@ -276,30 +250,42 @@ export default function Cbse10thGradePage() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {studyMaterials.map((material, index) => (
-              <a 
-                href={material.pdf} 
-                download 
-                key={index} 
-                className="block group"
-                ref={el => materialButtonsRef.current[index] = el}
-              >
-                <Card className="bg-gray-200/10 backdrop-blur-sm border border-gray-200/10 text-white p-6 h-full text-left rounded-2xl transition-all duration-300 hover:bg-gray-200/10 hover:border-gray-200/20 hover:-translate-y-2">
-                  <CardContent className="p-0 flex flex-col h-full">
-                    <div className="flex items-center gap-4">
-                        <div className={`p-3 rounded-lg ${material.iconBg}`}>
-                            <material.icon className={`w-8 h-8 ${material.iconColor}`} />
-                        </div>
-                        <h3 className="text-lg font-bold flex-1">{material.title}</h3>
-                    </div>
-                    <p className="text-sm text-gray-400 mt-4 flex-grow">{material.description}</p>
-                    <div className="mt-6 flex items-center text-yellow-400 group-hover:text-yellow-300 font-semibold transition-colors">
-                      Download Now <ArrowRight className="ml-2 w-4 h-4" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </a>
-            ))}
+            {materialsLoading ? (
+              <div className="col-span-full py-12 flex flex-col items-center gap-4 text-white/60">
+                <Loader2 className="w-8 h-8 animate-spin" />
+                <p>Loading latest materials...</p>
+              </div>
+            ) : !materials || materials.length === 0 ? (
+              <div className="col-span-full py-12 text-white/40">
+                <FileText className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                <p>No materials available for Class 10 CBSE yet.</p>
+              </div>
+            ) : (
+              materials.map((material, index) => (
+                <a 
+                  href={material.pdfUrl} 
+                  download 
+                  key={index} 
+                  className="block group"
+                  ref={el => materialButtonsRef.current[index] = el}
+                >
+                  <Card className="bg-gray-200/10 backdrop-blur-sm border border-gray-200/10 text-white p-6 h-full text-left rounded-2xl transition-all duration-300 hover:bg-gray-200/10 hover:border-gray-200/20 hover:-translate-y-2">
+                    <CardContent className="p-0 flex flex-col h-full">
+                      <div className="flex items-center gap-4">
+                          <div className={`p-3 rounded-lg bg-blue-500/20`}>
+                              <BookOpen className={`w-8 h-8 text-blue-400`} />
+                          </div>
+                          <h3 className="text-lg font-bold flex-1">{material.title}</h3>
+                      </div>
+                      <p className="text-sm text-gray-400 mt-4 flex-grow">{material.description}</p>
+                      <div className="mt-6 flex items-center text-yellow-400 group-hover:text-yellow-300 font-semibold transition-colors">
+                        Download Now <ArrowRight className="ml-2 w-4 h-4" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              ))
+            )}
           </div>
         </div>
       </section>

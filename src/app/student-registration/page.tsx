@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -6,10 +7,8 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CalendarIcon, User, Users, Phone, BookOpen, Send, GraduationCap, Trash2, Loader2 } from "lucide-react"
+import { CalendarIcon, User, Users, Phone, Send, GraduationCap, Trash2, Loader2 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
-import ReactCalendar from 'react-calendar'
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
@@ -273,32 +272,17 @@ export default function StudentRegistrationPage() {
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <FormLabel className="text-[#182d45] font-bold mb-1.5 text-xs md:text-sm">Date of Birth *</FormLabel>
-                             <Popover>
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "h-11 justify-start text-left font-normal bg-gray-50/50 rounded-xl border-gray-200",
-                                        !field.value && "text-muted-foreground"
-                                    )}
-                                    >
-                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {field.value ? format(field.value, "PPP") : <span>Select Date</span>}
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0 rounded-2xl overflow-hidden shadow-xl border-none">
-                                    {isMounted && (
-                                        <ReactCalendar
-                                            onChange={(val) => field.onChange(val as Date)}
-                                            value={field.value || new Date()}
-                                            calendarType="gregory"
-                                            className="border-none"
-                                        />
-                                    )}
-                                </PopoverContent>
-                            </Popover>
+                            <FormControl>
+                                <Input 
+                                    type="date"
+                                    className="h-11 bg-gray-50/50 border-gray-200 rounded-xl shadow-sm"
+                                    value={field.value instanceof Date ? format(field.value, "yyyy-MM-dd") : ""}
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        field.onChange(val ? new Date(val) : undefined);
+                                    }}
+                                />
+                            </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}

@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -6,7 +7,6 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { 
     CalendarIcon, 
     User, 
@@ -30,7 +30,6 @@ import {
     CheckCircle2
 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
-import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
@@ -38,7 +37,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useToast } from "@/hooks/use-toast"
-import Image from "next/image"
 import { Separator } from "@/components/ui/separator"
 import {
   Select,
@@ -292,8 +290,8 @@ export default function EnrollmentPage() {
                         
                         {/* Step 1: Personal Info */}
                         {currentStep === 1 && (
-                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] overflow-hidden bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6">
+                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6 rounded-t-[2rem]">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner">
                                             <User className="text-white w-6 h-6" />
@@ -361,27 +359,17 @@ export default function EnrollmentPage() {
                                             render={({ field }) => (
                                                 <FormItem className="flex flex-col">
                                                     <FormLabel className="text-[#182d45] font-bold mb-2">Date of Birth *</FormLabel>
-                                                    <Popover>
-                                                        <PopoverTrigger asChild>
-                                                            <FormControl>
-                                                                <Button variant={"outline"} className={cn("h-12 justify-start text-left font-normal bg-gray-50 border-gray-100 rounded-xl shadow-sm", !field.value && "text-muted-foreground")}>
-                                                                    <CalendarIcon className="mr-2 h-4 w-4 text-blue-500" />
-                                                                    {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                                                                </Button>
-                                                            </FormControl>
-                                                        </PopoverTrigger>
-                                                        <PopoverContent className="w-auto p-0 rounded-xl overflow-hidden shadow-2xl border-none" align="start">
-                                                            <Calendar
-                                                                mode="single"
-                                                                selected={field.value}
-                                                                onSelect={field.onChange}
-                                                                disabled={(date) =>
-                                                                    date > new Date() || date < new Date("1900-01-01")
-                                                                }
-                                                                initialFocus
-                                                            />
-                                                        </PopoverContent>
-                                                    </Popover>
+                                                    <FormControl>
+                                                        <Input 
+                                                            type="date"
+                                                            className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm"
+                                                            value={field.value instanceof Date ? format(field.value, "yyyy-MM-dd") : ""}
+                                                            onChange={(e) => {
+                                                                const val = e.target.value;
+                                                                field.onChange(val ? new Date(val) : undefined);
+                                                            }}
+                                                        />
+                                                    </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
@@ -486,8 +474,8 @@ export default function EnrollmentPage() {
 
                         {/* Step 2: Academic Info */}
                         {currentStep === 2 && (
-                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] overflow-hidden bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-8 py-6">
+                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-8 py-6 rounded-t-[2rem]">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner">
                                             <BookOpen className="text-white w-6 h-6" />
@@ -662,8 +650,8 @@ export default function EnrollmentPage() {
 
                         {/* Step 3: Guardian & Fees Info */}
                         {currentStep === 3 && (
-                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] overflow-hidden bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6">
+                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6 rounded-t-[2rem]">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner">
                                             <Users className="text-white w-6 h-6" />
@@ -695,24 +683,17 @@ export default function EnrollmentPage() {
                                             render={({ field }) => (
                                                 <FormItem className="flex flex-col">
                                                     <FormLabel className="text-[#182d45] font-bold mb-2">Admission Date *</FormLabel>
-                                                    <Popover>
-                                                        <PopoverTrigger asChild>
-                                                            <FormControl>
-                                                                <Button variant={"outline"} className={cn("h-12 justify-start text-left font-normal bg-gray-50 border-gray-100 rounded-xl shadow-sm", !field.value && "text-muted-foreground")}>
-                                                                    <CalendarIcon className="mr-2 h-4 w-4 text-purple-500" />
-                                                                    {field.value ? format(field.value, "PPP") : <span>Select Date</span>}
-                                                                </Button>
-                                                            </FormControl>
-                                                        </PopoverTrigger>
-                                                        <PopoverContent className="w-auto p-0 rounded-xl overflow-hidden shadow-2xl border-none" align="start">
-                                                            <Calendar
-                                                                mode="single"
-                                                                selected={field.value}
-                                                                onSelect={field.onChange}
-                                                                initialFocus
-                                                            />
-                                                        </PopoverContent>
-                                                    </Popover>
+                                                    <FormControl>
+                                                        <Input 
+                                                            type="date"
+                                                            className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm"
+                                                            value={field.value instanceof Date ? format(field.value, "yyyy-MM-dd") : ""}
+                                                            onChange={(e) => {
+                                                                const val = e.target.value;
+                                                                field.onChange(val ? new Date(val) : undefined);
+                                                            }}
+                                                        />
+                                                    </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
@@ -740,8 +721,8 @@ export default function EnrollmentPage() {
 
                         {/* Step 4: Contact Info */}
                         {currentStep === 4 && (
-                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] overflow-hidden bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                <div className="bg-gradient-to-r from-orange-600 to-orange-700 px-8 py-6">
+                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="bg-gradient-to-r from-orange-600 to-orange-700 px-8 py-6 rounded-t-[2rem]">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner">
                                             <Phone className="text-white w-6 h-6" />

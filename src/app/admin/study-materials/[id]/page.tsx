@@ -256,7 +256,7 @@ export default function StudyMaterialEditPage() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Board</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
                                 <SelectValue placeholder="Select board" />
@@ -277,7 +277,7 @@ export default function StudyMaterialEditPage() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Class / Grade</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
                                 <SelectValue placeholder="Assign to class" />
@@ -299,7 +299,7 @@ export default function StudyMaterialEditPage() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Material Type</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
                                 <SelectValue placeholder="Select type" />
