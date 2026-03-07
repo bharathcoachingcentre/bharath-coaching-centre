@@ -1,97 +1,119 @@
 import Image from "next/image";
-import { Target, Lightbulb, Brain, Trophy } from "lucide-react";
+import { Target, Lightbulb, Brain, Trophy, Check } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div>
-      <section className="relative w-full flex items-center justify-center" style={{ height: '500px' }}>
+    <div className="font-body antialiased">
+      {/* Hero Section */}
+      <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
         <Image
           src="/About-Us.jpg"
           alt="About Us Banner"
           fill
           className="object-cover"
           data-ai-hint="woman yoga"
+          priority
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         <div className="relative z-10 text-center pt-20">
-          <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
+          <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl tracking-tight">
             About Us
           </h1>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 relative overflow-hidden" style={{ backgroundColor: 'rgb(245 250 255)' }}>
-        <div className="container mx-auto px-4">
+      {/* Philosophy Section */}
+      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-blue-50/50 to-teal-50/50">
+        {/* Decorative Background Blobs */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-[100px] -z-0"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative">
+              {/* Decorative grid pattern */}
               <div className="absolute -top-8 -left-8 w-48 h-48 bg-[radial-gradient(hsl(var(--primary)/0.1)_2px,transparent_2px)] [background-size:16px_16px] -z-0"></div>
-              <div className="relative z-10">
+              
+              <div className="relative z-10 group">
+                <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-teal-500/10 rounded-2xl blur-2xl group-hover:opacity-100 transition-opacity opacity-0 duration-500"></div>
                 <Image
                   src="/about-image-vector.jpg"
                   alt="Counseling session"
                   width={600}
                   height={700}
-                  className="rounded-lg shadow-2xl object-cover"
+                  className="rounded-3xl shadow-2xl object-cover relative z-10 border border-white/50"
                   data-ai-hint="counseling session"
                 />
               </div>
             </div>
-            <div className="space-y-8">
+
+            <div className="space-y-10 text-left">
               <div>
-                <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#35a3be]/10 border border-[#35a3be]/20 mb-6">
-                  <span className="h-2 w-2 rounded-full bg-[#35a3be] animate-pulse"></span>
-                  <p className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: '#35a3be' }}>ABOUT</p>
-                </div>
-                <h2 className="text-4xl font-bold font-serif leading-tight" style={{ color: '#182d45' }}>
-                  What Makes Us Different
+                <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
+                  Philosophy
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+                  What Makes Us <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Different</span>
                 </h2>
               </div>
 
-              <div className="relative space-y-10">
-                
-                <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
-                    <Target className="h-8 w-8" />
+              <div className="space-y-8">
+                {[
+                  {
+                    icon: Target,
+                    color: "bg-blue-500 shadow-blue-500/30",
+                    text: "Everyone is an achiever."
+                  },
+                  {
+                    icon: Lightbulb,
+                    color: "bg-teal-500 shadow-teal-500/30",
+                    text: "Every student needs a unique method to deliver the concept."
+                  },
+                  {
+                    icon: Brain,
+                    color: "bg-purple-500 shadow-purple-500/30",
+                    text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities."
+                  },
+                  {
+                    icon: Trophy,
+                    color: "bg-orange-500 shadow-orange-500/30",
+                    text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever."
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-6 group">
+                    <div className={cn(
+                      "w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-1",
+                      item.color
+                    )}>
+                      <item.icon className="w-7 h-7" />
+                    </div>
+                    <div className="pt-2">
+                      <p className="text-gray-600 font-medium text-lg leading-relaxed">
+                        {item.text}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="mt-2 text-gray-600 font-medium">
-                      Everyone is an achiever.
-                    </p>
-                  </div>
-                </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <div className="relative flex items-start gap-8">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
-                    <Lightbulb className="h-8 w-8" />
-                  </div>
-                  <div>
-                    <p className="mt-2 text-gray-600 font-medium">
-                      Every student needs a unique method to deliver the concept.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
-                    <Brain className="h-8 w-8" />
-                  </div>
-                  <div>
-                    <p className="mt-2 text-gray-600 font-medium">
-                      BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.
-                    </p>
-                  </div>
-                </div>
-
-                 <div className="relative flex items-start gap-8">
-                   <div className="relative flex h-16 w-16 items-center justify-center rounded-full text-white flex-shrink-0 z-10 transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default" style={{ backgroundColor: '#0d4f5c' }}>
-                    <Trophy className="h-8 w-8" />
-                  </div>
-                  <div>
-                    <p className="mt-2 text-gray-600 font-medium">
-                      Our moto “Everyone is an achiever.” stands as our ultimate goal is to train up any student who step into our academy and turn them up into an achiever.
-                    </p>
-                  </div>
-                </div>
+      {/* CTA Section style consistency */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-teal-500 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 transition-transform duration-700 group-hover:scale-110"></div>
+            <div className="relative z-10 space-y-6">
+              <h2 className="text-3xl md:text-4xl font-bold">Start Your Journey To Success</h2>
+              <p className="text-blue-50 text-lg max-w-2xl mx-auto font-medium">
+                Experience the difference with our unique teaching methodology and personalized attention.
+              </p>
+              <div className="pt-4">
+                <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-4 rounded-2xl text-lg shadow-xl transition-all active:scale-95">
+                  Enroll Today
+                </button>
               </div>
             </div>
           </div>
