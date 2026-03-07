@@ -37,9 +37,11 @@ import {
     ClipboardCheck, 
     BarChart, 
     GraduationCap, 
-    FileText 
+    FileText,
+    ChevronDown
 } from "lucide-react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -71,20 +73,20 @@ export default function OneToOneClassesPage() {
     });
 
     const benefits = [
-        { text: "Customized time table", icon: Calendar },
-        { text: "18+ year experienced faculties", icon: Users },
-        { text: "Individual attention", icon: UserCheck },
-        { text: "Weekly test", icon: ClipboardCheck },
-        { text: "25% & 50% portion test", icon: BarChart },
-        { text: "Full mock test", icon: GraduationCap },
-        { text: "Specialized study materials", icon: BookOpen },
-        { text: "Previous year question paper", icon: FileText },
+        { text: "Customized time table", icon: Calendar, color: "bg-blue-500" },
+        { text: "18+ year experienced faculties", icon: Users, color: "bg-teal-500" },
+        { text: "Individual attention", icon: UserCheck, color: "bg-purple-500" },
+        { text: "Weekly test", icon: ClipboardCheck, color: "bg-orange-500" },
+        { text: "25% & 50% portion test", icon: BarChart, color: "bg-pink-500" },
+        { text: "Full mock test", icon: GraduationCap, color: "bg-indigo-500" },
+        { text: "Specialized study materials", icon: BookOpen, color: "bg-blue-600" },
+        { text: "Previous year question paper", icon: FileText, color: "bg-teal-600" },
     ];
 
     const whyChoosePoints = [
-        { icon: User, title: "Personal concern" },
-        { icon: Calendar, title: "Personalized schedule" },
-        { icon: BookOpen, title: "Perfect Learning" },
+        { icon: User, title: "Personal concern", color: "bg-blue-500" },
+        { icon: Calendar, title: "Personalized schedule", color: "bg-teal-500" },
+        { icon: BookOpen, title: "Perfect Learning", color: "bg-purple-500" },
     ];
 
     function onSubmit(values: z.infer<typeof formSchema>) {
@@ -95,65 +97,73 @@ export default function OneToOneClassesPage() {
         });
         form.reset();
     }
+
   return (
-    <div>
-        <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
+    <div className="font-body antialiased">
+        {/* Hero Section */}
+        <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
             <Image
                 src="/one-to-one.jpg"
                 alt="One to One Classes"
                 fill
                 className="object-cover"
                 data-ai-hint="student learning online"
+                priority
             />
-            <div className="absolute inset-0 bg-black/50" />
-            <div className="relative z-10 w-full container mx-auto px-4 text-center">
-                <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-lg text-center">
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
+            <div className="relative z-10 w-full container mx-auto px-4 text-center pt-20">
+                <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl tracking-tight">
                     One to One Classes
                 </h1>
             </div>
         </section>
 
-        <div className="py-16 md:py-24" style={{ backgroundColor: 'rgb(245 250 255)' }}>
-            <div className="container mx-auto px-4">
+        <div className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-blue-50/50 to-teal-50/50">
+            {/* Decorative Background Blobs */}
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-[100px] -z-0"></div>
+
+            <div className="container mx-auto px-4 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
                     {/* Left Column */}
                     <div className="space-y-16">
                         <div className="text-left">
-                            <span 
-                                className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm"
-                                style={{ color: '#35a3be', backgroundColor: 'white', borderColor: 'rgba(53, 163, 190, 0.2)' }}
-                            >
+                            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
                                 Information
                             </span>
-                            <h2 className="text-4xl md:text-5xl font-extrabold text-[#182d45] tracking-tight mb-12 !text-left">
-                                One to One <span style={{ color: '#35a3be' }}>Classes</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-12">
+                                One to One <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Classes</span>
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                                 {whyChoosePoints.map((point, index) => (
                                     <div key={index} className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden">
-                                        <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-[#35a3be]/5 rounded-full transition-transform duration-700 group-hover:scale-150 -z-0" />
-                                        
                                         <div className="relative mb-8">
-                                            <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                                            <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53,163,190,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                                                <point.icon className="w-10 h-10 text-white" />
+                                            <div className="absolute inset-0 bg-blue-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                                            <div className={cn(
+                                                "relative w-20 h-20 rounded-3xl flex items-center justify-center shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 text-white",
+                                                point.color
+                                            )}>
+                                                <point.icon className="w-10 h-10" />
                                             </div>
                                         </div>
-                                        <h3 className="relative z-10 text-xl font-extrabold text-[#182d45] tracking-tight leading-tight">{point.title}</h3>
+                                        <h3 className="relative z-10 text-xl font-bold text-gray-900 tracking-tight leading-tight">{point.title}</h3>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         <div className="pt-4 text-left">
-                             <h2 className="text-3xl font-bold mb-10 flex items-center gap-4 text-left" style={{ color: '#182d45' }}>
-                                <span className="w-2 h-10 bg-[#35a3be] rounded-full"></span>
-                                Our <span style={{ color: '#35a3be' }}>Benefits</span>
+                             <h2 className="text-3xl font-bold mb-10 flex items-center gap-4 text-left text-gray-900">
+                                <span className="w-2 h-10 bg-gradient-to-b from-blue-600 to-teal-500 rounded-full"></span>
+                                Our <span className="text-blue-600">Benefits</span>
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {benefits.map((benefit, index) => (
-                                    <div key={index} className="bg-white/70 backdrop-blur-md p-5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center border border-white transition-all duration-300 hover:border-[#35a3be]/30 hover:shadow-lg group">
-                                        <div className="flex-shrink-0 flex items-center justify-center h-11 w-11 rounded-2xl text-white mr-5 shadow-[0_5px_15px_rgba(13,79,92,0.2)] group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0d4f5c' }}>
+                                    <div key={index} className="bg-white/70 backdrop-blur-md p-5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center border border-white transition-all duration-300 hover:border-blue-200 hover:shadow-lg group">
+                                        <div className={cn(
+                                            "flex-shrink-0 flex items-center justify-center h-11 w-11 rounded-2xl text-white mr-5 shadow-lg transition-transform group-hover:scale-110",
+                                            benefit.color
+                                        )}>
                                             <benefit.icon className="h-6 w-6" />
                                         </div>
                                         <span className="font-bold text-gray-700 text-lg leading-tight text-left">{benefit.text}</span>
@@ -166,8 +176,8 @@ export default function OneToOneClassesPage() {
                     {/* Right Column - Form */}
                     <div className="bg-white/90 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_30px_80px_rgba(8,112,184,0.1)] sticky top-28 border border-white">
                         <div className="text-center mb-8">
-                            <span className="inline-block px-4 py-1.5 rounded-full bg-[#35a3be]/10 text-[#35a3be] text-xs font-black uppercase tracking-widest mb-4">Book Now</span>
-                            <h2 className="text-3xl font-extrabold text-[#182d45]">Booking Form</h2>
+                            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 text-xs font-bold uppercase tracking-widest mb-4">Book Now</span>
+                            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Booking Form</h2>
                             <p className="text-gray-500 mt-2 font-medium">Experience our personalized demo class today</p>
                         </div>
                         <Form {...form}>
@@ -177,10 +187,10 @@ export default function OneToOneClassesPage() {
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
-                                            <FormItem>
-                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Full Name</FormLabel>
+                                            <FormItem className="text-left">
+                                            <FormLabel className="font-bold text-gray-700">Full Name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="John Doe" {...field} className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm"/>
+                                                <Input placeholder="John Doe" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm"/>
                                             </FormControl>
                                             <FormMessage />
                                             </FormItem>
@@ -190,10 +200,10 @@ export default function OneToOneClassesPage() {
                                         control={form.control}
                                         name="mobileNumber"
                                         render={({ field }) => (
-                                            <FormItem>
-                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Mobile Number</FormLabel>
+                                            <FormItem className="text-left">
+                                            <FormLabel className="font-bold text-gray-700">Mobile Number</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="+91 XXXXX XXXXX" {...field} className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm"/>
+                                                <Input placeholder="+91 XXXXX XXXXX" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm"/>
                                             </FormControl>
                                             <FormMessage />
                                             </FormItem>
@@ -204,10 +214,10 @@ export default function OneToOneClassesPage() {
                                     control={form.control}
                                     name="email"
                                     render={({ field }) => (
-                                        <FormItem>
-                                        <FormLabel className="font-bold" style={{ color: '#182d45' }}>Email Address</FormLabel>
+                                        <FormItem className="text-left">
+                                        <FormLabel className="font-bold text-gray-700">Email Address</FormLabel>
                                         <FormControl>
-                                            <Input type="email" placeholder="your@email.com" {...field} className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm"/>
+                                            <Input type="email" placeholder="your@email.com" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm"/>
                                         </FormControl>
                                         <FormMessage />
                                         </FormItem>
@@ -218,11 +228,11 @@ export default function OneToOneClassesPage() {
                                         control={form.control}
                                         name="board"
                                         render={({ field }) => (
-                                            <FormItem>
-                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Education Board *</FormLabel>
+                                            <FormItem className="text-left">
+                                            <FormLabel className="font-bold text-gray-700">Education Board *</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                <SelectTrigger className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm">
+                                                <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                                                     <SelectValue placeholder="Select board" />
                                                 </SelectTrigger>
                                                 </FormControl>
@@ -242,11 +252,11 @@ export default function OneToOneClassesPage() {
                                         control={form.control}
                                         name="grade"
                                         render={({ field }) => (
-                                            <FormItem>
-                                            <FormLabel className="font-bold" style={{ color: '#182d45' }}>Grade Level *</FormLabel>
+                                            <FormItem className="text-left">
+                                            <FormLabel className="font-bold text-gray-700">Grade Level *</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                <SelectTrigger className="h-12 bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm">
+                                                <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                                                     <SelectValue placeholder="Select grade" />
                                                 </SelectTrigger>
                                                 </FormControl>
@@ -269,7 +279,7 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Individual Concern" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
+                                                    <Textarea placeholder="Individual Concern" {...field} className="bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none h-24" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -281,7 +291,7 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Personalized Schedule" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
+                                                    <Textarea placeholder="Personalized Schedule" {...field} className="bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none h-24" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -295,7 +305,7 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Personalized Study Material" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
+                                                    <Textarea placeholder="Personalized Study Material" {...field} className="bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none h-24" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -307,7 +317,7 @@ export default function OneToOneClassesPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea placeholder="Weekly Academic Growth Tracking" {...field} className="bg-white/50 border-gray-200 rounded-xl focus:border-[#35a3be] focus:ring-[#35a3be] shadow-sm resize-none" />
+                                                    <Textarea placeholder="Weekly Academic Growth Tracking" {...field} className="bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none h-24" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -315,7 +325,7 @@ export default function OneToOneClassesPage() {
                                     />
                                 </div>
                                 
-                                <Button type="submit" size="lg" className="w-full h-14 text-lg font-extrabold text-white rounded-2xl shadow-xl hover:shadow-[#35a3be]/30 transition-all duration-300 transform active:scale-95 mt-4" style={{ backgroundColor: '#35a3be' }}>
+                                <Button type="submit" size="lg" className="w-full h-14 text-lg font-bold text-white rounded-2xl shadow-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/25 transition-all duration-300 transform active:scale-95 mt-4 border-none">
                                     <Send className="h-5 w-5 mr-2"/> Book My Demo Session
                                 </Button>
                             </form>
