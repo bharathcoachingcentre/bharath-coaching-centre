@@ -76,23 +76,33 @@ export default function StudyMaterialsPage() {
 
   const handleDelete = async (id: string) => {
     if (!firestore) return;
-    if (!confirm("Are you sure you want to delete this material? This action cannot be undone.")) return;
+    if (!confirm("Are you sure you want to delete this study material? This action cannot be undone.")) return;
 
     const docRef = doc(firestore, 'study-materials', id);
+    
+    // Non-blocking deletion
     deleteDoc(docRef)
       .then(() => {
-        toast({ title: "Deleted", description: "Resource removed successfully." });
+        toast({ 
+          title: "Resource Deleted", 
+          description: "The material has been permanently removed from the system." 
+        });
       })
       .catch(async (error) => {
-        const permissionError = new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'delete',
-        });
-        errorEmitter.emit('permission-error', permissionError);
+        console.error("Delete error:", error);
+        
+        if (error.code === 'permission-denied') {
+          const permissionError = new FirestorePermissionError({
+            path: docRef.path,
+            operation: 'delete',
+          });
+          errorEmitter.emit('permission-error', permissionError);
+        }
+
         toast({
           variant: "destructive",
-          title: "Error",
-          description: "Failed to delete resource.",
+          title: "Deletion Failed",
+          description: "You do not have permission to delete this file or a network error occurred.",
         });
       });
   };
@@ -101,7 +111,7 @@ export default function StudyMaterialsPage() {
     if (url && url !== "#") {
       window.open(url, '_blank');
     } else {
-      toast({ title: "No URL", description: "This resource does not have a preview URL yet." });
+      toast({ title: "No Preview", description: "This resource does not have a valid URL associated with it." });
     }
   };
 
@@ -126,8 +136,8 @@ export default function StudyMaterialsPage() {
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
-          <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
-          <p className="font-bold">Syncing Materials...</p>
+          <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+          <p className="font-bold">Syncing Materials Hub...</p>
         </div>
       ) : filteredMaterials.length === 0 ? (
         <div className="text-center py-32 bg-white rounded-[32px] shadow-sm border border-dashed border-gray-200">
@@ -135,8 +145,8 @@ export default function StudyMaterialsPage() {
             <BookOpen className="w-10 h-10 text-gray-300" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">No Materials Found</h3>
-          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Upload your first study resource to see it listed here.</p>
-          <Button asChild variant="outline" className="mt-8 rounded-xl font-bold">
+          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Link your first academic resource to make it available for students.</p>
+          <Button asChild className="mt-8 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-bold border-none h-12 px-8">
             <Link href="/admin/study-materials/upload">Get Started</Link>
           </Button>
         </div>
@@ -161,21 +171,21 @@ export default function StudyMaterialsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
                         <DropdownMenuItem 
-                          onClick={() => handlePreview(item.pdfUrl)}
+                          onSelect={() => handlePreview(item.pdfUrl)}
                           className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg"
                         >
                           <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                          <span className="font-bold text-xs">Preview</span>
+                          <span className="font-bold text-xs">Preview File</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
                           <Link href={`/admin/study-materials/${item.id}`} className="flex items-center w-full">
-                            <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                            <Pencil className="mr-2 h-4 w-4 text-blue-600" />
                             <span className="font-bold text-xs">Edit Metadata</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-gray-50" />
                         <DropdownMenuItem 
-                          onClick={() => handleDelete(item.id)}
+                          onSelect={() => handleDelete(item.id)}
                           className="p-2 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
@@ -187,14 +197,17 @@ export default function StudyMaterialsPage() {
 
                   <div className="space-y-1 mb-6 text-left">
                     <h3 className="font-bold text-gray-900 text-lg leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[3.5rem]">{item.title}</h3>
-                    <p className="text-sm font-medium text-gray-400">{item.grade}</p>
+                    <p className="text-sm font-medium text-gray-400">{item.grade} • {item.board}</p>
                   </div>
 
                   <div className="flex items-center justify-between mb-8">
                     <Badge variant="secondary" className="bg-gray-50 text-gray-500 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg border-none">
                       {item.category}
                     </Badge>
-                    <span className="text-xs font-bold text-gray-400">{item.board || "N/A"}</span>
+                    <div className="flex items-center gap-1.5 text-emerald-500">
+                      <div className={cn("w-1.5 h-1.5 rounded-full", item.isVisible ? "bg-emerald-500" : "bg-gray-300")} />
+                      <span className="text-[10px] font-bold uppercase">{item.isVisible ? "Published" : "Hidden"}</span>
+                    </div>
                   </div>
 
                   <div className="pt-6 border-t border-gray-50 flex items-center justify-between">
@@ -202,7 +215,7 @@ export default function StudyMaterialsPage() {
                       <Download className="w-4 h-4" />
                       <span className="text-sm font-bold">{item.downloads || 0}</span>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                       <Button 
                         variant="ghost" 
                         size="icon" 
