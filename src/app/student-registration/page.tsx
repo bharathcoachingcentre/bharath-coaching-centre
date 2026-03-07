@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
-import { CalendarIcon, User, Users, Phone, Send, GraduationCap, Trash2, Loader2 } from "lucide-react"
+import { User, Users, Phone, Send, GraduationCap, Trash2, Loader2 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
@@ -31,7 +31,7 @@ const formSchema = z.object({
     motherOccupation: z.string().min(1, { message: "Mother's occupation is required." }),
     fatherOccupation: z.string().min(1, { message: "Father's occupation is required." }),
     institutionName: z.string().min(1, { message: "Institution name is required." }),
-    dob: z.date({ required_error: "Date of birth is required." }),
+    dob: z.string().min(1, { message: "Date of birth is required." }),
     gender: z.enum(["male", "female"], { required_error: "Please select a gender." }),
     residentialAddress: z.string().min(1, { message: "Residential address is required." }),
     fatherContact: z.string().min(10, { message: "Please enter a valid 10-digit phone number." }).max(15),
@@ -86,7 +86,7 @@ export default function StudentRegistrationPage() {
             motherOccupation: "",
             fatherOccupation: "",
             institutionName: "",
-            dob: undefined,
+            dob: "",
             gender: undefined,
             residentialAddress: "",
             fatherContact: "",
@@ -137,7 +137,7 @@ export default function StudentRegistrationPage() {
                 motherOccupation: values.motherOccupation,
                 standard: values.standard,
                 institutionName: values.institutionName,
-                dob: values.dob.toISOString(),
+                dob: values.dob,
                 gender: values.gender,
                 residentialAddress: values.residentialAddress,
                 fatherNo: values.fatherContact,
@@ -276,11 +276,7 @@ export default function StudentRegistrationPage() {
                                 <Input 
                                     type="date"
                                     className="h-11 bg-gray-50/50 border-gray-200 rounded-xl shadow-sm"
-                                    value={field.value instanceof Date ? format(field.value, "yyyy-MM-dd") : ""}
-                                    onChange={(e) => {
-                                        const val = e.target.value;
-                                        field.onChange(val ? new Date(val) : undefined);
-                                    }}
+                                    {...field}
                                 />
                             </FormControl>
                             <FormMessage />

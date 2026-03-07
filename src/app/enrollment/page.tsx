@@ -8,7 +8,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { 
-    CalendarIcon, 
     User, 
     Users, 
     Phone, 
@@ -54,7 +53,7 @@ const formSchema = z.object({
     firstName: z.string().min(1, { message: "First name is required." }),
     lastName: z.string().min(1, { message: "Last name is required." }),
     gender: z.enum(["male", "female", "other"], { required_error: "Please select a gender." }),
-    dob: z.date({ required_error: "Date of birth is required." }),
+    dob: z.string().min(1, { message: "Date of birth is required." }),
     religion: z.string().min(1, { message: "Religion is required." }),
     fatherName: z.string().min(1, { message: "Father's name is required." }),
     fatherOccupation: z.string().min(1, { message: "Father's occupation is required." }),
@@ -71,7 +70,7 @@ const formSchema = z.object({
     batchTiming: z.string().min(1, { message: "Batch timing is required." }),
     
     feesDetails: z.string().min(1, { message: "Fees details are required." }),
-    admissionDate: z.date({ required_error: "Admission date is required." }),
+    admissionDate: z.string().min(1, { message: "Admission date is required." }),
     admissionNo: z.string(),
     
     fatherNo: z.string().min(10, { message: "Valid 10-digit number required." }).max(15),
@@ -112,7 +111,7 @@ export default function EnrollmentPage() {
             firstName: "",
             lastName: "",
             gender: undefined,
-            dob: undefined,
+            dob: "",
             religion: "",
             fatherName: "",
             fatherOccupation: "",
@@ -126,7 +125,7 @@ export default function EnrollmentPage() {
             board: undefined,
             batchTiming: "",
             feesDetails: "",
-            admissionDate: new Date(),
+            admissionDate: format(new Date(), "yyyy-MM-dd"),
             admissionNo: "",
             fatherNo: "",
             motherNo: "",
@@ -204,8 +203,6 @@ export default function EnrollmentPage() {
             
             const submissionData = {
                 ...cleanValues,
-                dob: values.dob.toISOString(),
-                admissionDate: values.admissionDate.toISOString(),
                 status: 'pending',
                 progress: 0,
                 createdAt: serverTimestamp(),
@@ -219,7 +216,7 @@ export default function EnrollmentPage() {
             });
             
             const nextId = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
-            form.reset({ admissionNo: nextId, admissionDate: new Date(), academicYear: "2025-2026" });
+            form.reset({ admissionNo: nextId, admissionDate: format(new Date(), "yyyy-MM-dd"), academicYear: "2025-2026" });
             setSelectedFileName(null);
             setCurrentStep(1);
             setIsSubmitting(false);
@@ -363,11 +360,7 @@ export default function EnrollmentPage() {
                                                         <Input 
                                                             type="date"
                                                             className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm"
-                                                            value={field.value instanceof Date ? format(field.value, "yyyy-MM-dd") : ""}
-                                                            onChange={(e) => {
-                                                                const val = e.target.value;
-                                                                field.onChange(val ? new Date(val) : undefined);
-                                                            }}
+                                                            {...field}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -687,11 +680,7 @@ export default function EnrollmentPage() {
                                                         <Input 
                                                             type="date"
                                                             className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm"
-                                                            value={field.value instanceof Date ? format(field.value, "yyyy-MM-dd") : ""}
-                                                            onChange={(e) => {
-                                                                const val = e.target.value;
-                                                                field.onChange(val ? new Date(val) : undefined);
-                                                            }}
+                                                            {...field}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
