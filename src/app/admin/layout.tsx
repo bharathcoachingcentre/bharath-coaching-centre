@@ -13,7 +13,9 @@ import {
   LogOut,
   Search,
   Bell,
-  PanelLeft
+  PanelLeft,
+  ChevronDown,
+  ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,10 +26,25 @@ import { cn } from "@/lib/utils";
 import { initializeFirebase, useUser } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
+import { 
+  Collapsible, 
+  CollapsibleContent, 
+  CollapsibleTrigger 
+} from "@/components/ui/collapsible";
+import { useState, useEffect } from "react";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
-  { icon: UserCheck, label: "Users", href: "/admin/users" },
+  { 
+    icon: UserCheck, 
+    label: "Users", 
+    href: "/admin/users",
+    children: [
+      { label: "All Users", href: "/admin/users" },
+      { label: "Staffs", href: "/admin/users/staffs" },
+      { label: "Admins", href: "/admin/users/admins" },
+    ]
+  },
   { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
   { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
   { icon: Trophy, label: "Results", href: "/admin/results" },
@@ -43,6 +60,13 @@ export default function AdminLayout({
   const router = useRouter();
   const { toast } = useToast();
   const { user } = useUser();
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({
+    Users: pathname.startsWith("/admin/users")
+  });
+
+  const toggleMenu = (label: string) => {
+    setOpenMenus(prev => ({ ...prev, [label]: !prev[label] }));
+  };
 
   const handleSignOut = async () => {
     try {
@@ -63,13 +87,17 @@ export default function AdminLayout({
   };
 
   const getPageTitle = () => {
-    const item = menuItems.find(item => item.href === pathname);
+    const item = menuItems.find(item => item.href === pathname || (item.children?.some(child => child.href === pathname)));
+    if (item?.children) {
+      const child = item.children.find(c => c.href === pathname);
+      return child ? `${item.label} / ${child.label}` : item.label;
+    }
     return item ? item.label : "Admin";
   };
 
   const getPageSubtitle = () => {
     if (pathname === "/admin/results") return "Academic performance analytics";
-    if (pathname === "/admin/users") return "Manage system user accounts";
+    if (pathname.startsWith("/admin/users")) return "Manage system user accounts";
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
     return "Overview of your education platform";
@@ -89,12 +117,69 @@ export default function AdminLayout({
           </div>
         </div>
 
-        <nav className="flex-1 px-4 mt-4 space-y-8">
+        <nav className="flex-1 px-4 mt-4 space-y-8 overflow-y-auto no-scrollbar">
           <div>
             <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">Main Menu</p>
             <div className="space-y-1">
               {menuItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+                const hasChildren = !!item.children;
+                const isOpen = openMenus[item.label];
+
+                if (hasChildren) {
+                  return (
+                    <Collapsible
+                      key={item.label}
+                      open={isOpen}
+                      onOpenChange={() => toggleMenu(item.label)}
+                      className="w-full"
+                    >
+                      <CollapsibleTrigger asChild>
+                        <button
+                          className={cn(
+                            "flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all duration-200 group outline-none",
+                            isActive && !isOpen
+                              ? "bg-[#35a3be]/10 text-[#35a3be] shadow-sm" 
+                              : "hover:bg-white/5 hover:text-gray-200"
+                          )}
+                        >
+                          <div className="flex items-center gap-3">
+                            <item.icon className={cn(
+                              "w-5 h-5",
+                              isActive && !isOpen ? "text-[#35a3be]" : "group-hover:text-gray-200"
+                            )} />
+                            <span className="font-medium text-sm">{item.label}</span>
+                          </div>
+                          {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                        </button>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="space-y-1 mt-1 px-4">
+                        {item.children?.map((child) => {
+                          const isChildActive = pathname === child.href;
+                          return (
+                            <Link
+                              key={child.label}
+                              href={child.href}
+                              className={cn(
+                                "flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-xs font-medium",
+                                isChildActive 
+                                  ? "bg-[#35a3be]/10 text-[#35a3be]" 
+                                  : "text-gray-500 hover:text-gray-200 hover:bg-white/5"
+                              )}
+                            >
+                              <div className={cn(
+                                "w-1.5 h-1.5 rounded-full",
+                                isChildActive ? "bg-[#35a3be]" : "bg-gray-700"
+                              )} />
+                              {child.label}
+                            </Link>
+                          );
+                        })}
+                      </CollapsibleContent>
+                    </Collapsible>
+                  );
+                }
+
                 return (
                   <Link
                     key={item.label}
@@ -147,14 +232,12 @@ export default function AdminLayout({
                 <span className="text-[10px] truncate opacity-50 font-medium">{user?.email || "admin@edu.com"}</span>
               </div>
             </div>
-            <Button 
-                variant="ghost" 
-                size="icon" 
+            <button 
                 onClick={handleSignOut}
-                className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10"
+                className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center rounded-lg transition-colors"
             >
               <LogOut className="w-4 h-4" />
-            </Button>
+            </button>
           </div>
         </div>
       </aside>
