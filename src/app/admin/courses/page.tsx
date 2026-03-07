@@ -38,36 +38,6 @@ import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
-// Default mock courses to show if database is empty
-const mockCourses = [
-  { 
-    id: "mock-1", 
-    title: "Class 10 CBSE Mathematics", 
-    category: "CBSE Curriculum", 
-    students: 342, 
-    lessons: 48, 
-    duration: "Full Year", 
-    rating: 4.9, 
-    status: "Active",
-    icon: Calculator,
-    iconColor: "text-rose-500",
-    iconBg: "bg-rose-50"
-  },
-  { 
-    id: "mock-2", 
-    title: "Class 12 Samacheer Physics", 
-    category: "State Board", 
-    students: 891, 
-    lessons: 64, 
-    duration: "Full Year", 
-    rating: 4.8, 
-    status: "Active",
-    icon: Atom,
-    iconColor: "text-indigo-500",
-    iconBg: "bg-indigo-50"
-  },
-];
-
 const categoryIconMap: Record<string, any> = {
   "CBSE Curriculum": Calculator,
   "State Board": Atom,
@@ -88,26 +58,17 @@ export default function CoursesManagementPage() {
 
   const { data: realCourses, loading } = useCollection(coursesQuery);
 
-  const allCourses = useMemo(() => {
-    const fromDb = realCourses || [];
-    return fromDb.length > 0 ? fromDb : mockCourses;
-  }, [realCourses]);
-
   const filteredCourses = useMemo(() => {
-    if (!searchTerm) return allCourses;
+    if (!realCourses) return [];
     const lower = searchTerm.toLowerCase();
-    return allCourses.filter(c => 
+    return realCourses.filter(c => 
       c.title?.toLowerCase().includes(lower) || 
       c.category?.toLowerCase().includes(lower)
     );
-  }, [allCourses, searchTerm]);
+  }, [realCourses, searchTerm]);
 
   const handleDelete = async (courseId: string) => {
     if (!firestore) return;
-    if (courseId.startsWith('mock-')) {
-      toast({ title: "Mock Data", description: "Sample data cannot be deleted." });
-      return;
-    }
     if (!confirm("Are you sure you want to delete this course? This action cannot be undone.")) return;
 
     const docRef = doc(firestore, 'courses', courseId);
@@ -153,6 +114,17 @@ export default function CoursesManagementPage() {
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
           <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
           <p className="font-bold">Syncing Courses Catalog...</p>
+        </div>
+      ) : filteredCourses.length === 0 ? (
+        <div className="text-center py-32 bg-white rounded-[32px] shadow-sm border border-dashed border-gray-200">
+          <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+            <GraduationCap className="w-10 h-10 text-gray-300" />
+          </div>
+          <h3 className="text-xl font-bold text-gray-900">Course Catalog Empty</h3>
+          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Publish your first course to populate your academy's offerings.</p>
+          <Button asChild variant="outline" className="mt-8 rounded-xl font-bold">
+            <Link href="/admin/courses/create">Add New Course</Link>
+          </Button>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -208,7 +180,6 @@ export default function CoursesManagementPage() {
                     </DropdownMenu>
                   </div>
 
-                  {/* Internal stats grid */}
                   <div className="grid grid-cols-3 gap-2 mb-6 bg-gray-50/50 rounded-2xl p-3 border border-gray-50">
                     <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">
                       <Users className="w-3.5 h-3.5 text-gray-400" />
@@ -217,7 +188,7 @@ export default function CoursesManagementPage() {
                     </div>
                     <div className="flex flex-col items-center text-center space-y-0.5 border-x border-gray-100 min-w-0">
                       <BookOpen className="w-3.5 h-3.5 text-gray-400" />
-                      <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.modules?.length || course.lessons || 0}</span>
+                      <span className="text-[11px] font-black text-gray-900 truncate w-full">{course.modules?.length || 0}</span>
                       <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">Lessons</span>
                     </div>
                     <div className="flex flex-col items-center text-center space-y-0.5 min-w-0">

@@ -9,7 +9,8 @@ import {
   BookOpen, 
   FileUp,
   Loader2,
-  Info
+  Info,
+  Link as LinkIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -50,6 +51,7 @@ const formSchema = z.object({
   board: z.string().min(1, "Please select a board"),
   materialType: z.string().min(1, "Material type is required"),
   description: z.string().min(1, "Description is required"),
+  pdfUrl: z.string().url("Please enter a valid URL").min(1, "Resource URL is required"),
   allowDownloads: z.boolean().default(true),
   visibleToStudents: z.boolean().default(true),
 });
@@ -69,6 +71,7 @@ export default function UploadMaterialPage() {
       board: "CBSE",
       materialType: "pdf",
       description: "",
+      pdfUrl: "",
       allowDownloads: true,
       visibleToStudents: true,
     },
@@ -95,7 +98,7 @@ export default function UploadMaterialPage() {
         board: values.board,
         category: values.materialType,
         description: values.description,
-        pdfUrl: "https://example.com/placeholder.pdf", // Mock URL for now
+        pdfUrl: values.pdfUrl,
         allowDownloads: values.allowDownloads,
         isVisible: values.visibleToStudents,
         createdAt: serverTimestamp(),
@@ -149,33 +152,33 @@ export default function UploadMaterialPage() {
                   <FileUp className="w-7 h-7 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">Upload File</h3>
-                  <p className="text-sm text-gray-400 font-medium">Browse for a file to attach to this record</p>
+                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">Upload Resource</h3>
+                  <p className="text-sm text-gray-400 font-medium">Link your academic file to the platform</p>
                 </div>
               </div>
 
-              <div 
-                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                onDragLeave={() => setIsDragging(false)}
-                className={cn(
-                  "relative border-2 border-dashed rounded-[24px] p-12 transition-all duration-300 flex flex-col items-center justify-center text-center group cursor-pointer",
-                  isDragging 
-                    ? "border-[#35a3be] bg-[#35a3be]/5" 
-                    : "border-gray-100 bg-gray-50/30 hover:border-[#35a3be]/30 hover:bg-gray-50/50"
-                )}
-              >
-                <div className="w-16 h-16 rounded-full bg-white shadow-sm border border-gray-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <CloudUpload className="w-8 h-8 text-gray-400 group-hover:text-[#35a3be] transition-colors" />
-                </div>
-                <div className="space-y-2">
-                  <p className="text-lg font-bold text-gray-700">
-                    Drop your file here, or <span className="text-[#35a3be]">browse</span>
-                  </p>
-                  <p className="text-sm text-gray-400 font-medium font-body">
-                    Supports PDF, Video, Images, Documents (max 500 MB)
-                  </p>
-                </div>
-                <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" />
+              <div className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="pdfUrl"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-sm font-bold text-gray-700">Resource URL (e.g. Drive, Dropbox, PDF link) *</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <Input 
+                            placeholder="https://example.com/file.pdf" 
+                            {...field}
+                            className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-[#35a3be] pl-11 font-medium"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <p className="text-xs text-gray-400 px-2 italic">Note: Please ensure the link is publicly accessible for students to download.</p>
               </div>
             </CardContent>
           </Card>

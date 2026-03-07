@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo } from "react";
@@ -48,10 +49,19 @@ const distributionData = [
 export default function AdminDashboard() {
   const firestore = useFirestore();
   
-  // Memoize queries for efficiency
   const enrollmentsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+
+  const materialsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'study-materials'));
+  }, [firestore]);
+
+  const coursesQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'courses'));
   }, [firestore]);
 
   const recentEnrollmentsQuery = useMemo(() => {
@@ -60,13 +70,15 @@ export default function AdminDashboard() {
   }, [firestore]);
 
   const { data: allEnrollments } = useCollection(enrollmentsQuery);
+  const { data: allMaterials } = useCollection(materialsQuery);
+  const { data: allCourses } = useCollection(coursesQuery);
   const { data: recentEnrollments } = useCollection(recentEnrollmentsQuery);
 
   const stats = [
     { label: "Total Enrollments", value: allEnrollments?.length?.toString() || "0", trend: "+12.5% from last month", icon: Users, iconColor: "text-[#3b82f6]", iconBg: "bg-[#3b82f6]/10" },
-    { label: "Study Materials", value: "1,234", trend: "+8 new this week", icon: BookOpen, iconColor: "text-[#10b981]", iconBg: "bg-[#10b981]/10" },
-    { label: "Top Performers", value: "156", trend: "+23 this semester", icon: Trophy, iconColor: "text-[#f59e0b]", iconBg: "bg-[#f59e0b]/10" },
-    { label: "Active Courses", value: "48", trend: "3 launching soon", icon: GraduationCap, iconColor: "text-[#8b5cf6]", iconBg: "bg-[#8b5cf6]/10" },
+    { label: "Study Materials", value: allMaterials?.length?.toString() || "0", trend: "Live resources hub", icon: BookOpen, iconColor: "text-[#10b981]", iconBg: "bg-[#10b981]/10" },
+    { label: "Active Courses", value: allCourses?.length?.toString() || "0", trend: "Current catalog", icon: GraduationCap, iconColor: "text-[#8b5cf6]", iconBg: "bg-[#8b5cf6]/10" },
+    { label: "Success Rate", value: "95%", trend: "Exceptional results", icon: Trophy, iconColor: "text-[#f59e0b]", iconBg: "bg-[#f59e0b]/10" },
   ];
 
   const topPerformers = [
@@ -78,7 +90,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
           <Card key={stat.label} className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
@@ -100,9 +111,7 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Chart */}
         <Card className="lg:col-span-2 border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <CardContent className="p-8">
             <div className="flex items-center justify-between mb-8">
@@ -140,7 +149,6 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        {/* Distribution Chart */}
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <CardContent className="p-8">
             <h3 className="text-xl font-bold text-gray-900 tracking-tight mb-8">Board Distribution</h3>
@@ -182,9 +190,7 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      {/* Bottom Lists */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Recent Enrollments */}
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <div className="p-8 pb-4 flex items-center justify-between">
             <h3 className="text-xl font-bold text-gray-900 tracking-tight">Recent Enrollments</h3>
@@ -212,7 +218,7 @@ export default function AdminDashboard() {
                     <div className="flex flex-col items-end gap-2">
                       <Badge className={cn(
                         "px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-none border-none",
-                        item.status === "Active" || item.status === "approved" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
+                        item.status === "Active" || item.status === "Completed" ? "bg-emerald-100 text-emerald-600" : "bg-gray-100 text-gray-500"
                       )}>
                         {item.status || "Pending"}
                       </Badge>
@@ -227,7 +233,6 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        {/* Top Performers */}
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <div className="p-8 pb-4 flex items-center justify-between">
             <h3 className="text-xl font-bold text-gray-900 tracking-tight">Top Performers</h3>

@@ -15,7 +15,8 @@ import {
   MoreVertical,
   Pencil,
   Trash2,
-  Loader2
+  Loader2,
+  BookOpen
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +36,6 @@ import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
-// Icon mapping based on material category
 const getMaterialIcon = (type: string) => {
   const t = type?.toLowerCase() || "";
   if (t.includes("pdf")) return FileText;
@@ -52,27 +52,6 @@ const getMaterialColors = (type: string) => {
   return { bg: "bg-emerald-100", text: "text-emerald-600" };
 };
 
-const mockMaterials = [
-  { 
-    id: "mock-1", 
-    title: "Class 10 CBSE Maths NCERT Solutions", 
-    grade: "Class 10", 
-    category: "PDF", 
-    size: "4.2 MB", 
-    downloads: 1242,
-    pdfUrl: "#"
-  },
-  { 
-    id: "mock-2", 
-    title: "Class 12 Physics derivation series", 
-    grade: "Class 12", 
-    category: "Video", 
-    size: "1.2 GB", 
-    downloads: 891, 
-    pdfUrl: "#"
-  },
-];
-
 export default function StudyMaterialsPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
@@ -85,26 +64,18 @@ export default function StudyMaterialsPage() {
 
   const { data: realMaterials, loading } = useCollection(materialsQuery);
 
-  const allMaterials = useMemo(() => {
-    const fromDb = realMaterials || [];
-    return fromDb.length > 0 ? fromDb : mockMaterials;
-  }, [realMaterials]);
-
   const filteredMaterials = useMemo(() => {
-    if (!searchTerm) return allMaterials;
+    if (!realMaterials) return [];
+    if (!searchTerm) return realMaterials;
     const lower = searchTerm.toLowerCase();
-    return allMaterials.filter(m => 
+    return realMaterials.filter(m => 
       m.title?.toLowerCase().includes(lower) || 
       m.grade?.toLowerCase().includes(lower)
     );
-  }, [allMaterials, searchTerm]);
+  }, [realMaterials, searchTerm]);
 
   const handleDelete = async (id: string) => {
     if (!firestore) return;
-    if (id.startsWith('mock-')) {
-      toast({ title: "Mock Data", description: "You cannot delete sample data." });
-      return;
-    }
     if (!confirm("Are you sure you want to delete this material? This action cannot be undone.")) return;
 
     const docRef = doc(firestore, 'study-materials', id);
@@ -157,6 +128,17 @@ export default function StudyMaterialsPage() {
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
           <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
           <p className="font-bold">Syncing Materials...</p>
+        </div>
+      ) : filteredMaterials.length === 0 ? (
+        <div className="text-center py-32 bg-white rounded-[32px] shadow-sm border border-dashed border-gray-200">
+          <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+            <BookOpen className="w-10 h-10 text-gray-300" />
+          </div>
+          <h3 className="text-xl font-bold text-gray-900">No Materials Found</h3>
+          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Upload your first study resource to see it listed here.</p>
+          <Button asChild variant="outline" className="mt-8 rounded-xl font-bold">
+            <Link href="/admin/study-materials/upload">Get Started</Link>
+          </Button>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -212,7 +194,7 @@ export default function StudyMaterialsPage() {
                     <Badge variant="secondary" className="bg-gray-50 text-gray-500 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg border-none">
                       {item.category}
                     </Badge>
-                    <span className="text-xs font-bold text-gray-400">{item.size || "N/A"}</span>
+                    <span className="text-xs font-bold text-gray-400">{item.board || "N/A"}</span>
                   </div>
 
                   <div className="pt-6 border-t border-gray-50 flex items-center justify-between">
@@ -233,6 +215,7 @@ export default function StudyMaterialsPage() {
                         variant="ghost" 
                         size="icon" 
                         className="h-9 w-9 text-gray-400 hover:text-[#35a3be] hover:bg-cyan-50 rounded-xl"
+                        disabled={!item.pdfUrl}
                         asChild
                       >
                         <a href={item.pdfUrl} download target="_blank" rel="noopener noreferrer">

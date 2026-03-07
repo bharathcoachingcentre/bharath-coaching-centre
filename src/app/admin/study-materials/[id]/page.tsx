@@ -11,6 +11,7 @@ import {
   Info,
   ShieldCheck,
   Eye,
+  Link as LinkIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,6 +50,7 @@ const formSchema = z.object({
   board: z.string().min(1, "Board is required"),
   category: z.string().min(1, "Category is required"),
   description: z.string().min(1, "Description is required"),
+  pdfUrl: z.string().url("Valid URL required").min(1, "URL is required"),
   isVisible: z.boolean().default(true),
   allowDownloads: z.boolean().default(true),
 });
@@ -77,6 +79,7 @@ export default function StudyMaterialEditPage() {
       board: "CBSE",
       category: "pdf",
       description: "",
+      pdfUrl: "",
       isVisible: true,
       allowDownloads: true,
     },
@@ -90,6 +93,7 @@ export default function StudyMaterialEditPage() {
         board: material.board || "CBSE",
         category: material.category || "pdf",
         description: material.description || "",
+        pdfUrl: material.pdfUrl || "",
         isVisible: material.isVisible !== undefined ? material.isVisible : true,
         allowDownloads: material.allowDownloads !== undefined ? material.allowDownloads : true,
       });
@@ -169,7 +173,7 @@ export default function StudyMaterialEditPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-1 space-y-8">
+        <div className="lg:col-span-1 space-y-8 text-left">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white text-center">
             <div className="h-24 bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
             <CardContent className="p-8 -mt-12 relative">
@@ -192,7 +196,7 @@ export default function StudyMaterialEditPage() {
                   <Eye className="w-4 h-4" /> View Current File
                 </Button>
                 <div className="p-4 bg-gray-50 rounded-xl text-left">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-1 text-left">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
                     <span className="text-[10px] font-black uppercase text-gray-400">Visibility Status</span>
                   </div>
@@ -207,13 +211,13 @@ export default function StudyMaterialEditPage() {
 
         <div className="lg:col-span-2">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-            <CardHeader className="p-10 pb-4">
+            <CardHeader className="p-10 pb-4 text-left">
               <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Edit Metadata</CardTitle>
               <p className="text-sm text-gray-400 font-medium">Update the resource details and settings</p>
             </CardHeader>
             <CardContent className="p-10 pt-6">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8">
+                <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                     <FormField
                       control={form.control}
@@ -228,6 +232,24 @@ export default function StudyMaterialEditPage() {
                         </FormItem>
                       )}
                     />
+                    
+                    <FormField
+                      control={form.control}
+                      name="pdfUrl"
+                      render={({ field }) => (
+                        <FormItem className="md:col-span-2">
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Resource URL</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                              <Input {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-[#35a3be]" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
                     <FormField
                       control={form.control}
                       name="board"
