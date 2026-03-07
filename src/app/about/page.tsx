@@ -4,7 +4,7 @@ import { Target, Lightbulb, Brain, Trophy } from "lucide-react";
 export default function AboutPage() {
   return (
     <div>
-      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px' }}>
         <Image
           src="/About-Us.jpg"
           alt="About Us Banner"
@@ -13,7 +13,7 @@ export default function AboutPage() {
           data-ai-hint="woman yoga"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center">
+        <div className="relative z-10 text-center pt-20">
           <h1 className="font-headline text-4xl font-bold text-white md:text-5xl">
             About Us
           </h1>
