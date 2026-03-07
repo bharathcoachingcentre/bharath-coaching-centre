@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Target, Lightbulb, Brain, Trophy, Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function AboutPage() {
   return (
