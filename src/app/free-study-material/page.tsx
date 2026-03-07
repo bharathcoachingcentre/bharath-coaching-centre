@@ -1,13 +1,90 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BookOpen, FileText, GraduationCap, ArrowRight } from 'lucide-react';
+import { BookOpen, FileText, GraduationCap, ArrowRight, Download, ChevronDown, Loader2 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, query, orderBy } from "firebase/firestore";
+
+const materialStyles = [
+  {
+    themeColor: "bg-blue-600",
+    hoverThemeColor: "hover:bg-blue-700",
+    lightBg: "bg-blue-50/50",
+    iconContainerBg: "bg-blue-100/50",
+    borderColor: "border-blue-100",
+    hoverBorderColor: "hover:border-blue-300",
+    iconColor: "text-blue-600",
+  },
+  {
+    themeColor: "bg-teal-600",
+    hoverThemeColor: "hover:bg-teal-700",
+    lightBg: "bg-teal-50/50",
+    iconContainerBg: "bg-teal-100/50",
+    borderColor: "border-teal-100",
+    hoverBorderColor: "hover:border-teal-300",
+    iconColor: "text-teal-600",
+  },
+  {
+    themeColor: "bg-purple-600",
+    hoverThemeColor: "hover:bg-purple-700",
+    lightBg: "bg-purple-50/50",
+    iconContainerBg: "bg-purple-100/50",
+    borderColor: "border-purple-100",
+    hoverBorderColor: "hover:border-blue-300",
+    iconColor: "text-purple-600",
+  },
+  {
+    themeColor: "bg-orange-600",
+    hoverThemeColor: "hover:bg-orange-700",
+    lightBg: "bg-orange-50/50",
+    iconContainerBg: "bg-orange-100/50",
+    borderColor: "border-orange-100",
+    hoverBorderColor: "hover:border-orange-300",
+    iconColor: "text-orange-600",
+  },
+  {
+    themeColor: "bg-pink-600",
+    hoverThemeColor: "hover:bg-pink-700",
+    lightBg: "bg-pink-50/50",
+    iconContainerBg: "bg-pink-100/50",
+    borderColor: "border-pink-100",
+    hoverBorderColor: "hover:border-pink-300",
+    iconColor: "text-pink-600",
+  },
+  {
+    themeColor: "bg-indigo-600",
+    hoverThemeColor: "hover:bg-indigo-700",
+    lightBg: "bg-indigo-50/50",
+    iconContainerBg: "bg-indigo-100/50",
+    borderColor: "border-indigo-100",
+    hoverBorderColor: "hover:border-indigo-300",
+    iconColor: "text-indigo-600",
+  },
+  {
+    themeColor: "bg-green-600",
+    hoverThemeColor: "hover:bg-green-700",
+    lightBg: "bg-green-50/50",
+    iconContainerBg: "bg-green-100/50",
+    borderColor: "border-green-100",
+    hoverBorderColor: "hover:border-green-300",
+    iconColor: "text-green-600",
+  },
+  {
+    themeColor: "bg-amber-600",
+    hoverThemeColor: "hover:bg-amber-700",
+    lightBg: "bg-amber-50/50",
+    iconContainerBg: "bg-amber-100/50",
+    borderColor: "border-amber-100",
+    hoverBorderColor: "hover:border-amber-300",
+    iconColor: "text-amber-600",
+  },
+];
 
 const AnimatedSection = ({ children, className, id }: { children: React.ReactNode; className?: string; id?: string }) => {
     const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
@@ -24,6 +101,37 @@ const AnimatedSection = ({ children, className, id }: { children: React.ReactNod
 };
 
 export default function FreeStudyMaterialPage() {
+  const firestore = useFirestore();
+  const [activeBoard, setActiveBoard] = useState("cbse");
+  const [selectedClass, setSelectedClass] = useState("Class 10");
+
+  const materialsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+
+  const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
+
+  const displayMaterials = useMemo(() => {
+    if (!allMaterials) return [];
+    
+    return allMaterials
+      .filter(m => {
+        const matchesVisibility = m.isVisible !== false;
+        const matchesGrade = m.grade === selectedClass;
+        const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
+        return matchesVisibility && matchesGrade && matchesBoard;
+      })
+      .map((m, idx) => {
+        const styleIdx = idx % materialStyles.length;
+        return {
+          ...m,
+          desc: m.description,
+          ...materialStyles[styleIdx]
+        };
+      });
+  }, [allMaterials, selectedClass, activeBoard]);
+
   return (
     <div className="font-body-home2">
       <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
@@ -58,7 +166,7 @@ export default function FreeStudyMaterialPage() {
             <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight">Access Premium Learning</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-10 mb-24">
             {/* CBSE Card */}
             <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-[#35a3be]" />
@@ -81,7 +189,11 @@ export default function FreeStudyMaterialPage() {
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
                         {['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
-                          <Button key={cls} variant="outline" size="sm" className="rounded-lg border-gray-200 hover:border-[#35a3be] hover:text-[#35a3be] transition-colors">{cls}</Button>
+                          <Button key={cls} variant="outline" size="sm" onClick={() => {
+                            setSelectedClass(cls);
+                            setActiveBoard("cbse");
+                            document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
+                          }} className="rounded-lg border-gray-200 hover:border-[#35a3be] hover:text-[#35a3be] transition-colors">{cls}</Button>
                         ))}
                       </div>
                     </AccordionContent>
@@ -124,7 +236,10 @@ export default function FreeStudyMaterialPage() {
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
                         {['Class 10', 'Class 12'].map(cls => (
-                          <Button key={cls} variant="outline" size="sm" className="rounded-lg border-gray-200 hover:border-green-500 hover:text-green-600 transition-colors">{cls}</Button>
+                          <Button key={cls} variant="outline" size="sm" onClick={() => {
+                            setSelectedClass(cls);
+                            document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
+                          }} className="rounded-lg border-gray-200 hover:border-green-500 hover:text-green-600 transition-colors">{cls}</Button>
                         ))}
                       </div>
                     </AccordionContent>
@@ -154,8 +269,12 @@ export default function FreeStudyMaterialPage() {
                     <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">Book Back Solutions</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
-                        {['Class 9', 'Class 10', 'Class 11'].map(cls => (
-                          <Button key={cls} variant="outline" size="sm" className="rounded-lg border-gray-200 hover:border-purple-500 hover:text-purple-600 transition-colors">{cls}</Button>
+                        {['Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
+                          <Button key={cls} variant="outline" size="sm" onClick={() => {
+                            setSelectedClass(cls);
+                            setActiveBoard("samacheer");
+                            document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
+                          }} className="rounded-lg border-gray-200 hover:border-purple-500 hover:text-purple-600 transition-colors">{cls}</Button>
                         ))}
                       </div>
                     </AccordionContent>
@@ -181,6 +300,120 @@ export default function FreeStudyMaterialPage() {
                 </Accordion>
               </CardContent>
             </Card>
+          </div>
+
+          {/* Dynamic Download Section mirrored from Home */}
+          <div id="study-materials-section" className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+                Download Free <span className="text-[#35a3be]">Study Materials</span>
+              </h2>
+              <p className="text-lg text-gray-500 font-normal">
+                Filter by class and board to find specific resources
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
+              <div className="relative min-w-[180px] w-full lg:w-auto">
+                <select 
+                  value={selectedClass}
+                  onChange={(e) => setSelectedClass(e.target.value)}
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-[#35a3be] focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
+                >
+                  <option value="Class 10">Class 10</option>
+                  {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                  <option value="Class 1">Class 1</option>
+                  <option value="Class 2">Class 2</option>
+                  <option value="Class 3">Class 3</option>
+                  <option value="Class 4">Class 4</option>
+                  <option value="Class 5">Class 5</option>
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
+
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
+                <button
+                  onClick={() => setActiveBoard("cbse")}
+                  className={cn(
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    activeBoard === "cbse"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  CBSE
+                </button>
+                <button
+                  onClick={() => setActiveBoard("samacheer")}
+                  className={cn(
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    activeBoard === "samacheer"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  Samacheer
+                </button>
+              </div>
+
+              <div className="hidden lg:block"></div>
+            </div>
+
+            {materialsLoading ? (
+              <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
+                <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+                <p className="font-bold">Loading Materials...</p>
+              </div>
+            ) : displayMaterials.length === 0 ? (
+              <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                <p className="text-gray-500 font-bold">No study materials found for {selectedClass} ({activeBoard.toUpperCase()}).</p>
+                <p className="text-gray-400 text-sm mt-1">Please try another class or check back later.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {displayMaterials.map((material, idx) => (
+                  <div
+                    key={idx}
+                    className={cn(
+                      "group rounded-[16px] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
+                      material.lightBg,
+                      material.borderColor,
+                      material.hoverBorderColor
+                    )}
+                  >
+                    <div className="flex items-start justify-between mb-6">
+                      <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative", material.iconContainerBg)}>
+                        <div className={cn("relative flex items-center justify-center", material.iconColor)}>
+                          <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+                            <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
+                          </svg>
+                          <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
+                        </div>
+                      </div>
+                      <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                    </div>
+                    <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
+                    <p className="text-[14px] text-[#4b5563] font-normal mb-4 flex-grow text-left">{material.desc}</p>
+                    <Button
+                      asChild
+                      className={cn(
+                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
+                        material.themeColor,
+                        material.hoverThemeColor
+                      )}
+                    >
+                      <a href={material.pdfUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="w-5 h-5" />
+                        Download PDF
+                      </a>
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </AnimatedSection>
