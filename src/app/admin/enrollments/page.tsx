@@ -12,7 +12,6 @@ import {
 import { 
   Search, 
   Filter, 
-  Download as ExportIcon, 
   Plus, 
   MoreVertical,
   Eye,
@@ -40,8 +39,8 @@ import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
 const statusStyles: Record<string, string> = {
-  Active: "bg-[#35a3be]/10 text-[#35a3be]",
-  approved: "bg-[#35a3be]/10 text-[#35a3be]",
+  Active: "bg-blue-600/10 text-blue-600",
+  approved: "bg-blue-600/10 text-blue-600",
   pending: "bg-gray-100 text-gray-500",
   Pending: "bg-gray-100 text-gray-500",
   Completed: "bg-emerald-100 text-emerald-600",
@@ -108,14 +107,14 @@ export default function EnrollmentsPage() {
             placeholder="Search students..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 h-12 bg-white border-gray-200 rounded-xl focus-visible:ring-[#35a3be] shadow-sm"
+            className="pl-10 h-12 bg-white border-gray-200 rounded-xl focus-visible:ring-blue-600 shadow-sm"
           />
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
             <Filter className="w-4 h-4" /> Filter
           </Button>
-          <Button asChild className="h-12 px-6 bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 gap-2 cursor-pointer border-none">
+          <Button asChild className="h-12 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 gap-2 cursor-pointer border-none transition-all hover:scale-[1.02] active:scale-95">
             <Link href="/admin/enrollments/add">
               <Plus className="w-5 h-5" /> Add Enrollment
             </Link>
@@ -125,14 +124,14 @@ export default function EnrollmentsPage() {
 
       <div className="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
         <Table>
-          <TableHeader className="bg-gray-50/50">
-            <TableRow className="border-gray-100 hover:bg-transparent">
-              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">ID</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Student</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Course / Board</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Date</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Progress</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Status</TableHead>
+          <TableHeader className="bg-gray-50/80 border-b border-gray-100">
+            <TableRow className="hover:bg-transparent border-none">
+              <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">ID</TableHead>
+              <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Student</TableHead>
+              <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Course / Board</TableHead>
+              <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Date</TableHead>
+              <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Progress</TableHead>
+              <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Status</TableHead>
               <TableHead className="px-8 py-5"></TableHead>
             </TableRow>
           </TableHeader>
@@ -194,7 +193,7 @@ export default function EnrollmentsPage() {
                   <TableCell className="px-8 py-6 text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-[#35a3be] hover:bg-[#35a3be]/10 rounded-lg">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-blue-600 hover:bg-blue-600/10 rounded-lg">
                           <MoreVertical className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -207,7 +206,7 @@ export default function EnrollmentsPage() {
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
                           <Link href={`/admin/enrollments/${enrollment.id}?edit=true`} className="flex items-center w-full">
-                            <Pencil className="mr-2 h-4 w-4 text-[#35a3be]" />
+                            <Pencil className="mr-2 h-4 w-4 text-blue-600" />
                             <span className="font-bold text-xs text-gray-700">Edit Info</span>
                           </Link>
                         </DropdownMenuItem>

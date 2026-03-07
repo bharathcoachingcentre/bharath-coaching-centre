@@ -166,15 +166,15 @@ export default function ResultsPage() {
       <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
         <CardContent className="p-8 text-left">
           <h3 className="text-xl font-bold text-gray-900 tracking-tight mb-8">Top 10 Leaderboard</h3>
-          <div className="rounded-[24px] border border-gray-50 overflow-hidden">
+          <div className="rounded-[24px] border border-gray-100 overflow-hidden">
             <Table>
-              <TableHeader className="bg-gray-50/50">
-                <TableRow className="border-gray-100 hover:bg-transparent">
-                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Rank</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Student</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Board/Class</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Score</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Grade</TableHead>
+              <TableHeader className="bg-gray-50/80 border-b border-gray-100">
+                <TableRow className="hover:bg-transparent border-none">
+                  <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Rank</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Student</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Board/Class</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Score</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-bold uppercase tracking-wider text-gray-900">Grade</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
