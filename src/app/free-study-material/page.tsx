@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -78,7 +79,7 @@ const materialStyles = [
   {
     themeColor: "bg-amber-600",
     hoverThemeColor: "hover:bg-amber-700",
-    lightBg: "bg-amber-50/50",
+    lightBg: "bg-orange-50/50",
     iconContainerBg: "bg-amber-100/50",
     borderColor: "border-amber-100",
     hoverBorderColor: "hover:border-amber-300",
@@ -134,7 +135,7 @@ export default function FreeStudyMaterialPage() {
 
   return (
     <div className="font-body-home2">
-      <section className="relative w-full flex items-center justify-center" style={{ height: '500px', marginTop: '-140px' }}>
+      <section className="relative w-full flex items-center justify-center pt-24" style={{ height: '500px', marginTop: '-140px' }}>
         <Image
           src="/Study-material.png"
           alt="Free Study Material"
@@ -143,7 +144,7 @@ export default function FreeStudyMaterialPage() {
           data-ai-hint="books on a table"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center">
+        <div className="relative z-10 text-center px-4">
           <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl">
             Free Study Material
           </h1>
@@ -168,7 +169,7 @@ export default function FreeStudyMaterialPage() {
 
           <div className="grid md:grid-cols-3 gap-10 mb-24">
             {/* CBSE Card */}
-            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden">
+            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-[#35a3be]" />
               <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
                 <div className="relative">
@@ -209,7 +210,7 @@ export default function FreeStudyMaterialPage() {
             </Card>
 
             {/* Model Papers Card */}
-            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden">
+            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-green-500" />
               <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
                 <div className="relative">
@@ -249,7 +250,7 @@ export default function FreeStudyMaterialPage() {
             </Card>
 
             {/* Samacheer Card */}
-            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden">
+            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-purple-500" />
               <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
                 <div className="relative">
