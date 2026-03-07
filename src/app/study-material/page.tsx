@@ -134,7 +134,7 @@ export default function StudyMaterialPage() {
 
   return (
     <div className="font-body-home2">
-      <section className="relative w-full flex items-center justify-center pt-32 pb-24" style={{ height: '500px', marginTop: '-140px' }}>
+      <section className="relative w-full flex items-center justify-center" style={{ height: '500px' }}>
         <Image
           src="/Study-material.png"
           alt="Free Study Material"
@@ -143,7 +143,7 @@ export default function StudyMaterialPage() {
           data-ai-hint="books on a table"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center px-4">
+        <div className="relative z-10 text-center px-4 pt-20">
           <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl">
             Free Study Material
           </h1>
