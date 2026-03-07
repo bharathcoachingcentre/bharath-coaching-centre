@@ -10,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ClipboardCheck, Eye, FileText, CalendarClock, TestTube2, Users2, BookCopy, ClipboardList } from "lucide-react";
+import { ClipboardCheck, Eye, FileText, CalendarClock, TestTube2, Users2, BookCopy, ClipboardList, ArrowRight } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
 
