@@ -15,7 +15,8 @@ import {
   Bell,
   PanelLeft,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,7 +24,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { initializeFirebase, useUser } from "@/firebase";
+import { initializeFirebase, useUser, useFirestore, useDoc } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
 import { 
@@ -31,7 +32,8 @@ import {
   CollapsibleContent, 
   CollapsibleTrigger 
 } from "@/components/ui/collapsible";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { doc } from "firebase/firestore";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
@@ -60,6 +62,16 @@ export default function AdminLayout({
   const router = useRouter();
   const { toast } = useToast();
   const { user } = useUser();
+  const firestore = useFirestore();
+
+  const settingsRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, "settings", "academy");
+  }, [firestore]);
+
+  const { data: academySettings } = useDoc(settingsRef);
+  const academyName = academySettings?.name || "Bharath Academy";
+
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({
     Users: pathname.startsWith("/admin/users")
   });
@@ -111,14 +123,14 @@ export default function AdminLayout({
           <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#14b8a6]/20">
             <GraduationCap className="w-6 h-6" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-white font-bold text-lg leading-none">Bharath Academy</span>
+          <div className="flex flex-col text-left">
+            <span className="text-white font-bold text-lg leading-none truncate w-40">{academyName}</span>
             <span className="text-[10px] font-medium uppercase tracking-wider opacity-50">Management Panel</span>
           </div>
         </div>
 
         <nav className="flex-1 px-4 mt-4 space-y-8 overflow-y-auto no-scrollbar">
-          <div>
+          <div className="text-left">
             <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">Main Menu</p>
             <div className="space-y-1">
               {menuItems.map((item) => {
@@ -202,7 +214,7 @@ export default function AdminLayout({
             </div>
           </div>
 
-          <div>
+          <div className="text-left">
             <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">System</p>
             <Link
               href="/admin/settings"
@@ -227,7 +239,7 @@ export default function AdminLayout({
                 <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
                 <AvatarFallback>AU</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col truncate">
+              <div className="flex flex-col truncate text-left">
                 <span className="text-white text-sm font-bold truncate">{user?.displayName || "Admin User"}</span>
                 <span className="text-[10px] truncate opacity-50 font-medium">{user?.email || "admin@edu.com"}</span>
               </div>
@@ -249,14 +261,14 @@ export default function AdminLayout({
             <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100">
               <PanelLeft className="w-5 h-5" />
             </Button>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-left">
               <h1 className="text-xl font-bold text-gray-900 leading-none">{getPageTitle()}</h1>
               <p className="text-xs text-gray-500 font-medium mt-1">{getPageSubtitle()}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="relative hidden sm:block">
+            <div className="relative hidden sm:block text-left">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input 
                 placeholder="Search..." 

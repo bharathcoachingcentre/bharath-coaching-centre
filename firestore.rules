@@ -23,5 +23,10 @@ service cloud.firestore {
       allow read: if true;
       allow write: if true; // Open for initial setup/admin management
     }
+
+    // Settings: Allow read/write for platform configuration
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
   }
 }
