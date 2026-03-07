@@ -21,10 +21,10 @@ import {
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#", label: "Study Materials" },
+  { href: "/free-study-material", label: "Study Materials" },
   { href: "/our-results", label: "Results" },
-  { href: "#", label: "About" },
-  { href: "#", label: "Contact" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -58,19 +58,19 @@ export function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 rounded-xl shadow-xl border-gray-100 p-2">
                 <DropdownMenuItem asChild>
-                  <Link href="#" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
+                  <Link href="/cbse" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
                     <div className="font-bold">CBSE Curriculum</div>
                     <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest">Class 1 to 12</div>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="#" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
+                  <Link href="/samacheer" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
                     <div className="font-bold">Samacheer Kalvi</div>
                     <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest">Class 1 to 12</div>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="#" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
+                  <Link href="/online-courses" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
                     <div className="font-bold">Competitive Exams</div>
                     <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest">JEE, NEET, Olympiad</div>
                   </Link>
@@ -113,7 +113,7 @@ export function Header() {
                   <SheetTitle className="text-left font-bold text-2xl text-blue-600">Menu</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col space-y-6 mt-10">
-                  <Link href="#" className="text-xl font-bold text-gray-900 border-b pb-4 border-gray-100">Courses</Link>
+                  <Link href="/online-courses" className="text-xl font-bold text-gray-900 border-b pb-4 border-gray-100">Courses</Link>
                   {navLinks.map((link) => (
                     <SheetClose asChild key={link.href + link.label}>
                       <Link

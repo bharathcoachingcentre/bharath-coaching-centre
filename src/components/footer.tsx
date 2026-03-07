@@ -44,28 +44,28 @@ export function Footer() {
             <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Company</h3>
             <ul className="space-y-4 font-medium text-[16px]">
               <li><Link href="/" className="text-gray-400 hover:text-white transition-colors duration-200">Home</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">About Us</Link></li>
+              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors duration-200">About Us</Link></li>
               <li><Link href="/our-results" className="text-gray-400 hover:text-white transition-colors duration-200">Our Results</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Contact Us</Link></li>
+              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors duration-200">Contact Us</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Courses</h3>
             <ul className="space-y-4 font-medium text-[16px]">
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">CBSE Coaching</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Samacheer Coaching</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Online Classes</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">One-to-One Mentorship</Link></li>
+              <li><Link href="/cbse" className="text-gray-400 hover:text-white transition-colors duration-200">CBSE Coaching</Link></li>
+              <li><Link href="/samacheer" className="text-gray-400 hover:text-white transition-colors duration-200">Samacheer Coaching</Link></li>
+              <li><Link href="/online-courses" className="text-gray-400 hover:text-white transition-colors duration-200">Online Classes</Link></li>
+              <li><Link href="/one-to-one-classes" className="text-gray-400 hover:text-white transition-colors duration-200">One-to-One Mentorship</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Resources</h3>
             <ul className="space-y-4 font-medium text-[16px]">
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Free Study Materials</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Blog</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Become a Teacher</Link></li>
+              <li><Link href="/free-study-material" className="text-gray-400 hover:text-white transition-colors duration-200">Free Study Materials</Link></li>
+              <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors duration-200">Blog</Link></li>
+              <li><Link href="/become-a-teacher" className="text-gray-400 hover:text-white transition-colors duration-200">Become a Teacher</Link></li>
             </ul>
           </div>
 
