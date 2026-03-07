@@ -81,13 +81,13 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="text-blue-500 w-5 h-5 mt-1 flex-shrink-0" />
-                <div className="text-white font-bold text-sm">info@bharathacademy.com</div>
+                <div className="text-white font-bold text-sm">bcc_try@hotmail.com</div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="text-blue-500 w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
                   <div className="text-white font-bold text-sm">Trichy, Tamil Nadu</div>
-                  <div className="text-xs opacity-70 mt-1">Multiple branches available</div>
+                  <div className="text-xs opacity-70 mt-1">C-109, 5th Cross, Thillainagar (East), Trichy - 18</div>
                 </div>
               </li>
             </ul>
