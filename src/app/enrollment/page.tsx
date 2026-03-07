@@ -19,7 +19,6 @@ import {
     Briefcase,
     Building,
     MapPin,
-    Calendar,
     Hash,
     IndianRupee,
     Info,
@@ -28,7 +27,7 @@ import {
     Loader2
 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
-import ReactCalendar from 'react-calendar'
+import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
@@ -308,15 +307,16 @@ export default function EnrollmentPage() {
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0 rounded-2xl overflow-hidden shadow-2xl border-none">
-                                                        {isMounted && (
-                                                            <ReactCalendar
-                                                                onChange={(val) => field.onChange(val as Date)}
-                                                                value={field.value || new Date()}
-                                                                calendarType="gregory"
-                                                                className="border-none"
-                                                            />
-                                                        )}
+                                                    <PopoverContent className="w-auto p-0 rounded-xl overflow-hidden shadow-2xl border-none" align="start">
+                                                        <Calendar
+                                                            mode="single"
+                                                            selected={field.value}
+                                                            onSelect={field.onChange}
+                                                            disabled={(date) =>
+                                                                date > new Date() || date < new Date("1900-01-01")
+                                                            }
+                                                            initialFocus
+                                                        />
                                                     </PopoverContent>
                                                 </Popover>
                                                 <FormMessage />
@@ -637,15 +637,13 @@ export default function EnrollmentPage() {
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0 rounded-2xl overflow-hidden shadow-2xl border-none">
-                                                        {isMounted && (
-                                                            <ReactCalendar
-                                                                onChange={(val) => field.onChange(val as Date)}
-                                                                value={field.value || new Date()}
-                                                                calendarType="gregory"
-                                                                className="border-none"
-                                                            />
-                                                        )}
+                                                    <PopoverContent className="w-auto p-0 rounded-xl overflow-hidden shadow-2xl border-none" align="start">
+                                                        <Calendar
+                                                            mode="single"
+                                                            selected={field.value}
+                                                            onSelect={field.onChange}
+                                                            initialFocus
+                                                        />
                                                     </PopoverContent>
                                                 </Popover>
                                                 <FormMessage />
