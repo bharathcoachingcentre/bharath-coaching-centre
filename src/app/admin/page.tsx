@@ -9,7 +9,8 @@ import {
   Trophy, 
   GraduationCap, 
   ArrowUpRight,
-  ChevronRight
+  ChevronRight,
+  Loader2
 } from "lucide-react";
 import { 
   BarChart, 
@@ -69,10 +70,10 @@ export default function AdminDashboard() {
     return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'), limit(5));
   }, [firestore]);
 
-  const { data: allEnrollments } = useCollection(enrollmentsQuery);
+  const { data: allEnrollments, loading: loadingAll } = useCollection(enrollmentsQuery);
   const { data: allMaterials } = useCollection(materialsQuery);
   const { data: allCourses } = useCollection(coursesQuery);
-  const { data: recentEnrollments } = useCollection(recentEnrollmentsQuery);
+  const { data: recentEnrollments, loading: loadingRecent } = useCollection(recentEnrollmentsQuery);
 
   const stats = [
     { label: "Total Enrollments", value: allEnrollments?.length?.toString() || "0", trend: "+12.5% from last month", icon: Users, iconColor: "text-[#3b82f6]", iconBg: "bg-[#3b82f6]/10" },
@@ -98,7 +99,7 @@ export default function AdminDashboard() {
                 <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", stat.iconBg)}>
                   <stat.icon className={cn("w-7 h-7", stat.iconColor)} />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left">
                   <span className="text-sm font-semibold text-gray-500 leading-none mb-2">{stat.label}</span>
                   <span className="text-3xl font-black text-gray-900 tracking-tight">{stat.value}</span>
                   <span className={cn("text-[11px] font-bold mt-1", stat.trend.includes("+") ? "text-emerald-500" : "text-gray-400")}>
@@ -202,7 +203,11 @@ export default function AdminDashboard() {
           </div>
           <CardContent className="p-4 pt-0">
             <div className="space-y-1">
-              {!recentEnrollments || recentEnrollments.length === 0 ? (
+              {loadingRecent ? (
+                <div className="p-8 text-center text-gray-400 font-medium flex items-center justify-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" /> Syncing data...
+                </div>
+              ) : !recentEnrollments || recentEnrollments.length === 0 ? (
                 <div className="p-8 text-center text-gray-400 font-medium">No recent enrollments.</div>
               ) : (
                 recentEnrollments.map((item, idx) => (
@@ -211,7 +216,7 @@ export default function AdminDashboard() {
                       <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${item.firstName}`} />
                       <AvatarFallback>{item.firstName?.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col flex-1 min-w-0">
+                    <div className="flex flex-col flex-1 min-w-0 text-left">
                       <span className="text-sm font-bold text-gray-900 truncate">{item.firstName} {item.lastName}</span>
                       <span className="text-[11px] font-medium text-gray-500 capitalize">{item.course?.replace(/-/g, ' ') || item.board}</span>
                     </div>
@@ -249,7 +254,7 @@ export default function AdminDashboard() {
                   <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-sm font-black shadow-sm", item.color)}>
                     {item.rank}
                   </div>
-                  <div className="flex flex-col flex-1 min-w-0">
+                  <div className="flex flex-col flex-1 min-w-0 text-left">
                     <span className="text-sm font-bold text-gray-900 truncate">{item.name}</span>
                     <span className="text-[11px] font-medium text-gray-500">{item.category}</span>
                   </div>

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
-import { User, Users, Phone, Send, GraduationCap, Trash2, Loader2 } from "lucide-react"
+import { User, Users, Phone, Send, GraduationCap, Trash2, Loader2, Mail } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
@@ -25,6 +25,7 @@ import { FirestorePermissionError } from '@/firebase/errors';
 
 const formSchema = z.object({
     candidateName: z.string().min(1, { message: "Candidate name is required." }),
+    email: z.string().email({ message: "Valid email is required for account creation." }),
     parentName: z.string().min(1, { message: "Parent's name is required." }),
     photo: z.any().optional(),
     standard: z.string().min(1, { message: "Standard is required." }),
@@ -80,6 +81,7 @@ export default function StudentRegistrationPage() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             candidateName: "",
+            email: "",
             parentName: "",
             photo: undefined,
             standard: "",
@@ -129,9 +131,13 @@ export default function StudentRegistrationPage() {
 
         try {
             const admissionNo = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
-            const submissionData = {
+            const timestamp = serverTimestamp();
+            
+            // 1. Create Enrollment Application
+            const enrollmentData = {
                 firstName: values.candidateName.split(' ')[0] || values.candidateName,
                 lastName: values.candidateName.split(' ').slice(1).join(' ') || "",
+                email: values.email,
                 fatherName: values.parentName,
                 fatherOccupation: values.fatherOccupation,
                 motherOccupation: values.motherOccupation,
@@ -147,15 +153,27 @@ export default function StudentRegistrationPage() {
                 subjects: values.subjects,
                 admissionNo,
                 status: 'pending',
-                createdAt: serverTimestamp(),
+                createdAt: timestamp,
             };
 
             const enrollmentsRef = collection(firestore, 'enrollments');
-            await addDoc(enrollmentsRef, submissionData);
+            await addDoc(enrollmentsRef, enrollmentData);
+
+            // 2. Create System User Account
+            const usersRef = collection(firestore, 'users');
+            await addDoc(usersRef, {
+                email: values.email,
+                displayName: values.candidateName,
+                role: 'student',
+                status: 'pending',
+                phoneNumber: values.whatsappNumber,
+                createdAt: timestamp,
+                updatedAt: timestamp,
+            });
 
             toast({
                 title: "Registration Submitted!",
-                description: "Thank you for registering. We will be in touch shortly.",
+                description: "Thank you for registering. You can now track your application in the dashboard.",
             });
             
             form.reset();
@@ -242,6 +260,22 @@ export default function StudentRegistrationPage() {
                       />
                       <FormField
                         control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[#182d45] font-bold text-xs md:text-sm">Email Address *</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <Input type="email" placeholder="email@example.com" {...field} className="h-11 pl-10 bg-gray-50/50 rounded-xl border-gray-200 focus:border-[#35a3be] focus:ring-[#35a3be]" />
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
                         name="standard"
                         render={({ field }) => (
                           <FormItem>
@@ -299,13 +333,13 @@ export default function StudentRegistrationPage() {
                                       <FormControl>
                                       <RadioGroupItem value="male" className="border-gray-300 text-[#35a3be]" />
                                       </FormControl>
-                                      <FormLabel className="font-semibold text-gray-600 cursor-pointer">Male</FormLabel>
+                                      <FormLabel className="font-semibold text-gray-600 cursor-pointer text-sm">Male</FormLabel>
                                   </FormItem>
                                   <FormItem className="flex items-center space-x-2 space-y-0">
                                       <FormControl>
                                       <RadioGroupItem value="female" className="border-gray-300 text-[#35a3be]" />
                                       </FormControl>
-                                      <FormLabel className="font-semibold text-gray-600 cursor-pointer">Female</FormLabel>
+                                      <FormLabel className="font-semibold text-gray-600 cursor-pointer text-sm">Female</FormLabel>
                                   </FormItem>
                                   </RadioGroup>
                               </FormControl>
