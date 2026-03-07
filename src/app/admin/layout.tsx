@@ -1,9 +1,11 @@
+
 "use client";
 
 import '../globals.css';
 import { 
   LayoutDashboard, 
   Users, 
+  UserCheck,
   BookOpen, 
   Trophy, 
   GraduationCap, 
@@ -25,6 +27,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
+  { icon: UserCheck, label: "Users", href: "/admin/users" },
   { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
   { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
   { icon: Trophy, label: "Results", href: "/admin/results" },
@@ -66,6 +69,7 @@ export default function AdminLayout({
 
   const getPageSubtitle = () => {
     if (pathname === "/admin/results") return "Academic performance analytics";
+    if (pathname === "/admin/users") return "Manage system user accounts";
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
     return "Overview of your education platform";
@@ -90,7 +94,7 @@ export default function AdminLayout({
             <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">Main Menu</p>
             <div className="space-y-1">
               {menuItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
                 return (
                   <Link
                     key={item.label}

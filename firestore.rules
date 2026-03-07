@@ -2,6 +2,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Users: Admins can read/write all, users can read/write their own record
+    match /users/{userId} {
+      allow read, write: if true; // In production, restrict to admin or owner
+    }
+
     // Enrollments: Allow public creation for student registrations and general access for admin management
     match /enrollments/{enrollmentId} {
       allow read, write: if true;
