@@ -83,11 +83,11 @@ export default function CbsePage() {
 
   return (
     <div>
-        <section className="relative w-full flex items-center justify-center text-center text-white overflow-hidden" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', height: '500px', marginTop: '-140px' }}>
+        <section className="relative w-full flex items-center justify-center text-center text-white overflow-hidden pt-20" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)', height: '500px' }}>
             <Award className="absolute -left-8 -bottom-8 w-32 h-32 text-white/10" />
             <GraduationCap className="absolute -right-8 -top-8 w-32 h-32 text-white/10" />
-            <div className="z-10 relative" style={{ marginTop: '20px' }}>
-              <h1 className="text-5xl md:text-6xl font-bold font-heading-home2 mb-4 relative inline-block text-gradient-home-new">
+            <div className="z-10 relative px-4">
+              <h1 className="text-5xl md:text-6xl font-bold font-heading-home2 mb-4 relative inline-block">
                 CBSE
                 <BookOpen className="absolute -right-12 -top-2 w-16 h-16 text-white/10" />
               </h1>
@@ -111,28 +111,28 @@ export default function CbsePage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {classes.map((item, index) => (
-                    <div key={index} className="group [perspective:1000px]" style={{ minHeight: '350px', width: '310px' }}>
+                    <div key={index} className="group [perspective:1000px] mx-auto" style={{ minHeight: '350px', width: '100%', maxWidth: '310px' }}>
                         <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                             {/* Front side */}
-                            <Card className="absolute h-full w-full [backface-visibility:hidden] bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center p-8 flex flex-col justify-between">
+                            <Card className="absolute h-full w-full [backface-visibility:hidden] bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center p-8 flex flex-col justify-between border border-gray-100">
                                 <CardContent className="p-0 flex flex-col items-center">
                                     <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: 'linear-gradient(120deg, rgb(23, 79, 95), rgb(53, 163, 190), rgb(108, 196, 220))' }}>
                                         <span className="text-4xl font-bold text-white">{item.number}</span>
                                     </div>
                                     <h3 className="text-2xl font-bold font-heading-home2 mb-2" style={{ color: '#182d45' }}>{item.name}</h3>
-                                    <p className="text-gray-500 text-sm">Complete study materials & resources</p>
+                                    <p className="text-gray-500 text-sm font-medium">Complete study materials & resources</p>
                                 </CardContent>
                                 <div className="mt-6">
-                                    <span className="font-semibold text-sm transition-colors duration-300" style={{ color: '#35a3be' }}>
+                                    <span className="font-bold text-sm transition-colors duration-300" style={{ color: '#35a3be' }}>
                                         Hover to explore <ArrowRight className="inline-block w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
                                     </span>
                                 </div>
                             </Card>
 
                             {/* Back side */}
-                            <Card className="absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl shadow-lg p-6 flex flex-col justify-center" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' }}>
+                            <Card className="absolute h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl shadow-lg p-6 flex flex-col justify-center border-none" style={{ background: 'linear-gradient(120deg, #174f5f, #35a3be, #6cc4dc)' }}>
                                 <CardHeader className="p-2 text-center">
-                                    <CardTitle className="text-white text-xl font-bold">Class {item.number} Materials</CardTitle>
+                                    <CardTitle className="text-white text-xl font-black uppercase tracking-tight">Class {item.number} Materials</CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-2 flex flex-col gap-2">
                                     {studyMaterials.map((material) => {
@@ -151,9 +151,9 @@ export default function CbsePage() {
                                         const href = relevantLink ? relevantLink.pdf : "#";
 
                                         return (
-                                            <Button asChild key={material.name} variant="ghost" className="bg-white/90 hover:bg-white text-cyan-900 justify-start w-full" disabled={!relevantLink}>
+                                            <Button asChild key={material.name} variant="ghost" className="bg-white/90 hover:bg-white text-[#174f5f] justify-start w-full font-bold text-xs h-10" disabled={!relevantLink}>
                                                 <a href={href} download>
-                                                    <material.icon className="h-4 w-4" />
+                                                    <material.icon className="h-4 w-4 mr-2" />
                                                     {material.name}
                                                 </a>
                                             </Button>
