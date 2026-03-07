@@ -65,9 +65,9 @@ export function ContactForm() {
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Full Name</FormLabel>
+                            <FormLabel className="text-gray-700 font-bold">Full Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="John Doe" {...field} />
+                                <Input placeholder="John Doe" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -78,9 +78,9 @@ export function ContactForm() {
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email Address</FormLabel>
+                            <FormLabel className="text-gray-700 font-bold">Email Address</FormLabel>
                             <FormControl>
-                                <Input placeholder="you@example.com" {...field} />
+                                <Input placeholder="you@example.com" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -91,9 +91,9 @@ export function ContactForm() {
                     name="subject"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Subject</FormLabel>
+                            <FormLabel className="text-gray-700 font-bold">Subject</FormLabel>
                             <FormControl>
-                                <Input placeholder="Inquiry about courses" {...field} />
+                                <Input placeholder="Inquiry about courses" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -104,11 +104,11 @@ export function ContactForm() {
                     name="message"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Message</FormLabel>
+                            <FormLabel className="text-gray-700 font-bold">Message</FormLabel>
                             <FormControl>
                                 <Textarea
                                 placeholder="Tell us how we can help..."
-                                className="resize-none"
+                                className="resize-none min-h-[120px] bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500"
                                 {...field}
                                 />
                             </FormControl>
@@ -116,8 +116,8 @@ export function ContactForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full bg-gradient-to-r from-[#174f5f] to-[#35a3be] hover:from-[#35a3be] hover:to-[#174f5f] text-white font-bold h-12 rounded-xl shadow-lg transition-all duration-500">
-                    <Send className="mr-2 h-4 w-4" /> Send Message
+                <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 rounded-xl shadow-lg transition-all duration-500 transform active:scale-95">
+                    <Send className="mr-2 h-5 w-5" /> Send Message
                 </Button>
             </form>
         </Form>
