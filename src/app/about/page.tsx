@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Target, Lightbulb, Brain, Trophy, Check } from "lucide-react";
+import Link from "next/link";
+import { Target, Lightbulb, Brain, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function AboutPage() {
@@ -112,9 +113,11 @@ export default function AboutPage() {
                 Experience the difference with our unique teaching methodology and personalized attention.
               </p>
               <div className="pt-4">
-                <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-4 rounded-2xl text-lg shadow-xl transition-all active:scale-95">
-                  Enroll Today
-                </button>
+                <Link href="/enrollment">
+                  <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-4 rounded-2xl text-lg shadow-xl transition-all active:scale-95">
+                    Enroll Today
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
