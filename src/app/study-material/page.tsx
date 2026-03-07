@@ -133,57 +133,61 @@ export default function StudyMaterialPage() {
   }, [allMaterials, selectedClass, activeBoard]);
 
   return (
-    <div className="font-body-home2">
-      <section className="relative w-full flex items-center justify-center" style={{ height: '500px' }}>
+    <div className="font-body antialiased">
+      {/* Hero Section */}
+      <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
         <Image
           src="/Study-material.png"
           alt="Free Study Material"
           fill
           className="object-cover"
           data-ai-hint="books on a table"
+          priority
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         <div className="relative z-10 text-center px-4 pt-20">
-          <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl">
+          <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl tracking-tight">
             Free Study Material
           </h1>
         </div>
       </section>
 
-      <AnimatedSection className="py-16 md:py-24 relative overflow-hidden" style={{ backgroundColor: 'rgb(245 250 255)' }}>
-        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-cyan-200/20 rounded-full blur-[100px] -z-0"></div>
-        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+      {/* Main Content Section */}
+      <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-blue-50/50 to-teal-50/50">
+        {/* Decorative Background Blobs */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-[100px] -z-0"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <span 
-              className="inline-block px-4 py-1.5 rounded-full border font-bold text-xs uppercase tracking-[0.2em] mb-4 shadow-sm"
-              style={{ color: '#35a3be', backgroundColor: 'rgba(53, 163, 190, 0.1)', borderColor: 'rgba(53, 163, 190, 0.2)' }}
-            >
+            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
               Academic Resources
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight">Access Premium Learning</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+              Access <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Premium Learning</span>
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-10 mb-24">
+            {/* CBSE Card */}
             <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-[#35a3be]" />
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-blue-600" />
               <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-[#35a3be]/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-[#35a3be] to-[#6cc4dc] flex items-center justify-center shadow-[0_10px_20px_rgba(53, 163, 190, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                  <div className="absolute inset-0 bg-blue-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center shadow-[0_10px_20px_rgba(37, 99, 235, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
                     <BookOpen className="h-10 w-10 text-white" />
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-bold text-[#182d45]">CBSE</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-gray-900">CBSE</CardTitle>
                   <p className="text-sm text-gray-500 font-medium mt-2">Complete NCERT solutions and chapter-wise practice questions</p>
                 </div>
               </CardHeader>
               <CardContent className="p-8 pt-0 flex-grow">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="cbse-ncert-solutions" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">CBSE NCERT Solutions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">CBSE NCERT Solutions</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
                         {['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
@@ -191,13 +195,13 @@ export default function StudyMaterialPage() {
                             setSelectedClass(cls);
                             setActiveBoard("cbse");
                             document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
-                          }} className="rounded-lg border-gray-200 hover:border-[#35a3be] hover:text-[#35a3be] transition-colors">{cls}</Button>
+                          }} className="rounded-lg border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-colors">{cls}</Button>
                         ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="cbse-chapter-wise-test" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">CBSE Chapter Wise Test Questions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">CBSE Chapter Wise Test Questions</AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
                       Deep dive into specific chapters with our curated list of test questions designed to test core conceptual understanding.
                     </AccordionContent>
@@ -206,37 +210,38 @@ export default function StudyMaterialPage() {
               </CardContent>
             </Card>
 
+            {/* Model Papers Card */}
             <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-green-500" />
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-teal-500" />
               <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-green-500/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-green-500 to-emerald-400 flex items-center justify-center shadow-[0_10px_20px_rgba(34, 197, 94, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
+                  <div className="absolute inset-0 bg-teal-500/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-teal-500 to-teal-400 flex items-center justify-center shadow-[0_10px_20px_rgba(20, 184, 166, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
                     <FileText className="h-10 w-10 text-white" />
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-bold text-[#182d45]">Model Papers</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-gray-900">Model Papers</CardTitle>
                   <p className="text-sm text-gray-500 font-medium mt-2">Board question papers and previous year papers for preparation</p>
                 </div>
               </CardHeader>
               <CardContent className="p-8 pt-0 flex-grow">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="board-question-papers" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">Board Question Papers</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Board Question Papers</AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
                       Practice with the latest model board papers to understand the exam pattern and marking schemes.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="previous-year-papers" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">Previous Year Board QP</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Previous Year Board QP</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
                         {['Class 10', 'Class 12'].map(cls => (
                           <Button key={cls} variant="outline" size="sm" onClick={() => {
                             setSelectedClass(cls);
                             document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
-                          }} className="rounded-lg border-gray-200 hover:border-green-500 hover:text-green-600 transition-colors">{cls}</Button>
+                          }} className="rounded-lg border-gray-200 hover:border-teal-500 hover:text-teal-600 transition-colors">{cls}</Button>
                         ))}
                       </div>
                     </AccordionContent>
@@ -245,6 +250,7 @@ export default function StudyMaterialPage() {
               </CardContent>
             </Card>
 
+            {/* Samacheer Card */}
             <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-purple-500" />
               <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
@@ -255,14 +261,14 @@ export default function StudyMaterialPage() {
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-bold text-[#182d45]">Samacheer</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-gray-900">Samacheer</CardTitle>
                   <p className="text-sm text-gray-500 font-medium mt-2">Book back solutions and comprehensive test materials for state board</p>
                 </div>
               </CardHeader>
               <CardContent className="p-8 pt-0 flex-grow">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="samacheer-book-back" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">Book Back Solutions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Book Back Solutions</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
                         {['Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
@@ -276,19 +282,19 @@ export default function StudyMaterialPage() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="samacheer-chapter-wise" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">Chapter Wise Test Questions</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Chapter Wise Test Questions</AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
                       Structured test questions for every chapter in the Samacheer Kalvi syllabus.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="samacheer-model-papers" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">Model Board Question Papers</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Model Board Question Papers</AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
                       Expertly drafted model papers following the state board guidelines.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="samacheer-previous-year" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-[#182d45] text-sm">Previous Years Board QP</AccordionTrigger>
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Previous Years Board QP</AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
                       Review actual papers from previous years to gauge the difficulty and recurring topics.
                     </AccordionContent>
@@ -298,10 +304,11 @@ export default function StudyMaterialPage() {
             </Card>
           </div>
 
+          {/* Dynamic Filter Section */}
           <div id="study-materials-section" className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
-                Download Free <span className="text-[#35a3be]">Study Materials</span>
+                Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
               </h2>
               <p className="text-lg text-gray-500 font-normal">
                 Filter by class and board to find specific resources
@@ -313,7 +320,7 @@ export default function StudyMaterialPage() {
                 <select 
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
-                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-[#35a3be] focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
                 >
                   <option value="Class 10">Class 10</option>
                   {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
@@ -358,7 +365,7 @@ export default function StudyMaterialPage() {
 
             {materialsLoading ? (
               <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
-                <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+                <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
                 <p className="font-bold">Loading Materials...</p>
               </div>
             ) : displayMaterials.length === 0 ? (
@@ -390,12 +397,12 @@ export default function StudyMaterialPage() {
                       </div>
                       <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                     </div>
-                    <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                    <p className="text-[14px] text-[#4b5563] font-normal mb-4 flex-grow text-left">{material.desc}</p>
+                    <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left">{material.title}</h3>
+                    <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
                     <Button
                       asChild
                       className={cn(
-                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
+                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
                         material.themeColor,
                         material.hoverThemeColor
                       )}
