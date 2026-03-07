@@ -39,7 +39,7 @@ export default function SettingsPage() {
                 id="platform-name"
                 value={platformName}
                 onChange={(e) => setPlatformName(e.target.value)}
-                className="h-14 bg-gray-100/80 border-none rounded-xl focus-visible:ring-indigo-500 text-gray-900 font-medium px-6"
+                className="h-14 bg-gray-100/80 border-none rounded-xl focus-visible:ring-blue-500 text-gray-900 font-medium px-6"
               />
             </div>
 
@@ -52,7 +52,7 @@ export default function SettingsPage() {
                 type="email"
                 value={adminEmail}
                 onChange={(e) => setAdminEmail(e.target.value)}
-                className="h-14 bg-gray-100/80 border-none rounded-xl focus-visible:ring-indigo-500 text-gray-900 font-medium px-6"
+                className="h-14 bg-gray-100/80 border-none rounded-xl focus-visible:ring-blue-500 text-gray-900 font-medium px-6"
               />
             </div>
           </div>
@@ -73,7 +73,7 @@ export default function SettingsPage() {
               <Switch 
                 checked={emailNotifications}
                 onCheckedChange={setEmailNotifications}
-                className="data-[state=checked]:bg-indigo-600"
+                className="data-[state=checked]:bg-blue-600"
               />
             </div>
 
@@ -85,7 +85,7 @@ export default function SettingsPage() {
               <Switch 
                 checked={weeklyReports}
                 onCheckedChange={setWeeklyReports}
-                className="data-[state=checked]:bg-indigo-600"
+                className="data-[state=checked]:bg-blue-600"
               />
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function SettingsPage() {
       <div className="flex justify-start pt-4">
         <Button 
           onClick={handleSave}
-          className="h-14 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 transition-all active:scale-95"
+          className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 border-none"
         >
           Save Changes
         </Button>
