@@ -127,12 +127,12 @@ export default function EnrollmentsPage() {
         <Table>
           <TableHeader className="bg-gray-50/50">
             <TableRow className="border-gray-100 hover:bg-transparent">
-              <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">ID</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Student</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Course / Board</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Date</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Progress</TableHead>
-              <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Status</TableHead>
+              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">ID</TableHead>
+              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Student</TableHead>
+              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Course / Board</TableHead>
+              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Date</TableHead>
+              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Progress</TableHead>
+              <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Status</TableHead>
               <TableHead className="px-8 py-5"></TableHead>
             </TableRow>
           </TableHeader>

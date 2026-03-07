@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -73,7 +72,7 @@ export default function ResultsPage() {
                 <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", stat.iconBg)}>
                   <stat.icon className={cn("w-7 h-7", stat.iconColor)} />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left">
                   <span className="text-sm font-semibold text-gray-500 leading-none mb-2">{stat.label}</span>
                   <span className="text-3xl font-black text-gray-900 tracking-tight">{stat.value}</span>
                   <span className={cn("text-[11px] font-bold mt-1", stat.trendColor)}>
@@ -124,7 +123,7 @@ export default function ResultsPage() {
 
         {/* Hall of Fame */}
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
-          <CardContent className="p-8">
+          <CardContent className="p-8 text-left">
             <div className="flex items-center gap-2 mb-8">
               <span className="text-xl">🏆</span>
               <h3 className="text-xl font-bold text-gray-900 tracking-tight">Hall of Fame</h3>
@@ -165,17 +164,17 @@ export default function ResultsPage() {
 
       {/* Top 10 Leaderboard Table */}
       <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
-        <CardContent className="p-8">
+        <CardContent className="p-8 text-left">
           <h3 className="text-xl font-bold text-gray-900 tracking-tight mb-8">Top 10 Leaderboard</h3>
           <div className="rounded-[24px] border border-gray-50 overflow-hidden">
             <Table>
               <TableHeader className="bg-gray-50/50">
                 <TableRow className="border-gray-100 hover:bg-transparent">
-                  <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Rank</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Student</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Board/Class</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Score</TableHead>
-                  <TableHead className="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-gray-400">Grade</TableHead>
+                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Rank</TableHead>
+                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Student</TableHead>
+                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Board/Class</TableHead>
+                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Score</TableHead>
+                  <TableHead className="px-8 py-5 text-[11px] font-medium uppercase tracking-widest text-gray-500">Grade</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
