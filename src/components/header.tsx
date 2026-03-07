@@ -21,7 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/free-study-material", label: "Study Materials" },
+  { href: "/study-material", label: "Study Materials" },
   { href: "/our-results", label: "Results" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

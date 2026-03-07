@@ -63,7 +63,7 @@ export function Footer() {
           <div>
             <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Resources</h3>
             <ul className="space-y-4 font-medium text-[16px]">
-              <li><Link href="/free-study-material" className="text-gray-400 hover:text-white transition-colors duration-200">Free Study Materials</Link></li>
+              <li><Link href="/study-material" className="text-gray-400 hover:text-white transition-colors duration-200">Free Study Materials</Link></li>
               <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors duration-200">Blog</Link></li>
               <li><Link href="/become-a-teacher" className="text-gray-400 hover:text-white transition-colors duration-200">Become a Teacher</Link></li>
             </ul>
