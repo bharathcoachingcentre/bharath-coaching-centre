@@ -82,10 +82,11 @@ export default function SignUpPage() {
 
             toast({
                 title: "Account Created",
-                description: "Welcome to Bharath Academy! Your account is ready.",
+                description: "Your account is ready! Please sign in with your new credentials.",
             });
             
-            router.push("/admin");
+            // Redirect to Sign In page instead of Admin Dashboard
+            router.push("/signin");
         } catch (error: any) {
             console.error("Signup error:", error);
             toast({
@@ -114,7 +115,7 @@ export default function SignUpPage() {
                                     name="fullName"
                                     render={({ field }) => (
                                         <FormItem className="space-y-2">
-                                            <FormLabel className="font-bold text-[#182d45] text-sm">Full Name</FormLabel>
+                                            <FormLabel className="font-bold text-[#182d45] text-sm text-left block">Full Name</FormLabel>
                                             <FormControl>
                                                 <div className="relative">
                                                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -131,7 +132,7 @@ export default function SignUpPage() {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem className="space-y-2">
-                                            <FormLabel className="font-bold text-[#182d45] text-sm">Email Address</FormLabel>
+                                            <FormLabel className="font-bold text-[#182d45] text-sm text-left block">Email Address</FormLabel>
                                             <FormControl>
                                                 <div className="relative">
                                                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -149,7 +150,7 @@ export default function SignUpPage() {
                                         name="password"
                                         render={({ field }) => (
                                             <FormItem className="space-y-2">
-                                                <FormLabel className="font-bold text-[#182d45] text-sm">Password</FormLabel>
+                                                <FormLabel className="font-bold text-[#182d45] text-sm text-left block">Password</FormLabel>
                                                 <FormControl>
                                                     <div className="relative">
                                                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -165,7 +166,7 @@ export default function SignUpPage() {
                                         name="confirmPassword"
                                         render={({ field }) => (
                                             <FormItem className="space-y-2">
-                                                <FormLabel className="font-bold text-[#182d45] text-sm">Confirm</FormLabel>
+                                                <FormLabel className="font-bold text-[#182d45] text-sm text-left block">Confirm</FormLabel>
                                                 <FormControl>
                                                     <div className="relative">
                                                         <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
