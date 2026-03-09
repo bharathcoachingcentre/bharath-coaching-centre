@@ -104,7 +104,7 @@ export default function UserDetailPage() {
   }, [user, form, isSaving]);
 
   const watchedPhotoURL = form.watch("photoURL");
-  const displayPhotoURL = isEditing ? watchedPhotoURL : (user?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email}`);
+  const displayPhotoURL = (isEditing ? watchedPhotoURL : user?.photoURL) || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'default'}`;
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !userId) return;
@@ -188,11 +188,13 @@ export default function UserDetailPage() {
             <div className="h-24 bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
             <CardContent className="p-8 -mt-12 relative text-left">
               <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 mb-6">
-                <img 
-                  src={displayPhotoURL} 
-                  alt={user.displayName}
-                  className="w-full h-full object-cover"
-                />
+                {displayPhotoURL && (
+                  <img 
+                    src={displayPhotoURL} 
+                    alt={user.displayName || "User"}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
               <div className="text-center space-y-1">
                 <h2 className="text-2xl font-black text-gray-900 leading-tight">
