@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState } from "react";
@@ -73,6 +72,16 @@ const formSchema = z.object({
 
 const avatarCollections = [
   {
+    name: "Professional",
+    id: "micah",
+    seeds: ["Jack", "Avery", "Sarah", "Oliver", "Emma", "Leo", "Mia", "Noah", "Sophia", "Lucas"]
+  },
+  {
+    name: "Personas",
+    id: "personas",
+    seeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+  },
+  {
     name: "Avataaars",
     id: "avataaars",
     seeds: ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo", "Mia", "Zoe"]
@@ -94,7 +103,15 @@ const avatarCollections = [
   }
 ];
 
-const quickSeeds = avatarCollections[0].seeds.slice(0, 7);
+const quickSeeds = [
+  { id: "micah", seed: "Jack" },
+  { id: "micah", seed: "Sarah" },
+  { id: "personas", seed: "1" },
+  { id: "personas", seed: "4" },
+  { id: "avataaars", seed: "Felix" },
+  { id: "avataaars", seed: "Sophie" },
+  { id: "notionists", seed: "3" },
+];
 
 export default function UserDetailPage() {
   const params = useParams();
@@ -136,13 +153,13 @@ export default function UserDetailPage() {
         role: user.role || "student",
         status: user.status || "pending",
         phoneNumber: user.phoneNumber || "",
-        photoURL: user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`,
+        photoURL: user.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user.email}`,
       });
     }
   }, [user, form, isSaving]);
 
   const watchedPhotoURL = form.watch("photoURL");
-  const displayPhotoURL = (watchedPhotoURL || user?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'default'}`);
+  const displayPhotoURL = (watchedPhotoURL || user?.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user?.email || 'default'}`);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !userId) return;
@@ -358,12 +375,12 @@ export default function UserDetailPage() {
                           <FormItem className="md:col-span-2">
                             <FormLabel className="text-xs font-black uppercase text-gray-400">Choose Avatar</FormLabel>
                             <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 mt-2">
-                              {quickSeeds.map((seed) => {
-                                const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+                              {quickSeeds.map((item, idx) => {
+                                const url = `https://api.dicebear.com/7.x/${item.id}/svg?seed=${item.seed}`;
                                 const isSelected = field.value === url;
                                 return (
                                   <button
-                                    key={seed}
+                                    key={idx}
                                     type="button"
                                     onClick={() => field.onChange(url)}
                                     className={cn(
@@ -371,7 +388,7 @@ export default function UserDetailPage() {
                                       isSelected ? "border-blue-600 scale-110 shadow-lg" : "border-transparent hover:border-gray-200"
                                     )}
                                   >
-                                    <img src={url} alt={seed} className="w-full h-full object-cover" />
+                                    <img src={url} alt={item.seed} className="w-full h-full object-cover" />
                                     {isSelected && (
                                       <div className="absolute inset-0 bg-blue-600/10 flex items-center justify-center">
                                         <div className="bg-blue-600 text-white rounded-full p-0.5">
@@ -397,10 +414,10 @@ export default function UserDetailPage() {
                                   <DialogHeader>
                                     <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Avatar Library</DialogTitle>
                                   </DialogHeader>
-                                  <Tabs defaultValue="avataaars" className="w-full mt-4">
-                                    <TabsList className="grid grid-cols-4 bg-gray-100 p-1 rounded-xl h-12">
+                                  <Tabs defaultValue="micah" className="w-full mt-4">
+                                    <TabsList className="grid grid-cols-3 sm:grid-cols-6 bg-gray-100 p-1 rounded-xl h-auto gap-1">
                                       {avatarCollections.map(collection => (
-                                        <TabsTrigger key={collection.id} value={collection.id} className="rounded-lg font-bold text-xs data-[state=active]:bg-white data-[state=active]:text-blue-600 shadow-none">
+                                        <TabsTrigger key={collection.id} value={collection.id} className="rounded-lg font-bold text-[10px] data-[state=active]:bg-white data-[state=active]:text-blue-600 shadow-none py-2 px-1">
                                           {collection.name}
                                         </TabsTrigger>
                                       ))}
