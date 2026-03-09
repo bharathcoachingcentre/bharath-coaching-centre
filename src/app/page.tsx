@@ -177,8 +177,19 @@ export default function HomePage() {
 
   const { data: homeContent } = useDoc(pageRef);
   const content = homeContent?.content || {
-    heroTitle: "Empowering Students from Class 1 to 12",
+    heroTitleMain: "Empowering Students from ",
+    heroTitleHighlight: "Class 1 to 12",
     heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
+    heroPrimaryBtnText: "Book Free Consultation",
+    heroPrimaryBtnLink: "#",
+    heroOutlineBtnText: "View Timetable",
+    heroOutlineBtnLink: "#timetable-section",
+    heroCard1Label: "Board",
+    heroCard1Value: "CBSE",
+    heroCard2Label: "Board",
+    heroCard2Value: "Samacheer",
+    heroCard3Online: "Online",
+    heroCard3Offline: "Offline",
     stats: [
       { label: "Students", value: "5000+", icon: "Users" },
       { label: "Success Rate", value: "95%", icon: "TrendingUp" },
@@ -345,7 +356,7 @@ export default function HomePage() {
             <div className="text-center lg:text-left space-y-8">
               <div className="space-y-6">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight text-left">
-                  {content.heroTitle.split('Class 1 to 12')[0]}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Class 1 to 12</span>
+                  {content.heroTitleMain || "Empowering Students from "}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.heroTitleHighlight || "Class 1 to 12"}</span>
                 </h1>
                 <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
                   {content.heroSubtitle}
@@ -354,15 +365,15 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                  <Link href="#">
+                  <Link href={content.heroPrimaryBtnLink || "#"}>
                     <CalendarCheck className="mr-2 h-6 w-6" />
-                    Book Free Consultation
+                    {content.heroPrimaryBtnText || "Book Free Consultation"}
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-bold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <Link href="#timetable-section">
+                  <Link href={content.heroOutlineBtnLink || "#timetable-section"}>
                     <Clock className="mr-2 h-6 w-6" />
-                    View Timetable
+                    {content.heroOutlineBtnText || "View Timetable"}
                   </Link>
                 </Button>
               </div>
@@ -407,8 +418,8 @@ export default function HomePage() {
                     <Book className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">Board</div>
-                    <div className="text-xs sm:text-lg font-bold text-gray-900">CBSE</div>
+                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard1Label || "Board"}</div>
+                    <div className="text-xs sm:text-lg font-bold text-gray-900">{content.heroCard1Value || "CBSE"}</div>
                   </div>
                 </div>
               </div>
@@ -419,8 +430,8 @@ export default function HomePage() {
                     <GraduationCap className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">Board</div>
-                    <div className="text-xs sm:text-lg font-bold text-gray-900">Samacheer</div>
+                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard2Label || "Board"}</div>
+                    <div className="text-xs sm:text-lg font-bold text-gray-900">{content.heroCard2Value || "Samacheer"}</div>
                   </div>
                 </div>
               </div>
@@ -431,14 +442,14 @@ export default function HomePage() {
                     <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
                       <Laptop className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">Online</span>
+                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Online || "Online"}</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
                     <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
                       <Building className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">Offline</span>
+                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Offline || "Offline"}</span>
                   </div>
                 </div>
               </div>

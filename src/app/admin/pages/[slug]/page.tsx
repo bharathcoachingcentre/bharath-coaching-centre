@@ -12,7 +12,8 @@ import {
   Plus,
   Trash2,
   Undo2,
-  Check
+  Check,
+  MousePointer2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,8 +27,19 @@ import { cn } from "@/lib/utils";
 
 const defaultPageData: Record<string, any> = {
   home: {
-    heroTitle: "Empowering Students from Class 1 to 12",
+    heroTitleMain: "Empowering Students from ",
+    heroTitleHighlight: "Class 1 to 12",
     heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
+    heroPrimaryBtnText: "Book Free Consultation",
+    heroPrimaryBtnLink: "#",
+    heroOutlineBtnText: "View Timetable",
+    heroOutlineBtnLink: "#timetable-section",
+    heroCard1Label: "Board",
+    heroCard1Value: "CBSE",
+    heroCard2Label: "Board",
+    heroCard2Value: "Samacheer",
+    heroCard3Online: "Online",
+    heroCard3Offline: "Offline",
     stats: [
       { label: "Students", value: "5000+", icon: "Users" },
       { label: "Success Rate", value: "95%", icon: "TrendingUp" },
@@ -162,23 +174,36 @@ export default function PageEditor() {
           {/* Home Page Specific Fields */}
           {slug === 'home' && (
             <div className="space-y-8">
+              {/* Banner Text Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Banner Text</CardTitle>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-6 text-left">
-                  <div className="space-y-3">
-                    <Label className="text-sm font-bold text-gray-700">Headline Title</Label>
-                    <Input 
-                      value={formData.heroTitle} 
-                      onChange={(e) => updateField('heroTitle', e.target.value)}
-                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900 focus-visible:ring-blue-600"
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Headline</Label>
+                      <Input 
+                        value={formData.heroTitleMain || ""} 
+                        onChange={(e) => updateField('heroTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900 focus-visible:ring-blue-600"
+                        placeholder="Empowering Students from "
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Highlighted Gradient Text</Label>
+                      <Input 
+                        value={formData.heroTitleHighlight || ""} 
+                        onChange={(e) => updateField('heroTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600 focus-visible:ring-blue-600"
+                        placeholder="Class 1 to 12"
+                      />
+                    </div>
                   </div>
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Hero Subtitle</Label>
                     <Textarea 
-                      value={formData.heroSubtitle} 
+                      value={formData.heroSubtitle || ""} 
                       onChange={(e) => updateField('heroSubtitle', e.target.value)}
                       className="min-h-[100px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none focus-visible:ring-blue-600"
                     />
@@ -186,6 +211,133 @@ export default function PageEditor() {
                 </CardContent>
               </Card>
 
+              {/* Banner Buttons Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <MousePointer2 className="w-6 h-6 text-blue-600" /> Action Buttons
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="space-y-6">
+                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Primary Button (Gradient)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Label</Label>
+                        <Input 
+                          value={formData.heroPrimaryBtnText || ""} 
+                          onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)}
+                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Link URL</Label>
+                        <Input 
+                          value={formData.heroPrimaryBtnLink || ""} 
+                          onChange={(e) => updateField('heroPrimaryBtnLink', e.target.value)}
+                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Outline Button (White)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Label</Label>
+                        <Input 
+                          value={formData.heroOutlineBtnText || ""} 
+                          onChange={(e) => updateField('heroOutlineBtnText', e.target.value)}
+                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Link URL</Label>
+                        <Input 
+                          value={formData.heroOutlineBtnLink || ""} 
+                          onChange={(e) => updateField('heroOutlineBtnLink', e.target.value)}
+                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Banner Floating Cards Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Floating Cards</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-4 p-6 bg-blue-50/50 rounded-2xl border border-blue-100">
+                      <h4 className="text-xs font-black uppercase tracking-widest text-blue-600">Card 1 (Top Right)</h4>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Label</Label>
+                        <Input 
+                          value={formData.heroCard1Label || ""} 
+                          onChange={(e) => updateField('heroCard1Label', e.target.value)}
+                          className="h-10 bg-white"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Value</Label>
+                        <Input 
+                          value={formData.heroCard1Value || ""} 
+                          onChange={(e) => updateField('heroCard1Value', e.target.value)}
+                          className="h-10 bg-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 p-6 bg-teal-50/50 rounded-2xl border border-teal-100">
+                      <h4 className="text-xs font-black uppercase tracking-widest text-teal-600">Card 2 (Bottom Left)</h4>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Label</Label>
+                        <Input 
+                          value={formData.heroCard2Label || ""} 
+                          onChange={(e) => updateField('heroCard2Label', e.target.value)}
+                          className="h-10 bg-white"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Value</Label>
+                        <Input 
+                          value={formData.heroCard2Value || ""} 
+                          onChange={(e) => updateField('heroCard2Value', e.target.value)}
+                          className="h-10 bg-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 p-6 bg-purple-50/50 rounded-2xl border border-purple-100 md:col-span-2">
+                      <h4 className="text-xs font-black uppercase tracking-widest text-purple-600">Card 3 (Center Right)</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                          <Label className="text-sm font-bold text-gray-700">Top Row Text</Label>
+                          <Input 
+                            value={formData.heroCard3Online || ""} 
+                            onChange={(e) => updateField('heroCard3Online', e.target.value)}
+                            className="h-10 bg-white"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <Label className="text-sm font-bold text-gray-700">Bottom Row Text</Label>
+                          <Input 
+                            value={formData.heroCard3Offline || ""} 
+                            onChange={(e) => updateField('heroCard3Offline', e.target.value)}
+                            className="h-10 bg-white"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Stats Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Success Metrics</CardTitle>
@@ -196,7 +348,7 @@ export default function PageEditor() {
                       <div className="space-y-2 text-left">
                         <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
                         <Input 
-                          value={stat.label} 
+                          value={stat.label || ""} 
                           onChange={(e) => {
                             const newStats = [...formData.stats];
                             newStats[idx].label = e.target.value;
@@ -208,7 +360,7 @@ export default function PageEditor() {
                       <div className="space-y-2 text-left">
                         <Label className="text-[10px] font-black uppercase text-gray-400">Value</Label>
                         <Input 
-                          value={stat.value} 
+                          value={stat.value || ""} 
                           onChange={(e) => {
                             const newStats = [...formData.stats];
                             newStats[idx].value = e.target.value;
@@ -235,7 +387,7 @@ export default function PageEditor() {
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Page Headline</Label>
                     <Input 
-                      value={formData.heroTitle} 
+                      value={formData.heroTitle || ""} 
                       onChange={(e) => updateField('heroTitle', e.target.value)}
                       className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900 focus-visible:ring-blue-600"
                     />
@@ -251,7 +403,7 @@ export default function PageEditor() {
                   <div className="space-y-3 text-left mb-8">
                     <Label className="text-sm font-bold text-gray-700">Section Title</Label>
                     <Input 
-                      value={formData.philosophyTitle} 
+                      value={formData.philosophyTitle || ""} 
                       onChange={(e) => updateField('philosophyTitle', e.target.value)}
                       className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900 focus-visible:ring-blue-600"
                     />
@@ -262,7 +414,7 @@ export default function PageEditor() {
                     {formData.philosophyItems?.map((item: any, idx: number) => (
                       <div key={idx} className="flex gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 group">
                         <Textarea 
-                          value={item.text} 
+                          value={item.text || ""} 
                           onChange={(e) => {
                             const newItems = [...formData.philosophyItems];
                             newItems[idx].text = e.target.value;
