@@ -144,6 +144,92 @@ const iconMap: Record<string, any> = {
   Building: Building,
 };
 
+const topPerformers = [
+  {
+    name: "Ananya Krishnan",
+    grade: "Class 10, CBSE",
+    marks: "98.6%",
+    rank: "Rank 1",
+    badgeColor: "bg-[#fbbf24]",
+    marksColor: "text-blue-600",
+    iconColor: "bg-blue-600",
+    img: "/ananya-krishnan.jpg",
+    rankIcon: Crown
+  },
+  {
+    name: "Arjun Mehta",
+    grade: "Class 12, CBSE",
+    marks: "97.8%",
+    rank: "Rank 2",
+    badgeColor: "bg-[#94a3b8]",
+    marksColor: "text-teal-600",
+    iconColor: "bg-teal-600",
+    img: "/arjun-mehta.jpg",
+    rankIcon: Medal
+  },
+  {
+    name: "Divya Nair",
+    grade: "Class 10, Samacheer",
+    marks: "96.4%",
+    rank: "Rank 3",
+    badgeColor: "bg-[#f59e0b]",
+    marksColor: "text-purple-600",
+    iconColor: "bg-purple-600",
+    img: "/divya-nair.jpg",
+    rankIcon: Award
+  },
+  {
+    name: "Rohan Kapoor",
+    grade: "Class 12, CBSE",
+    marks: "95.2%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-orange-600",
+    iconColor: "bg-orange-600",
+    img: "/rohan-kappoor.jpg"
+  },
+  {
+    name: "Sanya Gupta",
+    grade: "Class 10, CBSE",
+    marks: "94.8%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-pink-600",
+    iconColor: "bg-pink-600",
+    img: "/sanya-gupta.jpg"
+  },
+  {
+    name: "Vikram Malhotra",
+    grade: "Class 12, Samacheer",
+    marks: "94.2%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-green-600",
+    iconColor: "bg-green-600",
+    img: "/vikram-malhotra.jpg"
+  },
+  {
+    name: "Nisha Reddy",
+    grade: "Class 10, CBSE",
+    marks: "93.9%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-indigo-600",
+    iconColor: "bg-indigo-600",
+    img: "/nisha-reddy.jpg"
+  },
+  {
+    name: "Kabir Singh",
+    grade: "Class 12, CBSE",
+    marks: "93.5%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-amber-600",
+    iconColor: "bg-amber-600",
+    img: "/kabir-singh.jpg"
+  },
+];
+
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -229,6 +315,14 @@ export default function HomePage() {
           enrollNowBtnText: "Enroll Now",
           points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
         },
+      ],
+      timetableTitle: "Offline Class Timetable",
+      timetableSubtitle: "View our structured class schedules for offline sessions",
+      timetableNotes: [
+        "Sunday is a holiday for all classes",
+        "Each session includes a 15-minute break",
+        "Extra classes are conducted before exams",
+        "Timetable may vary based on class requirements"
       ]
     };
 
@@ -670,7 +764,7 @@ export default function HomePage() {
                       <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                     </div>
                     <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                    <p className="text-[14px] text-[#4b5563] font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
+                    <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
                     <Button
                       asChild
                       className={cn(
@@ -697,10 +791,21 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-              Offline Class <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Timetable</span>
+              {content.timetableTitle?.includes('Timetable') ? (
+                <>
+                  {content.timetableTitle.split('Timetable')[0]}
+                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Timetable</span>
+                </>
+              ) : (
+                content.timetableTitle || (
+                  <>
+                    Offline Class <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Timetable</span>
+                  </>
+                )
+              )}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
-              View our structured class schedules for offline sessions
+              {content.timetableSubtitle || "View our structured class schedules for offline sessions"}
             </p>
           </div>
 
@@ -826,10 +931,16 @@ export default function HomePage() {
               <div className="space-y-2 text-left">
                 <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
                 <ul className="space-y-1.5 text-gray-600 text-[13px] font-normal leading-relaxed font-body">
-                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Sunday is a holiday for all classes</li>
-                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Each session includes a 15-minute break</li>
-                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Extra classes are conducted before exams</li>
-                  <li className="flex items-center gap-2 text-left"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> Timetable may vary based on class requirements</li>
+                  {(content.timetableNotes || [
+                    "Sunday is a holiday for all classes",
+                    "Each session includes a 15-minute break",
+                    "Extra classes are conducted before exams",
+                    "Timetable may vary based on class requirements"
+                  ]).map((note: string, i: number) => (
+                    <li key={i} className="flex items-center gap-2 text-left">
+                      <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> {note}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -1114,89 +1225,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-const topPerformers = [
-  {
-    name: "Ananya Krishnan",
-    grade: "Class 10, CBSE",
-    marks: "98.6%",
-    rank: "Rank 1",
-    badgeColor: "bg-[#fbbf24]",
-    marksColor: "text-blue-600",
-    iconColor: "bg-blue-600",
-    img: "/ananya-krishnan.jpg",
-    rankIcon: Crown
-  },
-  {
-    name: "Arjun Mehta",
-    grade: "Class 12, CBSE",
-    marks: "97.8%",
-    rank: "Rank 2",
-    badgeColor: "bg-[#94a3b8]",
-    marksColor: "text-teal-600",
-    iconColor: "bg-teal-600",
-    img: "/arjun-mehta.jpg",
-    rankIcon: Medal
-  },
-  {
-    name: "Divya Nair",
-    grade: "Class 10, Samacheer",
-    marks: "96.4%",
-    rank: "Rank 3",
-    badgeColor: "bg-[#f59e0b]",
-    marksColor: "text-purple-600",
-    iconColor: "bg-purple-600",
-    img: "/divya-nair.jpg",
-    rankIcon: Award
-  },
-  {
-    name: "Rohan Kapoor",
-    grade: "Class 12, CBSE",
-    marks: "95.2%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-orange-600",
-    iconColor: "bg-orange-600",
-    img: "/rohan-kappoor.jpg"
-  },
-  {
-    name: "Sanya Gupta",
-    grade: "Class 10, CBSE",
-    marks: "94.8%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-pink-600",
-    iconColor: "bg-pink-600",
-    img: "/sanya-gupta.jpg"
-  },
-  {
-    name: "Vikram Malhotra",
-    grade: "Class 12, Samacheer",
-    marks: "94.2%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-green-600",
-    iconColor: "bg-green-600",
-    img: "/vikram-malhotra.jpg"
-  },
-  {
-    name: "Nisha Reddy",
-    grade: "Class 10, CBSE",
-    marks: "93.9%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-indigo-600",
-    iconColor: "bg-indigo-600",
-    img: "/nisha-reddy.jpg"
-  },
-  {
-    name: "Kabir Singh",
-    grade: "Class 12, CBSE",
-    marks: "93.5%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-amber-600",
-    iconColor: "bg-amber-600",
-    img: "/kabir-singh.jpg"
-  },
-];
