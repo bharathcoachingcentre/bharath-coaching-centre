@@ -15,7 +15,8 @@ import {
   UserCog,
   History,
   Lock,
-  Edit3
+  Edit3,
+  Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,7 +54,10 @@ const formSchema = z.object({
   role: z.string().min(1, "Role is required"),
   status: z.string().min(1, "Status is required"),
   phoneNumber: z.string().optional(),
+  photoURL: z.string().optional(),
 });
+
+const avatarSeeds = ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo"];
 
 export default function UserDetailPage() {
   const params = useParams();
@@ -82,6 +86,7 @@ export default function UserDetailPage() {
       role: "student",
       status: "pending",
       phoneNumber: "",
+      photoURL: "",
     },
   });
 
@@ -93,9 +98,13 @@ export default function UserDetailPage() {
         role: user.role || "student",
         status: user.status || "pending",
         phoneNumber: user.phoneNumber || "",
+        photoURL: user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`,
       });
     }
   }, [user, form, isSaving]);
+
+  const watchedPhotoURL = form.watch("photoURL");
+  const displayPhotoURL = isEditing ? watchedPhotoURL : (user?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email}`);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !userId) return;
@@ -161,7 +170,7 @@ export default function UserDetailPage() {
         </Button>
         <div className="flex items-center gap-3">
           {!isEditing ? (
-            <Button onClick={() => setIsEditMode(true)} className="bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20">
+            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none">
               <Edit3 className="w-4 h-4 mr-2" /> Edit Permissions
             </Button>
           ) : (
@@ -180,7 +189,7 @@ export default function UserDetailPage() {
             <CardContent className="p-8 -mt-12 relative text-left">
               <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 mb-6">
                 <img 
-                  src={user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`} 
+                  src={displayPhotoURL} 
                   alt={user.displayName}
                   className="w-full h-full object-cover"
                 />
@@ -304,12 +313,49 @@ export default function UserDetailPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                       <FormField
                         control={form.control}
+                        name="photoURL"
+                        render={({ field }) => (
+                          <FormItem className="md:col-span-2">
+                            <FormLabel className="text-xs font-black uppercase text-gray-400">Choose Avatar</FormLabel>
+                            <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 mt-2">
+                              {avatarSeeds.map((seed) => {
+                                const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+                                const isSelected = field.value === url;
+                                return (
+                                  <button
+                                    key={seed}
+                                    type="button"
+                                    onClick={() => field.onChange(url)}
+                                    className={cn(
+                                      "relative rounded-2xl overflow-hidden aspect-square border-2 transition-all duration-300",
+                                      isSelected ? "border-blue-600 scale-110 shadow-lg" : "border-transparent hover:border-gray-200"
+                                    )}
+                                  >
+                                    <img src={url} alt={seed} className="w-full h-full object-cover" />
+                                    {isSelected && (
+                                      <div className="absolute inset-0 bg-blue-600/10 flex items-center justify-center">
+                                        <div className="bg-blue-600 text-white rounded-full p-0.5">
+                                          <Check className="w-3 h-3" />
+                                        </div>
+                                      </div>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
                         name="displayName"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-xs font-black uppercase text-gray-400">Display Name</FormLabel>
                             <FormControl>
-                              <Input {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-[#35a3be]" />
+                              <Input {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -381,7 +427,7 @@ export default function UserDetailPage() {
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Contact Number</FormLabel>
                           <FormControl>
-                            <Input {...field} placeholder="+91 00000 00000" className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-[#35a3be]" />
+                            <Input {...field} placeholder="+91 00000 00000" className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -392,7 +438,7 @@ export default function UserDetailPage() {
                       <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving}>
                         Cancel
                       </Button>
-                      <Button type="submit" disabled={isSaving} className="bg-gray-900 hover:bg-black text-white font-bold h-12 px-8 rounded-xl shadow-xl transition-all active:scale-95">
+                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-10 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95">
                         {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                         Update Account
                       </Button>

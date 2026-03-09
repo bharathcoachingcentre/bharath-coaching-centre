@@ -9,7 +9,8 @@ import {
   Phone,
   Loader2,
   Save,
-  UserCog
+  UserCog,
+  Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,6 +40,7 @@ import { useFirestore } from "@/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   displayName: z.string().min(1, "Full name is required"),
@@ -46,7 +48,10 @@ const formSchema = z.object({
   phoneNumber: z.string().min(10, "Valid contact required"),
   role: z.string().min(1, "Please select a role"),
   status: z.string().min(1, "Please select a status"),
+  photoURL: z.string().optional(),
 });
+
+const avatarSeeds = ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo"];
 
 export default function CreateUserPage() {
   const { toast } = useToast();
@@ -62,6 +67,7 @@ export default function CreateUserPage() {
       phoneNumber: "",
       role: "student",
       status: "active",
+      photoURL: `https://api.dicebear.com/7.x/avataaars/svg?seed=Felix`,
     },
   });
 
@@ -71,7 +77,7 @@ export default function CreateUserPage() {
 
     const submissionData = {
       ...values,
-      photoURL: `https://api.dicebear.com/7.x/avataaars/svg?seed=${values.email}`,
+      photoURL: values.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${values.email}`,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
@@ -127,6 +133,43 @@ export default function CreateUserPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                <FormField
+                  control={form.control}
+                  name="photoURL"
+                  render={({ field }) => (
+                    <FormItem className="md:col-span-2">
+                      <FormLabel className="text-xs font-black uppercase text-gray-400">Choose Avatar</FormLabel>
+                      <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 mt-2">
+                        {avatarSeeds.map((seed) => {
+                          const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+                          const isSelected = field.value === url;
+                          return (
+                            <button
+                              key={seed}
+                              type="button"
+                              onClick={() => field.onChange(url)}
+                              className={cn(
+                                "relative rounded-2xl overflow-hidden aspect-square border-2 transition-all duration-300",
+                                isSelected ? "border-blue-600 scale-110 shadow-lg" : "border-transparent hover:border-gray-200"
+                              )}
+                            >
+                              <img src={url} alt={seed} className="w-full h-full object-cover" />
+                              {isSelected && (
+                                <div className="absolute inset-0 bg-blue-600/10 flex items-center justify-center">
+                                  <div className="bg-blue-600 text-white rounded-full p-0.5">
+                                    <Check className="w-3 h-3" />
+                                  </div>
+                                </div>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <FormField
                   control={form.control}
                   name="displayName"
