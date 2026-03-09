@@ -127,6 +127,92 @@ const materialStyles = [
   },
 ];
 
+const topPerformers = [
+  {
+    name: "Ananya Krishnan",
+    grade: "Class 10, CBSE",
+    marks: "98.6%",
+    rank: "Rank 1",
+    badgeColor: "bg-[#fbbf24]",
+    marksColor: "text-blue-600",
+    iconColor: "bg-blue-600",
+    img: "/ananya-krishnan.jpg",
+    rankIcon: Crown
+  },
+  {
+    name: "Arjun Mehta",
+    grade: "Class 12, CBSE",
+    marks: "97.8%",
+    rank: "Rank 2",
+    badgeColor: "bg-[#94a3b8]",
+    marksColor: "text-teal-600",
+    iconColor: "bg-teal-600",
+    img: "/arjun-mehta.jpg",
+    rankIcon: Medal
+  },
+  {
+    name: "Divya Nair",
+    grade: "Class 10, Samacheer",
+    marks: "96.4%",
+    rank: "Rank 3",
+    badgeColor: "bg-[#f59e0b]",
+    marksColor: "text-purple-600",
+    iconColor: "bg-purple-600",
+    img: "/divya-nair.jpg",
+    rankIcon: Award
+  },
+  {
+    name: "Rohan Kapoor",
+    grade: "Class 12, CBSE",
+    marks: "95.2%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-orange-600",
+    iconColor: "bg-orange-600",
+    img: "/rohan-kappoor.jpg"
+  },
+  {
+    name: "Sanya Gupta",
+    grade: "Class 10, CBSE",
+    marks: "94.8%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-pink-600",
+    iconColor: "bg-pink-600",
+    img: "/sanya-gupta.jpg"
+  },
+  {
+    name: "Vikram Malhotra",
+    grade: "Class 12, Samacheer",
+    marks: "94.2%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-green-600",
+    iconColor: "bg-green-600",
+    img: "/vikram-malhotra.jpg"
+  },
+  {
+    name: "Nisha Reddy",
+    grade: "Class 10, CBSE",
+    marks: "93.9%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-indigo-600",
+    iconColor: "bg-indigo-600",
+    img: "/nisha-reddy.jpg"
+  },
+  {
+    name: "Kabir Singh",
+    grade: "Class 12, CBSE",
+    marks: "93.5%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-amber-600",
+    iconColor: "bg-amber-600",
+    img: "/kabir-singh.jpg"
+  },
+];
+
 const iconMap: Record<string, any> = {
   Users: Users,
   TrendingUp: TrendingUp,
@@ -459,7 +545,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
               {content.featuresTitle?.includes('Excel') ? (
                 <>
                   {content.featuresTitle.split('Excel')[0]}
@@ -473,7 +559,7 @@ export default function HomePage() {
                 )
               )}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
               {content.featuresSubtitle || "Comprehensive learning solutions designed to ensure academic success"}
             </p>
           </div>
@@ -512,7 +598,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
               {content.programsTitle?.includes('Programs') ? (
                 <>
                   {content.programsTitle.split('Programs')[0]}
@@ -526,7 +612,7 @@ export default function HomePage() {
                 )
               )}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
               {content.programsSubtitle || "Choose the perfect learning path for your child's academic journey"}
             </p>
           </div>
@@ -722,7 +808,7 @@ export default function HomePage() {
       <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
               {content.timetableTitle?.includes('Timetable') ? (
                 <>
                   {content.timetableTitle.split('Timetable')[0]}
@@ -736,7 +822,7 @@ export default function HomePage() {
                 )
               )}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
               {content.timetableSubtitle || "View our structured class schedules for offline sessions"}
             </p>
           </div>
@@ -942,10 +1028,10 @@ export default function HomePage() {
       <section id="testimonials-section" className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
               What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
             </h2>
-            <p className="text-lg text-gray-500 font-normal">
+            <p className="text-lg text-gray-500 font-normal text-left">
               Real stories from our successful students and satisfied parents
             </p>
           </div>
@@ -987,7 +1073,7 @@ export default function HomePage() {
       <section id="why-choose-section" className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
               Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
             </h2>
           </div>
