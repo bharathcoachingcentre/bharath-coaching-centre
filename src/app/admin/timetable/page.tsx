@@ -7,13 +7,13 @@ import {
   Search, 
   Plus, 
   MoreVertical,
-  Eye,
   Pencil,
   Trash2,
   Loader2,
   CalendarClock,
   Filter,
-  UserCheck
+  UserCheck,
+  GraduationCap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,10 +32,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, deleteDoc, doc, where } from "firebase/firestore";
+import { collection, query, orderBy, deleteDoc, doc } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -48,8 +56,6 @@ export default function TimetableManagementPage() {
 
   const timetableQuery = useMemo(() => {
     if (!firestore) return null;
-    // Simplify query to avoid missing composite index errors.
-    // Filtering by board and search term is handled client-side for better reliability.
     return query(collection(firestore, 'timetables'), orderBy('createdAt', 'desc'));
   }, [firestore]);
 
@@ -95,6 +101,7 @@ export default function TimetableManagementPage() {
 
   return (
     <div className="space-y-8">
+      {/* Filters & Actions */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex flex-1 items-center gap-4 max-w-2xl">
           <div className="relative flex-1 text-left">
@@ -108,7 +115,7 @@ export default function TimetableManagementPage() {
           </div>
           <Select value={boardFilter} onValueChange={setBoardFilter}>
             <SelectTrigger className="w-44 h-14 bg-white border-none rounded-2xl shadow-sm focus:ring-blue-600">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-left">
                 <Filter className="w-4 h-4 text-gray-400" />
                 <SelectValue placeholder="All Boards" />
               </div>
@@ -130,7 +137,7 @@ export default function TimetableManagementPage() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
           <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-          <p className="font-bold">Loading Schedules...</p>
+          <p className="font-bold">Syncing Schedule Database...</p>
         </div>
       ) : filteredEntries.length === 0 ? (
         <div className="text-center py-32 bg-white rounded-[32px] shadow-sm border border-dashed border-gray-200">
@@ -144,75 +151,83 @@ export default function TimetableManagementPage() {
           </Button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredEntries.map((entry) => (
-            <Card key={entry.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
-              <div className={cn(
-                "h-1.5 w-full",
-                entry.board?.toLowerCase() === "cbse" ? "bg-blue-500" : "bg-teal-500"
-              )}></div>
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="text-left">
-                    <Badge className={cn(
-                      "px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-widest border-none shadow-none mb-2",
-                      entry.board?.toLowerCase() === "cbse" ? "bg-blue-50 text-blue-600" : "bg-teal-50 text-teal-600"
-                    )}>
-                      {entry.board}
-                    </Badge>
-                    <h3 className="font-bold text-gray-900 text-lg leading-tight">{entry.subject}</h3>
-                    <p className="text-xs font-bold text-blue-600 mt-1">{entry.grade}</p>
-                  </div>
-                  
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
-                      <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                        <Link href={`/admin/timetable/${entry.id}`} className="flex items-center w-full">
-                          <Pencil className="mr-2 h-4 w-4 text-blue-600" />
-                          <span className="font-bold text-xs text-gray-700">Edit Details</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator className="bg-gray-50" />
-                      <DropdownMenuItem 
-                        onClick={() => handleDelete(entry.id)}
-                        className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        <span className="font-bold text-xs">Delete Entry</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
-                <div className="space-y-3 pt-4 border-t border-gray-50 text-left">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
-                      <CalendarClock className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase text-gray-400 tracking-tighter">Schedule</p>
-                      <p className="text-xs font-bold text-gray-700">{entry.day} • {entry.timeSlot}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
-                      <UserCheck className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase text-gray-400 tracking-tighter">Teacher</p>
-                      <p className="text-xs font-bold text-gray-700">{entry.teacher || "Not assigned"}</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <Card className="border-none shadow-xl rounded-[2rem] overflow-hidden bg-white">
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader className="bg-gray-50/50">
+                <TableRow className="hover:bg-transparent border-gray-100">
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400">Board</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400">Class</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400">Subject</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400">Schedule</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400">Teacher</TableHead>
+                  <TableHead className="px-8 py-5"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredEntries.map((entry) => (
+                  <TableRow key={entry.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
+                    <TableCell className="px-8 py-5">
+                      <Badge className={cn(
+                        "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
+                        entry.board?.toLowerCase() === "cbse" 
+                          ? "bg-blue-100 text-blue-600" 
+                          : "bg-teal-100 text-teal-600"
+                      )}>
+                        {entry.board || "N/A"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="px-8 py-5">
+                      <span className="font-bold text-gray-900">{entry.grade}</span>
+                    </TableCell>
+                    <TableCell className="px-8 py-5">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-gray-900">{entry.subject}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-8 py-5">
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <CalendarClock className="w-3.5 h-3.5 text-gray-400" />
+                        <span className="text-xs font-bold">{entry.day} • {entry.timeSlot}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-8 py-5">
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <UserCheck className="w-3.5 h-3.5 text-gray-400" />
+                        <span className="text-xs font-medium">{entry.teacher || "Not assigned"}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-8 py-5 text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <MoreVertical className="w-4 h-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
+                          <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                            <Link href={`/admin/timetable/${entry.id}`} className="flex items-center w-full">
+                              <Pencil className="mr-2 h-4 w-4 text-blue-600" />
+                              <span className="font-bold text-xs text-gray-700">Edit Entry</span>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator className="bg-gray-50" />
+                          <DropdownMenuItem 
+                            onClick={() => handleDelete(entry.id)}
+                            className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            <span className="font-bold text-xs">Delete Schedule</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
