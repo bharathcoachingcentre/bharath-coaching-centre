@@ -50,32 +50,6 @@ import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
 import { collection, query, orderBy, doc } from "firebase/firestore";
 
-// True Solid/Filled Icons
-const SolidUserCheck = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm9.29-4.71L17 13.59l-2.29-2.3-1.42 1.42L17 16.41l5.71-5.71-1.42-1.42z"/>
-  </svg>
-);
-
-const SolidClipboardList = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M19 3h-4.18a3 3 0 0 0-5.64 0H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM7 7h10V5h2v14H5V5h2v2zm2 5h6v2H9v-2zm0 4h6v2H9v-2z" />
-  </svg>
-);
-
-const SolidLineChart = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 3v18h18" />
-    <path d="M18.5 9l-5 5-4-4-3.5 3.5" />
-  </svg>
-);
-
-const SolidUsers = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-  </svg>
-);
-
 const materialStyles = [
   {
     themeColor: "bg-blue-600",
@@ -155,6 +129,13 @@ const iconMap: Record<string, any> = {
   Users: Users,
   TrendingUp: TrendingUp,
   Award: Award,
+  Presentation: Presentation,
+  FilePenLine: FilePenLine,
+  MessagesSquare: MessagesSquare,
+  BookOpen: BookOpen,
+  UserCheck: UserCheck,
+  Zap: Zap,
+  GraduationCap: GraduationCap,
 };
 
 export default function HomePage() {
@@ -194,6 +175,15 @@ export default function HomePage() {
       { label: "Students", value: "5000+", icon: "Users" },
       { label: "Success Rate", value: "95%", icon: "TrendingUp" },
       { label: "Years Experience", value: "10+", icon: "Award" }
+    ],
+    featuresTitle: "How We Help Students Excel",
+    featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
+    features: [
+      { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
+      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
+      { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
+      { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
+      { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
     ]
   };
 
@@ -219,13 +209,12 @@ export default function HomePage() {
 
   const heroImageData = (placeholderImages as any)["hero-education"];
 
-  const features = [
-    { icon: Presentation, title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-    { icon: FilePenLine, title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
-    { icon: MessagesSquare, title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
-    { icon: BookOpen, title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
-    { icon: UserCheck, title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
-  ];
+  const features = useMemo(() => {
+    return (content.features || []).map((f: any) => ({
+      ...f,
+      icon: iconMap[f.icon] || Presentation
+    }));
+  }, [content.features]);
 
   const programs = [
     {
@@ -465,24 +454,24 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-              How We Help Students <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
+              {content.featuresTitle || "How We Help Students Excel"}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
-              Comprehensive learning solutions designed to ensure academic success
+              {content.featuresSubtitle || "Comprehensive learning solutions designed to ensure academic success"}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-            {features.map((feature, idx) => (
+            {features.map((feature: any, idx: number) => (
               <motion.div
                 key={idx}
                 whileHover={{ y: -10 }}
                 className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col items-center text-center space-y-4 transition-all duration-300"
               >
                 <div 
-                  className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color)}
+                  className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color || "bg-blue-500 shadow-blue-500/30")}
                 >
-                  <feature.icon className="w-8 h-8" />
+                  {feature.icon && <feature.icon className="w-8 h-8" />}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 tracking-tight">{feature.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
@@ -859,28 +848,28 @@ export default function HomePage() {
               <div className="space-y-8">
                 {[
                   { 
-                    icon: SolidUserCheck, 
+                    icon: UserCheck, 
                     title: "Individual Attention", 
                     desc: "Dedicated mentor assigned to each student for personalized guidance and support throughout their academic journey.",
                     bg: "bg-blue-100",
                     text: "text-blue-600"
                   },
                   { 
-                    icon: SolidClipboardList, 
+                    icon: ClipboardCheck, 
                     title: "Customized Study Plan", 
                     desc: "Tailored learning strategies based on individual strengths, weaknesses, and learning pace for optimal results.",
                     bg: "bg-teal-100",
                     text: "text-teal-600"
                   },
                   { 
-                    icon: SolidLineChart, 
+                    icon: TrendingUp, 
                     title: "Weekly Academic Tracking", 
                     desc: "Regular monitoring of progress with detailed performance analysis and timely interventions when needed.",
                     bg: "bg-purple-100",
                     text: "text-purple-600"
                   },
                   { 
-                    icon: SolidUsers, 
+                    icon: Users, 
                     title: "Parent Performance Updates", 
                     desc: "Comprehensive reports shared with parents weekly, keeping them informed about their child's academic progress.",
                     bg: "bg-orange-100",

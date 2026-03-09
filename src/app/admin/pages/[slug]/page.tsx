@@ -13,7 +13,9 @@ import {
   Trash2,
   Undo2,
   Check,
-  MousePointer2
+  MousePointer2,
+  Sparkles,
+  Type
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,6 +46,15 @@ const defaultPageData: Record<string, any> = {
       { label: "Students", value: "5000+", icon: "Users" },
       { label: "Success Rate", value: "95%", icon: "TrendingUp" },
       { label: "Years Experience", value: "10+", icon: "Award" }
+    ],
+    featuresTitle: "How We Help Students Excel",
+    featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
+    features: [
+      { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
+      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
+      { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
+      { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
+      { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
     ]
   },
   about: {
@@ -371,6 +382,115 @@ export default function PageEditor() {
                       </div>
                     </div>
                   ))}
+                </CardContent>
+              </Card>
+
+              {/* Features Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <Sparkles className="w-6 h-6 text-blue-600" /> How We Help Section
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Input 
+                        value={formData.featuresTitle || ""} 
+                        onChange={(e) => updateField('featuresTitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="How We Help Students Excel"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Input 
+                        value={formData.featuresSubtitle || ""} 
+                        onChange={(e) => updateField('featuresSubtitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                        placeholder="Comprehensive learning solutions designed to ensure academic success"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Feature Cards</Label>
+                    <div className="space-y-4">
+                      {formData.features?.map((feature: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                            <div className="md:col-span-1 flex flex-col items-center">
+                              <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm mb-2", feature.color || "bg-blue-500")}>
+                                <Type className="w-5 h-5" />
+                              </div>
+                              <span className="text-[10px] font-black text-gray-300">{idx + 1}</span>
+                            </div>
+                            <div className="md:col-span-11 grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Title</Label>
+                                <Input 
+                                  value={feature.title || ""} 
+                                  onChange={(e) => {
+                                    const newFeatures = [...formData.features];
+                                    newFeatures[idx].title = e.target.value;
+                                    updateField('features', newFeatures);
+                                  }}
+                                  className="h-10 bg-white"
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name (Lucide)</Label>
+                                <Input 
+                                  value={feature.icon || ""} 
+                                  onChange={(e) => {
+                                    const newFeatures = [...formData.features];
+                                    newFeatures[idx].icon = e.target.value;
+                                    updateField('features', newFeatures);
+                                  }}
+                                  className="h-10 bg-white"
+                                  placeholder="Presentation, FilePenLine, etc."
+                                />
+                              </div>
+                              <div className="md:col-span-2 space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Description</Label>
+                                <Textarea 
+                                  value={feature.desc || ""} 
+                                  onChange={(e) => {
+                                    const newFeatures = [...formData.features];
+                                    newFeatures[idx].desc = e.target.value;
+                                    updateField('features', newFeatures);
+                                  }}
+                                  className="min-h-[80px] bg-white resize-none"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => {
+                              const newFeatures = formData.features.filter((_: any, i: number) => i !== idx);
+                              updateField('features', newFeatures);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      ))}
+                      <Button 
+                        variant="outline" 
+                        onClick={() => {
+                          const newFeatures = [...(formData.features || []), { icon: "Zap", title: "New Feature", desc: "Description here", color: "bg-blue-500" }];
+                          updateField('features', newFeatures);
+                        }}
+                        className="w-full h-12 border-dashed border-gray-200 rounded-xl text-gray-400 font-bold hover:bg-blue-50 hover:text-blue-600 transition-all"
+                      >
+                        <Plus className="w-4 h-4 mr-2" /> Add Feature Card
+                      </Button>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
