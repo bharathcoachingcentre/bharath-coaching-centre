@@ -34,6 +34,7 @@ import {
   Loader2,
   Medal,
   Trophy,
+  Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -136,6 +137,7 @@ const iconMap: Record<string, any> = {
   UserCheck: UserCheck,
   Zap: Zap,
   GraduationCap: GraduationCap,
+  Search: Search,
 };
 
 export default function HomePage() {
@@ -210,9 +212,17 @@ export default function HomePage() {
   const heroImageData = (placeholderImages as any)["hero-education"];
 
   const features = useMemo(() => {
-    return (content.features || []).map((f: any) => ({
+    const defaultColors = [
+      "bg-blue-500 shadow-blue-500/30",
+      "bg-teal-500 shadow-teal-500/30",
+      "bg-purple-500 shadow-purple-500/30",
+      "bg-orange-500 shadow-orange-500/30",
+      "bg-pink-500 shadow-pink-500/30",
+    ];
+    return (content.features || []).map((f: any, idx: number) => ({
       ...f,
-      icon: iconMap[f.icon] || Presentation
+      icon: iconMap[f.icon] || Presentation,
+      color: f.color || defaultColors[idx % defaultColors.length]
     }));
   }, [content.features]);
 
@@ -454,7 +464,18 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-              {content.featuresTitle || "How We Help Students Excel"}
+              {content.featuresTitle?.includes('Excel') ? (
+                <>
+                  {content.featuresTitle.split('Excel')[0]}
+                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
+                </>
+              ) : (
+                content.featuresTitle || (
+                  <>
+                    How We Help Students <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
+                  </>
+                )
+              )}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
               {content.featuresSubtitle || "Comprehensive learning solutions designed to ensure academic success"}

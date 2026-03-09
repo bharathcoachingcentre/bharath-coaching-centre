@@ -7,7 +7,6 @@ import {
   ArrowLeft, 
   Save, 
   Loader2, 
-  Layout,
   Globe,
   Plus,
   Trash2,
@@ -15,7 +14,11 @@ import {
   Check,
   MousePointer2,
   Sparkles,
-  Type
+  Type,
+  Layout,
+  Star,
+  Trophy,
+  Activity
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -178,6 +181,39 @@ export default function PageEditor() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Icon Selection Helper */}
+          <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-[#182d45] text-white">
+            <CardHeader className="p-8 pb-4">
+              <CardTitle className="text-xl font-bold flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-teal-400" /> Icon Library
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-8 pt-4 space-y-6 text-left">
+              <p className="text-xs text-blue-200/60 font-medium">Use these exact names in the "Icon Name" fields below:</p>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { n: "Presentation", i: Presentation },
+                  { n: "FilePenLine", i: FilePenLine },
+                  { n: "MessagesSquare", i: MessagesSquare },
+                  { n: "BookOpen", i: BookOpen },
+                  { n: "UserCheck", i: UserCheck },
+                  { n: "Zap", i: Zap },
+                  { n: "GraduationCap", i: GraduationCap },
+                  { n: "Trophy", i: Trophy },
+                  { n: "Users", i: Users },
+                  { n: "TrendingUp", i: TrendingUp },
+                  { n: "Award", i: Award },
+                  { n: "Search", i: Search },
+                ].map((item) => (
+                  <div key={item.n} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/10">
+                    <item.i className="w-4 h-4 text-teal-400" />
+                    <span className="text-[10px] font-bold">{item.n}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Editor Content */}
@@ -276,112 +312,56 @@ export default function PageEditor() {
                 </CardContent>
               </Card>
 
-              {/* Banner Floating Cards Section */}
+              {/* Stats Counters Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Floating Cards</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <Activity className="w-6 h-6 text-teal-500" /> Hero Statistics
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-4 p-6 bg-blue-50/50 rounded-2xl border border-blue-100">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-blue-600">Card 1 (Top Right)</h4>
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Label</Label>
-                        <Input 
-                          value={formData.heroCard1Label || ""} 
-                          onChange={(e) => updateField('heroCard1Label', e.target.value)}
-                          className="h-10 bg-white"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Value</Label>
-                        <Input 
-                          value={formData.heroCard1Value || ""} 
-                          onChange={(e) => updateField('heroCard1Value', e.target.value)}
-                          className="h-10 bg-white"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-4 p-6 bg-teal-50/50 rounded-2xl border border-teal-100">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-teal-600">Card 2 (Bottom Left)</h4>
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Label</Label>
-                        <Input 
-                          value={formData.heroCard2Label || ""} 
-                          onChange={(e) => updateField('heroCard2Label', e.target.value)}
-                          className="h-10 bg-white"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Value</Label>
-                        <Input 
-                          value={formData.heroCard2Value || ""} 
-                          onChange={(e) => updateField('heroCard2Value', e.target.value)}
-                          className="h-10 bg-white"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-4 p-6 bg-purple-50/50 rounded-2xl border border-purple-100 md:col-span-2">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-purple-600">Card 3 (Center Right)</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-3">
-                          <Label className="text-sm font-bold text-gray-700">Top Row Text</Label>
+                <CardContent className="p-10 pt-6 space-y-6 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {formData.stats?.map((stat: any, idx: number) => (
+                      <div key={idx} className="space-y-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Value (e.g. 5000+)</Label>
                           <Input 
-                            value={formData.heroCard3Online || ""} 
-                            onChange={(e) => updateField('heroCard3Online', e.target.value)}
+                            value={stat.value || ""} 
+                            onChange={(e) => {
+                              const newStats = [...formData.stats];
+                              newStats[idx].value = e.target.value;
+                              updateField('stats', newStats);
+                            }}
                             className="h-10 bg-white"
                           />
                         </div>
-                        <div className="space-y-3">
-                          <Label className="text-sm font-bold text-gray-700">Bottom Row Text</Label>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
                           <Input 
-                            value={formData.heroCard3Offline || ""} 
-                            onChange={(e) => updateField('heroCard3Offline', e.target.value)}
+                            value={stat.label || ""} 
+                            onChange={(e) => {
+                              const newStats = [...formData.stats];
+                              newStats[idx].label = e.target.value;
+                              updateField('stats', newStats);
+                            }}
+                            className="h-10 bg-white"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name</Label>
+                          <Input 
+                            value={stat.icon || ""} 
+                            onChange={(e) => {
+                              const newStats = [...formData.stats];
+                              newStats[idx].icon = e.target.value;
+                              updateField('stats', newStats);
+                            }}
                             className="h-10 bg-white"
                           />
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Stats Section */}
-              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Success Metrics</CardTitle>
-                </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-6">
-                  {formData.stats?.map((stat: any, idx: number) => (
-                    <div key={idx} className="grid grid-cols-2 gap-4 p-6 bg-gray-50 rounded-[20px] relative">
-                      <div className="space-y-2 text-left">
-                        <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
-                        <Input 
-                          value={stat.label || ""} 
-                          onChange={(e) => {
-                            const newStats = [...formData.stats];
-                            newStats[idx].label = e.target.value;
-                            updateField('stats', newStats);
-                          }}
-                          className="h-10 bg-white border-gray-200 rounded-lg font-bold"
-                        />
-                      </div>
-                      <div className="space-y-2 text-left">
-                        <Label className="text-[10px] font-black uppercase text-gray-400">Value</Label>
-                        <Input 
-                          value={stat.value || ""} 
-                          onChange={(e) => {
-                            const newStats = [...formData.stats];
-                            newStats[idx].value = e.target.value;
-                            updateField('stats', newStats);
-                          }}
-                          className="h-10 bg-white border-gray-200 rounded-lg font-bold"
-                        />
-                      </div>
-                    </div>
-                  ))}
                 </CardContent>
               </Card>
 
@@ -454,14 +434,14 @@ export default function PageEditor() {
                               </div>
                               <div className="md:col-span-2 space-y-2">
                                 <Label className="text-[10px] font-black uppercase text-gray-400">Description</Label>
-                                <Textarea 
+                                <Input 
                                   value={feature.desc || ""} 
                                   onChange={(e) => {
                                     const newFeatures = [...formData.features];
                                     newFeatures[idx].desc = e.target.value;
                                     updateField('features', newFeatures);
                                   }}
-                                  className="min-h-[80px] bg-white resize-none"
+                                  className="h-10 bg-white"
                                 />
                               </div>
                             </div>
