@@ -598,7 +598,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.programsTitle?.includes('Programs') ? (
                 <>
                   {content.programsTitle.split('Programs')[0]}
@@ -612,7 +612,7 @@ export default function HomePage() {
                 )
               )}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.programsSubtitle || "Choose the perfect learning path for your child's academic journey"}
             </p>
           </div>
