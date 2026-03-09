@@ -11,7 +11,7 @@ import {
   GraduationCap, 
   Settings, 
   LogOut,
-  Search,
+  Search, 
   Bell,
   PanelLeft,
   ChevronDown,
@@ -67,7 +67,7 @@ const menuItems = [
       { label: "Admins", href: "/admin/users/admins" },
     ]
   },
-  { icon: Layout, label: "Home Page", href: "/admin/pages/home" },
+  { icon: Layout, label: "Pages", href: "/admin/pages" },
   { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
   { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
   { 
