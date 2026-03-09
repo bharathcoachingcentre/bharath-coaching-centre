@@ -200,26 +200,29 @@ export default function PageEditor() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Page Info Sidebar */}
-        <div className="lg:col-span-1 space-y-8 text-left">
+      <div className="space-y-8">
+        {/* Top Row: Page Info & Icon Library */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+          {/* Page Info Card */}
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-            <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
-            <CardContent className="p-8 -mt-12 relative text-center">
-              <div className="w-24 h-24 rounded-3xl border-4 border-white shadow-lg mx-auto overflow-hidden bg-white flex items-center justify-center text-blue-600">
-                <Globe className="w-12 h-12" />
-              </div>
-              <h2 className="text-2xl font-black text-gray-900 mt-4 leading-tight capitalize">
-                {slug} Page
-              </h2>
-              <div className="mt-6 flex justify-center">
-                <div className="flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Live Website
+            <div className="h-20 bg-gradient-to-r from-blue-600 to-teal-500"></div>
+            <CardContent className="p-8 -mt-10 relative">
+              <div className="flex items-start gap-6">
+                <div className="w-20 h-20 rounded-3xl border-4 border-white shadow-lg overflow-hidden bg-white flex items-center justify-center text-blue-600 shrink-0">
+                  <Globe className="w-10 h-10" />
+                </div>
+                <div className="pt-10 flex-grow">
+                  <h2 className="text-2xl font-black text-gray-900 leading-tight capitalize">
+                    {slug} Page
+                  </h2>
+                  <div className="mt-4 flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest w-fit">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    Live Website
+                  </div>
                 </div>
               </div>
-              <div className="mt-8 pt-8 border-t border-gray-50 text-left">
-                <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-4">Last Updated</p>
+              <div className="mt-8 pt-6 border-t border-gray-50 flex flex-col gap-1">
+                <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Last Updated</p>
                 <p className="text-sm font-bold text-gray-700">
                   {pageData?.updatedAt?.toDate ? new Date(pageData.updatedAt.toDate()).toLocaleString() : 'Never'}
                 </p>
@@ -235,8 +238,8 @@ export default function PageEditor() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-8 pt-4 space-y-6 text-left">
-              <p className="text-xs text-blue-200/60 font-medium">Use these exact names in the "Icon Name" fields below:</p>
-              <div className="grid grid-cols-2 gap-4">
+              <p className="text-[10px] text-blue-200/60 font-black uppercase tracking-widest">Lucide Icon Reference</p>
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
                 {[
                   { n: "Presentation", i: Presentation },
                   { n: "FilePenLine", i: FilePenLine },
@@ -254,9 +257,9 @@ export default function PageEditor() {
                   { n: "Award", i: Award },
                   { n: "Search", i: Search },
                 ].map((item) => (
-                  <div key={item.n} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/10">
-                    <item.i className="w-4 h-4 text-teal-400" />
-                    <span className="text-[10px] font-bold">{item.n}</span>
+                  <div key={item.n} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
+                    <item.i className="w-5 h-5 text-teal-400" />
+                    <span className="text-[8px] font-black uppercase tracking-tighter text-blue-200/60 text-center">{item.n}</span>
                   </div>
                 ))}
               </div>
@@ -264,8 +267,8 @@ export default function PageEditor() {
           </Card>
         </div>
 
-        {/* Editor Content */}
-        <div className="lg:col-span-2 space-y-8">
+        {/* Main Editor Row: All Fields Full Width */}
+        <div className="space-y-8">
           {/* Home Page Specific Sections */}
           {slug === 'home' && (
             <div className="space-y-8">
@@ -341,14 +344,14 @@ export default function PageEditor() {
                   <div className="space-y-6">
                     <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Hero Stats Counters</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {formData.stats?.map((stat: any, idx: number) => (
+                      {(formData.stats || defaultPageData.home.stats)?.map((stat: any, idx: number) => (
                         <div key={idx} className="space-y-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase text-gray-400">Value (e.g. 5000+)</Label>
                             <Input 
                               value={stat.value || ""} 
                               onChange={(e) => {
-                                const newStats = [...formData.stats];
+                                const newStats = [...(formData.stats || defaultPageData.home.stats)];
                                 newStats[idx].value = e.target.value;
                                 updateField('stats', newStats);
                               }}
@@ -360,7 +363,7 @@ export default function PageEditor() {
                             <Input 
                               value={stat.label || ""} 
                               onChange={(e) => {
-                                const newStats = [...formData.stats];
+                                const newStats = [...(formData.stats || defaultPageData.home.stats)];
                                 newStats[idx].label = e.target.value;
                                 updateField('stats', newStats);
                               }}
@@ -427,7 +430,7 @@ export default function PageEditor() {
                   <div className="space-y-6">
                     <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Feature Cards</Label>
                     <div className="space-y-4">
-                      {formData.features?.map((feature: any, idx: number) => (
+                      {(formData.features || defaultPageData.home.features)?.map((feature: any, idx: number) => (
                         <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
                           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                             <div className="md:col-span-1 flex flex-col items-center">
@@ -442,7 +445,7 @@ export default function PageEditor() {
                                 <Input 
                                   value={feature.title || ""} 
                                   onChange={(e) => {
-                                    const newFeatures = [...formData.features];
+                                    const newFeatures = [...(formData.features || defaultPageData.home.features)];
                                     newFeatures[idx].title = e.target.value;
                                     updateField('features', newFeatures);
                                   }}
@@ -454,7 +457,7 @@ export default function PageEditor() {
                                 <Input 
                                   value={feature.icon || ""} 
                                   onChange={(e) => {
-                                    const newFeatures = [...formData.features];
+                                    const newFeatures = [...(formData.features || defaultPageData.home.features)];
                                     newFeatures[idx].icon = e.target.value;
                                     updateField('features', newFeatures);
                                   }}
@@ -467,7 +470,7 @@ export default function PageEditor() {
                                 <Input 
                                   value={feature.desc || ""} 
                                   onChange={(e) => {
-                                    const newFeatures = [...formData.features];
+                                    const newFeatures = [...(formData.features || defaultPageData.home.features)];
                                     newFeatures[idx].desc = e.target.value;
                                     updateField('features', newFeatures);
                                   }}
@@ -481,7 +484,8 @@ export default function PageEditor() {
                             size="icon" 
                             className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
                             onClick={() => {
-                              const newFeatures = formData.features.filter((_: any, i: number) => i !== idx);
+                              const currentFeatures = formData.features || defaultPageData.home.features;
+                              const newFeatures = currentFeatures.filter((_: any, i: number) => i !== idx);
                               updateField('features', newFeatures);
                             }}
                           >
@@ -524,7 +528,7 @@ export default function PageEditor() {
                   </div>
 
                   <div className="space-y-8">
-                    {formData.programs?.map((program: any, idx: number) => (
+                    {(formData.programs || defaultPageData.home.programs)?.map((program: any, idx: number) => (
                       <div key={idx} className="p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="space-y-3">
@@ -532,7 +536,7 @@ export default function PageEditor() {
                             <Input 
                               value={program.title || ""} 
                               onChange={(e) => {
-                                const newPrograms = [...formData.programs];
+                                const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
                                 newPrograms[idx].title = e.target.value;
                                 updateField('programs', newPrograms);
                               }}
@@ -544,7 +548,7 @@ export default function PageEditor() {
                             <Input 
                               value={program.subtitle || ""} 
                               onChange={(e) => {
-                                const newPrograms = [...formData.programs];
+                                const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
                                 newPrograms[idx].subtitle = e.target.value;
                                 updateField('programs', newPrograms);
                               }}
@@ -556,7 +560,7 @@ export default function PageEditor() {
                             <Input 
                               value={program.icon || ""} 
                               onChange={(e) => {
-                                const newPrograms = [...formData.programs];
+                                const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
                                 newPrograms[idx].icon = e.target.value;
                                 updateField('programs', newPrograms);
                               }}
@@ -568,7 +572,7 @@ export default function PageEditor() {
                             <Switch 
                               checked={program.popular} 
                               onCheckedChange={(checked) => {
-                                const newPrograms = [...formData.programs];
+                                const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
                                 newPrograms[idx].popular = checked;
                                 updateField('programs', newPrograms);
                               }}
@@ -582,7 +586,7 @@ export default function PageEditor() {
                             <Input 
                               value={program.viewTimetableBtnText || ""} 
                               onChange={(e) => {
-                                const newPrograms = [...formData.programs];
+                                const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
                                 newPrograms[idx].viewTimetableBtnText = e.target.value;
                                 updateField('programs', newPrograms);
                               }}
@@ -595,7 +599,7 @@ export default function PageEditor() {
                             <Input 
                               value={program.enrollNowBtnText || ""} 
                               onChange={(e) => {
-                                const newPrograms = [...formData.programs];
+                                const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
                                 newPrograms[idx].enrollNowBtnText = e.target.value;
                                 updateField('programs', newPrograms);
                               }}
@@ -610,7 +614,7 @@ export default function PageEditor() {
                           <Textarea 
                             value={program.points?.join('\n') || ""} 
                             onChange={(e) => {
-                              const newPrograms = [...formData.programs];
+                              const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
                               newPrograms[idx].points = e.target.value.split('\n').filter(p => p.trim() !== '');
                               updateField('programs', newPrograms);
                             }}
