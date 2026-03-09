@@ -1,8 +1,8 @@
 
 "use client";
 
-import React, { useMemo, useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import React, { useMemo, useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   Save, 
@@ -24,7 +24,6 @@ import {
   UserCheck,
   Zap,
   GraduationCap,
-  Activity,
   MousePointer2,
   Search,
   Check,
@@ -127,12 +126,11 @@ const defaultPageData: Record<string, any> = {
   }
 };
 
-export default function PageEditor() {
-  const params = useParams();
+export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const router = useRouter();
   const { toast } = useToast();
   const firestore = useFirestore();
-  const slug = params?.slug as string;
   
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<any>(null);

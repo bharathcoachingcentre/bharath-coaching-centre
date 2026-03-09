@@ -1,3 +1,4 @@
+
 import { getPostBySlug } from '@/lib/mock-data';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -12,12 +13,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogPostPage(props: {
+export default async function BlogPostPage({
+  params,
+}: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const params = await props.params;
-  const { slug } = params;
+  const { slug } = await params;
   const post = getPostBySlug(slug);
 
   if (!post) {

@@ -1,8 +1,8 @@
 
 "use client";
 
-import React, { useMemo, useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import React, { useMemo, useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   User, 
@@ -58,14 +58,19 @@ const formSchema = z.object({
   residentialAddress: z.string().optional(),
 });
 
-export default function EnrollmentDetailPage() {
-  const params = useParams();
-  const searchParams = useSearchParams();
+export default function EnrollmentDetailPage({ 
+  params, 
+  searchParams 
+}: { 
+  params: Promise<{ id: string }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const { id: enrollmentId } = use(params);
+  const resolvedSearchParams = use(searchParams);
   const router = useRouter();
   const { toast } = useToast();
   const firestore = useFirestore();
-  const enrollmentId = params?.id as string;
-  const isEditModeParam = searchParams.get("edit") === "true";
+  const isEditModeParam = resolvedSearchParams?.edit === "true";
   
   const [isEditing, setIsEditMode] = useState(isEditModeParam);
   const [isSaving, setIsSaving] = useState(false);
@@ -112,7 +117,6 @@ export default function EnrollmentDetailPage() {
 
     const ref = doc(firestore, "enrollments", enrollmentId);
     
-    // Non-blocking write per guidelines
     updateDoc(ref, {
       ...values,
       updatedAt: serverTimestamp(),
@@ -124,7 +128,6 @@ export default function EnrollmentDetailPage() {
         });
         setIsEditMode(false);
         setIsSaving(false);
-        // Explicitly reset form to clear dirty state after success
         form.reset(values);
       })
       .catch(async (error) => {

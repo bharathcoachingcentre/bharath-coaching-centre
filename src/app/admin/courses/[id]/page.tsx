@@ -1,13 +1,12 @@
 
 "use client";
 
-import React, { useMemo, useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import React, { useMemo, useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   BookOpen, 
   Layout, 
-  Settings, 
   Plus, 
   X,
   DollarSign,
@@ -62,14 +61,19 @@ const formSchema = z.object({
   isPublished: z.boolean().default(true),
 });
 
-export default function CourseDetailPage() {
-  const params = useParams();
-  const searchParams = useSearchParams();
+export default function CourseDetailPage({ 
+  params, 
+  searchParams 
+}: { 
+  params: Promise<{ id: string }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const { id: courseId } = use(params);
+  const resolvedSearchParams = use(searchParams);
   const router = useRouter();
   const { toast } = useToast();
   const firestore = useFirestore();
-  const courseId = params?.id as string;
-  const isEditModeParam = searchParams.get("edit") === "true";
+  const isEditModeParam = resolvedSearchParams?.edit === "true";
   
   const [isEditing, setIsEditMode] = useState(isEditModeParam);
   const [isSaving, setIsSaving] = useState(false);
@@ -515,7 +519,7 @@ export default function CourseDetailPage() {
                       <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving}>
                         Cancel
                       </Button>
-                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 transition-all active:scale-95 gap-2 border-none">
+                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
                         {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Save Course
                       </Button>

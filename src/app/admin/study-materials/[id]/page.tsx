@@ -1,8 +1,8 @@
 
 "use client";
 
-import React, { useMemo, useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import React, { useMemo, useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   FileText, 
@@ -55,12 +55,15 @@ const formSchema = z.object({
   allowDownloads: z.boolean().default(true),
 });
 
-export default function StudyMaterialEditPage() {
-  const params = useParams();
+export default function StudyMaterialEditPage({ 
+  params 
+}: { 
+  params: Promise<{ id: string }> 
+}) {
+  const { id: materialId } = use(params);
   const router = useRouter();
   const { toast } = useToast();
   const firestore = useFirestore();
-  const materialId = params?.id as string;
   
   const [isSaving, setIsSaving] = useState(false);
 

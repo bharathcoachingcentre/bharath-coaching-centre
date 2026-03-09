@@ -1,8 +1,8 @@
 
 "use client";
 
-import React, { useMemo, useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import React, { useMemo, useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   CalendarClock, 
@@ -36,6 +36,7 @@ import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useFirestore, useDoc } from "@/firebase";
 import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import Link from "next/link";
 
 const formSchema = z.object({
   board: z.string().min(1, "Please select a board"),
@@ -55,9 +56,12 @@ const timeSlots = [
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-export default function EditTimetableEntryPage() {
-  const params = useParams();
-  const entryId = params?.id as string;
+export default function EditTimetableEntryPage({ 
+  params 
+}: { 
+  params: Promise<{ id: string }> 
+}) {
+  const { id: entryId } = use(params);
   const { toast } = useToast();
   const router = useRouter();
   const firestore = useFirestore();

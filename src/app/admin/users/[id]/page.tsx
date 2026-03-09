@@ -1,10 +1,10 @@
+
 "use client";
 
-import React, { useMemo, useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import React, { useMemo, useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
-  User, 
   Mail, 
   Phone, 
   ShieldCheck, 
@@ -113,14 +113,19 @@ const quickSeeds = [
   { id: "notionists", seed: "3" },
 ];
 
-export default function UserDetailPage() {
-  const params = useParams();
-  const searchParams = useSearchParams();
+export default function UserDetailPage({ 
+  params, 
+  searchParams 
+}: { 
+  params: Promise<{ id: string }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const { id: userId } = use(params);
+  const resolvedSearchParams = use(searchParams);
   const router = useRouter();
   const { toast } = useToast();
   const firestore = useFirestore();
-  const userId = params?.id as string;
-  const isEditModeParam = searchParams.get("edit") === "true";
+  const isEditModeParam = resolvedSearchParams?.edit === "true";
   
   const [isEditing, setIsEditMode] = useState(isEditModeParam);
   const [isSaving, setIsSaving] = useState(false);
