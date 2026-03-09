@@ -32,6 +32,17 @@ import {
   CollapsibleContent, 
   CollapsibleTrigger 
 } from "@/components/ui/collapsible";
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useState, useEffect, useMemo } from "react";
 import { doc } from "firebase/firestore";
 
@@ -244,12 +255,32 @@ export default function AdminLayout({
                 <span className="text-[10px] truncate opacity-50 font-medium">{user?.email || "admin@edu.com"}</span>
               </div>
             </div>
-            <button 
-                onClick={handleSignOut}
-                className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center rounded-lg transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center rounded-lg transition-colors">
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="rounded-[2rem] border-none shadow-2xl bg-white">
+                <AlertDialogHeader className="text-left">
+                  <AlertDialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Confirm Logout</AlertDialogTitle>
+                  <AlertDialogDescription className="text-gray-500 font-medium text-base pt-2">
+                    Are you sure you want to log out? You will need to sign in again to access the management panel.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter className="pt-6 gap-3">
+                  <AlertDialogCancel className="h-12 px-6 rounded-xl font-bold border-gray-100 bg-gray-50 hover:bg-gray-100 text-gray-600">
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction 
+                    onClick={handleSignOut}
+                    className="h-12 px-8 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-lg shadow-rose-600/20 border-none transition-all active:scale-95"
+                  >
+                    Log Out
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
       </aside>
