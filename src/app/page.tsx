@@ -314,11 +314,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-20 overflow-hidden h-[871px] flex items-center bg-gradient-to-br from-[#EFF6FF] to-[#CCFBF1]">
+      <section className="relative pt-20 overflow-hidden h-auto min-h-[871px] lg:h-[871px] flex items-center bg-gradient-to-br from-[#EFF6FF] to-[#CCFBF1]">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 gradient-blob rounded-full"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 gradient-blob rounded-full"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="text-center lg:text-left space-y-8">
               <div className="space-y-6">
