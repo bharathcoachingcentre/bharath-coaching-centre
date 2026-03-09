@@ -36,7 +36,7 @@ const materialStyles = [
     lightBg: "bg-purple-50/50",
     iconContainerBg: "bg-purple-100/50",
     borderColor: "border-purple-100",
-    hoverBorderColor: "hover:border-blue-300",
+    hoverBorderColor: "hover:border-purple-300",
     iconColor: "text-purple-600",
   },
   {
