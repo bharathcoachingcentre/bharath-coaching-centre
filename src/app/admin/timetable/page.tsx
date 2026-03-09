@@ -12,7 +12,8 @@ import {
   Trash2,
   Loader2,
   CalendarClock,
-  Filter
+  Filter,
+  UserCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
