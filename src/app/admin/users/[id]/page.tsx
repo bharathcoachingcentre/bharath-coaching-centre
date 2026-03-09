@@ -16,7 +16,8 @@ import {
   History,
   Lock,
   Edit3,
-  Check
+  Check,
+  Plus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,6 +38,19 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { useFirestore, useDoc } from "@/firebase";
 import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { useForm } from "react-hook-form";
@@ -57,7 +71,30 @@ const formSchema = z.object({
   photoURL: z.string().optional(),
 });
 
-const avatarSeeds = ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo"];
+const avatarCollections = [
+  {
+    name: "Avataaars",
+    id: "avataaars",
+    seeds: ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo", "Mia", "Zoe"]
+  },
+  {
+    name: "Lorelei",
+    id: "lorelei",
+    seeds: ["Midnight", "Snuggles", "Boots", "Tiger", "Lucky", "Pepper", "Ginger", "Oscar", "Bella", "Simba"]
+  },
+  {
+    name: "Notionists",
+    id: "notionists",
+    seeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+  },
+  {
+    name: "Pixel Art",
+    id: "pixel-art-neutral",
+    seeds: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+  }
+];
+
+const quickSeeds = avatarCollections[0].seeds.slice(0, 7);
 
 export default function UserDetailPage() {
   const params = useParams();
@@ -70,6 +107,7 @@ export default function UserDetailPage() {
   
   const [isEditing, setIsEditMode] = useState(isEditModeParam);
   const [isSaving, setIsSaving] = useState(false);
+  const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
 
   const docRef = useMemo(() => {
     if (!firestore || !userId) return null;
@@ -104,7 +142,7 @@ export default function UserDetailPage() {
   }, [user, form, isSaving]);
 
   const watchedPhotoURL = form.watch("photoURL");
-  const displayPhotoURL = (isEditing ? watchedPhotoURL : user?.photoURL) || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'default'}`;
+  const displayPhotoURL = (watchedPhotoURL || user?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'default'}`);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !userId) return;
@@ -145,7 +183,7 @@ export default function UserDetailPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
-        <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
         <p className="font-bold text-gray-400">Loading User Account...</p>
       </div>
     );
@@ -165,7 +203,7 @@ export default function UserDetailPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.push("/admin/users")} className="text-gray-500 font-bold hover:text-[#35a3be]">
+        <Button variant="ghost" onClick={() => router.push("/admin/users")} className="text-gray-500 font-bold hover:text-blue-600">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back
         </Button>
         <div className="flex items-center gap-3">
@@ -185,7 +223,7 @@ export default function UserDetailPage() {
         {/* Profile Sidebar */}
         <div className="lg:col-span-1 space-y-8">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white text-center">
-            <div className="h-24 bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
+            <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
             <CardContent className="p-8 -mt-12 relative text-left">
               <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 mb-6">
                 {displayPhotoURL && (
@@ -228,7 +266,7 @@ export default function UserDetailPage() {
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg font-bold text-[#182d45] flex items-center gap-2">
-                <History className="w-5 h-5 text-[#35a3be]" /> Activity
+                <History className="w-5 h-5 text-blue-600" /> Activity
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-6">
@@ -298,7 +336,7 @@ export default function UserDetailPage() {
                   </div>
 
                   <div className="p-8 rounded-[32px] bg-gray-50 border border-gray-100 flex items-center gap-6">
-                    <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-[#35a3be]">
+                    <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-blue-600">
                       <Lock className="w-7 h-7" />
                     </div>
                     <div>
@@ -320,7 +358,7 @@ export default function UserDetailPage() {
                           <FormItem className="md:col-span-2">
                             <FormLabel className="text-xs font-black uppercase text-gray-400">Choose Avatar</FormLabel>
                             <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 mt-2">
-                              {avatarSeeds.map((seed) => {
+                              {quickSeeds.map((seed) => {
                                 const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
                                 const isSelected = field.value === url;
                                 return (
@@ -344,6 +382,63 @@ export default function UserDetailPage() {
                                   </button>
                                 );
                               })}
+                              
+                              <Dialog open={isAvatarDialogOpen} onOpenChange={setIsAvatarDialogOpen}>
+                                <DialogTrigger asChild>
+                                  <button
+                                    type="button"
+                                    className="relative rounded-2xl aspect-square border-2 border-dashed border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all flex flex-col items-center justify-center gap-1 group"
+                                  >
+                                    <Plus className="w-5 h-5 text-gray-400 group-hover:text-blue-600" />
+                                    <span className="text-[10px] font-bold text-gray-400 group-hover:text-blue-600 uppercase">More</span>
+                                  </button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[600px] rounded-[2.5rem]">
+                                  <DialogHeader>
+                                    <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Avatar Library</DialogTitle>
+                                  </DialogHeader>
+                                  <Tabs defaultValue="avataaars" className="w-full mt-4">
+                                    <TabsList className="grid grid-cols-4 bg-gray-100 p-1 rounded-xl h-12">
+                                      {avatarCollections.map(collection => (
+                                        <TabsTrigger key={collection.id} value={collection.id} className="rounded-lg font-bold text-xs data-[state=active]:bg-white data-[state=active]:text-blue-600 shadow-none">
+                                          {collection.name}
+                                        </TabsTrigger>
+                                      ))}
+                                    </TabsList>
+                                    {avatarCollections.map(collection => (
+                                      <TabsContent key={collection.id} value={collection.id} className="mt-6">
+                                        <div className="grid grid-cols-5 gap-4">
+                                          {collection.seeds.map(seed => {
+                                            const url = `https://api.dicebear.com/7.x/${collection.id}/svg?seed=${seed}`;
+                                            const isSelected = field.value === url;
+                                            return (
+                                              <button
+                                                key={seed}
+                                                type="button"
+                                                onClick={() => {
+                                                  field.onChange(url);
+                                                  setIsAvatarDialogOpen(false);
+                                                }}
+                                                className={cn(
+                                                  "relative rounded-xl overflow-hidden aspect-square border-2 transition-all",
+                                                  isSelected ? "border-blue-600 scale-105 shadow-md" : "border-transparent hover:border-gray-100 hover:bg-gray-50"
+                                                )}
+                                              >
+                                                <img src={url} alt={seed} className="w-full h-full object-cover" />
+                                                {isSelected && (
+                                                  <div className="absolute inset-0 bg-blue-600/10 flex items-center justify-center">
+                                                    <Check className="w-4 h-4 text-blue-600" />
+                                                  </div>
+                                                )}
+                                              </button>
+                                            );
+                                          })}
+                                        </div>
+                                      </TabsContent>
+                                    ))}
+                                  </Tabs>
+                                </DialogContent>
+                              </Dialog>
                             </div>
                             <FormMessage />
                           </FormItem>

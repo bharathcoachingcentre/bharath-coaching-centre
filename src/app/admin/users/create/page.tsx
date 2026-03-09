@@ -10,7 +10,8 @@ import {
   Loader2,
   Save,
   UserCog,
-  Check
+  Check,
+  Plus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +31,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -51,13 +65,37 @@ const formSchema = z.object({
   photoURL: z.string().optional(),
 });
 
-const avatarSeeds = ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo"];
+const avatarCollections = [
+  {
+    name: "Avataaars",
+    id: "avataaars",
+    seeds: ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo", "Mia", "Zoe"]
+  },
+  {
+    name: "Lorelei",
+    id: "lorelei",
+    seeds: ["Midnight", "Snuggles", "Boots", "Tiger", "Lucky", "Pepper", "Ginger", "Oscar", "Bella", "Simba"]
+  },
+  {
+    name: "Notionists",
+    id: "notionists",
+    seeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+  },
+  {
+    name: "Pixel Art",
+    id: "pixel-art-neutral",
+    seeds: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+  }
+];
+
+const quickSeeds = avatarCollections[0].seeds.slice(0, 7);
 
 export default function CreateUserPage() {
   const { toast } = useToast();
   const router = useRouter();
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -140,7 +178,7 @@ export default function CreateUserPage() {
                     <FormItem className="md:col-span-2">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Choose Avatar</FormLabel>
                       <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 mt-2">
-                        {avatarSeeds.map((seed) => {
+                        {quickSeeds.map((seed) => {
                           const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
                           const isSelected = field.value === url;
                           return (
@@ -164,6 +202,63 @@ export default function CreateUserPage() {
                             </button>
                           );
                         })}
+
+                        <Dialog open={isAvatarDialogOpen} onOpenChange={setIsAvatarDialogOpen}>
+                          <DialogTrigger asChild>
+                            <button
+                              type="button"
+                              className="relative rounded-2xl aspect-square border-2 border-dashed border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all flex flex-col items-center justify-center gap-1 group"
+                            >
+                              <Plus className="w-5 h-5 text-gray-400 group-hover:text-blue-600" />
+                              <span className="text-[10px] font-bold text-gray-400 group-hover:text-blue-600 uppercase">More</span>
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[600px] rounded-[2.5rem]">
+                            <DialogHeader>
+                              <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Avatar Library</DialogTitle>
+                            </DialogHeader>
+                            <Tabs defaultValue="avataaars" className="w-full mt-4">
+                              <TabsList className="grid grid-cols-4 bg-gray-100 p-1 rounded-xl h-12">
+                                {avatarCollections.map(collection => (
+                                  <TabsTrigger key={collection.id} value={collection.id} className="rounded-lg font-bold text-xs data-[state=active]:bg-white data-[state=active]:text-blue-600 shadow-none">
+                                    {collection.name}
+                                  </TabsTrigger>
+                                ))}
+                              </TabsList>
+                              {avatarCollections.map(collection => (
+                                <TabsContent key={collection.id} value={collection.id} className="mt-6">
+                                  <div className="grid grid-cols-5 gap-4">
+                                    {collection.seeds.map(seed => {
+                                      const url = `https://api.dicebear.com/7.x/${collection.id}/svg?seed=${seed}`;
+                                      const isSelected = field.value === url;
+                                      return (
+                                        <button
+                                          key={seed}
+                                          type="button"
+                                          onClick={() => {
+                                            field.onChange(url);
+                                            setIsAvatarDialogOpen(false);
+                                          }}
+                                          className={cn(
+                                            "relative rounded-xl overflow-hidden aspect-square border-2 transition-all",
+                                            isSelected ? "border-blue-600 scale-105 shadow-md" : "border-transparent hover:border-gray-100 hover:bg-gray-50"
+                                          )}
+                                        >
+                                          <img src={url} alt={seed} className="w-full h-full object-cover" />
+                                          {isSelected && (
+                                            <div className="absolute inset-0 bg-blue-600/10 flex items-center justify-center">
+                                              <Check className="w-4 h-4 text-blue-600" />
+                                            </div>
+                                          )}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </TabsContent>
+                              ))}
+                            </Tabs>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                       <FormMessage />
                     </FormItem>
