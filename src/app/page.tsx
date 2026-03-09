@@ -120,7 +120,7 @@ const materialStyles = [
     themeColor: "bg-amber-600",
     hoverThemeColor: "hover:bg-amber-700",
     lightBg: "bg-amber-50/50",
-    iconContainerBg: "bg-amber-100/50",
+    iconContainerBg: "bg-orange-100/50",
     borderColor: "border-amber-100",
     hoverBorderColor: "hover:border-amber-300",
     iconColor: "text-amber-600",
@@ -202,6 +202,8 @@ export default function HomePage() {
           iconBg: "bg-blue-500",
           enrollColor: "bg-blue-500",
           enrollHoverColor: "hover:bg-blue-600",
+          viewTimetableBtnText: "View Timetable",
+          enrollNowBtnText: "Enroll Now",
           points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
         },
         {
@@ -211,6 +213,8 @@ export default function HomePage() {
           iconBg: "bg-teal-500",
           enrollColor: "bg-teal-500",
           enrollHoverColor: "hover:bg-teal-600",
+          viewTimetableBtnText: "View Timetable",
+          enrollNowBtnText: "Enroll Now",
           points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
         },
         {
@@ -221,6 +225,8 @@ export default function HomePage() {
           enrollColor: "bg-purple-500",
           enrollHoverColor: "hover:bg-purple-600",
           popular: true,
+          viewTimetableBtnText: "View Timetable",
+          enrollNowBtnText: "Enroll Now",
           points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
         },
       ]
@@ -276,6 +282,8 @@ export default function HomePage() {
         iconBg: "bg-blue-500",
         enrollColor: "bg-blue-500",
         enrollHoverColor: "hover:bg-blue-600",
+        viewTimetableBtnText: "View Timetable",
+        enrollNowBtnText: "Enroll Now",
         points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
       },
       {
@@ -285,6 +293,8 @@ export default function HomePage() {
         iconBg: "bg-teal-500",
         enrollColor: "bg-teal-500",
         enrollHoverColor: "hover:bg-teal-600",
+        viewTimetableBtnText: "View Timetable",
+        enrollNowBtnText: "Enroll Now",
         points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
       },
       {
@@ -295,6 +305,8 @@ export default function HomePage() {
         enrollColor: "bg-purple-500",
         enrollHoverColor: "hover:bg-purple-600",
         popular: true,
+        viewTimetableBtnText: "View Timetable",
+        enrollNowBtnText: "Enroll Now",
         points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
       },
     ];
@@ -539,7 +551,7 @@ export default function HomePage() {
                   <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
                     <Link href="#timetable-section">
                       <Clock className="h-5 w-5" />
-                      View Timetable
+                      {program.viewTimetableBtnText || "View Timetable"}
                     </Link>
                   </Button>
                   <Button
@@ -552,7 +564,7 @@ export default function HomePage() {
                   >
                     <Link href="/enrollment">
                       <UserPlus className="h-5 w-5" />
-                      Enroll Now
+                      {program.enrollNowBtnText || "Enroll Now"}
                     </Link>
                   </Button>
                 </div>
@@ -562,7 +574,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Rest of the sections remain unchanged */}
       {/* Study Materials Section */}
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

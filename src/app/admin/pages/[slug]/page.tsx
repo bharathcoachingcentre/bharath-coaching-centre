@@ -81,6 +81,8 @@ const defaultPageData: Record<string, any> = {
         subtitle: "Foundation Program",
         icon: "Zap",
         popular: false,
+        viewTimetableBtnText: "View Timetable",
+        enrollNowBtnText: "Enroll Now",
         points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
       },
       {
@@ -88,6 +90,8 @@ const defaultPageData: Record<string, any> = {
         subtitle: "Middle School Program",
         icon: "BookOpen",
         popular: false,
+        viewTimetableBtnText: "View Timetable",
+        enrollNowBtnText: "Enroll Now",
         points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
       },
       {
@@ -95,6 +99,8 @@ const defaultPageData: Record<string, any> = {
         subtitle: "Senior Secondary Program",
         icon: "GraduationCap",
         popular: true,
+        viewTimetableBtnText: "View Timetable",
+        enrollNowBtnText: "Enroll Now",
         points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
       },
     ]
@@ -240,6 +246,9 @@ export default function PageEditor() {
                   { n: "Zap", i: Zap },
                   { n: "GraduationCap", i: GraduationCap },
                   { n: "Trophy", i: Trophy },
+                  { n: "Target", i: Target },
+                  { n: "Lightbulb", i: Lightbulb },
+                  { n: "Brain", i: Brain },
                   { n: "Users", i: Users },
                   { n: "TrendingUp", i: TrendingUp },
                   { n: "Award", i: Award },
@@ -566,6 +575,33 @@ export default function PageEditor() {
                               className="data-[state=checked]:bg-teal-500"
                             />
                             <Label className="text-xs font-bold text-gray-600 uppercase">Featured / Popular</Label>
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">View Timetable Button Text</Label>
+                            <Input 
+                              value={program.viewTimetableBtnText || ""} 
+                              onChange={(e) => {
+                                const newPrograms = [...formData.programs];
+                                newPrograms[idx].viewTimetableBtnText = e.target.value;
+                                updateField('programs', newPrograms);
+                              }}
+                              className="h-12 bg-white"
+                              placeholder="View Timetable"
+                            />
+                          </div>
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Enroll Now Button Text</Label>
+                            <Input 
+                              value={program.enrollNowBtnText || ""} 
+                              onChange={(e) => {
+                                const newPrograms = [...formData.programs];
+                                newPrograms[idx].enrollNowBtnText = e.target.value;
+                                updateField('programs', newPrograms);
+                              }}
+                              className="h-12 bg-white"
+                              placeholder="Enroll Now"
+                            />
                           </div>
                         </div>
 
