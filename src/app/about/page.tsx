@@ -1,9 +1,44 @@
+
+"use client";
+
+import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Target, Lightbulb, Brain, Trophy } from "lucide-react";
+import { Target, Lightbulb, Brain, Trophy, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useFirestore, useDoc } from "@/firebase";
+import { doc } from "firebase/firestore";
+
+const iconMap: Record<string, any> = {
+  Target: Target,
+  Lightbulb: Lightbulb,
+  Brain: Brain,
+  Trophy: Trophy,
+};
 
 export default function AboutPage() {
+  const firestore = useFirestore();
+
+  const pageRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, "pages", "about");
+  }, [firestore]);
+
+  const { data: pageContent, loading } = useDoc(pageRef);
+
+  const content = pageContent?.content || {
+    heroTitle: "About Us",
+    philosophyTitle: "What Makes Us Different",
+    philosophyItems: [
+      { text: "Everyone is an achiever.", icon: "Target" },
+      { text: "Every student needs a unique method to deliver the concept.", icon: "Lightbulb" },
+      { text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.", icon: "Brain" },
+      { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
+    ]
+  };
+
+  const colors = ["bg-blue-500 shadow-blue-500/30", "bg-teal-500 shadow-teal-500/30", "bg-purple-500 shadow-purple-500/30", "bg-orange-500 shadow-orange-500/30"];
+
   return (
     <div className="font-body antialiased">
       {/* Hero Section */}
@@ -19,7 +54,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         <div className="relative z-10 text-center pt-20">
           <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl tracking-tight">
-            About Us
+            {content.heroTitle}
           </h1>
         </div>
       </section>
@@ -55,47 +90,29 @@ export default function AboutPage() {
                   Philosophy
                 </span>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
-                  What Makes Us <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Different</span>
+                  {content.philosophyTitle.split('Different')[0]} <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Different</span>
                 </h2>
               </div>
 
               <div className="space-y-8">
-                {[
-                  {
-                    icon: Target,
-                    color: "bg-blue-500 shadow-blue-500/30",
-                    text: "Everyone is an achiever."
-                  },
-                  {
-                    icon: Lightbulb,
-                    color: "bg-teal-500 shadow-teal-500/30",
-                    text: "Every student needs a unique method to deliver the concept."
-                  },
-                  {
-                    icon: Brain,
-                    color: "bg-purple-500 shadow-purple-500/30",
-                    text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities."
-                  },
-                  {
-                    icon: Trophy,
-                    color: "bg-orange-500 shadow-orange-500/30",
-                    text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever."
-                  }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-6 group">
-                    <div className={cn(
-                      "w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-1",
-                      item.color
-                    )}>
-                      <item.icon className="w-7 h-7" />
+                {content.philosophyItems?.map((item: any, idx: number) => {
+                  const Icon = iconMap[item.icon] || Target;
+                  return (
+                    <div key={idx} className="flex items-start gap-6 group">
+                      <div className={cn(
+                        "w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-1",
+                        colors[idx % colors.length]
+                      )}>
+                        <Icon className="w-7 h-7" />
+                      </div>
+                      <div className="pt-2">
+                        <p className="text-gray-600 font-medium text-lg leading-relaxed">
+                          {item.text}
+                        </p>
+                      </div>
                     </div>
-                    <div className="pt-2">
-                      <p className="text-gray-600 font-medium text-lg leading-relaxed">
-                        {item.text}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -114,7 +131,7 @@ export default function AboutPage() {
               </p>
               <div className="pt-4">
                 <Link href="/enrollment">
-                  <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-4 rounded-2xl text-lg shadow-xl transition-all active:scale-95">
+                  <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-4 rounded-2xl text-lg shadow-xl transition-all active:scale-95 border-none">
                     Enroll Today
                   </button>
                 </Link>

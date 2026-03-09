@@ -104,6 +104,17 @@
         "imageUrl": { "type": "string" }
       },
       "required": ["name", "marks", "year"]
+    },
+    "PageContent": {
+      "title": "Page Content",
+      "description": "Dynamic content for various pages of the website.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content"]
     }
   },
   "auth": {
@@ -129,6 +140,10 @@
     "/top-performers/{performerId}": {
       "schema": { "$ref": "#/entities/TopPerformer" },
       "description": "Collection of top performing students."
+    },
+    "/pages/{pageId}": {
+      "schema": { "$ref": "#/entities/PageContent" },
+      "description": "Dynamic content for website pages."
     }
   }
 }

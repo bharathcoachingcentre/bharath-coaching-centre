@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -29,7 +30,6 @@ import {
   ChevronDown,
   Layers,
   Handshake,
-  Crown,
   Check,
   Loader2,
   Medal,
@@ -47,8 +47,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import placeholderImages from "@/app/lib/placeholder-images.json";
-import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy } from "firebase/firestore";
+import { useFirestore, useCollection, useDoc } from "@/firebase";
+import { collection, query, orderBy, doc } from "firebase/firestore";
 
 // True Solid/Filled Icons
 const SolidUserCheck = ({ className }: { className?: string }) => (
@@ -151,6 +151,12 @@ const materialStyles = [
   },
 ];
 
+const iconMap: Record<string, any> = {
+  Users: Users,
+  TrendingUp: TrendingUp,
+  Award: Award,
+};
+
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -163,6 +169,22 @@ export default function HomePage() {
   }, [firestore]);
 
   const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
+
+  const pageRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, "pages", "home");
+  }, [firestore]);
+
+  const { data: homeContent } = useDoc(pageRef);
+  const content = homeContent?.content || {
+    heroTitle: "Empowering Students from Class 1 to 12",
+    heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
+    stats: [
+      { label: "Students", value: "5000+", icon: "Users" },
+      { label: "Success Rate", value: "95%", icon: "TrendingUp" },
+      { label: "Years Experience", value: "10+", icon: "Award" }
+    ]
+  };
 
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
@@ -235,7 +257,7 @@ export default function HomePage() {
       marksColor: "text-blue-600",
       iconColor: "bg-blue-600",
       img: "/ananya-krishnan.jpg",
-      rankIcon: Crown
+      rankIcon: Medal
     },
     {
       name: "Arjun Mehta",
@@ -323,10 +345,10 @@ export default function HomePage() {
             <div className="text-center lg:text-left space-y-8">
               <div className="space-y-6">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight text-left">
-                  Empowering Students from <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Class 1 to 12</span>
+                  {content.heroTitle.split('Class 1 to 12')[0]}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Class 1 to 12</span>
                 </h1>
                 <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
-                  Interactive coaching for CBSE and Samacheer with personalized mentorship.
+                  {content.heroSubtitle}
                 </p>
               </div>
 
@@ -347,33 +369,22 @@ export default function HomePage() {
 
               <div className="pt-8 border-t border-gray-200">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                  <div className="flex items-center justify-center lg:justify-start space-x-3">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Users className="text-blue-600 w-6 h-6" />
-                    </div>
-                    <div className="text-left">
-                      <div className="text-2xl font-bold text-gray-900">5000+</div>
-                      <div className="text-sm text-gray-600 font-normal">Students</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center lg:justify-start space-x-3">
-                    <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <TrendingUp className="text-teal-600 w-6 h-6" />
-                    </div>
-                    <div className="text-left">
-                      <div className="text-2xl font-bold text-gray-900">95%</div>
-                      <div className="text-sm text-gray-600 font-normal">Success Rate</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center lg:justify-start space-x-3">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Award className="text-purple-600 w-6 h-6" />
-                    </div>
-                    <div className="text-left">
-                      <div className="text-2xl font-bold text-gray-900">10+</div>
-                      <div className="text-sm text-gray-600 font-normal">Years Experience</div>
-                    </div>
-                  </div>
+                  {content.stats?.map((stat: any, i: number) => {
+                    const Icon = iconMap[stat.icon] || Users;
+                    const bgs = ["bg-blue-100", "bg-teal-100", "bg-purple-100"];
+                    const colors = ["text-blue-600", "text-teal-600", "text-purple-600"];
+                    return (
+                      <div key={i} className="flex items-center justify-center lg:justify-start space-x-3">
+                        <div className={cn("w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0", bgs[i % bgs.length])}>
+                          <Icon className={cn("w-6 h-6", colors[i % colors.length])} />
+                        </div>
+                        <div className="text-left">
+                          <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                          <div className="text-sm text-gray-600 font-normal">{stat.label}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -389,7 +400,7 @@ export default function HomePage() {
                 data-ai-hint={heroImageData.hint}
               />
 
-              {/* Floating Labels - Responsive Mobile Overlap Fix */}
+              {/* Floating Labels */}
               <div className="absolute top-2 right-2 sm:top-8 sm:right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center">
@@ -435,7 +446,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Bottom Fade Effect */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-20 pointer-events-none"></div>
       </section>
 
@@ -464,7 +474,7 @@ export default function HomePage() {
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 tracking-tight">{feature.title}</h3>
-                <p className="text-getay-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
+                <p className="text-gray-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -567,7 +577,7 @@ export default function HomePage() {
                       <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                     </div>
                     <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
-                    <p className="text-[14px] text-[#4b5563] font-normal mb-4 flex-grow text-left">{material.desc}</p>
+                    <p className="text-[14px] text-[#4b5563] font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
                     <Button
                       asChild
                       className={cn(
@@ -788,7 +798,7 @@ export default function HomePage() {
               </table>
             </div>
 
-            <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4 shadow-inner">
+            <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4 shadow-inner text-left">
               <div className="bg-blue-600 rounded-full p-1.5 mt-0.5 shadow-md">
                 <Info className="text-white h-4 w-4" />
               </div>

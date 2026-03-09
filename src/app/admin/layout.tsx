@@ -16,7 +16,8 @@ import {
   PanelLeft,
   ChevronDown,
   ChevronRight,
-  Loader2
+  Loader2,
+  Layout
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,6 +66,7 @@ const menuItems = [
       { label: "Admins", href: "/admin/users/admins" },
     ]
   },
+  { icon: Layout, label: "Pages", href: "/admin/pages" },
   { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
   { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
   { icon: Trophy, label: "Results", href: "/admin/results" },
@@ -139,6 +141,7 @@ export default function AdminLayout({
     if (pathname.startsWith("/admin/users")) return "Manage system user accounts";
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
+    if (pathname.startsWith("/admin/pages")) return "Manage website page content";
     return "Overview of your education platform";
   };
 
@@ -282,7 +285,7 @@ export default function AdminLayout({
           <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between">
             <div className="flex items-center gap-3 overflow-hidden">
               <Avatar className="h-10 w-10 border-2 border-[#35a3be]/20">
-                <AvatarImage src={user?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
+                <AvatarImage src={user?.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user?.email || 'admin'}`} />
                 <AvatarFallback>AU</AvatarFallback>
               </Avatar>
               <div className="flex flex-col truncate text-left">
@@ -338,7 +341,7 @@ export default function AdminLayout({
                 <div className="flex flex-col h-full">
                   <div className="p-6 flex items-center gap-3">
                     <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg">
-                      <GraduationCap className="w-6 h-6" />
+                      <graduationCap className="w-6 h-6" />
                     </div>
                     <div className="flex flex-col text-left">
                       <span className="text-white font-bold text-lg leading-none truncate w-40">{academyName}</span>
