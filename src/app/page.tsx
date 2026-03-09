@@ -35,6 +35,7 @@ import {
   Medal,
   Trophy,
   Search,
+  Crown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -138,6 +139,9 @@ const iconMap: Record<string, any> = {
   Zap: Zap,
   GraduationCap: GraduationCap,
   Search: Search,
+  Star: Star,
+  Laptop: Laptop,
+  Building: Building,
 };
 
 export default function HomePage() {
@@ -159,35 +163,72 @@ export default function HomePage() {
   }, [firestore]);
 
   const { data: homeContent } = useDoc(pageRef);
-  const content = homeContent?.content || {
-    heroTitleMain: "Empowering Students from ",
-    heroTitleHighlight: "Class 1 to 12",
-    heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
-    heroPrimaryBtnText: "Book Free Consultation",
-    heroPrimaryBtnLink: "#",
-    heroOutlineBtnText: "View Timetable",
-    heroOutlineBtnLink: "#timetable-section",
-    heroCard1Label: "Board",
-    heroCard1Value: "CBSE",
-    heroCard2Label: "Board",
-    heroCard2Value: "Samacheer",
-    heroCard3Online: "Online",
-    heroCard3Offline: "Offline",
-    stats: [
-      { label: "Students", value: "5000+", icon: "Users" },
-      { label: "Success Rate", value: "95%", icon: "TrendingUp" },
-      { label: "Years Experience", value: "10+", icon: "Award" }
-    ],
-    featuresTitle: "How We Help Students Excel",
-    featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
-    features: [
-      { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
-      { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
-      { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
-      { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
-    ]
-  };
+  const content = useMemo(() => {
+    const defaults = {
+      heroTitleMain: "Empowering Students from ",
+      heroTitleHighlight: "Class 1 to 12",
+      heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
+      heroPrimaryBtnText: "Book Free Consultation",
+      heroPrimaryBtnLink: "#",
+      heroOutlineBtnText: "View Timetable",
+      heroOutlineBtnLink: "#timetable-section",
+      heroCard1Label: "Board",
+      heroCard1Value: "CBSE",
+      heroCard2Label: "Board",
+      heroCard2Value: "Samacheer",
+      heroCard3Online: "Online",
+      heroCard3Offline: "Offline",
+      stats: [
+        { label: "Students", value: "5000+", icon: "Users" },
+        { label: "Success Rate", value: "95%", icon: "TrendingUp" },
+        { label: "Years Experience", value: "10+", icon: "Award" }
+      ],
+      featuresTitle: "How We Help Students Excel",
+      featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
+      features: [
+        { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
+        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
+        { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
+        { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
+        { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
+      ],
+      programsTitle: "Explore Our Academic Programs",
+      programsSubtitle: "Choose the perfect learning path for your child's academic journey",
+      programs: [
+        {
+          title: "Classes 1–5",
+          subtitle: "Foundation Program",
+          icon: "Zap",
+          iconBg: "bg-blue-500",
+          enrollColor: "bg-blue-500",
+          enrollHoverColor: "hover:bg-blue-600",
+          points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
+        },
+        {
+          title: "Classes 6–8",
+          subtitle: "Middle School Program",
+          icon: "BookOpen",
+          iconBg: "bg-teal-500",
+          enrollColor: "bg-teal-500",
+          enrollHoverColor: "hover:bg-teal-600",
+          points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
+        },
+        {
+          title: "Classes 9–12",
+          subtitle: "Senior Secondary Program",
+          icon: "GraduationCap",
+          iconBg: "bg-purple-500",
+          enrollColor: "bg-purple-500",
+          enrollHoverColor: "hover:bg-purple-600",
+          popular: true,
+          points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
+        },
+      ]
+    };
+
+    if (!homeContent?.content) return defaults;
+    return { ...defaults, ...homeContent.content };
+  }, [homeContent]);
 
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
@@ -226,122 +267,58 @@ export default function HomePage() {
     }));
   }, [content.features]);
 
-  const programs = [
-    {
-      title: "Classes 1–5",
-      subtitle: "Foundation Program",
-      icon: Zap,
-      iconBg: "bg-blue-500",
-      enrollColor: "bg-blue-500",
-      enrollHoverColor: "hover:bg-blue-600",
-      points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
-    },
-    {
-      title: "Classes 6–8",
-      subtitle: "Middle School Program",
-      icon: BookOpen,
-      iconBg: "bg-teal-500",
-      enrollColor: "bg-teal-500",
-      enrollHoverColor: "hover:bg-teal-600",
-      points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
-    },
-    {
-      title: "Classes 9–12",
-      subtitle: "Senior Secondary Program",
-      icon: GraduationCap,
-      iconBg: "bg-purple-500",
-      enrollColor: "bg-purple-500",
-      enrollHoverColor: "hover:bg-purple-600",
-      popular: true,
-      points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
-    },
-  ];
+  const programs = useMemo(() => {
+    const defaultPrograms = [
+      {
+        title: "Classes 1–5",
+        subtitle: "Foundation Program",
+        icon: "Zap",
+        iconBg: "bg-blue-500",
+        enrollColor: "bg-blue-500",
+        enrollHoverColor: "hover:bg-blue-600",
+        points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
+      },
+      {
+        title: "Classes 6–8",
+        subtitle: "Middle School Program",
+        icon: "BookOpen",
+        iconBg: "bg-teal-500",
+        enrollColor: "bg-teal-500",
+        enrollHoverColor: "hover:bg-teal-600",
+        points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
+      },
+      {
+        title: "Classes 9–12",
+        subtitle: "Senior Secondary Program",
+        icon: "GraduationCap",
+        iconBg: "bg-purple-500",
+        enrollColor: "bg-purple-500",
+        enrollHoverColor: "hover:bg-purple-600",
+        popular: true,
+        points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
+      },
+    ];
 
-  const topPerformers = [
-    {
-      name: "Ananya Krishnan",
-      grade: "Class 10, CBSE",
-      marks: "98.6%",
-      rank: "Rank 1",
-      badgeColor: "bg-[#fbbf24]",
-      marksColor: "text-blue-600",
-      iconColor: "bg-blue-600",
-      img: "/ananya-krishnan.jpg",
-      rankIcon: Medal
-    },
-    {
-      name: "Arjun Mehta",
-      grade: "Class 12, CBSE",
-      marks: "97.8%",
-      rank: "Rank 2",
-      badgeColor: "bg-[#94a3b8]",
-      marksColor: "text-teal-600",
-      iconColor: "bg-teal-600",
-      img: "/arjun-mehta.jpg",
-      rankIcon: Medal
-    },
-    {
-      name: "Divya Nair",
-      grade: "Class 10, Samacheer",
-      marks: "96.4%",
-      rank: "Rank 3",
-      badgeColor: "bg-[#f59e0b]",
-      marksColor: "text-purple-600",
-      iconColor: "bg-purple-600",
-      img: "/divya-nair.jpg",
-      rankIcon: Award
-    },
-    {
-      name: "Rohan Kapoor",
-      grade: "Class 12, CBSE",
-      marks: "95.2%",
-      rank: "Top 10",
-      badgeColor: "from-blue-400 to-blue-500",
-      marksColor: "text-orange-600",
-      iconColor: "bg-orange-600",
-      img: "/rohan-kappoor.jpg"
-    },
-    {
-      name: "Sanya Gupta",
-      grade: "Class 10, CBSE",
-      marks: "94.8%",
-      rank: "Top 10",
-      badgeColor: "from-blue-400 to-blue-500",
-      marksColor: "text-pink-600",
-      iconColor: "bg-pink-600",
-      img: "/sanya-gupta.jpg"
-    },
-    {
-      name: "Vikram Malhotra",
-      grade: "Class 12, Samacheer",
-      marks: "94.2%",
-      rank: "Top 10",
-      badgeColor: "from-blue-400 to-blue-500",
-      marksColor: "text-green-600",
-      iconColor: "bg-green-600",
-      img: "/vikram-malhotra.jpg"
-    },
-    {
-      name: "Nisha Reddy",
-      grade: "Class 10, CBSE",
-      marks: "93.9%",
-      rank: "Top 10",
-      badgeColor: "from-blue-400 to-blue-500",
-      marksColor: "text-indigo-600",
-      iconColor: "bg-indigo-600",
-      img: "/nisha-reddy.jpg"
-    },
-    {
-      name: "Kabir Singh",
-      grade: "Class 12, CBSE",
-      marks: "93.5%",
-      rank: "Top 10",
-      badgeColor: "from-blue-400 to-blue-500",
-      marksColor: "text-amber-600",
-      iconColor: "bg-amber-600",
-      img: "/kabir-singh.jpg"
-    },
-  ];
+    const programData = content.programs || defaultPrograms;
+
+    return programData.map((p: any, idx: number) => {
+      const defaultColors = [
+        { bg: "bg-blue-500", enroll: "bg-blue-500", hover: "hover:bg-blue-600" },
+        { bg: "bg-teal-500", enroll: "bg-teal-500", hover: "hover:bg-teal-600" },
+        { bg: "bg-purple-500", enroll: "bg-purple-500", hover: "hover:bg-purple-600" },
+      ];
+      
+      const colors = defaultColors[idx % defaultColors.length];
+
+      return {
+        ...p,
+        icon: iconMap[p.icon] || GraduationCap,
+        iconBg: p.iconBg || colors.bg,
+        enrollColor: p.enrollColor || colors.enroll,
+        enrollHoverColor: p.enrollHoverColor || colors.hover,
+      };
+    });
+  }, [content.programs]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -363,7 +340,7 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-none">
                   <Link href={content.heroPrimaryBtnLink || "#"}>
                     <CalendarCheck className="mr-2 h-6 w-6" />
                     {content.heroPrimaryBtnText || "Book Free Consultation"}
@@ -413,7 +390,7 @@ export default function HomePage() {
               {/* Floating Labels */}
               <div className="absolute top-2 right-2 sm:top-8 sm:right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
                     <Book className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
@@ -425,7 +402,7 @@ export default function HomePage() {
 
               <div className="absolute bottom-10 left-2 sm:bottom-24 sm:left-4 lg:left-8 floating-card-delay-1 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
                     <GraduationCap className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
@@ -438,14 +415,14 @@ export default function HomePage() {
               <div className="absolute top-1/2 -right-2 sm:-right-4 lg:right-0 transform -translate-y-1/2 floating-card-delay-2 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="space-y-1 sm:space-y-3">
                   <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
                       <Laptop className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
                     <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Online || "Online"}</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg">
                       <Building className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
                     <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Offline || "Offline"}</span>
@@ -502,6 +479,90 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Academic Programs Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              {content.programsTitle?.includes('Programs') ? (
+                <>
+                  {content.programsTitle.split('Programs')[0]}
+                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Programs</span>
+                </>
+              ) : (
+                content.programsTitle || (
+                  <>
+                    Explore Our Academic <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Programs</span>
+                  </>
+                )
+              )}
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+              {content.programsSubtitle || "Choose the perfect learning path for your child's academic journey"}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {programs.map((program: any, idx: number) => (
+              <div
+                key={idx}
+                className={cn(
+                  "rounded-3xl p-8 flex flex-col h-full border-2 transition-all duration-500 hover:shadow-2xl relative",
+                  program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 lg:scale-105" : "bg-white border-gray-100 shadow-lg"
+                )}
+              >
+                {program.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <span className="whitespace-nowrap px-4 py-1.5 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-[10px] sm:text-sm flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 fill-white" /> MOST POPULAR
+                    </span>
+                  </div>
+                )}
+                <div className="mb-6">
+                  <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg)}>
+                    {program.icon && <program.icon className="w-8 h-8" />}
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left tracking-tight">{program.title}</h3>
+                  <p className="text-gray-600 font-bold text-left text-sm uppercase tracking-wider">{program.subtitle}</p>
+                </div>
+                <div className="space-y-4 mb-8 flex-grow">
+                  {program.points?.map((point: string, pIdx: number) => (
+                    <div key={pIdx} className="flex items-start gap-3">
+                      <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg)}>
+                        <Check className="w-3 h-3 text-white" strokeWidth={4} />
+                      </div>
+                      <span className="text-gray-700 text-left font-normal">{point}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-3">
+                  <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
+                    <Link href="#timetable-section">
+                      <Clock className="h-5 w-5" />
+                      View Timetable
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    className={cn(
+                      "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 border-none",
+                      program.enrollColor,
+                      program.enrollHoverColor
+                    )}
+                  >
+                    <Link href="/enrollment">
+                      <UserPlus className="h-5 w-5" />
+                      Enroll Now
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Rest of the sections remain unchanged */}
       {/* Study Materials Section */}
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -602,7 +663,7 @@ export default function HomePage() {
                     <Button
                       asChild
                       className={cn(
-                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto",
+                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
                         material.themeColor,
                         material.hoverThemeColor
                       )}
@@ -616,78 +677,6 @@ export default function HomePage() {
                 ))}
               </div>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* Programs Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-              Explore Our <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Academic Programs</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
-              Choose the perfect learning path for your child's academic journey
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {programs.map((program, idx) => (
-              <div
-                key={idx}
-                className={cn(
-                  "rounded-3xl p-8 flex flex-col h-full border-2 transition-all duration-500 hover:shadow-2xl relative",
-                  program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 lg:scale-105" : "bg-white border-gray-100 shadow-lg"
-                )}
-              >
-                {program.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                    <span className="whitespace-nowrap px-4 py-1.5 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-[10px] sm:text-sm flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" /> MOST POPULAR
-                    </span>
-                  </div>
-                )}
-                <div className="mb-6">
-                  <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg)}>
-                    <program.icon className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left tracking-tight">{program.title}</h3>
-                  <p className="text-gray-600 font-bold text-left text-sm uppercase tracking-wider">{program.subtitle}</p>
-                </div>
-                <div className="space-y-4 mb-8 flex-grow">
-                  {program.points.map((point, pIdx) => (
-                    <div key={pIdx} className="flex items-start gap-3">
-                      <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg)}>
-                        <Check className="w-3 h-3 text-white" strokeWidth={4} />
-                      </div>
-                      <span className="text-gray-700 text-left font-normal">{point}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="space-y-3">
-                  <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
-                    <Link href="#timetable-section">
-                      <Clock className="h-5 w-5" />
-                      View Timetable
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    className={cn(
-                      "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2",
-                      program.enrollColor,
-                      program.enrollHoverColor
-                    )}
-                  >
-                    <Link href="/enrollment">
-                      <UserPlus className="h-5 w-5" />
-                      Enroll Now
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -910,7 +899,7 @@ export default function HomePage() {
               </div>
 
               <div className="pt-4 flex justify-start">
-                <Button asChild size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-semibold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3">
+                <Button asChild size="lg" className="px-10 py-8 bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white font-semibold text-xl rounded-2xl shadow-xl hover:shadow-[#2b65e2]/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 border-none">
                   <Link href="/enrollment">
                     <CalendarCheck className="h-6 w-6" />
                     Book Personal Session
@@ -1114,3 +1103,89 @@ export default function HomePage() {
     </div>
   );
 }
+
+const topPerformers = [
+  {
+    name: "Ananya Krishnan",
+    grade: "Class 10, CBSE",
+    marks: "98.6%",
+    rank: "Rank 1",
+    badgeColor: "bg-[#fbbf24]",
+    marksColor: "text-blue-600",
+    iconColor: "bg-blue-600",
+    img: "/ananya-krishnan.jpg",
+    rankIcon: Crown
+  },
+  {
+    name: "Arjun Mehta",
+    grade: "Class 12, CBSE",
+    marks: "97.8%",
+    rank: "Rank 2",
+    badgeColor: "bg-[#94a3b8]",
+    marksColor: "text-teal-600",
+    iconColor: "bg-teal-600",
+    img: "/arjun-mehta.jpg",
+    rankIcon: Medal
+  },
+  {
+    name: "Divya Nair",
+    grade: "Class 10, Samacheer",
+    marks: "96.4%",
+    rank: "Rank 3",
+    badgeColor: "bg-[#f59e0b]",
+    marksColor: "text-purple-600",
+    iconColor: "bg-purple-600",
+    img: "/divya-nair.jpg",
+    rankIcon: Award
+  },
+  {
+    name: "Rohan Kapoor",
+    grade: "Class 12, CBSE",
+    marks: "95.2%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-orange-600",
+    iconColor: "bg-orange-600",
+    img: "/rohan-kappoor.jpg"
+  },
+  {
+    name: "Sanya Gupta",
+    grade: "Class 10, CBSE",
+    marks: "94.8%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-pink-600",
+    iconColor: "bg-pink-600",
+    img: "/sanya-gupta.jpg"
+  },
+  {
+    name: "Vikram Malhotra",
+    grade: "Class 12, Samacheer",
+    marks: "94.2%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-green-600",
+    iconColor: "bg-green-600",
+    img: "/vikram-malhotra.jpg"
+  },
+  {
+    name: "Nisha Reddy",
+    grade: "Class 10, CBSE",
+    marks: "93.9%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-indigo-600",
+    iconColor: "bg-indigo-600",
+    img: "/nisha-reddy.jpg"
+  },
+  {
+    name: "Kabir Singh",
+    grade: "Class 12, CBSE",
+    marks: "93.5%",
+    rank: "Top 10",
+    badgeColor: "from-blue-400 to-blue-500",
+    marksColor: "text-amber-600",
+    iconColor: "bg-amber-600",
+    img: "/kabir-singh.jpg"
+  },
+];

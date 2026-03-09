@@ -10,21 +10,31 @@ import {
   Globe,
   Plus,
   Trash2,
-  Undo2,
-  Check,
-  MousePointer2,
   Sparkles,
   Type,
   Layout,
   Star,
-  Trophy,
-  Activity
+  Users,
+  TrendingUp,
+  Award,
+  Presentation,
+  FilePenLine,
+  MessagesSquare,
+  BookOpen,
+  UserCheck,
+  Zap,
+  GraduationCap,
+  Activity,
+  MousePointer2,
+  Search,
+  Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { useFirestore, useDoc } from "@/firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
@@ -58,6 +68,31 @@ const defaultPageData: Record<string, any> = {
       { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
       { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
+    ],
+    programsTitle: "Explore Our Academic Programs",
+    programsSubtitle: "Choose the perfect learning path for your child's academic journey",
+    programs: [
+      {
+        title: "Classes 1–5",
+        subtitle: "Foundation Program",
+        icon: "Zap",
+        popular: false,
+        points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
+      },
+      {
+        title: "Classes 6–8",
+        subtitle: "Middle School Program",
+        icon: "BookOpen",
+        popular: false,
+        points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
+      },
+      {
+        title: "Classes 9–12",
+        subtitle: "Senior Secondary Program",
+        icon: "GraduationCap",
+        popular: true,
+        points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
+      },
     ]
   },
   about: {
@@ -218,10 +253,10 @@ export default function PageEditor() {
 
         {/* Editor Content */}
         <div className="lg:col-span-2 space-y-8">
-          {/* Home Page Specific Fields */}
+          {/* Home Page Specific Sections */}
           {slug === 'home' && (
             <div className="space-y-8">
-              {/* Banner Text Section */}
+              {/* Banner Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Banner Text</CardTitle>
@@ -258,109 +293,91 @@ export default function PageEditor() {
                 </CardContent>
               </Card>
 
-              {/* Banner Buttons Section */}
+              {/* Banner Buttons & Floating Cards */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
-                    <MousePointer2 className="w-6 h-6 text-blue-600" /> Action Buttons
+                    <MousePointer2 className="w-6 h-6 text-blue-600" /> Banner Elements
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
                   <div className="space-y-6">
-                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Primary Button (Gradient)</h4>
+                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Action Buttons</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Label</Label>
+                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                        <Label className="text-xs font-bold text-blue-600 uppercase">Primary Button (Gradient)</Label>
                         <Input 
                           value={formData.heroPrimaryBtnText || ""} 
                           onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)}
-                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                          className="h-12 bg-white border-none rounded-xl px-4 mt-2"
+                          placeholder="Button Text"
                         />
                       </div>
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Link URL</Label>
+                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                        <Label className="text-xs font-bold text-gray-500 uppercase">Outline Button (White)</Label>
                         <Input 
-                          value={formData.heroPrimaryBtnLink || ""} 
-                          onChange={(e) => updateField('heroPrimaryBtnLink', e.target.value)}
-                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                          value={formData.heroOutlineBtnText || ""} 
+                          onChange={(e) => updateField('heroOutlineBtnText', e.target.value)}
+                          className="h-12 bg-white border-none rounded-xl px-4 mt-2"
+                          placeholder="Button Text"
                         />
                       </div>
                     </div>
                   </div>
 
                   <div className="space-y-6">
-                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Outline Button (White)</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Label</Label>
-                        <Input 
-                          value={formData.heroOutlineBtnText || ""} 
-                          onChange={(e) => updateField('heroOutlineBtnText', e.target.value)}
-                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Label className="text-sm font-bold text-gray-700">Link URL</Label>
-                        <Input 
-                          value={formData.heroOutlineBtnLink || ""} 
-                          onChange={(e) => updateField('heroOutlineBtnLink', e.target.value)}
-                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
-                        />
-                      </div>
+                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Hero Stats Counters</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {formData.stats?.map((stat: any, idx: number) => (
+                        <div key={idx} className="space-y-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase text-gray-400">Value (e.g. 5000+)</Label>
+                            <Input 
+                              value={stat.value || ""} 
+                              onChange={(e) => {
+                                const newStats = [...formData.stats];
+                                newStats[idx].value = e.target.value;
+                                updateField('stats', newStats);
+                              }}
+                              className="h-10 bg-white"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
+                            <Input 
+                              value={stat.label || ""} 
+                              onChange={(e) => {
+                                const newStats = [...formData.stats];
+                                newStats[idx].label = e.target.value;
+                                updateField('stats', newStats);
+                              }}
+                              className="h-10 bg-white"
+                            />
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
 
-              {/* Stats Counters Section */}
-              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
-                    <Activity className="w-6 h-6 text-teal-500" /> Hero Statistics
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-6 text-left">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {formData.stats?.map((stat: any, idx: number) => (
-                      <div key={idx} className="space-y-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase text-gray-400">Value (e.g. 5000+)</Label>
-                          <Input 
-                            value={stat.value || ""} 
-                            onChange={(e) => {
-                              const newStats = [...formData.stats];
-                              newStats[idx].value = e.target.value;
-                              updateField('stats', newStats);
-                            }}
-                            className="h-10 bg-white"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
-                          <Input 
-                            value={stat.label || ""} 
-                            onChange={(e) => {
-                              const newStats = [...formData.stats];
-                              newStats[idx].label = e.target.value;
-                              updateField('stats', newStats);
-                            }}
-                            className="h-10 bg-white"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name</Label>
-                          <Input 
-                            value={stat.icon || ""} 
-                            onChange={(e) => {
-                              const newStats = [...formData.stats];
-                              newStats[idx].icon = e.target.value;
-                              updateField('stats', newStats);
-                            }}
-                            className="h-10 bg-white"
-                          />
+                  <div className="space-y-6">
+                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Floating UI Cards</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                        <Label className="text-[10px] font-black uppercase text-gray-400">Card 1 (CBSE)</Label>
+                        <Input value={formData.heroCard1Value || ""} onChange={(e) => updateField('heroCard1Value', e.target.value)} className="h-10 bg-white" placeholder="CBSE" />
+                      </div>
+                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                        <Label className="text-[10px] font-black uppercase text-gray-400">Card 2 (Samacheer)</Label>
+                        <Input value={formData.heroCard2Value || ""} onChange={(e) => updateField('heroCard2Value', e.target.value)} className="h-10 bg-white" placeholder="Samacheer" />
+                      </div>
+                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                        <Label className="text-[10px] font-black uppercase text-gray-400">Card 3 (Modes)</Label>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input value={formData.heroCard3Online || ""} onChange={(e) => updateField('heroCard3Online', e.target.value)} className="h-10 bg-white" placeholder="Online" />
+                          <Input value={formData.heroCard3Offline || ""} onChange={(e) => updateField('heroCard3Offline', e.target.value)} className="h-10 bg-white" placeholder="Offline" />
                         </div>
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -389,7 +406,7 @@ export default function PageEditor() {
                         value={formData.featuresSubtitle || ""} 
                         onChange={(e) => updateField('featuresSubtitle', e.target.value)}
                         className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
-                        placeholder="Comprehensive learning solutions designed to ensure academic success"
+                        placeholder="Comprehensive learning solutions"
                       />
                     </div>
                   </div>
@@ -429,7 +446,7 @@ export default function PageEditor() {
                                     updateField('features', newFeatures);
                                   }}
                                   className="h-10 bg-white"
-                                  placeholder="Presentation, FilePenLine, etc."
+                                  placeholder="Presentation, BookOpen, etc."
                                 />
                               </div>
                               <div className="md:col-span-2 space-y-2">
@@ -459,24 +476,117 @@ export default function PageEditor() {
                           </Button>
                         </div>
                       ))}
-                      <Button 
-                        variant="outline" 
-                        onClick={() => {
-                          const newFeatures = [...(formData.features || []), { icon: "Zap", title: "New Feature", desc: "Description here", color: "bg-blue-500" }];
-                          updateField('features', newFeatures);
-                        }}
-                        className="w-full h-12 border-dashed border-gray-200 rounded-xl text-gray-400 font-bold hover:bg-blue-50 hover:text-blue-600 transition-all"
-                      >
-                        <Plus className="w-4 h-4 mr-2" /> Add Feature Card
-                      </Button>
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Academic Programs Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <GraduationCap className="w-6 h-6 text-teal-500" /> Academic Programs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Input 
+                        value={formData.programsTitle || ""} 
+                        onChange={(e) => updateField('programsTitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="Explore Our Academic Programs"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Input 
+                        value={formData.programsSubtitle || ""} 
+                        onChange={(e) => updateField('programsSubtitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                        placeholder="Choose the perfect learning path"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-8">
+                    {formData.programs?.map((program: any, idx: number) => (
+                      <div key={idx} className="p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Program Title</Label>
+                            <Input 
+                              value={program.title || ""} 
+                              onChange={(e) => {
+                                const newPrograms = [...formData.programs];
+                                newPrograms[idx].title = e.target.value;
+                                updateField('programs', newPrograms);
+                              }}
+                              className="h-12 bg-white"
+                            />
+                          </div>
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Subtitle</Label>
+                            <Input 
+                              value={program.subtitle || ""} 
+                              onChange={(e) => {
+                                const newPrograms = [...formData.programs];
+                                newPrograms[idx].subtitle = e.target.value;
+                                updateField('programs', newPrograms);
+                              }}
+                              className="h-12 bg-white"
+                            />
+                          </div>
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Icon Name</Label>
+                            <Input 
+                              value={program.icon || ""} 
+                              onChange={(e) => {
+                                const newPrograms = [...formData.programs];
+                                newPrograms[idx].icon = e.target.value;
+                                updateField('programs', newPrograms);
+                              }}
+                              className="h-12 bg-white"
+                              placeholder="Zap, BookOpen, GraduationCap"
+                            />
+                          </div>
+                          <div className="flex items-center gap-4 h-full pt-6">
+                            <Switch 
+                              checked={program.popular} 
+                              onCheckedChange={(checked) => {
+                                const newPrograms = [...formData.programs];
+                                newPrograms[idx].popular = checked;
+                                updateField('programs', newPrograms);
+                              }}
+                              className="data-[state=checked]:bg-teal-500"
+                            />
+                            <Label className="text-xs font-bold text-gray-600 uppercase">Featured / Popular</Label>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label className="text-xs font-black uppercase text-gray-400">Curriculum Highlights (One per line)</Label>
+                          <Textarea 
+                            value={program.points?.join('\n') || ""} 
+                            onChange={(e) => {
+                              const newPrograms = [...formData.programs];
+                              newPrograms[idx].points = e.target.value.split('\n').filter(p => p.trim() !== '');
+                              updateField('programs', newPrograms);
+                            }}
+                            className="min-h-[120px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
+                            placeholder="Building strong fundamentals..."
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
             </div>
           )}
 
-          {/* About Page Specific Fields */}
+          {/* About Page Sections */}
           {slug === 'about' && (
             <div className="space-y-8">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
@@ -551,7 +661,7 @@ export default function PageEditor() {
             </div>
           )}
 
-          {/* General Fields for Other Pages */}
+          {/* Generic Editor Fallback */}
           {slug !== 'home' && slug !== 'about' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
               <CardHeader className="p-10 pb-0">
