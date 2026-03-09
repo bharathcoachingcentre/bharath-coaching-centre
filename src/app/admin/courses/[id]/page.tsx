@@ -174,7 +174,7 @@ export default function CourseDetailPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
-        <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
         <p className="font-bold text-gray-400">Loading Course Data...</p>
       </div>
     );
@@ -194,12 +194,12 @@ export default function CourseDetailPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-12">
       <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.push("/admin/courses")} className="text-gray-500 font-bold hover:text-[#35a3be]">
+        <Button variant="ghost" onClick={() => router.push("/admin/courses")} className="text-gray-500 font-bold hover:text-blue-600">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back
         </Button>
         <div className="flex items-center gap-3">
           {!isEditing ? (
-            <Button onClick={() => setIsEditMode(true)} className="bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20">
+            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95">
               <Edit3 className="w-4 h-4 mr-2" /> Edit Details
             </Button>
           ) : (
@@ -214,9 +214,9 @@ export default function CourseDetailPage() {
         {/* Left Column: Sidebar Profile */}
         <div className="lg:col-span-1 space-y-8 text-left">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-            <div className="h-24 bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
+            <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
             <CardContent className="p-8 -mt-12 relative text-center">
-              <div className="w-24 h-24 rounded-3xl border-4 border-white shadow-lg mx-auto overflow-hidden bg-white flex items-center justify-center text-[#35a3be]">
+              <div className="w-24 h-24 rounded-3xl border-4 border-white shadow-lg mx-auto overflow-hidden bg-white flex items-center justify-center text-blue-600">
                 <BookOpen className="w-12 h-12" />
               </div>
               <h2 className="text-2xl font-black text-gray-900 mt-4 leading-tight">
@@ -229,7 +229,7 @@ export default function CourseDetailPage() {
               <div className="mt-6 flex flex-wrap justify-center gap-2">
                 <Badge className={cn(
                   "px-3 py-1 font-black text-[10px] uppercase border-none",
-                  course.status === "Active" ? "bg-[#35a3be]/10 text-[#35a3be]" : "bg-gray-100 text-gray-500"
+                  course.status === "Active" ? "bg-blue-600/10 text-blue-600" : "bg-gray-100 text-gray-500"
                 )}>
                   {course.status}
                 </Badge>
@@ -257,7 +257,7 @@ export default function CourseDetailPage() {
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg font-bold text-[#182d45] flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-[#35a3be]" /> Pricing Info
+                <DollarSign className="w-5 h-5 text-blue-600" /> Pricing Info
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-6">
@@ -346,7 +346,7 @@ export default function CourseDetailPage() {
                           <FormItem className="space-y-3">
                             <FormLabel className="text-sm font-bold text-gray-700">Course Title</FormLabel>
                             <FormControl>
-                              <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium" />
+                              <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium focus-visible:ring-blue-600" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -360,7 +360,7 @@ export default function CourseDetailPage() {
                           <FormItem className="space-y-3">
                             <FormLabel className="text-sm font-bold text-gray-700">Description</FormLabel>
                             <FormControl>
-                              <Textarea {...field} className="min-h-[150px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none" />
+                              <Textarea {...field} className="min-h-[150px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none focus-visible:ring-blue-600" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -376,7 +376,7 @@ export default function CourseDetailPage() {
                               <FormLabel className="text-sm font-bold text-gray-700">Category</FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                  <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6">
+                                  <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600">
                                     <SelectValue placeholder="Select category" />
                                   </SelectTrigger>
                                 </FormControl>
@@ -401,7 +401,7 @@ export default function CourseDetailPage() {
                               <FormLabel className="text-sm font-bold text-gray-700">Difficulty Level</FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                  <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6">
+                                  <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600">
                                     <SelectValue placeholder="Select level" />
                                   </SelectTrigger>
                                 </FormControl>
@@ -428,7 +428,7 @@ export default function CourseDetailPage() {
                                 placeholder={`Module ${index + 1} title`} 
                                 value={module.title}
                                 onChange={(e) => handleModuleChange(index, e.target.value)}
-                                className="h-12 bg-gray-50 border-none rounded-xl px-6 font-medium"
+                                className="h-12 bg-gray-50 border-none rounded-xl px-6 font-medium focus-visible:ring-blue-600"
                               />
                               {modules.length > 1 && (
                                 <Button 
@@ -462,7 +462,7 @@ export default function CourseDetailPage() {
                             <FormItem className="space-y-3">
                               <FormLabel className="text-sm font-bold text-gray-700">Price (INR)</FormLabel>
                               <FormControl>
-                                <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6" />
+                                <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 focus-visible:ring-blue-600" />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -475,7 +475,7 @@ export default function CourseDetailPage() {
                             <FormItem className="space-y-3">
                               <FormLabel className="text-sm font-bold text-gray-700">Duration</FormLabel>
                               <FormControl>
-                                <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6" />
+                                <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 focus-visible:ring-blue-600" />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -491,7 +491,7 @@ export default function CourseDetailPage() {
                             <FormItem className="flex items-center justify-between p-5 bg-gray-50 rounded-2xl border border-gray-50 space-y-0">
                               <FormLabel className="text-sm font-bold text-gray-700">Certificate</FormLabel>
                               <FormControl>
-                                <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-indigo-600" />
+                                <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-blue-600" />
                               </FormControl>
                             </FormItem>
                           )}
@@ -503,7 +503,7 @@ export default function CourseDetailPage() {
                             <FormItem className="flex items-center justify-between p-5 bg-gray-50 rounded-2xl border border-gray-50 space-y-0">
                               <FormLabel className="text-sm font-bold text-gray-700">Published</FormLabel>
                               <FormControl>
-                                <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-indigo-600" />
+                                <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-blue-600" />
                               </FormControl>
                             </FormItem>
                           )}
@@ -515,7 +515,7 @@ export default function CourseDetailPage() {
                       <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving}>
                         Cancel
                       </Button>
-                      <Button type="submit" disabled={isSaving} className="bg-gray-900 hover:bg-black text-white font-bold h-14 px-10 rounded-2xl shadow-xl transition-all active:scale-95 gap-2">
+                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 transition-all active:scale-95 gap-2 border-none">
                         {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Save Course
                       </Button>
