@@ -48,26 +48,27 @@ export default function TimetableManagementPage() {
 
   const timetableQuery = useMemo(() => {
     if (!firestore) return null;
-    let q = query(collection(firestore, 'timetables'), orderBy('grade'), orderBy('day'));
-    
-    if (boardFilter !== "all") {
-      q = query(collection(firestore, 'timetables'), where('board', '==', boardFilter), orderBy('grade'), orderBy('day'));
-    }
-    
-    return q;
-  }, [firestore, boardFilter]);
+    // Simplify query to avoid missing composite index errors.
+    // Filtering by board and search term is handled client-side for better reliability.
+    return query(collection(firestore, 'timetables'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
 
   const { data: entries, loading } = useCollection(timetableQuery);
 
   const filteredEntries = useMemo(() => {
     if (!entries) return [];
     const lower = searchTerm.toLowerCase();
-    return entries.filter(e => 
-      e.subject?.toLowerCase().includes(lower) || 
-      e.teacher?.toLowerCase().includes(lower) ||
-      e.grade?.toLowerCase().includes(lower)
-    );
-  }, [entries, searchTerm]);
+    return entries.filter(e => {
+      const matchesSearch = !searchTerm || 
+        e.subject?.toLowerCase().includes(lower) || 
+        e.teacher?.toLowerCase().includes(lower) ||
+        e.grade?.toLowerCase().includes(lower);
+      
+      const matchesBoard = boardFilter === "all" || e.board?.toLowerCase() === boardFilter.toLowerCase();
+      
+      return matchesSearch && matchesBoard;
+    });
+  }, [entries, searchTerm, boardFilter]);
 
   const handleDelete = async (entryId: string) => {
     if (!firestore) return;
@@ -136,7 +137,7 @@ export default function TimetableManagementPage() {
           <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <CalendarClock className="w-10 h-10 text-gray-300" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900">No Schedules Found</h3>
+          <h3 className="text-xl font-bold text-gray-900">added schedule not displaying here</h3>
           <p className="text-gray-500 mt-2 max-w-xs mx-auto">Create class schedules to display them on the homepage timetable.</p>
           <Button asChild variant="outline" className="mt-8 rounded-xl font-bold">
             <Link href="/admin/timetable/add">Add First Entry</Link>
@@ -148,14 +149,14 @@ export default function TimetableManagementPage() {
             <Card key={entry.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
               <div className={cn(
                 "h-1.5 w-full",
-                entry.board === "cbse" ? "bg-blue-500" : "bg-teal-500"
+                entry.board?.toLowerCase() === "cbse" ? "bg-blue-500" : "bg-teal-500"
               )}></div>
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="text-left">
                     <Badge className={cn(
                       "px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-widest border-none shadow-none mb-2",
-                      entry.board === "cbse" ? "bg-blue-50 text-blue-600" : "bg-teal-50 text-teal-600"
+                      entry.board?.toLowerCase() === "cbse" ? "bg-blue-50 text-blue-600" : "bg-teal-50 text-teal-600"
                     )}>
                       {entry.board}
                     </Badge>
