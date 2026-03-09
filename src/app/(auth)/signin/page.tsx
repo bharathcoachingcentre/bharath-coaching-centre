@@ -192,11 +192,6 @@ export default function SignInPage() {
                                 </Button>
                             </form>
                         </Form>
-                        <div className="mt-8 text-center">
-                            <p className="text-sm text-gray-500 font-medium">
-                                Don't have an account? <Link href="/registration" className="text-blue-600 font-bold hover:underline">Register Now</Link>
-                            </p>
-                        </div>
                     </CardContent>
                 </Card>
             </main>
