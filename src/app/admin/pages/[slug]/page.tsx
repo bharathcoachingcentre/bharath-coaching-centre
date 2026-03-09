@@ -27,7 +27,11 @@ import {
   Activity,
   MousePointer2,
   Search,
-  Check
+  Check,
+  Trophy,
+  Target,
+  Lightbulb,
+  Brain
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -641,7 +645,7 @@ export default function PageEditor() {
                             updateField('philosophyItems', newItems);
                           }}
                         >
-                          <Trash2 className="w-5 h-5" />
+                          <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
                     ))}
