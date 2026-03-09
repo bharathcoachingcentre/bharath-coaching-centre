@@ -2,43 +2,34 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users: Admins can read/write all, users can read/write their own record
-    match /users/{userId} {
-      allow read, write: if true; // In production, restrict to admin or owner
-    }
 
-    // Enrollments: Allow public creation for student registrations and general access for admin management
-    match /enrollments/{enrollmentId} {
+    match /enrollments/{docId} {
       allow read, write: if true;
     }
-    
-    // Study Materials: Allow public read access so students can download resources
+
+    match /courses/{courseId} {
+      allow read, write: if true;
+    }
+
     match /study-materials/{materialId} {
-      allow read: if true;
-      allow write: if true; // Open for initial setup/admin management
+      allow read, write: if true;
     }
 
-    // Timetables: Class schedules
-    match /timetables/{entryId} {
-      allow read: if true;
-      allow write: if true;
-    }
-    
-    // Top Performers: Allow public read access for the results page
-    match /top-performers/{performerId} {
-      allow read: if true;
-      allow write: if true; // Open for initial setup/admin management
+    match /users/{userId} {
+      allow read, write: if true;
     }
 
-    // Settings: Allow read/write for platform configuration
     match /settings/{settingId} {
       allow read, write: if true;
     }
 
-    // Pages: Content management
     match /pages/{pageId} {
-      allow read: if true;
-      allow write: if true;
+      allow read, write: if true;
     }
+
+    match /timetables/{timetableId} {
+      allow read, write: if true;
+    }
+
   }
 }
