@@ -808,7 +808,7 @@ export default function HomePage() {
       <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.timetableTitle?.includes('Timetable') ? (
                 <>
                   {content.timetableTitle.split('Timetable')[0]}
@@ -822,7 +822,7 @@ export default function HomePage() {
                 )
               )}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.timetableSubtitle || "View our structured class schedules for offline sessions"}
             </p>
           </div>
@@ -1123,7 +1123,7 @@ export default function HomePage() {
                 borderColor: "border-indigo-200"
               }
             ].map((item, idx) => (
-              <div key={idx} className={cn("p-8 rounded-[16px] border shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:scale-105 flex items-center gap-6 text-left", item.cardBg, item.borderColor)}>
+              <div className={cn("p-8 rounded-[16px] border shadow-[0_10px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-xl hover:scale-105 flex items-center gap-6 text-left", item.cardBg, item.borderColor)} key={idx}>
                 <div className={cn("w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg flex-shrink-0", item.iconBg)}>
                   <item.icon className="w-7 h-7" />
                 </div>
