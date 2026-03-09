@@ -1005,7 +1005,7 @@ export default function HomePage() {
                     </div>
                     <div className="space-y-1 text-left">
                       <h3 className="text-xl font-bold text-[#182d45]">{item.title}</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed font-normal font-body">{item.desc}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed font-normal font-body text-left">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -1028,10 +1028,10 @@ export default function HomePage() {
       <section id="testimonials-section" className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
             </h2>
-            <p className="text-lg text-gray-500 font-normal text-left">
+            <p className="text-lg text-gray-500 font-normal text-center mx-auto">
               Real stories from our successful students and satisfied parents
             </p>
           </div>
