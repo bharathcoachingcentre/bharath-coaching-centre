@@ -139,7 +139,7 @@ export default function StudyMaterialEditPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
-        <Loader2 className="w-10 h-10 animate-spin text-[#35a3be]" />
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
         <p className="font-bold text-gray-400">Loading Resource Details...</p>
       </div>
     );
@@ -159,7 +159,7 @@ export default function StudyMaterialEditPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.back()} className="text-gray-500 font-bold hover:text-[#35a3be]">
+        <Button variant="ghost" onClick={() => router.back()} className="text-gray-500 font-bold hover:text-blue-600">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to List
         </Button>
         <div className="flex items-center gap-3">
@@ -172,12 +172,12 @@ export default function StudyMaterialEditPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-1 space-y-8 text-left">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-left">
+        <div className="lg:col-span-1 space-y-8">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white text-center">
-            <div className="h-24 bg-gradient-to-r from-[#14b8a6] to-[#35a3be]"></div>
+            <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
             <CardContent className="p-8 -mt-12 relative">
-              <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 flex items-center justify-center text-[#35a3be]">
+              <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 flex items-center justify-center text-blue-600">
                 <FileText className="w-10 h-10" />
               </div>
               <h2 className="text-2xl font-black text-gray-900 mt-4 leading-tight line-clamp-2">
@@ -187,16 +187,16 @@ export default function StudyMaterialEditPage() {
                 Resource ID: {materialId.substring(0, 8)}
               </p>
               
-              <div className="mt-8 space-y-4 pt-8 border-t border-gray-50">
+              <div className="mt-8 space-y-4 pt-8 border-t border-gray-50 text-left">
                 <Button 
                   variant="outline" 
-                  className="w-full rounded-xl h-12 font-bold gap-2 text-[#35a3be] border-[#35a3be]/20 hover:bg-[#35a3be]/5"
+                  className="w-full rounded-xl h-12 font-bold gap-2 text-blue-600 border-blue-100 hover:bg-blue-50"
                   onClick={() => material.pdfUrl && window.open(material.pdfUrl, '_blank')}
                 >
                   <Eye className="w-4 h-4" /> View Current File
                 </Button>
-                <div className="p-4 bg-gray-50 rounded-xl text-left">
-                  <div className="flex items-center gap-2 mb-1 text-left">
+                <div className="p-4 bg-gray-50 rounded-xl">
+                  <div className="flex items-center gap-2 mb-1">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
                     <span className="text-[10px] font-black uppercase text-gray-400">Visibility Status</span>
                   </div>
@@ -211,22 +211,22 @@ export default function StudyMaterialEditPage() {
 
         <div className="lg:col-span-2">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-            <CardHeader className="p-10 pb-4 text-left">
+            <CardHeader className="p-10 pb-4">
               <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Edit Metadata</CardTitle>
               <p className="text-sm text-gray-400 font-medium">Update the resource details and settings</p>
             </CardHeader>
             <CardContent className="p-10 pt-6">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8 text-left">
+                <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                     <FormField
                       control={form.control}
                       name="title"
                       render={({ field }) => (
                         <FormItem className="md:col-span-2">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Material Title</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Material Title</FormLabel>
                           <FormControl>
-                            <Input {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-[#35a3be]" />
+                            <Input {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -238,11 +238,11 @@ export default function StudyMaterialEditPage() {
                       name="pdfUrl"
                       render={({ field }) => (
                         <FormItem className="md:col-span-2">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Resource URL</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Resource URL</FormLabel>
                           <FormControl>
                             <div className="relative">
                               <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                              <Input {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-[#35a3be]" />
+                              <Input {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -255,7 +255,7 @@ export default function StudyMaterialEditPage() {
                       name="board"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Board</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Board</FormLabel>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
@@ -276,7 +276,7 @@ export default function StudyMaterialEditPage() {
                       name="grade"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Class / Grade</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Class / Grade</FormLabel>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
@@ -298,7 +298,7 @@ export default function StudyMaterialEditPage() {
                       name="category"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Material Type</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Material Type</FormLabel>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
@@ -323,9 +323,9 @@ export default function StudyMaterialEditPage() {
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs font-black uppercase text-gray-400">Resource Description</FormLabel>
+                        <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Resource Description</FormLabel>
                         <FormControl>
-                          <Textarea {...field} className="min-h-[120px] bg-gray-50 border-gray-100 rounded-xl focus:ring-[#35a3be] resize-none" />
+                          <Textarea {...field} className="min-h-[120px] bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 resize-none" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -334,7 +334,7 @@ export default function StudyMaterialEditPage() {
 
                   <div className="space-y-4 pt-4 border-t border-gray-50">
                     <h4 className="text-sm font-bold text-gray-900 flex items-center gap-2">
-                      <Info className="w-4 h-4 text-[#35a3be]" /> Access Settings
+                      <Info className="w-4 h-4 text-blue-600" /> Access Settings
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <FormField
@@ -344,7 +344,7 @@ export default function StudyMaterialEditPage() {
                           <FormItem className="flex items-center justify-between p-4 bg-gray-50/50 rounded-2xl border border-gray-100 space-y-0">
                             <FormLabel className="text-sm font-bold text-gray-700">Allow Downloads</FormLabel>
                             <FormControl>
-                              <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-[#14b8a6]" />
+                              <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-blue-600" />
                             </FormControl>
                           </FormItem>
                         )}
@@ -356,7 +356,7 @@ export default function StudyMaterialEditPage() {
                           <FormItem className="flex items-center justify-between p-4 bg-gray-50/50 rounded-2xl border border-gray-100 space-y-0">
                             <FormLabel className="text-sm font-bold text-gray-700">Student Visibility</FormLabel>
                             <FormControl>
-                              <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-[#14b8a6]" />
+                              <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-blue-600" />
                             </FormControl>
                           </FormItem>
                         )}
@@ -368,7 +368,11 @@ export default function StudyMaterialEditPage() {
                     <Button type="button" variant="ghost" onClick={() => router.back()} disabled={isSaving}>
                       Cancel
                     </Button>
-                    <Button type="submit" disabled={isSaving} className="bg-gray-900 hover:bg-black text-white font-bold h-12 px-8 rounded-xl shadow-xl transition-all active:scale-95">
+                    <Button 
+                      type="submit" 
+                      disabled={isSaving} 
+                      className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-8 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 flex items-center gap-2"
+                    >
                       {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                       Update Metadata
                     </Button>
