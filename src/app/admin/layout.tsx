@@ -263,7 +263,7 @@ export default function AdminLayout({
               </AlertDialogTrigger>
               <AlertDialogContent className="rounded-[2rem] border-none shadow-2xl bg-white">
                 <AlertDialogHeader className="text-left">
-                  <AlertDialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Confirm Logout</AlertDialogTitle>
+                  <AlertDialogTitle className="text-2xl font-bold text-gray-900 tracking-tight">Confirm Logout</AlertDialogTitle>
                   <AlertDialogDescription className="text-gray-500 font-medium text-base pt-2">
                     Are you sure you want to log out? You will need to sign in again to access the management panel.
                   </AlertDialogDescription>
