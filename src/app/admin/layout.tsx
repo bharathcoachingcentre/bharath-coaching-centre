@@ -274,7 +274,7 @@ export default function AdminLayout({
                   </AlertDialogCancel>
                   <AlertDialogAction 
                     onClick={handleSignOut}
-                    className="h-12 px-8 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-lg shadow-rose-600/20 border-none transition-all active:scale-95"
+                    className="h-12 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95"
                   >
                     Log Out
                   </AlertDialogAction>
