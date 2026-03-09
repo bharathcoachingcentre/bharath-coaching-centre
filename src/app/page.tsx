@@ -144,111 +144,34 @@ const iconMap: Record<string, any> = {
   Building: Building,
 };
 
-const topPerformers = [
-  {
-    name: "Ananya Krishnan",
-    grade: "Class 10, CBSE",
-    marks: "98.6%",
-    rank: "Rank 1",
-    badgeColor: "bg-[#fbbf24]",
-    marksColor: "text-blue-600",
-    iconColor: "bg-blue-600",
-    img: "/ananya-krishnan.jpg",
-    rankIcon: Crown
-  },
-  {
-    name: "Arjun Mehta",
-    grade: "Class 12, CBSE",
-    marks: "97.8%",
-    rank: "Rank 2",
-    badgeColor: "bg-[#94a3b8]",
-    marksColor: "text-teal-600",
-    iconColor: "bg-teal-600",
-    img: "/arjun-mehta.jpg",
-    rankIcon: Medal
-  },
-  {
-    name: "Divya Nair",
-    grade: "Class 10, Samacheer",
-    marks: "96.4%",
-    rank: "Rank 3",
-    badgeColor: "bg-[#f59e0b]",
-    marksColor: "text-purple-600",
-    iconColor: "bg-purple-600",
-    img: "/divya-nair.jpg",
-    rankIcon: Award
-  },
-  {
-    name: "Rohan Kapoor",
-    grade: "Class 12, CBSE",
-    marks: "95.2%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-orange-600",
-    iconColor: "bg-orange-600",
-    img: "/rohan-kappoor.jpg"
-  },
-  {
-    name: "Sanya Gupta",
-    grade: "Class 10, CBSE",
-    marks: "94.8%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-pink-600",
-    iconColor: "bg-pink-600",
-    img: "/sanya-gupta.jpg"
-  },
-  {
-    name: "Vikram Malhotra",
-    grade: "Class 12, Samacheer",
-    marks: "94.2%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-green-600",
-    iconColor: "bg-green-600",
-    img: "/vikram-malhotra.jpg"
-  },
-  {
-    name: "Nisha Reddy",
-    grade: "Class 10, CBSE",
-    marks: "93.9%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-indigo-600",
-    iconColor: "bg-indigo-600",
-    img: "/nisha-reddy.jpg"
-  },
-  {
-    name: "Kabir Singh",
-    grade: "Class 12, CBSE",
-    marks: "93.5%",
-    rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
-    marksColor: "text-amber-600",
-    iconColor: "bg-amber-600",
-    img: "/kabir-singh.jpg"
-  },
-];
-
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [selectedClass, setSelectedClass] = useState("Class 10");
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
+  const [selectedScheduleClass, setSelectedScheduleClass] = useState("Class 10");
 
-  const materialsQuery = useMemo(() => {
-    if (!firestore) return null;
-    return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
-  }, [firestore]);
-
-  const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
-
+  // Fetch Page Content
   const pageRef = useMemo(() => {
     if (!firestore) return null;
     return doc(firestore, "pages", "home");
   }, [firestore]);
-
   const { data: homeContent } = useDoc(pageRef);
+
+  // Fetch Study Materials
+  const materialsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+  const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
+
+  // Fetch Timetables
+  const timetablesQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'timetables'));
+  }, [firestore]);
+  const { data: allTimetables } = useCollection(timetablesQuery);
+
   const content = useMemo(() => {
     const defaults = {
       heroTitleMain: "Empowering Students from ",
@@ -285,34 +208,19 @@ export default function HomePage() {
           title: "Classes 1–5",
           subtitle: "Foundation Program",
           icon: "Zap",
-          iconBg: "bg-blue-500",
-          enrollColor: "bg-blue-500",
-          enrollHoverColor: "hover:bg-blue-600",
-          viewTimetableBtnText: "View Timetable",
-          enrollNowBtnText: "Enroll Now",
           points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
         },
         {
           title: "Classes 6–8",
           subtitle: "Middle School Program",
           icon: "BookOpen",
-          iconBg: "bg-teal-500",
-          enrollColor: "bg-teal-500",
-          enrollHoverColor: "hover:bg-teal-600",
-          viewTimetableBtnText: "View Timetable",
-          enrollNowBtnText: "Enroll Now",
           points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
         },
         {
           title: "Classes 9–12",
           subtitle: "Senior Secondary Program",
           icon: "GraduationCap",
-          iconBg: "bg-purple-500",
-          enrollColor: "bg-purple-500",
-          enrollHoverColor: "hover:bg-purple-600",
           popular: true,
-          viewTimetableBtnText: "View Timetable",
-          enrollNowBtnText: "Enroll Now",
           points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
         },
       ],
@@ -350,81 +258,86 @@ export default function HomePage() {
       });
   }, [allMaterials, selectedClass, activeBoard]);
 
-  const heroImageData = (placeholderImages as any)["hero-education"];
-
-  const features = useMemo(() => {
-    const defaultColors = [
-      "bg-blue-500 shadow-blue-500/30",
-      "bg-teal-500 shadow-teal-500/30",
-      "bg-purple-500 shadow-purple-500/30",
-      "bg-orange-500 shadow-orange-500/30",
-      "bg-pink-500 shadow-pink-500/30",
-    ];
-    return (content.features || []).map((f: any, idx: number) => ({
-      ...f,
-      icon: iconMap[f.icon] || Presentation,
-      color: f.color || defaultColors[idx % defaultColors.length]
-    }));
-  }, [content.features]);
-
-  const programs = useMemo(() => {
-    const defaultPrograms = [
-      {
-        title: "Classes 1–5",
-        subtitle: "Foundation Program",
-        icon: "Zap",
-        iconBg: "bg-blue-500",
-        enrollColor: "bg-blue-500",
-        enrollHoverColor: "hover:bg-blue-600",
-        viewTimetableBtnText: "View Timetable",
-        enrollNowBtnText: "Enroll Now",
-        points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
-      },
-      {
-        title: "Classes 6–8",
-        subtitle: "Middle School Program",
-        icon: "BookOpen",
-        iconBg: "bg-teal-500",
-        enrollColor: "bg-teal-500",
-        enrollHoverColor: "hover:bg-teal-600",
-        viewTimetableBtnText: "View Timetable",
-        enrollNowBtnText: "Enroll Now",
-        points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
-      },
-      {
-        title: "Classes 9–12",
-        subtitle: "Senior Secondary Program",
-        icon: "GraduationCap",
-        iconBg: "bg-purple-500",
-        enrollColor: "bg-purple-500",
-        enrollHoverColor: "hover:bg-purple-600",
-        popular: true,
-        viewTimetableBtnText: "View Timetable",
-        enrollNowBtnText: "Enroll Now",
-        points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
-      },
+  const timetableDisplayData = useMemo(() => {
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const slots = [
+      "9:00 AM - 10:30 AM",
+      "11:00 AM - 12:30 PM",
+      "2:00 PM - 3:30 PM",
+      "4:00 PM - 5:30 PM"
     ];
 
-    const programData = content.programs || defaultPrograms;
+    const defaultSchedule: Record<string, any[]> = {
+      Monday: [
+        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
+        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
+        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
+      ],
+      Tuesday: [
+        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
+        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+        { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
+        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
+      ],
+      Wednesday: [
+        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
+        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
+        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
+      ],
+      Thursday: [
+        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+        { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
+        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
+        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
+      ],
+      Friday: [
+        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
+        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
+        { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
+        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+      ],
+    };
 
-    return programData.map((p: any, idx: number) => {
-      const defaultColors = [
-        { bg: "bg-blue-500", enroll: "bg-blue-500", hover: "hover:bg-blue-600" },
-        { bg: "bg-teal-500", enroll: "bg-teal-500", hover: "hover:bg-teal-600" },
-        { bg: "bg-purple-500", enroll: "bg-purple-500", hover: "hover:bg-purple-600" },
-      ];
-      
-      const colors = defaultColors[idx % defaultColors.length];
+    const styleClasses = [
+      "bg-blue-100 border-blue-200 text-blue-900",
+      "bg-teal-100 border-teal-200 text-teal-900",
+      "bg-purple-100 border-purple-200 text-purple-900",
+      "bg-orange-100 border-orange-200 text-orange-900",
+      "bg-pink-100 border-pink-200 text-pink-900",
+    ];
 
-      return {
-        ...p,
-        icon: iconMap[p.icon] || GraduationCap,
-        iconBg: p.iconBg || colors.bg,
-        enrollColor: p.enrollColor || colors.enroll,
-        enrollHoverColor: p.enrollHoverColor || colors.hover,
-      };
+    // Filter relevant entries for the current view
+    const relevant = (allTimetables || []).filter(t => 
+      t.board.toLowerCase() === activeScheduleBoard.toLowerCase() && 
+      t.grade === selectedScheduleClass
+    );
+
+    // If no dynamic data, return defaults for Class 10 CBSE
+    if (relevant.length === 0 && activeScheduleBoard === "cbse" && selectedScheduleClass === "Class 10") {
+      return days.map(day => ({ day, slots: defaultSchedule[day] }));
+    }
+
+    // Map dynamic data to the grid
+    return days.map(day => {
+      const daySlots = slots.map((time, idx) => {
+        const match = relevant.find(r => r.day === day && r.timeSlot === time);
+        if (match) {
+          return {
+            s: match.subject,
+            t: match.teacher,
+            c: styleClasses[idx % styleClasses.length],
+            tc: "text-[#4b5563]"
+          };
+        }
+        return { s: "-", t: "-", c: "bg-gray-50 border-gray-100 text-gray-300", tc: "text-gray-300" };
+      });
+      return { day, slots: daySlots };
     });
-  }, [content.programs]);
+  }, [allTimetables, activeScheduleBoard, selectedScheduleClass]);
+
+  const heroImageData = (placeholderImages as any)["hero-education"];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -566,21 +479,31 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-            {features.map((feature: any, idx: number) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col items-center text-center space-y-4 transition-all duration-300"
-              >
-                <div 
-                  className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color || "bg-blue-500 shadow-blue-500/30")}
+            {(content.features || []).map((feature: any, idx: number) => {
+              const Icon = iconMap[feature.icon] || Presentation;
+              const defaultColors = [
+                "bg-blue-500 shadow-blue-500/30",
+                "bg-teal-500 shadow-teal-500/30",
+                "bg-purple-500 shadow-purple-500/30",
+                "bg-orange-500 shadow-orange-500/30",
+                "bg-pink-500 shadow-pink-500/30",
+              ];
+              return (
+                <motion.div
+                  key={idx}
+                  whileHover={{ y: -10 }}
+                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col items-center text-center space-y-4 transition-all duration-300"
                 >
-                  {feature.icon && <feature.icon className="w-8 h-8" />}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 tracking-tight">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
-              </motion.div>
-            ))}
+                  <div 
+                    className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color || defaultColors[idx % defaultColors.length])}
+                  >
+                    <Icon className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">{feature.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -609,61 +532,70 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {programs.map((program: any, idx: number) => (
-              <div
-                key={idx}
-                className={cn(
-                  "rounded-3xl p-8 flex flex-col h-full border-2 transition-all duration-500 hover:shadow-2xl relative",
-                  program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 lg:scale-105" : "bg-white border-gray-100 shadow-lg"
-                )}
-              >
-                {program.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                    <span className="whitespace-nowrap px-4 py-1.5 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-[10px] sm:text-sm flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 fill-white" /> MOST POPULAR
-                    </span>
-                  </div>
-                )}
-                <div className="mb-6">
-                  <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg)}>
-                    {program.icon && <program.icon className="w-8 h-8" />}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left tracking-tight">{program.title}</h3>
-                  <p className="text-gray-600 font-bold text-left text-sm uppercase tracking-wider">{program.subtitle}</p>
-                </div>
-                <div className="space-y-4 mb-8 flex-grow">
-                  {program.points?.map((point: string, pIdx: number) => (
-                    <div key={pIdx} className="flex items-start gap-3">
-                      <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg)}>
-                        <Check className="w-3 h-3 text-white" strokeWidth={4} />
-                      </div>
-                      <span className="text-gray-700 text-left font-normal">{point}</span>
+            {(content.programs || []).map((program: any, idx: number) => {
+              const Icon = iconMap[program.icon] || GraduationCap;
+              const defaultColors = [
+                { bg: "bg-blue-500", enroll: "bg-blue-500", hover: "hover:bg-blue-600" },
+                { bg: "bg-teal-500", enroll: "bg-teal-500", hover: "hover:bg-teal-600" },
+                { bg: "bg-purple-500", enroll: "bg-purple-500", hover: "hover:bg-purple-600" },
+              ];
+              const colors = defaultColors[idx % defaultColors.length];
+              return (
+                <div
+                  key={idx}
+                  className={cn(
+                    "rounded-3xl p-8 flex flex-col h-full border-2 transition-all duration-500 hover:shadow-2xl relative",
+                    program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 lg:scale-105" : "bg-white border-gray-100 shadow-lg"
+                  )}
+                >
+                  {program.popular && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                      <span className="whitespace-nowrap px-4 py-1.5 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-[10px] sm:text-sm flex items-center gap-1">
+                        <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 fill-white" /> MOST POPULAR
+                      </span>
                     </div>
-                  ))}
+                  )}
+                  <div className="mb-6">
+                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg || colors.bg)}>
+                      <Icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left tracking-tight">{program.title}</h3>
+                    <p className="text-gray-600 font-bold text-left text-sm uppercase tracking-wider">{program.subtitle}</p>
+                  </div>
+                  <div className="space-y-4 mb-8 flex-grow">
+                    {program.points?.map((point: string, pIdx: number) => (
+                      <div key={pIdx} className="flex items-start gap-3">
+                        <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg || colors.bg)}>
+                          <Check className="w-3 h-3 text-white" strokeWidth={4} />
+                        </div>
+                        <span className="text-gray-700 text-left font-normal">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-3">
+                    <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
+                      <Link href="#timetable-section">
+                        <Clock className="h-5 w-5" />
+                        {program.viewTimetableBtnText || "View Timetable"}
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      className={cn(
+                        "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 border-none",
+                        program.enrollColor || colors.enroll,
+                        program.enrollHoverColor || colors.hover
+                      )}
+                    >
+                      <Link href="/enrollment">
+                        <UserPlus className="h-5 w-5" />
+                        {program.enrollNowBtnText || "Enroll Now"}
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
-                    <Link href="#timetable-section">
-                      <Clock className="h-5 w-5" />
-                      {program.viewTimetableBtnText || "View Timetable"}
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    className={cn(
-                      "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 border-none",
-                      program.enrollColor,
-                      program.enrollHoverColor
-                    )}
-                  >
-                    <Link href="/enrollment">
-                      <UserPlus className="h-5 w-5" />
-                      {program.enrollNowBtnText || "Enroll Now"}
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -812,10 +744,14 @@ export default function HomePage() {
           <Card className="rounded-[2.5rem] shadow-2xl border-none overflow-hidden bg-white p-6 md:p-10">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-8">
               <div className="relative min-w-[180px] w-full lg:w-auto">
-                <select className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
-                  <option>Class 10</option>
+                <select 
+                  value={selectedScheduleClass}
+                  onChange={(e) => setSelectedScheduleClass(e.target.value)}
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
+                >
+                  <option value="Class 10">Class 10</option>
                   {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
-                    <option key={c}>{c}</option>
+                    <option key={c} value={c}>{c}</option>
                   ))}
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
@@ -861,38 +797,7 @@ export default function HomePage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
-                  {[
-                    { day: "Monday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-                    ]},
-                    { day: "Tuesday", slots: [
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-                    ]},
-                    { day: "Wednesday", slots: [
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-                    ]},
-                    { day: "Thursday", slots: [
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
-                      { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-                    ]},
-                    { day: "Friday", slots: [
-                      { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-                      { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-                      { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
-                      { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-                    ]},
-                  ].map((row) => (
+                  {timetableDisplayData.map((row) => (
                     <tr key={row.day} className="hover:bg-gray-50 transition-colors">
                       <td className="px-8 py-6 font-bold text-[#182d45]">{row.day}</td>
                       {row.slots.map((item, iIdx) => (

@@ -17,6 +17,12 @@ service cloud.firestore {
       allow read: if true;
       allow write: if true; // Open for initial setup/admin management
     }
+
+    // Timetables: Class schedules
+    match /timetables/{entryId} {
+      allow read: if true;
+      allow write: if true;
+    }
     
     // Top Performers: Allow public read access for the results page
     match /top-performers/{performerId} {

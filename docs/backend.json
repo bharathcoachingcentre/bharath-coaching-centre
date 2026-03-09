@@ -91,6 +91,22 @@
       },
       "required": ["title", "category", "grade", "board"]
     },
+    "TimetableEntry": {
+      "title": "Timetable Entry",
+      "description": "Daily schedule data for offline classes.",
+      "type": "object",
+      "properties": {
+        "board": { "type": "string", "enum": ["cbse", "samacheer"] },
+        "grade": { "type": "string" },
+        "day": { "type": "string" },
+        "timeSlot": { "type": "string" },
+        "subject": { "type": "string" },
+        "teacher": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["board", "grade", "day", "timeSlot", "subject"]
+    },
     "TopPerformer": {
       "title": "Top Performer",
       "description": "Student achievement data for the results page.",
@@ -136,6 +152,10 @@
     "/study-materials/{materialId}": {
       "schema": { "$ref": "#/entities/StudyMaterial" },
       "description": "Collection of downloadable study resources."
+    },
+    "/timetables/{entryId}": {
+      "schema": { "$ref": "#/entities/TimetableEntry" },
+      "description": "Collection of class schedules."
     },
     "/top-performers/{performerId}": {
       "schema": { "$ref": "#/entities/TopPerformer" },

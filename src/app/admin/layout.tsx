@@ -17,7 +17,8 @@ import {
   ChevronDown,
   ChevronRight,
   Loader2,
-  Layout
+  Layout,
+  CalendarClock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -66,9 +67,18 @@ const menuItems = [
       { label: "Admins", href: "/admin/users/admins" },
     ]
   },
-  { icon: Layout, label: "Pages", href: "/admin/pages" },
+  { icon: Layout, label: "Home Page", href: "/admin/pages/home" },
   { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
   { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
+  { 
+    icon: CalendarClock, 
+    label: "Timetable", 
+    href: "/admin/timetable",
+    children: [
+      { label: "Manage Timetable", href: "/admin/timetable" },
+      { label: "Add Schedule", href: "/admin/timetable/add" },
+    ]
+  },
   { icon: Trophy, label: "Results", href: "/admin/results" },
   { icon: GraduationCap, label: "Courses", href: "/admin/courses" },
 ];
@@ -100,7 +110,8 @@ export default function AdminLayout({
   const academyName = academySettings?.name || "Bharath Academy";
 
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({
-    Users: pathname.startsWith("/admin/users")
+    Users: pathname.startsWith("/admin/users"),
+    Timetable: pathname.startsWith("/admin/timetable")
   });
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -142,6 +153,7 @@ export default function AdminLayout({
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
     if (pathname.startsWith("/admin/pages")) return "Manage website page content";
+    if (pathname.startsWith("/admin/timetable")) return "Manage class schedules";
     return "Overview of your education platform";
   };
 
@@ -341,7 +353,7 @@ export default function AdminLayout({
                 <div className="flex flex-col h-full">
                   <div className="p-6 flex items-center gap-3">
                     <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg">
-                      <graduationCap className="w-6 h-6" />
+                      <GraduationCap className="w-6 h-6" />
                     </div>
                     <div className="flex flex-col text-left">
                       <span className="text-white font-bold text-lg leading-none truncate w-40">{academyName}</span>
