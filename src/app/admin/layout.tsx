@@ -79,8 +79,15 @@ export default function AdminLayout({
   const pathname = usePathname();
   const router = useRouter();
   const { toast } = useToast();
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const firestore = useFirestore();
+
+  // Authentication Guard: Redirect to sign-in if not logged in
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/signin');
+    }
+  }, [user, loading, router]);
 
   const settingsRef = useMemo(() => {
     if (!firestore) return null;
@@ -243,6 +250,18 @@ export default function AdminLayout({
     </nav>
   );
 
+  // Show loading state while checking authentication
+  if (loading || !user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#f8fafc]">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-12 h-12 animate-spin text-[#35a3be]" />
+          <p className="text-gray-500 font-bold animate-pulse">Authenticating...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen bg-[#f8fafc]">
       {/* Sidebar - Desktop */}
@@ -263,7 +282,7 @@ export default function AdminLayout({
           <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between">
             <div className="flex items-center gap-3 overflow-hidden">
               <Avatar className="h-10 w-10 border-2 border-[#35a3be]/20">
-                <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
+                <AvatarImage src={user?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
                 <AvatarFallback>AU</AvatarFallback>
               </Avatar>
               <div className="flex flex-col truncate text-left">
@@ -334,7 +353,7 @@ export default function AdminLayout({
                     <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between overflow-hidden">
                       <div className="flex items-center gap-3 overflow-hidden">
                         <Avatar className="h-10 w-10 border-2 border-[#35a3be]/20">
-                          <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
+                          <AvatarImage src={user?.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
                           <AvatarFallback>AU</AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col truncate text-left">
