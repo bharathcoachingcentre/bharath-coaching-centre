@@ -119,8 +119,8 @@ const materialStyles = [
   {
     themeColor: "bg-amber-600",
     hoverThemeColor: "hover:bg-amber-700",
-    lightBg: "bg-amber-50/50",
-    iconContainerBg: "bg-orange-100/50",
+    lightBg: "bg-orange-50/50",
+    iconContainerBg: "bg-amber-100/50",
     borderColor: "border-amber-100",
     hoverBorderColor: "hover:border-amber-300",
     iconColor: "text-amber-600",
@@ -545,7 +545,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-left">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.featuresTitle?.includes('Excel') ? (
                 <>
                   {content.featuresTitle.split('Excel')[0]}
@@ -559,7 +559,7 @@ export default function HomePage() {
                 )
               )}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.featuresSubtitle || "Comprehensive learning solutions designed to ensure academic success"}
             </p>
           </div>
@@ -704,7 +704,7 @@ export default function HomePage() {
                 <select 
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
-                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
                 >
                   <option value="Class 10">Class 10</option>
                   {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
@@ -781,7 +781,7 @@ export default function HomePage() {
                       </div>
                       <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                     </div>
-                    <h3 className="text-[20px] font-bold text-[#182d45] mb-2 tracking-tight text-left">{material.title}</h3>
+                    <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left">{material.title}</h3>
                     <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
                     <Button
                       asChild
