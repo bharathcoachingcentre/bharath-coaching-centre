@@ -45,6 +45,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState, useEffect, useMemo } from "react";
 import { doc } from "firebase/firestore";
+import { 
+  Sheet, 
+  SheetContent, 
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle
+} from "@/components/ui/sheet";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
@@ -87,6 +94,8 @@ export default function AdminLayout({
     Users: pathname.startsWith("/admin/users")
   });
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const toggleMenu = (label: string) => {
     setOpenMenus(prev => ({ ...prev, [label]: !prev[label] }));
   };
@@ -126,9 +135,117 @@ export default function AdminLayout({
     return "Overview of your education platform";
   };
 
+  const NavigationMenu = () => (
+    <nav className="flex-1 px-4 mt-4 space-y-8 overflow-y-auto no-scrollbar">
+      <div className="text-left">
+        <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">Main Menu</p>
+        <div className="space-y-1">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+            const hasChildren = !!item.children;
+            const isOpen = openMenus[item.label];
+
+            if (hasChildren) {
+              return (
+                <Collapsible
+                  key={item.label}
+                  open={isOpen}
+                  onOpenChange={() => toggleMenu(item.label)}
+                  className="w-full"
+                >
+                  <CollapsibleTrigger asChild>
+                    <button
+                      className={cn(
+                        "flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all duration-200 group outline-none",
+                        isActive && !isOpen
+                          ? "bg-[#35a3be]/10 text-[#35a3be] shadow-sm" 
+                          : "hover:bg-white/5 hover:text-gray-200"
+                      )}
+                    >
+                      <div className="flex items-center gap-3">
+                        <item.icon className={cn(
+                          "w-5 h-5",
+                          isActive && !isOpen ? "text-[#35a3be]" : "group-hover:text-gray-200"
+                        )} />
+                        <span className="font-medium text-sm">{item.label}</span>
+                      </div>
+                      {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="space-y-1 mt-1 px-4">
+                    {item.children?.map((child) => {
+                      const isChildActive = pathname === child.href;
+                      return (
+                        <Link
+                          key={child.label}
+                          href={child.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={cn(
+                            "flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-xs font-medium",
+                            isChildActive 
+                              ? "bg-[#35a3be]/10 text-[#35a3be]" 
+                              : "text-gray-500 hover:text-gray-200 hover:bg-white/5"
+                          )}
+                        >
+                          <div className={cn(
+                            "w-1.5 h-1.5 rounded-full",
+                            isChildActive ? "bg-[#35a3be]" : "bg-gray-700"
+                          )} />
+                          {child.label}
+                        </Link>
+                      );
+                    })}
+                  </CollapsibleContent>
+                </Collapsible>
+              );
+            }
+
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
+                  isActive 
+                    ? "bg-[#35a3be]/10 text-[#35a3be] shadow-sm" 
+                    : "hover:bg-white/5 hover:text-gray-200"
+                )}
+              >
+                <item.icon className={cn(
+                  "w-5 h-5",
+                  isActive ? "text-[#35a3be]" : "group-hover:text-gray-200"
+                )} />
+                <span className="font-medium text-sm">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="text-left">
+        <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">System</p>
+        <Link
+          href="/admin/settings"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className={cn(
+            "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
+            pathname === "/admin/settings" ? "bg-[#35a3be]/10 text-[#35a3be]" : "hover:bg-white/5 hover:text-gray-200"
+          )}
+        >
+          <Settings className={cn(
+            "w-5 h-5",
+            pathname === "/admin/settings" ? "text-[#35a3be]" : "group-hover:text-gray-200"
+          )} />
+          <span className="font-medium text-sm">Settings</span>
+        </Link>
+      </div>
+    </nav>
+  );
+
   return (
     <div className="flex min-h-screen bg-[#f8fafc]">
-      {/* Sidebar */}
+      {/* Sidebar - Desktop */}
       <aside className="w-64 bg-[#1e1e2d] text-gray-400 flex flex-col hidden md:flex sticky top-0 h-screen shrink-0">
         <div className="p-6 flex items-center gap-3">
           <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#14b8a6]/20">
@@ -140,108 +257,7 @@ export default function AdminLayout({
           </div>
         </div>
 
-        <nav className="flex-1 px-4 mt-4 space-y-8 overflow-y-auto no-scrollbar">
-          <div className="text-left">
-            <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">Main Menu</p>
-            <div className="space-y-1">
-              {menuItems.map((item) => {
-                const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
-                const hasChildren = !!item.children;
-                const isOpen = openMenus[item.label];
-
-                if (hasChildren) {
-                  return (
-                    <Collapsible
-                      key={item.label}
-                      open={isOpen}
-                      onOpenChange={() => toggleMenu(item.label)}
-                      className="w-full"
-                    >
-                      <CollapsibleTrigger asChild>
-                        <button
-                          className={cn(
-                            "flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all duration-200 group outline-none",
-                            isActive && !isOpen
-                              ? "bg-[#35a3be]/10 text-[#35a3be] shadow-sm" 
-                              : "hover:bg-white/5 hover:text-gray-200"
-                          )}
-                        >
-                          <div className="flex items-center gap-3">
-                            <item.icon className={cn(
-                              "w-5 h-5",
-                              isActive && !isOpen ? "text-[#35a3be]" : "group-hover:text-gray-200"
-                            )} />
-                            <span className="font-medium text-sm">{item.label}</span>
-                          </div>
-                          {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-                        </button>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="space-y-1 mt-1 px-4">
-                        {item.children?.map((child) => {
-                          const isChildActive = pathname === child.href;
-                          return (
-                            <Link
-                              key={child.label}
-                              href={child.href}
-                              className={cn(
-                                "flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-xs font-medium",
-                                isChildActive 
-                                  ? "bg-[#35a3be]/10 text-[#35a3be]" 
-                                  : "text-gray-500 hover:text-gray-200 hover:bg-white/5"
-                              )}
-                            >
-                              <div className={cn(
-                                "w-1.5 h-1.5 rounded-full",
-                                isChildActive ? "bg-[#35a3be]" : "bg-gray-700"
-                              )} />
-                              {child.label}
-                            </Link>
-                          );
-                        })}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={cn(
-                      "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
-                      isActive 
-                        ? "bg-[#35a3be]/10 text-[#35a3be] shadow-sm" 
-                        : "hover:bg-white/5 hover:text-gray-200"
-                    )}
-                  >
-                    <item.icon className={cn(
-                      "w-5 h-5",
-                      isActive ? "text-[#35a3be]" : "group-hover:text-gray-200"
-                    )} />
-                    <span className="font-medium text-sm">{item.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="text-left">
-            <p className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-gray-500">System</p>
-            <Link
-              href="/admin/settings"
-              className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
-                pathname === "/admin/settings" ? "bg-[#35a3be]/10 text-[#35a3be]" : "hover:bg-white/5 hover:text-gray-200"
-              )}
-            >
-              <Settings className={cn(
-                "w-5 h-5",
-                pathname === "/admin/settings" ? "text-[#35a3be]" : "group-hover:text-gray-200"
-              )} />
-              <span className="font-medium text-sm">Settings</span>
-            </Link>
-          </div>
-        </nav>
+        <NavigationMenu />
 
         <div className="p-4 border-t border-white/5">
           <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between">
@@ -289,7 +305,76 @@ export default function AdminLayout({
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 shrink-0 sticky top-0 z-30">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100">
+            {/* Mobile Sheet Trigger */}
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100 md:hidden">
+                  <PanelLeft className="w-5 h-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="p-0 w-64 bg-[#1e1e2d] border-none text-gray-400">
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Admin Navigation Menu</SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col h-full">
+                  <div className="p-6 flex items-center gap-3">
+                    <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg">
+                      <GraduationCap className="w-6 h-6" />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className="text-white font-bold text-lg leading-none truncate w-40">{academyName}</span>
+                      <span className="text-[10px] font-medium uppercase tracking-wider opacity-50">Management Panel</span>
+                    </div>
+                  </div>
+                  
+                  <NavigationMenu />
+
+                  {/* User Profile in Mobile Sidebar */}
+                  <div className="p-4 border-t border-white/5">
+                    <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between overflow-hidden">
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <Avatar className="h-10 w-10 border-2 border-[#35a3be]/20">
+                          <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || 'admin'}`} />
+                          <AvatarFallback>AU</AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col truncate text-left">
+                          <span className="text-white text-sm font-bold truncate">{user?.displayName || "Admin User"}</span>
+                          <span className="text-[10px] truncate opacity-50 font-medium">{user?.email || "admin@edu.com"}</span>
+                        </div>
+                      </div>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <button className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center rounded-lg transition-colors">
+                            <LogOut className="w-4 h-4" />
+                          </button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="rounded-[2rem] border-none shadow-2xl bg-white">
+                          <AlertDialogHeader className="text-left">
+                            <AlertDialogTitle className="text-2xl font-bold text-gray-900 tracking-tight">Confirm Logout</AlertDialogTitle>
+                            <AlertDialogDescription className="text-gray-500 font-medium text-base pt-2">
+                              Are you sure you want to log out?
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter className="pt-6 gap-3">
+                            <AlertDialogCancel className="h-12 px-6 rounded-xl font-bold border-gray-100 bg-gray-50 hover:bg-gray-100 text-gray-600">
+                              Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction 
+                              onClick={handleSignOut}
+                              className="h-12 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none"
+                            >
+                              Log Out
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100 hidden md:flex">
               <PanelLeft className="w-5 h-5" />
             </Button>
             <div className="flex flex-col text-left">
