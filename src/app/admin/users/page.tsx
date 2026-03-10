@@ -111,7 +111,7 @@ export default function UsersManagementPage() {
         </div>
         <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base cursor-pointer border-none transition-all active:scale-95">
           <Link href="/admin/users/create">
-            <UserPlus className="w-6 h-6" /> Add Student
+            <UserPlus className="w-6 h-6" /> Add user
           </Link>
         </Button>
       </div>
