@@ -651,6 +651,57 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
+              {/* Timetable Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <Calendar className="w-6 h-6 text-blue-600" /> Offline Timetable Section
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Input 
+                        value={formData.timetableTitle || ""} 
+                        onChange={(e) => updateField('timetableTitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="Offline Class Timetable"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Input 
+                        value={formData.timetableSubtitle || ""} 
+                        onChange={(e) => updateField('timetableSubtitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                        placeholder="View our structured class schedules"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Notes Icon (Lucide)</Label>
+                    <Input 
+                      value={formData.timetableIcon || ""} 
+                      onChange={(e) => updateField('timetableIcon', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      placeholder="Info, Zap, Star, etc."
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Important Notes (One per line)</Label>
+                    <Textarea 
+                      value={formData.timetableNotes?.join('\n') || ""} 
+                      onChange={(e) => updateField('timetableNotes', e.target.value.split('\n').filter(p => p.trim() !== ''))}
+                      className="min-h-[120px] bg-gray-50 border-none rounded-xl p-4 font-medium text-gray-700 resize-none"
+                      placeholder="Sunday is a holiday..."
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* One-to-One Mentorship Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0">
@@ -740,57 +791,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         </div>
                       ))}
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Timetable Section */}
-              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
-                    <Calendar className="w-6 h-6 text-blue-600" /> Offline Timetable Section
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
-                      <Input 
-                        value={formData.timetableTitle || ""} 
-                        onChange={(e) => updateField('timetableTitle', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
-                        placeholder="Offline Class Timetable"
-                      />
-                    </div>
-                    <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
-                      <Input 
-                        value={formData.timetableSubtitle || ""} 
-                        onChange={(e) => updateField('timetableSubtitle', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
-                        placeholder="View our structured class schedules"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label className="text-sm font-bold text-gray-700">Notes Icon (Lucide)</Label>
-                    <Input 
-                      value={formData.timetableIcon || ""} 
-                      onChange={(e) => updateField('timetableIcon', e.target.value)}
-                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
-                      placeholder="Info, Zap, Star, etc."
-                    />
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Important Notes (One per line)</Label>
-                    <Textarea 
-                      value={formData.timetableNotes?.join('\n') || ""} 
-                      onChange={(e) => updateField('timetableNotes', e.target.value.split('\n').filter(p => p.trim() !== ''))}
-                      className="min-h-[120px] bg-gray-50 border-none rounded-xl p-4 font-medium text-gray-700 resize-none"
-                      placeholder="Sunday is a holiday..."
-                    />
                   </div>
                 </CardContent>
               </Card>
