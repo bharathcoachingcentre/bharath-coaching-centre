@@ -58,7 +58,6 @@ export default function EditTimetableEntryPage({
   const router = useRouter();
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
-  const [initialized, setInitialized] = useState(false);
 
   // Fetch Master Data
   const subjectsQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects'), orderBy('name', 'asc')) : null, [firestore]);
@@ -96,34 +95,19 @@ export default function EditTimetableEntryPage({
     return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard.toLowerCase());
   }, [allClasses, selectedBoard]);
 
-  // Robust initialization with ID resolution for legacy/name-based data
+  // Use standard reset pattern to initialize form once data is ready
   useEffect(() => {
-    if (entry && !initialized && !isSaving && subjects && periods && teachers && allClasses) {
-      
-      // Helper to resolve a stored value (ID or Name) to a valid ID for the Select components
-      const resolveToId = (list: any[], value: string, labelKey: string) => {
-        if (!value) return "";
-        // If the value is already a valid ID in our list, return it
-        if (list.some(item => item.id === value)) return value;
-        // Otherwise, try to find by label (handles legacy data)
-        const match = list.find(item => item[labelKey] === value);
-        return match ? match.id : value;
-      };
-
-      const normalizedBoard = entry.board?.toLowerCase() || "";
-
+    if (entry && !isSaving && subjects && periods && teachers && allClasses) {
       form.reset({
-        board: normalizedBoard,
-        grade: resolveToId(allClasses, entry.grade, "name"),
+        board: entry.board?.toLowerCase() || "",
+        grade: entry.grade || "",
         day: entry.day || "",
-        timeSlot: resolveToId(periods, entry.timeSlot, "label"),
-        subject: resolveToId(subjects, entry.subject, "name"),
-        teacher: resolveToId(teachers, entry.teacher, "displayName"),
+        timeSlot: entry.timeSlot || "",
+        subject: entry.subject || "",
+        teacher: entry.teacher || "",
       });
-      
-      setInitialized(true);
     }
-  }, [entry, subjects, periods, teachers, allClasses, form, isSaving, initialized]);
+  }, [entry, subjects, periods, teachers, allClasses, form, isSaving]);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !entryId) return;
@@ -204,9 +188,7 @@ export default function EditTimetableEntryPage({
                       <FormLabel className="text-sm font-bold text-gray-700">Education Board</FormLabel>
                       <Select onValueChange={(val) => {
                         field.onChange(val);
-                        if (form.formState.isDirty) {
-                          form.setValue("grade", ""); 
-                        }
+                        form.setValue("grade", ""); 
                       }} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
