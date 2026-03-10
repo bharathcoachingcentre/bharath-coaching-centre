@@ -48,6 +48,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
 import { collection, query, orderBy, doc } from "firebase/firestore";
@@ -235,6 +242,8 @@ export default function HomePage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [selectedClass, setSelectedClass] = useState("Class 10");
   const [selectedSubject, setSelectedSubject] = useState("All Subjects");
+  const [subjectSearch, setSubjectSearch] = useState("");
+  const [isSubjectOpen, setIsSubjectOpen] = useState(false);
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
   const [selectedScheduleClass, setSelectedScheduleClass] = useState("Class 10");
 
@@ -287,6 +296,12 @@ export default function HomePage() {
     }
     return base;
   }, [allSubjectsRaw]);
+
+  const filteredSubjectsForDropdown = useMemo(() => {
+    return availableSubjectsList.filter(s => 
+      s.toLowerCase().includes(subjectSearch.toLowerCase())
+    );
+  }, [availableSubjectsList, subjectSearch]);
 
   // Fetch Study Materials
   const materialsQuery = useMemo(() => {
@@ -394,39 +409,6 @@ export default function HomePage() {
       "4:00 PM - 5:30 PM"
     ];
 
-    const defaultSchedule: Record<string, any[]> = {
-      Monday: [
-        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-      ],
-      Tuesday: [
-        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-900" },
-        { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
-        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-      ],
-      Wednesday: [
-        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-      ],
-      Thursday: [
-        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-        { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
-        { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-      ],
-      Friday: [
-        { s: "Social Science", t: "Mr. Suresh Reddy", c: "bg-orange-100 border-orange-200 text-orange-900", tc: "text-[#4b5563]" },
-        { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
-        { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
-        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
-      ],
-    };
-
     const styleClasses = [
       "bg-blue-100 border-blue-200 text-blue-900",
       "bg-teal-100 border-teal-200 text-teal-900",
@@ -439,11 +421,6 @@ export default function HomePage() {
       t.board.toLowerCase() === activeScheduleBoard.toLowerCase() && 
       t.grade === selectedScheduleClass
     );
-
-    // Fallback to default mock schedule for CBSE Class 10 if no data exists
-    if (relevant.length === 0 && activeScheduleBoard === "cbse" && selectedScheduleClass === "Class 10") {
-      return days.map(day => ({ day, slots: defaultSchedule[day] || slots.map(() => ({ s: "-", t: "-", c: "bg-gray-50", tc: "text-gray-300" })) }));
-    }
 
     return days.map(day => {
       const daySlots = slots.map((time, idx) => {
@@ -684,18 +661,55 @@ export default function HomePage() {
                 </button>
               </div>
 
-              {/* Right Column: Subject Selection */}
+              {/* Right Column: Subject Selection (Searchable) */}
               <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
-                <select 
-                  value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
-                >
-                  {availableSubjectsList.map((sub) => (
-                    <option key={sub} value={sub}>{sub}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
+                  <PopoverTrigger asChild>
+                    <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs">
+                      <span className="truncate">{selectedSubject}</span>
+                      <ChevronDown className={cn("h-4 w-4 text-gray-400 transition-transform", isSubjectOpen && "rotate-180")} />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 rounded-xl border-gray-100 shadow-2xl" align="end">
+                    <div className="p-3 border-b border-gray-50">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
+                        <Input 
+                          placeholder="Search subjects..." 
+                          value={subjectSearch}
+                          onChange={(e) => setSubjectSearch(e.target.value)}
+                          className="h-9 pl-9 border-none bg-gray-50 rounded-lg text-xs focus-visible:ring-teal-500"
+                        />
+                      </div>
+                    </div>
+                    <ScrollArea className="h-60">
+                      <div className="p-1">
+                        {filteredSubjectsForDropdown.length === 0 ? (
+                          <div className="p-4 text-center text-xs text-gray-400">No subjects found</div>
+                        ) : (
+                          filteredSubjectsForDropdown.map((sub) => (
+                            <button
+                              key={sub}
+                              onClick={() => {
+                                setSelectedSubject(sub);
+                                setIsSubjectOpen(false);
+                                setSubjectSearch("");
+                              }}
+                              className={cn(
+                                "w-full text-left px-4 py-2.5 text-xs font-bold rounded-lg transition-colors",
+                                selectedSubject === sub 
+                                  ? "bg-teal-50 text-teal-600" 
+                                  : "text-gray-600 hover:bg-gray-50"
+                              )}
+                            >
+                              {sub}
+                            </button>
+                          ))
+                        )}
+                      </div>
+                    </ScrollArea>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
 
@@ -732,7 +746,7 @@ export default function HomePage() {
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1">
-                        <span className={cn("px-3 py-1 text-white text-[10px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                        <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                         {material.subject && (
                           <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{material.subject}</span>
                         )}

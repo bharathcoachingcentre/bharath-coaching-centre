@@ -6,7 +6,14 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BookOpen, FileText, GraduationCap, ArrowRight, Download, ChevronDown, Loader2 } from 'lucide-react';
+import { 
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { BookOpen, FileText, GraduationCap, ArrowRight, Download, ChevronDown, Loader2, Search } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { useFirestore, useCollection } from "@/firebase";
@@ -106,6 +113,8 @@ export default function StudyMaterialPage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [selectedClass, setSelectedClass] = useState("Class 10");
   const [selectedSubject, setSelectedSubject] = useState("All Subjects");
+  const [subjectSearch, setSubjectSearch] = useState("");
+  const [isSubjectOpen, setIsSubjectOpen] = useState(false);
 
   const materialsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -152,6 +161,12 @@ export default function StudyMaterialPage() {
     }
     return base;
   }, [allSubjectsRaw]);
+
+  const filteredSubjectsForDropdown = useMemo(() => {
+    return availableSubjectsList.filter(s => 
+      s.toLowerCase().includes(subjectSearch.toLowerCase())
+    );
+  }, [availableSubjectsList, subjectSearch]);
 
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
@@ -396,17 +411,55 @@ export default function StudyMaterialPage() {
                 </button>
               </div>
 
+              {/* Right Column: Subject Selection (Searchable) */}
               <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
-                <select 
-                  value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
-                >
-                  {availableSubjectsList.map((sub) => (
-                    <option key={sub} value={sub}>{sub}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
+                  <PopoverTrigger asChild>
+                    <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
+                      <span className="truncate">{selectedSubject}</span>
+                      <ChevronDown className={cn("h-4 w-4 text-gray-400 transition-transform", isSubjectOpen && "rotate-180")} />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 rounded-xl border-gray-100 shadow-2xl" align="end">
+                    <div className="p-3 border-b border-gray-50">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
+                        <Input 
+                          placeholder="Search subjects..." 
+                          value={subjectSearch}
+                          onChange={(e) => setSubjectSearch(e.target.value)}
+                          className="h-9 pl-9 border-none bg-gray-50 rounded-lg text-xs focus-visible:ring-teal-500"
+                        />
+                      </div>
+                    </div>
+                    <ScrollArea className="h-60">
+                      <div className="p-1">
+                        {filteredSubjectsForDropdown.length === 0 ? (
+                          <div className="p-4 text-center text-xs text-gray-400">No subjects found</div>
+                        ) : (
+                          filteredSubjectsForDropdown.map((sub) => (
+                            <button
+                              key={sub}
+                              onClick={() => {
+                                setSelectedSubject(sub);
+                                setIsSubjectOpen(false);
+                                setSubjectSearch("");
+                              }}
+                              className={cn(
+                                "w-full text-left px-4 py-2.5 text-xs font-bold rounded-lg transition-colors",
+                                selectedSubject === sub 
+                                  ? "bg-teal-50 text-teal-600" 
+                                  : "text-gray-600 hover:bg-gray-50"
+                              )}
+                            >
+                              {sub}
+                            </button>
+                          ))
+                        )}
+                      </div>
+                    </ScrollArea>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
 
