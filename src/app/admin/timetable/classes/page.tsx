@@ -9,8 +9,7 @@ import {
   Pencil,
   Trash2,
   Loader2,
-  School,
-  Filter
+  School
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -63,9 +62,11 @@ export default function ClassesManagementPage() {
       const cleanup = () => {
         document.body.style.pointerEvents = 'auto';
         document.body.style.overflow = 'auto';
+        // Remove any orphaned overlays that might be blocking interactions
+        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
       };
-      // Short delay to ensure Radix finished its own cleanup
-      const timer = setTimeout(cleanup, 100);
+      // Delay to ensure Radix finished its internal cleanup
+      const timer = setTimeout(cleanup, 150);
       return () => clearTimeout(timer);
     }
   }, [isDialogOpen]);
@@ -79,8 +80,8 @@ export default function ClassesManagementPage() {
 
   const handleSave = async () => {
     if (!firestore || !newClass.name) return;
+    
     setIsSaving(true);
-
     try {
       const data = {
         name: newClass.name,
@@ -98,19 +99,25 @@ export default function ClassesManagementPage() {
         });
         toast({ title: "Class Added", description: `${data.name} has been created.` });
       }
-      
-      // Close dialog and reset state on success
-      setEditingClass(null);
-      setNewClass({ name: "", board: "cbse" });
-      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
-      toast({ variant: "destructive", title: "Save Failed", description: error.message || "Could not save the class." });
+      toast({ 
+        variant: "destructive", 
+        title: "Save Failed", 
+        description: error.message || "Could not save the class." 
+      });
     } finally {
+      // Ensure all states are reset regardless of success or failure
       setIsSaving(false);
-      // Secondary safety check
+      setIsDialogOpen(false);
+      setEditingClass(null);
+      setNewClass({ name: "", board: "cbse" });
+      
+      // Force pointer events back to auto to prevent UI locking
       setTimeout(() => {
-        document.body.style.pointerEvents = 'auto';
+        document.body.style.pointerEvents = "auto";
+        document.body.style.overflow = "auto";
+        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
       }, 200);
     }
   };
@@ -186,11 +193,11 @@ export default function ClassesManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
                           <DropdownMenuItem 
-                            onSelect={(e) => {
-                              e.preventDefault();
+                            onSelect={() => {
+                              // Let the dropdown close first to prevent focus/interaction locks
                               setEditingClass(c);
                               setNewClass({ name: c.name, board: c.board });
-                              setIsDialogOpen(true);
+                              setTimeout(() => setIsDialogOpen(true), 50);
                             }}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >
