@@ -53,7 +53,12 @@ export default function PeriodsManagementPage() {
   // Safety fix for Radix UI body lock issues
   useEffect(() => {
     if (!isDialogOpen) {
-      document.body.style.pointerEvents = 'auto';
+      const cleanup = () => {
+        document.body.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'auto';
+      };
+      const timer = setTimeout(cleanup, 100);
+      return () => clearTimeout(timer);
     }
   }, [isDialogOpen]);
 
@@ -85,13 +90,17 @@ export default function PeriodsManagementPage() {
         });
         toast({ title: "Period Added" });
       }
-      setIsDialogOpen(false);
       setEditingPeriod(null);
       setNewPeriod({ label: "", order: "1" });
+      setIsDialogOpen(false);
     } catch (error: any) {
+      console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
+      setTimeout(() => {
+        document.body.style.pointerEvents = 'auto';
+      }, 200);
     }
   };
 
@@ -170,7 +179,7 @@ export default function PeriodsManagementPage() {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
-                            onClick={() => handleDelete(p.id)}
+                            onSelect={() => handleDelete(p.id)}
                             className="p-2.5 cursor-pointer text-rose-600 rounded-lg"
                           >
                             <Trash2 className="mr-2 h-4 w-4" />

@@ -60,7 +60,13 @@ export default function ClassesManagementPage() {
   // Safety fix for Radix UI body lock issues
   useEffect(() => {
     if (!isDialogOpen) {
-      document.body.style.pointerEvents = 'auto';
+      const cleanup = () => {
+        document.body.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'auto';
+      };
+      // Short delay to ensure Radix finished its own cleanup
+      const timer = setTimeout(cleanup, 100);
+      return () => clearTimeout(timer);
     }
   }, [isDialogOpen]);
 
@@ -84,23 +90,28 @@ export default function ClassesManagementPage() {
 
       if (editingClass) {
         await updateDoc(doc(firestore, 'classes', editingClass.id), data);
-        toast({ title: "Class Updated" });
+        toast({ title: "Class Updated", description: `${data.name} has been updated successfully.` });
       } else {
         await addDoc(collection(firestore, 'classes'), {
           ...data,
           createdAt: serverTimestamp(),
         });
-        toast({ title: "Class Added" });
+        toast({ title: "Class Added", description: `${data.name} has been created.` });
       }
       
       // Close dialog and reset state on success
-      setIsDialogOpen(false);
       setEditingClass(null);
       setNewClass({ name: "", board: "cbse" });
+      setIsDialogOpen(false);
     } catch (error: any) {
-      toast({ variant: "destructive", title: "Save Failed", description: error.message });
+      console.error("Save error:", error);
+      toast({ variant: "destructive", title: "Save Failed", description: error.message || "Could not save the class." });
     } finally {
       setIsSaving(false);
+      // Secondary safety check
+      setTimeout(() => {
+        document.body.style.pointerEvents = 'auto';
+      }, 200);
     }
   };
 
@@ -176,7 +187,7 @@ export default function ClassesManagementPage() {
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
                           <DropdownMenuItem 
                             onSelect={(e) => {
-                              e.preventDefault(); // Prevent menu close from disrupting dialog focus
+                              e.preventDefault();
                               setEditingClass(c);
                               setNewClass({ name: c.name, board: c.board });
                               setIsDialogOpen(true);
@@ -188,7 +199,7 @@ export default function ClassesManagementPage() {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
-                            onClick={() => handleDelete(c.id)}
+                            onSelect={() => handleDelete(c.id)}
                             className="p-2.5 cursor-pointer text-rose-600 rounded-lg"
                           >
                             <Trash2 className="mr-2 h-4 w-4" />

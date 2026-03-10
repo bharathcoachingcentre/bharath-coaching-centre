@@ -54,7 +54,12 @@ export default function SubjectsManagementPage() {
   // Safety fix for Radix UI body lock issues
   useEffect(() => {
     if (!isDialogOpen) {
-      document.body.style.pointerEvents = 'auto';
+      const cleanup = () => {
+        document.body.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'auto';
+      };
+      const timer = setTimeout(cleanup, 100);
+      return () => clearTimeout(timer);
     }
   }, [isDialogOpen]);
 
@@ -92,13 +97,17 @@ export default function SubjectsManagementPage() {
         });
         toast({ title: "Subject Added" });
       }
-      setIsDialogOpen(false);
       setEditingSubject(null);
       setNewSubject({ name: "", code: "" });
+      setIsDialogOpen(false);
     } catch (error: any) {
+      console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
+      setTimeout(() => {
+        document.body.style.pointerEvents = 'auto';
+      }, 200);
     }
   };
 
@@ -180,7 +189,7 @@ export default function SubjectsManagementPage() {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
-                            onClick={() => handleDelete(s.id)}
+                            onSelect={() => handleDelete(s.id)}
                             className="p-2.5 cursor-pointer text-rose-600 rounded-lg"
                           >
                             <Trash2 className="mr-2 h-4 w-4" />
