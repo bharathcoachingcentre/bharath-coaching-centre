@@ -59,7 +59,7 @@ export default function EditTimetableEntryPage({
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
 
-  // Fetch Master Data
+  // Fetch Master Data for matching IDs
   const subjectsQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects'), orderBy('name', 'asc')) : null, [firestore]);
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const teachersQuery = useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]);
@@ -97,21 +97,26 @@ export default function EditTimetableEntryPage({
 
   // Use robust resolution logic to handle both IDs and Labels (for legacy data)
   useEffect(() => {
-    if (entry && !isSaving && subjects && periods && teachers && allClasses) {
-      // Find IDs if labels were saved previously
+    if (entry && subjects && periods && teachers && allClasses && !isSaving) {
+      console.log("DEBUG: Timetable document fetched:", entry);
+      
+      // Find database IDs if labels were saved previously
       const resolvedGrade = allClasses.find(c => c.id === entry.grade || c.name === entry.grade)?.id || entry.grade;
       const resolvedSubject = subjects.find(s => s.id === entry.subject || s.name === entry.subject)?.id || entry.subject;
       const resolvedPeriod = periods.find(p => p.id === entry.timeSlot || p.label === entry.timeSlot)?.id || entry.timeSlot;
       const resolvedTeacher = teachers.find(t => t.id === entry.teacher || t.displayName === entry.teacher)?.id || entry.teacher;
 
-      form.reset({
+      const resetValues = {
         board: entry.board?.toLowerCase() || "",
         grade: resolvedGrade || "",
         day: entry.day || "",
         timeSlot: resolvedPeriod || "",
         subject: resolvedSubject || "",
         teacher: resolvedTeacher || "",
-      });
+      };
+
+      console.log("DEBUG: Resetting form with values:", resetValues);
+      form.reset(resetValues);
     }
   }, [entry, subjects, periods, teachers, allClasses, form, isSaving]);
 
