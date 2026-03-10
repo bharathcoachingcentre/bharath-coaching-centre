@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -6,13 +7,10 @@ import {
   ArrowLeft, 
   CalendarClock, 
   Save, 
-  Loader2,
-  BookOpen,
-  UserCheck
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
@@ -35,6 +33,8 @@ import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useFirestore, useDoc, useCollection } from "@/firebase";
 import { doc, updateDoc, serverTimestamp, query, collection, orderBy, where } from "firebase/firestore";
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError, type SecurityRuleContext } from '@/firebase/errors';
 import Link from "next/link";
 
 const formSchema = z.object({
@@ -91,8 +91,8 @@ export default function EditTimetableEntryPage({
 
   const selectedBoard = form.watch("board");
   const filteredClasses = useMemo(() => {
-    if (!allClasses) return [];
-    return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard?.toLowerCase());
+    if (!allClasses || !selectedBoard) return [];
+    return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard.toLowerCase());
   }, [allClasses, selectedBoard]);
 
   useEffect(() => {
@@ -113,29 +113,52 @@ export default function EditTimetableEntryPage({
     setIsSaving(true);
 
     const ref = doc(firestore, "timetables", entryId);
-    updateDoc(ref, {
+    const submissionData = {
       ...values,
       updatedAt: serverTimestamp(),
-    })
+    };
+
+    updateDoc(ref, submissionData)
       .then(() => {
-        toast({ title: "Entry Updated", description: "Schedule has been saved." });
+        toast({ title: "Entry Updated", description: "Schedule has been saved successfully." });
         router.push("/admin/timetable");
       })
-      .catch((error) => {
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: ref.path,
+          operation: "update",
+          requestResourceData: submissionData,
+        } satisfies SecurityRuleContext);
+        
+        errorEmitter.emit('permission-error', permissionError);
+        
         toast({
           variant: "destructive",
           title: "Update Failed",
-          description: error.message || "An error occurred.",
+          description: error.message || "An error occurred while saving the schedule.",
         });
         setIsSaving(false);
       });
   };
 
-  if (loading) {
+  const isMasterDataLoading = !subjects || !periods || !teachers || !allClasses;
+
+  if (loading || isMasterDataLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400">Loading Schedule Details...</p>
+        <p className="font-bold text-gray-400">Syncing Master Data...</p>
+      </div>
+    );
+  }
+
+  if (!entry) {
+    return (
+      <div className="text-center py-32 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-900">Schedule Not Found</h2>
+        <Button asChild variant="outline">
+          <Link href="/admin/timetable">Back to Timetable</Link>
+        </Button>
       </div>
     );
   }
@@ -197,7 +220,7 @@ export default function EditTimetableEntryPage({
                           {filteredClasses?.map(c => (
                             <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                           ))}
-                          {!filteredClasses?.length && (
+                          {filteredClasses?.length === 0 && (
                             <SelectItem value="none" disabled>No classes defined for this board.</SelectItem>
                           )}
                         </SelectContent>

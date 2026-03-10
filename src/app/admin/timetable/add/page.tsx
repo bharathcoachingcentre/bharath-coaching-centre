@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -5,10 +6,7 @@ import {
   ArrowLeft, 
   CalendarClock, 
   Save, 
-  Loader2,
-  BookOpen,
-  UserCheck,
-  Plus
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -35,6 +33,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useFirestore, useCollection } from "@/firebase";
 import { collection, addDoc, serverTimestamp, query, where, orderBy } from "firebase/firestore";
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError, type SecurityRuleContext } from '@/firebase/errors';
 
 const formSchema = z.object({
   board: z.string().min(1, "Please select a board"),
@@ -78,35 +78,57 @@ export default function AddTimetableEntryPage() {
 
   const selectedBoard = form.watch("board");
   const filteredClasses = useMemo(() => {
-    if (!allClasses) return [];
-    return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard?.toLowerCase());
+    if (!allClasses || !selectedBoard) return [];
+    return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard.toLowerCase());
   }, [allClasses, selectedBoard]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (!firestore) return;
     setIsSubmitting(true);
 
-    try {
-      await addDoc(collection(firestore, 'timetables'), {
-        ...values,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      });
+    const collectionRef = collection(firestore, 'timetables');
+    const submissionData = {
+      ...values,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    };
 
-      toast({
-        title: "Schedule Added",
-        description: "Class timing has been added to the database.",
+    addDoc(collectionRef, submissionData)
+      .then(() => {
+        toast({
+          title: "Schedule Added",
+          description: "Class timing has been added to the database.",
+        });
+        router.push("/admin/timetable");
+      })
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: 'timetables',
+          operation: 'create',
+          requestResourceData: submissionData,
+        } satisfies SecurityRuleContext);
+        
+        errorEmitter.emit('permission-error', permissionError);
+        
+        toast({
+          variant: "destructive",
+          title: "Save Failed",
+          description: error.message || "An error occurred while creating the schedule.",
+        });
+        setIsSubmitting(false);
       });
-      router.push("/admin/timetable");
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Save Failed",
-        description: error.message || "An error occurred.",
-      });
-      setIsSubmitting(false);
-    }
   };
+
+  const isMasterDataLoading = !subjects || !periods || !teachers || !allClasses;
+
+  if (isMasterDataLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-32 gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+        <p className="font-bold text-gray-400">Loading Configuration Data...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -165,7 +187,7 @@ export default function AddTimetableEntryPage() {
                           {filteredClasses?.map(c => (
                             <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                           ))}
-                          {!filteredClasses?.length && (
+                          {filteredClasses?.length === 0 && (
                             <SelectItem value="none" disabled>No classes defined for this board.</SelectItem>
                           )}
                         </SelectContent>
@@ -214,7 +236,7 @@ export default function AddTimetableEntryPage() {
                           {periods?.map(p => (
                             <SelectItem key={p.id} value={p.label}>{p.label}</SelectItem>
                           ))}
-                          {!periods?.length && (
+                          {periods?.length === 0 && (
                             <SelectItem value="none" disabled>No periods defined. Manage Periods first.</SelectItem>
                           )}
                         </SelectContent>
@@ -240,7 +262,7 @@ export default function AddTimetableEntryPage() {
                           {subjects?.map(s => (
                             <SelectItem key={s.id} value={s.name}>{s.name}</SelectItem>
                           ))}
-                          {!subjects?.length && (
+                          {subjects?.length === 0 && (
                             <SelectItem value="none" disabled>No subjects defined. Manage Subjects first.</SelectItem>
                           )}
                         </SelectContent>
@@ -266,8 +288,8 @@ export default function AddTimetableEntryPage() {
                           {teachers?.map(t => (
                             <SelectItem key={t.id} value={t.displayName}>{t.displayName}</SelectItem>
                           ))}
-                          {!teachers?.length && (
-                            <SelectItem value="none" disabled>No teachers found in Users directory.</SelectItem>
+                          {teachers?.length === 0 && (
+                            <SelectItem value="none" disabled>No teachers found in registry.</SelectItem>
                           )}
                         </SelectContent>
                       </Select>
