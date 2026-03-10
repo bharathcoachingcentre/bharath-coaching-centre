@@ -1,8 +1,9 @@
+
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, GraduationCap, ChevronDown } from "lucide-react";
+import { Menu, GraduationCap, ChevronDown, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -22,6 +23,7 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/study-material", label: "Study Materials" },
+  { href: "/teachers", label: "Our Faculty" },
   { href: "/our-results", label: "Results" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -30,7 +32,6 @@ const navLinks = [
 export function Header() {
   const pathname = usePathname();
 
-  // Do not show the frontend header on admin pages
   if (pathname.startsWith('/admin')) {
     return null;
   }

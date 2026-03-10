@@ -18,9 +18,8 @@ import {
   Loader2,
   Layout,
   CalendarClock,
-  Clock,
-  Book,
-  School
+  School,
+  Contact2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,13 +58,13 @@ import {
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
+  { icon: Contact2, label: "Teachers", href: "/admin/teachers" },
   { 
     icon: UserCheck, 
     label: "Users", 
     href: "/admin/users",
     children: [
       { label: "All Users", href: "/admin/users" },
-      { label: "Staffs", href: "/admin/users/staffs" },
       { label: "Admins", href: "/admin/users/admins" },
     ]
   },
@@ -99,7 +98,6 @@ export default function AdminLayout({
   const { user, loading } = useUser();
   const firestore = useFirestore();
 
-  // Authentication Guard: Redirect to sign-in if not logged in
   useEffect(() => {
     if (!loading && !user) {
       router.replace('/signin');
@@ -155,6 +153,7 @@ export default function AdminLayout({
   const getPageSubtitle = () => {
     if (pathname === "/admin/results") return "Academic performance analytics";
     if (pathname.startsWith("/admin/users")) return "Manage system user accounts";
+    if (pathname.startsWith("/admin/teachers")) return "Manage academy faculty";
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
     if (pathname.startsWith("/admin/pages")) return "Manage website page content";
@@ -270,7 +269,6 @@ export default function AdminLayout({
     </nav>
   );
 
-  // Show loading state while checking authentication
   if (loading || !user) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#f8fafc]">
@@ -344,7 +342,6 @@ export default function AdminLayout({
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 shrink-0 sticky top-0 z-30">
           <div className="flex items-center gap-4">
-            {/* Mobile Sheet Trigger */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100 md:hidden">
@@ -368,7 +365,6 @@ export default function AdminLayout({
                   
                   <NavigationMenu />
 
-                  {/* User Profile in Mobile Sidebar */}
                   <div className="p-4 border-t border-white/5">
                     <div className="bg-white/5 p-4 rounded-2xl flex items-center justify-between overflow-hidden">
                       <div className="flex items-center gap-3 overflow-hidden">

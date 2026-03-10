@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { 
   ArrowLeft, 
   User, 
@@ -10,11 +10,14 @@ import {
   Save,
   UserCog,
   Check,
-  Plus
+  Plus,
+  BookMarked,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -48,7 +51,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useFirestore } from "@/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { errorEmitter } from '@/firebase/error-emitter';
@@ -62,57 +65,32 @@ const formSchema = z.object({
   role: z.string().min(1, "Please select a role"),
   status: z.string().min(1, "Please select a status"),
   photoURL: z.string().optional(),
+  bio: z.string().optional(),
+  specialty: z.string().optional(),
 });
 
 const avatarCollections = [
-  {
-    name: "Professional",
-    id: "micah",
-    seeds: ["Jack", "Avery", "Sarah", "Oliver", "Emma", "Leo", "Mia", "Noah", "Sophia", "Lucas"]
-  },
-  {
-    name: "Personas",
-    id: "personas",
-    seeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-  },
-  {
-    name: "Avataaars",
-    id: "avataaars",
-    seeds: ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo", "Mia", "Zoe"]
-  },
-  {
-    name: "Lorelei",
-    id: "lorelei",
-    seeds: ["Midnight", "Snuggles", "Boots", "Tiger", "Lucky", "Pepper", "Ginger", "Oscar", "Bella", "Simba"]
-  },
-  {
-    name: "Notionists",
-    id: "notionists",
-    seeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-  },
-  {
-    name: "Pixel Art",
-    id: "pixel-art-neutral",
-    seeds: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-  }
+  { name: "Professional", id: "micah", seeds: ["Jack", "Avery", "Sarah", "Oliver", "Emma", "Leo", "Mia", "Noah", "Sophia", "Lucas"] },
+  { name: "Personas", id: "personas", seeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] },
+  { name: "Avataaars", id: "avataaars", seeds: ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo", "Mia", "Zoe"] },
 ];
 
 const quickSeeds = [
   { id: "micah", seed: "Jack" },
   { id: "micah", seed: "Sarah" },
   { id: "personas", seed: "1" },
-  { id: "personas", seed: "4" },
   { id: "avataaars", seed: "Felix" },
-  { id: "avataaars", seed: "Sophie" },
-  { id: "notionists", seed: "3" },
 ];
 
-export default function CreateUserPage() {
+function CreateUserForm() {
   const { toast } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
+
+  const defaultRole = searchParams.get('role') || 'student';
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -120,9 +98,11 @@ export default function CreateUserPage() {
       displayName: "",
       email: "",
       phoneNumber: "",
-      role: "student",
+      role: defaultRole,
       status: "active",
       photoURL: `https://api.dicebear.com/7.x/micah/svg?seed=Jack`,
+      bio: "",
+      specialty: "",
     },
   });
 
@@ -141,11 +121,8 @@ export default function CreateUserPage() {
     
     addDoc(usersRef, submissionData)
       .then(() => {
-        toast({
-          title: "User Created",
-          description: `${values.displayName} has been added to the directory.`,
-        });
-        router.push("/admin/users");
+        toast({ title: "User Created", description: `${values.displayName} has been added.` });
+        router.push(values.role === 'teacher' ? "/admin/teachers" : "/admin/users");
       })
       .catch(async (error) => {
         const permissionError = new FirestorePermissionError({
@@ -154,11 +131,7 @@ export default function CreateUserPage() {
           requestResourceData: submissionData,
         });
         errorEmitter.emit('permission-error', permissionError);
-        toast({
-          variant: "destructive",
-          title: "Failed to Create User",
-          description: error.message || "Could not save user record.",
-        });
+        toast({ variant: "destructive", title: "Failed", description: error.message });
         setIsSubmitting(false);
       });
   };
@@ -166,7 +139,7 @@ export default function CreateUserPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <Link 
-        href="/admin/users" 
+        href={defaultRole === 'teacher' ? "/admin/teachers" : "/admin/users"} 
         className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors group"
       >
         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
@@ -175,15 +148,15 @@ export default function CreateUserPage() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 pb-12">
-          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
+          <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
                 <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
                   <UserCog className="w-7 h-7 text-blue-600" />
                 </div>
                 <div className="text-left">
-                  <h3 className="text-2xl font-black text-gray-900 tracking-tight">Create User Account</h3>
-                  <p className="text-sm text-gray-400 font-medium">Register a new staff member or student in the system</p>
+                  <h3 className="text-2xl font-black text-gray-900 tracking-tight">Create Account</h3>
+                  <p className="text-sm text-gray-400 font-medium">Register a new student or faculty member</p>
                 </div>
               </div>
 
@@ -222,10 +195,7 @@ export default function CreateUserPage() {
 
                         <Dialog open={isAvatarDialogOpen} onOpenChange={setIsAvatarDialogOpen}>
                           <DialogTrigger asChild>
-                            <button
-                              type="button"
-                              className="relative rounded-2xl aspect-square border-2 border-dashed border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all flex flex-col items-center justify-center gap-1 group"
-                            >
+                            <button type="button" className="relative rounded-2xl aspect-square border-2 border-dashed border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all flex flex-col items-center justify-center gap-1 group">
                               <Plus className="w-5 h-5 text-gray-400 group-hover:text-blue-600" />
                               <span className="text-[10px] font-bold text-gray-400 group-hover:text-blue-600 uppercase">More</span>
                             </button>
@@ -314,22 +284,7 @@ export default function CreateUserPage() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="phoneNumber"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
-                      <FormLabel className="text-xs font-black uppercase text-gray-400">Phone Number</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                          <Input placeholder="+91 00000 00000" {...field} className="h-14 bg-gray-50 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm" />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                
                 <FormField
                   control={form.control}
                   name="role"
@@ -352,6 +307,62 @@ export default function CreateUserPage() {
                     </FormItem>
                   )}
                 />
+
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3 text-left">
+                      <FormLabel className="text-xs font-black uppercase text-gray-400">Phone Number</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <Input placeholder="+91 00000 00000" {...field} className="h-14 bg-gray-50 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm" />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Conditional Fields for Teachers */}
+                {form.watch("role") === 'teacher' && (
+                  <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <FormField
+                      control={form.control}
+                      name="specialty"
+                      render={({ field }) => (
+                        <FormItem className="space-y-3 text-left">
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Specialty / Subject</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <Sparkles className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                              <Input placeholder="e.g. Senior Physics Mentor" {...field} className="h-14 bg-gray-50 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="bio"
+                      render={({ field }) => (
+                        <FormItem className="space-y-3 text-left">
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Short Bio</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <BookMarked className="absolute left-4 top-6 w-4 h-4 text-gray-400" />
+                              <Textarea placeholder="Brief professional summary..." {...field} className="min-h-[100px] bg-gray-50 border-none rounded-xl focus-visible:ring-blue-500 pl-11 py-4 font-medium shadow-sm resize-none" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                )}
+
                 <FormField
                   control={form.control}
                   name="status"
@@ -383,7 +394,7 @@ export default function CreateUserPage() {
               type="button"
               variant="ghost" 
               className="h-14 px-10 text-gray-500 font-bold rounded-xl hover:bg-gray-100"
-              onClick={() => router.push("/admin/users")}
+              onClick={() => router.back()}
               disabled={isSubmitting}
             >
               Cancel
@@ -394,11 +405,19 @@ export default function CreateUserPage() {
               className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 gap-3 transition-all active:scale-95 border-none"
             >
               {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-              {isSubmitting ? "Creating Account..." : "Save Account"}
+              {isSubmitting ? "Saving..." : "Create Account"}
             </Button>
           </div>
         </form>
       </Form>
     </div>
+  );
+}
+
+export default function CreateUserPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center p-20 text-blue-600"><Loader2 className="animate-spin w-8 h-8" /></div>}>
+      <CreateUserForm />
+    </Suspense>
   );
 }
