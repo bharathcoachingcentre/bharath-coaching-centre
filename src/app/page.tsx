@@ -439,6 +439,34 @@ export default function HomePage() {
     });
   }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods]);
 
+  const saturdayData = useMemo(() => {
+    const relevant = (allTimetables || []).filter(t => 
+      t.board.toLowerCase() === activeScheduleBoard.toLowerCase() && 
+      t.grade === selectedScheduleClass &&
+      t.day === "Saturday"
+    );
+
+    const saturdayColors = [
+      "bg-green-100 border-green-200 text-green-900",
+      "bg-yellow-100 border-yellow-200 text-yellow-900",
+      "bg-blue-100 border-blue-200 text-blue-900",
+      "bg-teal-100 border-teal-200 text-teal-900",
+    ];
+
+    if (relevant.length === 0) return null;
+
+    const totalSlots = allPeriods?.length || 4;
+    const baseSpan = Math.floor(totalSlots / relevant.length);
+    const remainder = totalSlots % relevant.length;
+
+    return relevant.map((entry, idx) => ({
+      subject: entry.subject,
+      teacher: entry.teacher,
+      color: saturdayColors[idx % saturdayColors.length],
+      span: idx === relevant.length - 1 ? baseSpan + remainder : baseSpan
+    }));
+  }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods]);
+
   const heroImageData = (placeholderImages as any)["hero-education"];
 
   return (
@@ -952,21 +980,26 @@ export default function HomePage() {
                       ))}
                     </tr>
                   ))}
-                  <tr className="hover:bg-gray-50 transition-colors">
-                    <td className="px-8 py-6 font-bold text-[#182d45]">Saturday</td>
-                    <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
-                      <div className="bg-green-100 rounded-2xl p-5 text-center border border-green-200 shadow-sm">
-                        <div className="font-bold text-green-900 text-sm">Doubt Clearing Session</div>
-                        <div className="text-[11px] text-gray-600 font-bold mt-1">All Teachers Available</div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 border-l border-gray-50" colSpan={2}>
-                      <div className="bg-yellow-100 rounded-2xl p-5 text-center border border-yellow-200 shadow-sm">
-                        <div className="font-bold text-yellow-900 text-sm">Practice & Revision</div>
-                        <div className="text-[11px] text-gray-600 font-bold mt-1">Self Study with Mentors</div>
-                      </div>
-                    </td>
-                  </tr>
+                  {saturdayData ? (
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 font-bold text-[#182d45]">Saturday</td>
+                      {saturdayData.map((item, idx) => (
+                        <td key={idx} className="px-4 py-4 border-l border-gray-50" colSpan={item.span}>
+                          <div className={cn("rounded-2xl p-5 text-center border shadow-sm", item.color)}>
+                            <div className="font-bold text-sm">{item.subject}</div>
+                            <div className="text-[11px] font-bold mt-1 opacity-70">{item.teacher}</div>
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  ) : (
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 font-bold text-[#182d45]">Saturday</td>
+                      <td className="px-4 py-4 border-l border-gray-50 text-center text-gray-300" colSpan={allPeriods?.length || 4}>
+                        No sessions scheduled for Saturday
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
