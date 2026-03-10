@@ -9,7 +9,7 @@ import {
   Pencil,
   Trash2,
   Loader2,
-  Calendar as CalendarIcon
+  Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,13 +47,9 @@ export default function PeriodsManagementPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [editingPeriod, setEditingPeriod] = useState<any | null>(null);
   
-  // Structured state for structured time entry
   const [newPeriod, setNewPeriod] = useState({ 
-    label: "", 
-    order: "1",
     startTime: "09:00",
-    endTime: "10:30",
-    date: "" 
+    endTime: "10:30"
   });
 
   useEffect(() => {
@@ -75,9 +71,8 @@ export default function PeriodsManagementPage() {
   const { data: periods, loading } = useCollection(periodsQuery);
 
   const handleSave = async () => {
-    if (!firestore) return;
+    if (!firestore || !newPeriod.startTime || !newPeriod.endTime) return;
     
-    // Helper to convert 24h string to 12h AM/PM string
     const to12h = (t: string) => {
       if (!t) return "";
       let [h, m] = t.split(":");
@@ -89,9 +84,11 @@ export default function PeriodsManagementPage() {
 
     const startTimeFormatted = to12h(newPeriod.startTime);
     const endTimeFormatted = to12h(newPeriod.endTime);
-    
-    // Construct label string for display throughout the app
-    const constructedLabel = `${startTimeFormatted} - ${endTimeFormatted}${newPeriod.date ? ` [${newPeriod.date}]` : ""}`;
+    const constructedLabel = `${startTimeFormatted} - ${endTimeFormatted}`;
+
+    // Automatically calculate order based on start time (HH:mm)
+    const [h, m] = newPeriod.startTime.split(":").map(Number);
+    const calculatedOrder = h * 60 + m;
 
     setIsSaving(true);
 
@@ -100,8 +97,7 @@ export default function PeriodsManagementPage() {
         label: constructedLabel,
         startTime: newPeriod.startTime,
         endTime: newPeriod.endTime,
-        date: newPeriod.date,
-        order: parseInt(newPeriod.order) || 0,
+        order: calculatedOrder,
         updatedAt: serverTimestamp(),
       };
 
@@ -115,14 +111,14 @@ export default function PeriodsManagementPage() {
         });
         toast({ title: "Period Added" });
       }
-      setEditingPeriod(null);
-      setNewPeriod({ label: "", order: "1", startTime: "09:00", endTime: "10:30", date: "" });
       setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
+      setEditingPeriod(null);
+      setNewPeriod({ startTime: "09:00", endTime: "10:30" });
       setTimeout(() => {
         document.body.style.pointerEvents = 'auto';
       }, 200);
@@ -139,11 +135,8 @@ export default function PeriodsManagementPage() {
   const openEditDialog = (p: any) => {
     setEditingPeriod(p);
     setNewPeriod({ 
-      label: p.label || "", 
-      order: String(p.order || "1"),
       startTime: p.startTime || "09:00",
-      endTime: p.endTime || "10:30",
-      date: p.date || ""
+      endTime: p.endTime || "10:30"
     });
     setIsDialogOpen(true);
   };
@@ -153,12 +146,12 @@ export default function PeriodsManagementPage() {
       <div className="flex items-center justify-between">
         <div className="text-left">
           <h2 className="text-2xl font-black text-gray-900">Manage Class Periods</h2>
-          <p className="text-sm text-gray-500">Define the standard time slots for your academy sessions.</p>
+          <p className="text-sm text-gray-500">Define the standard time slots. These are sorted automatically by start time.</p>
         </div>
         <Button 
           onClick={() => {
             setEditingPeriod(null);
-            setNewPeriod({ label: "", order: String((periods?.length || 0) + 1), startTime: "09:00", endTime: "10:30", date: "" });
+            setNewPeriod({ startTime: "09:00", endTime: "10:30" });
             setIsDialogOpen(true);
           }}
           className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-2xl shadow-lg transition-all active:scale-95 border-none"
@@ -178,7 +171,6 @@ export default function PeriodsManagementPage() {
             <Table>
               <TableHeader className="bg-gray-50/50">
                 <TableRow className="hover:bg-transparent border-gray-100">
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400 text-left">Order</TableHead>
                   <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400 text-left">Time Slot / Label</TableHead>
                   <TableHead className="px-8 py-5"></TableHead>
                 </TableRow>
@@ -187,12 +179,12 @@ export default function PeriodsManagementPage() {
                 {periods?.map((p) => (
                   <TableRow key={p.id} className="border-gray-50 hover:bg-gray-50/50">
                     <TableCell className="px-8 py-5 text-left">
-                      <Badge variant="outline" className="w-8 h-8 rounded-lg flex items-center justify-center p-0 font-black text-blue-600 bg-blue-50 border-blue-100 shadow-none">
-                        {p.order}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="px-8 py-5 text-left">
-                      <span className="font-bold text-gray-900">{p.label}</span>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                          <Clock className="w-5 h-5" />
+                        </div>
+                        <span className="font-bold text-gray-900">{p.label}</span>
+                      </div>
                     </TableCell>
                     <TableCell className="px-8 py-5 text-right">
                       <DropdownMenu>
@@ -210,7 +202,7 @@ export default function PeriodsManagementPage() {
                             className="p-2.5 cursor-pointer rounded-lg"
                           >
                             <Pencil className="mr-2 h-4 w-4 text-blue-600" />
-                            <span className="font-bold text-xs text-gray-700">Edit Period</span>
+                            <span className="font-bold text-xs text-gray-700">Edit Timing</span>
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
@@ -234,19 +226,9 @@ export default function PeriodsManagementPage() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="rounded-3xl max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-gray-900">{editingPeriod ? "Edit Period" : "Define Period"}</DialogTitle>
+            <DialogTitle className="text-2xl font-black text-gray-900">{editingPeriod ? "Edit Timing" : "Define Timing"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-6 py-4">
-            <div className="space-y-2 text-left">
-              <label className="text-xs font-black uppercase text-gray-400">Reference Date (Optional)</label>
-              <Input 
-                type="date"
-                value={newPeriod.date} 
-                onChange={(e) => setNewPeriod({ ...newPeriod, date: e.target.value })}
-                className="h-12 rounded-xl"
-              />
-            </div>
-
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2 text-left">
                 <label className="text-xs font-black uppercase text-gray-400">Start Time</label>
@@ -266,17 +248,6 @@ export default function PeriodsManagementPage() {
                   className="h-12 rounded-xl"
                 />
               </div>
-            </div>
-
-            <div className="space-y-2 text-left">
-              <label className="text-xs font-black uppercase text-gray-400">Display Order</label>
-              <Input 
-                type="number"
-                value={newPeriod.order} 
-                onChange={(e) => setNewPeriod({ ...newPeriod, order: e.target.value })}
-                placeholder="1"
-                className="h-12 rounded-xl"
-              />
             </div>
           </div>
           <DialogFooter>
