@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
@@ -58,10 +57,8 @@ export default function ClassesManagementPage() {
   const [editingClass, setEditingClass] = useState<any | null>(null);
   const [newClass, setNewClass] = useState({ name: "", board: "cbse" });
   
-  // Local state for draggable list to prevent jitter during Firestore sync
   const [localClasses, setLocalClasses] = useState<any[]>([]);
 
-  // Fetch all classes without orderBy initially to ensure items without 'order' field show up
   const classesQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'classes'));
@@ -69,7 +66,6 @@ export default function ClassesManagementPage() {
 
   const { data: classes, loading } = useCollection(classesQuery);
 
-  // Sync local state when remote data changes, applying a sort in-memory
   useEffect(() => {
     if (classes) {
       const sorted = [...classes].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -77,13 +73,11 @@ export default function ClassesManagementPage() {
     }
   }, [classes]);
 
-  // Robust cleanup for Radix UI interaction locks
   useEffect(() => {
     if (!isDialogOpen) {
       const cleanup = () => {
         document.body.style.pointerEvents = 'auto';
         document.body.style.overflow = 'auto';
-        // Remove orphaned overlays if they exist
         document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
       };
       const timer = setTimeout(cleanup, 100);
@@ -106,7 +100,6 @@ export default function ClassesManagementPage() {
         await updateDoc(doc(firestore, 'classes', editingClass.id), data);
         toast({ title: "Class Updated", description: `${data.name} has been updated successfully.` });
       } else {
-        // Assign the next order value based on current count
         const nextOrder = localClasses.length;
         await addDoc(collection(firestore, 'classes'), {
           ...data,
@@ -128,7 +121,6 @@ export default function ClassesManagementPage() {
       setEditingClass(null);
       setNewClass({ name: "", board: "cbse" });
       
-      // Explicitly unlock UI
       setTimeout(() => {
         document.body.style.pointerEvents = "auto";
         document.body.style.overflow = "auto";
@@ -166,7 +158,6 @@ export default function ClassesManagementPage() {
   const openEditDialog = (c: any) => {
     setEditingClass(c);
     setNewClass({ name: c.name, board: c.board });
-    // Micro-delay to allow dropdown to close cleanly first
     setTimeout(() => setIsDialogOpen(true), 50);
   };
 
@@ -212,7 +203,6 @@ export default function ClassesManagementPage() {
                   <TableHead className="px-8 py-5"></TableHead>
                 </TableRow>
               </TableHeader>
-              {/* Use as="tbody" to maintain valid table DOM while allowing reordering */}
               <Reorder.Group 
                 as="tbody" 
                 axis="y" 
@@ -246,7 +236,7 @@ export default function ClassesManagementPage() {
                     <TableCell className="px-8 py-5 text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-lg">
                             <MoreVertical className="w-4 h-4" />
                           </Button>
                         </DropdownMenuTrigger>
