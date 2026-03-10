@@ -95,16 +95,22 @@ export default function EditTimetableEntryPage({
     return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard.toLowerCase());
   }, [allClasses, selectedBoard]);
 
-  // Use standard reset pattern to initialize form once data is ready
+  // Use robust resolution logic to handle both IDs and Labels (for legacy data)
   useEffect(() => {
     if (entry && !isSaving && subjects && periods && teachers && allClasses) {
+      // Find IDs if labels were saved previously
+      const resolvedGrade = allClasses.find(c => c.id === entry.grade || c.name === entry.grade)?.id || entry.grade;
+      const resolvedSubject = subjects.find(s => s.id === entry.subject || s.name === entry.subject)?.id || entry.subject;
+      const resolvedPeriod = periods.find(p => p.id === entry.timeSlot || p.label === entry.timeSlot)?.id || entry.timeSlot;
+      const resolvedTeacher = teachers.find(t => t.id === entry.teacher || t.displayName === entry.teacher)?.id || entry.teacher;
+
       form.reset({
         board: entry.board?.toLowerCase() || "",
-        grade: entry.grade || "",
+        grade: resolvedGrade || "",
         day: entry.day || "",
-        timeSlot: entry.timeSlot || "",
-        subject: entry.subject || "",
-        teacher: entry.teacher || "",
+        timeSlot: resolvedPeriod || "",
+        subject: resolvedSubject || "",
+        teacher: resolvedTeacher || "",
       });
     }
   }, [entry, subjects, periods, teachers, allClasses, form, isSaving]);
