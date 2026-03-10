@@ -236,6 +236,8 @@ const iconMap: Record<string, any> = {
   Laptop: Laptop,
   Building: Building,
   Info: Info,
+  Handshake: Handshake,
+  Layers: Layers,
 };
 
 export default function HomePage() {
@@ -363,6 +365,15 @@ export default function HomePage() {
         "Each session includes a 15-minute break",
         "Extra classes are conducted before exams",
         "Timetable may vary based on class requirements"
+      ],
+      mentorshipTitleMain: "One-to-One ",
+      mentorshipTitleHighlight: "Mentorship",
+      mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
+      mentorshipFeatures: [
+        { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
+        { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
+        { icon: "TrendingUp", title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis." },
+        { icon: "Handshake", title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress." },
       ]
     };
 
@@ -910,28 +921,33 @@ export default function HomePage() {
             <div className="space-y-10 order-1 lg:order-2 text-left">
               <div>
                 <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
-                  One-to-One <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Mentorship</span>
+                  {content.mentorshipTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.mentorshipTitleHighlight}</span>
                 </h2>
-                <p className="mt-4 text-gray-500 font-medium">Personalized attention to help every student reach their full potential.</p>
+                <p className="mt-4 text-gray-500 font-medium">{content.mentorshipSubtitle}</p>
               </div>
 
               <div className="space-y-8">
-                {[
-                  { icon: UserCheck, title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding.", color: "bg-blue-500", iconColor: "text-blue-600", bg: "bg-blue-50" },
-                  { icon: Layers, title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses.", color: "bg-teal-500", iconColor: "text-teal-600", bg: "bg-teal-50" },
-                  { icon: TrendingUp, title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis.", color: "bg-purple-500", iconColor: "text-purple-600", bg: "bg-purple-50" },
-                  { icon: Handshake, title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress.", color: "bg-orange-500", iconColor: "text-orange-600", bg: "bg-orange-50" },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-6 group">
-                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform", item.bg)}>
-                      <item.icon className={cn("w-6 h-6", item.iconColor)} />
+                {(content.mentorshipFeatures || []).map((feature: any, idx: number) => {
+                  const Icon = iconMap[feature.icon] || UserCheck;
+                  const styles = [
+                    { iconColor: "text-blue-600", bg: "bg-blue-50" },
+                    { iconColor: "text-teal-600", bg: "bg-teal-50" },
+                    { iconColor: "text-purple-600", bg: "bg-purple-50" },
+                    { iconColor: "text-orange-600", bg: "bg-orange-50" },
+                  ];
+                  const style = styles[idx % styles.length];
+                  return (
+                    <div key={idx} className="flex items-start gap-6 group">
+                      <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform", style.bg)}>
+                        <Icon className={cn("w-6 h-6", style.iconColor)} />
+                      </div>
+                      <div className="space-y-1 text-left">
+                        <h4 className="text-lg font-bold text-gray-900">{feature.title}</h4>
+                        <p className="text-sm text-gray-500 leading-relaxed font-normal">{feature.desc}</p>
+                      </div>
                     </div>
-                    <div className="space-y-1 text-left">
-                      <h4 className="text-lg font-bold text-gray-900">{item.title}</h4>
-                      <p className="text-sm text-gray-500 leading-relaxed font-normal">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               <div className="pt-4">

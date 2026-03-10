@@ -32,7 +32,9 @@ import {
   Brain,
   Calendar,
   Clock,
-  Info
+  Info,
+  Handshake,
+  Layers
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -113,6 +115,15 @@ const defaultPageData: Record<string, any> = {
       "Each session includes a 15-minute break",
       "Extra classes are conducted before exams",
       "Timetable may vary based on class requirements"
+    ],
+    mentorshipTitleMain: "One-to-One ",
+    mentorshipTitleHighlight: "Mentorship",
+    mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
+    mentorshipFeatures: [
+      { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
+      { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
+      { icon: "TrendingUp", title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis." },
+      { icon: "Handshake", title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress." },
     ]
   },
   about: {
@@ -266,6 +277,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   { n: "Award", i: Award },
                   { n: "Search", i: Search },
                   { n: "Info", i: Info },
+                  { n: "Handshake", i: Handshake },
+                  { n: "Layers", i: Layers },
                 ].map((item) => (
                   <div key={item.n} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
                     <item.i className="w-5 h-5 text-teal-400" />
@@ -634,6 +647,99 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         </div>
                       </div>
                     ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* One-to-One Mentorship Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <UserCheck className="w-6 h-6 text-blue-600" /> One-to-One Mentorship
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
+                      <Input 
+                        value={formData.mentorshipTitleMain || ""} 
+                        onChange={(e) => updateField('mentorshipTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="One-to-One "
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
+                      <Input 
+                        value={formData.mentorshipTitleHighlight || ""} 
+                        onChange={(e) => updateField('mentorshipTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Mentorship"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Textarea 
+                      value={formData.mentorshipSubtitle || ""} 
+                      onChange={(e) => updateField('mentorshipSubtitle', e.target.value)}
+                      className="min-h-[80px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none"
+                    />
+                  </div>
+
+                  <div className="space-y-6">
+                    <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Mentorship Features</Label>
+                    <div className="space-y-4">
+                      {(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures)?.map((feature: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                            <div className="md:col-span-1 flex flex-col items-center">
+                              <span className="text-[10px] font-black text-gray-300">{idx + 1}</span>
+                            </div>
+                            <div className="md:col-span-11 grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Title</Label>
+                                <Input 
+                                  value={feature.title || ""} 
+                                  onChange={(e) => {
+                                    const newFeatures = [...(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures)];
+                                    newFeatures[idx].title = e.target.value;
+                                    updateField('mentorshipFeatures', newFeatures);
+                                  }}
+                                  className="h-10 bg-white"
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name (Lucide)</Label>
+                                <Input 
+                                  value={feature.icon || ""} 
+                                  onChange={(e) => {
+                                    const newFeatures = [...(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures)];
+                                    newFeatures[idx].icon = e.target.value;
+                                    updateField('mentorshipFeatures', newFeatures);
+                                  }}
+                                  className="h-10 bg-white"
+                                  placeholder="UserCheck, Layers, Handshake, etc."
+                                />
+                              </div>
+                              <div className="md:col-span-2 space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Description</Label>
+                                <Input 
+                                  value={feature.desc || ""} 
+                                  onChange={(e) => {
+                                    const newFeatures = [...(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures)];
+                                    newFeatures[idx].desc = e.target.value;
+                                    updateField('mentorshipFeatures', newFeatures);
+                                  }}
+                                  className="h-10 bg-white"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
