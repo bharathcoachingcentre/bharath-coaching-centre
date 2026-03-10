@@ -403,14 +403,6 @@ export default function HomePage() {
       "4:00 PM - 5:30 PM"
     ];
 
-    const styleClasses = [
-      "bg-blue-100 border-blue-200 text-blue-900",
-      "bg-teal-100 border-teal-200 text-teal-900",
-      "bg-purple-100 border-purple-200 text-purple-900",
-      "bg-orange-100 border-orange-200 text-orange-900",
-      "bg-pink-100 border-pink-200 text-pink-900",
-    ];
-
     const currentClassId = allClassesLookup?.find(c => c.name === selectedScheduleClass)?.id;
     const relevant = (allTimetables || []).filter(t => 
       t.board.toLowerCase() === activeScheduleBoard.toLowerCase() && 
@@ -418,17 +410,25 @@ export default function HomePage() {
     );
 
     return days.map(day => {
-      const daySlots = slots.map((timeLabel, idx) => {
+      const daySlots = slots.map((timeLabel) => {
         const periodId = allPeriods?.find(p => p.label === timeLabel)?.id;
         const match = relevant.find(r => r.day === day && (r.timeSlot === timeLabel || r.timeSlot === periodId));
         
         if (match) {
           const subjectName = allSubjectsLookup?.find(s => s.id === match.subject)?.name || match.subject;
           const teacherName = allTeachersLookup?.find(t => t.id === match.teacher)?.displayName || match.teacher;
+          
+          let cardStyle = "bg-purple-100 border-purple-200 text-purple-900"; // Default
+          const s = subjectName.toLowerCase();
+          if (s.includes("math")) cardStyle = "bg-blue-100 border-blue-200 text-blue-900";
+          else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-emerald-100 border-emerald-200 text-emerald-900";
+          else if (s.includes("english")) cardStyle = "bg-pink-100 border-pink-200 text-pink-900";
+          else if (s.includes("social")) cardStyle = "bg-orange-100 border-orange-200 text-orange-900";
+
           return {
             s: subjectName,
             t: teacherName,
-            c: styleClasses[idx % styleClasses.length],
+            c: cardStyle,
             tc: "text-[#4b5563]"
           };
         }
