@@ -230,20 +230,6 @@ const iconMap: Record<string, any> = {
   Building: Building,
 };
 
-const subjects = [
-  "All Subjects",
-  "Tamil",
-  "English",
-  "Mathematics",
-  "Science",
-  "Social Science",
-  "Physics",
-  "Chemistry",
-  "Biology",
-  "Computer Science",
-  "Hindi"
-];
-
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -286,6 +272,21 @@ export default function HomePage() {
       }
     }
   }, [availableClasses, selectedClass]);
+
+  // Fetch Subjects
+  const subjectsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
+  }, [firestore]);
+  const { data: allSubjectsRaw } = useCollection(subjectsQuery);
+
+  const availableSubjectsList = useMemo(() => {
+    const base = ["All Subjects"];
+    if (allSubjectsRaw) {
+      return [...base, ...allSubjectsRaw.map(s => s.name)];
+    }
+    return base;
+  }, [allSubjectsRaw]);
 
   // Fetch Study Materials
   const materialsQuery = useMemo(() => {
@@ -402,7 +403,7 @@ export default function HomePage() {
       ],
       Tuesday: [
         { s: "Science", t: "Dr. Priya Sharma", c: "bg-teal-100 border-teal-200 text-teal-900", tc: "text-[#4b5563]" },
-        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-[#4b5563]" },
+        { s: "Mathematics", t: "Mr. Rajesh Kumar", c: "bg-blue-100 border-blue-200 text-blue-900", tc: "text-blue-900" },
         { s: "Hindi", t: "Mrs. Kavita Singh", c: "bg-pink-100 border-pink-200 text-pink-900", tc: "text-[#4b5563]" },
         { s: "English", t: "Ms. Anjali Verma", c: "bg-purple-100 border-purple-200 text-purple-900", tc: "text-[#4b5563]" },
       ],
@@ -690,7 +691,7 @@ export default function HomePage() {
                   onChange={(e) => setSelectedSubject(e.target.value)}
                   className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
                 >
-                  {subjects.map((sub) => (
+                  {availableSubjectsList.map((sub) => (
                     <option key={sub} value={sub}>{sub}</option>
                   ))}
                 </select>

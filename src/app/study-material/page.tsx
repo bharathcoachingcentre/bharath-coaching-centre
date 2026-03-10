@@ -105,6 +105,7 @@ export default function StudyMaterialPage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [selectedClass, setSelectedClass] = useState("Class 10");
+  const [selectedSubject, setSelectedSubject] = useState("All Subjects");
 
   const materialsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -137,6 +138,21 @@ export default function StudyMaterialPage() {
     }
   }, [availableClasses, selectedClass]);
 
+  // Fetch Subjects
+  const subjectsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
+  }, [firestore]);
+  const { data: allSubjectsRaw } = useCollection(subjectsQuery);
+
+  const availableSubjectsList = useMemo(() => {
+    const base = ["All Subjects"];
+    if (allSubjectsRaw) {
+      return [...base, ...allSubjectsRaw.map(s => s.name)];
+    }
+    return base;
+  }, [allSubjectsRaw]);
+
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
     
@@ -145,7 +161,8 @@ export default function StudyMaterialPage() {
         const matchesVisibility = m.isVisible !== false;
         const matchesGrade = m.grade === selectedClass;
         const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
-        return matchesVisibility && matchesGrade && matchesBoard;
+        const matchesSubject = selectedSubject === "All Subjects" || m.subject === selectedSubject;
+        return matchesVisibility && matchesGrade && matchesBoard && matchesSubject;
       })
       .map((m, idx) => {
         const styleIdx = idx % materialStyles.length;
@@ -155,7 +172,7 @@ export default function StudyMaterialPage() {
           ...materialStyles[styleIdx]
         };
       });
-  }, [allMaterials, selectedClass, activeBoard]);
+  }, [allMaterials, selectedClass, activeBoard, selectedSubject]);
 
   return (
     <div className="font-body antialiased">
@@ -379,7 +396,18 @@ export default function StudyMaterialPage() {
                 </button>
               </div>
 
-              <div className="hidden lg:block"></div>
+              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
+                <select 
+                  value={selectedSubject}
+                  onChange={(e) => setSelectedSubject(e.target.value)}
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
+                >
+                  {availableSubjectsList.map((sub) => (
+                    <option key={sub} value={sub}>{sub}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
             </div>
 
             {materialsLoading ? (
@@ -390,7 +418,7 @@ export default function StudyMaterialPage() {
             ) : displayMaterials.length === 0 ? (
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 font-bold">No study materials found for {selectedClass} ({activeBoard.toUpperCase()}).</p>
+                <p className="text-gray-500 font-bold">No study materials found for {selectedSubject} in {selectedClass} ({activeBoard.toUpperCase()}).</p>
                 <p className="text-gray-400 text-sm mt-1">Please try another class or check back later.</p>
               </div>
             ) : (
@@ -414,7 +442,12 @@ export default function StudyMaterialPage() {
                           <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
                         </div>
                       </div>
-                      <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                      <div className="flex flex-col items-end gap-1">
+                        <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                        {material.subject && (
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{material.subject}</span>
+                        )}
+                      </div>
                     </div>
                     <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left">{material.title}</h3>
                     <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
