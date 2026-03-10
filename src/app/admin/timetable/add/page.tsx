@@ -150,7 +150,7 @@ export default function AddTimetableEntryPage() {
                   control={form.control}
                   name="board"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Education Board</FormLabel>
                       <Select onValueChange={(val) => {
                         field.onChange(val);
@@ -175,7 +175,7 @@ export default function AddTimetableEntryPage() {
                   control={form.control}
                   name="grade"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -185,7 +185,7 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {filteredClasses?.map(c => (
-                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                            <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                           ))}
                           {filteredClasses?.length === 0 && (
                             <SelectItem value="none" disabled>No classes defined for this board.</SelectItem>
@@ -201,7 +201,7 @@ export default function AddTimetableEntryPage() {
                   control={form.control}
                   name="day"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Day of Week</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -224,7 +224,7 @@ export default function AddTimetableEntryPage() {
                   control={form.control}
                   name="timeSlot"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Period / Time Slot</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -234,7 +234,7 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {periods?.map(p => (
-                            <SelectItem key={p.id} value={p.id}>{p.label}</SelectItem>
+                            <SelectItem key={p.id} value={p.label}>{p.label}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -247,7 +247,7 @@ export default function AddTimetableEntryPage() {
                   control={form.control}
                   name="subject"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Subject</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -257,7 +257,7 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {subjects?.map(s => (
-                            <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                            <SelectItem key={s.id} value={s.name}>{s.name}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -270,7 +270,7 @@ export default function AddTimetableEntryPage() {
                   control={form.control}
                   name="teacher"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Teacher</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -280,7 +280,7 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {teachers?.map(t => (
-                            <SelectItem key={t.id} value={t.id}>{t.displayName}</SelectItem>
+                            <SelectItem key={t.id} value={t.displayName}>{t.displayName}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>

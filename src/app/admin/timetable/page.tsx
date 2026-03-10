@@ -60,7 +60,7 @@ export default function TimetableManagementPage() {
 
   const { data: entries, loading: timetableLoading } = useCollection(timetableQuery);
 
-  // Master Data Lookups
+  // Master Data Lookups (for supporting both legacy ID records and new Name-based records)
   const { data: classes } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'classes')) : null, [firestore]));
   const { data: subjects } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'subjects')) : null, [firestore]));
   const { data: periods } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'periods')) : null, [firestore]));
@@ -74,11 +74,11 @@ export default function TimetableManagementPage() {
 
     return entries.map(e => ({
       ...e,
-      // Robust matching: check both ID and Name/Label for compatibility with legacy/migrated data
-      gradeName: classes.find(c => c.id === e.grade || c.name === e.grade)?.name || e.grade,
-      subjectName: subjects.find(s => s.id === e.subject || s.name === e.subject)?.name || e.subject,
-      timeSlotLabel: periods.find(p => p.id === e.timeSlot || p.label === e.timeSlot)?.label || e.timeSlot,
-      teacherName: teachers.find(t => t.id === e.teacher || t.displayName === e.teacher)?.displayName || e.teacher,
+      // Robust lookup handles cases where DB stores ID (legacy) or Name (new)
+      gradeName: classes.find(c => c.id === e.grade)?.name || e.grade,
+      subjectName: subjects.find(s => s.id === e.subject)?.name || e.subject,
+      timeSlotLabel: periods.find(p => p.id === e.timeSlot)?.label || e.timeSlot,
+      teacherName: teachers.find(t => t.id === e.teacher)?.displayName || e.teacher,
     }));
   }, [entries, classes, subjects, periods, teachers]);
 

@@ -10,7 +10,6 @@ import {
   Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
@@ -59,7 +58,7 @@ export default function EditTimetableEntryPage({
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
 
-  // Fetch Master Data for matching IDs
+  // Fetch Master Data
   const subjectsQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects'), orderBy('name', 'asc')) : null, [firestore]);
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const teachersQuery = useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]);
@@ -95,30 +94,22 @@ export default function EditTimetableEntryPage({
     return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard.toLowerCase());
   }, [allClasses, selectedBoard]);
 
-  // Use robust resolution logic to handle both IDs and Labels (for legacy data)
   useEffect(() => {
-    if (entry && subjects && periods && teachers && allClasses && !isSaving) {
+    if (entry && !isSaving) {
       console.log("DEBUG: Timetable document fetched:", entry);
       
-      // Find database IDs if labels were saved previously
-      const resolvedGrade = allClasses.find(c => c.id === entry.grade || c.name === entry.grade)?.id || entry.grade;
-      const resolvedSubject = subjects.find(s => s.id === entry.subject || s.name === entry.subject)?.id || entry.subject;
-      const resolvedPeriod = periods.find(p => p.id === entry.timeSlot || p.label === entry.timeSlot)?.id || entry.timeSlot;
-      const resolvedTeacher = teachers.find(t => t.id === entry.teacher || t.displayName === entry.teacher)?.id || entry.teacher;
-
-      const resetValues = {
-        board: entry.board?.toLowerCase() || "",
-        grade: resolvedGrade || "",
+      // Update the edit form to use these exact field names when resetting the form
+      // board, grade, subject, teacher, day, timeSlot
+      form.reset({
+        board: entry.board || "",
+        grade: entry.grade || "",
+        subject: entry.subject || "",
+        teacher: entry.teacher || "",
         day: entry.day || "",
-        timeSlot: resolvedPeriod || "",
-        subject: resolvedSubject || "",
-        teacher: resolvedTeacher || "",
-      };
-
-      console.log("DEBUG: Resetting form with values:", resetValues);
-      form.reset(resetValues);
+        timeSlot: entry.timeSlot || "",
+      });
     }
-  }, [entry, subjects, periods, teachers, allClasses, form, isSaving]);
+  }, [entry, form, isSaving]);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !entryId) return;
@@ -195,7 +186,7 @@ export default function EditTimetableEntryPage({
                   control={form.control}
                   name="board"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Education Board</FormLabel>
                       <Select onValueChange={(val) => {
                         field.onChange(val);
@@ -220,7 +211,7 @@ export default function EditTimetableEntryPage({
                   control={form.control}
                   name="grade"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -230,7 +221,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {filteredClasses?.map(c => (
-                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                            <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                           ))}
                           {filteredClasses?.length === 0 && (
                             <SelectItem value="none" disabled>No classes defined for this board.</SelectItem>
@@ -246,7 +237,7 @@ export default function EditTimetableEntryPage({
                   control={form.control}
                   name="day"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Day of Week</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -269,7 +260,7 @@ export default function EditTimetableEntryPage({
                   control={form.control}
                   name="timeSlot"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Period / Time Slot</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -279,7 +270,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {periods?.map(p => (
-                            <SelectItem key={p.id} value={p.id}>{p.label}</SelectItem>
+                            <SelectItem key={p.id} value={p.label}>{p.label}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -292,7 +283,7 @@ export default function EditTimetableEntryPage({
                   control={form.control}
                   name="subject"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Subject</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -302,7 +293,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {subjects?.map(s => (
-                            <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                            <SelectItem key={s.id} value={s.name}>{s.name}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -315,7 +306,7 @@ export default function EditTimetableEntryPage({
                   control={form.control}
                   name="teacher"
                   render={({ field }) => (
-                    <FormItem className="space-y-3">
+                    <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Teacher</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
@@ -325,7 +316,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {teachers?.map(t => (
-                            <SelectItem key={t.id} value={t.id}>{t.displayName}</SelectItem>
+                            <SelectItem key={t.id} value={t.displayName}>{t.displayName}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
