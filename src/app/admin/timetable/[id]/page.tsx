@@ -57,8 +57,9 @@ export default function EditTimetableEntryPage({
   const router = useRouter();
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
+  const [editData, setEditData] = useState<any>(null);
 
-  // Fetch Master Data
+  // Fetch Master Data for Select Options
   const subjectsQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects'), orderBy('name', 'asc')) : null, [firestore]);
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const teachersQuery = useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]);
@@ -96,18 +97,20 @@ export default function EditTimetableEntryPage({
 
   useEffect(() => {
     if (entry && !isSaving) {
-      console.log("DEBUG: Timetable document fetched:", entry);
+      console.log("DEBUG: Firestore Timetable Document Fetched:", entry);
+      setEditData(entry);
       
-      // Update the edit form to use these exact field names when resetting the form
-      // board, grade, subject, teacher, day, timeSlot
-      form.reset({
+      const resetValues = {
         board: entry.board || "",
         grade: entry.grade || "",
         subject: entry.subject || "",
         teacher: entry.teacher || "",
         day: entry.day || "",
         timeSlot: entry.timeSlot || "",
-      });
+      };
+      
+      console.log("DEBUG: Resetting form with values:", resetValues);
+      form.reset(resetValues);
     }
   }, [entry, form, isSaving]);
 
@@ -173,10 +176,10 @@ export default function EditTimetableEntryPage({
       </Link>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8 text-left">
+        <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8 text-left" key={editData?.id || 'loading'}>
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
-            <CardContent className="p-10 -mt-12 relative">
+            <CardContent className="p-10 -mt-12 relative text-left">
               <div className="w-20 h-20 rounded-3xl border-4 border-white shadow-lg bg-white flex items-center justify-center text-blue-600 mb-8">
                 <CalendarClock className="w-10 h-10" />
               </div>
@@ -188,10 +191,14 @@ export default function EditTimetableEntryPage({
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Education Board</FormLabel>
-                      <Select onValueChange={(val) => {
-                        field.onChange(val);
-                        form.setValue("grade", ""); 
-                      }} value={field.value}>
+                      <Select 
+                        onValueChange={(val) => {
+                          field.onChange(val);
+                          form.setValue("grade", ""); 
+                        }} 
+                        value={field.value}
+                        defaultValue={editData?.board}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
                             <SelectValue placeholder="Select board" />
@@ -213,7 +220,11 @@ export default function EditTimetableEntryPage({
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value}
+                        defaultValue={editData?.grade}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
                             <SelectValue placeholder="Select class" />
@@ -239,7 +250,11 @@ export default function EditTimetableEntryPage({
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Day of Week</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value}
+                        defaultValue={editData?.day}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
                             <SelectValue placeholder="Select day" />
@@ -262,7 +277,11 @@ export default function EditTimetableEntryPage({
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Period / Time Slot</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value}
+                        defaultValue={editData?.timeSlot}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
                             <SelectValue placeholder="Select time" />
@@ -285,7 +304,11 @@ export default function EditTimetableEntryPage({
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Subject</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value}
+                        defaultValue={editData?.subject}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
                             <SelectValue placeholder="Select subject" />
@@ -308,7 +331,11 @@ export default function EditTimetableEntryPage({
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Teacher</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value}
+                        defaultValue={editData?.teacher}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
                             <SelectValue placeholder="Select teacher" />
