@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Search, 
@@ -50,6 +51,13 @@ export default function SubjectsManagementPage() {
   const [editingSubject, setEditingSubject] = useState<any | null>(null);
   const [newSubject, setNewSubject] = useState({ name: "", code: "" });
 
+  // Safety fix for Radix UI body lock issues
+  useEffect(() => {
+    if (!isDialogOpen) {
+      document.body.style.pointerEvents = 'auto';
+    }
+  }, [isDialogOpen]);
+
   const subjectsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
@@ -96,8 +104,9 @@ export default function SubjectsManagementPage() {
 
   const handleDelete = async (id: string) => {
     if (!firestore || !confirm("Delete this subject?")) return;
-    await deleteDoc(doc(firestore, 'subjects', id));
-    toast({ title: "Subject Deleted" });
+    deleteDoc(doc(firestore, 'subjects', id))
+      .then(() => toast({ title: "Subject Deleted" }))
+      .catch((e) => toast({ variant: "destructive", title: "Delete Failed", description: e.message }));
   };
 
   return (
@@ -158,7 +167,8 @@ export default function SubjectsManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
                           <DropdownMenuItem 
-                            onClick={() => {
+                            onSelect={(e) => {
+                              e.preventDefault();
                               setEditingSubject(s);
                               setNewSubject({ name: s.name, code: s.code || "" });
                               setIsDialogOpen(true);

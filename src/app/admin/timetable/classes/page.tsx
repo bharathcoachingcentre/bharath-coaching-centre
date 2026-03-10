@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Plus, 
@@ -56,6 +57,13 @@ export default function ClassesManagementPage() {
   const [editingClass, setEditingClass] = useState<any | null>(null);
   const [newClass, setNewClass] = useState({ name: "", board: "cbse" });
 
+  // Safety fix for Radix UI body lock issues
+  useEffect(() => {
+    if (!isDialogOpen) {
+      document.body.style.pointerEvents = 'auto';
+    }
+  }, [isDialogOpen]);
+
   const classesQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'classes'), orderBy('name', 'asc'));
@@ -84,6 +92,8 @@ export default function ClassesManagementPage() {
         });
         toast({ title: "Class Added" });
       }
+      
+      // Close dialog and reset state on success
       setIsDialogOpen(false);
       setEditingClass(null);
       setNewClass({ name: "", board: "cbse" });
@@ -96,8 +106,9 @@ export default function ClassesManagementPage() {
 
   const handleDelete = async (id: string) => {
     if (!firestore || !confirm("Delete this class? This will affect schedules linked to it.")) return;
-    await deleteDoc(doc(firestore, 'classes', id));
-    toast({ title: "Class Deleted" });
+    deleteDoc(doc(firestore, 'classes', id))
+      .then(() => toast({ title: "Class Deleted" }))
+      .catch((e) => toast({ variant: "destructive", title: "Delete Failed", description: e.message }));
   };
 
   return (
@@ -164,7 +175,8 @@ export default function ClassesManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
                           <DropdownMenuItem 
-                            onClick={() => {
+                            onSelect={(e) => {
+                              e.preventDefault(); // Prevent menu close from disrupting dialog focus
                               setEditingClass(c);
                               setNewClass({ name: c.name, board: c.board });
                               setIsDialogOpen(true);

@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Search, 
@@ -46,8 +47,15 @@ export default function PeriodsManagementPage() {
   const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [editingPeriod, setEditingSubject] = useState<any | null>(null);
+  const [editingPeriod, setEditingPeriod] = useState<any | null>(null);
   const [newPeriod, setNewPeriod] = useState({ label: "", order: "1" });
+
+  // Safety fix for Radix UI body lock issues
+  useEffect(() => {
+    if (!isDialogOpen) {
+      document.body.style.pointerEvents = 'auto';
+    }
+  }, [isDialogOpen]);
 
   const periodsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -78,7 +86,7 @@ export default function PeriodsManagementPage() {
         toast({ title: "Period Added" });
       }
       setIsDialogOpen(false);
-      setEditingSubject(null);
+      setEditingPeriod(null);
       setNewPeriod({ label: "", order: "1" });
     } catch (error: any) {
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
@@ -89,8 +97,9 @@ export default function PeriodsManagementPage() {
 
   const handleDelete = async (id: string) => {
     if (!firestore || !confirm("Delete this period?")) return;
-    await deleteDoc(doc(firestore, 'periods', id));
-    toast({ title: "Period Deleted" });
+    deleteDoc(doc(firestore, 'periods', id))
+      .then(() => toast({ title: "Period Deleted" }))
+      .catch((e) => toast({ variant: "destructive", title: "Delete Failed", description: e.message }));
   };
 
   return (
@@ -102,7 +111,7 @@ export default function PeriodsManagementPage() {
         </div>
         <Button 
           onClick={() => {
-            setEditingSubject(null);
+            setEditingPeriod(null);
             setNewPeriod({ label: "", order: String((periods?.length || 0) + 1) });
             setIsDialogOpen(true);
           }}
@@ -148,8 +157,9 @@ export default function PeriodsManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
                           <DropdownMenuItem 
-                            onClick={() => {
-                              setEditingSubject(p);
+                            onSelect={(e) => {
+                              e.preventDefault();
+                              setEditingPeriod(p);
                               setNewPeriod({ label: p.label, order: String(p.order) });
                               setIsDialogOpen(true);
                             }}
@@ -183,7 +193,7 @@ export default function PeriodsManagementPage() {
             <DialogTitle className="text-2xl font-black text-gray-900">{editingPeriod ? "Edit Period" : "Define Period"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-6 py-4">
-            <div className="space-y-2">
+            <div className="space-y-2 text-left">
               <label className="text-xs font-black uppercase text-gray-400">Time Slot Label</label>
               <Input 
                 value={newPeriod.label} 
@@ -192,7 +202,7 @@ export default function PeriodsManagementPage() {
                 className="h-12 rounded-xl"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 text-left">
               <label className="text-xs font-black uppercase text-gray-400">Display Order</label>
               <Input 
                 type="number"
