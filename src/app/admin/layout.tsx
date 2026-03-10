@@ -58,7 +58,6 @@ import {
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
-  { icon: Contact2, label: "Teachers", href: "/admin/teachers" },
   { 
     icon: UserCheck, 
     label: "Users", 
@@ -153,7 +152,6 @@ export default function AdminLayout({
   const getPageSubtitle = () => {
     if (pathname === "/admin/results") return "Academic performance analytics";
     if (pathname.startsWith("/admin/users")) return "Manage system user accounts";
-    if (pathname.startsWith("/admin/teachers")) return "Manage academy faculty";
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
     if (pathname.startsWith("/admin/pages")) return "Manage website page content";
