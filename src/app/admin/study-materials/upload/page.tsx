@@ -45,12 +45,27 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   grade: z.string().min(1, "Please select a grade"),
   board: z.string().min(1, "Please select a board"),
+  subject: z.string().min(1, "Please select a subject"),
   materialType: z.string().min(1, "Material type is required"),
   description: z.string().min(1, "Description is required"),
   pdfUrl: z.string().url("Please enter a valid URL").min(1, "Resource URL is required"),
   allowDownloads: z.boolean().default(true),
   visibleToStudents: z.boolean().default(true),
 });
+
+const subjects = [
+  "Tamil",
+  "English",
+  "Mathematics",
+  "Science",
+  "Social Science",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "Computer Science",
+  "Hindi",
+  "Other"
+];
 
 export default function UploadMaterialPage() {
   const { toast } = useToast();
@@ -64,6 +79,7 @@ export default function UploadMaterialPage() {
       title: "",
       grade: "",
       board: "CBSE",
+      subject: "",
       materialType: "pdf",
       description: "",
       pdfUrl: "",
@@ -91,6 +107,7 @@ export default function UploadMaterialPage() {
         title: values.title,
         grade: values.grade,
         board: values.board,
+        subject: values.subject,
         category: values.materialType,
         description: values.description,
         pdfUrl: values.pdfUrl,
@@ -209,7 +226,7 @@ export default function UploadMaterialPage() {
                   )}
                 />
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <FormField
                     control={form.control}
                     name="board"
@@ -252,6 +269,29 @@ export default function UploadMaterialPage() {
                             <SelectItem value="Class 5">Class 5</SelectItem>
                             {Array.from({ length: 7 }, (_, i) => i + 6).map(grade => (
                               <SelectItem key={grade} value={`Class ${grade}`}>Class {grade}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="subject"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3 text-left">
+                        <FormLabel className="text-sm font-bold text-gray-700">Subject</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
+                              <SelectValue placeholder="Select subject" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                            {subjects.map(sub => (
+                              <SelectItem key={sub} value={sub}>{sub}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>

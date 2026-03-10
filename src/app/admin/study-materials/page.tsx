@@ -70,7 +70,8 @@ export default function StudyMaterialsPage() {
     const lower = searchTerm.toLowerCase();
     return realMaterials.filter(m => 
       m.title?.toLowerCase().includes(lower) || 
-      m.grade?.toLowerCase().includes(lower)
+      m.grade?.toLowerCase().includes(lower) ||
+      m.subject?.toLowerCase().includes(lower)
     );
   }, [realMaterials, searchTerm]);
 
@@ -198,6 +199,9 @@ export default function StudyMaterialsPage() {
                   <div className="space-y-1 mb-6 text-left">
                     <h3 className="font-bold text-gray-900 text-lg leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[3.5rem]">{item.title}</h3>
                     <p className="text-sm font-medium text-gray-400">{item.grade} • {item.board}</p>
+                    {item.subject && (
+                      <p className="text-[10px] font-black text-blue-500 uppercase tracking-widest mt-1">{item.subject}</p>
+                    )}
                   </div>
 
                   <div className="flex items-center justify-between mb-8">

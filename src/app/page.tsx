@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -229,10 +230,25 @@ const iconMap: Record<string, any> = {
   Building: Building,
 };
 
+const subjects = [
+  "All Subjects",
+  "Tamil",
+  "English",
+  "Mathematics",
+  "Science",
+  "Social Science",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "Computer Science",
+  "Hindi"
+];
+
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [selectedClass, setSelectedClass] = useState("Class 10");
+  const [selectedSubject, setSelectedSubject] = useState("All Subjects");
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
   const [selectedScheduleClass, setSelectedScheduleClass] = useState("Class 10");
 
@@ -325,7 +341,8 @@ export default function HomePage() {
         const matchesVisibility = m.isVisible !== false;
         const matchesGrade = m.grade === selectedClass;
         const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
-        return matchesVisibility && matchesGrade && matchesBoard;
+        const matchesSubject = selectedSubject === "All Subjects" || m.subject === selectedSubject;
+        return matchesVisibility && matchesGrade && matchesBoard && matchesSubject;
       })
       .map((m, idx) => {
         const styleIdx = idx % materialStyles.length;
@@ -335,7 +352,7 @@ export default function HomePage() {
           ...materialStyles[styleIdx]
         };
       });
-  }, [allMaterials, selectedClass, activeBoard]);
+  }, [allMaterials, selectedClass, activeBoard, selectedSubject]);
 
   const timetableDisplayData = useMemo(() => {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -592,23 +609,37 @@ export default function HomePage() {
 
           <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
-              <div className="relative min-w-[180px] w-full lg:w-auto">
-                <select 
-                  value={selectedClass}
-                  onChange={(e) => setSelectedClass(e.target.value)}
-                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
-                >
-                  <option value="Class 10">Class 10</option>
-                  {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                  <option value="Class 1">Class 1</option>
-                  <option value="Class 2">Class 2</option>
-                  <option value="Class 3">Class 3</option>
-                  <option value="Class 4">Class 4</option>
-                  <option value="Class 5">Class 5</option>
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full lg:col-span-1">
+                <div className="relative">
+                  <select 
+                    value={selectedClass}
+                    onChange={(e) => setSelectedClass(e.target.value)}
+                    className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
+                  >
+                    <option value="Class 10">Class 10</option>
+                    {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                </div>
+                <div className="relative">
+                  <select 
+                    value={selectedSubject}
+                    onChange={(e) => setSelectedSubject(e.target.value)}
+                    className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
+                  >
+                    {subjects.map((sub) => (
+                      <option key={sub} value={sub}>{sub}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                </div>
               </div>
 
               <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
@@ -647,8 +678,8 @@ export default function HomePage() {
             ) : displayMaterials.length === 0 ? (
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 font-bold">No study materials found for {selectedClass} ({activeBoard.toUpperCase()}).</p>
-                <p className="text-gray-400 text-sm mt-1">Please try another class or check back later.</p>
+                <p className="text-gray-500 font-bold">No study materials found for {selectedSubject} in {selectedClass} ({activeBoard.toUpperCase()}).</p>
+                <p className="text-gray-400 text-sm mt-1">Please try another filter or check back later.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -671,7 +702,12 @@ export default function HomePage() {
                           <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
                         </div>
                       </div>
-                      <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                      <div className="flex flex-col items-end gap-1">
+                        <span className={cn("px-3 py-1 text-white text-[10px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                        {material.subject && (
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{material.subject}</span>
+                        )}
+                      </div>
                     </div>
                     <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left">{material.title}</h3>
                     <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
@@ -889,7 +925,7 @@ export default function HomePage() {
 
             <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4 shadow-inner text-left">
               <div className="bg-blue-600 rounded-full p-1.5 mt-0.5 shadow-md">
-                <Info className="text-white h-4 w-4" />
+                <span className="text-white">ℹ️</span>
               </div>
               <div className="space-y-2 text-left">
                 <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>

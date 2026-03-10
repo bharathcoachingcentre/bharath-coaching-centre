@@ -48,12 +48,27 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   grade: z.string().min(1, "Grade is required"),
   board: z.string().min(1, "Board is required"),
+  subject: z.string().min(1, "Subject is required"),
   category: z.string().min(1, "Category is required"),
   description: z.string().min(1, "Description is required"),
   pdfUrl: z.string().url("Valid URL required").min(1, "URL is required"),
   isVisible: z.boolean().default(true),
   allowDownloads: z.boolean().default(true),
 });
+
+const subjects = [
+  "Tamil",
+  "English",
+  "Mathematics",
+  "Science",
+  "Social Science",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "Computer Science",
+  "Hindi",
+  "Other"
+];
 
 export default function StudyMaterialEditPage({ 
   params 
@@ -80,6 +95,7 @@ export default function StudyMaterialEditPage({
       title: "",
       grade: "",
       board: "CBSE",
+      subject: "",
       category: "pdf",
       description: "",
       pdfUrl: "",
@@ -94,6 +110,7 @@ export default function StudyMaterialEditPage({
         title: material.title || "",
         grade: material.grade || "",
         board: material.board || "CBSE",
+        subject: material.subject || "",
         category: material.category || "pdf",
         description: material.description || "",
         pdfUrl: material.pdfUrl || "",
@@ -179,14 +196,14 @@ export default function StudyMaterialEditPage({
         <div className="lg:col-span-1 space-y-8">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white text-center">
             <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
-            <CardContent className="p-8 -mt-12 relative">
+            <CardContent className="p-8 -mt-12 relative text-left">
               <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 flex items-center justify-center text-blue-600">
                 <FileText className="w-10 h-10" />
               </div>
-              <h2 className="text-2xl font-black text-gray-900 mt-4 leading-tight line-clamp-2">
+              <h2 className="text-2xl font-black text-gray-900 mt-4 leading-tight line-clamp-2 text-center">
                 {material.title}
               </h2>
-              <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1">
+              <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1 text-center">
                 Resource ID: {materialId.substring(0, 8)}
               </p>
               
@@ -287,8 +304,35 @@ export default function StudyMaterialEditPage({
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
+                              <SelectItem value="Class 1">Class 1</SelectItem>
+                              <SelectItem value="Class 2">Class 2</SelectItem>
+                              <SelectItem value="Class 3">Class 3</SelectItem>
+                              <SelectItem value="Class 4">Class 4</SelectItem>
+                              <SelectItem value="Class 5">Class 5</SelectItem>
                               {Array.from({ length: 7 }, (_, i) => i + 6).map(grade => (
                                 <SelectItem key={grade} value={`Class ${grade}`}>Class {grade}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="subject"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Subject</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                                <SelectValue placeholder="Select subject" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {subjects.map(sub => (
+                                <SelectItem key={sub} value={sub}>{sub}</SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
