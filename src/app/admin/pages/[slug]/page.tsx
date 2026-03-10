@@ -34,7 +34,8 @@ import {
   Clock,
   Info,
   Handshake,
-  Layers
+  Layers,
+  Image as ImageIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +47,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useFirestore, useDoc } from "@/firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import placeholderImages from "@/app/lib/placeholder-images.json";
 
 const defaultPageData: Record<string, any> = {
   home: {
@@ -71,7 +74,7 @@ const defaultPageData: Record<string, any> = {
     featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
     features: [
       { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
+      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
       { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
       { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
@@ -119,6 +122,7 @@ const defaultPageData: Record<string, any> = {
     mentorshipTitleMain: "One-to-One ",
     mentorshipTitleHighlight: "Mentorship",
     mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
+    mentorshipImageUrl: placeholderImages["one-to-one-mentorship"].src,
     mentorshipFeatures: [
       { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
       { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
@@ -737,6 +741,38 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       onChange={(e) => updateField('mentorshipSubtitle', e.target.value)}
                       className="min-h-[80px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none"
                     />
+                  </div>
+
+                  {/* Mentorship Image Editor */}
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                      <ImageIcon className="w-4 h-4 text-blue-600" /> Mentorship Section Image
+                    </Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                      <div className="space-y-3">
+                        <Label className="text-xs font-black uppercase text-gray-400">Image URL</Label>
+                        <Input 
+                          value={formData.mentorshipImageUrl || ""} 
+                          onChange={(e) => updateField('mentorshipImageUrl', e.target.value)}
+                          className="h-12 bg-gray-50 border-none rounded-xl px-4 font-medium text-gray-600"
+                          placeholder="https://images.unsplash.com/..."
+                        />
+                        <p className="text-[10px] text-gray-400 italic">Provide a public URL for the mentorship section image.</p>
+                      </div>
+                      {(formData.mentorshipImageUrl || placeholderImages["one-to-one-mentorship"].src) && (
+                        <div className="space-y-2">
+                          <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
+                          <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                            <Image 
+                              src={formData.mentorshipImageUrl || placeholderImages["one-to-one-mentorship"].src} 
+                              alt="Mentorship Preview" 
+                              fill 
+                              className="object-cover" 
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="space-y-6">

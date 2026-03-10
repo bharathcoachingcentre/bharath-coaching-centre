@@ -369,6 +369,7 @@ export default function HomePage() {
       mentorshipTitleMain: "One-to-One ",
       mentorshipTitleHighlight: "Mentorship",
       mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
+      mentorshipImageUrl: placeholderImages["one-to-one-mentorship"].src,
       mentorshipFeatures: [
         { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
         { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
@@ -908,7 +909,7 @@ export default function HomePage() {
               <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-teal-500/10 rounded-[3rem] blur-2xl"></div>
               <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border border-white">
                 <Image
-                  src={placeholderImages["one-to-one-mentorship"].src}
+                  src={content.mentorshipImageUrl || placeholderImages["one-to-one-mentorship"].src}
                   alt="Mentorship"
                   width={800}
                   height={1000}
