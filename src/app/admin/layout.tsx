@@ -19,7 +19,8 @@ import {
   Layout,
   CalendarClock,
   Clock,
-  Book
+  Book,
+  School
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,6 +79,7 @@ const menuItems = [
     children: [
       { label: "Manage Timetable", href: "/admin/timetable" },
       { label: "Add Schedule", href: "/admin/timetable/add" },
+      { label: "Classes", href: "/admin/timetable/classes" },
       { label: "Subjects", href: "/admin/timetable/subjects" },
       { label: "Periods", href: "/admin/timetable/periods" },
     ]

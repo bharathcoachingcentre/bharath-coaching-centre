@@ -63,10 +63,12 @@ export default function EditTimetableEntryPage({
   const subjectsQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects'), orderBy('name', 'asc')) : null, [firestore]);
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const teachersQuery = useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]);
+  const classesQuery = useMemo(() => firestore ? query(collection(firestore, 'classes'), orderBy('name', 'asc')) : null, [firestore]);
 
   const { data: subjects } = useCollection(subjectsQuery);
   const { data: periods } = useCollection(periodsQuery);
   const { data: teachers } = useCollection(teachersQuery);
+  const { data: allClasses } = useCollection(classesQuery);
 
   const docRef = useMemo(() => {
     if (!firestore || !entryId) return null;
@@ -86,6 +88,12 @@ export default function EditTimetableEntryPage({
       teacher: "",
     },
   });
+
+  const selectedBoard = form.watch("board");
+  const filteredClasses = useMemo(() => {
+    if (!allClasses) return [];
+    return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard?.toLowerCase());
+  }, [allClasses, selectedBoard]);
 
   useEffect(() => {
     if (entry && !isSaving) {
@@ -154,7 +162,10 @@ export default function EditTimetableEntryPage({
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-sm font-bold text-gray-700">Education Board</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select onValueChange={(val) => {
+                        field.onChange(val);
+                        form.setValue("grade", ""); // Reset grade when board changes
+                      }} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
                             <SelectValue placeholder="Select board" />
@@ -183,9 +194,12 @@ export default function EditTimetableEntryPage({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map(c => (
-                            <SelectItem key={c} value={c}>{c}</SelectItem>
+                          {filteredClasses?.map(c => (
+                            <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                           ))}
+                          {!filteredClasses?.length && (
+                            <SelectItem value="none" disabled>No classes defined for this board.</SelectItem>
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
