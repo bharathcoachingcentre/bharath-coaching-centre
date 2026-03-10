@@ -37,7 +37,10 @@ import {
   Layers,
   Upload,
   Image as ImageIcon,
-  MessageSquareQuote
+  MessageSquareQuote,
+  PieChart,
+  ClipboardCheck,
+  HelpCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -149,6 +152,16 @@ const defaultPageData: Record<string, any> = {
       { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src, rating: 5 },
       { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
       { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
+    ],
+    whyChooseTitle: "Why Choose Bharath Academy?",
+    whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
+    whyChooseFeatures: [
+      { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
+      { icon: "UserCheck", title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-50 shadow-teal-500/30" },
+      { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.", color: "bg-purple-500 shadow-purple-500/30" },
+      { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
+      { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
+      { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
     ]
   },
   about: {
@@ -161,6 +174,29 @@ const defaultPageData: Record<string, any> = {
       { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal.", icon: "Trophy" }
     ]
   }
+};
+
+const iconMap: Record<string, any> = {
+  Presentation: Presentation,
+  FilePenLine: FilePenLine,
+  MessagesSquare: MessagesSquare,
+  BookOpen: BookOpen,
+  UserCheck: UserCheck,
+  Zap: Zap,
+  GraduationCap: GraduationCap,
+  Trophy: Trophy,
+  Target: Target,
+  Lightbulb: Lightbulb,
+  Brain: Brain,
+  Users: Users,
+  TrendingUp: TrendingUp,
+  Award: Award,
+  Search: Search,
+  Info: Info,
+  Handshake: Handshake,
+  Layers: Layers,
+  PieChart: PieChart,
+  ClipboardCheck: ClipboardCheck,
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -307,31 +343,15 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             <CardContent className="p-8 pt-4 space-y-6 text-left">
               <p className="text-[10px] text-blue-200/60 font-black uppercase tracking-widest">Lucide Icon Reference</p>
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-                {[
-                  { n: "Presentation", i: Presentation },
-                  { n: "FilePenLine", i: FilePenLine },
-                  { n: "MessagesSquare", i: MessagesSquare },
-                  { n: "BookOpen", i: BookOpen },
-                  { n: "UserCheck", i: UserCheck },
-                  { n: "Zap", i: Zap },
-                  { n: "GraduationCap", i: GraduationCap },
-                  { n: "Trophy", i: Trophy },
-                  { n: "Target", i: Target },
-                  { n: "Lightbulb", i: Lightbulb },
-                  { n: "Brain", i: Brain },
-                  { n: "Users", i: Users },
-                  { n: "TrendingUp", i: TrendingUp },
-                  { n: "Award", i: Award },
-                  { n: "Search", i: Search },
-                  { n: "Info", i: Info },
-                  { n: "Handshake", i: Handshake },
-                  { n: "Layers", i: Layers },
-                ].map((item) => (
-                  <div key={item.n} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
-                    <item.i className="w-5 h-5 text-teal-400" />
-                    <span className="text-[8px] font-black uppercase tracking-tighter text-blue-200/60 text-center">{item.n}</span>
-                  </div>
-                ))}
+                {Object.keys(iconMap).map((iconName) => {
+                  const Icon = iconMap[iconName];
+                  return (
+                    <div key={iconName} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
+                      <Icon className="w-5 h-5 text-teal-400" />
+                      <span className="text-[8px] font-black uppercase tracking-tighter text-blue-200/60 text-center">{iconName}</span>
+                    </div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
@@ -549,9 +569,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               </div>
                             </div>
                           </div>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
+                          <button 
+                            type="button"
                             className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
                             onClick={() => {
                               const currentFeatures = formData.features || defaultPageData.home.features;
@@ -560,7 +579,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             }}
                           >
                             <Trash2 className="w-4 h-4" />
-                          </Button>
+                          </button>
                         </div>
                       ))}
                     </div>
@@ -1049,9 +1068,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               className="min-h-[100px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
                             />
                           </div>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
+                          <button 
+                            type="button"
                             className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
                             onClick={() => {
                               const newList = (formData.testimonials || defaultPageData.home.testimonials).filter((_: any, i: number) => i !== idx);
@@ -1059,7 +1077,112 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             }}
                           >
                             <Trash2 className="w-4 h-4" />
-                          </Button>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Why Choose Section Editor */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <HelpCircle className="w-6 h-6 text-blue-600" /> Why Choose Section
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Input 
+                        value={formData.whyChooseTitle || ""} 
+                        onChange={(e) => updateField('whyChooseTitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="Why Choose Bharath Academy?"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Input 
+                        value={formData.whyChooseSubtitle || ""} 
+                        onChange={(e) => updateField('whyChooseSubtitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                        placeholder="Comprehensive features designed..."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-8">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Features List</Label>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const newList = [...(formData.whyChooseFeatures || [])];
+                          newList.push({ icon: "Zap", title: "New Feature", desc: "", color: "bg-blue-600 shadow-blue-600/30" });
+                          updateField('whyChooseFeatures', newList);
+                        }}
+                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                      >
+                        <Plus className="w-4 h-4" /> Add Feature
+                      </Button>
+                    </div>
+
+                    <div className="space-y-6">
+                      {(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures)?.map((feature: any, idx: number) => (
+                        <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-3">
+                              <Label className="text-xs font-black uppercase text-gray-400">Title</Label>
+                              <Input 
+                                value={feature.title || ""} 
+                                onChange={(e) => {
+                                  const newList = [...(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures)];
+                                  newList[idx].title = e.target.value;
+                                  updateField('whyChooseFeatures', newList);
+                                }}
+                                className="h-12 bg-white"
+                              />
+                            </div>
+                            <div className="space-y-3">
+                              <Label className="text-xs font-black uppercase text-gray-400">Icon Name (Lucide)</Label>
+                              <Input 
+                                value={feature.icon || ""} 
+                                onChange={(e) => {
+                                  const newList = [...(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures)];
+                                  newList[idx].icon = e.target.value;
+                                  updateField('whyChooseFeatures', newList);
+                                }}
+                                className="h-12 bg-white"
+                                placeholder="Zap, PieChart, Users, etc."
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Description</Label>
+                            <Textarea 
+                              value={feature.desc || ""} 
+                              onChange={(e) => {
+                                const newList = [...(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures)];
+                                newList[idx].desc = e.target.value;
+                                updateField('whyChooseFeatures', newList);
+                              }}
+                              className="min-h-[100px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
+                            />
+                          </div>
+                          <button 
+                            type="button"
+                            className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => {
+                              const newList = (formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures).filter((_: any, i: number) => i !== idx);
+                              updateField('whyChooseFeatures', newList);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
                         </div>
                       ))}
                     </div>
@@ -1115,9 +1238,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           }}
                           className="min-h-[60px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
                         />
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <button 
+                          type="button"
                           className="text-gray-300 hover:text-red-500 flex-shrink-0"
                           onClick={() => {
                             const newItems = formData.philosophyItems.filter((_: any, i: number) => i !== idx);
@@ -1125,7 +1247,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           }}
                         >
                           <Trash2 className="w-4 h-4" />
-                        </Button>
+                        </button>
                       </div>
                     ))}
                     <Button 

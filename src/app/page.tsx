@@ -238,6 +238,8 @@ const iconMap: Record<string, any> = {
   Info: Info,
   Handshake: Handshake,
   Layers: Layers,
+  PieChart: PieChart,
+  ClipboardCheck: ClipboardCheck,
 };
 
 export default function HomePage() {
@@ -387,6 +389,16 @@ export default function HomePage() {
         { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src, rating: 5 },
         { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
         { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
+      ],
+      whyChooseTitle: "Why Choose Bharath Academy?",
+      whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
+      whyChooseFeatures: [
+        { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
+        { icon: "UserCheck", title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-50 shadow-teal-500/30" },
+        { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.", color: "bg-purple-500 shadow-purple-500/30" },
+        { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
+        { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
+        { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
       ]
     };
 
@@ -1015,30 +1027,31 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
-              Why Choose <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Bharath Academy?</span>
+              {content.whyChooseTitle.includes('Bharath') ? (
+                <>
+                  {content.whyChooseTitle.split('Bharath Academy?')[0]}
+                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Bharath Academy?</span>
+                </>
+              ) : content.whyChooseTitle}
             </h2>
             <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
-              Comprehensive features designed for complete academic excellence
+              {content.whyChooseSubtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: PieChart, title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
-              { icon: UserCheck, title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-50 shadow-teal-500/30" },
-              { icon: ClipboardCheck, title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.", color: "bg-purple-500 shadow-purple-500/30" },
-              { icon: Zap, title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
-              { icon: Users, title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
-              { icon: BookOpen, title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" },
-            ].map((feature, idx) => (
-              <div key={idx} className="p-8 rounded-[2rem] bg-gray-50 border border-gray-100 hover:bg-white hover:shadow-2xl transition-all duration-500 group text-left">
-                <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg mb-6 group-hover:scale-110 transition-transform", feature.color)}>
-                  <feature.icon className="w-7 h-7" />
+            {(content.whyChooseFeatures || []).map((feature: any, idx: number) => {
+              const Icon = iconMap[feature.icon] || Zap;
+              return (
+                <div key={idx} className="p-8 rounded-[2rem] bg-gray-50 border border-gray-100 hover:bg-white hover:shadow-2xl transition-all duration-500 group text-left">
+                  <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg mb-6 group-hover:scale-110 transition-transform", feature.color || "bg-blue-600")}>
+                    <Icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 tracking-tight">{feature.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed font-normal">{feature.desc}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 tracking-tight">{feature.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed font-normal">{feature.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
