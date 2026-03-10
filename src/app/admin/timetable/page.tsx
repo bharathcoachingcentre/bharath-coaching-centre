@@ -74,10 +74,11 @@ export default function TimetableManagementPage() {
 
     return entries.map(e => ({
       ...e,
-      gradeName: classes.find(c => c.id === e.grade)?.name || e.grade,
-      subjectName: subjects.find(s => s.id === e.subject)?.name || e.subject,
-      timeSlotLabel: periods.find(p => p.id === e.timeSlot)?.label || e.timeSlot,
-      teacherName: teachers.find(t => t.id === e.teacher)?.displayName || e.teacher,
+      // Robust matching: check both ID and Name/Label for compatibility with legacy/migrated data
+      gradeName: classes.find(c => c.id === e.grade || c.name === e.grade)?.name || e.grade,
+      subjectName: subjects.find(s => s.id === e.subject || s.name === e.subject)?.name || e.subject,
+      timeSlotLabel: periods.find(p => p.id === e.timeSlot || p.label === e.timeSlot)?.label || e.timeSlot,
+      teacherName: teachers.find(t => t.id === e.teacher || t.displayName === e.teacher)?.displayName || e.teacher,
     }));
   }, [entries, classes, subjects, periods, teachers]);
 

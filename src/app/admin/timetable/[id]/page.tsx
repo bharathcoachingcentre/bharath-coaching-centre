@@ -58,6 +58,7 @@ export default function EditTimetableEntryPage({
   const router = useRouter();
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
   // Fetch Master Data
   const subjectsQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects'), orderBy('name', 'asc')) : null, [firestore]);
@@ -95,19 +96,34 @@ export default function EditTimetableEntryPage({
     return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard.toLowerCase());
   }, [allClasses, selectedBoard]);
 
-  // Robust initialization: Wait for document AND master data to be ready
+  // Robust initialization with ID resolution for legacy/name-based data
   useEffect(() => {
-    if (entry && !isSaving && subjects && periods && teachers && allClasses) {
+    if (entry && !initialized && !isSaving && subjects && periods && teachers && allClasses) {
+      
+      // Helper to resolve a stored value (ID or Name) to a valid ID for the Select components
+      const resolveToId = (list: any[], value: string, labelKey: string) => {
+        if (!value) return "";
+        // If the value is already a valid ID in our list, return it
+        if (list.some(item => item.id === value)) return value;
+        // Otherwise, try to find by label (handles legacy data)
+        const match = list.find(item => item[labelKey] === value);
+        return match ? match.id : value;
+      };
+
+      const normalizedBoard = entry.board?.toLowerCase() || "";
+
       form.reset({
-        board: entry.board || "",
-        grade: entry.grade || "",
+        board: normalizedBoard,
+        grade: resolveToId(allClasses, entry.grade, "name"),
         day: entry.day || "",
-        timeSlot: entry.timeSlot || "",
-        subject: entry.subject || "",
-        teacher: entry.teacher || "",
+        timeSlot: resolveToId(periods, entry.timeSlot, "label"),
+        subject: resolveToId(subjects, entry.subject, "name"),
+        teacher: resolveToId(teachers, entry.teacher, "displayName"),
       });
+      
+      setInitialized(true);
     }
-  }, [entry, subjects, periods, teachers, allClasses, form, isSaving]);
+  }, [entry, subjects, periods, teachers, allClasses, form, isSaving, initialized]);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !entryId) return;
