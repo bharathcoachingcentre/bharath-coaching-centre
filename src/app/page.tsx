@@ -395,7 +395,7 @@ export default function HomePage() {
   }, [allMaterials, selectedClass, activeBoard, selectedSubject, allClassesLookup, allSubjectsLookup]);
 
   const timetableDisplayData = useMemo(() => {
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const slots = allPeriods?.map(p => p.label) || [
       "9:00 AM - 10:30 AM",
       "11:00 AM - 12:30 PM",
@@ -435,39 +435,6 @@ export default function HomePage() {
         return { s: "-", t: "-", c: "bg-gray-50 border-gray-100 text-gray-300", tc: "text-gray-300" };
       });
       return { day, slots: daySlots };
-    });
-  }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods, allClassesLookup, allSubjectsLookup, allTeachersLookup]);
-
-  const saturdayData = useMemo(() => {
-    const currentClassId = allClassesLookup?.find(c => c.name === selectedScheduleClass)?.id;
-    const relevant = (allTimetables || []).filter(t => 
-      t.board.toLowerCase() === activeScheduleBoard.toLowerCase() && 
-      (t.grade === selectedScheduleClass || t.grade === currentClassId) &&
-      t.day === "Saturday"
-    );
-
-    const saturdayColors = [
-      "bg-green-100 border-green-200 text-green-900",
-      "bg-yellow-100 border-yellow-200 text-yellow-900",
-      "bg-blue-100 border-blue-200 text-blue-900",
-      "bg-teal-100 border-teal-200 text-teal-900",
-    ];
-
-    if (relevant.length === 0) return null;
-
-    const totalSlots = allPeriods?.length || 4;
-    const baseSpan = Math.floor(totalSlots / relevant.length);
-    const remainder = totalSlots % relevant.length;
-
-    return relevant.map((entry, idx) => {
-      const subjectName = allSubjectsLookup?.find(s => s.id === entry.subject)?.name || entry.subject;
-      const teacherName = allTeachersLookup?.find(t => t.id === entry.teacher)?.displayName || entry.teacher;
-      return {
-        subject: subjectName,
-        teacher: teacherName,
-        color: saturdayColors[idx % saturdayColors.length],
-        span: idx === relevant.length - 1 ? baseSpan + remainder : baseSpan
-      };
     });
   }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods, allClassesLookup, allSubjectsLookup, allTeachersLookup]);
 
@@ -892,26 +859,6 @@ export default function HomePage() {
                       ))}
                     </tr>
                   ))}
-                  {saturdayData ? (
-                    <tr className="hover:bg-gray-50 transition-colors">
-                      <td className="px-8 py-6 font-bold text-[#182d45]">Saturday</td>
-                      {saturdayData.map((item, idx) => (
-                        <td key={idx} className="px-4 py-4 border-l border-gray-50" colSpan={item.span}>
-                          <div className={cn("rounded-2xl p-5 text-center border shadow-sm", item.color)}>
-                            <div className="font-bold text-sm">{item.subject}</div>
-                            <div className="text-[11px] font-bold mt-1 opacity-70">{item.teacher}</div>
-                          </div>
-                        </td>
-                      ))}
-                    </tr>
-                  ) : (
-                    <tr className="hover:bg-gray-50 transition-colors">
-                      <td className="px-8 py-6 font-bold text-[#182d45]">Saturday</td>
-                      <td className="px-4 py-4 border-l border-gray-50 text-center text-gray-300" colSpan={allPeriods?.length || 4}>
-                        No sessions scheduled for Saturday
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
             </div>
@@ -1049,7 +996,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { icon: PieChart, title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
-              { icon: UserCheck, title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-500 shadow-teal-500/30" },
+              { icon: UserCheck, title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-50 shadow-teal-500/30" },
               { icon: ClipboardCheck, title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.", color: "bg-purple-500 shadow-purple-500/30" },
               { icon: Zap, title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
               { icon: Users, title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
