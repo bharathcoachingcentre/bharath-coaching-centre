@@ -36,7 +36,8 @@ import {
   Handshake,
   Layers,
   Upload,
-  Image as ImageIcon
+  Image as ImageIcon,
+  MessageSquareQuote
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -50,6 +51,13 @@ import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import placeholderImages from "@/app/lib/placeholder-images.json";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const defaultPageData: Record<string, any> = {
   home: {
@@ -130,6 +138,17 @@ const defaultPageData: Record<string, any> = {
       { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
       { icon: "TrendingUp", title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis." },
       { icon: "Handshake", title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress." },
+    ],
+    testimonialsTitleMain: "What Students & ",
+    testimonialsTitleHighlight: "Parents Say",
+    testimonialsSubtitle: "Read stories from our successful students and satisfied parents.",
+    testimonials: [
+      { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing. I improved my score from 75% to 93% in just one year!", avatar: placeholderImages["student-1"].src, rating: 5 },
+      { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src, rating: 5 },
+      { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weaknesses in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src, rating: 5 },
+      { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src, rating: 5 },
+      { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
+      { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
     ]
   },
   about: {
@@ -199,7 +218,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     setFormData((prev: any) => ({ ...prev, [key]: value }));
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, callback: (base64: string) => void) => {
     const file = e.target.files?.[0];
     if (file) {
       // Basic size check (1MB limit for Firestore document string safety)
@@ -215,7 +234,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        updateField('mentorshipImageUrl', base64String);
+        callback(base64String);
       };
       reader.readAsDataURL(file);
     }
@@ -799,7 +818,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             type="file" 
                             accept="image/*"
                             className="hidden" 
-                            onChange={handleImageUpload}
+                            onChange={(e) => handleImageUpload(e, (b64) => updateField('mentorshipImageUrl', b64))}
                           />
                           {formData.mentorshipImageUrl && (
                             <Button 
@@ -879,6 +898,168 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               </div>
                             </div>
                           </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Testimonials Section Editor */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <MessageSquareQuote className="w-6 h-6 text-blue-600" /> Testimonials Section
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
+                      <Input 
+                        value={formData.testimonialsTitleMain || ""} 
+                        onChange={(e) => updateField('testimonialsTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="What Students & "
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
+                      <Input 
+                        value={formData.testimonialsTitleHighlight || ""} 
+                        onChange={(e) => updateField('testimonialsTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Parents Say"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Textarea 
+                      value={formData.testimonialsSubtitle || ""} 
+                      onChange={(e) => updateField('testimonialsSubtitle', e.target.value)}
+                      className="min-h-[80px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none"
+                    />
+                  </div>
+
+                  <div className="space-y-8">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Testimonials List</Label>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const newList = [...(formData.testimonials || [])];
+                          newList.push({ name: "New Student", role: "Class 10", quote: "", avatar: "", rating: 5 });
+                          updateField('testimonials', newList);
+                        }}
+                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                      >
+                        <Plus className="w-4 h-4" /> Add Testimonial
+                      </Button>
+                    </div>
+
+                    <div className="space-y-6">
+                      {(formData.testimonials || defaultPageData.home.testimonials)?.map((testimonial: any, idx: number) => (
+                        <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-3">
+                              <Label className="text-xs font-black uppercase text-gray-400">Name</Label>
+                              <Input 
+                                value={testimonial.name || ""} 
+                                onChange={(e) => {
+                                  const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
+                                  newList[idx].name = e.target.value;
+                                  updateField('testimonials', newList);
+                                }}
+                                className="h-12 bg-white"
+                              />
+                            </div>
+                            <div className="space-y-3">
+                              <Label className="text-xs font-black uppercase text-gray-400">Class / Role</Label>
+                              <Input 
+                                value={testimonial.role || ""} 
+                                onChange={(e) => {
+                                  const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
+                                  newList[idx].role = e.target.value;
+                                  updateField('testimonials', newList);
+                                }}
+                                className="h-12 bg-white"
+                              />
+                            </div>
+                            <div className="space-y-3">
+                              <Label className="text-xs font-black uppercase text-gray-400">Rating (Stars)</Label>
+                              <Select 
+                                value={String(testimonial.rating || 5)} 
+                                onValueChange={(val) => {
+                                  const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
+                                  newList[idx].rating = parseInt(val);
+                                  updateField('testimonials', newList);
+                                }}
+                              >
+                                <SelectTrigger className="h-12 bg-white rounded-xl">
+                                  <SelectValue placeholder="Select rating" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {[1, 2, 3, 4, 5].map(num => (
+                                    <SelectItem key={num} value={String(num)}>{num} Stars</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div className="space-y-3">
+                              <Label className="text-xs font-black uppercase text-gray-400">Student Avatar</Label>
+                              <div className="flex items-center gap-4">
+                                <Button 
+                                  type="button" 
+                                  variant="outline" 
+                                  className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2"
+                                  onClick={() => document.getElementById(`avatar-upload-${idx}`)?.click()}
+                                >
+                                  <Upload className="w-4 h-4" /> Upload Photo
+                                </Button>
+                                <input 
+                                  id={`avatar-upload-${idx}`}
+                                  type="file" 
+                                  accept="image/*"
+                                  className="hidden" 
+                                  onChange={(e) => handleImageUpload(e, (b64) => {
+                                    const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
+                                    newList[idx].avatar = b64;
+                                    updateField('testimonials', newList);
+                                  })}
+                                />
+                                {testimonial.avatar && (
+                                  <div className="w-12 h-12 rounded-xl overflow-hidden border border-gray-200">
+                                    <img src={testimonial.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Review Description</Label>
+                            <Textarea 
+                              value={testimonial.quote || ""} 
+                              onChange={(e) => {
+                                const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
+                                newList[idx].quote = e.target.value;
+                                updateField('testimonials', newList);
+                              }}
+                              className="min-h-[100px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
+                            />
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => {
+                              const newList = (formData.testimonials || defaultPageData.home.testimonials).filter((_: any, i: number) => i !== idx);
+                              updateField('testimonials', newList);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
                         </div>
                       ))}
                     </div>

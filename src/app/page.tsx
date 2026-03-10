@@ -376,6 +376,17 @@ export default function HomePage() {
         { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
         { icon: "TrendingUp", title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis." },
         { icon: "Handshake", title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress." },
+      ],
+      testimonialsTitleMain: "What Students & ",
+      testimonialsTitleHighlight: "Parents Say",
+      testimonialsSubtitle: "Read stories from our successful students and satisfied parents.",
+      testimonials: [
+        { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing. I improved my score from 75% to 93% in just one year!", avatar: placeholderImages["student-1"].src, rating: 5 },
+        { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src, rating: 5 },
+        { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weaknesses in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src, rating: 5 },
+        { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src, rating: 5 },
+        { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
+        { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
       ]
     };
 
@@ -969,25 +980,18 @@ export default function HomePage() {
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
-              What Students & <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Parents Say</span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
+              {content.testimonialsTitleMain || "What Students & "}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.testimonialsTitleHighlight || "Parents Say"}</span>
             </h2>
-            <p className="mt-4 text-gray-500 font-medium italic">Read stories from our successful students and satisfied parents.</p>
+            <p className="mt-4 text-gray-500 font-medium italic">{content.testimonialsSubtitle}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing. I improved my score from 75% to 93% in just one year!", avatar: placeholderImages["student-1"].src },
-              { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src },
-              { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weaknesses in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src },
-              { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src },
-              { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src },
-              { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src },
-            ].map((testimonial, idx) => (
+            {(content.testimonials || []).map((testimonial: any, idx: number) => (
               <Card key={idx} className="border-none shadow-xl rounded-[2rem] bg-white p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="flex items-center gap-4 mb-6 text-left">
                   <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-blue-100 shadow-sm">
-                    <Image src={testimonial.avatar} alt={testimonial.name} width={100} height={100} className="w-full h-full object-cover" />
+                    <Image src={testimonial.avatar || placeholderImages["student-1"].src} alt={testimonial.name} width={100} height={100} className="w-full h-full object-cover" />
                   </div>
                   <div className="text-left">
                     <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
@@ -995,7 +999,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex gap-1 mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => (
+                  {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
