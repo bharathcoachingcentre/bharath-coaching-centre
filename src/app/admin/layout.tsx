@@ -1,3 +1,4 @@
+
 "use client";
 
 import '../globals.css';
@@ -80,6 +81,7 @@ const menuItems = [
       { label: "Classes", href: "/admin/timetable/classes" },
       { label: "Subjects", href: "/admin/timetable/subjects" },
       { label: "Periods", href: "/admin/timetable/periods" },
+      { label: "Teachers", href: "/admin/timetable/teachers" },
     ]
   },
   { icon: Trophy, label: "Results", href: "/admin/results" },
