@@ -595,7 +595,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Study Materials Section */}
+      {/* Study Materials Section - Moved after Features */}
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -609,40 +609,28 @@ export default function HomePage() {
 
           <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full lg:col-span-1">
-                <div className="relative">
-                  <select 
-                    value={selectedClass}
-                    onChange={(e) => setSelectedClass(e.target.value)}
-                    className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
-                  >
-                    <option value="Class 10">Class 10</option>
-                    {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                    <option value="Class 1">Class 1</option>
-                    <option value="Class 2">Class 2</option>
-                    <option value="Class 3">Class 3</option>
-                    <option value="Class 4">Class 4</option>
-                    <option value="Class 5">Class 5</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                </div>
-                <div className="relative">
-                  <select 
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject(e.target.value)}
-                    className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
-                  >
-                    {subjects.map((sub) => (
-                      <option key={sub} value={sub}>{sub}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                </div>
+              {/* Left Column: Class Selection */}
+              <div className="relative w-full max-w-xs mx-auto lg:mx-0">
+                <select 
+                  value={selectedClass}
+                  onChange={(e) => setSelectedClass(e.target.value)}
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
+                >
+                  <option value="Class 10">Class 10</option>
+                  {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                  <option value="Class 1">Class 1</option>
+                  <option value="Class 2">Class 2</option>
+                  <option value="Class 3">Class 3</option>
+                  <option value="Class 4">Class 4</option>
+                  <option value="Class 5">Class 5</option>
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
               </div>
 
-              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
+              {/* Center Column: Board Selection Tabs */}
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto w-fit">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
@@ -667,7 +655,19 @@ export default function HomePage() {
                 </button>
               </div>
 
-              <div className="hidden lg:block"></div>
+              {/* Right Column: Subject Selection */}
+              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
+                <select 
+                  value={selectedSubject}
+                  onChange={(e) => setSelectedSubject(e.target.value)}
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
+                >
+                  {subjects.map((sub) => (
+                    <option key={sub} value={sub}>{sub}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+              </div>
             </div>
 
             {materialsLoading ? (
