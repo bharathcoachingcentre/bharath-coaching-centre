@@ -35,6 +35,7 @@ import {
   Info,
   Handshake,
   Layers,
+  Upload,
   Image as ImageIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -195,6 +196,28 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   const updateField = (key: string, value: any) => {
     setFormData((prev: any) => ({ ...prev, [key]: value }));
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Basic size check (1MB limit for Firestore document string safety)
+      if (file.size > 1024 * 1024) {
+        toast({
+          variant: "destructive",
+          title: "File Too Large",
+          description: "Please upload an image smaller than 1MB.",
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        updateField('mentorshipImageUrl', base64String);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   if (loading || !formData) {
@@ -750,14 +773,35 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     </Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                       <div className="space-y-3">
-                        <Label className="text-xs font-black uppercase text-gray-400">Image URL</Label>
-                        <Input 
-                          value={formData.mentorshipImageUrl || ""} 
-                          onChange={(e) => updateField('mentorshipImageUrl', e.target.value)}
-                          className="h-12 bg-gray-50 border-none rounded-xl px-4 font-medium text-gray-600"
-                          placeholder="https://images.unsplash.com/..."
-                        />
-                        <p className="text-[10px] text-gray-400 italic">Provide a public URL for the mentorship section image.</p>
+                        <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
+                        <div className="flex items-center gap-4">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all flex items-center gap-2"
+                            onClick={() => document.getElementById('image-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Choose Image
+                          </Button>
+                          <input 
+                            id="image-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={handleImageUpload}
+                          />
+                          {formData.mentorshipImageUrl && (
+                            <Button 
+                              type="button" 
+                              variant="ghost" 
+                              className="text-red-500 hover:text-red-600 hover:bg-red-50 h-12 rounded-xl"
+                              onClick={() => updateField('mentorshipImageUrl', "")}
+                            >
+                              <Trash2 className="w-4 h-4 mr-2" /> Remove
+                            </Button>
+                          )}
+                        </div>
+                        <p className="text-[10px] text-gray-400 italic">Select a photo from your computer for the mentorship section.</p>
                       </div>
                       {(formData.mentorshipImageUrl || placeholderImages["one-to-one-mentorship"].src) && (
                         <div className="space-y-2">
