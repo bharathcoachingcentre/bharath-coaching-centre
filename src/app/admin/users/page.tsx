@@ -103,7 +103,7 @@ export default function UsersManagementPage() {
         <div className="relative w-full max-w-md text-left">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
-            placeholder="Search students..." 
+            placeholder="Search users..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
@@ -119,17 +119,17 @@ export default function UsersManagementPage() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
           <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-          <p className="font-bold">Syncing Student Directory...</p>
+          <p className="font-bold">Syncing Directory...</p>
         </div>
       ) : filteredUsers.length === 0 ? (
         <div className="text-center py-32 bg-white rounded-[32px] shadow-sm border border-dashed border-gray-200">
           <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <User className="w-10 h-10 text-gray-300" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900">No Students Registered</h3>
-          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Student accounts will appear here once registered.</p>
+          <h3 className="text-xl font-bold text-gray-900">No Users Found</h3>
+          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Account records will appear here once registered.</p>
           <Button asChild variant="outline" className="mt-8 rounded-xl font-bold">
-            <Link href="/admin/users/create">Add Student</Link>
+            <Link href="/admin/users/create">Add User</Link>
           </Button>
         </div>
       ) : (
@@ -138,7 +138,7 @@ export default function UsersManagementPage() {
             <Table>
               <TableHeader className="bg-gray-50/50">
                 <TableRow className="hover:bg-transparent border-gray-100">
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Student Name</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">user name</TableHead>
                   <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Email</TableHead>
                   <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Status</TableHead>
                   <TableHead className="px-8 py-5"></TableHead>
