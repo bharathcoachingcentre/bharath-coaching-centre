@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -579,92 +578,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Academic Programs Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-              {content.programsTitle.includes('Programs') ? (
-                <>
-                  {content.programsTitle.split('Programs')[0]}
-                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Programs</span>
-                </>
-              ) : content.programsTitle}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
-              {content.programsSubtitle}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {(content.programs || []).map((program: any, idx: number) => {
-              const Icon = iconMap[program.icon] || GraduationCap;
-              const defaultColors = [
-                { bg: "bg-blue-500", enroll: "bg-blue-500", hover: "hover:bg-blue-600" },
-                { bg: "bg-teal-500", enroll: "bg-teal-500", hover: "hover:bg-teal-600" },
-                { bg: "bg-purple-500", enroll: "bg-purple-500", hover: "hover:bg-purple-600" },
-              ];
-              const colors = defaultColors[idx % defaultColors.length];
-              return (
-                <div
-                  key={idx}
-                  className={cn(
-                    "rounded-3xl p-8 flex flex-col h-full border-2 transition-all duration-500 hover:shadow-2xl relative",
-                    program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 lg:scale-105" : "bg-white border-gray-100 shadow-lg"
-                  )}
-                >
-                  {program.popular && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                      <span className="whitespace-nowrap px-4 py-1.5 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-[10px] sm:text-sm flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 fill-white" /> MOST POPULAR
-                      </span>
-                    </div>
-                  )}
-                  <div className="mb-6">
-                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg || colors.bg)}>
-                      <Icon className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left tracking-tight">{program.title}</h3>
-                    <p className="text-gray-600 font-bold text-left text-sm uppercase tracking-wider">{program.subtitle}</p>
-                  </div>
-                  <div className="space-y-4 mb-8 flex-grow">
-                    {program.points?.map((point: string, pIdx: number) => (
-                      <div key={pIdx} className="flex items-start gap-3">
-                        <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg || colors.bg)}>
-                          <Check className="w-3 h-3 text-white" strokeWidth={4} />
-                        </div>
-                        <span className="text-gray-700 text-left font-normal">{point}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="space-y-3">
-                    <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
-                      <Link href="#timetable-section">
-                        <Clock className="h-5 w-5" />
-                        {program.viewTimetableBtnText || "View Timetable"}
-                      </Link>
-                    </Button>
-                    <Button
-                      asChild
-                      className={cn(
-                        "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 border-none",
-                        program.enrollColor || colors.enroll,
-                        program.enrollHoverColor || colors.hover
-                      )}
-                    >
-                      <Link href="/enrollment">
-                        <UserPlus className="h-5 w-5" />
-                        {program.enrollNowBtnText || "Enroll Now"}
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Study Materials Section */}
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -779,6 +692,92 @@ export default function HomePage() {
                 ))}
               </div>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Academic Programs Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              {content.programsTitle.includes('Programs') ? (
+                <>
+                  {content.programsTitle.split('Programs')[0]}
+                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Programs</span>
+                </>
+              ) : content.programsTitle}
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+              {content.programsSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {(content.programs || []).map((program: any, idx: number) => {
+              const Icon = iconMap[program.icon] || GraduationCap;
+              const defaultColors = [
+                { bg: "bg-blue-500", enroll: "bg-blue-500", hover: "hover:bg-blue-600" },
+                { bg: "bg-teal-500", enroll: "bg-teal-500", hover: "hover:bg-teal-600" },
+                { bg: "bg-purple-500", enroll: "bg-purple-500", hover: "hover:bg-purple-600" },
+              ];
+              const colors = defaultColors[idx % defaultColors.length];
+              return (
+                <div
+                  key={idx}
+                  className={cn(
+                    "rounded-3xl p-8 flex flex-col h-full border-2 transition-all duration-500 hover:shadow-2xl relative",
+                    program.popular ? "bg-gradient-to-br from-purple-50 to-white border-purple-300 lg:scale-105" : "bg-white border-gray-100 shadow-lg"
+                  )}
+                >
+                  {program.popular && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                      <span className="whitespace-nowrap px-4 py-1.5 sm:px-6 sm:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg text-[10px] sm:text-sm flex items-center gap-1">
+                        <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 fill-white" /> MOST POPULAR
+                      </span>
+                    </div>
+                  )}
+                  <div className="mb-6">
+                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-white shadow-lg", program.iconBg || colors.bg)}>
+                      <Icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 text-left tracking-tight">{program.title}</h3>
+                    <p className="text-gray-600 font-bold text-left text-sm uppercase tracking-wider">{program.subtitle}</p>
+                  </div>
+                  <div className="space-y-4 mb-8 flex-grow">
+                    {program.points?.map((point: string, pIdx: number) => (
+                      <div key={pIdx} className="flex items-start gap-3">
+                        <div className={cn("w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm", program.iconBg || colors.bg)}>
+                          <Check className="w-3 h-3 text-white" strokeWidth={4} />
+                        </div>
+                        <span className="text-gray-700 text-left font-normal">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-3">
+                    <Button asChild variant="outline" className="w-full py-6 font-bold rounded-xl bg-gray-50 border-gray-200 flex items-center justify-center gap-2">
+                      <Link href="#timetable-section">
+                        <Clock className="h-5 w-5" />
+                        {program.viewTimetableBtnText || "View Timetable"}
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      className={cn(
+                        "w-full py-6 font-bold rounded-xl text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 border-none",
+                        program.enrollColor || colors.enroll,
+                        program.enrollHoverColor || colors.hover
+                      )}
+                    >
+                      <Link href="/enrollment">
+                        <UserPlus className="h-5 w-5" />
+                        {program.enrollNowBtnText || "Enroll Now"}
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
