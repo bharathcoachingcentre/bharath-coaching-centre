@@ -1,6 +1,7 @@
+
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -112,6 +113,30 @@ export default function StudyMaterialPage() {
 
   const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
 
+  // Fetch Classes
+  const classesQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'classes'));
+  }, [firestore]);
+  const { data: allClassesRaw } = useCollection(classesQuery);
+
+  const availableClasses = useMemo(() => {
+    if (!allClassesRaw) return [];
+    return [...allClassesRaw]
+      .filter(c => c.board?.toLowerCase() === activeBoard.toLowerCase())
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }, [allClassesRaw, activeBoard]);
+
+  // Ensure selectedClass is valid for the current board
+  useEffect(() => {
+    if (availableClasses.length > 0) {
+      const exists = availableClasses.find(c => c.name === selectedClass);
+      if (!exists) {
+        setSelectedClass(availableClasses[0].name);
+      }
+    }
+  }, [availableClasses, selectedClass]);
+
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
     
@@ -163,7 +188,7 @@ export default function StudyMaterialPage() {
             <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
               Academic Resources
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
               Access <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Premium Learning</span>
             </h2>
           </div>
@@ -190,13 +215,15 @@ export default function StudyMaterialPage() {
                     <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">CBSE NCERT Solutions</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
-                        {['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
-                          <Button key={cls} variant="outline" size="sm" onClick={() => {
-                            setSelectedClass(cls);
-                            setActiveBoard("cbse");
-                            document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
-                          }} className="rounded-lg border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-colors">{cls}</Button>
-                        ))}
+                        {allClassesRaw?.filter(c => c.board?.toLowerCase() === "cbse")
+                          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+                          .map(c => (
+                            <Button key={c.id} variant="outline" size="sm" onClick={() => {
+                              setSelectedClass(c.name);
+                              setActiveBoard("cbse");
+                              document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
+                            }} className="rounded-lg border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-colors">{c.name}</Button>
+                          ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -235,15 +262,8 @@ export default function StudyMaterialPage() {
                   </AccordionItem>
                   <AccordionItem value="previous-year-papers" className="border-gray-100">
                     <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Previous Year Board QP</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {['Class 10', 'Class 12'].map(cls => (
-                          <Button key={cls} variant="outline" size="sm" onClick={() => {
-                            setSelectedClass(cls);
-                            document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
-                          }} className="rounded-lg border-gray-200 hover:border-teal-500 hover:text-teal-600 transition-colors">{cls}</Button>
-                        ))}
-                      </div>
+                    <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
+                      Review actual papers from previous years to gauge the difficulty and recurring topics.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -271,13 +291,15 @@ export default function StudyMaterialPage() {
                     <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Book Back Solutions</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
-                        {['Class 9', 'Class 10', 'Class 11', 'Class 12'].map(cls => (
-                          <Button key={cls} variant="outline" size="sm" onClick={() => {
-                            setSelectedClass(cls);
-                            setActiveBoard("samacheer");
-                            document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
-                          }} className="rounded-lg border-gray-200 hover:border-purple-500 hover:text-purple-600 transition-colors">{cls}</Button>
-                        ))}
+                        {allClassesRaw?.filter(c => c.board?.toLowerCase() === "samacheer")
+                          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+                          .map(c => (
+                            <Button key={c.id} variant="outline" size="sm" onClick={() => {
+                              setSelectedClass(c.name);
+                              setActiveBoard("samacheer");
+                              document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
+                            }} className="rounded-lg border-gray-200 hover:border-purple-500 hover:text-purple-600 transition-colors">{c.name}</Button>
+                          ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -307,10 +329,10 @@ export default function StudyMaterialPage() {
           {/* Dynamic Filter Section */}
           <div id="study-materials-section" className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
                 Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
               </h2>
-              <p className="text-lg text-gray-500 font-normal">
+              <p className="text-lg text-gray-500 font-normal text-center">
                 Filter by class and board to find specific resources
               </p>
             </div>
@@ -322,15 +344,12 @@ export default function StudyMaterialPage() {
                   onChange={(e) => setSelectedClass(e.target.value)}
                   className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
                 >
-                  <option value="Class 10">Class 10</option>
-                  {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                  {availableClasses.map((c) => (
+                    <option key={c.id} value={c.name}>{c.name}</option>
                   ))}
-                  <option value="Class 1">Class 1</option>
-                  <option value="Class 2">Class 2</option>
-                  <option value="Class 3">Class 3</option>
-                  <option value="Class 4">Class 4</option>
-                  <option value="Class 5">Class 5</option>
+                  {availableClasses.length === 0 && (
+                    <option disabled>No classes available</option>
+                  )}
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>

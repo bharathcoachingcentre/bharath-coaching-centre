@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -261,6 +262,30 @@ export default function HomePage() {
   // Fetch Master Data for Timetable
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const { data: allPeriods } = useCollection(periodsQuery);
+
+  // Fetch Classes
+  const classesQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'classes'));
+  }, [firestore]);
+  const { data: allClassesRaw } = useCollection(classesQuery);
+
+  const availableClasses = useMemo(() => {
+    if (!allClassesRaw) return [];
+    return [...allClassesRaw]
+      .filter(c => c.board?.toLowerCase() === activeBoard.toLowerCase())
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }, [allClassesRaw, activeBoard]);
+
+  // Ensure selectedClass is valid for the current board
+  useEffect(() => {
+    if (availableClasses.length > 0) {
+      const exists = availableClasses.find(c => c.name === selectedClass);
+      if (!exists) {
+        setSelectedClass(availableClasses[0].name);
+      }
+    }
+  }, [availableClasses, selectedClass]);
 
   // Fetch Study Materials
   const materialsQuery = useMemo(() => {
@@ -533,7 +558,7 @@ export default function HomePage() {
               <div className="absolute top-1/2 -right-2 sm:-right-4 lg:right-0 transform -translate-y-1/2 floating-card-delay-2 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="space-y-1 sm:space-y-3">
                   <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-50 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
                       <Laptop className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
                     <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Online}</span>
@@ -558,7 +583,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.featuresTitle.includes('Excel') ? (
                 <>
                   {content.featuresTitle.split('Excel')[0]}
@@ -566,7 +591,7 @@ export default function HomePage() {
                 </>
               ) : content.featuresTitle}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.featuresSubtitle}
             </p>
           </div>
@@ -601,14 +626,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Study Materials Section - Realigned to L-C-R */}
+      {/* Study Materials Section */}
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               Access comprehensive study resources for all subjects and classes
             </p>
           </div>
@@ -622,15 +647,12 @@ export default function HomePage() {
                   onChange={(e) => setSelectedClass(e.target.value)}
                   className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs"
                 >
-                  <option value="Class 10">Class 10</option>
-                  {Array.from({ length: 7 }, (_, i) => `Class ${i + 6}`).map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                  {availableClasses.map((c) => (
+                    <option key={c.id} value={c.name}>{c.name}</option>
                   ))}
-                  <option value="Class 1">Class 1</option>
-                  <option value="Class 2">Class 2</option>
-                  <option value="Class 3">Class 3</option>
-                  <option value="Class 4">Class 4</option>
-                  <option value="Class 5">Class 5</option>
+                  {availableClasses.length === 0 && (
+                    <option disabled>No classes available</option>
+                  )}
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
               </div>
@@ -742,7 +764,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.programsTitle.includes('Programs') ? (
                 <>
                   {content.programsTitle.split('Programs')[0]}
@@ -750,7 +772,7 @@ export default function HomePage() {
                 </>
               ) : content.programsTitle}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.programsSubtitle}
             </p>
           </div>
@@ -828,7 +850,7 @@ export default function HomePage() {
       <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.timetableTitle.includes('Timetable') ? (
                 <>
                   {content.timetableTitle.split('Timetable')[0]}
@@ -836,7 +858,7 @@ export default function HomePage() {
                 </>
               ) : content.timetableTitle}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.timetableSubtitle}
             </p>
           </div>
@@ -849,10 +871,11 @@ export default function HomePage() {
                   onChange={(e) => setSelectedScheduleClass(e.target.value)}
                   className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-500 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
                 >
-                  <option value="Class 10">Class 10</option>
-                  {Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`).map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
+                  {allClassesRaw?.filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
+                    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+                    .map((c) => (
+                      <option key={c.id} value={c.name}>{c.name}</option>
+                    )) || <option value="Class 10">Class 10</option>}
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
@@ -1041,10 +1064,10 @@ export default function HomePage() {
       <section id="testimonials-section" className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
             </h2>
-            <p className="text-lg text-gray-500 font-normal">
+            <p className="text-lg text-gray-500 font-normal text-center">
               Real stories from our successful students and satisfied parents
             </p>
           </div>
@@ -1086,7 +1109,7 @@ export default function HomePage() {
       <section id="why-choose-section" className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
             </h2>
           </div>
@@ -1151,10 +1174,10 @@ export default function HomePage() {
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               Our Students' <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">Celebrating exceptional achievements and academic excellence</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">Celebrating exceptional achievements and academic excellence</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
