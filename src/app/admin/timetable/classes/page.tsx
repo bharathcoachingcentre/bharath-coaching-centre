@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
@@ -9,7 +8,8 @@ import {
   Pencil,
   Trash2,
   Loader2,
-  School
+  School,
+  GripVertical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,9 +44,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, deleteDoc, doc, addDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { collection, query, orderBy, deleteDoc, doc, addDoc, updateDoc, serverTimestamp, writeBatch } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { Reorder, useDragControls } from "framer-motion";
 
 export default function ClassesManagementPage() {
   const firestore = useFirestore();
@@ -55,6 +56,24 @@ export default function ClassesManagementPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [editingClass, setEditingClass] = useState<any | null>(null);
   const [newClass, setNewClass] = useState({ name: "", board: "cbse" });
+  
+  // Local state for draggable list to prevent jitter during Firestore sync
+  const [localClasses, setLocalClasses] = useState<any[]>([]);
+
+  const classesQuery = useMemo(() => {
+    if (!firestore) return null;
+    // Sort by order primarily, then by name
+    return query(collection(firestore, 'classes'), orderBy('order', 'asc'), orderBy('name', 'asc'));
+  }, [firestore]);
+
+  const { data: classes, loading } = useCollection(classesQuery);
+
+  // Sync local state when remote data changes
+  useEffect(() => {
+    if (classes) {
+      setLocalClasses(classes);
+    }
+  }, [classes]);
 
   // Safety fix for Radix UI body lock issues
   useEffect(() => {
@@ -62,21 +81,12 @@ export default function ClassesManagementPage() {
       const cleanup = () => {
         document.body.style.pointerEvents = 'auto';
         document.body.style.overflow = 'auto';
-        // Remove any orphaned overlays that might be blocking interactions
         document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
       };
-      // Delay to ensure Radix finished its internal cleanup
       const timer = setTimeout(cleanup, 150);
       return () => clearTimeout(timer);
     }
   }, [isDialogOpen]);
-
-  const classesQuery = useMemo(() => {
-    if (!firestore) return null;
-    return query(collection(firestore, 'classes'), orderBy('name', 'asc'));
-  }, [firestore]);
-
-  const { data: classes, loading } = useCollection(classesQuery);
 
   const handleSave = async () => {
     if (!firestore || !newClass.name) return;
@@ -93,8 +103,11 @@ export default function ClassesManagementPage() {
         await updateDoc(doc(firestore, 'classes', editingClass.id), data);
         toast({ title: "Class Updated", description: `${data.name} has been updated successfully.` });
       } else {
+        // Assign the next order value
+        const nextOrder = classes?.length || 0;
         await addDoc(collection(firestore, 'classes'), {
           ...data,
+          order: nextOrder,
           createdAt: serverTimestamp(),
         });
         toast({ title: "Class Added", description: `${data.name} has been created.` });
@@ -107,26 +120,44 @@ export default function ClassesManagementPage() {
         description: error.message || "Could not save the class." 
       });
     } finally {
-      // Ensure all states are reset regardless of success or failure
       setIsSaving(false);
       setIsDialogOpen(false);
       setEditingClass(null);
       setNewClass({ name: "", board: "cbse" });
       
-      // Force pointer events back to auto to prevent UI locking
       setTimeout(() => {
         document.body.style.pointerEvents = "auto";
         document.body.style.overflow = "auto";
-        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
       }, 200);
     }
   };
 
   const handleDelete = async (id: string) => {
     if (!firestore || !confirm("Delete this class? This will affect schedules linked to it.")) return;
-    deleteDoc(doc(firestore, 'classes', id))
-      .then(() => toast({ title: "Class Deleted" }))
-      .catch((e) => toast({ variant: "destructive", title: "Delete Failed", description: e.message }));
+    try {
+      await deleteDoc(doc(firestore, 'classes', id));
+      toast({ title: "Class Deleted" });
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Delete Failed", description: e.message });
+    }
+  };
+
+  const handleReorder = async (reorderedList: any[]) => {
+    setLocalClasses(reorderedList);
+    if (!firestore) return;
+
+    // Persist new order to Firestore using a batch
+    try {
+      const batch = writeBatch(firestore);
+      reorderedList.forEach((item, index) => {
+        const ref = doc(firestore, 'classes', item.id);
+        batch.update(ref, { order: index });
+      });
+      await batch.commit();
+    } catch (error) {
+      console.error("Failed to save new order:", error);
+      toast({ variant: "destructive", title: "Order Sync Failed", description: "Could not save the new order." });
+    }
   };
 
   return (
@@ -134,7 +165,7 @@ export default function ClassesManagementPage() {
       <div className="flex items-center justify-between">
         <div className="text-left">
           <h2 className="text-2xl font-black text-gray-900">Manage Classes & Sections</h2>
-          <p className="text-sm text-gray-500">Define the active classes for each education board.</p>
+          <p className="text-sm text-gray-500">Define and rearrange the active classes for each education board.</p>
         </div>
         <Button 
           onClick={() => {
@@ -153,7 +184,7 @@ export default function ClassesManagementPage() {
           <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
           <p className="font-bold">Syncing Class Registry...</p>
         </div>
-      ) : !classes?.length ? (
+      ) : !localClasses?.length ? (
         <div className="text-center py-32 bg-white rounded-[2rem] shadow-sm border border-dashed border-gray-200">
           <School className="w-12 h-12 text-gray-200 mx-auto mb-4" />
           <p className="text-gray-400 font-bold">No classes defined yet.</p>
@@ -165,58 +196,71 @@ export default function ClassesManagementPage() {
             <Table>
               <TableHeader className="bg-gray-50/50">
                 <TableRow className="hover:bg-transparent border-gray-100">
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400">Board</TableHead>
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400">Class Name</TableHead>
+                  <TableHead className="w-[50px] px-4"></TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400 text-left">Board</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400 text-left">Class Name</TableHead>
                   <TableHead className="px-8 py-5"></TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
-                {classes?.map((c) => (
-                  <TableRow key={c.id} className="border-gray-50 hover:bg-gray-50/50">
-                    <TableCell className="px-8 py-5">
-                      <Badge className={cn(
-                        "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
-                        c.board?.toLowerCase() === "cbse" ? "bg-blue-100 text-blue-600" : "bg-teal-100 text-teal-600"
-                      )}>
-                        {c.board}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="px-8 py-5">
-                      <span className="font-bold text-gray-900">{c.name}</span>
-                    </TableCell>
-                    <TableCell className="px-8 py-5 text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
-                            <MoreVertical className="w-4 h-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
-                          <DropdownMenuItem 
-                            onSelect={() => {
-                              // Let the dropdown close first to prevent focus/interaction locks
-                              setEditingClass(c);
-                              setNewClass({ name: c.name, board: c.board });
-                              setTimeout(() => setIsDialogOpen(true), 50);
-                            }}
-                            className="p-2.5 cursor-pointer rounded-lg"
-                          >
-                            <Pencil className="mr-2 h-4 w-4 text-blue-600" />
-                            <span className="font-bold text-xs text-gray-700">Edit Class</span>
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem 
-                            onSelect={() => handleDelete(c.id)}
-                            className="p-2.5 cursor-pointer text-rose-600 rounded-lg"
-                          >
-                            <Trash2 className="mr-2 h-4 w-4" />
-                            <span className="font-bold text-xs">Delete</span>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                ))}
+              <TableBody asChild>
+                <Reorder.Group axis="y" values={localClasses} onReorder={handleReorder} className="contents">
+                  {localClasses.map((c) => (
+                    <Reorder.Item 
+                      key={c.id} 
+                      value={c} 
+                      asChild
+                    >
+                      <TableRow className="border-gray-50 hover:bg-gray-50/50 cursor-default group">
+                        <TableCell className="px-4 text-center">
+                          <div className="cursor-grab active:cursor-grabbing text-gray-300 hover:text-gray-600 transition-colors">
+                            <GripVertical className="w-5 h-5" />
+                          </div>
+                        </TableCell>
+                        <TableCell className="px-8 py-5 text-left">
+                          <Badge className={cn(
+                            "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
+                            c.board?.toLowerCase() === "cbse" ? "bg-blue-100 text-blue-600" : "bg-teal-100 text-teal-600"
+                          )}>
+                            {c.board}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="px-8 py-5 text-left">
+                          <span className="font-bold text-gray-900">{c.name}</span>
+                        </TableCell>
+                        <TableCell className="px-8 py-5 text-right">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                                <MoreVertical className="w-4 h-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
+                              <DropdownMenuItem 
+                                onSelect={() => {
+                                  setEditingClass(c);
+                                  setNewClass({ name: c.name, board: c.board });
+                                  setTimeout(() => setIsDialogOpen(true), 50);
+                                }}
+                                className="p-2.5 cursor-pointer rounded-lg"
+                              >
+                                <Pencil className="mr-2 h-4 w-4 text-blue-600" />
+                                <span className="font-bold text-xs text-gray-700">Edit Class</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem 
+                                onSelect={() => handleDelete(c.id)}
+                                className="p-2.5 cursor-pointer text-rose-600 rounded-lg"
+                              >
+                                <Trash2 className="mr-2 h-4 w-4" />
+                                <span className="font-bold text-xs">Delete</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    </Reorder.Item>
+                  ))}
+                </Reorder.Group>
               </TableBody>
             </Table>
           </CardContent>
