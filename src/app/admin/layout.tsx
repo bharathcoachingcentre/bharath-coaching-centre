@@ -1,4 +1,3 @@
-
 "use client";
 
 import '../globals.css';
@@ -18,7 +17,9 @@ import {
   ChevronRight,
   Loader2,
   Layout,
-  CalendarClock
+  CalendarClock,
+  Clock,
+  Book
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,6 +78,8 @@ const menuItems = [
     children: [
       { label: "Manage Timetable", href: "/admin/timetable" },
       { label: "Add Schedule", href: "/admin/timetable/add" },
+      { label: "Subjects", href: "/admin/timetable/subjects" },
+      { label: "Periods", href: "/admin/timetable/periods" },
     ]
   },
   { icon: Trophy, label: "Results", href: "/admin/results" },

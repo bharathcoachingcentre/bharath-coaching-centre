@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -259,6 +258,10 @@ export default function HomePage() {
   }, [firestore]);
   const { data: homeContent } = useDoc(pageRef);
 
+  // Fetch Master Data for Timetable
+  const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
+  const { data: allPeriods } = useCollection(periodsQuery);
+
   // Fetch Study Materials
   const materialsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -356,7 +359,9 @@ export default function HomePage() {
 
   const timetableDisplayData = useMemo(() => {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    const slots = [
+    
+    // Use master periods or fallback to defaults
+    const slots = allPeriods?.map(p => p.label) || [
       "9:00 AM - 10:30 AM",
       "11:00 AM - 12:30 PM",
       "2:00 PM - 3:30 PM",
@@ -409,8 +414,9 @@ export default function HomePage() {
       t.grade === selectedScheduleClass
     );
 
+    // Fallback to default mock schedule for CBSE Class 10 if no data exists
     if (relevant.length === 0 && activeScheduleBoard === "cbse" && selectedScheduleClass === "Class 10") {
-      return days.map(day => ({ day, slots: defaultSchedule[day] }));
+      return days.map(day => ({ day, slots: defaultSchedule[day] || slots.map(() => ({ s: "-", t: "-", c: "bg-gray-50", tc: "text-gray-300" })) }));
     }
 
     return days.map(day => {
@@ -428,7 +434,7 @@ export default function HomePage() {
       });
       return { day, slots: daySlots };
     });
-  }, [allTimetables, activeScheduleBoard, selectedScheduleClass]);
+  }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods]);
 
   const heroImageData = (placeholderImages as any)["hero-education"];
 
@@ -595,7 +601,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Study Materials Section - Moved after Features */}
+      {/* Study Materials Section - Realigned to L-C-R */}
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -884,10 +890,14 @@ export default function HomePage() {
                 <thead>
                   <tr className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] text-white">
                     <th className="px-8 py-6 font-bold text-base whitespace-nowrap">Day / Time</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">9:00 AM - 10:30 AM</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">11:00 AM - 12:30 PM</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">2:00 PM - 3:30 PM</th>
-                    <th className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">4:00 PM - 5:30 PM</th>
+                    {(allPeriods?.length ? allPeriods : [
+                      { label: "9:00 AM - 10:30 AM" },
+                      { label: "11:00 AM - 12:30 PM" },
+                      { label: "2:00 PM - 3:30 PM" },
+                      { label: "4:00 PM - 5:30 PM" }
+                    ]).map((p, idx) => (
+                      <th key={idx} className="px-8 py-6 font-bold text-base text-center whitespace-nowrap border-l border-white/10">{p.label}</th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">

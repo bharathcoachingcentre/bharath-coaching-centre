@@ -1,18 +1,16 @@
-
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { 
   ArrowLeft, 
   CalendarClock, 
   Save, 
   Loader2,
   BookOpen,
-  UserCheck
+  UserCheck,
+  Plus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
@@ -35,24 +33,17 @@ import * as z from "zod";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { useFirestore } from "@/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, addDoc, serverTimestamp, query, where, orderBy } from "firebase/firestore";
 
 const formSchema = z.object({
   board: z.string().min(1, "Please select a board"),
   grade: z.string().min(1, "Please select a class"),
   day: z.string().min(1, "Please select a day"),
   timeSlot: z.string().min(1, "Please select a time slot"),
-  subject: z.string().min(1, "Subject is required"),
-  teacher: z.string().min(1, "Teacher name is required"),
+  subject: z.string().min(1, "Please select a subject"),
+  teacher: z.string().min(1, "Please select a teacher"),
 });
-
-const timeSlots = [
-  "9:00 AM - 10:30 AM",
-  "11:00 AM - 12:30 PM",
-  "2:00 PM - 3:30 PM",
-  "4:00 PM - 5:30 PM"
-];
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -62,12 +53,21 @@ export default function AddTimetableEntryPage() {
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Fetch Master Data
+  const subjectsQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects'), orderBy('name', 'asc')) : null, [firestore]);
+  const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
+  const teachersQuery = useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]);
+
+  const { data: subjects } = useCollection(subjectsQuery);
+  const { data: periods } = useCollection(periodsQuery);
+  const { data: teachers } = useCollection(teachersQuery);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      board: "",
+      board: "cbse",
       grade: "Class 10",
-      day: "",
+      day: "Monday",
       timeSlot: "",
       subject: "",
       teacher: "",
@@ -189,7 +189,7 @@ export default function AddTimetableEntryPage() {
                   name="timeSlot"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
-                      <FormLabel className="text-sm font-bold text-gray-700">Time Slot</FormLabel>
+                      <FormLabel className="text-sm font-bold text-gray-700">Period / Time Slot</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
@@ -197,9 +197,12 @@ export default function AddTimetableEntryPage() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {timeSlots.map(t => (
-                            <SelectItem key={t} value={t}>{t}</SelectItem>
+                          {periods?.map(p => (
+                            <SelectItem key={p.id} value={p.label}>{p.label}</SelectItem>
                           ))}
+                          {!periods?.length && (
+                            <SelectItem value="none" disabled>No periods defined. Manage Periods first.</SelectItem>
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -212,13 +215,22 @@ export default function AddTimetableEntryPage() {
                   name="subject"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
-                      <FormLabel className="text-sm font-bold text-gray-700">Subject Name</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                          <Input placeholder="e.g. Mathematics" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-12 focus-visible:ring-blue-600 font-medium" />
-                        </div>
-                      </FormControl>
+                      <FormLabel className="text-sm font-bold text-gray-700">Subject</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
+                            <SelectValue placeholder="Select subject" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {subjects?.map(s => (
+                            <SelectItem key={s.id} value={s.name}>{s.name}</SelectItem>
+                          ))}
+                          {!subjects?.length && (
+                            <SelectItem value="none" disabled>No subjects defined. Manage Subjects first.</SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -229,13 +241,22 @@ export default function AddTimetableEntryPage() {
                   name="teacher"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
-                      <FormLabel className="text-sm font-bold text-gray-700">Teacher Name</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <UserCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                          <Input placeholder="e.g. Mr. Rajesh Kumar" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-12 focus-visible:ring-blue-600 font-medium" />
-                        </div>
-                      </FormControl>
+                      <FormLabel className="text-sm font-bold text-gray-700">Teacher</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
+                            <SelectValue placeholder="Select teacher" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {teachers?.map(t => (
+                            <SelectItem key={t.id} value={t.displayName}>{t.displayName}</SelectItem>
+                          ))}
+                          {!teachers?.length && (
+                            <SelectItem value="none" disabled>No teachers found in Users directory.</SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
