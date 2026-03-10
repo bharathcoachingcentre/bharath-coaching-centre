@@ -267,12 +267,6 @@ export default function HomePage() {
       heroPrimaryBtnLink: "#",
       heroOutlineBtnText: "View Timetable",
       heroOutlineBtnLink: "#timetable-section",
-      heroCard1Label: "Board",
-      heroCard1Value: "CBSE",
-      heroCard2Label: "Board",
-      heroCard2Value: "Samacheer",
-      heroCard3Online: "Online",
-      heroCard3Offline: "Offline",
       stats: [
         { label: "Students", value: "5000+", icon: "Users" },
         { label: "Success Rate", value: "95%", icon: "TrendingUp" },
@@ -394,18 +388,15 @@ export default function HomePage() {
       "bg-pink-100 border-pink-200 text-pink-900",
     ];
 
-    // Filter relevant entries for the current view
     const relevant = (allTimetables || []).filter(t => 
       t.board.toLowerCase() === activeScheduleBoard.toLowerCase() && 
       t.grade === selectedScheduleClass
     );
 
-    // If no dynamic data, return defaults for Class 10 CBSE
     if (relevant.length === 0 && activeScheduleBoard === "cbse" && selectedScheduleClass === "Class 10") {
       return days.map(day => ({ day, slots: defaultSchedule[day] }));
     }
 
-    // Map dynamic data to the grid
     return days.map(day => {
       const daySlots = slots.map((time, idx) => {
         const match = relevant.find(r => r.day === day && r.timeSlot === time);
@@ -437,7 +428,7 @@ export default function HomePage() {
             <div className="text-center lg:text-left space-y-8">
               <div className="space-y-6">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight text-left">
-                  {content.heroTitleMain || "Empowering Students from "}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.heroTitleHighlight || "Class 1 to 12"}</span>
+                  {content.heroTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.heroTitleHighlight}</span>
                 </h1>
                 <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal text-left">
                   {content.heroSubtitle}
@@ -446,15 +437,15 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-none">
-                  <Link href={content.heroPrimaryBtnLink || "#"}>
+                  <Link href={content.heroPrimaryBtnLink}>
                     <CalendarCheck className="mr-2 h-6 w-6" />
-                    {content.heroPrimaryBtnText || "Book Free Consultation"}
+                    {content.heroPrimaryBtnText}
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-bold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <Link href={content.heroOutlineBtnLink || "#timetable-section"}>
+                  <Link href={content.heroOutlineBtnLink}>
                     <Clock className="mr-2 h-6 w-6" />
-                    {content.heroOutlineBtnText || "View Timetable"}
+                    {content.heroOutlineBtnText}
                   </Link>
                 </Button>
               </div>
@@ -499,8 +490,8 @@ export default function HomePage() {
                     <Book className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard1Label || "Board"}</div>
-                    <div className="text-xs sm:text-lg font-bold text-gray-900">{content.heroCard1Value || "CBSE"}</div>
+                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard1Label}</div>
+                    <div className="text-xs sm:text-lg font-bold text-gray-900">{content.heroCard1Value}</div>
                   </div>
                 </div>
               </div>
@@ -511,8 +502,8 @@ export default function HomePage() {
                     <GraduationCap className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard2Label || "Board"}</div>
-                    <div className="text-xs sm:text-lg font-bold text-gray-900">{content.heroCard2Value || "Samacheer"}</div>
+                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard2Label}</div>
+                    <div className="text-xs sm:text-lg font-bold text-gray-900">{content.heroCard2Value}</div>
                   </div>
                 </div>
               </div>
@@ -523,14 +514,14 @@ export default function HomePage() {
                     <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
                       <Laptop className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Online || "Online"}</span>
+                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Online}</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
                     <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg">
                       <Building className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
-                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Offline || "Offline"}</span>
+                    <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Offline}</span>
                   </div>
                 </div>
               </div>
@@ -545,22 +536,16 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-              {content.featuresTitle?.includes('Excel') ? (
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              {content.featuresTitle.includes('Excel') ? (
                 <>
                   {content.featuresTitle.split('Excel')[0]}
                   <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
                 </>
-              ) : (
-                content.featuresTitle || (
-                  <>
-                    How We Help Students <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
-                  </>
-                )
-              )}
+              ) : content.featuresTitle}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
-              {content.featuresSubtitle || "Comprehensive learning solutions designed to ensure academic success"}
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+              {content.featuresSubtitle}
             </p>
           </div>
 
@@ -598,22 +583,16 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-              {content.programsTitle?.includes('Programs') ? (
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              {content.programsTitle.includes('Programs') ? (
                 <>
                   {content.programsTitle.split('Programs')[0]}
                   <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Programs</span>
                 </>
-              ) : (
-                content.programsTitle || (
-                  <>
-                    Explore Our Academic <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Programs</span>
-                  </>
-                )
-              )}
+              ) : content.programsTitle}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
-              {content.programsSubtitle || "Choose the perfect learning path for your child's academic journey"}
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+              {content.programsSubtitle}
             </p>
           </div>
 
@@ -808,22 +787,16 @@ export default function HomePage() {
       <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-              {content.timetableTitle?.includes('Timetable') ? (
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              {content.timetableTitle.includes('Timetable') ? (
                 <>
                   {content.timetableTitle.split('Timetable')[0]}
                   <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Timetable</span>
                 </>
-              ) : (
-                content.timetableTitle || (
-                  <>
-                    Offline Class <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Timetable</span>
-                  </>
-                )
-              )}
+              ) : content.timetableTitle}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
-              {content.timetableSubtitle || "View our structured class schedules for offline sessions"}
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+              {content.timetableSubtitle}
             </p>
           </div>
 
@@ -922,12 +895,7 @@ export default function HomePage() {
               <div className="space-y-2 text-left">
                 <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
                 <ul className="space-y-1.5 text-gray-600 text-[13px] font-normal leading-relaxed font-body">
-                  {(content.timetableNotes || [
-                    "Sunday is a holiday for all classes",
-                    "Each session includes a 15-minute break",
-                    "Extra classes are conducted before exams",
-                    "Timetable may vary based on class requirements"
-                  ]).map((note: string, i: number) => (
+                  {(content.timetableNotes || []).map((note: string, i: number) => (
                     <li key={i} className="flex items-center gap-2 text-left">
                       <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> {note}
                     </li>
@@ -1028,10 +996,10 @@ export default function HomePage() {
       <section id="testimonials-section" className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               What Students & Parents <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Say</span>
             </h2>
-            <p className="text-lg text-gray-500 font-normal text-center mx-auto">
+            <p className="text-lg text-gray-500 font-normal">
               Real stories from our successful students and satisfied parents
             </p>
           </div>
@@ -1073,7 +1041,7 @@ export default function HomePage() {
       <section id="why-choose-section" className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Why Choose <span className="bg-gradient-to-r from-[#2b65e2] to-[#2abfaf] bg-clip-text text-transparent">Bharath Academy?</span>
             </h2>
           </div>
@@ -1138,7 +1106,7 @@ export default function HomePage() {
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Our Students' <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">Celebrating exceptional achievements and academic excellence</p>
