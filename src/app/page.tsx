@@ -370,6 +370,7 @@ export default function HomePage() {
       mentorshipTitleHighlight: "Mentorship",
       mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
       mentorshipImageUrl: placeholderImages["one-to-one-mentorship"].src,
+      mentorshipBtnText: "Book Personal Session",
       mentorshipFeatures: [
         { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
         { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
@@ -955,7 +956,7 @@ export default function HomePage() {
                 <Button asChild className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
                   <Link href="/contact">
                     <CalendarCheck className="w-5 h-5" />
-                    Book Personal Session
+                    {content.mentorshipBtnText || "Book Personal Session"}
                   </Link>
                 </Button>
               </div>

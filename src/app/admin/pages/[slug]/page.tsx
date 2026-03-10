@@ -124,6 +124,7 @@ const defaultPageData: Record<string, any> = {
     mentorshipTitleHighlight: "Mentorship",
     mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
     mentorshipImageUrl: placeholderImages["one-to-one-mentorship"].src,
+    mentorshipBtnText: "Book Personal Session",
     mentorshipFeatures: [
       { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
       { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
@@ -763,6 +764,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       value={formData.mentorshipSubtitle || ""} 
                       onChange={(e) => updateField('mentorshipSubtitle', e.target.value)}
                       className="min-h-[80px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none"
+                    />
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Button Text</Label>
+                    <Input 
+                      value={formData.mentorshipBtnText || ""} 
+                      onChange={(e) => updateField('mentorshipBtnText', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600 focus-visible:ring-blue-600"
+                      placeholder="Book Personal Session"
                     />
                   </div>
 
