@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import * as React from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
-  Search, 
   Plus, 
-  Clock,
   MoreVertical,
   Pencil,
   Trash2,
   Loader2,
-  ArrowUpDown
+  Calendar as CalendarIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,7 +46,15 @@ export default function PeriodsManagementPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [editingPeriod, setEditingPeriod] = useState<any | null>(null);
-  const [newPeriod, setNewPeriod] = useState({ label: "", order: "1" });
+  
+  // Structured state for structured time entry
+  const [newPeriod, setNewPeriod] = useState({ 
+    label: "", 
+    order: "1",
+    startTime: "09:00",
+    endTime: "10:30",
+    date: "" 
+  });
 
   useEffect(() => {
     if (!isDialogOpen) {
@@ -68,12 +75,32 @@ export default function PeriodsManagementPage() {
   const { data: periods, loading } = useCollection(periodsQuery);
 
   const handleSave = async () => {
-    if (!firestore || !newPeriod.label) return;
+    if (!firestore) return;
+    
+    // Helper to convert 24h string to 12h AM/PM string
+    const to12h = (t: string) => {
+      if (!t) return "";
+      let [h, m] = t.split(":");
+      let hh = parseInt(h);
+      const ampm = hh >= 12 ? "PM" : "AM";
+      hh = hh % 12 || 12;
+      return `${hh}:${m} ${ampm}`;
+    };
+
+    const startTimeFormatted = to12h(newPeriod.startTime);
+    const endTimeFormatted = to12h(newPeriod.endTime);
+    
+    // Construct label string for display throughout the app
+    const constructedLabel = `${startTimeFormatted} - ${endTimeFormatted}${newPeriod.date ? ` [${newPeriod.date}]` : ""}`;
+
     setIsSaving(true);
 
     try {
       const data = {
-        label: newPeriod.label,
+        label: constructedLabel,
+        startTime: newPeriod.startTime,
+        endTime: newPeriod.endTime,
+        date: newPeriod.date,
         order: parseInt(newPeriod.order) || 0,
         updatedAt: serverTimestamp(),
       };
@@ -89,7 +116,7 @@ export default function PeriodsManagementPage() {
         toast({ title: "Period Added" });
       }
       setEditingPeriod(null);
-      setNewPeriod({ label: "", order: "1" });
+      setNewPeriod({ label: "", order: "1", startTime: "09:00", endTime: "10:30", date: "" });
       setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
@@ -109,6 +136,18 @@ export default function PeriodsManagementPage() {
       .catch((e) => toast({ variant: "destructive", title: "Delete Failed", description: e.message }));
   };
 
+  const openEditDialog = (p: any) => {
+    setEditingPeriod(p);
+    setNewPeriod({ 
+      label: p.label || "", 
+      order: String(p.order || "1"),
+      startTime: p.startTime || "09:00",
+      endTime: p.endTime || "10:30",
+      date: p.date || ""
+    });
+    setIsDialogOpen(true);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -119,7 +158,7 @@ export default function PeriodsManagementPage() {
         <Button 
           onClick={() => {
             setEditingPeriod(null);
-            setNewPeriod({ label: "", order: String((periods?.length || 0) + 1) });
+            setNewPeriod({ label: "", order: String((periods?.length || 0) + 1), startTime: "09:00", endTime: "10:30", date: "" });
             setIsDialogOpen(true);
           }}
           className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-2xl shadow-lg transition-all active:scale-95 border-none"
@@ -139,20 +178,20 @@ export default function PeriodsManagementPage() {
             <Table>
               <TableHeader className="bg-gray-50/50">
                 <TableRow className="hover:bg-transparent border-gray-100">
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400">Order</TableHead>
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400">Time Slot / Label</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400 text-left">Order</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase text-gray-400 text-left">Time Slot / Label</TableHead>
                   <TableHead className="px-8 py-5"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {periods?.map((p) => (
                   <TableRow key={p.id} className="border-gray-50 hover:bg-gray-50/50">
-                    <TableCell className="px-8 py-5">
-                      <Badge variant="outline" className="w-8 h-8 rounded-lg flex items-center justify-center p-0 font-black text-blue-600 bg-blue-50 border-blue-100">
+                    <TableCell className="px-8 py-5 text-left">
+                      <Badge variant="outline" className="w-8 h-8 rounded-lg flex items-center justify-center p-0 font-black text-blue-600 bg-blue-50 border-blue-100 shadow-none">
                         {p.order}
                       </Badge>
                     </TableCell>
-                    <TableCell className="px-8 py-5">
+                    <TableCell className="px-8 py-5 text-left">
                       <span className="font-bold text-gray-900">{p.label}</span>
                     </TableCell>
                     <TableCell className="px-8 py-5 text-right">
@@ -166,9 +205,7 @@ export default function PeriodsManagementPage() {
                           <DropdownMenuItem 
                             onSelect={(e) => {
                               e.preventDefault();
-                              setEditingPeriod(p);
-                              setNewPeriod({ label: p.label, order: String(p.order) });
-                              setIsDialogOpen(true);
+                              openEditDialog(p);
                             }}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >
@@ -201,14 +238,36 @@ export default function PeriodsManagementPage() {
           </DialogHeader>
           <div className="space-y-6 py-4">
             <div className="space-y-2 text-left">
-              <label className="text-xs font-black uppercase text-gray-400">Time Slot Label</label>
+              <label className="text-xs font-black uppercase text-gray-400">Reference Date (Optional)</label>
               <Input 
-                value={newPeriod.label} 
-                onChange={(e) => setNewPeriod({ ...newPeriod, label: e.target.value })}
-                placeholder="e.g. 9:00 AM - 10:30 AM"
+                type="date"
+                value={newPeriod.date} 
+                onChange={(e) => setNewPeriod({ ...newPeriod, date: e.target.value })}
                 className="h-12 rounded-xl"
               />
             </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2 text-left">
+                <label className="text-xs font-black uppercase text-gray-400">Start Time</label>
+                <Input 
+                  type="time"
+                  value={newPeriod.startTime} 
+                  onChange={(e) => setNewPeriod({ ...newPeriod, startTime: e.target.value })}
+                  className="h-12 rounded-xl"
+                />
+              </div>
+              <div className="space-y-2 text-left">
+                <label className="text-xs font-black uppercase text-gray-400">End Time</label>
+                <Input 
+                  type="time"
+                  value={newPeriod.endTime} 
+                  onChange={(e) => setNewPeriod({ ...newPeriod, endTime: e.target.value })}
+                  className="h-12 rounded-xl"
+                />
+              </div>
+            </div>
+
             <div className="space-y-2 text-left">
               <label className="text-xs font-black uppercase text-gray-400">Display Order</label>
               <Input 
