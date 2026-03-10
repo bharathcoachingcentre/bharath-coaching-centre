@@ -34,7 +34,8 @@ import {
   Medal,
   Trophy,
   Search,
-  Crown
+  Crown,
+  CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -142,7 +143,7 @@ const topPerformers = [
     badgeColor: "bg-[#fbbf24]",
     marksColor: "text-blue-600",
     iconColor: "bg-blue-600",
-    img: "/ananya-krishnan.jpg",
+    img: placeholderImages["student-7"].src,
     rankIcon: Crown
   },
   {
@@ -153,7 +154,7 @@ const topPerformers = [
     badgeColor: "bg-[#94a3b8]",
     marksColor: "text-teal-600",
     iconColor: "bg-teal-600",
-    img: "/arjun-mehta.jpg",
+    img: placeholderImages["student-4"].src,
     rankIcon: Medal
   },
   {
@@ -164,7 +165,7 @@ const topPerformers = [
     badgeColor: "bg-[#f59e0b]",
     marksColor: "text-purple-600",
     iconColor: "bg-purple-600",
-    img: "/divya-nair.jpg",
+    img: placeholderImages["student-3"].src,
     rankIcon: Award
   },
   {
@@ -172,50 +173,50 @@ const topPerformers = [
     grade: "Class 12, CBSE",
     marks: "95.2%",
     rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
+    badgeColor: "bg-blue-500",
     marksColor: "text-orange-600",
     iconColor: "bg-orange-600",
-    img: "/rohan-kappoor.jpg"
+    img: placeholderImages["student-8"].src
   },
   {
-    name: "Sanya Gupta",
+    name: "Meera Reddy",
     grade: "Class 10, CBSE",
     marks: "94.8%",
     rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
+    badgeColor: "bg-blue-500",
     marksColor: "text-pink-600",
     iconColor: "bg-pink-600",
-    img: "/sanya-gupta.jpg"
+    img: placeholderImages["student-1"].src
   },
   {
-    name: "Vikram Malhotra",
+    name: "Karthik Iyer",
     grade: "Class 12, Samacheer",
     marks: "94.2%",
     rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
+    badgeColor: "bg-blue-500",
     marksColor: "text-green-600",
     iconColor: "bg-green-600",
-    img: "/vikram-malhotra.jpg"
+    img: placeholderImages["student-6"].src
   },
   {
-    name: "Nisha Reddy",
+    name: "Sneha Patel",
     grade: "Class 10, CBSE",
-    marks: "93.9%",
+    marks: "93.6%",
     rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
+    badgeColor: "bg-blue-500",
     marksColor: "text-indigo-600",
     iconColor: "bg-indigo-600",
-    img: "/nisha-reddy.jpg"
+    img: placeholderImages["student-5"].src
   },
   {
-    name: "Kabir Singh",
+    name: "Aditya Sharma",
     grade: "Class 12, CBSE",
-    marks: "93.5%",
+    marks: "92.8%",
     rank: "Top 10",
-    badgeColor: "from-blue-400 to-blue-500",
+    badgeColor: "bg-blue-500",
     marksColor: "text-amber-600",
     iconColor: "bg-amber-600",
-    img: "/kabir-singh.jpg"
+    img: placeholderImages["student-2"].src
   },
 ];
 
@@ -333,6 +334,12 @@ export default function HomePage() {
       heroPrimaryBtnLink: "#",
       heroOutlineBtnText: "View Timetable",
       heroOutlineBtnLink: "#timetable-section",
+      heroCard1Label: "Board",
+      heroCard1Value: "CBSE",
+      heroCard2Label: "Board",
+      heroCard2Value: "Samacheer",
+      heroCard3Online: "Online",
+      heroCard3Offline: "Offline",
       stats: [
         { label: "Students", value: "5000+", icon: "Users" },
         { label: "Success Rate", value: "95%", icon: "TrendingUp" },
@@ -346,29 +353,6 @@ export default function HomePage() {
         { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
         { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
-      ],
-      programsTitle: "Explore Our Academic Programs",
-      programsSubtitle: "Choose the perfect learning path for your child's academic journey",
-      programs: [
-        {
-          title: "Classes 1–5",
-          subtitle: "Foundation Program",
-          icon: "Zap",
-          points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
-        },
-        {
-          title: "Classes 6–8",
-          subtitle: "Middle School Program",
-          icon: "BookOpen",
-          points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
-        },
-        {
-          title: "Classes 9–12",
-          subtitle: "Senior Secondary Program",
-          icon: "GraduationCap",
-          popular: true,
-          points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
-        },
       ],
       timetableTitle: "Offline Class Timetable",
       timetableSubtitle: "View our structured class schedules for offline sessions",
@@ -390,12 +374,9 @@ export default function HomePage() {
     return allMaterials
       .filter(m => {
         const matchesVisibility = m.isVisible !== false;
-        // Check both ID and Name for grade/class to support legacy data
         const gradeId = allClassesLookup?.find(c => c.name === selectedClass)?.id;
         const matchesGrade = m.grade === selectedClass || m.grade === gradeId;
-        
         const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
-        
         const subjectId = allSubjectsLookup?.find(s => s.name === selectedSubject)?.id;
         const matchesSubject = selectedSubject === "All Subjects" || m.subject === selectedSubject || m.subject === subjectId;
         
@@ -490,7 +471,7 @@ export default function HomePage() {
     });
   }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods, allClassesLookup, allSubjectsLookup, allTeachersLookup]);
 
-  const heroImageData = (placeholderImages as any)["hero-education"];
+  const heroImageData = placeholderImages["hero-education"];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -669,7 +650,7 @@ export default function HomePage() {
 
           <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
-              <div className="relative w-full max-w-xs mx-auto lg:mx-0">
+              <div className="relative w-full max-w-xs mx-auto lg:mx-0 text-left">
                 <select 
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
@@ -709,7 +690,7 @@ export default function HomePage() {
                 </button>
               </div>
 
-              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
+              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0 text-left">
                 <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
                   <PopoverTrigger asChild>
                     <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-xs">
@@ -822,7 +803,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Rest of the UI remains the same, lookups integrated into Timetable Display logic */}
       {/* Timetable Section */}
       <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -938,7 +918,7 @@ export default function HomePage() {
 
             <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4 shadow-inner text-left">
               <div className="bg-blue-600 rounded-full p-1.5 mt-0.5 shadow-md">
-                <span className="text-white">ℹ️</span>
+                <span className="text-white text-xs">i</span>
               </div>
               <div className="space-y-2 text-left">
                 <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
@@ -955,8 +935,216 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Program and Mentorship Sections omitted for brevity but preserved in full file */}
-      {/* ... Rest of the Home Page components ... */}
+      {/* One-to-One Mentorship Section */}
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative order-2 lg:order-1">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-teal-500/10 rounded-[3rem] blur-2xl"></div>
+              <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border border-white">
+                <Image
+                  src={placeholderImages["one-to-one-mentorship"].src}
+                  alt="Mentorship"
+                  width={800}
+                  height={1000}
+                  className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                  data-ai-hint="student mentorship"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-10 order-1 lg:order-2 text-left">
+              <div>
+                <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+                  One-to-One <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Mentorship</span>
+                </h2>
+                <p className="mt-4 text-gray-500 font-medium">Personalized attention to help every student reach their full potential.</p>
+              </div>
+
+              <div className="space-y-8">
+                {[
+                  { icon: UserCheck, title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding.", color: "bg-blue-500", iconColor: "text-blue-600", bg: "bg-blue-50" },
+                  { icon: Layers, title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses.", color: "bg-teal-500", iconColor: "text-teal-600", bg: "bg-teal-50" },
+                  { icon: TrendingUp, title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis.", color: "bg-purple-500", iconColor: "text-purple-600", bg: "bg-purple-50" },
+                  { icon: Handshake, title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress.", color: "bg-orange-500", iconColor: "text-orange-600", bg: "bg-orange-50" },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-6 group">
+                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform", item.bg)}>
+                      <item.icon className={cn("w-6 h-6", item.iconColor)} />
+                    </div>
+                    <div className="space-y-1 text-left">
+                      <h4 className="text-lg font-bold text-gray-900">{item.title}</h4>
+                      <p className="text-sm text-gray-500 leading-relaxed font-normal">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                <Button asChild className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
+                  <Link href="/contact">
+                    <CalendarCheck className="w-5 h-5" />
+                    Book Personal Session
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
+              What Students & <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Parents Say</span>
+            </h2>
+            <p className="mt-4 text-gray-500 font-medium italic">Read stories from our successful students and satisfied parents.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing. I improved my score from 75% to 93% in just one year!", avatar: placeholderImages["student-1"].src },
+              { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src },
+              { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weaknesses in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src },
+              { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src },
+              { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src },
+              { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src },
+            ].map((testimonial, idx) => (
+              <Card key={idx} className="border-none shadow-xl rounded-[2rem] bg-white p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="flex items-center gap-4 mb-6 text-left">
+                  <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-blue-100 shadow-sm">
+                    <Image src={testimonial.avatar} alt={testimonial.name} width={100} height={100} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
+                    <p className="text-xs font-medium text-gray-400 uppercase tracking-widest">{testimonial.role}</p>
+                  </div>
+                </div>
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-600 leading-relaxed font-medium text-left italic">"{testimonial.quote}"</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
+              Why Choose <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Bharath Academy?</span>
+            </h2>
+            <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
+              Comprehensive features designed for complete academic excellence
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { icon: PieChart, title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
+              { icon: UserCheck, title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-500 shadow-teal-500/30" },
+              { icon: ClipboardCheck, title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.", color: "bg-purple-500 shadow-purple-500/30" },
+              { icon: Zap, title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
+              { icon: Users, title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
+              { icon: BookOpen, title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" },
+            ].map((feature, idx) => (
+              <div key={idx} className="p-8 rounded-[2rem] bg-gray-50 border border-gray-100 hover:bg-white hover:shadow-2xl transition-all duration-500 group text-left">
+                <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg mb-6 group-hover:scale-110 transition-transform", feature.color)}>
+                  <feature.icon className="w-7 h-7" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3 tracking-tight">{feature.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed font-normal">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories Section */}
+      <section className="py-24 bg-blue-50/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
+              Our Students' <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
+            </h2>
+            <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
+              Celebrating exceptional achievements and academic excellence
+            </p>
+          </div>
+
+          {/* Large Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            {[
+              { icon: Trophy, value: "95%", label: "Pass Rate", color: "text-blue-600" },
+              { icon: Medal, value: "120+", label: "Distinctions", color: "text-teal-600" },
+              { icon: GraduationCap, value: "5000+", label: "Students", color: "text-purple-600" },
+            ].map((stat, idx) => (
+              <Card key={idx} className="border-none shadow-xl rounded-[2rem] p-10 text-center flex flex-col items-center gap-4 bg-white hover:-translate-y-2 transition-transform duration-500">
+                <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 shadow-lg bg-blue-50", stat.color)}>
+                  <stat.icon className="w-8 h-8" />
+                </div>
+                <div>
+                  <div className="text-5xl font-black text-gray-900 tracking-tighter mb-1">{stat.value}</div>
+                  <div className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em]">{stat.label}</div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* Top Performers Grid */}
+          <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 border border-white">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+              <h3 className="text-2xl font-bold text-gray-900 tracking-tight">Top Performers 2025</h3>
+              <div className="w-full md:w-auto text-left">
+                <Select defaultValue="2025">
+                  <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700">
+                    <SelectValue placeholder="Year 2025" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="2025">Year 2025</SelectItem>
+                    <SelectItem value="2024">Year 2024</SelectItem>
+                    <SelectItem value="2023">Year 2023</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {topPerformers.map((student, idx) => (
+                <div key={idx} className="group bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-left">
+                  <div className="relative h-60 w-full overflow-hidden">
+                    <Image src={student.img} alt={student.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className={cn("absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor)}>
+                      {student.rankIcon && <student.rankIcon className="w-3 h-3" />}
+                      {student.rank}
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="font-bold text-gray-900 text-lg leading-tight mb-1">{student.name}</h4>
+                    <p className="text-[11px] font-bold text-gray-400 mb-6">{student.grade}</p>
+                    <div className="flex items-end justify-between">
+                      <div className="space-y-0.5 text-left">
+                        <div className={cn("text-3xl font-black tracking-tighter", student.marksColor)}>{student.marks}</div>
+                        <div className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Total Marks</div>
+                      </div>
+                      <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg", student.iconColor)}>
+                        <Star className="w-5 h-5 fill-white" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
