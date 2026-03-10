@@ -41,7 +41,7 @@ const formSchema = z.object({
   grade: z.string().min(1, "Please select a class"),
   day: z.string().min(1, "Please select a day"),
   timeSlot: z.string().min(1, "Please select a time slot"),
-  subject: z.string().min(1, "Please select a subject"),
+  subject: z.string().min(1, "Subject is required"),
   teacher: z.string().min(1, "Please select a teacher"),
 });
 
@@ -154,7 +154,7 @@ export default function AddTimetableEntryPage() {
                       <FormLabel className="text-sm font-bold text-gray-700">Education Board</FormLabel>
                       <Select onValueChange={(val) => {
                         field.onChange(val);
-                        form.setValue("grade", ""); // Reset class when board changes
+                        form.setValue("grade", ""); 
                       }} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
@@ -185,7 +185,7 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {filteredClasses?.map(c => (
-                            <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
+                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
                           ))}
                           {filteredClasses?.length === 0 && (
                             <SelectItem value="none" disabled>No classes defined for this board.</SelectItem>
@@ -234,11 +234,8 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {periods?.map(p => (
-                            <SelectItem key={p.id} value={p.label}>{p.label}</SelectItem>
+                            <SelectItem key={p.id} value={p.id}>{p.label}</SelectItem>
                           ))}
-                          {periods?.length === 0 && (
-                            <SelectItem value="none" disabled>No periods defined. Manage Periods first.</SelectItem>
-                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -260,11 +257,8 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {subjects?.map(s => (
-                            <SelectItem key={s.id} value={s.name}>{s.name}</SelectItem>
+                            <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
                           ))}
-                          {subjects?.length === 0 && (
-                            <SelectItem value="none" disabled>No subjects defined. Manage Subjects first.</SelectItem>
-                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -286,11 +280,8 @@ export default function AddTimetableEntryPage() {
                         </FormControl>
                         <SelectContent>
                           {teachers?.map(t => (
-                            <SelectItem key={t.id} value={t.displayName}>{t.displayName}</SelectItem>
+                            <SelectItem key={t.id} value={t.id}>{t.displayName}</SelectItem>
                           ))}
-                          {teachers?.length === 0 && (
-                            <SelectItem value="none" disabled>No teachers found in registry.</SelectItem>
-                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />

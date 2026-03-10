@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -11,8 +12,7 @@ import {
   Loader2,
   CalendarClock,
   Filter,
-  UserCheck,
-  GraduationCap
+  UserCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,7 +42,7 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, deleteDoc, doc } from "firebase/firestore";
+import { collection, query, orderBy, deleteDoc, doc, where } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -58,22 +58,42 @@ export default function TimetableManagementPage() {
     return query(collection(firestore, 'timetables'), orderBy('createdAt', 'desc'));
   }, [firestore]);
 
-  const { data: entries, loading } = useCollection(timetableQuery);
+  const { data: entries, loading: timetableLoading } = useCollection(timetableQuery);
+
+  // Master Data Lookups
+  const { data: classes } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'classes')) : null, [firestore]));
+  const { data: subjects } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'subjects')) : null, [firestore]));
+  const { data: periods } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'periods')) : null, [firestore]));
+  const { data: teachers } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]));
+
+  const loading = timetableLoading || !classes || !subjects || !periods || !teachers;
+
+  const resolvedEntries = useMemo(() => {
+    if (!entries) return [];
+    if (!classes || !subjects || !periods || !teachers) return entries;
+
+    return entries.map(e => ({
+      ...e,
+      gradeName: classes.find(c => c.id === e.grade)?.name || e.grade,
+      subjectName: subjects.find(s => s.id === e.subject)?.name || e.subject,
+      timeSlotLabel: periods.find(p => p.id === e.timeSlot)?.label || e.timeSlot,
+      teacherName: teachers.find(t => t.id === e.teacher)?.displayName || e.teacher,
+    }));
+  }, [entries, classes, subjects, periods, teachers]);
 
   const filteredEntries = useMemo(() => {
-    if (!entries) return [];
     const lower = searchTerm.toLowerCase();
-    return entries.filter(e => {
+    return resolvedEntries.filter(e => {
       const matchesSearch = !searchTerm || 
-        e.subject?.toLowerCase().includes(lower) || 
-        e.teacher?.toLowerCase().includes(lower) ||
-        e.grade?.toLowerCase().includes(lower);
+        e.subjectName?.toLowerCase().includes(lower) || 
+        e.teacherName?.toLowerCase().includes(lower) ||
+        e.gradeName?.toLowerCase().includes(lower);
       
       const matchesBoard = boardFilter === "all" || e.board?.toLowerCase() === boardFilter.toLowerCase();
       
       return matchesSearch && matchesBoard;
     });
-  }, [entries, searchTerm, boardFilter]);
+  }, [resolvedEntries, searchTerm, boardFilter]);
 
   const handleDelete = async (entryId: string) => {
     if (!firestore) return;
@@ -100,10 +120,9 @@ export default function TimetableManagementPage() {
 
   return (
     <div className="space-y-8">
-      {/* Filters & Actions */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex flex-1 items-center gap-4 max-w-2xl">
-          <div className="relative flex-1 text-left">
+        <div className="flex flex-1 items-center gap-4 max-w-2xl text-left">
+          <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <Input 
               placeholder="Search by subject, teacher or class..." 
@@ -114,7 +133,7 @@ export default function TimetableManagementPage() {
           </div>
           <Select value={boardFilter} onValueChange={setBoardFilter}>
             <SelectTrigger className="w-44 h-14 bg-white border-none rounded-2xl shadow-sm focus:ring-blue-600">
-              <div className="flex items-center gap-2 text-left">
+              <div className="flex items-center gap-2">
                 <Filter className="w-4 h-4 text-gray-400" />
                 <SelectValue placeholder="All Boards" />
               </div>
@@ -143,7 +162,7 @@ export default function TimetableManagementPage() {
           <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <CalendarClock className="w-10 h-10 text-gray-300" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900">added schedule not displaying here</h3>
+          <h3 className="text-xl font-bold text-gray-900">No schedules found</h3>
           <p className="text-gray-500 mt-2 max-w-xs mx-auto">Create class schedules to display them on the homepage timetable.</p>
           <Button asChild variant="outline" className="mt-8 rounded-xl font-bold">
             <Link href="/admin/timetable/add">Add First Entry</Link>
@@ -166,7 +185,7 @@ export default function TimetableManagementPage() {
               <TableBody>
                 {filteredEntries.map((entry) => (
                   <TableRow key={entry.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
-                    <TableCell className="px-8 py-5">
+                    <TableCell className="px-8 py-5 text-left">
                       <Badge className={cn(
                         "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
                         entry.board?.toLowerCase() === "cbse" 
@@ -176,24 +195,24 @@ export default function TimetableManagementPage() {
                         {entry.board || "N/A"}
                       </Badge>
                     </TableCell>
-                    <TableCell className="px-8 py-5">
-                      <span className="font-bold text-gray-900">{entry.grade}</span>
+                    <TableCell className="px-8 py-5 text-left">
+                      <span className="font-bold text-gray-900">{entry.gradeName}</span>
                     </TableCell>
-                    <TableCell className="px-8 py-5">
+                    <TableCell className="px-8 py-5 text-left">
                       <div className="flex flex-col">
-                        <span className="font-bold text-gray-900">{entry.subject}</span>
+                        <span className="font-bold text-gray-900">{entry.subjectName}</span>
                       </div>
                     </TableCell>
-                    <TableCell className="px-8 py-5">
+                    <TableCell className="px-8 py-5 text-left">
                       <div className="flex items-center gap-2 text-gray-600">
                         <CalendarClock className="w-3.5 h-3.5 text-gray-400" />
-                        <span className="text-xs font-bold">{entry.day} • {entry.timeSlot}</span>
+                        <span className="text-xs font-bold">{entry.day} • {entry.timeSlotLabel}</span>
                       </div>
                     </TableCell>
-                    <TableCell className="px-8 py-5">
+                    <TableCell className="px-8 py-5 text-left">
                       <div className="flex items-center gap-2 text-gray-600">
                         <UserCheck className="w-3.5 h-3.5 text-gray-400" />
-                        <span className="text-xs font-medium">{entry.teacher || "Not assigned"}</span>
+                        <span className="text-xs font-medium">{entry.teacherName || "Not assigned"}</span>
                       </div>
                     </TableCell>
                     <TableCell className="px-8 py-5 text-right">

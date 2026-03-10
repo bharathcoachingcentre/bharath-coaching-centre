@@ -75,7 +75,7 @@ export default function EditTimetableEntryPage({
     return doc(firestore, "timetables", entryId);
   }, [firestore, entryId]);
 
-  const { data: entry, loading } = useDoc(docRef);
+  const { data: entry, loading: entryLoading } = useDoc(docRef);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -95,8 +95,9 @@ export default function EditTimetableEntryPage({
     return allClasses.filter(c => c.board?.toLowerCase() === selectedBoard.toLowerCase());
   }, [allClasses, selectedBoard]);
 
+  // Robust initialization: Wait for document AND master data to be ready
   useEffect(() => {
-    if (entry && !isSaving) {
+    if (entry && !isSaving && subjects && periods && teachers && allClasses) {
       form.reset({
         board: entry.board || "",
         grade: entry.grade || "",
@@ -106,7 +107,7 @@ export default function EditTimetableEntryPage({
         teacher: entry.teacher || "",
       });
     }
-  }, [entry, form, isSaving]);
+  }, [entry, subjects, periods, teachers, allClasses, form, isSaving]);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !entryId) return;
@@ -143,11 +144,11 @@ export default function EditTimetableEntryPage({
 
   const isMasterDataLoading = !subjects || !periods || !teachers || !allClasses;
 
-  if (loading || isMasterDataLoading) {
+  if (entryLoading || isMasterDataLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400">Syncing Master Data...</p>
+        <p className="font-bold text-gray-400 uppercase text-xs tracking-widest">Loading Schedule...</p>
       </div>
     );
   }
@@ -187,7 +188,9 @@ export default function EditTimetableEntryPage({
                       <FormLabel className="text-sm font-bold text-gray-700">Education Board</FormLabel>
                       <Select onValueChange={(val) => {
                         field.onChange(val);
-                        form.setValue("grade", ""); // Reset grade when board changes
+                        if (form.formState.isDirty) {
+                          form.setValue("grade", ""); 
+                        }
                       }} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 focus:ring-blue-600 font-medium">
@@ -218,7 +221,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {filteredClasses?.map(c => (
-                            <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
+                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
                           ))}
                           {filteredClasses?.length === 0 && (
                             <SelectItem value="none" disabled>No classes defined for this board.</SelectItem>
@@ -267,7 +270,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {periods?.map(p => (
-                            <SelectItem key={p.id} value={p.label}>{p.label}</SelectItem>
+                            <SelectItem key={p.id} value={p.id}>{p.label}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -290,7 +293,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {subjects?.map(s => (
-                            <SelectItem key={s.id} value={s.name}>{s.name}</SelectItem>
+                            <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -313,7 +316,7 @@ export default function EditTimetableEntryPage({
                         </FormControl>
                         <SelectContent>
                           {teachers?.map(t => (
-                            <SelectItem key={t.id} value={t.displayName}>{t.displayName}</SelectItem>
+                            <SelectItem key={t.id} value={t.id}>{t.displayName}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
