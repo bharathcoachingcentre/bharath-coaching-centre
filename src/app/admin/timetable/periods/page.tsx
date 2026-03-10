@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -52,11 +53,13 @@ export default function PeriodsManagementPage() {
     endTime: "10:30"
   });
 
+  // Fix for unclickable UI
   useEffect(() => {
     if (!isDialogOpen) {
       const cleanup = () => {
         document.body.style.pointerEvents = 'auto';
         document.body.style.overflow = 'auto';
+        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
       };
       const timer = setTimeout(cleanup, 100);
       return () => clearTimeout(timer);
@@ -73,26 +76,24 @@ export default function PeriodsManagementPage() {
   const handleSave = async () => {
     if (!firestore || !newPeriod.startTime || !newPeriod.endTime) return;
     
-    const to12h = (t: string) => {
-      if (!t) return "";
-      let [h, m] = t.split(":");
-      let hh = parseInt(h);
-      const ampm = hh >= 12 ? "PM" : "AM";
-      hh = hh % 12 || 12;
-      return `${hh}:${m} ${ampm}`;
-    };
-
-    const startTimeFormatted = to12h(newPeriod.startTime);
-    const endTimeFormatted = to12h(newPeriod.endTime);
-    const constructedLabel = `${startTimeFormatted} - ${endTimeFormatted}`;
-
-    // Automatically calculate order based on start time (HH:mm)
-    const [h, m] = newPeriod.startTime.split(":").map(Number);
-    const calculatedOrder = h * 60 + m;
-
     setIsSaving(true);
-
     try {
+      const to12h = (t: string) => {
+        if (!t) return "";
+        let [h, m] = t.split(":");
+        let hh = parseInt(h);
+        const ampm = hh >= 12 ? "PM" : "AM";
+        hh = hh % 12 || 12;
+        return `${hh}:${m} ${ampm}`;
+      };
+
+      const startTimeFormatted = to12h(newPeriod.startTime);
+      const endTimeFormatted = to12h(newPeriod.endTime);
+      const constructedLabel = `${startTimeFormatted} - ${endTimeFormatted}`;
+
+      const [h, m] = newPeriod.startTime.split(":").map(Number);
+      const calculatedOrder = h * 60 + m;
+
       const data = {
         label: constructedLabel,
         startTime: newPeriod.startTime,
@@ -111,25 +112,28 @@ export default function PeriodsManagementPage() {
         });
         toast({ title: "Period Added" });
       }
-      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
+      setIsDialogOpen(false);
       setEditingPeriod(null);
       setNewPeriod({ startTime: "09:00", endTime: "10:30" });
       setTimeout(() => {
         document.body.style.pointerEvents = 'auto';
-      }, 200);
+      }, 150);
     }
   };
 
   const handleDelete = async (id: string) => {
     if (!firestore || !confirm("Delete this period?")) return;
-    deleteDoc(doc(firestore, 'periods', id))
-      .then(() => toast({ title: "Period Deleted" }))
-      .catch((e) => toast({ variant: "destructive", title: "Delete Failed", description: e.message }));
+    try {
+      await deleteDoc(doc(firestore, 'periods', id));
+      toast({ title: "Period Deleted" });
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Delete Failed", description: e.message });
+    }
   };
 
   const openEditDialog = (p: any) => {
@@ -138,7 +142,8 @@ export default function PeriodsManagementPage() {
       startTime: p.startTime || "09:00",
       endTime: p.endTime || "10:30"
     });
-    setIsDialogOpen(true);
+    // Use timeout to allow DropdownMenu to close before Dialog opens
+    setTimeout(() => setIsDialogOpen(true), 50);
   };
 
   return (
@@ -193,7 +198,7 @@ export default function PeriodsManagementPage() {
                             <MoreVertical className="w-4 h-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
+                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1 border-gray-100">
                           <DropdownMenuItem 
                             onSelect={(e) => {
                               e.preventDefault();
@@ -224,7 +229,7 @@ export default function PeriodsManagementPage() {
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="rounded-3xl max-w-md">
+        <DialogContent className="rounded-3xl max-w-md border-none shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl font-black text-gray-900">{editingPeriod ? "Edit Timing" : "Define Timing"}</DialogTitle>
           </DialogHeader>
@@ -236,7 +241,7 @@ export default function PeriodsManagementPage() {
                   type="time"
                   value={newPeriod.startTime} 
                   onChange={(e) => setNewPeriod({ ...newPeriod, startTime: e.target.value })}
-                  className="h-12 rounded-xl"
+                  className="h-12 rounded-xl bg-gray-50 border-gray-100"
                 />
               </div>
               <div className="space-y-2 text-left">
@@ -245,14 +250,14 @@ export default function PeriodsManagementPage() {
                   type="time"
                   value={newPeriod.endTime} 
                   onChange={(e) => setNewPeriod({ ...newPeriod, endTime: e.target.value })}
-                  className="h-12 rounded-xl"
+                  className="h-12 rounded-xl bg-gray-50 border-gray-100"
                 />
               </div>
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="gap-3">
             <Button variant="ghost" onClick={() => setIsDialogOpen(false)} disabled={isSaving}>Cancel</Button>
-            <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 text-white rounded-xl px-8 h-12 font-bold">
+            <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 text-white rounded-xl px-8 h-12 font-bold shadow-lg transition-all active:scale-95 border-none">
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Period"}
             </Button>
           </DialogFooter>

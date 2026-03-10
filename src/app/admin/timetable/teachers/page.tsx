@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Plus, 
@@ -47,6 +47,19 @@ export default function TeachersRegistryPage() {
   const [editingTeacher, setEditingTeacher] = useState<any | null>(null);
   const [teacherName, setTeacherName] = useState("");
 
+  // Fix for unclickable UI: Force body pointer-events and cleanup overlays
+  useEffect(() => {
+    if (!isDialogOpen) {
+      const cleanup = () => {
+        document.body.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'auto';
+        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
+      };
+      const timer = setTimeout(cleanup, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isDialogOpen]);
+
   const teachersQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'users'), where('role', '==', 'teacher'));
@@ -66,7 +79,6 @@ export default function TeachersRegistryPage() {
         });
         toast({ title: "Teacher Updated" });
       } else {
-        // Generate a simplified internal system email for compatibility
         const safeName = teacherName.toLowerCase().replace(/[^a-z0-9]/g, '.');
         const generatedEmail = `${safeName}.${Math.floor(Math.random() * 1000)}@bharath.edu`;
 
@@ -80,14 +92,18 @@ export default function TeachersRegistryPage() {
         });
         toast({ title: "Teacher Added to Registry" });
       }
-      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
+      setIsDialogOpen(false);
       setEditingTeacher(null);
       setTeacherName("");
+      // Force immediate focus recovery
+      setTimeout(() => {
+        document.body.style.pointerEvents = 'auto';
+      }, 150);
     }
   };
 
@@ -99,6 +115,13 @@ export default function TeachersRegistryPage() {
     } catch (e: any) {
       toast({ variant: "destructive", title: "Delete Failed", description: e.message });
     }
+  };
+
+  const openEditDialog = (t: any) => {
+    setEditingTeacher(t);
+    setTeacherName(t.displayName);
+    // Use timeout to allow DropdownMenu to close before Dialog opens
+    setTimeout(() => setIsDialogOpen(true), 50);
   };
 
   return (
@@ -158,9 +181,7 @@ export default function TeachersRegistryPage() {
                           <DropdownMenuItem 
                             onSelect={(e) => {
                               e.preventDefault();
-                              setEditingTeacher(t);
-                              setTeacherName(t.displayName);
-                              setIsDialogOpen(true);
+                              openEditDialog(t);
                             }}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >

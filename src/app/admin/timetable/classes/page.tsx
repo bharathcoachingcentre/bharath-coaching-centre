@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
@@ -73,6 +74,7 @@ export default function ClassesManagementPage() {
     }
   }, [classes]);
 
+  // Fix for unclickable UI
   useEffect(() => {
     if (!isDialogOpen) {
       const cleanup = () => {
@@ -108,7 +110,6 @@ export default function ClassesManagementPage() {
         });
         toast({ title: "Class Added", description: `${data.name} has been created.` });
       }
-      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ 
@@ -118,12 +119,11 @@ export default function ClassesManagementPage() {
       });
     } finally {
       setIsSaving(false);
+      setIsDialogOpen(false);
       setEditingClass(null);
       setNewClass({ name: "", board: "cbse" });
-      
       setTimeout(() => {
         document.body.style.pointerEvents = "auto";
-        document.body.style.overflow = "auto";
       }, 150);
     }
   };
@@ -242,7 +242,10 @@ export default function ClassesManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
                           <DropdownMenuItem 
-                            onSelect={() => openEditDialog(c)}
+                            onSelect={(e) => {
+                              e.preventDefault();
+                              openEditDialog(c);
+                            }}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >
                             <Pencil className="mr-2 h-4 w-4 text-blue-600" />
@@ -268,7 +271,7 @@ export default function ClassesManagementPage() {
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="rounded-3xl max-w-md">
+        <DialogContent className="rounded-3xl max-w-md border-none shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl font-black text-gray-900">{editingClass ? "Edit Class" : "Define New Class"}</DialogTitle>
           </DialogHeader>
@@ -276,7 +279,7 @@ export default function ClassesManagementPage() {
             <div className="space-y-2 text-left">
               <label className="text-xs font-black uppercase text-gray-400">Board</label>
               <Select value={newClass.board} onValueChange={(val) => setNewClass({ ...newClass, board: val })}>
-                <SelectTrigger className="h-12 rounded-xl">
+                <SelectTrigger className="h-12 rounded-xl bg-gray-50 border-gray-100">
                   <SelectValue placeholder="Select board" />
                 </SelectTrigger>
                 <SelectContent>
@@ -291,13 +294,13 @@ export default function ClassesManagementPage() {
                 value={newClass.name} 
                 onChange={(e) => setNewClass({ ...newClass, name: e.target.value })}
                 placeholder="e.g. Class 10"
-                className="h-12 rounded-xl"
+                className="h-12 rounded-xl bg-gray-50 border-gray-100"
               />
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="gap-3">
             <Button variant="ghost" onClick={() => setIsDialogOpen(false)} disabled={isSaving}>Cancel</Button>
-            <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 text-white rounded-xl px-8 h-12 font-bold">
+            <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 text-white rounded-xl px-8 h-12 font-bold shadow-lg transition-all active:scale-95 border-none">
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Class"}
             </Button>
           </DialogFooter>

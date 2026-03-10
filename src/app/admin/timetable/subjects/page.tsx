@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
@@ -50,11 +51,13 @@ export default function SubjectsManagementPage() {
   const [editingSubject, setEditingSubject] = useState<any | null>(null);
   const [newSubject, setNewSubject] = useState({ name: "", code: "" });
 
+  // Fix for unclickable UI
   useEffect(() => {
     if (!isDialogOpen) {
       const cleanup = () => {
         document.body.style.pointerEvents = 'auto';
         document.body.style.overflow = 'auto';
+        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
       };
       const timer = setTimeout(cleanup, 100);
       return () => clearTimeout(timer);
@@ -79,8 +82,8 @@ export default function SubjectsManagementPage() {
 
   const handleSave = async () => {
     if (!firestore || !newSubject.name) return;
+    
     setIsSaving(true);
-
     try {
       if (editingSubject) {
         await updateDoc(doc(firestore, 'subjects', editingSubject.id), {
@@ -95,25 +98,28 @@ export default function SubjectsManagementPage() {
         });
         toast({ title: "Subject Added" });
       }
-      setEditingSubject(null);
-      setNewSubject({ name: "", code: "" });
-      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
+      setIsDialogOpen(false);
+      setEditingSubject(null);
+      setNewSubject({ name: "", code: "" });
       setTimeout(() => {
         document.body.style.pointerEvents = 'auto';
-      }, 200);
+      }, 150);
     }
   };
 
   const handleDelete = async (id: string) => {
     if (!firestore || !confirm("Delete this subject?")) return;
-    deleteDoc(doc(firestore, 'subjects', id))
-      .then(() => toast({ title: "Subject Deleted" }))
-      .catch((e) => toast({ variant: "destructive", title: "Delete Failed", description: e.message }));
+    try {
+      await deleteDoc(doc(firestore, 'subjects', id));
+      toast({ title: "Subject Deleted" });
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Delete Failed", description: e.message });
+    }
   };
 
   return (
@@ -172,13 +178,13 @@ export default function SubjectsManagementPage() {
                             <MoreVertical className="w-4 h-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1">
+                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1 border-gray-100">
                           <DropdownMenuItem 
                             onSelect={(e) => {
                               e.preventDefault();
                               setEditingSubject(s);
                               setNewSubject({ name: s.name, code: s.code || "" });
-                              setIsDialogOpen(true);
+                              setTimeout(() => setIsDialogOpen(true), 50);
                             }}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >
@@ -205,33 +211,33 @@ export default function SubjectsManagementPage() {
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="rounded-3xl max-w-md">
+        <DialogContent className="rounded-3xl max-w-md border-none shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl font-black text-gray-900">{editingSubject ? "Edit Subject" : "Add New Subject"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-6 py-4">
-            <div className="space-y-2">
+            <div className="space-y-2 text-left">
               <label className="text-xs font-black uppercase text-gray-400">Subject Name</label>
               <Input 
                 value={newSubject.name} 
                 onChange={(e) => setNewSubject({ ...newSubject, name: e.target.value })}
                 placeholder="e.g. Mathematics"
-                className="h-12 rounded-xl"
+                className="h-12 rounded-xl bg-gray-50 border-gray-100"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 text-left">
               <label className="text-xs font-black uppercase text-gray-400">Subject Code (Optional)</label>
               <Input 
                 value={newSubject.code} 
                 onChange={(e) => setNewSubject({ ...newSubject, code: e.target.value })}
                 placeholder="e.g. MATH101"
-                className="h-12 rounded-xl"
+                className="h-12 rounded-xl bg-gray-50 border-gray-100"
               />
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="gap-3">
             <Button variant="ghost" onClick={() => setIsDialogOpen(false)} disabled={isSaving}>Cancel</Button>
-            <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 text-white rounded-xl px-8 h-12 font-bold">
+            <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 text-white rounded-xl px-8 h-12 font-bold shadow-lg transition-all active:scale-95 border-none">
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Subject"}
             </Button>
           </DialogFooter>
