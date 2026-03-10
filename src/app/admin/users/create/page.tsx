@@ -148,7 +148,7 @@ function CreateUserForm() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 pb-12">
-          <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+          <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white text-left">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
                 <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
@@ -166,7 +166,7 @@ function CreateUserForm() {
                   name="photoURL"
                   render={({ field }) => (
                     <FormItem className="md:col-span-2">
-                      <FormLabel className="text-xs font-black uppercase text-gray-400">Choose Avatar</FormLabel>
+                      <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Choose Avatar</FormLabel>
                       <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 mt-2">
                         {quickSeeds.map((item, idx) => {
                           const url = `https://api.dicebear.com/7.x/${item.id}/svg?seed=${item.seed}`;
@@ -202,7 +202,7 @@ function CreateUserForm() {
                           </DialogTrigger>
                           <DialogContent className="sm:max-w-[600px] rounded-[2.5rem]">
                             <DialogHeader>
-                              <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Avatar Library</DialogTitle>
+                              <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight text-left">Avatar Library</DialogTitle>
                             </DialogHeader>
                             <Tabs defaultValue="micah" className="w-full mt-4">
                               <TabsList className="grid grid-cols-3 sm:grid-cols-6 bg-gray-100 p-1 rounded-xl h-auto gap-1">
