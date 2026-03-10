@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -32,7 +31,8 @@ import {
   Lightbulb,
   Brain,
   Calendar,
-  Clock
+  Clock,
+  Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -107,6 +107,7 @@ const defaultPageData: Record<string, any> = {
     ],
     timetableTitle: "Offline Class Timetable",
     timetableSubtitle: "View our structured class schedules for offline sessions",
+    timetableIcon: "Info",
     timetableNotes: [
       "Sunday is a holiday for all classes",
       "Each session includes a 15-minute break",
@@ -264,6 +265,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   { n: "TrendingUp", i: TrendingUp },
                   { n: "Award", i: Award },
                   { n: "Search", i: Search },
+                  { n: "Info", i: Info },
                 ].map((item) => (
                   <div key={item.n} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
                     <item.i className="w-5 h-5 text-teal-400" />
@@ -665,8 +667,18 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     </div>
                   </div>
 
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Notes Icon (Lucide)</Label>
+                    <Input 
+                      value={formData.timetableIcon || ""} 
+                      onChange={(e) => updateField('timetableIcon', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      placeholder="Info, Zap, Star, etc."
+                    />
+                  </div>
+
                   <div className="space-y-4">
-                    <Label className="text-xs font-black uppercase text-gray-400">Important Notes (One per line)</Label>
+                    <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Important Notes (One per line)</Label>
                     <Textarea 
                       value={formData.timetableNotes?.join('\n') || ""} 
                       onChange={(e) => updateField('timetableNotes', e.target.value.split('\n').filter(p => p.trim() !== ''))}

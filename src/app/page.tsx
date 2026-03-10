@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -35,7 +34,8 @@ import {
   Trophy,
   Search,
   Crown,
-  CheckCircle2
+  CheckCircle2,
+  Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -235,6 +235,7 @@ const iconMap: Record<string, any> = {
   Star: Star,
   Laptop: Laptop,
   Building: Building,
+  Info: Info,
 };
 
 export default function HomePage() {
@@ -349,13 +350,14 @@ export default function HomePage() {
       featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
       features: [
         { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
+        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
         { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
         { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
       ],
       timetableTitle: "Offline Class Timetable",
       timetableSubtitle: "View our structured class schedules for offline sessions",
+      timetableIcon: "Info",
       timetableNotes: [
         "Sunday is a holiday for all classes",
         "Each session includes a 15-minute break",
@@ -438,6 +440,7 @@ export default function HomePage() {
     });
   }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods, allClassesLookup, allSubjectsLookup, allTeachersLookup]);
 
+  const TimetableIcon = iconMap[content.timetableIcon] || Info;
   const heroImageData = placeholderImages["hero-education"];
 
   return (
@@ -789,7 +792,7 @@ export default function HomePage() {
 
           <Card className="rounded-[2.5rem] shadow-2xl border-none overflow-hidden bg-white p-6 md:p-10">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-8 text-left">
-              <div className="relative min-w-[180px] w-full lg:w-auto">
+              <div className="relative min-w-[180px] w-full lg:w-auto text-left">
                 <select 
                   value={selectedScheduleClass}
                   onChange={(e) => setSelectedScheduleClass(e.target.value)}
@@ -863,16 +866,20 @@ export default function HomePage() {
               </table>
             </div>
 
-            <div className="mt-10 p-8 bg-[#eff6ff] rounded-[1.5rem] border border-[#dbeafe] flex items-start gap-4 shadow-inner text-left">
-              <div className="bg-blue-600 rounded-full p-1.5 mt-0.5 shadow-md">
-                <span className="text-white text-xs">i</span>
+            <div className="mt-10 p-8 md:p-10 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-[3rem] border border-blue-100 flex flex-col md:flex-row items-center md:items-start gap-8 shadow-inner text-left group">
+              <div className="relative shrink-0">
+                <div className="absolute -inset-4 bg-blue-600/20 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+                <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-blue-600 to-blue-500 flex items-center justify-center shadow-2xl text-white transform group-hover:rotate-12 transition-transform duration-500">
+                  <TimetableIcon className="w-8 h-8" />
+                </div>
               </div>
-              <div className="space-y-2 text-left">
-                <h4 className="font-bold text-gray-900 text-base">Important Notes:</h4>
-                <ul className="space-y-1.5 text-gray-600 text-[13px] font-normal leading-relaxed font-body">
+              <div className="space-y-4 text-left">
+                <h4 className="font-bold text-gray-900 text-2xl tracking-tight">Important Notes</h4>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-3 text-gray-600 text-sm font-medium leading-relaxed font-body">
                   {(content.timetableNotes || []).map((note: string, i: number) => (
-                    <li key={i} className="flex items-center gap-2 text-left">
-                      <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> {note}
+                    <li key={i} className="flex items-start gap-3 text-left">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-1.5 shrink-0 shadow-sm shadow-blue-200"></div>
+                      <span>{note}</span>
                     </li>
                   ))}
                 </ul>
