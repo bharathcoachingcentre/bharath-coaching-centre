@@ -136,12 +136,12 @@ const materialStyles = [
 ];
 
 const whyChooseStyles = [
-  { bg: "bg-blue-50/50", iconBg: "bg-blue-600", shadow: "shadow-blue-500/20", border: "hover:border-blue-600" },
-  { bg: "bg-teal-50/50", iconBg: "bg-teal-500", shadow: "shadow-teal-500/20", border: "hover:border-teal-500" },
-  { bg: "bg-purple-50/50", iconBg: "bg-purple-600", shadow: "shadow-purple-500/20", border: "hover:border-purple-600" },
-  { bg: "bg-orange-50/50", iconBg: "bg-orange-600", shadow: "shadow-orange-500/20", border: "hover:border-orange-600" },
-  { bg: "bg-pink-50/50", iconBg: "bg-pink-600", shadow: "shadow-pink-500/20", border: "hover:border-pink-600" },
-  { bg: "bg-indigo-50/50", iconBg: "bg-indigo-600", shadow: "shadow-indigo-500/20", border: "hover:border-indigo-600" },
+  { bg: "bg-blue-50/50", iconBg: "bg-blue-600", shadow: "shadow-blue-500/20", border: "border-blue-100", hoverBorder: "hover:border-blue-600" },
+  { bg: "bg-teal-50/50", iconBg: "bg-teal-500", shadow: "shadow-teal-500/20", border: "border-teal-100", hoverBorder: "hover:border-teal-500" },
+  { bg: "bg-purple-50/50", iconBg: "bg-purple-600", shadow: "shadow-purple-500/20", border: "border-purple-100", hoverBorder: "hover:border-purple-600" },
+  { bg: "bg-orange-50/50", iconBg: "bg-orange-600", shadow: "shadow-orange-500/20", border: "border-orange-100", hoverBorder: "hover:border-orange-600" },
+  { bg: "bg-pink-50/50", iconBg: "bg-pink-600", shadow: "shadow-pink-500/20", border: "border-pink-100", hoverBorder: "hover:border-pink-600" },
+  { bg: "bg-indigo-50/50", iconBg: "bg-indigo-600", shadow: "shadow-indigo-500/20", border: "border-indigo-100", hoverBorder: "hover:border-indigo-600" },
 ];
 
 const iconMap: Record<string, any> = {
@@ -981,7 +981,7 @@ export default function HomePage() {
               const Icon = iconMap[feature.icon] || Zap;
               const style = whyChooseStyles[idx % whyChooseStyles.length];
               return (
-                <div key={idx} className={cn("p-8 rounded-[2rem] border transition-all duration-500 group text-left backdrop-blur-md", style.bg, "border-white shadow-sm hover:shadow-2xl hover:-translate-y-2", style.border)}>
+                <div key={idx} className={cn("p-8 rounded-[2rem] border transition-all duration-500 group text-left backdrop-blur-md", style.bg, style.border, "shadow-sm hover:shadow-xl hover:-translate-y-2", style.hoverBorder)}>
                   <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg mb-6 group-hover:scale-110 transition-transform", style.iconBg, style.shadow)}>
                     <Icon className="w-7 h-7" />
                   </div>
