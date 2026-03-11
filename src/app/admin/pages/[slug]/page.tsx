@@ -1289,7 +1289,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         variant="outline" 
                         size="sm"
                         onClick={() => {
-                          const currentYears = formData.successYears || [];
+                          const currentYears = Array.isArray(formData.successYears) ? formData.successYears : [];
                           updateField('successYears', [...currentYears, ""]);
                         }}
                         className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
@@ -1298,14 +1298,14 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       </Button>
                     </div>
                     <div className="flex flex-wrap gap-3 p-6 bg-gray-50 rounded-[2rem] border border-gray-100 min-h-[80px]">
-                      {(formData.successYears || []).map((year: string, idx: number) => (
+                      {(Array.isArray(formData.successYears) ? formData.successYears : (typeof formData.successYears === 'string' ? formData.successYears.split(/[\n,\s]+/).filter(Boolean) : [])).map((year: string, idx: number) => (
                         <div key={idx} className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm transition-all hover:border-blue-200">
                           <input 
                             value={year}
                             onChange={(e) => {
-                              const newList = [...(formData.successYears || [])];
-                              newList[idx] = e.target.value;
-                              updateField('successYears', newList);
+                              const currentYears = Array.isArray(formData.successYears) ? [...formData.successYears] : (typeof formData.successYears === 'string' ? formData.successYears.split(/[\n,\s]+/).filter(Boolean) : []);
+                              currentYears[idx] = e.target.value;
+                              updateField('successYears', currentYears);
                             }}
                             className="bg-transparent border-none outline-none font-bold text-gray-700 w-16 text-center text-sm"
                             placeholder="2025"
@@ -1313,7 +1313,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <button 
                             type="button"
                             onClick={() => {
-                              const newList = (formData.successYears || []).filter((_: any, i: number) => i !== idx);
+                              const currentYears = Array.isArray(formData.successYears) ? formData.successYears : (typeof formData.successYears === 'string' ? formData.successYears.split(/[\n,\s]+/).filter(Boolean) : []);
+                              const newList = currentYears.filter((_: any, i: number) => i !== idx);
                               updateField('successYears', newList);
                             }}
                             className="text-gray-300 hover:text-red-500 transition-colors"
@@ -1322,7 +1323,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           </button>
                         </div>
                       ))}
-                      {(!formData.successYears || formData.successYears.length === 0) && (
+                      {(!formData.successYears || (Array.isArray(formData.successYears) && formData.successYears.length === 0)) && (
                         <p className="text-xs text-gray-400 font-medium italic py-2">No years added. Click "Add Year" to manage dropdown options.</p>
                       )}
                     </div>

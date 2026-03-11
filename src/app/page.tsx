@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -416,6 +415,16 @@ export default function HomePage() {
   const TimetableIcon = iconMap[content.timetableIcon] || Info;
   const SuccessCardIcon = iconMap[content.successCardIcon] || Star;
   const heroImageData = placeholderImages["hero-education"];
+
+  const successYears = useMemo(() => {
+    if (Array.isArray(content.successYears)) {
+      return content.successYears.filter(Boolean);
+    }
+    if (typeof content.successYears === 'string') {
+      return content.successYears.split(/[\n,\s]+/).filter(Boolean);
+    }
+    return ["2025", "2024", "2023"];
+  }, [content.successYears]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -1033,12 +1042,12 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
               <h3 className="text-2xl font-bold text-gray-900 tracking-tight text-left">{content.successTopHeader}</h3>
               <div className="w-full md:w-auto text-left">
-                <Select defaultValue={content.successYears?.[0] || "2025"}>
+                <Select defaultValue={successYears[0] || "2025"}>
                   <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700">
-                    <SelectValue placeholder={`Year ${content.successYears?.[0] || "2025"}`} />
+                    <SelectValue placeholder={`Year ${successYears[0] || "2025"}`} />
                   </SelectTrigger>
                   <SelectContent>
-                    {(content.successYears || ["2025", "2024", "2023"]).map((year: string) => (
+                    {successYears.map((year: string) => (
                       <SelectItem key={year} value={year}>Year {year}</SelectItem>
                     ))}
                   </SelectContent>
