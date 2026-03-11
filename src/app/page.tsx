@@ -905,6 +905,153 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Offline Class Timetable Section */}
+      <section id="timetable-section" className="py-24 bg-gray-50/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
+              Schedule
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
+              {content.timetableTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.timetableTitleHighlight}</span>
+            </h2>
+            <p className="mt-4 text-lg text-gray-600 font-normal text-center">
+              {content.timetableSubtitle}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100 overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
+                <button
+                  onClick={() => setActiveScheduleBoard("cbse")}
+                  className={cn(
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    activeScheduleBoard === "cbse"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  CBSE
+                </button>
+                <button
+                  onClick={() => setActiveScheduleBoard("samacheer")}
+                  className={cn(
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    activeScheduleBoard === "samacheer"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  Samacheer
+                </button>
+              </div>
+
+              <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2 w-full md:w-auto">
+                {[...new Set((allClassesRaw || [])
+                  .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
+                  .map(c => c.name))]
+                  .sort((a, b) => {
+                    const numA = parseInt(a.replace(/\D/g, '')) || 0;
+                    const numB = parseInt(b.replace(/\D/g, '')) || 0;
+                    return numA - numB;
+                  })
+                  .map((cls) => (
+                    <button
+                      key={cls}
+                      onClick={() => setSelectedScheduleClass(cls)}
+                      className={cn(
+                        "px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all duration-300",
+                        selectedScheduleClass === cls
+                          ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
+                          : "bg-gray-50 text-gray-500 hover:bg-gray-100"
+                      )}
+                    >
+                      {cls}
+                    </button>
+                  ))}
+              </div>
+            </div>
+
+            <div className="overflow-x-auto no-scrollbar -mx-8 md:-mx-12 px-8 md:px-12">
+              <div className="min-w-[800px] pb-8">
+                <div className="grid grid-cols-7 gap-4">
+                  <div className="h-14"></div>
+                  {allPeriods?.map((period, i) => (
+                    <div key={i} className="flex flex-col items-center justify-center text-center space-y-1">
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Period {i + 1}</span>
+                      <span className="text-[11px] font-bold text-gray-900">{period.label}</span>
+                    </div>
+                  ))}
+                  {(!allPeriods || allPeriods.length === 0) && ["Slot 1", "Slot 2", "Slot 3", "Slot 4"].map((slot, i) => (
+                    <div key={i} className="flex flex-col items-center justify-center text-center space-y-1">
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Period {i + 1}</span>
+                      <span className="text-[11px] font-bold text-gray-900">{slot}</span>
+                    </div>
+                  ))}
+
+                  {timetableDisplayData.map((dayData, i) => (
+                    <React.Fragment key={i}>
+                      <div className="flex items-center">
+                        <span className="text-sm font-black text-[#182d45] uppercase tracking-wider">{dayData.day}</span>
+                      </div>
+                      {dayData.slots.map((slot, j) => (
+                        <div key={j} className={cn(
+                          "min-h-[100px] rounded-2xl border p-4 flex flex-col justify-center gap-1 transition-all duration-300 group hover:scale-[1.02]",
+                          slot.c
+                        )}>
+                          {slot.s !== "-" ? (
+                            <>
+                              <span className="text-[13px] font-black leading-tight">{slot.s}</span>
+                              <span className="text-[10px] font-bold opacity-60 flex items-center gap-1">
+                                <UserCheck className="w-3 h-3" />
+                                {slot.t}
+                              </span>
+                            </>
+                          ) : (
+                            <span className="text-sm font-bold opacity-30">-</span>
+                          )}
+                        </div>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 pt-8 border-t border-gray-50 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shadow-sm">
+                    <TimetableIcon className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-black text-gray-900 uppercase tracking-tight">Important Notes</h4>
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Academy Schedule Guidelines</p>
+                  </div>
+                </div>
+                <div className="h-10 w-px bg-gray-100 hidden md:block"></div>
+                <div className="flex flex-wrap gap-4">
+                  {(content.timetableNotes || []).map((note: string, i: number) => (
+                    <div key={i} className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-lg">
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                      <span className="text-xs font-bold text-gray-600">{note}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <Button asChild className="h-14 px-10 bg-gray-900 hover:bg-black text-white font-bold rounded-2xl shadow-xl transition-all active:scale-95 border-none">
+                <Link href="/contact">
+                  <Download className="w-5 h-5 mr-2" />
+                  Get Personal Schedule
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* One-to-One Mentorship Section */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
