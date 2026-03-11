@@ -570,8 +570,8 @@ export default function HomePage() {
                   >
                     <Icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed font-normal">{feature.desc}</p>
+                  <h3 className="text-[24px] font-bold text-gray-900 tracking-tight">{feature.title}</h3>
+                  <p className="text-gray-600 text-[16px] leading-relaxed font-normal">{feature.desc}</p>
                 </motion.div>
               );
             })}
@@ -1014,14 +1014,15 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             {(content.successStats || []).map((stat: any, idx: number) => {
               const Icon = iconMap[stat.icon] || Trophy;
+              const bgColors = ["bg-[#2b65e2]", "bg-[#10b981]", "bg-[#8b5cf6]"]; 
               return (
-                <Card key={idx} className="border-none shadow-xl rounded-[2rem] p-10 text-center flex flex-col items-center gap-4 bg-white hover:-translate-y-2 transition-transform duration-500">
-                  <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 shadow-lg bg-blue-50", stat.color)}>
-                    <Icon className="w-8 h-8" />
+                <Card key={idx} className="border-none shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-[2rem] p-12 text-center flex flex-col items-center bg-white hover:-translate-y-2 transition-transform duration-500">
+                  <div className={cn("w-20 h-20 rounded-full flex items-center justify-center shrink-0 shadow-xl mb-6 text-white", bgColors[idx % bgColors.length])}>
+                    <Icon className="w-10 h-10" />
                   </div>
-                  <div>
-                    <div className="text-5xl font-black text-gray-900 tracking-tighter mb-1">{stat.value}</div>
-                    <div className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em]">{stat.label}</div>
+                  <div className="space-y-2">
+                    <div className="text-5xl font-bold text-gray-900 tracking-tight">{stat.value}</div>
+                    <div className="text-[16px] font-medium text-[#4b5563]">{stat.label}</div>
                   </div>
                 </Card>
               );
