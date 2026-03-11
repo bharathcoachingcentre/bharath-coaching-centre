@@ -40,7 +40,9 @@ import {
   MessageSquareQuote,
   PieChart,
   ClipboardCheck,
-  HelpCircle
+  HelpCircle,
+  Medal,
+  Crown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -162,6 +164,23 @@ const defaultPageData: Record<string, any> = {
       { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
       { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
+    ],
+    successTitle: "Our Students' Success Stories",
+    successSubtitle: "Celebrating exceptional achievements and academic excellence",
+    successStats: [
+      { icon: "Trophy", value: "95%", label: "Pass Rate", color: "text-blue-600" },
+      { icon: "Medal", value: "120+", label: "Distinctions", color: "text-teal-600" },
+      { icon: "GraduationCap", value: "5000+", label: "Students", color: "text-purple-600" },
+    ],
+    successTopHeader: "Top Performers",
+    successYears: ["2025", "2024", "2023"],
+    successTotalMarksLabel: "Total Marks",
+    successCardIcon: "Star",
+    successPerformers: [
+      { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", rankIcon: "Crown", badgeColor: "bg-[#fbbf24]", marksColor: "text-blue-600", iconColor: "bg-blue-600", img: placeholderImages["student-7"].src },
+      { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", rankIcon: "Medal", badgeColor: "bg-[#94a3b8]", marksColor: "text-teal-600", iconColor: "bg-teal-600", img: placeholderImages["student-4"].src },
+      { name: "Divya Nair", grade: "Class 10, Samacheer", marks: "96.4%", rank: "Rank 3", rankIcon: "Award", badgeColor: "bg-[#f59e0b]", marksColor: "text-purple-600", iconColor: "bg-purple-600", img: placeholderImages["student-3"].src },
+      { name: "Rohan Kapoor", grade: "Class 12, CBSE", marks: "95.2%", rank: "Top 10", rankIcon: "", badgeColor: "bg-blue-500", marksColor: "text-orange-600", iconColor: "bg-orange-600", img: placeholderImages["student-8"].src },
     ]
   },
   about: {
@@ -197,6 +216,10 @@ const iconMap: Record<string, any> = {
   Layers: Layers,
   PieChart: PieChart,
   ClipboardCheck: ClipboardCheck,
+  Medal: Medal,
+  Crown: Crown,
+  Star: Star,
+  ImageIcon: ImageIcon
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -257,7 +280,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, callback: (base64: string) => void) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Basic size check (1MB limit for Firestore document string safety)
       if (file.size > 1024 * 1024) {
         toast({
           variant: "destructive",
@@ -304,9 +326,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
       </div>
 
       <div className="space-y-8">
-        {/* Top Row: Page Info & Icon Library */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-          {/* Page Info Card */}
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <div className="h-20 bg-gradient-to-r from-blue-600 to-teal-500"></div>
             <CardContent className="p-8 -mt-10 relative">
@@ -333,7 +353,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </CardContent>
           </Card>
 
-          {/* Icon Selection Helper */}
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-[#182d45] text-white">
             <CardHeader className="p-8 pb-4">
               <CardTitle className="text-xl font-bold flex items-center gap-2">
@@ -357,14 +376,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
           </Card>
         </div>
 
-        {/* Main Editor Row: All Fields Full Width */}
         <div className="space-y-8">
-          {/* Home Page Specific Sections */}
           {slug === 'home' && (
             <div className="space-y-8">
               {/* Banner Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Banner Text</CardTitle>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-6 text-left">
@@ -399,9 +416,9 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Banner Buttons & Floating Cards */}
+              {/* Banner Elements */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <MousePointer2 className="w-6 h-6 text-blue-600" /> Banner Elements
                   </CardTitle>
@@ -490,7 +507,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Features Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <Sparkles className="w-6 h-6 text-blue-600" /> How We Help Section
                   </CardTitle>
@@ -589,7 +606,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Academic Programs Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <GraduationCap className="w-6 h-6 text-teal-500" /> Academic Programs
                   </CardTitle>
@@ -719,7 +736,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Timetable Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <Calendar className="w-6 h-6 text-blue-600" /> Offline Timetable Section
                   </CardTitle>
@@ -770,7 +787,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* One-to-One Mentorship Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <UserCheck className="w-6 h-6 text-blue-600" /> One-to-One Mentorship
                   </CardTitle>
@@ -815,7 +832,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
 
-                  {/* Mentorship Image Editor */}
                   <div className="space-y-4">
                     <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                       <ImageIcon className="w-4 h-4 text-blue-600" /> Mentorship Section Image
@@ -924,9 +940,9 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Testimonials Section Editor */}
+              {/* Testimonials Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <MessageSquareQuote className="w-6 h-6 text-blue-600" /> Testimonials Section
                   </CardTitle>
@@ -1085,9 +1101,9 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Why Choose Section Editor */}
+              {/* Why Choose Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <HelpCircle className="w-6 h-6 text-blue-600" /> Why Choose Section
                   </CardTitle>
@@ -1104,7 +1120,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Description</Label>
                       <Input 
                         value={formData.whyChooseSubtitle || ""} 
                         onChange={(e) => updateField('whyChooseSubtitle', e.target.value)}
@@ -1189,6 +1205,184 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Success Stories Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0 text-left">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <Trophy className="w-6 h-6 text-blue-600" /> Success Stories Section
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Input 
+                        value={formData.successTitle || ""} 
+                        onChange={(e) => updateField('successTitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Input 
+                        value={formData.successSubtitle || ""} 
+                        onChange={(e) => updateField('successSubtitle', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Success Statistics</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {(formData.successStats || defaultPageData.home.successStats)?.map((stat: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
+                            <Input value={stat.icon} onChange={(e) => {
+                              const newList = [...(formData.successStats || defaultPageData.home.successStats)];
+                              newList[idx].icon = e.target.value;
+                              updateField('successStats', newList);
+                            }} className="h-10 bg-white" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase">Value</Label>
+                            <Input value={stat.value} onChange={(e) => {
+                              const newList = [...(formData.successStats || defaultPageData.home.successStats)];
+                              newList[idx].value = e.target.value;
+                              updateField('successStats', newList);
+                            }} className="h-10 bg-white" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase">Label</Label>
+                            <Input value={stat.label} onChange={(e) => {
+                              const newList = [...(formData.successStats || defaultPageData.home.successStats)];
+                              newList[idx].label = e.target.value;
+                              updateField('successStats', newList);
+                            }} className="h-10 bg-white" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-gray-50">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Top Performers Header</Label>
+                      <Input value={formData.successTopHeader} onChange={(e) => updateField('successTopHeader', e.target.value)} className="h-12 bg-gray-50 border-none rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Total Marks Label</Label>
+                      <Input value={formData.successTotalMarksLabel} onChange={(e) => updateField('successTotalMarksLabel', e.target.value)} className="h-12 bg-gray-50 border-none rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Card Icon (Lucide)</Label>
+                      <Input value={formData.successCardIcon} onChange={(e) => updateField('successCardIcon', e.target.value)} className="h-12 bg-gray-50 border-none rounded-xl" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Years Dropdown (One per line)</Label>
+                    <Textarea 
+                      value={formData.successYears?.join('\n') || ""} 
+                      onChange={(e) => updateField('successYears', e.target.value.split('\n').filter(y => y.trim() !== ''))}
+                      className="min-h-[100px] bg-gray-50 border-none rounded-xl p-4 font-medium"
+                    />
+                  </div>
+
+                  <div className="space-y-8 pt-6 border-t border-gray-50">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Top Performers List</Label>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const newList = [...(formData.successPerformers || [])];
+                          newList.push({ name: "New Performer", grade: "Class 10", marks: "0%", rank: "Top 10", rankIcon: "", badgeColor: "bg-blue-500", marksColor: "text-blue-600", iconColor: "bg-blue-600", img: "" });
+                          updateField('successPerformers', newList);
+                        }}
+                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                      >
+                        <Plus className="w-4 h-4" /> Add Performer
+                      </Button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {(formData.successPerformers || defaultPageData.home.successPerformers)?.map((performer: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 relative group">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label className="text-[10px] font-black uppercase">Name</Label>
+                              <Input value={performer.name} onChange={(e) => {
+                                const newList = [...(formData.successPerformers || defaultPageData.home.successPerformers)];
+                                newList[idx].name = e.target.value;
+                                updateField('successPerformers', newList);
+                              }} className="h-10 bg-white" />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-[10px] font-black uppercase">Grade/Board</Label>
+                              <Input value={performer.grade} onChange={(e) => {
+                                const newList = [...(formData.successPerformers || defaultPageData.home.successPerformers)];
+                                newList[idx].grade = e.target.value;
+                                updateField('successPerformers', newList);
+                              }} className="h-10 bg-white" />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-[10px] font-black uppercase">Marks</Label>
+                              <Input value={performer.marks} onChange={(e) => {
+                                const newList = [...(formData.successPerformers || defaultPageData.home.successPerformers)];
+                                newList[idx].marks = e.target.value;
+                                updateField('successPerformers', newList);
+                              }} className="h-10 bg-white" />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-[10px] font-black uppercase">Rank Text</Label>
+                              <Input value={performer.rank} onChange={(e) => {
+                                const newList = [...(formData.successPerformers || defaultPageData.home.successPerformers)];
+                                newList[idx].rank = e.target.value;
+                                updateField('successPerformers', newList);
+                              }} className="h-10 bg-white" />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-[10px] font-black uppercase">Rank Icon</Label>
+                              <Input value={performer.rankIcon} onChange={(e) => {
+                                const newList = [...(formData.successPerformers || defaultPageData.home.successPerformers)];
+                                newList[idx].rankIcon = e.target.value;
+                                updateField('successPerformers', newList);
+                              }} className="h-10 bg-white" placeholder="Crown, Medal, etc." />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-[10px] font-black uppercase">Photo</Label>
+                              <div className="flex items-center gap-2">
+                                <Button type="button" size="sm" variant="outline" className="h-10 text-[10px]" onClick={() => document.getElementById(`performer-photo-${idx}`)?.click()}>
+                                  Upload
+                                </Button>
+                                <input id={`performer-photo-${idx}`} type="file" className="hidden" accept="image/*" onChange={(e) => handleImageUpload(e, (b64) => {
+                                  const newList = [...(formData.successPerformers || defaultPageData.home.successPerformers)];
+                                  newList[idx].img = b64;
+                                  updateField('successPerformers', newList);
+                                })} />
+                                {performer.img && <img src={performer.img} className="w-10 h-10 rounded-lg object-cover border" alt="preview" />}
+                              </div>
+                            </div>
+                          </div>
+                          <button 
+                            type="button"
+                            className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => {
+                              const newList = (formData.successPerformers || defaultPageData.home.successPerformers).filter((_: any, i: number) => i !== idx);
+                              updateField('successPerformers', newList);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           )}
 
@@ -1196,7 +1390,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
           {slug === 'about' && (
             <div className="space-y-8">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 text-left">
@@ -1212,7 +1406,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
               </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
+                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Our Philosophy</CardTitle>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-6">
@@ -1266,10 +1460,9 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {/* Generic Editor Fallback */}
           {slug !== 'home' && slug !== 'about' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-              <CardHeader className="p-10 pb-0">
+              <CardHeader className="p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>
               </CardHeader>
               <CardContent className="p-10 pt-6 text-center py-20">

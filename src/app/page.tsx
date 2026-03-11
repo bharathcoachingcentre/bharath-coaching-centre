@@ -134,92 +134,6 @@ const materialStyles = [
   },
 ];
 
-const topPerformers = [
-  {
-    name: "Ananya Krishnan",
-    grade: "Class 10, CBSE",
-    marks: "98.6%",
-    rank: "Rank 1",
-    badgeColor: "bg-[#fbbf24]",
-    marksColor: "text-blue-600",
-    iconColor: "bg-blue-600",
-    img: placeholderImages["student-7"].src,
-    rankIcon: Crown
-  },
-  {
-    name: "Arjun Mehta",
-    grade: "Class 12, CBSE",
-    marks: "97.8%",
-    rank: "Rank 2",
-    badgeColor: "bg-[#94a3b8]",
-    marksColor: "text-teal-600",
-    iconColor: "bg-teal-600",
-    img: placeholderImages["student-4"].src,
-    rankIcon: Medal
-  },
-  {
-    name: "Divya Nair",
-    grade: "Class 10, Samacheer",
-    marks: "96.4%",
-    rank: "Rank 3",
-    badgeColor: "bg-[#f59e0b]",
-    marksColor: "text-purple-600",
-    iconColor: "bg-purple-600",
-    img: placeholderImages["student-3"].src,
-    rankIcon: Award
-  },
-  {
-    name: "Rohan Kapoor",
-    grade: "Class 12, CBSE",
-    marks: "95.2%",
-    rank: "Top 10",
-    badgeColor: "bg-blue-500",
-    marksColor: "text-orange-600",
-    iconColor: "bg-orange-600",
-    img: placeholderImages["student-8"].src
-  },
-  {
-    name: "Meera Reddy",
-    grade: "Class 10, CBSE",
-    marks: "94.8%",
-    rank: "Top 10",
-    badgeColor: "bg-blue-500",
-    marksColor: "text-pink-600",
-    iconColor: "bg-pink-600",
-    img: placeholderImages["student-1"].src
-  },
-  {
-    name: "Karthik Iyer",
-    grade: "Class 12, Samacheer",
-    marks: "94.2%",
-    rank: "Top 10",
-    badgeColor: "bg-blue-500",
-    marksColor: "text-green-600",
-    iconColor: "bg-green-600",
-    img: placeholderImages["student-6"].src
-  },
-  {
-    name: "Sneha Patel",
-    grade: "Class 10, CBSE",
-    marks: "93.6%",
-    rank: "Top 10",
-    badgeColor: "bg-blue-500",
-    marksColor: "text-indigo-600",
-    iconColor: "bg-indigo-600",
-    img: placeholderImages["student-5"].src
-  },
-  {
-    name: "Aditya Sharma",
-    grade: "Class 12, CBSE",
-    marks: "92.8%",
-    rank: "Top 10",
-    badgeColor: "bg-blue-500",
-    marksColor: "text-amber-600",
-    iconColor: "bg-amber-600",
-    img: placeholderImages["student-2"].src
-  },
-];
-
 const iconMap: Record<string, any> = {
   Users: Users,
   TrendingUp: TrendingUp,
@@ -240,6 +154,9 @@ const iconMap: Record<string, any> = {
   Layers: Layers,
   PieChart: PieChart,
   ClipboardCheck: ClipboardCheck,
+  Trophy: Trophy,
+  Medal: Medal,
+  Crown: Crown,
 };
 
 export default function HomePage() {
@@ -252,14 +169,12 @@ export default function HomePage() {
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
   const [selectedScheduleClass, setSelectedScheduleClass] = useState("Class 10");
 
-  // Fetch Page Content
   const pageRef = useMemo(() => {
     if (!firestore) return null;
     return doc(firestore, "pages", "home");
   }, [firestore]);
   const { data: homeContent } = useDoc(pageRef);
 
-  // Fetch Master Data for Timetable Lookups
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const { data: allPeriods } = useCollection(periodsQuery);
 
@@ -272,7 +187,6 @@ export default function HomePage() {
   const teachersLookupQuery = useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]);
   const { data: allTeachersLookup } = useCollection(teachersLookupQuery);
 
-  // Fetch Available Classes for Filters
   const classesQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'classes'));
@@ -295,7 +209,6 @@ export default function HomePage() {
     }
   }, [availableClasses, selectedClass]);
 
-  // Fetch Subjects for Filters
   const subjectsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
@@ -316,14 +229,12 @@ export default function HomePage() {
     );
   }, [availableSubjectsList, subjectSearch]);
 
-  // Fetch Study Materials
   const materialsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
   }, [firestore]);
   const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
 
-  // Fetch Timetables
   const timetablesQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'timetables'));
@@ -399,6 +310,23 @@ export default function HomePage() {
         { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
         { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
+      ],
+      successTitle: "Our Students' Success Stories",
+      successSubtitle: "Celebrating exceptional achievements and academic excellence",
+      successStats: [
+        { icon: "Trophy", value: "95%", label: "Pass Rate", color: "text-blue-600" },
+        { icon: "Medal", value: "120+", label: "Distinctions", color: "text-teal-600" },
+        { icon: "GraduationCap", value: "5000+", label: "Students", color: "text-purple-600" },
+      ],
+      successTopHeader: "Top Performers",
+      successYears: ["2025", "2024", "2023"],
+      successTotalMarksLabel: "Total Marks",
+      successCardIcon: "Star",
+      successPerformers: [
+        { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", rankIcon: "Crown", badgeColor: "bg-[#fbbf24]", marksColor: "text-blue-600", iconColor: "bg-blue-600", img: placeholderImages["student-7"].src },
+        { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", rankIcon: "Medal", badgeColor: "bg-[#94a3b8]", marksColor: "text-teal-600", iconColor: "bg-teal-600", img: placeholderImages["student-4"].src },
+        { name: "Divya Nair", grade: "Class 10, Samacheer", marks: "96.4%", rank: "Rank 3", rankIcon: "Award", badgeColor: "bg-[#f59e0b]", marksColor: "text-purple-600", iconColor: "bg-purple-600", img: placeholderImages["student-3"].src },
+        { name: "Rohan Kapoor", grade: "Class 12, CBSE", marks: "95.2%", rank: "Top 10", rankIcon: "", badgeColor: "bg-blue-500", marksColor: "text-orange-600", iconColor: "bg-orange-600", img: placeholderImages["student-8"].src },
       ]
     };
 
@@ -456,7 +384,7 @@ export default function HomePage() {
           const subjectName = allSubjectsLookup?.find(s => s.id === match.subject)?.name || match.subject;
           const teacherName = allTeachersLookup?.find(t => t.id === match.teacher)?.displayName || match.teacher;
           
-          let cardStyle = "bg-purple-100 border-purple-200 text-purple-900"; // Default
+          let cardStyle = "bg-purple-100 border-purple-200 text-purple-900"; 
           const s = subjectName.toLowerCase();
           if (s.includes("math")) cardStyle = "bg-blue-100 border-blue-200 text-blue-900";
           else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-emerald-100 border-emerald-200 text-emerald-900";
@@ -477,6 +405,7 @@ export default function HomePage() {
   }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods, allClassesLookup, allSubjectsLookup, allTeachersLookup]);
 
   const TimetableIcon = iconMap[content.timetableIcon] || Info;
+  const SuccessCardIcon = iconMap[content.successCardIcon] || Star;
   const heroImageData = placeholderImages["hero-education"];
 
   return (
@@ -546,7 +475,6 @@ export default function HomePage() {
                 data-ai-hint={heroImageData.hint}
               />
 
-              {/* Floating Labels */}
               <div className="absolute top-2 right-2 sm:top-8 sm:right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
@@ -599,7 +527,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.featuresTitle.includes('Excel') ? (
                 <>
                   {content.featuresTitle.split('Excel')[0]}
@@ -646,10 +574,10 @@ export default function HomePage() {
       <section id="study-materials-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               Access comprehensive study resources for all subjects and classes
             </p>
           </div>
@@ -717,7 +645,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <ScrollArea className="h-60">
-                      <div className="p-1">
+                      <div className="p-1 text-left">
                         {filteredSubjectsForDropdown.length === 0 ? (
                           <div className="p-4 text-center text-xs text-gray-400">No subjects found</div>
                         ) : (
@@ -755,8 +683,8 @@ export default function HomePage() {
             ) : displayMaterials.length === 0 ? (
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 font-bold">No study materials found for {selectedSubject} in {selectedClass} ({activeBoard.toUpperCase()}).</p>
-                <p className="text-gray-400 text-sm mt-1">Please try another filter or check back later.</p>
+                <p className="text-gray-500 font-bold text-center">No study materials found for {selectedSubject} in {selectedClass} ({activeBoard.toUpperCase()}).</p>
+                <p className="text-gray-400 text-sm mt-1 text-center">Please try another filter or check back later.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -813,7 +741,7 @@ export default function HomePage() {
       <section id="timetable-section" className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.timetableTitle.includes('Timetable') ? (
                 <>
                   {content.timetableTitle.split('Timetable')[0]}
@@ -821,7 +749,7 @@ export default function HomePage() {
                 </>
               ) : content.timetableTitle}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.timetableSubtitle}
             </p>
           </div>
@@ -995,7 +923,7 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
               {content.testimonialsTitleMain || "What Students & "}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.testimonialsTitleHighlight || "Parents Say"}</span>
             </h2>
-            <p className="mt-4 text-gray-500 font-medium italic">{content.testimonialsSubtitle}</p>
+            <p className="mt-4 text-gray-500 font-medium italic text-center">{content.testimonialsSubtitle}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1061,75 +989,80 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
-              Our Students' <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
+              {content.successTitle.includes('Success') ? (
+                <>
+                  {content.successTitle.split('Success Stories')[0]}
+                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
+                </>
+              ) : content.successTitle}
             </h2>
             <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
-              Celebrating exceptional achievements and academic excellence
+              {content.successSubtitle}
             </p>
           </div>
 
-          {/* Large Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-            {[
-              { icon: Trophy, value: "95%", label: "Pass Rate", color: "text-blue-600" },
-              { icon: Medal, value: "120+", label: "Distinctions", color: "text-teal-600" },
-              { icon: GraduationCap, value: "5000+", label: "Students", color: "text-purple-600" },
-            ].map((stat, idx) => (
-              <Card key={idx} className="border-none shadow-xl rounded-[2rem] p-10 text-center flex flex-col items-center gap-4 bg-white hover:-translate-y-2 transition-transform duration-500">
-                <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 shadow-lg bg-blue-50", stat.color)}>
-                  <stat.icon className="w-8 h-8" />
-                </div>
-                <div>
-                  <div className="text-5xl font-black text-gray-900 tracking-tighter mb-1">{stat.value}</div>
-                  <div className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em]">{stat.label}</div>
-                </div>
-              </Card>
-            ))}
+            {(content.successStats || []).map((stat: any, idx: number) => {
+              const Icon = iconMap[stat.icon] || Trophy;
+              return (
+                <Card key={idx} className="border-none shadow-xl rounded-[2rem] p-10 text-center flex flex-col items-center gap-4 bg-white hover:-translate-y-2 transition-transform duration-500">
+                  <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 shadow-lg bg-blue-50", stat.color)}>
+                    <Icon className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <div className="text-5xl font-black text-gray-900 tracking-tighter mb-1">{stat.value}</div>
+                    <div className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em]">{stat.label}</div>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
 
-          {/* Top Performers Grid */}
           <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 border border-white">
             <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-              <h3 className="text-2xl font-bold text-gray-900 tracking-tight">Top Performers 2025</h3>
+              <h3 className="text-2xl font-bold text-gray-900 tracking-tight text-left">{content.successTopHeader}</h3>
               <div className="w-full md:w-auto text-left">
-                <Select defaultValue="2025">
+                <Select defaultValue={content.successYears?.[0] || "2025"}>
                   <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700">
-                    <SelectValue placeholder="Year 2025" />
+                    <SelectValue placeholder={`Year ${content.successYears?.[0] || "2025"}`} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="2025">Year 2025</SelectItem>
-                    <SelectItem value="2024">Year 2024</SelectItem>
-                    <SelectItem value="2023">Year 2023</SelectItem>
+                    {(content.successYears || ["2025", "2024", "2023"]).map((year: string) => (
+                      <SelectItem key={year} value={year}>Year {year}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {topPerformers.map((student, idx) => (
-                <div key={idx} className="group bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-left">
-                  <div className="relative h-60 w-full overflow-hidden">
-                    <Image src={student.img} alt={student.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div className={cn("absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor)}>
-                      {student.rankIcon && <student.rankIcon className="w-3 h-3" />}
-                      {student.rank}
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h4 className="font-bold text-gray-900 text-lg leading-tight mb-1">{student.name}</h4>
-                    <p className="text-[11px] font-bold text-gray-400 mb-6">{student.grade}</p>
-                    <div className="flex items-end justify-between">
-                      <div className="space-y-0.5 text-left">
-                        <div className={cn("text-3xl font-black tracking-tighter", student.marksColor)}>{student.marks}</div>
-                        <div className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Total Marks</div>
-                      </div>
-                      <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg", student.iconColor)}>
-                        <Star className="w-5 h-5 fill-white" />
+              {(content.successPerformers || []).map((student: any, idx: number) => {
+                const PerformerRankIcon = iconMap[student.rankIcon] || null;
+                return (
+                  <div key={idx} className="group bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-left">
+                    <div className="relative h-60 w-full overflow-hidden">
+                      <Image src={student.img || placeholderImages["student-7"].src} alt={student.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className={cn("absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor || "bg-blue-500")}>
+                        {PerformerRankIcon && <PerformerRankIcon className="w-3 h-3" />}
+                        {student.rank}
                       </div>
                     </div>
+                    <div className="p-6">
+                      <h4 className="font-bold text-gray-900 text-lg leading-tight mb-1">{student.name}</h4>
+                      <p className="text-[11px] font-bold text-gray-400 mb-6">{student.grade}</p>
+                      <div className="flex items-end justify-between">
+                        <div className="space-y-0.5 text-left">
+                          <div className={cn("text-3xl font-black tracking-tighter", student.marksColor || "text-blue-600")}>{student.marks}</div>
+                          <div className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{content.successTotalMarksLabel}</div>
+                        </div>
+                        <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg", student.iconColor || "bg-blue-600")}>
+                          <SuccessCardIcon className="w-5 h-5 fill-white" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
