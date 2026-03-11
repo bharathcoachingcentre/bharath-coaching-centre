@@ -285,7 +285,7 @@ export default function HomePage() {
         { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas for improvement.", color: "bg-purple-500 shadow-purple-500/30" },
         { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to mock exams, designed to build confidence.", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled meetings with teachers to discuss student progress and strategies.", color: "bg-pink-500 shadow-pink-500/30" },
-        { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
+        { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-50 shadow-blue-500/30" }
       ],
       successTitleMain: "Our Students' ",
       successTitleHighlight: "Success Stories",
@@ -842,7 +842,7 @@ export default function HomePage() {
               const Icon = iconMap[feature.icon] || Zap;
               const style = whyChooseStyles[idx % whyChooseStyles.length];
               return (
-                <div key={idx} className={cn("p-8 rounded-[16px] border transition-all duration-500 group text-left backdrop-blur-md", style.bg, style.border, "shadow-sm hover:shadow-xl hover:-translate-y-2", style.hoverBorder)}>
+                <div key={idx} className={cn("p-8 rounded-[16px] border transition-all duration-500 group text-left backdrop-blur-md shadow-sm hover:shadow-xl hover:-translate-y-2", style.bg, style.border, style.hoverBorder)}>
                   <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg mb-6 group-hover:scale-110 transition-transform", style.iconBg, style.shadow)}>
                     <Icon className="w-7 h-7" />
                   </div>
@@ -851,6 +851,183 @@ export default function HomePage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Download Free Study Materials Section - RESTORED */}
+      <section id="study-materials-section" className="py-24 bg-gradient-to-br from-blue-50/50 to-teal-50/50 relative overflow-hidden">
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-[100px] -z-0"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
+              Academic Resources
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
+              Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
+            </h2>
+            <p className="mt-4 text-lg text-gray-500 font-normal text-center">
+              Filter by class and board to find specific resources for your curriculum
+            </p>
+          </div>
+
+          <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
+            <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
+              {/* Class Selection */}
+              <div className="relative min-w-[180px] w-full lg:w-auto">
+                <select 
+                  value={selectedClass}
+                  onChange={(e) => setSelectedClass(e.target.value)}
+                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
+                >
+                  {availableClasses.map((c) => (
+                    <option key={c.id} value={c.name}>{c.name}</option>
+                  ))}
+                  {availableClasses.length === 0 && (
+                    <option disabled>No classes available</option>
+                  )}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
+
+              {/* Board Toggle */}
+              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
+                <button
+                  onClick={() => setActiveBoard("cbse")}
+                  className={cn(
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    activeBoard === "cbse"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  CBSE
+                </button>
+                <button
+                  onClick={() => setActiveBoard("samacheer")}
+                  className={cn(
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    activeBoard === "samacheer"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  Samacheer
+                </button>
+              </div>
+
+              {/* Subject Selection */}
+              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
+                <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
+                  <PopoverTrigger asChild>
+                    <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
+                      <span className="truncate">{selectedSubject}</span>
+                      <ChevronDown className={cn("h-4 w-4 text-gray-400 transition-transform", isSubjectOpen && "rotate-180")} />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 rounded-xl border-gray-100 shadow-2xl" align="end">
+                    <div className="p-3 border-b border-gray-50">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
+                        <Input 
+                          placeholder="Search subjects..." 
+                          value={subjectSearch}
+                          onChange={(e) => setSubjectSearch(e.target.value)}
+                          className="h-9 pl-9 border-none bg-gray-50 rounded-lg text-xs focus-visible:ring-teal-500"
+                        />
+                      </div>
+                    </div>
+                    <ScrollArea className="h-60">
+                      <div className="p-1">
+                        {filteredSubjectsForDropdown.length === 0 ? (
+                          <div className="p-4 text-center text-xs text-gray-400">No subjects found</div>
+                        ) : (
+                          filteredSubjectsForDropdown.map((sub) => (
+                            <button
+                              key={sub}
+                              onClick={() => {
+                                setSelectedSubject(sub);
+                                setIsSubjectOpen(false);
+                                setSubjectSearch("");
+                              }}
+                              className={cn(
+                                "w-full text-left px-4 py-2.5 text-xs font-bold rounded-lg transition-colors",
+                                selectedSubject === sub 
+                                  ? "bg-teal-50 text-teal-600" 
+                                  : "text-gray-600 hover:bg-gray-50"
+                              )}
+                            >
+                              {sub}
+                            </button>
+                          ))
+                        )}
+                      </div>
+                    </ScrollArea>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+
+            {materialsLoading ? (
+              <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
+                <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+                <p className="font-bold uppercase tracking-widest text-xs">Loading Resources...</p>
+              </div>
+            ) : displayMaterials.length === 0 ? (
+              <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                <p className="text-gray-500 font-bold">No materials found for {selectedSubject} in {selectedClass}.</p>
+                <p className="text-gray-400 text-sm mt-1">Check back later for new updates.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {displayMaterials.map((material, idx) => (
+                  <div
+                    key={idx}
+                    className={cn(
+                      "group rounded-[16px] p-6 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 relative flex flex-col h-full",
+                      material.lightBg,
+                      material.borderColor,
+                      material.hoverBorderColor
+                    )}
+                  >
+                    <div className="flex items-start justify-between mb-6">
+                      <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative", material.iconContainerBg)}>
+                        <div className={cn("relative flex items-center justify-center", material.iconColor)}>
+                          <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+                            <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
+                          </svg>
+                          <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
+                        <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                        {material.subject && (
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter line-clamp-1 max-w-[100px]">{material.subject}</span>
+                        )}
+                      </div>
+                    </div>
+                    <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left line-clamp-2 min-h-[3rem]">{material.title}</h3>
+                    <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
+                    <Button
+                      asChild
+                      className={cn(
+                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
+                        material.themeColor,
+                        material.hoverThemeColor
+                      )}
+                    >
+                      <a href={material.pdfUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="w-5 h-5" />
+                        Download PDF
+                      </a>
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
