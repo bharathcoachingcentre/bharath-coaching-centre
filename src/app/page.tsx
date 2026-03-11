@@ -439,29 +439,27 @@ export default function HomePage() {
           const subjectName = allSubjectsLookup?.find(s => s.id === match.subject)?.name || match.subject;
           const teacherName = allTeachersLookup?.find(t => t.id === match.teacher)?.displayName || match.teacher;
           
-          let cardStyle = "bg-purple-100/50 border-purple-200 text-purple-900"; 
+          let cardStyle = "bg-purple-50 border-purple-100"; 
           const s = subjectName.toLowerCase();
-          if (s.includes("math")) cardStyle = "bg-blue-100/50 border-blue-200 text-blue-900";
-          else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-emerald-100/50 border-emerald-200 text-emerald-900";
-          else if (s.includes("english")) cardStyle = "bg-pink-100/50 border-pink-200 text-pink-900";
-          else if (s.includes("social")) cardStyle = "bg-orange-100/50 border-orange-200 text-orange-900";
-          else if (s.includes("hindi")) cardStyle = "bg-rose-100/50 border-rose-200 text-rose-900";
+          if (s.includes("math")) cardStyle = "bg-blue-50 border-blue-100";
+          else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-emerald-50 border-teal-100";
+          else if (s.includes("english")) cardStyle = "bg-purple-50 border-purple-100";
+          else if (s.includes("social")) cardStyle = "bg-orange-50 border-orange-100";
+          else if (s.includes("hindi")) cardStyle = "bg-pink-50 border-pink-100";
 
           return {
             s: subjectName,
             t: teacherName,
             c: cardStyle,
-            tc: "text-[#4b5563]"
+            tc: "text-gray-500"
           };
         }
-        return { s: "-", t: "-", c: "bg-gray-50 border-gray-100 text-gray-300", tc: "text-gray-300" };
+        return { s: "-", t: "-", c: "bg-gray-50 border-gray-100", tc: "text-gray-200" };
       });
       return { day, slots: daySlots };
     });
   }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods, allClassesLookup, allSubjectsLookup, allTeachersLookup]);
 
-  const TimetableIcon = iconMap[content.timetableIcon] || Info;
-  const SuccessCardIcon = iconMap[content.successCardIcon] || Star;
   const heroImageData = placeholderImages["hero-education"];
 
   return (
@@ -906,108 +904,99 @@ export default function HomePage() {
       </section>
 
       {/* Offline Class Timetable Section */}
-      <section id="timetable-section" className="py-24 bg-gray-50/50">
+      <section id="timetable-section" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
-              {content.timetableTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.timetableTitleHighlight}</span>
-            </h2>
-            <p className="mt-4 text-lg text-gray-600 font-normal text-center">
-              {content.timetableSubtitle}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)] p-8 md:p-12 border border-gray-50">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
-              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
-                <button
-                  onClick={() => setActiveScheduleBoard("cbse")}
-                  className={cn(
-                    "px-8 py-3 font-bold rounded-xl transition-all duration-300 min-w-[120px] text-sm",
-                    activeScheduleBoard === "cbse"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
-                      : "text-gray-500 hover:bg-gray-200"
-                  )}
-                >
-                  CBSE
-                </button>
-                <button
-                  onClick={() => setActiveScheduleBoard("samacheer")}
-                  className={cn(
-                    "px-8 py-3 font-bold rounded-xl transition-all duration-300 min-w-[120px] text-sm",
-                    activeScheduleBoard === "samacheer"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
-                      : "text-gray-500 hover:bg-gray-200"
-                  )}
-                >
-                  Samacheer
-                </button>
-              </div>
-
-              <div className="w-full md:w-[200px]">
-                <Select value={selectedScheduleClass} onValueChange={setSelectedScheduleClass}>
-                  <SelectTrigger className="h-12 bg-white border-gray-200 rounded-xl font-bold text-gray-700 shadow-sm focus:ring-blue-600">
-                    <SelectValue placeholder="Select Class" />
-                  </SelectTrigger>
-                  <SelectContent className="rounded-xl border-gray-100 shadow-xl">
-                    {[...new Set((allClassesRaw || [])
-                      .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
-                      .map(c => c.name))]
-                      .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
-                      .map((cls) => (
-                        <SelectItem key={cls} value={cls}>{cls}</SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-              </div>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+            <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
+              <button
+                onClick={() => setActiveScheduleBoard("cbse")}
+                className={cn(
+                  "px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                  activeScheduleBoard === "cbse"
+                    ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
+                    : "text-gray-500 hover:bg-gray-200"
+                )}
+              >
+                CBSE
+              </button>
+              <button
+                onClick={() => setActiveScheduleBoard("samacheer")}
+                className={cn(
+                  "px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                  activeScheduleBoard === "samacheer"
+                    ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
+                    : "text-gray-500 hover:bg-gray-200"
+                )}
+              >
+                Samacheer
+              </button>
             </div>
 
-            <div className="overflow-x-auto no-scrollbar -mx-8 md:-mx-12 px-8 md:px-12">
-              <div className="min-w-[1000px]">
-                <div className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 mb-4">
-                  <div className="h-14 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center text-white text-sm font-black uppercase tracking-widest shadow-md">
+            <div className="w-full md:w-[220px]">
+              <Select value={selectedScheduleClass} onValueChange={setSelectedScheduleClass}>
+                <SelectTrigger className="h-14 bg-white border-2 border-gray-100 rounded-2xl font-bold text-gray-700 shadow-sm focus:ring-blue-600">
+                  <SelectValue placeholder="Select Class" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                  {[...new Set((allClassesRaw || [])
+                    .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
+                    .map(c => c.name))]
+                    .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
+                    .map((cls) => (
+                      <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,0,0,0.04)] overflow-hidden border border-gray-50">
+            <div className="overflow-x-auto no-scrollbar">
+              <div className="min-w-[1000px] p-8 md:p-12">
+                <div className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 mb-8 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl px-6 py-4">
+                  <div className="flex items-center justify-center text-white text-sm font-bold uppercase tracking-tight">
                     Day / Time
                   </div>
                   {allPeriods?.map((period, i) => (
-                    <div key={i} className="h-14 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center text-white text-sm font-black uppercase tracking-tight shadow-md">
+                    <div key={i} className="flex items-center justify-center text-white text-[13px] font-bold uppercase tracking-tight">
                       {period.label}
                     </div>
                   ))}
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-0">
                   {timetableDisplayData.map((dayData, i) => (
-                    <div key={i} className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 items-center">
+                    <div key={i} className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 items-center py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors rounded-xl px-2">
                       <div className="text-center">
-                        <span className="text-base font-black text-[#182d45] uppercase tracking-tight">{dayData.day}</span>
+                        <span className="text-[15px] font-bold text-gray-900">{dayData.day}</span>
                       </div>
                       
                       {dayData.day === "Saturday" ? (
                         <>
-                          <div className="col-span-2 min-h-[100px] rounded-2xl bg-emerald-50 border border-emerald-100 p-6 flex flex-col justify-center items-center text-center gap-1 transition-all duration-300 hover:scale-[1.02] shadow-sm">
-                            <span className="text-lg font-black text-emerald-900 leading-tight">Doubt Clearing Session</span>
-                            <span className="text-xs font-bold text-emerald-600/70">All Teachers Available</span>
+                          <div className="col-span-2 h-[72px] rounded-xl bg-emerald-50 border border-teal-100 flex flex-col justify-center items-center text-center transition-all duration-300">
+                            <span className="text-[14px] font-bold text-gray-900 leading-tight">Doubt Clearing Session</span>
+                            <span className="text-[11px] font-medium text-gray-500">All Teachers Available</span>
                           </div>
-                          <div className="col-span-2 min-h-[100px] rounded-2xl bg-amber-50 border border-amber-100 p-6 flex flex-col justify-center items-center text-center gap-1 transition-all duration-300 hover:scale-[1.02] shadow-sm">
-                            <span className="text-lg font-black text-amber-900 leading-tight">Practice & Revision</span>
-                            <span className="text-xs font-bold text-amber-600/70">Self Study with Mentors</span>
+                          <div className="col-span-2 h-[72px] rounded-xl bg-yellow-50 border border-yellow-100 flex flex-col justify-center items-center text-center transition-all duration-300">
+                            <span className="text-[14px] font-bold text-gray-900 leading-tight">Practice & Revision</span>
+                            <span className="text-[11px] font-medium text-gray-500">Self Study with Mentors</span>
                           </div>
                         </>
                       ) : (
                         dayData.slots.map((slot, j) => (
                           <div key={j} className={cn(
-                            "min-h-[100px] rounded-2xl border p-5 flex flex-col justify-center items-center text-center gap-1.5 transition-all duration-300 group hover:scale-[1.05] shadow-sm",
+                            "h-[72px] rounded-xl border flex flex-col justify-center items-center text-center gap-0.5 transition-all duration-300",
                             slot.c
                           )}>
                             {slot.s !== "-" ? (
                               <>
-                                <span className="text-[15px] font-black leading-tight tracking-tight">{slot.s}</span>
-                                <span className="text-[11px] font-bold opacity-60">
+                                <span className="text-[14px] font-bold text-gray-900 leading-tight">{slot.s}</span>
+                                <span className="text-[11px] font-medium text-gray-500">
                                   {slot.t}
                                 </span>
                               </>
                             ) : (
-                              <span className="text-lg font-bold opacity-20">-</span>
+                              <span className="text-lg font-bold opacity-10">-</span>
                             )}
                           </div>
                         ))
@@ -1015,24 +1004,24 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
 
-            <div className="mt-12 bg-blue-50 rounded-[2rem] p-8 border border-blue-100">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shrink-0 mt-1">
-                  <Info className="w-5 h-5 text-white" />
-                </div>
-                <div className="space-y-4">
-                  <h4 className="text-xl font-black text-blue-900 tracking-tight">Important Notes:</h4>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3">
-                    {(content.timetableNotes || []).map((note: string, i: number) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
-                        <span className="text-sm font-bold text-gray-600">{note}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="mt-12 bg-[#eff6ff] rounded-3xl p-8 border border-blue-50/50">
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 mt-1">
+                      <Info className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <div className="space-y-3 text-left">
+                      <h4 className="text-[16px] font-bold text-gray-900">Important Notes:</h4>
+                      <ul className="space-y-2">
+                        {(content.timetableNotes || []).map((note: string, i: number) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-gray-400 mt-1.5 text-lg leading-none">•</span>
+                            <span className="text-[14px] font-medium text-gray-600">{note}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
