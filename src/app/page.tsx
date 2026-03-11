@@ -644,7 +644,7 @@ export default function HomePage() {
                   iconColor: "text-white", 
                   checkColor: "text-[#3b82f6]", 
                   btnEnroll: "bg-[#2563eb] hover:bg-[#1d4ed8]", 
-                  btnTimetable: "bg-[#f3f4f6] text-[#4b5563]",
+                  btnTimetable: "bg-[#f3f4f6] text-[#4b5563] hover:bg-gray-200", 
                   border: "border-gray-100"
                 },
                 { 
@@ -652,7 +652,7 @@ export default function HomePage() {
                   iconColor: "text-white", 
                   checkColor: "text-[#10b981]", 
                   btnEnroll: "bg-[#0d9488] hover:bg-[#0f766e]", 
-                  btnTimetable: "bg-[#f3f4f6] text-[#4b5563]",
+                  btnTimetable: "bg-[#f3f4f6] text-[#4b5563] hover:bg-gray-200", 
                   border: "border-gray-100"
                 },
                 { 
@@ -660,7 +660,7 @@ export default function HomePage() {
                   iconColor: "text-white", 
                   checkColor: "text-[#a855f7]", 
                   btnEnroll: "bg-gradient-to-r from-[#a855f7] to-[#ec4899] hover:opacity-90", 
-                  btnTimetable: "bg-[#f3e8ff] text-[#9333ea]",
+                  btnTimetable: "bg-[#f3e8ff] text-[#9333ea] hover:bg-purple-200", 
                   border: "border-[#e9d5ff]" 
                 },
               ];
