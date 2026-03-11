@@ -138,7 +138,7 @@ const materialStyles = [
 const whyChooseStyles = [
   { bg: "bg-blue-50/50", iconBg: "bg-blue-600", shadow: "shadow-blue-500/20", border: "border-blue-100", hoverBorder: "hover:border-blue-600" },
   { bg: "bg-teal-50/50", iconBg: "bg-teal-500", shadow: "shadow-teal-500/20", border: "border-teal-100", hoverBorder: "hover:border-teal-500" },
-  { bg: "bg-purple-50/50", iconBg: "bg-purple-600", shadow: "shadow-purple-500/20", border: "border-purple-100", hoverBorder: "hover:border-purple-600" },
+  { bg: "bg-purple-50/50", iconBg: "bg-purple-600", shadow: "shadow-purple-500/20", border: "border-purple-100", hoverBorder: "hover:border-blue-600" },
   { bg: "bg-orange-50/50", iconBg: "bg-orange-600", shadow: "shadow-orange-500/20", border: "border-orange-100", hoverBorder: "hover:border-orange-600" },
   { bg: "bg-pink-50/50", iconBg: "bg-pink-600", shadow: "shadow-pink-500/20", border: "border-pink-100", hoverBorder: "hover:border-pink-600" },
   { bg: "bg-indigo-50/50", iconBg: "bg-indigo-600", shadow: "shadow-indigo-500/20", border: "border-indigo-100", hoverBorder: "hover:border-indigo-600" },
@@ -439,12 +439,13 @@ export default function HomePage() {
           const subjectName = allSubjectsLookup?.find(s => s.id === match.subject)?.name || match.subject;
           const teacherName = allTeachersLookup?.find(t => t.id === match.teacher)?.displayName || match.teacher;
           
-          let cardStyle = "bg-purple-100 border-purple-200 text-purple-900"; 
+          let cardStyle = "bg-purple-100/50 border-purple-200 text-purple-900"; 
           const s = subjectName.toLowerCase();
-          if (s.includes("math")) cardStyle = "bg-blue-100 border-blue-200 text-blue-900";
-          else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-emerald-100 border-emerald-200 text-emerald-900";
-          else if (s.includes("english")) cardStyle = "bg-pink-100 border-pink-200 text-pink-900";
-          else if (s.includes("social")) cardStyle = "bg-orange-100 border-orange-200 text-orange-900";
+          if (s.includes("math")) cardStyle = "bg-blue-100/50 border-blue-200 text-blue-900";
+          else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-emerald-100/50 border-emerald-200 text-emerald-900";
+          else if (s.includes("english")) cardStyle = "bg-pink-100/50 border-pink-200 text-pink-900";
+          else if (s.includes("social")) cardStyle = "bg-orange-100/50 border-orange-200 text-orange-900";
+          else if (s.includes("hindi")) cardStyle = "bg-rose-100/50 border-rose-200 text-rose-900";
 
           return {
             s: subjectName,
@@ -814,7 +815,6 @@ export default function HomePage() {
               const Icon = iconMap[program.icon] || GraduationCap;
               const isPopular = program.popular;
               
-              // Define specific colors for the three cards based on screenshot
               const themes = [
                 { 
                   iconBg: "bg-[#3b82f6]", 
@@ -908,10 +908,7 @@ export default function HomePage() {
       {/* Offline Class Timetable Section */}
       <section id="timetable-section" className="py-24 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
-              Schedule
-            </span>
+          <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
               {content.timetableTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.timetableTitleHighlight}</span>
             </h2>
@@ -920,15 +917,15 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100 overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+          <div className="bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)] p-8 md:p-12 border border-gray-50">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
               <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
                 <button
                   onClick={() => setActiveScheduleBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-8 py-3 font-bold rounded-xl transition-all duration-300 min-w-[120px] text-sm",
                     activeScheduleBoard === "cbse"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
                       : "text-gray-500 hover:bg-gray-200"
                   )}
                 >
@@ -937,9 +934,9 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveScheduleBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-8 py-3 font-bold rounded-xl transition-all duration-300 min-w-[120px] text-sm",
                     activeScheduleBoard === "samacheer"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
                       : "text-gray-500 hover:bg-gray-200"
                   )}
                 >
@@ -947,106 +944,97 @@ export default function HomePage() {
                 </button>
               </div>
 
-              <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2 w-full md:w-auto">
-                {[...new Set((allClassesRaw || [])
-                  .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
-                  .map(c => c.name))]
-                  .sort((a, b) => {
-                    const numA = parseInt(a.replace(/\D/g, '')) || 0;
-                    const numB = parseInt(b.replace(/\D/g, '')) || 0;
-                    return numA - numB;
-                  })
-                  .map((cls) => (
-                    <button
-                      key={cls}
-                      onClick={() => setSelectedScheduleClass(cls)}
-                      className={cn(
-                        "px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all duration-300",
-                        selectedScheduleClass === cls
-                          ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
-                          : "bg-gray-50 text-gray-500 hover:bg-gray-100"
-                      )}
-                    >
-                      {cls}
-                    </button>
-                  ))}
+              <div className="w-full md:w-[200px]">
+                <Select value={selectedScheduleClass} onValueChange={setSelectedScheduleClass}>
+                  <SelectTrigger className="h-12 bg-white border-gray-200 rounded-xl font-bold text-gray-700 shadow-sm focus:ring-blue-600">
+                    <SelectValue placeholder="Select Class" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                    {[...new Set((allClassesRaw || [])
+                      .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
+                      .map(c => c.name))]
+                      .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
+                      .map((cls) => (
+                        <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
             <div className="overflow-x-auto no-scrollbar -mx-8 md:-mx-12 px-8 md:px-12">
-              <div className="min-w-[800px] pb-8">
-                <div className="grid grid-cols-7 gap-4">
-                  <div className="h-14"></div>
+              <div className="min-w-[1000px]">
+                <div className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 mb-4">
+                  <div className="h-14 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center text-white text-sm font-black uppercase tracking-widest shadow-md">
+                    Day / Time
+                  </div>
                   {allPeriods?.map((period, i) => (
-                    <div key={i} className="flex flex-col items-center justify-center text-center space-y-1">
-                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Period {i + 1}</span>
-                      <span className="text-[11px] font-bold text-gray-900">{period.label}</span>
+                    <div key={i} className="h-14 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center text-white text-sm font-black uppercase tracking-tight shadow-md">
+                      {period.label}
                     </div>
                   ))}
-                  {(!allPeriods || allPeriods.length === 0) && ["Slot 1", "Slot 2", "Slot 3", "Slot 4"].map((slot, i) => (
-                    <div key={i} className="flex flex-col items-center justify-center text-center space-y-1">
-                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Period {i + 1}</span>
-                      <span className="text-[11px] font-bold text-gray-900">{slot}</span>
-                    </div>
-                  ))}
+                </div>
 
+                <div className="space-y-4">
                   {timetableDisplayData.map((dayData, i) => (
-                    <React.Fragment key={i}>
-                      <div className="flex items-center">
-                        <span className="text-sm font-black text-[#182d45] uppercase tracking-wider">{dayData.day}</span>
+                    <div key={i} className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 items-center">
+                      <div className="text-center">
+                        <span className="text-base font-black text-[#182d45] uppercase tracking-tight">{dayData.day}</span>
                       </div>
-                      {dayData.slots.map((slot, j) => (
-                        <div key={j} className={cn(
-                          "min-h-[100px] rounded-2xl border p-4 flex flex-col justify-center gap-1 transition-all duration-300 group hover:scale-[1.02]",
-                          slot.c
-                        )}>
-                          {slot.s !== "-" ? (
-                            <>
-                              <span className="text-[13px] font-black leading-tight">{slot.s}</span>
-                              <span className="text-[10px] font-bold opacity-60 flex items-center gap-1">
-                                <UserCheck className="w-3 h-3" />
-                                {slot.t}
-                              </span>
-                            </>
-                          ) : (
-                            <span className="text-sm font-bold opacity-30">-</span>
-                          )}
-                        </div>
-                      ))}
-                    </React.Fragment>
+                      
+                      {dayData.day === "Saturday" ? (
+                        <>
+                          <div className="col-span-2 min-h-[100px] rounded-2xl bg-emerald-50 border border-emerald-100 p-6 flex flex-col justify-center items-center text-center gap-1 transition-all duration-300 hover:scale-[1.02] shadow-sm">
+                            <span className="text-lg font-black text-emerald-900 leading-tight">Doubt Clearing Session</span>
+                            <span className="text-xs font-bold text-emerald-600/70">All Teachers Available</span>
+                          </div>
+                          <div className="col-span-2 min-h-[100px] rounded-2xl bg-amber-50 border border-amber-100 p-6 flex flex-col justify-center items-center text-center gap-1 transition-all duration-300 hover:scale-[1.02] shadow-sm">
+                            <span className="text-lg font-black text-amber-900 leading-tight">Practice & Revision</span>
+                            <span className="text-xs font-bold text-amber-600/70">Self Study with Mentors</span>
+                          </div>
+                        </>
+                      ) : (
+                        dayData.slots.map((slot, j) => (
+                          <div key={j} className={cn(
+                            "min-h-[100px] rounded-2xl border p-5 flex flex-col justify-center items-center text-center gap-1.5 transition-all duration-300 group hover:scale-[1.05] shadow-sm",
+                            slot.c
+                          )}>
+                            {slot.s !== "-" ? (
+                              <>
+                                <span className="text-[15px] font-black leading-tight tracking-tight">{slot.s}</span>
+                                <span className="text-[11px] font-bold opacity-60">
+                                  {slot.t}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="text-lg font-bold opacity-20">-</span>
+                            )}
+                          </div>
+                        ))
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="mt-12 pt-8 border-t border-gray-50 flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shadow-sm">
-                    <TimetableIcon className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div className="text-left">
-                    <h4 className="text-sm font-black text-gray-900 uppercase tracking-tight">Important Notes</h4>
-                    <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Academy Schedule Guidelines</p>
-                  </div>
+            <div className="mt-12 bg-blue-50 rounded-[2rem] p-8 border border-blue-100">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shrink-0 mt-1">
+                  <Info className="w-5 h-5 text-white" />
                 </div>
-                <div className="h-10 w-px bg-gray-100 hidden md:block"></div>
-                <div className="flex flex-wrap gap-4">
-                  {(content.timetableNotes || []).map((note: string, i: number) => (
-                    <div key={i} className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-lg">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
-                      <span className="text-xs font-bold text-gray-600">{note}</span>
-                    </div>
-                  ))}
+                <div className="space-y-4">
+                  <h4 className="text-xl font-black text-blue-900 tracking-tight">Important Notes:</h4>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3">
+                    {(content.timetableNotes || []).map((note: string, i: number) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
+                        <span className="text-sm font-bold text-gray-600">{note}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-              
-              <Button asChild className="h-14 px-10 bg-gray-900 hover:bg-black text-white font-bold rounded-2xl shadow-xl transition-all active:scale-95 border-none">
-                <Link href="/contact">
-                  <Download className="w-5 h-5 mr-2" />
-                  Get Personal Schedule
-                </Link>
-              </Button>
             </div>
           </div>
         </div>
