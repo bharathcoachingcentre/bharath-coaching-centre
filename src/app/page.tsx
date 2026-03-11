@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -205,7 +204,8 @@ export default function HomePage() {
         { label: "Success Rate", value: "95%", icon: "TrendingUp" },
         { label: "Years Experience", value: "10+", icon: "Award" }
       ],
-      featuresTitle: "How We Help Students Excel",
+      featuresTitleMain: "How We Help Students ",
+      featuresTitleHighlight: "Excel",
       featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
       features: [
         { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
@@ -214,7 +214,40 @@ export default function HomePage() {
         { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
       ],
-      timetableTitle: "Offline Class Timetable",
+      programsTitleMain: "Explore Our Academic ",
+      programsTitleHighlight: "Programs",
+      programsSubtitle: "Choose the perfect learning path for your child's academic journey",
+      programs: [
+        {
+          title: "Classes 1–5",
+          subtitle: "Foundation Program",
+          icon: "Zap",
+          popular: false,
+          viewTimetableBtnText: "View Timetable",
+          enrollNowBtnText: "Enroll Now",
+          points: ["Building strong fundamentals", "Interactive learning with activities", "Focus on reading & arithmetic", "Regular parent communication", "Personalized attention & care"],
+        },
+        {
+          title: "Classes 6–8",
+          subtitle: "Middle School Program",
+          icon: "BookOpen",
+          popular: false,
+          viewTimetableBtnText: "View Timetable",
+          enrollNowBtnText: "Enroll Now",
+          points: ["Comprehensive subject coverage", "Concept-based learning approach", "Regular tests & assessments", "Project-based activities", "Competitive exam foundation"],
+        },
+        {
+          title: "Classes 9–12",
+          subtitle: "Senior Secondary Program",
+          icon: "GraduationCap",
+          popular: true,
+          viewTimetableBtnText: "View Timetable",
+          enrollNowBtnText: "Enroll Now",
+          points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
+        },
+      ],
+      timetableTitleMain: "Offline Class ",
+      timetableTitleHighlight: "Timetable",
       timetableSubtitle: "View our structured class schedules for offline sessions",
       timetableIcon: "Info",
       timetableNotes: [
@@ -242,7 +275,8 @@ export default function HomePage() {
         { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives.", avatar: placeholderImages["student-4"].src, rating: 5 },
         { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The mentorship helped me overcome my weaknesses.", avatar: placeholderImages["student-6"].src, rating: 5 },
       ],
-      whyChooseTitle: "Why Choose Bharath Academy?",
+      whyChooseTitleMain: "Why Choose ",
+      whyChooseTitleHighlight: "Bharath Academy?",
       whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
       whyChooseFeatures: [
         { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance and progress through our parent portal.", color: "bg-blue-600 shadow-blue-600/30" },
@@ -252,7 +286,8 @@ export default function HomePage() {
         { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled meetings with teachers to discuss student progress and strategies.", color: "bg-pink-500 shadow-pink-500/30" },
         { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
       ],
-      successTitle: "Our Students' Success Stories",
+      successTitleMain: "Our Students' ",
+      successTitleHighlight: "Success Stories",
       successSubtitle: "Celebrating exceptional achievements and academic excellence",
       successStats: [
         { icon: "Trophy", value: "95%", label: "Pass Rate", color: "text-blue-600" },
@@ -284,7 +319,7 @@ export default function HomePage() {
     if (typeof content.successYears === 'string') {
       return content.successYears.split(/[\n,\s]+/).map(s => s.trim()).filter(Boolean);
     }
-    return ["2025", "2023"]; // Updated default fallback to be cleaner
+    return ["2025", "2023"]; 
   }, [content.successYears]);
 
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
@@ -547,12 +582,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-              {content.featuresTitle.includes('Excel') ? (
-                <>
-                  {content.featuresTitle.split('Excel')[0]}
-                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Excel</span>
-                </>
-              ) : content.featuresTitle}
+              {content.featuresTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.featuresTitleHighlight}</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
               {content.featuresSubtitle}
@@ -761,12 +791,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-              {content.timetableTitle.includes('Timetable') ? (
-                <>
-                  {content.timetableTitle.split('Timetable')[0]}
-                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Timetable</span>
-                </>
-              ) : content.timetableTitle}
+              {content.timetableTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.timetableTitleHighlight}</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal text-center">
               {content.timetableSubtitle}
@@ -872,6 +897,70 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Program Selection (Previously Batch Selector) */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+              {content.programsTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.programsTitleHighlight}</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+              {content.programsSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {(content.programs || []).map((program: any, idx: number) => {
+              const Icon = iconMap[program.icon] || GraduationCap;
+              return (
+                <div key={idx} className={cn(
+                  "relative p-8 rounded-[2.5rem] border-2 transition-all duration-500 group flex flex-col items-center text-center",
+                  program.popular ? "bg-[#182d45] border-[#182d45] shadow-2xl scale-105" : "bg-white border-gray-100 hover:border-blue-200"
+                )}>
+                  {program.popular && (
+                    <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-6 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg">
+                      Most Popular
+                    </div>
+                  )}
+                  <div className={cn(
+                    "w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform group-hover:scale-110",
+                    program.popular ? "bg-blue-500" : "bg-blue-50"
+                  )}>
+                    <Icon className={cn("w-8 h-8", program.popular ? "text-white" : "text-blue-600")} />
+                  </div>
+                  <h3 className={cn("text-2xl font-bold mb-2", program.popular ? "text-white" : "text-gray-900")}>{program.title}</h3>
+                  <p className={cn("text-sm font-medium mb-8", program.popular ? "text-blue-200" : "text-gray-400")}>{program.subtitle}</p>
+                  
+                  <ul className="space-y-4 mb-10 flex-grow text-left w-full">
+                    {program.points?.map((point: string, i: number) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <CheckCircle2 className={cn("w-5 h-5 shrink-0 mt-0.5", program.popular ? "text-teal-400" : "text-teal-500")} />
+                        <span className={cn("text-sm font-medium", program.popular ? "text-gray-300" : "text-gray-600")}>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-col w-full gap-3">
+                    <Button asChild className={cn(
+                      "w-full h-12 rounded-xl font-bold shadow-lg transition-all active:scale-95 border-none",
+                      program.popular ? "bg-white text-[#182d45] hover:bg-gray-100" : "bg-[#182d45] text-white hover:bg-black"
+                    )}>
+                      <Link href="/enrollment">{program.enrollNowBtnText || "Enroll Now"}</Link>
+                    </Button>
+                    <Button asChild variant="ghost" className={cn(
+                      "w-full h-12 rounded-xl font-bold transition-all",
+                      program.popular ? "text-blue-400 hover:text-white hover:bg-white/10" : "text-blue-600 hover:bg-blue-50"
+                    )}>
+                      <Link href="#timetable-section">{program.viewTimetableBtnText || "View Timetable"}</Link>
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* One-to-One Mentorship Section */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -940,7 +1029,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
-              {content.testimonialsTitleMain || "What Students & "}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.testimonialsTitleHighlight || "Parents Say"}</span>
+              {content.testimonialsTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.testimonialsTitleHighlight}</span>
             </h2>
             <p className="mt-4 text-gray-500 font-medium italic text-center">{content.testimonialsSubtitle}</p>
           </div>
@@ -974,12 +1063,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-              {content.whyChooseTitle.includes('Bharath') ? (
-                <>
-                  {content.whyChooseTitle.split('Bharath Academy?')[0]}
-                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Bharath Academy?</span>
-                </>
-              ) : content.whyChooseTitle}
+              {content.whyChooseTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.whyChooseTitleHighlight}</span>
             </h2>
             <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
               {content.whyChooseSubtitle}
@@ -1009,12 +1093,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-              {content.successTitle.includes('Success') ? (
-                <>
-                  {content.successTitle.split('Success Stories')[0]}
-                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Success Stories</span>
-                </>
-              ) : content.successTitle}
+              {content.successTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.successTitleHighlight}</span>
             </h2>
             <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
               {content.successSubtitle}
@@ -1043,7 +1122,6 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
               <h3 className="text-2xl font-bold text-gray-900 tracking-tight text-left">{content.successTopHeader}</h3>
               <div className="w-full md:w-auto text-left">
-                {/* Fixed: Adding a key based on successYears to force Select component refresh when years are removed */}
                 <Select key={successYears.join(',')} defaultValue={successYears[0] || ""}>
                   <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700">
                     <SelectValue placeholder={successYears.length > 0 ? `Year ${successYears[0]}` : "Select Year"} />

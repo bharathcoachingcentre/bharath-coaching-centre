@@ -84,7 +84,8 @@ const defaultPageData: Record<string, any> = {
       { label: "Success Rate", value: "95%", icon: "TrendingUp" },
       { label: "Years Experience", value: "10+", icon: "Award" }
     ],
-    featuresTitle: "How We Help Students Excel",
+    featuresTitleMain: "How We Help Students ",
+    featuresTitleHighlight: "Excel",
     featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
     features: [
       { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
@@ -93,7 +94,8 @@ const defaultPageData: Record<string, any> = {
       { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
     ],
-    programsTitle: "Explore Our Academic Programs",
+    programsTitleMain: "Explore Our Academic ",
+    programsTitleHighlight: "Programs",
     programsSubtitle: "Choose the perfect learning path for your child's academic journey",
     programs: [
       {
@@ -124,7 +126,8 @@ const defaultPageData: Record<string, any> = {
         points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
       },
     ],
-    timetableTitle: "Offline Class Timetable",
+    timetableTitleMain: "Offline Class ",
+    timetableTitleHighlight: "Timetable",
     timetableSubtitle: "View our structured class schedules for offline sessions",
     timetableIcon: "Info",
     timetableNotes: [
@@ -155,7 +158,8 @@ const defaultPageData: Record<string, any> = {
       { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
       { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
     ],
-    whyChooseTitle: "Why Choose Bharath Academy?",
+    whyChooseTitleMain: "Why Choose ",
+    whyChooseTitleHighlight: "Bharath Academy?",
     whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
     whyChooseFeatures: [
       { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
@@ -165,7 +169,8 @@ const defaultPageData: Record<string, any> = {
       { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
       { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
     ],
-    successTitle: "Our Students' Success Stories",
+    successTitleMain: "Our Students' ",
+    successTitleHighlight: "Success Stories",
     successSubtitle: "Celebrating exceptional achievements and academic excellence",
     successStats: [
       { icon: "Trophy", value: "95%", label: "Pass Rate", color: "text-blue-600" },
@@ -515,23 +520,32 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardContent className="p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
-                        value={formData.featuresTitle || ""} 
-                        onChange={(e) => updateField('featuresTitle', e.target.value)}
+                        value={formData.featuresTitleMain || ""} 
+                        onChange={(e) => updateField('featuresTitleMain', e.target.value)}
                         className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
-                        placeholder="How We Help Students Excel"
+                        placeholder="How We Help Students "
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
                       <Input 
-                        value={formData.featuresSubtitle || ""} 
-                        onChange={(e) => updateField('featuresSubtitle', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
-                        placeholder="Comprehensive learning solutions"
+                        value={formData.featuresTitleHighlight || ""} 
+                        onChange={(e) => updateField('featuresTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Excel"
                       />
                     </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Input 
+                      value={formData.featuresSubtitle || ""} 
+                      onChange={(e) => updateField('featuresSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      placeholder="Comprehensive learning solutions"
+                    />
                   </div>
 
                   <div className="space-y-6">
@@ -614,23 +628,32 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardContent className="p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
-                        value={formData.programsTitle || ""} 
-                        onChange={(e) => updateField('programsTitle', e.target.value)}
+                        value={formData.programsTitleMain || ""} 
+                        onChange={(e) => updateField('programsTitleMain', e.target.value)}
                         className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
-                        placeholder="Explore Our Academic Programs"
+                        placeholder="Explore Our Academic "
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
                       <Input 
-                        value={formData.programsSubtitle || ""} 
-                        onChange={(e) => updateField('programsSubtitle', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
-                        placeholder="Choose the perfect learning path"
+                        value={formData.programsTitleHighlight || ""} 
+                        onChange={(e) => updateField('programsTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Programs"
                       />
                     </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Input 
+                      value={formData.programsSubtitle || ""} 
+                      onChange={(e) => updateField('programsSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      placeholder="Choose the perfect learning path"
+                    />
                   </div>
 
                   <div className="space-y-8">
@@ -744,23 +767,32 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardContent className="p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
-                        value={formData.timetableTitle || ""} 
-                        onChange={(e) => updateField('timetableTitle', e.target.value)}
+                        value={formData.timetableTitleMain || ""} 
+                        onChange={(e) => updateField('timetableTitleMain', e.target.value)}
                         className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
-                        placeholder="Offline Class Timetable"
+                        placeholder="Offline Class "
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
                       <Input 
-                        value={formData.timetableSubtitle || ""} 
-                        onChange={(e) => updateField('timetableSubtitle', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
-                        placeholder="View our structured class schedules"
+                        value={formData.timetableTitleHighlight || ""} 
+                        onChange={(e) => updateField('timetableTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Timetable"
                       />
                     </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Input 
+                      value={formData.timetableSubtitle || ""} 
+                      onChange={(e) => updateField('timetableSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      placeholder="View our structured class schedules"
+                    />
                   </div>
 
                   <div className="space-y-3">
@@ -1111,23 +1143,32 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardContent className="p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
-                        value={formData.whyChooseTitle || ""} 
-                        onChange={(e) => updateField('whyChooseTitle', e.target.value)}
+                        value={formData.whyChooseTitleMain || ""} 
+                        onChange={(e) => updateField('whyChooseTitleMain', e.target.value)}
                         className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
-                        placeholder="Why Choose Bharath Academy?"
+                        placeholder="Why Choose "
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Description</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
                       <Input 
-                        value={formData.whyChooseSubtitle || ""} 
-                        onChange={(e) => updateField('whyChooseSubtitle', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
-                        placeholder="Comprehensive features designed..."
+                        value={formData.whyChooseTitleHighlight || ""} 
+                        onChange={(e) => updateField('whyChooseTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Bharath Academy?"
                       />
                     </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Description</Label>
+                    <Input 
+                      value={formData.whyChooseSubtitle || ""} 
+                      onChange={(e) => updateField('whyChooseSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      placeholder="Comprehensive features designed..."
+                    />
                   </div>
 
                   <div className="space-y-8">
@@ -1216,21 +1257,31 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardContent className="p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
-                        value={formData.successTitle || ""} 
-                        onChange={(e) => updateField('successTitle', e.target.value)}
+                        value={formData.successTitleMain || ""} 
+                        onChange={(e) => updateField('successTitleMain', e.target.value)}
                         className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="Our Students' "
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
                       <Input 
-                        value={formData.successSubtitle || ""} 
-                        onChange={(e) => updateField('successSubtitle', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                        value={formData.successTitleHighlight || ""} 
+                        onChange={(e) => updateField('successTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Success Stories"
                       />
                     </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Input 
+                      value={formData.successSubtitle || ""} 
+                      onChange={(e) => updateField('successSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                    />
                   </div>
 
                   <div className="space-y-6">
