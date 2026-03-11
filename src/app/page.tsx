@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -276,6 +277,16 @@ export default function HomePage() {
     };
   }, [homeContent]);
 
+  const successYears = useMemo(() => {
+    if (Array.isArray(content.successYears)) {
+      return content.successYears.filter(Boolean);
+    }
+    if (typeof content.successYears === 'string') {
+      return content.successYears.split(/[\n,\s]+/).map(s => s.trim()).filter(Boolean);
+    }
+    return ["2025", "2023"]; // Updated default fallback to be cleaner
+  }, [content.successYears]);
+
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const { data: allPeriods } = useCollection(periodsQuery);
 
@@ -322,11 +333,11 @@ export default function HomePage() {
     }
   }, [availableClasses, selectedClass]);
 
-  const subjectsQuery = useMemo(() => {
+  const subjectsQuery_Look = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
   }, [firestore]);
-  const { data: allSubjectsRaw } = useCollection(subjectsQuery);
+  const { data: allSubjectsRaw } = useCollection(subjectsQuery_Look);
 
   const availableSubjectsList = useMemo(() => {
     const base = ["All Subjects"];
@@ -415,16 +426,6 @@ export default function HomePage() {
   const TimetableIcon = iconMap[content.timetableIcon] || Info;
   const SuccessCardIcon = iconMap[content.successCardIcon] || Star;
   const heroImageData = placeholderImages["hero-education"];
-
-  const successYears = useMemo(() => {
-    if (Array.isArray(content.successYears)) {
-      return content.successYears.filter(Boolean);
-    }
-    if (typeof content.successYears === 'string') {
-      return content.successYears.split(/[\n,\s]+/).filter(Boolean);
-    }
-    return ["2025", "2024", "2023"];
-  }, [content.successYears]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -1031,7 +1032,7 @@ export default function HomePage() {
                   </div>
                   <div className="space-y-2">
                     <div className="text-5xl font-bold text-gray-900 tracking-tight">{stat.value}</div>
-                    <div className="text-[16px] font-medium text-[#4b5563]">{stat.label}</div>
+                    <div className="text-[16px] font-medium text-[#4b5563] font-body">{stat.label}</div>
                   </div>
                 </Card>
               );
@@ -1042,9 +1043,10 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
               <h3 className="text-2xl font-bold text-gray-900 tracking-tight text-left">{content.successTopHeader}</h3>
               <div className="w-full md:w-auto text-left">
-                <Select defaultValue={successYears[0] || "2025"}>
+                {/* Fixed: Adding a key based on successYears to force Select component refresh when years are removed */}
+                <Select key={successYears.join(',')} defaultValue={successYears[0] || ""}>
                   <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700">
-                    <SelectValue placeholder={`Year ${successYears[0] || "2025"}`} />
+                    <SelectValue placeholder={successYears.length > 0 ? `Year ${successYears[0]}` : "Select Year"} />
                   </SelectTrigger>
                   <SelectContent>
                     {successYears.map((year: string) => (
