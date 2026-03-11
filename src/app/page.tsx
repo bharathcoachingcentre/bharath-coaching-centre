@@ -981,7 +981,7 @@ export default function HomePage() {
               const Icon = iconMap[feature.icon] || Zap;
               const style = whyChooseStyles[idx % whyChooseStyles.length];
               return (
-                <div key={idx} className={cn("p-8 rounded-[2rem] border transition-all duration-500 group text-left backdrop-blur-md", style.bg, style.border, "shadow-sm hover:shadow-xl hover:-translate-y-2", style.hoverBorder)}>
+                <div key={idx} className={cn("p-8 rounded-[16px] border transition-all duration-500 group text-left backdrop-blur-md", style.bg, style.border, "shadow-sm hover:shadow-xl hover:-translate-y-2", style.hoverBorder)}>
                   <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg mb-6 group-hover:scale-110 transition-transform", style.iconBg, style.shadow)}>
                     <Icon className="w-7 h-7" />
                   </div>
