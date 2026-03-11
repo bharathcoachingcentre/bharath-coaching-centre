@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -184,87 +185,96 @@ export default function HomePage() {
   }, [firestore]);
   const { data: homeContent } = useDoc(pageRef);
 
-  const content = useMemo(() => homeContent?.content || {
-    heroTitleMain: "Empowering Students from ",
-    heroTitleHighlight: "Class 1 to 12",
-    heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
-    heroPrimaryBtnText: "Book Free Consultation",
-    heroPrimaryBtnLink: "#",
-    heroOutlineBtnText: "View Timetable",
-    heroOutlineBtnLink: "#timetable-section",
-    heroCard1Label: "Board",
-    heroCard1Value: "CBSE",
-    heroCard2Label: "Board",
-    heroCard2Value: "Samacheer",
-    heroCard3Online: "Online",
-    heroCard3Offline: "Offline",
-    stats: [
-      { label: "Students", value: "5000+", icon: "Users" },
-      { label: "Success Rate", value: "95%", icon: "TrendingUp" },
-      { label: "Years Experience", value: "10+", icon: "Award" }
-    ],
-    featuresTitle: "How We Help Students Excel",
-    featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
-    features: [
-      { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
-      { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
-      { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
-      { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
-    ],
-    timetableTitle: "Offline Class Timetable",
-    timetableSubtitle: "View our structured class schedules for offline sessions",
-    timetableIcon: "Info",
-    timetableNotes: [
-      "Sunday is a holiday for all classes",
-      "Each session includes a 15-minute break",
-      "Extra classes are conducted before exams",
-      "Timetable may vary based on class requirements"
-    ],
-    mentorshipTitleMain: "One-to-One ",
-    mentorshipTitleHighlight: "Mentorship",
-    mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
-    mentorshipImageUrl: placeholderImages["one-to-one-mentorship"].src,
-    mentorshipBtnText: "Book Personal Session",
-    mentorshipFeatures: [
-      { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
-      { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
-      { icon: "TrendingUp", title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis." },
-      { icon: "Handshake", title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress." },
-    ],
-    testimonialsTitleMain: "What Students & ",
-    testimonialsTitleHighlight: "Parents Say",
-    testimonialsSubtitle: "Read stories from our successful students and satisfied parents.",
-    testimonials: [
-      { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing.", avatar: placeholderImages["student-1"].src, rating: 5 },
-      { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives.", avatar: placeholderImages["student-4"].src, rating: 5 },
-      { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The mentorship helped me overcome my weaknesses.", avatar: placeholderImages["student-6"].src, rating: 5 },
-    ],
-    whyChooseTitle: "Why Choose Bharath Academy?",
-    whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
-    whyChooseFeatures: [
-      { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance and progress through our parent portal.", color: "bg-blue-600 shadow-blue-600/30" },
-      { icon: "UserCheck", title: "Daily Performance Monitoring", desc: "Track daily homework completion and class participation with notifications.", color: "bg-teal-50 shadow-teal-500/30" },
-      { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas for improvement.", color: "bg-purple-500 shadow-purple-500/30" },
-      { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to mock exams, designed to build confidence.", color: "bg-orange-500 shadow-orange-500/30" },
-      { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled meetings with teachers to discuss student progress and strategies.", color: "bg-pink-500 shadow-pink-500/30" },
-      { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
-    ],
-    successTitle: "Our Students' Success Stories",
-    successSubtitle: "Celebrating exceptional achievements and academic excellence",
-    successStats: [
-      { icon: "Trophy", value: "95%", label: "Pass Rate", color: "text-blue-600" },
-      { icon: "Medal", value: "120+", label: "Distinctions", color: "text-teal-600" },
-      { icon: "GraduationCap", value: "5000+", label: "Students", color: "text-purple-600" },
-    ],
-    successTopHeader: "Top Performers",
-    successYears: ["2025", "2024", "2023"],
-    successTotalMarksLabel: "Total Marks",
-    successCardIcon: "Star",
-    successPerformers: [
-      { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", rankIcon: "Crown", badgeColor: "bg-[#fbbf24]", marksColor: "text-blue-600", iconColor: "bg-blue-600", img: placeholderImages["student-7"].src },
-      { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", rankIcon: "Medal", badgeColor: "bg-[#94a3b8]", marksColor: "text-teal-600", iconColor: "bg-teal-600", img: placeholderImages["student-4"].src },
-    ]
+  const content = useMemo(() => {
+    const defaults = {
+      heroTitleMain: "Empowering Students from ",
+      heroTitleHighlight: "Class 1 to 12",
+      heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
+      heroPrimaryBtnText: "Book Free Consultation",
+      heroPrimaryBtnLink: "#",
+      heroOutlineBtnText: "View Timetable",
+      heroOutlineBtnLink: "#timetable-section",
+      heroCard1Label: "Board",
+      heroCard1Value: "CBSE",
+      heroCard2Label: "Board",
+      heroCard2Value: "Samacheer",
+      heroCard3Online: "Online",
+      heroCard3Offline: "Offline",
+      stats: [
+        { label: "Students", value: "5000+", icon: "Users" },
+        { label: "Success Rate", value: "95%", icon: "TrendingUp" },
+        { label: "Years Experience", value: "10+", icon: "Award" }
+      ],
+      featuresTitle: "How We Help Students Excel",
+      featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
+      features: [
+        { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
+        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
+        { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
+        { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
+        { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
+      ],
+      timetableTitle: "Offline Class Timetable",
+      timetableSubtitle: "View our structured class schedules for offline sessions",
+      timetableIcon: "Info",
+      timetableNotes: [
+        "Sunday is a holiday for all classes",
+        "Each session includes a 15-minute break",
+        "Extra classes are conducted before exams",
+        "Timetable may vary based on class requirements"
+      ],
+      mentorshipTitleMain: "One-to-One ",
+      mentorshipTitleHighlight: "Mentorship",
+      mentorshipSubtitle: "Personalized attention to help every student reach their full potential.",
+      mentorshipImageUrl: placeholderImages["one-to-one-mentorship"].src,
+      mentorshipBtnText: "Book Personal Session",
+      mentorshipFeatures: [
+        { icon: "UserCheck", title: "Individual Attention", desc: "Dedicated mentoring to focus on student's personal learning pace and understanding." },
+        { icon: "Layers", title: "Customized Study Plan", desc: "Targeted learning strategies based on individual strengths and weaknesses." },
+        { icon: "TrendingUp", title: "Weekly Academic Tracking", desc: "Regular monitoring of progress with detailed performance analysis." },
+        { icon: "Handshake", title: "Parent Performance Updates", desc: "Constant communication with parents to keep them informed about their child's progress." },
+      ],
+      testimonialsTitleMain: "What Students & ",
+      testimonialsTitleHighlight: "Parents Say",
+      testimonialsSubtitle: "Read stories from our successful students and satisfied parents.",
+      testimonials: [
+        { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing.", avatar: placeholderImages["student-1"].src, rating: 5 },
+        { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives.", avatar: placeholderImages["student-4"].src, rating: 5 },
+        { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The mentorship helped me overcome my weaknesses.", avatar: placeholderImages["student-6"].src, rating: 5 },
+      ],
+      whyChooseTitle: "Why Choose Bharath Academy?",
+      whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
+      whyChooseFeatures: [
+        { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance and progress through our parent portal.", color: "bg-blue-600 shadow-blue-600/30" },
+        { icon: "UserCheck", title: "Daily Performance Monitoring", desc: "Track daily homework completion and class participation with notifications.", color: "bg-teal-50 shadow-teal-500/30" },
+        { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas for improvement.", color: "bg-purple-500 shadow-purple-500/30" },
+        { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to mock exams, designed to build confidence.", color: "bg-orange-500 shadow-orange-500/30" },
+        { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled meetings with teachers to discuss student progress and strategies.", color: "bg-pink-500 shadow-pink-500/30" },
+        { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
+      ],
+      successTitle: "Our Students' Success Stories",
+      successSubtitle: "Celebrating exceptional achievements and academic excellence",
+      successStats: [
+        { icon: "Trophy", value: "95%", label: "Pass Rate", color: "text-blue-600" },
+        { icon: "Medal", value: "120+", label: "Distinctions", color: "text-teal-600" },
+        { icon: "GraduationCap", value: "5000+", label: "Students", color: "text-purple-600" },
+      ],
+      successTopHeader: "Top Performers",
+      successYears: ["2025", "2024", "2023"],
+      successTotalMarksLabel: "Total Marks",
+      successCardIcon: "Star",
+      successPerformers: [
+        { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", rankIcon: "Crown", badgeColor: "bg-[#fbbf24]", marksColor: "text-blue-600", iconColor: "bg-blue-600", img: placeholderImages["student-7"].src },
+        { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", rankIcon: "Medal", badgeColor: "bg-[#94a3b8]", marksColor: "text-teal-600", iconColor: "bg-teal-600", img: placeholderImages["student-4"].src },
+      ]
+    };
+
+    if (!homeContent?.content) return defaults;
+
+    return {
+      ...defaults,
+      ...homeContent.content
+    };
   }, [homeContent]);
 
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
@@ -428,13 +438,13 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-none">
-                  <Link href={content.heroPrimaryBtnLink}>
+                  <Link href={content.heroPrimaryBtnLink || "#"}>
                     <CalendarCheck className="mr-2 h-6 w-6" />
                     {content.heroPrimaryBtnText}
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-bold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <Link href={content.heroOutlineBtnLink}>
+                  <Link href={content.heroOutlineBtnLink || "#"}>
                     <Clock className="mr-2 h-6 w-6" />
                     {content.heroOutlineBtnText}
                   </Link>
@@ -988,7 +998,7 @@ export default function HomePage() {
       <section className="py-24 bg-blue-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.successTitle.includes('Success') ? (
                 <>
                   {content.successTitle.split('Success Stories')[0]}
