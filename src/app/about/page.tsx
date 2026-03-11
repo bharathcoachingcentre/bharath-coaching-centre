@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo } from "react";
@@ -26,25 +25,50 @@ export default function AboutPage() {
 
   const { data: pageContent, loading } = useDoc(pageRef);
 
-  const content = pageContent?.content || {
-    heroTitle: "About Us",
-    philosophyTitle: "What Makes Us Different",
-    philosophyItems: [
-      { text: "Everyone is an achiever.", icon: "Target" },
-      { text: "Every student needs a unique method to deliver the concept.", icon: "Lightbulb" },
-      { text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.", icon: "Brain" },
-      { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
-    ]
-  };
+  const content = useMemo(() => {
+    const defaults = {
+      heroTitle: "About Us",
+      heroImageUrl: "/About-Us.jpg",
+      philosophyTag: "Philosophy",
+      philosophyTitleMain: "What Makes Us ",
+      philosophyTitleHighlight: "Different",
+      philosophyImageUrl: "/about-image-vector.jpg",
+      philosophyItems: [
+        { text: "Everyone is an achiever.", icon: "Target" },
+        { text: "Every student needs a unique method to deliver the concept.", icon: "Lightbulb" },
+        { text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.", icon: "Brain" },
+        { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
+      ],
+      ctaTitle: "Start Your Journey To Success",
+      ctaSubtitle: "Experience the difference with our unique teaching methodology and personalized attention.",
+      ctaBtnText: "Enroll Today"
+    };
+
+    if (!pageContent?.content) return defaults;
+
+    return {
+      ...defaults,
+      ...pageContent.content
+    };
+  }, [pageContent]);
 
   const colors = ["bg-blue-500 shadow-blue-500/30", "bg-teal-500 shadow-teal-500/30", "bg-purple-500 shadow-purple-500/30", "bg-orange-500 shadow-orange-500/30"];
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-32 gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Syncing Content...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="font-body antialiased">
       {/* Hero Section */}
       <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
         <Image
-          src="/About-Us.jpg"
+          src={content.heroImageUrl}
           alt="About Us Banner"
           fill
           className="object-cover"
@@ -74,7 +98,7 @@ export default function AboutPage() {
               <div className="relative z-10 group">
                 <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-teal-500/10 rounded-2xl blur-2xl group-hover:opacity-100 transition-opacity opacity-0 duration-500"></div>
                 <Image
-                  src="/about-image-vector.jpg"
+                  src={content.philosophyImageUrl}
                   alt="Counseling session"
                   width={600}
                   height={700}
@@ -87,10 +111,10 @@ export default function AboutPage() {
             <div className="space-y-10 text-left">
               <div>
                 <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
-                  Philosophy
+                  {content.philosophyTag}
                 </span>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
-                  {content.philosophyTitle.split('Different')[0]} <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Different</span>
+                  {content.philosophyTitleMain} <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.philosophyTitleHighlight}</span>
                 </h2>
               </div>
 
@@ -119,20 +143,20 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA Section style consistency */}
+      {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-teal-500 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 transition-transform duration-700 group-hover:scale-110"></div>
             <div className="relative z-10 space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold">Start Your Journey To Success</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">{content.ctaTitle}</h2>
               <p className="text-blue-50 text-lg max-w-2xl mx-auto font-medium">
-                Experience the difference with our unique teaching methodology and personalized attention.
+                {content.ctaSubtitle}
               </p>
               <div className="pt-4">
                 <Link href="/enrollment">
                   <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-4 rounded-2xl text-lg shadow-xl transition-all active:scale-95 border-none">
-                    Enroll Today
+                    {content.ctaBtnText}
                   </button>
                 </Link>
               </div>

@@ -190,13 +190,20 @@ const defaultPageData: Record<string, any> = {
   },
   about: {
     heroTitle: "About Us",
-    philosophyTitle: "What Makes Us Different",
+    heroImageUrl: "/About-Us.jpg",
+    philosophyTag: "Philosophy",
+    philosophyTitleMain: "What Makes Us ",
+    philosophyTitleHighlight: "Different",
+    philosophyImageUrl: "/about-image-vector.jpg",
     philosophyItems: [
       { text: "Everyone is an achiever.", icon: "Target" },
       { text: "Every student needs a unique method to deliver the concept.", icon: "Lightbulb" },
       { text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.", icon: "Brain" },
       { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
-    ]
+    ],
+    ctaTitle: "Start Your Journey To Success",
+    ctaSubtitle: "Experience the difference with our unique teaching methodology and personalized attention.",
+    ctaBtnText: "Enroll Today"
   }
 };
 
@@ -1478,11 +1485,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
           {/* About Page Sections */}
           {slug === 'about' && (
             <div className="space-y-8">
+              {/* Hero Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 text-left">
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Page Headline</Label>
                     <Input 
@@ -1491,58 +1499,231 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900 focus-visible:ring-blue-600"
                     />
                   </div>
+
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                      <ImageIcon className="w-4 h-4 text-blue-600" /> Hero Banner Image
+                    </Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                      <div className="space-y-3">
+                        <Label className="text-xs font-black uppercase text-gray-400">Upload Banner</Label>
+                        <div className="flex items-center gap-4">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2"
+                            onClick={() => document.getElementById('about-hero-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Choose Image
+                          </Button>
+                          <input 
+                            id="about-hero-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                          />
+                        </div>
+                        <p className="text-[10px] text-gray-400 italic">Select a wide photo for the main page header.</p>
+                      </div>
+                      {(formData.heroImageUrl || defaultPageData.about.heroImageUrl) && (
+                        <div className="space-y-2">
+                          <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
+                          <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                            <Image 
+                              src={formData.heroImageUrl || defaultPageData.about.heroImageUrl} 
+                              alt="Hero Preview" 
+                              fill 
+                              className="object-cover" 
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
 
+              {/* Philosophy Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between text-left">
+                <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Our Philosophy</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-6">
-                  <div className="space-y-3 text-left mb-8">
-                    <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Philosophy Section Main Title</Label>
+                      <Input 
+                        value={formData.philosophyTitleMain || ""} 
+                        onChange={(e) => updateField('philosophyTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="What Makes Us "
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Philosophy Title Highlight</Label>
+                      <Input 
+                        value={formData.philosophyTitleHighlight || ""} 
+                        onChange={(e) => updateField('philosophyTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Different"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Tag</Label>
+                      <Input 
+                        value={formData.philosophyTag || ""} 
+                        onChange={(e) => updateField('philosophyTag', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                        placeholder="Philosophy"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                      <ImageIcon className="w-4 h-4 text-teal-500" /> Philosophy Section Image
+                    </Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                      <div className="space-y-3">
+                        <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
+                        <div className="flex items-center gap-4">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-2"
+                            onClick={() => document.getElementById('about-philosophy-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Choose Image
+                          </Button>
+                          <input 
+                            id="about-philosophy-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={(e) => handleImageUpload(e, (b64) => updateField('philosophyImageUrl', b64))}
+                          />
+                        </div>
+                        <p className="text-[10px] text-gray-400 italic">Select an illustration for the philosophy section.</p>
+                      </div>
+                      {(formData.philosophyImageUrl || defaultPageData.about.philosophyImageUrl) && (
+                        <div className="space-y-2">
+                          <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
+                          <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                            <Image 
+                              src={formData.philosophyImageUrl || defaultPageData.about.philosophyImageUrl} 
+                              alt="Philosophy Preview" 
+                              fill 
+                              className="object-cover" 
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Philosophy Features</Label>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const newItems = [...(formData.philosophyItems || []), { text: "", icon: "Target" }];
+                          updateField('philosophyItems', newItems);
+                        }}
+                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                      >
+                        <Plus className="w-4 h-4" /> Add Item
+                      </Button>
+                    </div>
+
+                    <div className="space-y-4">
+                      {(formData.philosophyItems || defaultPageData.about.philosophyItems)?.map((item: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                            <div className="md:col-span-1 flex flex-col items-center">
+                              <span className="text-[10px] font-black text-gray-300">{idx + 1}</span>
+                            </div>
+                            <div className="md:col-span-11 grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div className="md:col-span-2 space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Description Text</Label>
+                                <Textarea 
+                                  value={item.text || ""} 
+                                  onChange={(e) => {
+                                    const newItems = [...(formData.philosophyItems || [])];
+                                    newItems[idx].text = e.target.value;
+                                    updateField('philosophyItems', newItems);
+                                  }}
+                                  className="min-h-[80px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name (Lucide)</Label>
+                                <Input 
+                                  value={item.icon || ""} 
+                                  onChange={(e) => {
+                                    const newItems = [...(formData.philosophyItems || [])];
+                                    newItems[idx].icon = e.target.value;
+                                    updateField('philosophyItems', newItems);
+                                  }}
+                                  className="h-10 bg-white"
+                                  placeholder="Target, Brain, etc."
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <button 
+                            type="button"
+                            className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => {
+                              const newItems = (formData.philosophyItems || []).filter((_: any, i: number) => i !== idx);
+                              updateField('philosophyItems', newItems);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* CTA Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0 text-left">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Call To Action (Footer)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-6 text-left">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">CTA Headline</Label>
                     <Input 
-                      value={formData.philosophyTitle || ""} 
-                      onChange={(e) => updateField('philosophyTitle', e.target.value)}
+                      value={formData.ctaTitle || ""} 
+                      onChange={(e) => updateField('ctaTitle', e.target.value)}
                       className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900 focus-visible:ring-blue-600"
                     />
                   </div>
-                  
-                  <div className="space-y-4">
-                    <Label className="text-xs font-black uppercase text-gray-400 block text-left">Philosophy Items</Label>
-                    {formData.philosophyItems?.map((item: any, idx: number) => (
-                      <div key={idx} className="flex gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 group">
-                        <Textarea 
-                          value={item.text || ""} 
-                          onChange={(e) => {
-                            const newItems = [...formData.philosophyItems];
-                            newItems[idx].text = e.target.value;
-                            updateField('philosophyItems', newItems);
-                          }}
-                          className="min-h-[60px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
-                        />
-                        <button 
-                          type="button"
-                          className="text-gray-300 hover:text-red-500 flex-shrink-0"
-                          onClick={() => {
-                            const newItems = formData.philosophyItems.filter((_: any, i: number) => i !== idx);
-                            updateField('philosophyItems', newItems);
-                          }}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))}
-                    <Button 
-                      variant="outline" 
-                      onClick={() => {
-                        const newItems = [...(formData.philosophyItems || []), { text: "", icon: "Target" }];
-                        updateField('philosophyItems', newItems);
-                      }}
-                      className="w-full h-12 border-dashed border-gray-200 rounded-xl text-gray-400 font-bold hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all"
-                    >
-                      <Plus className="w-4 h-4 mr-2" /> Add Item
-                    </Button>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">CTA Subtitle</Label>
+                    <Textarea 
+                      value={formData.ctaSubtitle || ""} 
+                      onChange={(e) => updateField('ctaSubtitle', e.target.value)}
+                      className="min-h-[100px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none focus-visible:ring-blue-600"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Button Text</Label>
+                      <Input 
+                        value={formData.ctaBtnText || ""} 
+                        onChange={(e) => updateField('ctaBtnText', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
