@@ -106,10 +106,10 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       rankOrder: 1,
       year: "",
       imageUrl: "",
-      badgeColor: "bg-blue-600",
-      iconColor: "bg-blue-600",
-      marksColor: "text-blue-600",
-      rankIcon: "Star",
+      badgeColor: "",
+      iconColor: "",
+      marksColor: "",
+      rankIcon: "",
     },
   });
 
@@ -147,19 +147,25 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    if (!firestore || !performerId) return;
+    if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
     try {
       const ref = doc(firestore, "top-performers", performerId);
       
-      // Ensure we don't save empty strings for critical branding fields
+      // Explicitly merge with existing data to ensure no empty strings overwrite valid data
       const finalData = {
-        ...values,
-        marksColor: values.marksColor || performer?.marksColor || "text-blue-600",
-        badgeColor: values.badgeColor || performer?.badgeColor || "bg-blue-600",
-        iconColor: values.iconColor || performer?.iconColor || "bg-blue-600",
-        rankIcon: values.rankIcon || performer?.rankIcon || "Star",
+        name: values.name,
+        grade: values.grade,
+        marks: values.marks,
+        rank: values.rank,
+        rankOrder: values.rankOrder,
+        year: values.year || performer.year || "",
+        imageUrl: values.imageUrl,
+        badgeColor: values.badgeColor || performer.badgeColor || "bg-blue-600",
+        iconColor: values.iconColor || performer.iconColor || "bg-blue-600",
+        marksColor: values.marksColor || performer.marksColor || "text-blue-600",
+        rankIcon: values.rankIcon || performer.rankIcon || "Star",
         updatedAt: serverTimestamp(),
       };
 
@@ -191,14 +197,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       </div>
     );
   }
-
-  const iconMap: Record<string, any> = {
-    Star,
-    Trophy,
-    Medal,
-    Award,
-    Crown
-  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
