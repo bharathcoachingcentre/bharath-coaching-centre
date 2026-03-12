@@ -313,7 +313,7 @@ export default function HomePage() {
     };
   }, [homeContent]);
 
-  const SuccessCardIcon = iconMap[content.successCardIcon] || Star;
+  const SuccessCardIcon = useMemo(() => iconMap[content.successCardIcon] || Star, [content.successCardIcon]);
 
   const successYears = useMemo(() => {
     if (Array.isArray(content.successYears)) {
@@ -906,8 +906,17 @@ export default function HomePage() {
       </section>
 
       {/* Offline Class Timetable Section */}
-      <section id="timetable-section" className="py-24 bg-white">
+      <section id="timetable-section" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
+              {content.timetableTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.timetableTitleHighlight}</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-normal">
+              {content.timetableSubtitle}
+            </p>
+          </div>
+
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
             <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
               <button
