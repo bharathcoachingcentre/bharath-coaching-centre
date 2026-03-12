@@ -117,8 +117,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
   // WAIT FOR BOTH MASTER DATA AND PERFORMER BEFORE RESET
   useEffect(() => {
     if (performer && yearsList && !isSaving) {
-      console.log("DEBUG: Performer Data Loaded", performer);
-      form.reset({
+      console.log("Fetched Firestore Data:", performer);
+
+      const resetData = {
         name: String(performer.name || ""),
         grade: String(performer.grade || ""),
         marks: String(performer.marks || ""),
@@ -130,7 +131,17 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         iconColor: performer.iconColor || "bg-blue-600",
         marksColor: performer.marksColor || "text-blue-600",
         rankIcon: performer.rankIcon || "Star",
+      };
+
+      console.log("Reset Form With:", {
+        year: resetData.year,
+        marksColor: resetData.marksColor,
+        badgeColor: resetData.badgeColor,
+        iconColor: resetData.iconColor,
+        rankIcon: resetData.rankIcon
       });
+
+      form.reset(resetData);
     }
   }, [performer, yearsList, form, isSaving]);
 
@@ -171,9 +182,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       updatedAt: serverTimestamp(),
     };
 
-    console.log("DEBUG: Existing Data", existingData);
-    console.log("DEBUG: Form Data", formData);
-    console.log("DEBUG: Clean Data to Save", cleanData);
+    console.log("Final Clean Data:", cleanData);
 
     try {
       const ref = doc(firestore, "top-performers", performerId);
@@ -293,27 +302,30 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <FormField
                   control={form.control}
                   name="year"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
-                      <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value || ""}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
-                            <SelectValue placeholder="Select year" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="rounded-xl border-gray-100 shadow-xl">
-                          {yearsList?.map(y => (
-                            <SelectItem key={y.id} value={String(y.year)}>{y.year}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field }) => {
+                    console.log("Select Value:", field.name, field.value);
+                    return (
+                      <FormItem className="space-y-3 text-left">
+                        <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
+                              <SelectValue placeholder="Select year" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                            {yearsList?.map(y => (
+                              <SelectItem key={y.id} value={String(y.year)}>{y.year}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
                 />
 
                 <FormField
@@ -351,31 +363,34 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <FormField
                   control={form.control}
                   name="rankIcon"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
-                      <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value || ""}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
-                            <SelectValue placeholder="Select icon" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="rounded-xl">
-                          {iconOptions.map(opt => (
-                            <SelectItem key={opt.name} value={opt.name}>
-                              <div className="flex items-center gap-2">
-                                <opt.icon className="w-4 h-4" /> {opt.name}
-                              </div>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field }) => {
+                    console.log("Select Value:", field.name, field.value);
+                    return (
+                      <FormItem className="space-y-3 text-left">
+                        <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
+                              <SelectValue placeholder="Select icon" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl">
+                            {iconOptions.map(opt => (
+                              <SelectItem key={opt.name} value={opt.name}>
+                                <div className="flex items-center gap-2">
+                                  <opt.icon className="w-4 h-4" /> {opt.name}
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
                 />
               </div>
 
@@ -387,88 +402,97 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   <FormField
                     control={form.control}
                     name="badgeColor"
-                    render={({ field }) => (
-                      <FormItem className="space-y-3 text-left">
-                        <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
-                        <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
-                        >
-                          <FormControl>
-                            <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                              <SelectValue placeholder="Select color" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="rounded-xl">
-                            {colorOptions.map(opt => (
-                              <SelectItem key={opt.value} value={opt.value}>
-                                <div className="flex items-center gap-2">
-                                  <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
-                                </div>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
+                    render={({ field }) => {
+                      console.log("Select Value:", field.name, field.value);
+                      return (
+                        <FormItem className="space-y-3 text-left">
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            value={field.value || ""}
+                          >
+                            <FormControl>
+                              <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
+                                <SelectValue placeholder="Select color" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="rounded-xl">
+                              {colorOptions.map(opt => (
+                                <SelectItem key={opt.value} value={opt.value}>
+                                  <div className="flex items-center gap-2">
+                                    <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      );
+                    }}
                   />
 
                   <FormField
                     control={form.control}
                     name="iconColor"
-                    render={({ field }) => (
-                      <FormItem className="space-y-3 text-left">
-                        <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                        <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
-                        >
-                          <FormControl>
-                            <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                              <SelectValue placeholder="Select color" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="rounded-xl">
-                            {colorOptions.map(opt => (
-                              <SelectItem key={opt.value} value={opt.value}>
-                                <div className="flex items-center gap-2">
-                                  <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
-                                </div>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
+                    render={({ field }) => {
+                      console.log("Select Value:", field.name, field.value);
+                      return (
+                        <FormItem className="space-y-3 text-left">
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            value={field.value || ""}
+                          >
+                            <FormControl>
+                              <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
+                                <SelectValue placeholder="Select color" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="rounded-xl">
+                              {colorOptions.map(opt => (
+                                <SelectItem key={opt.value} value={opt.value}>
+                                  <div className="flex items-center gap-2">
+                                    <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      );
+                    }}
                   />
 
                   <FormField
                     control={form.control}
                     name="marksColor"
-                    render={({ field }) => (
-                      <FormItem className="space-y-3 text-left">
-                        <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
-                        <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
-                        >
-                          <FormControl>
-                            <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                              <SelectValue placeholder="Select color" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="rounded-xl">
-                            {colorOptions.map(opt => (
-                              <SelectItem key={opt.text} value={opt.text}>
-                                <div className="flex items-center gap-2">
-                                  <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
-                                </div>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
+                    render={({ field }) => {
+                      console.log("Select Value:", field.name, field.value);
+                      return (
+                        <FormItem className="space-y-3 text-left">
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            value={field.value || ""}
+                          >
+                            <FormControl>
+                              <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
+                                <SelectValue placeholder="Select color" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="rounded-xl">
+                              {colorOptions.map(opt => (
+                                <SelectItem key={opt.text} value={opt.text}>
+                                  <div className="flex items-center gap-2">
+                                    <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      );
+                    }}
                   />
                 </div>
               </div>
