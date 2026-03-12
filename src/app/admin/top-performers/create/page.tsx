@@ -239,7 +239,7 @@ export default function CreatePerformerPage() {
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
                       <Select 
                         onValueChange={field.onChange} 
-                        value={field.value || ""}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
@@ -297,7 +297,7 @@ export default function CreatePerformerPage() {
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
                       <Select 
                         onValueChange={field.onChange} 
-                        value={field.value || ""}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
@@ -334,7 +334,7 @@ export default function CreatePerformerPage() {
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          value={field.value}
                         >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
@@ -363,7 +363,7 @@ export default function CreatePerformerPage() {
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          value={field.value}
                         >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
@@ -392,7 +392,7 @@ export default function CreatePerformerPage() {
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          value={field.value}
                         >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
