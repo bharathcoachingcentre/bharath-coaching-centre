@@ -311,7 +311,7 @@ export default function HomePage() {
 
   const SuccessCardIcon = useMemo(() => iconMap[content.successCardIcon] || Star, [content.successCardIcon]);
 
-  // 1. Fetch Years from the dedicated 'years' collection
+  // Fetch Years
   const yearsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'years'), orderBy('year', 'desc'));
@@ -329,13 +329,26 @@ export default function HomePage() {
     }
   }, [resultYears, selectedResultYear]);
 
-  // 2. Fetch performers directly from top-performers collection based on managed year
-  const performersQuery = useMemo(() => {
+  // Fetch Performers - Use simple query without internal sort to avoid composite index requirements
+  const allPerformersQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'top-performers'), where('year', '==', selectedResultYear), orderBy('createdAt', 'desc'));
-  }, [firestore, selectedResultYear]);
-  const { data: performersList, loading: performersLoading } = useCollection(performersQuery);
+    return query(collection(firestore, 'top-performers'));
+  }, [firestore]);
+  const { data: allPerformers, loading: performersLoading } = useCollection(allPerformersQuery);
 
+  // Filter and sort performers in-memory for prototype reliability
+  const performersList = useMemo(() => {
+    if (!allPerformers) return [];
+    return allPerformers
+      .filter(p => p.year === selectedResultYear)
+      .sort((a, b) => {
+        const timeA = a.createdAt?.seconds || 0;
+        const timeB = b.createdAt?.seconds || 0;
+        return timeB - timeA;
+      });
+  }, [allPerformers, selectedResultYear]);
+
+  // Timetable Configuration Data
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const { data: allPeriods } = useCollection(periodsQuery);
 
