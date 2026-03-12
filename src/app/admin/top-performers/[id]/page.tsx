@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -106,27 +107,29 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       rankOrder: 1,
       year: "",
       imageUrl: "",
-      badgeColor: "",
-      iconColor: "",
-      marksColor: "",
-      rankIcon: "",
+      badgeColor: "bg-blue-600",
+      iconColor: "bg-blue-600",
+      marksColor: "text-blue-600",
+      rankIcon: "Star",
     },
   });
 
   useEffect(() => {
     if (performer && !isSaving) {
+      const existingData = performer;
+      console.log("Loading Performer into form:", existingData);
       form.reset({
-        name: performer.name || "",
-        grade: performer.grade || "",
-        marks: performer.marks || "",
-        rank: performer.rank || "",
-        rankOrder: performer.rankOrder || 1,
-        year: performer.year ? String(performer.year) : "",
-        imageUrl: performer.imageUrl || "",
-        badgeColor: performer.badgeColor || "bg-blue-600",
-        iconColor: performer.iconColor || "bg-blue-600",
-        marksColor: performer.marksColor || "text-blue-600",
-        rankIcon: performer.rankIcon || "Star",
+        name: existingData.name || "",
+        grade: existingData.grade || "",
+        marks: existingData.marks || "",
+        rank: existingData.rank || "",
+        rankOrder: existingData.rankOrder || 1,
+        year: existingData.year ? String(existingData.year) : "",
+        imageUrl: existingData.imageUrl || "",
+        badgeColor: existingData.badgeColor || "bg-blue-600",
+        iconColor: existingData.iconColor || "bg-blue-600",
+        marksColor: existingData.marksColor || "text-blue-600",
+        rankIcon: existingData.rankIcon || "Star",
       });
     }
   }, [performer, form, isSaving]);
@@ -146,30 +149,33 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     }
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (formData: z.infer<typeof formSchema>) => {
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
+    const existingData = performer;
+    const cleanData = {
+      name: formData.name,
+      grade: formData.grade,
+      marks: formData.marks,
+      rank: formData.rank,
+      rankOrder: formData.rankOrder,
+      year: formData.year || existingData.year || "",
+      imageUrl: formData.imageUrl || existingData.imageUrl || "",
+      badgeColor: formData.badgeColor || existingData.badgeColor || "bg-blue-600",
+      iconColor: formData.iconColor || existingData.iconColor || "bg-blue-600",
+      marksColor: formData.marksColor || existingData.marksColor || "text-blue-600",
+      rankIcon: formData.rankIcon || existingData.rankIcon || "Star",
+      updatedAt: serverTimestamp(),
+    };
+
+    console.log("Existing Data:", existingData);
+    console.log("Form Data:", formData);
+    console.log("Clean Data to Save:", cleanData);
+
     try {
       const ref = doc(firestore, "top-performers", performerId);
-      
-      // Explicitly merge with existing data to ensure no empty strings overwrite valid data
-      const finalData = {
-        name: values.name,
-        grade: values.grade,
-        marks: values.marks,
-        rank: values.rank,
-        rankOrder: values.rankOrder,
-        year: values.year || performer.year || "",
-        imageUrl: values.imageUrl,
-        badgeColor: values.badgeColor || performer.badgeColor || "bg-blue-600",
-        iconColor: values.iconColor || performer.iconColor || "bg-blue-600",
-        marksColor: values.marksColor || performer.marksColor || "text-blue-600",
-        rankIcon: values.rankIcon || performer.rankIcon || "Star",
-        updatedAt: serverTimestamp(),
-      };
-
-      await updateDoc(ref, finalData);
+      await updateDoc(ref, cleanData);
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
@@ -289,8 +295,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
                       <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value || ""}
+                        onValueChange={(val) => form.setValue("year", val)} 
+                        value={form.watch("year")}
                       >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
@@ -347,8 +353,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
                       <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value || ""}
+                        onValueChange={(val) => form.setValue("rankIcon", val)} 
+                        value={form.watch("rankIcon")}
                       >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
@@ -383,8 +389,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
                         <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          onValueChange={(val) => form.setValue("badgeColor", val)} 
+                          value={form.watch("badgeColor")}
                         >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
@@ -412,8 +418,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
                         <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          onValueChange={(val) => form.setValue("iconColor", val)} 
+                          value={form.watch("iconColor")}
                         >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
@@ -441,8 +447,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
                         <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          onValueChange={(val) => form.setValue("marksColor", val)} 
+                          value={form.watch("marksColor")}
                         >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
