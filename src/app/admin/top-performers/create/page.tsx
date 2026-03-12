@@ -78,6 +78,8 @@ const iconOptions = [
   { name: "Crown", icon: Crown },
 ];
 
+const yearOptions = ["2026", "2025", "2024", "2023", "2022", "2021", "2020"];
+
 export default function CreatePerformerPage() {
   const { toast } = useToast();
   const router = useRouter();
@@ -238,10 +240,9 @@ export default function CreatePerformerPage() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="rounded-xl">
-                          <SelectItem value="2025">2025</SelectItem>
-                          <SelectItem value="2024">2024</SelectItem>
-                          <SelectItem value="2023">2023</SelectItem>
-                          <SelectItem value="2022">2022</SelectItem>
+                          {yearOptions.map(year => (
+                            <SelectItem key={year} value={year}>{year}</SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />

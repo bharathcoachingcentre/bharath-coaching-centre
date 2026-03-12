@@ -8,7 +8,6 @@ import {
   Plus, 
   Trophy, 
   MoreVertical,
-  Eye,
   Pencil,
   Trash2,
   Loader2,
@@ -47,27 +46,50 @@ export default function TopPerformersManagementPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [yearFilter, setYearFilter] = useState<string>("all");
 
+  // 1. Fetch ALL performers to derive the list of unique years for the dropdown
+  const allYearsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'top-performers'));
+  }, [firestore]);
+  const { data: allData } = useCollection(allYearsQuery);
+
+  const availableYears = useMemo(() => {
+    if (!allData) return [];
+    // Extract years, remove duplicates, and sort descending
+    const uniqueYears = Array.from(new Set(allData.map(p => p.year))).filter(Boolean);
+    return uniqueYears.sort((a, b) => b.localeCompare(a));
+  }, [allData]);
+
+  // 2. Constructed filtered query for the main list
   const performersQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'top-performers'), orderBy('createdAt', 'desc'));
-  }, [firestore]);
+    const baseRef = collection(firestore, 'top-performers');
+    
+    if (yearFilter !== "all") {
+      // Filter by selected year
+      return query(
+        baseRef, 
+        where('year', '==', yearFilter),
+        orderBy('createdAt', 'desc')
+      );
+    }
+    
+    // Default: Show all ordered by date
+    return query(baseRef, orderBy('createdAt', 'desc'));
+  }, [firestore, yearFilter]);
 
   const { data: performers, loading } = useCollection(performersQuery);
-
-  const years = useMemo(() => {
-    if (!performers) return [];
-    return [...new Set(performers.map(p => p.year))].sort((a, b) => b.localeCompare(a));
-  }, [performers]);
 
   const filteredPerformers = useMemo(() => {
     if (!performers) return [];
     const lower = searchTerm.toLowerCase();
     return performers.filter(p => {
-      const matchesSearch = !searchTerm || p.name?.toLowerCase().includes(lower) || p.grade?.toLowerCase().includes(lower);
-      const matchesYear = yearFilter === "all" || p.year === yearFilter;
-      return matchesSearch && matchesYear;
+      const matchesSearch = !searchTerm || 
+        p.name?.toLowerCase().includes(lower) || 
+        p.grade?.toLowerCase().includes(lower);
+      return matchesSearch;
     });
-  }, [performers, searchTerm, yearFilter]);
+  }, [performers, searchTerm]);
 
   const handleDelete = async (id: string) => {
     if (!firestore) return;
@@ -114,7 +136,7 @@ export default function TopPerformersManagementPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Years</SelectItem>
-              {years.map(y => (
+              {availableYears.map(y => (
                 <SelectItem key={y} value={y}>{y}</SelectItem>
               ))}
             </SelectContent>

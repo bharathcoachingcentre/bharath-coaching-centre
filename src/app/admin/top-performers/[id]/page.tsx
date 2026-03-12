@@ -75,6 +75,8 @@ const iconOptions = [
   { name: "Crown", icon: Crown },
 ];
 
+const yearOptions = ["2026", "2025", "2024", "2023", "2022", "2021", "2020"];
+
 export default function EditPerformerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: performerId } = use(params);
   const { toast } = useToast();
@@ -261,10 +263,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="rounded-xl">
-                          <SelectItem value="2025">2025</SelectItem>
-                          <SelectItem value="2024">2024</SelectItem>
-                          <SelectItem value="2023">2023</SelectItem>
-                          <SelectItem value="2022">2022</SelectItem>
+                          {yearOptions.map(year => (
+                            <SelectItem key={year} value={year}>{year}</SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />
