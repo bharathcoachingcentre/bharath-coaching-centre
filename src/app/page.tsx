@@ -151,6 +151,7 @@ const iconMap: Record<string, any> = {
   FilePenLine: FilePenLine,
   MessagesSquare: MessagesSquare,
   BookOpen: BookOpen,
+  Book: Book,
   UserCheck: UserCheck,
   Zap: Zap,
   GraduationCap: GraduationCap,
@@ -200,10 +201,13 @@ export default function HomePage() {
       heroOutlineBtnIcon: "Clock",
       heroCard1Label: "Board",
       heroCard1Value: "CBSE",
+      heroCard1Icon: "Book",
       heroCard2Label: "Board",
       heroCard2Value: "Samacheer",
+      heroCard2Icon: "GraduationCap",
       heroCard3Online: "Online",
       heroCard3Offline: "Offline",
+      heroImageUrl: placeholderImages["hero-education"].src,
       stats: [
         { label: "Students", value: "5000+", icon: "Users" },
         { label: "Success Rate", value: "95%", icon: "TrendingUp" },
@@ -315,6 +319,8 @@ export default function HomePage() {
   const SuccessCardIcon = useMemo(() => iconMap[content.successCardIcon] || Star, [content.successCardIcon]);
   const HeroPrimaryIcon = useMemo(() => iconMap[content.heroPrimaryBtnIcon] || CalendarCheck, [content.heroPrimaryBtnIcon]);
   const HeroOutlineIcon = useMemo(() => iconMap[content.heroOutlineBtnIcon] || Clock, [content.heroOutlineBtnIcon]);
+  const HeroCard1Icon = useMemo(() => iconMap[content.heroCard1Icon] || Book, [content.heroCard1Icon]);
+  const HeroCard2Icon = useMemo(() => iconMap[content.heroCard2Icon] || GraduationCap, [content.heroCard2Icon]);
 
   // Fetch Years
   const yearsQuery = useMemo(() => {
@@ -547,7 +553,7 @@ export default function HomePage() {
 
             <div className="relative h-[500px] lg:h-[650px] flex items-center justify-center">
               <Image
-                src={heroImageData.src}
+                src={content.heroImageUrl || heroImageData.src}
                 alt={heroImageData.alt}
                 width={heroImageData.width}
                 height={heroImageData.height}
@@ -559,7 +565,7 @@ export default function HomePage() {
               <div className="absolute top-2 right-2 sm:top-8 sm:right-4 lg:right-8 floating-card bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                    <Book className="text-white w-4 h-4 sm:w-6 sm:h-6" />
+                    <HeroCard1Icon className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
                     <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard1Label}</div>
@@ -571,7 +577,7 @@ export default function HomePage() {
               <div className="absolute bottom-10 left-2 sm:bottom-24 sm:left-4 lg:left-8 floating-card-delay-1 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                    <GraduationCap className="text-white w-4 h-4 sm:w-6 sm:h-6" />
+                    <HeroCard2Icon className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
                     <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard2Label}</div>
