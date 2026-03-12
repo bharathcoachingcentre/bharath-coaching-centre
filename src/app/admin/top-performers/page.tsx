@@ -11,11 +11,10 @@ import {
   Pencil,
   Trash2,
   Loader2,
-  Star,
   Calendar,
-  Medal,
   Settings2,
-  X
+  ListOrdered,
+  GraduationCap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,8 +39,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
 } from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useFirestore, useCollection } from "@/firebase";
@@ -79,12 +85,11 @@ export default function TopPerformersManagementPage() {
     if (yearFilter !== "all") {
       return query(
         baseRef, 
-        where('year', '==', yearFilter),
-        orderBy('createdAt', 'desc')
+        where('year', '==', yearFilter)
       );
     }
     
-    return query(baseRef, orderBy('createdAt', 'desc'));
+    return query(baseRef);
   }, [firestore, yearFilter]);
 
   const { data: performers, loading } = useCollection(performersQuery);
@@ -92,12 +97,14 @@ export default function TopPerformersManagementPage() {
   const filteredPerformers = useMemo(() => {
     if (!performers) return [];
     const lower = searchTerm.toLowerCase();
-    return performers.filter(p => {
-      const matchesSearch = !searchTerm || 
-        p.name?.toLowerCase().includes(lower) || 
-        p.grade?.toLowerCase().includes(lower);
-      return matchesSearch;
-    });
+    return performers
+      .filter(p => {
+        const matchesSearch = !searchTerm || 
+          p.name?.toLowerCase().includes(lower) || 
+          p.grade?.toLowerCase().includes(lower);
+        return matchesSearch;
+      })
+      .sort((a, b) => (a.rankOrder || 999) - (b.rankOrder || 999));
   }, [performers, searchTerm]);
 
   const handleDelete = async (id: string) => {
@@ -243,83 +250,103 @@ export default function TopPerformersManagementPage() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
           <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-          <p className="font-bold">Syncing Hall of Fame...</p>
+          <p className="font-bold">Syncing Records List...</p>
         </div>
       ) : filteredPerformers.length === 0 ? (
         <div className="text-center py-32 bg-white rounded-[32px] shadow-sm border border-dashed border-gray-200">
           <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Medal className="w-10 h-10 text-gray-300" />
+            <Trophy className="w-10 h-10 text-gray-300" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">No performers found</h3>
-          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Add your top students to display them on the homepage success section.</p>
+          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Student records will appear here once they are added.</p>
           <Button asChild variant="outline" className="mt-8 rounded-xl font-bold">
             <Link href="/admin/top-performers/create">Add First Performer</Link>
           </Button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredPerformers.map((p) => (
-            <Card key={p.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500 text-left">
-              <div className="relative h-48 w-full overflow-hidden">
-                <img 
-                  src={p.imageUrl || "https://placehold.co/400x400.png?text=No+Photo"} 
-                  alt={p.name} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className={cn("absolute top-4 right-4 px-3 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-lg", p.badgeColor || "bg-blue-600")}>
-                  {p.rank}
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-bold text-gray-900 text-lg leading-tight group-hover:text-blue-600 transition-colors">
-                      {p.name}
-                    </h3>
-                    <p className="text-xs font-bold text-gray-400 mt-1 uppercase tracking-widest">
-                      {p.grade} • {p.year}
-                    </p>
-                  </div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
-                      <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                        <Link href={`/admin/top-performers/${p.id}`} className="flex items-center w-full">
-                          <Pencil className="mr-2 h-4 w-4 text-blue-600" />
-                          <span className="font-bold text-xs text-gray-700">Edit Details</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator className="bg-gray-50" />
-                      <DropdownMenuItem 
-                        onClick={() => handleDelete(p.id)}
-                        className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        <span className="font-bold text-xs">Delete Record</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
-                <div className="flex items-end justify-between pt-4 border-t border-gray-50">
-                  <div className="space-y-0.5">
-                    <div className={cn("text-2xl font-black tracking-tighter", p.marksColor || "text-blue-600")}>
-                      {p.marks}
-                    </div>
-                    <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Score</div>
-                  </div>
-                  <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg", p.iconColor || "bg-blue-600")}>
-                    <Star className="w-5 h-5 fill-white" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <Card className="border-none shadow-xl rounded-[2rem] overflow-hidden bg-white">
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader className="bg-gray-50/50">
+                <TableRow className="hover:bg-transparent border-gray-100">
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Rank</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Student</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Class / Board</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Marks</TableHead>
+                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Year</TableHead>
+                  <TableHead className="px-8 py-5"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredPerformers.map((p) => (
+                  <TableRow key={p.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
+                    <TableCell className="px-8 py-5 text-left">
+                      <div className="flex items-center gap-3">
+                        <Badge className={cn(
+                          "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
+                          p.badgeColor || "bg-blue-100 text-blue-600"
+                        )}>
+                          {p.rank}
+                        </Badge>
+                        <span className="text-[10px] font-bold text-gray-300">#{p.rankOrder || '-'}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-8 py-5 text-left">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex-shrink-0">
+                          <img 
+                            src={p.imageUrl || "https://placehold.co/400x400.png?text=No+Photo"} 
+                            alt={p.name} 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <span className="font-bold text-gray-900">{p.name}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-8 py-5 text-left">
+                      <span className="font-medium text-gray-500">{p.grade}</span>
+                    </TableCell>
+                    <TableCell className="px-8 py-5 text-left">
+                      <span className={cn("font-black text-lg tracking-tight", p.marksColor || "text-blue-600")}>
+                        {p.marks}
+                      </span>
+                    </TableCell>
+                    <TableCell className="px-8 py-5 text-left">
+                      <Badge variant="outline" className="rounded-lg border-gray-200 text-gray-500 font-bold px-3">
+                        {p.year}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="px-8 py-5 text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <MoreVertical className="w-4 h-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
+                          <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                            <Link href={`/admin/top-performers/${p.id}`} className="flex items-center w-full">
+                              <Pencil className="mr-2 h-4 w-4 text-blue-600" />
+                              <span className="font-bold text-xs text-gray-700">Edit Details</span>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator className="bg-gray-50" />
+                          <DropdownMenuItem 
+                            onClick={() => handleDelete(p.id)}
+                            className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            <span className="font-bold text-xs">Delete Record</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
