@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useMemo, useEffect, useState, use } from "react";
+import React, { useMemo, useEffect, useState, use, useRef } from "react";
 import { 
   ArrowLeft, 
   Trophy, 
@@ -76,20 +76,13 @@ const iconOptions = [
   { name: "Crown", icon: Crown },
 ];
 
-const iconMap: Record<string, any> = {
-  Star: Star,
-  Trophy: Trophy,
-  Medal: Medal,
-  Award: Award,
-  Crown: Crown,
-};
-
 export default function EditPerformerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: performerId } = use(params);
   const { toast } = useToast();
   const router = useRouter();
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
+  const existingDataRef = useRef<any>(null);
 
   const yearsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -120,12 +113,13 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
-  // DIAGNOSTIC STAGE 1 & 2 & 3: FETCH AND RESET
+  // DATA RECOVERY & BINDING
   useEffect(() => {
     if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving) {
-      console.log("STAGE 1: Raw Firestore Fetch:", performer);
+      console.log("DB RECOVERY: Fetched Raw Data:", performer);
+      existingDataRef.current = performer;
 
-      const normalizedData = {
+      const normalized = {
         name: String(performer.name || ""),
         grade: String(performer.grade || ""),
         marks: String(performer.marks || ""),
@@ -139,9 +133,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         rankIcon: String(performer.rankIcon || "Star"),
       };
 
-      console.log("STAGE 2: Normalized Data for Reset:", normalizedData);
-      form.reset(normalizedData);
-      console.log("STAGE 3: Form State After Reset:", form.getValues());
+      console.log("DB RECOVERY: Resetting Form with Clean Strings:", normalized);
+      form.reset(normalized);
     }
   }, [performer, yearsList, performerLoading, yearsLoading, form, isSaving]);
 
@@ -164,12 +157,16 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
-    // STAGE 5: FORM CAPTURE
-    console.log("STAGE 5: Form Data On Submit:", formData);
+    console.log("UPDATE ATTEMPT: Raw Form Values:", formData);
 
+    // DEFENSIVE MERGE: If form field is empty string, use existing DB value
     const cleanData: any = {
-      ...formData,
-      // DEFENSIVE FALLBACK: Keep DB value if form has empty string
+      name: formData.name,
+      grade: formData.grade,
+      marks: formData.marks,
+      rank: formData.rank,
+      rankOrder: Number(formData.rankOrder),
+      imageUrl: formData.imageUrl,
       year: formData.year || performer.year,
       marksColor: formData.marksColor || performer.marksColor || "text-blue-600",
       badgeColor: formData.badgeColor || performer.badgeColor || "bg-blue-600",
@@ -178,22 +175,14 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       updatedAt: serverTimestamp(),
     };
 
-    // Remove any actual undefined keys
-    Object.keys(cleanData).forEach((key) => {
-      if (cleanData[key] === undefined || cleanData[key] === null) {
-        delete cleanData[key];
-      }
-    });
-
-    // STAGE 6: FINAL PAYLOAD
-    console.log("STAGE 6: Final Clean Data to Firestore:", cleanData);
+    console.log("UPDATE ATTEMPT: Final Merged Payload to Firestore:", cleanData);
 
     try {
       await updateDoc(doc(firestore, "top-performers", performerId), cleanData);
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
-      console.error("Submission Error:", error);
+      console.error("Update Error:", error);
       toast({ variant: "destructive", title: "Update Failed", description: error.message });
       setIsSaving(false);
     }
@@ -225,7 +214,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         <ArrowLeft className="w-4 h-4 mr-2" /> Back to List
       </Button>
 
-      <Form {...form}>
+      <Form {...form} key={performer.id}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left pb-12">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <CardHeader className="p-10 pb-0 text-left">
@@ -233,7 +222,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
                   <Trophy className="w-6 h-6" />
                 </div>
-                <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performer Diagnosis</CardTitle>
+                <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performer Details</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="p-10 pt-8 space-y-8 text-left">
@@ -255,8 +244,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                       />
                     </div>
                     <div className="space-y-1 text-left">
-                      <p className="text-sm font-bold text-gray-700">Student Identity Portrait</p>
-                      <p className="text-xs text-gray-400">Max size: 500KB.</p>
+                      <p className="text-sm font-bold text-gray-700">Student Portrait</p>
+                      <p className="text-xs text-gray-400">Max size: 500KB. Squared ratio recommended.</p>
                     </div>
                   </div>
                 </div>
@@ -306,28 +295,24 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <FormField
                   control={form.control}
                   name="year"
-                  render={({ field }) => {
-                    // STAGE 4: BINDING VERIFICATION
-                    console.log("STAGE 4: Dropdown [year] current value:", field.value);
-                    return (
-                      <FormItem className="space-y-3">
-                        <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                        <Select value={field.value || ""} onValueChange={field.onChange}>
-                          <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
-                              <SelectValue placeholder="Select year" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="rounded-xl shadow-xl">
-                            {yearsList?.map(y => (
-                              <SelectItem key={y.id} value={String(y.year)}>{y.year}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <FormControl>
+                          <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
+                            <SelectValue placeholder="Select year" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="rounded-xl shadow-xl">
+                          {yearsList?.map(y => (
+                            <SelectItem key={y.id} value={String(y.year)}>{y.year}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
 
                 <FormField
@@ -364,31 +349,28 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <FormField
                   control={form.control}
                   name="rankIcon"
-                  render={({ field }) => {
-                    console.log("STAGE 4: Dropdown [rankIcon] current value:", field.value);
-                    return (
-                      <FormItem className="space-y-3">
-                        <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                        <Select value={field.value || ""} onValueChange={field.onChange}>
-                          <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
-                              <SelectValue placeholder="Select icon" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="rounded-xl shadow-xl">
-                            {iconOptions.map(opt => (
-                              <SelectItem key={opt.name} value={opt.name}>
-                                <div className="flex items-center gap-2">
-                                  <opt.icon className="w-4 h-4" /> {opt.name}
-                                </div>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <FormControl>
+                          <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
+                            <SelectValue placeholder="Select icon" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="rounded-xl shadow-xl">
+                          {iconOptions.map(opt => (
+                            <SelectItem key={opt.name} value={opt.name}>
+                              <div className="flex items-center gap-2">
+                                <opt.icon className="w-4 h-4" /> {opt.name}
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
 
@@ -400,88 +382,79 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   <FormField
                     control={form.control}
                     name="badgeColor"
-                    render={({ field }) => {
-                      console.log("STAGE 4: Dropdown [badgeColor] current value:", field.value);
-                      return (
-                        <FormItem className="space-y-3">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
-                          <Select value={field.value || ""} onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Color" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="rounded-xl">
-                              {colorOptions.map(opt => (
-                                <SelectItem key={opt.value} value={opt.value}>
-                                  <div className="flex items-center gap-2">
-                                    <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      );
-                    }}
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
+                              <SelectValue placeholder="Color" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl">
+                            {colorOptions.map(opt => (
+                              <SelectItem key={opt.value} value={opt.value}>
+                                <div className="flex items-center gap-2">
+                                  <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
                   />
 
                   <FormField
                     control={form.control}
                     name="iconColor"
-                    render={({ field }) => {
-                      console.log("STAGE 4: Dropdown [iconColor] current value:", field.value);
-                      return (
-                        <FormItem className="space-y-3">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                          <Select value={field.value || ""} onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Color" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="rounded-xl">
-                              {colorOptions.map(opt => (
-                                <SelectItem key={opt.value} value={opt.value}>
-                                  <div className="flex items-center gap-2">
-                                    <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      );
-                    }}
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
+                              <SelectValue placeholder="Color" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl">
+                            {colorOptions.map(opt => (
+                              <SelectItem key={opt.value} value={opt.value}>
+                                <div className="flex items-center gap-2">
+                                  <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
                   />
 
                   <FormField
                     control={form.control}
                     name="marksColor"
-                    render={({ field }) => {
-                      console.log("STAGE 4: Dropdown [marksColor] current value:", field.value);
-                      return (
-                        <FormItem className="space-y-3">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
-                          <Select value={field.value || ""} onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Color" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="rounded-xl">
-                              {colorOptions.map(opt => (
-                                <SelectItem key={opt.text} value={opt.text}>
-                                  <div className="flex items-center gap-2">
-                                    <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      );
-                    }}
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
+                              <SelectValue placeholder="Color" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="rounded-xl">
+                            {colorOptions.map(opt => (
+                              <SelectItem key={opt.text} value={opt.text}>
+                                <div className="flex items-center gap-2">
+                                  <div className={cn("w-3 h-3 rounded-full", opt.value)} /> {opt.label}
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
                   />
                 </div>
               </div>
@@ -492,7 +465,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 </Button>
                 <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
                   {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-                  Finalize Record
+                  Save Changes
                 </Button>
               </div>
             </CardContent>

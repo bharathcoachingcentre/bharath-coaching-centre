@@ -124,13 +124,13 @@ export default function CreatePerformerPage() {
     if (!firestore) return;
     setIsSubmitting(true);
 
-    // DEBUG LOG
-    console.log("Create Performer Payload (Raw):", values);
+    console.log("Create Performer Attempt - Form Values:", values);
 
     try {
-      const performerData = {
+      // FORCE DEFAULTS if fields are somehow empty, to prevent "" in Firestore
+      const submissionPayload = {
         ...values,
-        // Safety check: Fallback to defaults if somehow empty
+        rankOrder: Number(values.rankOrder),
         badgeColor: values.badgeColor || "bg-blue-600",
         iconColor: values.iconColor || "bg-blue-600",
         marksColor: values.marksColor || "text-blue-600",
@@ -139,9 +139,9 @@ export default function CreatePerformerPage() {
         updatedAt: serverTimestamp(),
       };
 
-      console.log("Create Performer Payload (Finalized):", performerData);
+      console.log("Final Create Payload to Firestore:", submissionPayload);
 
-      await addDoc(collection(firestore, 'top-performers'), performerData);
+      await addDoc(collection(firestore, 'top-performers'), submissionPayload);
       toast({ title: "Performer Added", description: `${values.name} is now in the Hall of Fame.` });
       router.push("/admin/top-performers");
     } catch (error: any) {
@@ -241,7 +241,7 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select value={field.value || ""} onValueChange={field.onChange}>
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder={yearsLoading ? "Loading..." : "Select year"} />
@@ -295,7 +295,7 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                      <Select value={field.value || ""} onValueChange={field.onChange}>
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select icon" />
@@ -328,7 +328,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
-                        <Select value={field.value || ""} onValueChange={field.onChange}>
+                        <Select value={field.value} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
@@ -354,7 +354,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                        <Select value={field.value || ""} onValueChange={field.onChange}>
+                        <Select value={field.value} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
@@ -380,7 +380,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
-                        <Select value={field.value || ""} onValueChange={field.onChange}>
+                        <Select value={field.value} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
