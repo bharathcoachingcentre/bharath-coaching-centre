@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
@@ -83,14 +83,14 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
 
-  // Fetch Master Data (Years)
+  // 1. Fetch Master Data (Years)
   const yearsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'years'), orderBy('year', 'desc'));
   }, [firestore]);
   const { data: yearsList, loading: yearsLoading } = useCollection(yearsQuery);
 
-  // Fetch Performer Data
+  // 2. Fetch Performer Data
   const docRef = useMemo(() => {
     if (!firestore || !performerId) return null;
     return doc(firestore, "top-performers", performerId);
@@ -114,36 +114,29 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
-  // WAIT FOR BOTH MASTER DATA AND PERFORMER BEFORE RESET
+  // 3. Normalized Reset Logic: Wait for BOTH master data and performer
   useEffect(() => {
-    if (performer && yearsList && !isSaving) {
+    if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving) {
       console.log("Fetched Firestore Data:", performer);
 
-      const resetData = {
+      const normalizedData = {
         name: String(performer.name || ""),
         grade: String(performer.grade || ""),
         marks: String(performer.marks || ""),
         rank: String(performer.rank || ""),
         rankOrder: Number(performer.rankOrder || 1),
-        year: performer.year ? String(performer.year) : "",
-        imageUrl: performer.imageUrl || "",
-        badgeColor: performer.badgeColor || "bg-blue-600",
-        iconColor: performer.iconColor || "bg-blue-600",
-        marksColor: performer.marksColor || "text-blue-600",
-        rankIcon: performer.rankIcon || "Star",
+        year: String(performer.year || ""),
+        imageUrl: String(performer.imageUrl || ""),
+        badgeColor: String(performer.badgeColor || ""),
+        iconColor: String(performer.iconColor || ""),
+        marksColor: String(performer.marksColor || ""),
+        rankIcon: String(performer.rankIcon || ""),
       };
 
-      console.log("Reset Form With:", {
-        year: resetData.year,
-        marksColor: resetData.marksColor,
-        badgeColor: resetData.badgeColor,
-        iconColor: resetData.iconColor,
-        rankIcon: resetData.rankIcon
-      });
-
-      form.reset(resetData);
+      console.log("Reset Form With Normalized Data:", normalizedData);
+      form.reset(normalizedData);
     }
-  }, [performer, yearsList, form, isSaving]);
+  }, [performer, yearsList, performerLoading, yearsLoading, form, isSaving]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -164,25 +157,22 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
-    const existingData = performer;
-    
-    // DEFENSIVE MERGE: fallback to existing data if form fields are empty
-    const cleanData = {
-      name: formData.name,
-      grade: formData.grade,
-      marks: formData.marks,
-      rank: formData.rank,
-      rankOrder: formData.rankOrder,
-      year: formData.year || existingData.year || "",
-      imageUrl: formData.imageUrl || existingData.imageUrl || "",
-      badgeColor: formData.badgeColor || existingData.badgeColor || "bg-blue-600",
-      iconColor: formData.iconColor || existingData.iconColor || "bg-blue-600",
-      marksColor: formData.marksColor || existingData.marksColor || "text-blue-600",
-      rankIcon: formData.rankIcon || existingData.rankIcon || "Star",
+    console.log("Form Data Submitted:", formData);
+
+    // 4. Sanitize Data: Remove empty strings to prevent overwriting valid DB data
+    const cleanData: any = {
+      ...formData,
       updatedAt: serverTimestamp(),
     };
 
-    console.log("Final Clean Data:", cleanData);
+    Object.keys(cleanData).forEach((key) => {
+      if (cleanData[key] === "" || cleanData[key] === undefined || cleanData[key] === null) {
+        // Fallback to existing database value if form field is empty
+        cleanData[key] = performer[key as keyof typeof performer];
+      }
+    });
+
+    console.log("Final Clean Data for Firestore:", cleanData);
 
     try {
       const ref = doc(firestore, "top-performers", performerId);
@@ -190,6 +180,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
+      console.error("Firestore Update Error:", error);
       toast({ variant: "destructive", title: "Update Failed", description: error.message });
       setIsSaving(false);
     }
@@ -199,7 +190,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Loading Performer Data...</p>
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Loading Achievement Data...</p>
       </div>
     );
   }
@@ -224,7 +215,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left pb-12">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-            <CardHeader className="p-10 pb-0">
+            <CardHeader className="p-10 pb-0 text-left">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
                   <Trophy className="w-6 h-6" />
@@ -232,7 +223,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Edit Performer Profile</CardTitle>
               </div>
             </CardHeader>
-            <CardContent className="p-10 pt-8 space-y-8">
+            <CardContent className="p-10 pt-8 space-y-8 text-left">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="md:col-span-2 space-y-4">
                   <Label className="text-xs font-black uppercase text-gray-400">Student Photo</Label>
@@ -299,17 +290,17 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   )}
                 />
 
-                <FormField
+                <Controller
                   control={form.control}
                   name="year"
                   render={({ field }) => {
-                    console.log("Select Value:", field.name, field.value);
+                    console.log("Select Value [year]:", field.value);
                     return (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
                         <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          value={field.value || ""} 
+                          onValueChange={field.onChange}
                         >
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
@@ -360,17 +351,17 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   )}
                 />
 
-                <FormField
+                <Controller
                   control={form.control}
                   name="rankIcon"
                   render={({ field }) => {
-                    console.log("Select Value:", field.name, field.value);
+                    console.log("Select Value [rankIcon]:", field.value);
                     return (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
                         <Select 
-                          onValueChange={field.onChange} 
-                          value={field.value || ""}
+                          value={field.value || ""} 
+                          onValueChange={field.onChange}
                         >
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
@@ -394,26 +385,26 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 />
               </div>
 
-              <div className="pt-10 border-t border-gray-50">
+              <div className="pt-10 border-t border-gray-50 text-left">
                 <h4 className="text-sm font-black text-gray-900 mb-8 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-blue-600" /> Visual Branding
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <FormField
+                  <Controller
                     control={form.control}
                     name="badgeColor"
                     render={({ field }) => {
-                      console.log("Select Value:", field.name, field.value);
+                      console.log("Select Value [badgeColor]:", field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
                           <Select 
-                            onValueChange={field.onChange} 
-                            value={field.value || ""}
+                            value={field.value || ""} 
+                            onValueChange={field.onChange}
                           >
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Select color" />
+                                <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl">
@@ -431,21 +422,21 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     }}
                   />
 
-                  <FormField
+                  <Controller
                     control={form.control}
                     name="iconColor"
                     render={({ field }) => {
-                      console.log("Select Value:", field.name, field.value);
+                      console.log("Select Value [iconColor]:", field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
                           <Select 
-                            onValueChange={field.onChange} 
-                            value={field.value || ""}
+                            value={field.value || ""} 
+                            onValueChange={field.onChange}
                           >
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Select color" />
+                                <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl">
@@ -463,21 +454,21 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     }}
                   />
 
-                  <FormField
+                  <Controller
                     control={form.control}
                     name="marksColor"
                     render={({ field }) => {
-                      console.log("Select Value:", field.name, field.value);
+                      console.log("Select Value [marksColor]:", field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
                           <Select 
-                            onValueChange={field.onChange} 
-                            value={field.value || ""}
+                            value={field.value || ""} 
+                            onValueChange={field.onChange}
                           >
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Select color" />
+                                <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl">
