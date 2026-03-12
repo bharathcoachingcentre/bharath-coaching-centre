@@ -52,10 +52,10 @@ const formSchema = z.object({
   rankOrder: z.coerce.number().int().min(1, "Rank order must be at least 1"),
   year: z.string().min(1, "Year is required"),
   imageUrl: z.string().min(1, "Student photo is required"),
-  badgeColor: z.string().default("bg-blue-600"),
-  iconColor: z.string().default("bg-blue-600"),
-  marksColor: z.string().default("text-blue-600"),
-  rankIcon: z.string().default("Star"),
+  badgeColor: z.string().min(1, "Badge color is required"),
+  iconColor: z.string().min(1, "Icon color is required"),
+  marksColor: z.string().min(1, "Marks color is required"),
+  rankIcon: z.string().min(1, "Rank icon is required"),
 });
 
 const colorOptions = [
@@ -84,7 +84,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
 
-  // Fetch Years from the dedicated 'years' collection
   const yearsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'years'), orderBy('year', 'desc'));
@@ -115,7 +114,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
-  // Populate form when data arrives
   useEffect(() => {
     if (performer && !isSaving) {
       form.reset({

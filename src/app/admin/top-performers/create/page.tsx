@@ -52,10 +52,10 @@ const formSchema = z.object({
   rankOrder: z.coerce.number().int().min(1, "Rank order must be at least 1"),
   year: z.string().min(1, "Year is required"),
   imageUrl: z.string().min(1, "Student photo is required"),
-  badgeColor: z.string().default("bg-blue-600"),
-  iconColor: z.string().default("bg-blue-600"),
-  marksColor: z.string().default("text-blue-600"),
-  rankIcon: z.string().default("Star"),
+  badgeColor: z.string().min(1, "Badge color is required"),
+  iconColor: z.string().min(1, "Icon color is required"),
+  marksColor: z.string().min(1, "Marks color is required"),
+  rankIcon: z.string().min(1, "Rank icon is required"),
 });
 
 const colorOptions = [
@@ -296,7 +296,7 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select icon" />
@@ -330,7 +330,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
@@ -356,7 +356,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
@@ -382,7 +382,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
