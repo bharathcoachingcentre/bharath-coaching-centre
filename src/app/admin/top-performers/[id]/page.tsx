@@ -106,17 +106,16 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       rankOrder: 1,
       year: "",
       imageUrl: "",
-      badgeColor: "bg-blue-600",
-      iconColor: "bg-blue-600",
-      marksColor: "text-blue-600",
-      rankIcon: "Star",
+      badgeColor: "",
+      iconColor: "",
+      marksColor: "",
+      rankIcon: "",
     },
   });
 
-  // DATA RECOVERY & BINDING
+  // DATA POPULATION WITH TYPE COERCION
   useEffect(() => {
     if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving) {
-      console.log("DB RECOVERY: Fetched Raw Data:", performer);
       existingDataRef.current = performer;
 
       const normalized = {
@@ -133,7 +132,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         rankIcon: String(performer.rankIcon || "Star"),
       };
 
-      console.log("DB RECOVERY: Resetting Form with Clean Strings:", normalized);
       form.reset(normalized);
     }
   }, [performer, yearsList, performerLoading, yearsLoading, form, isSaving]);
@@ -157,9 +155,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
-    console.log("UPDATE ATTEMPT: Raw Form Values:", formData);
-
-    // DEFENSIVE MERGE: If form field is empty string, use existing DB value
     const cleanData: any = {
       name: formData.name,
       grade: formData.grade,
@@ -174,8 +169,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       rankIcon: formData.rankIcon || performer.rankIcon || "Star",
       updatedAt: serverTimestamp(),
     };
-
-    console.log("UPDATE ATTEMPT: Final Merged Payload to Firestore:", cleanData);
 
     try {
       await updateDoc(doc(firestore, "top-performers", performerId), cleanData);
@@ -192,7 +185,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Syncing Performance Data...</p>
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Loading Achievement Profile...</p>
       </div>
     );
   }
@@ -214,7 +207,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         <ArrowLeft className="w-4 h-4 mr-2" /> Back to List
       </Button>
 
-      <Form {...form} key={performer.id}>
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left pb-12">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <CardHeader className="p-10 pb-0 text-left">
@@ -245,7 +238,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     </div>
                     <div className="space-y-1 text-left">
                       <p className="text-sm font-bold text-gray-700">Student Portrait</p>
-                      <p className="text-xs text-gray-400">Max size: 500KB. Squared ratio recommended.</p>
+                      <p className="text-xs text-gray-400">Squared ratio recommended.</p>
                     </div>
                   </div>
                 </div>

@@ -124,25 +124,16 @@ export default function CreatePerformerPage() {
     if (!firestore) return;
     setIsSubmitting(true);
 
-    console.log("Create Performer Attempt - Form Values:", values);
-
     try {
-      // FORCE DEFAULTS if fields are somehow empty, to prevent "" in Firestore
       const submissionPayload = {
         ...values,
         rankOrder: Number(values.rankOrder),
-        badgeColor: values.badgeColor || "bg-blue-600",
-        iconColor: values.iconColor || "bg-blue-600",
-        marksColor: values.marksColor || "text-blue-600",
-        rankIcon: values.rankIcon || "Star",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       };
 
-      console.log("Final Create Payload to Firestore:", submissionPayload);
-
       await addDoc(collection(firestore, 'top-performers'), submissionPayload);
-      toast({ title: "Performer Added", description: `${values.name} is now in the Hall of Fame.` });
+      toast({ title: "Performer Added", description: `${values.name} has been published.` });
       router.push("/admin/top-performers");
     } catch (error: any) {
       console.error("Submission Error:", error);
@@ -187,8 +178,8 @@ export default function CreatePerformerPage() {
                       />
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm font-bold text-gray-700">Upload high quality portrait</p>
-                      <p className="text-xs text-gray-400">Maximum size: 500KB. Squared ratio recommended.</p>
+                      <p className="text-sm font-bold text-gray-700">Upload portrait</p>
+                      <p className="text-xs text-gray-400">Squared ratio recommended.</p>
                     </div>
                   </div>
                 </div>
