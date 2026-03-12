@@ -44,7 +44,9 @@ import {
   ClipboardCheck,
   HelpCircle,
   Medal,
-  Crown
+  Crown,
+  Laptop,
+  Building
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -84,7 +86,9 @@ const defaultPageData: Record<string, any> = {
     heroCard2Value: "Samacheer",
     heroCard2Icon: "GraduationCap",
     heroCard3Online: "Online",
+    heroCard3OnlineIcon: "Laptop",
     heroCard3Offline: "Offline",
+    heroCard3OfflineIcon: "Building",
     heroImageUrl: placeholderImages["hero-education"].src,
     stats: [
       { label: "Students", value: "5000+", icon: "Users" },
@@ -241,7 +245,9 @@ const iconMap: Record<string, any> = {
   Star: Star,
   ImageIcon: ImageIcon,
   CalendarCheck: CalendarCheck,
-  Clock: Clock
+  Clock: Clock,
+  Laptop: Laptop,
+  Building: Building
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -592,9 +598,15 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       </div>
                       <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-[10px] font-black uppercase text-gray-400">Card 3 (Modes)</Label>
-                        <div className="grid grid-cols-2 gap-2">
-                          <Input value={formData.heroCard3Online || ""} onChange={(e) => updateField('heroCard3Online', e.target.value)} className="h-10 bg-white" placeholder="Online" />
-                          <Input value={formData.heroCard3Offline || ""} onChange={(e) => updateField('heroCard3Offline', e.target.value)} className="h-10 bg-white" placeholder="Offline" />
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Input value={formData.heroCard3Online || ""} onChange={(e) => updateField('heroCard3Online', e.target.value)} className="h-10 bg-white" placeholder="Online" />
+                            <Input value={formData.heroCard3OnlineIcon || ""} onChange={(e) => updateField('heroCard3OnlineIcon', e.target.value)} className="h-10 bg-white" placeholder="Online Icon" />
+                          </div>
+                          <div className="space-y-2">
+                            <Input value={formData.heroCard3Offline || ""} onChange={(e) => updateField('heroCard3Offline', e.target.value)} className="h-10 bg-white" placeholder="Offline" />
+                            <Input value={formData.heroCard3OfflineIcon || ""} onChange={(e) => updateField('heroCard3OfflineIcon', e.target.value)} className="h-10 bg-white" placeholder="Offline Icon" />
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -206,7 +206,9 @@ export default function HomePage() {
       heroCard2Value: "Samacheer",
       heroCard2Icon: "GraduationCap",
       heroCard3Online: "Online",
+      heroCard3OnlineIcon: "Laptop",
       heroCard3Offline: "Offline",
+      heroCard3OfflineIcon: "Building",
       heroImageUrl: placeholderImages["hero-education"].src,
       stats: [
         { label: "Students", value: "5000+", icon: "Users" },
@@ -321,6 +323,8 @@ export default function HomePage() {
   const HeroOutlineIcon = useMemo(() => iconMap[content.heroOutlineBtnIcon] || Clock, [content.heroOutlineBtnIcon]);
   const HeroCard1Icon = useMemo(() => iconMap[content.heroCard1Icon] || Book, [content.heroCard1Icon]);
   const HeroCard2Icon = useMemo(() => iconMap[content.heroCard2Icon] || GraduationCap, [content.heroCard2Icon]);
+  const HeroCard3OnlineIcon = useMemo(() => iconMap[content.heroCard3OnlineIcon] || Laptop, [content.heroCard3OnlineIcon]);
+  const HeroCard3OfflineIcon = useMemo(() => iconMap[content.heroCard3OfflineIcon] || Building, [content.heroCard3OfflineIcon]);
 
   // Fetch Years
   const yearsQuery = useMemo(() => {
@@ -580,7 +584,7 @@ export default function HomePage() {
                     <HeroCard2Icon className="text-white w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard2Label}</div>
+                    <div className="text-[8px] sm:text-sm text-gray-500 font-bold">{content.heroCard1Label}</div>
                     <div className="text-xs sm:text-lg font-bold text-gray-900">{content.heroCard2Value}</div>
                   </div>
                 </div>
@@ -590,14 +594,14 @@ export default function HomePage() {
                 <div className="space-y-1 sm:space-y-3">
                   <div className="flex items-center space-x-2">
                     <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-50 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
-                      <Laptop className="text-white w-3 h-3 sm:w-5 sm:h-5" />
+                      <HeroCard3OnlineIcon className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
                     <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Online}</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
                     <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg">
-                      <Building className="text-white w-3 h-3 sm:w-5 sm:h-5" />
+                      <HeroCard3OfflineIcon className="text-white w-3 h-3 sm:w-5 sm:h-5" />
                     </div>
                     <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Offline}</span>
                   </div>
@@ -694,7 +698,7 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "cbse"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -705,7 +709,7 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "samacheer"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
