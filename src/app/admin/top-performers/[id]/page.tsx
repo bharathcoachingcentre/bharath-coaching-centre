@@ -39,8 +39,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { useFirestore, useDoc } from "@/firebase";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { useFirestore, useDoc, useCollection } from "@/firebase";
+import { doc, updateDoc, serverTimestamp, query, collection, orderBy } from "firebase/firestore";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
@@ -75,14 +75,19 @@ const iconOptions = [
   { name: "Crown", icon: Crown },
 ];
 
-const yearOptions = ["2026", "2025", "2024", "2023", "2022", "2021", "2020"];
-
 export default function EditPerformerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: performerId } = use(params);
   const { toast } = useToast();
   const router = useRouter();
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
+
+  // Fetch Years from the dedicated 'years' collection
+  const yearsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'years'), orderBy('year', 'desc'));
+  }, [firestore]);
+  const { data: yearsList, loading: yearsLoading } = useCollection(yearsQuery);
 
   const docRef = useMemo(() => {
     if (!firestore || !performerId) return null;
@@ -259,13 +264,16 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
-                            <SelectValue placeholder="Select year" />
+                            <SelectValue placeholder={yearsLoading ? "Loading years..." : "Select year"} />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className="rounded-xl">
-                          {yearOptions.map(year => (
-                            <SelectItem key={year} value={year}>{year}</SelectItem>
+                        <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                          {yearsList?.map(y => (
+                            <SelectItem key={y.id} value={y.year}>{y.year}</SelectItem>
                           ))}
+                          {yearsList?.length === 0 && !yearsLoading && (
+                            <SelectItem value="none" disabled>No years added in dashboard</SelectItem>
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />

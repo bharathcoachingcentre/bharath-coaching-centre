@@ -297,7 +297,6 @@ export default function HomePage() {
         { icon: "GraduationCap", value: "5000+", label: "Students", color: "text-purple-600" },
       ],
       successTopHeader: "Top Performers",
-      successYears: ["2025", "2024", "2023"],
       successTotalMarksLabel: "Total Marks",
       successCardIcon: "Star",
     };
@@ -312,26 +311,30 @@ export default function HomePage() {
 
   const SuccessCardIcon = useMemo(() => iconMap[content.successCardIcon] || Star, [content.successCardIcon]);
 
-  // Fetch performers directly from top-performers collection
-  const performersQuery = useMemo(() => {
+  // 1. Fetch Years from the dedicated 'years' collection
+  const yearsQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'top-performers'), where('year', '==', selectedResultYear), orderBy('createdAt', 'desc'));
-  }, [firestore, selectedResultYear]);
-  const { data: performersList, loading: performersLoading } = useCollection(performersQuery);
+    return query(collection(firestore, 'years'), orderBy('year', 'desc'));
+  }, [firestore]);
+  const { data: yearsList, loading: yearsLoading } = useCollection(yearsQuery);
 
-  // Derive available years from all performers
-  const allPerformersQuery = useMemo(() => firestore ? query(collection(firestore, 'top-performers')) : null, [firestore]);
-  const { data: allPerformers } = useCollection(allPerformersQuery);
   const resultYears = useMemo(() => {
-    if (!allPerformers) return [];
-    return [...new Set(allPerformers.map(p => p.year))].sort((a, b) => b.localeCompare(a));
-  }, [allPerformers]);
+    if (!yearsList) return [];
+    return yearsList.map(y => y.year);
+  }, [yearsList]);
 
   useEffect(() => {
     if (resultYears.length > 0 && !resultYears.includes(selectedResultYear)) {
       setSelectedResultYear(resultYears[0]);
     }
-  }, [resultYears]);
+  }, [resultYears, selectedResultYear]);
+
+  // 2. Fetch performers directly from top-performers collection based on managed year
+  const performersQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'top-performers'), where('year', '==', selectedResultYear), orderBy('createdAt', 'desc'));
+  }, [firestore, selectedResultYear]);
+  const { data: performersList, loading: performersLoading } = useCollection(performersQuery);
 
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const { data: allPeriods } = useCollection(periodsQuery);
@@ -1211,7 +1214,7 @@ export default function HomePage() {
               <div className="w-full md:w-auto text-left">
                 <Select key={resultYears.join(',')} value={selectedResultYear} onValueChange={setSelectedResultYear}>
                   <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700 focus:ring-blue-600">
-                    <SelectValue placeholder="Select Year" />
+                    <SelectValue placeholder={yearsLoading ? "Loading years..." : "Select Year"} />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl shadow-xl border-gray-100">
                     {resultYears.length > 0 ? (

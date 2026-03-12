@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Search, 
@@ -13,7 +13,9 @@ import {
   Loader2,
   Star,
   Calendar,
-  Medal
+  Medal,
+  Settings2,
+  X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,10 +34,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, deleteDoc, doc, where } from "firebase/firestore";
+import { collection, query, orderBy, deleteDoc, doc, where, addDoc, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -45,20 +55,21 @@ export default function TopPerformersManagementPage() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [yearFilter, setYearFilter] = useState<string>("all");
+  const [isYearDialogOpen, setIsYearDialogOpen] = useState(false);
+  const [newYear, setNewYear] = useState("");
+  const [isAddingYear, setIsAddingYear] = useState(false);
 
-  // 1. Fetch ALL performers to derive the list of unique years for the dropdown
-  const allYearsQuery = useMemo(() => {
+  // 1. Fetch Years from the dedicated 'years' collection
+  const yearsQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'top-performers'));
+    return query(collection(firestore, 'years'), orderBy('year', 'desc'));
   }, [firestore]);
-  const { data: allData } = useCollection(allYearsQuery);
+  const { data: yearsList, loading: yearsLoading } = useCollection(yearsQuery);
 
   const availableYears = useMemo(() => {
-    if (!allData) return [];
-    // Extract years, remove duplicates, and sort descending
-    const uniqueYears = Array.from(new Set(allData.map(p => p.year))).filter(Boolean);
-    return uniqueYears.sort((a, b) => b.localeCompare(a));
-  }, [allData]);
+    if (!yearsList) return [];
+    return yearsList.map(y => y.year);
+  }, [yearsList]);
 
   // 2. Constructed filtered query for the main list
   const performersQuery = useMemo(() => {
@@ -66,7 +77,6 @@ export default function TopPerformersManagementPage() {
     const baseRef = collection(firestore, 'top-performers');
     
     if (yearFilter !== "all") {
-      // Filter by selected year
       return query(
         baseRef, 
         where('year', '==', yearFilter),
@@ -74,7 +84,6 @@ export default function TopPerformersManagementPage() {
       );
     }
     
-    // Default: Show all ordered by date
     return query(baseRef, orderBy('createdAt', 'desc'));
   }, [firestore, yearFilter]);
 
@@ -114,6 +123,38 @@ export default function TopPerformersManagementPage() {
       });
   };
 
+  const handleAddYear = async () => {
+    if (!firestore || !newYear.trim()) return;
+    if (availableYears.includes(newYear.trim())) {
+      toast({ variant: "destructive", title: "Year Exists", description: "This year is already in the list." });
+      return;
+    }
+
+    setIsAddingYear(true);
+    try {
+      await addDoc(collection(firestore, 'years'), {
+        year: newYear.trim(),
+        createdAt: serverTimestamp()
+      });
+      toast({ title: "Year Added", description: `${newYear} is now available for selection.` });
+      setNewYear("");
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Error", description: e.message });
+    } finally {
+      setIsAddingYear(false);
+    }
+  };
+
+  const handleDeleteYear = async (id: string, yearValue: string) => {
+    if (!firestore || !confirm(`Remove ${yearValue} from year list? This will not delete students from this year but will remove it from filters.`)) return;
+    try {
+      await deleteDoc(doc(firestore, 'years', id));
+      toast({ title: "Year Removed" });
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Error", description: e.message });
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -134,19 +175,69 @@ export default function TopPerformersManagementPage() {
                 <SelectValue placeholder="Filter Year" />
               </div>
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="rounded-xl border-gray-100 shadow-xl">
               <SelectItem value="all">All Years</SelectItem>
               {availableYears.map(y => (
-                <SelectItem key={y} value={y}>{y}</SelectItem>
+                <SelectItem key={y} value={y}>Year {y}</SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
-        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base border-none transition-all active:scale-95">
-          <Link href="/admin/top-performers/create">
-            <Plus className="w-6 h-6" /> Add Performer
-          </Link>
-        </Button>
+        
+        <div className="flex items-center gap-3">
+          <Dialog open={isYearDialogOpen} onOpenChange={setIsYearDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="h-14 px-6 rounded-2xl border-gray-200 font-bold text-gray-600 hover:bg-gray-50 gap-2">
+                <Settings2 className="w-5 h-5" /> Manage Years
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md rounded-[2rem]">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Academic Years</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-6 py-4">
+                <div className="flex gap-2">
+                  <Input 
+                    placeholder="Enter year (e.g. 2027)" 
+                    value={newYear} 
+                    onChange={(e) => setNewYear(e.target.value)}
+                    className="h-12 rounded-xl bg-gray-50 border-gray-100"
+                  />
+                  <Button onClick={handleAddYear} disabled={isAddingYear} className="h-12 bg-blue-600 rounded-xl px-6 font-bold border-none">
+                    {isAddingYear ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+                  </Button>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest px-1">Active Years</p>
+                  <div className="max-h-60 overflow-y-auto space-y-2 no-scrollbar">
+                    {yearsList?.map((y) => (
+                      <div key={y.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                        <span className="font-bold text-gray-700">{y.year}</span>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => handleDeleteYear(y.id, y.year)}
+                          className="h-8 w-8 text-gray-300 hover:text-red-500 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ))}
+                    {yearsList?.length === 0 && (
+                      <p className="text-center py-4 text-xs text-gray-400 italic">No years added yet.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base border-none transition-all active:scale-95">
+            <Link href="/admin/top-performers/create">
+              <Plus className="w-6 h-6" /> Add Performer
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {loading ? (

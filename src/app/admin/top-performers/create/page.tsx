@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { 
   ArrowLeft, 
   Trophy, 
@@ -10,8 +10,6 @@ import {
   Upload,
   Trash2,
   Sparkles,
-  Type,
-  Layout,
   Star,
   Award,
   Medal,
@@ -41,10 +39,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { useFirestore } from "@/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, addDoc, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 const formSchema = z.object({
   name: z.string().min(1, "Student name is required"),
@@ -78,13 +75,18 @@ const iconOptions = [
   { name: "Crown", icon: Crown },
 ];
 
-const yearOptions = ["2026", "2025", "2024", "2023", "2022", "2021", "2020"];
-
 export default function CreatePerformerPage() {
   const { toast } = useToast();
   const router = useRouter();
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Fetch Years from the dedicated 'years' collection
+  const yearsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'years'), orderBy('year', 'desc'));
+  }, [firestore]);
+  const { data: yearsList, loading: yearsLoading } = useCollection(yearsQuery);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -93,7 +95,7 @@ export default function CreatePerformerPage() {
       grade: "",
       marks: "",
       rank: "Rank 1",
-      year: "2025",
+      year: "",
       imageUrl: "",
       badgeColor: "bg-blue-600",
       iconColor: "bg-blue-600",
@@ -233,16 +235,19 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
-                            <SelectValue placeholder="Select year" />
+                            <SelectValue placeholder={yearsLoading ? "Loading years..." : "Select year"} />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className="rounded-xl">
-                          {yearOptions.map(year => (
-                            <SelectItem key={year} value={year}>{year}</SelectItem>
+                        <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                          {yearsList?.map(y => (
+                            <SelectItem key={y.id} value={y.year}>{y.year}</SelectItem>
                           ))}
+                          {yearsList?.length === 0 && !yearsLoading && (
+                            <SelectItem value="none" disabled>No years added in dashboard</SelectItem>
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
