@@ -178,6 +178,7 @@ export default function HomePage() {
   const [isSubjectOpen, setIsSubjectOpen] = useState(false);
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
   const [selectedScheduleClass, setSelectedScheduleClass] = useState("Class 10");
+  const [selectedResultYear, setSelectedResultYear] = useState("2025");
 
   const pageRef = useMemo(() => {
     if (!firestore) return null;
@@ -299,10 +300,6 @@ export default function HomePage() {
       successYears: ["2025", "2024", "2023"],
       successTotalMarksLabel: "Total Marks",
       successCardIcon: "Star",
-      successPerformers: [
-        { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", rankIcon: "Crown", badgeColor: "bg-[#fbbf24]", marksColor: "text-blue-600", iconColor: "bg-blue-600", img: placeholderImages["student-7"].src },
-        { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", rankIcon: "Medal", badgeColor: "bg-[#94a3b8]", marksColor: "text-teal-600", iconColor: "bg-teal-600", img: placeholderImages["student-4"].src },
-      ]
     };
 
     if (!homeContent?.content) return defaults;
@@ -315,15 +312,26 @@ export default function HomePage() {
 
   const SuccessCardIcon = useMemo(() => iconMap[content.successCardIcon] || Star, [content.successCardIcon]);
 
-  const successYears = useMemo(() => {
-    if (Array.isArray(content.successYears)) {
-      return content.successYears.filter(Boolean);
+  // Fetch performers directly from top-performers collection
+  const performersQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'top-performers'), where('year', '==', selectedResultYear), orderBy('createdAt', 'desc'));
+  }, [firestore, selectedResultYear]);
+  const { data: performersList, loading: performersLoading } = useCollection(performersQuery);
+
+  // Derive available years from all performers
+  const allPerformersQuery = useMemo(() => firestore ? query(collection(firestore, 'top-performers')) : null, [firestore]);
+  const { data: allPerformers } = useCollection(allPerformersQuery);
+  const resultYears = useMemo(() => {
+    if (!allPerformers) return [];
+    return [...new Set(allPerformers.map(p => p.year))].sort((a, b) => b.localeCompare(a));
+  }, [allPerformers]);
+
+  useEffect(() => {
+    if (resultYears.length > 0 && !resultYears.includes(selectedResultYear)) {
+      setSelectedResultYear(resultYears[0]);
     }
-    if (typeof content.successYears === 'string') {
-      return content.successYears.split(/[\n,\s]+/).map(s => s.trim()).filter(Boolean);
-    }
-    return ["2025", "2023"]; 
-  }, [content.successYears]);
+  }, [resultYears]);
 
   const periodsQuery = useMemo(() => firestore ? query(collection(firestore, 'periods'), orderBy('order', 'asc')) : null, [firestore]);
   const { data: allPeriods } = useCollection(periodsQuery);
@@ -1201,48 +1209,67 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
               <h3 className="text-2xl font-bold text-gray-900 tracking-tight text-left">{content.successTopHeader}</h3>
               <div className="w-full md:w-auto text-left">
-                <Select key={successYears.join(',')} defaultValue={successYears[0] || ""}>
-                  <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700">
-                    <SelectValue placeholder={successYears.length > 0 ? `Year ${successYears[0]}` : "Select Year"} />
+                <Select key={resultYears.join(',')} value={selectedResultYear} onValueChange={setSelectedResultYear}>
+                  <SelectTrigger className="h-12 w-full md:w-[180px] bg-gray-50 border-gray-100 rounded-xl font-bold text-gray-700 focus:ring-blue-600">
+                    <SelectValue placeholder="Select Year" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {successYears.map((year: string) => (
-                      <SelectItem key={year} value={year}>Year {year}</SelectItem>
-                    ))}
+                  <SelectContent className="rounded-xl shadow-xl border-gray-100">
+                    {resultYears.length > 0 ? (
+                      resultYears.map((year: string) => (
+                        <SelectItem key={year} value={year}>Year {year}</SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="none" disabled>No data available</SelectItem>
+                    )}
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {(content.successPerformers || []).map((student: any, idx: number) => {
-                const PerformerRankIcon = iconMap[student.rankIcon] || null;
-                return (
-                  <div key={idx} className="group bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-left">
-                    <div className="relative h-60 w-full overflow-hidden">
-                      <Image src={student.img || placeholderImages["student-7"].src} alt={student.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className={cn("absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1.5", student.badgeColor || "bg-blue-500")}>
-                        {PerformerRankIcon && <PerformerRankIcon className="w-3 h-3" />}
-                        {student.rank}
+            {performersLoading ? (
+              <div className="flex flex-col items-center justify-center py-20 text-gray-400 gap-4">
+                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                <p className="font-bold">Syncing Records...</p>
+              </div>
+            ) : !performersList || performersList.length === 0 ? (
+              <div className="py-20 text-center text-gray-400 font-medium bg-gray-50 rounded-[2rem] border border-dashed border-gray-200">
+                No achievement records found for {selectedResultYear}.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {performersList.map((student, idx) => {
+                  const PerformerRankIcon = iconMap[student.rankIcon] || SuccessCardIcon;
+                  return (
+                    <div key={idx} className="group bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-left">
+                      <div className="relative h-60 w-full overflow-hidden">
+                        <img 
+                          src={student.imageUrl || "https://placehold.co/400x400.png?text=No+Photo"} 
+                          alt={student.name} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                        />
+                        <div className={cn("absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-black text-white uppercase tracking-widest shadow-lg flex items-center gap-1.5 bg-gradient-to-tr", student.badgeColor || "bg-blue-600")}>
+                          {PerformerRankIcon && <PerformerRankIcon className="w-3 h-3" />}
+                          {student.rank}
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <h4 className="font-bold text-gray-900 text-lg leading-tight mb-1">{student.name}</h4>
+                        <p className="text-[11px] font-bold text-gray-400 mb-6">{student.grade}</p>
+                        <div className="flex items-end justify-between">
+                          <div className="space-y-0.5 text-left">
+                            <div className={cn("text-3xl font-black tracking-tighter", student.marksColor || "text-blue-600")}>{student.marks}</div>
+                            <div className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{content.successTotalMarksLabel}</div>
+                          </div>
+                          <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg", student.iconColor || "bg-blue-600")}>
+                            <SuccessCardIcon className="w-5 h-5 fill-white" />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="p-6">
-                      <h4 className="font-bold text-gray-900 text-lg leading-tight mb-1">{student.name}</h4>
-                      <p className="text-[11px] font-bold text-gray-400 mb-6">{student.grade}</p>
-                      <div className="flex items-end justify-between">
-                        <div className="space-y-0.5 text-left">
-                          <div className={cn("text-3xl font-black tracking-tighter", student.marksColor || "text-blue-600")}>{student.marks}</div>
-                          <div className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{content.successTotalMarksLabel}</div>
-                        </div>
-                        <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg", student.iconColor || "bg-blue-600")}>
-                          <SuccessCardIcon className="w-5 h-5 fill-white" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </section>

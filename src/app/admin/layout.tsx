@@ -20,7 +20,8 @@ import {
   Layout,
   CalendarClock,
   School,
-  Contact2
+  Contact2,
+  Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,6 +70,7 @@ const menuItems = [
     ]
   },
   { icon: Layout, label: "Pages", href: "/admin/pages" },
+  { icon: Trophy, label: "Top Performers", href: "/admin/top-performers" },
   { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
   { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
   { 
@@ -84,7 +86,6 @@ const menuItems = [
       { label: "Teachers", href: "/admin/timetable/teachers" },
     ]
   },
-  { icon: Trophy, label: "Results", href: "/admin/results" },
   { icon: GraduationCap, label: "Courses", href: "/admin/courses" },
 ];
 
@@ -153,6 +154,7 @@ export default function AdminLayout({
 
   const getPageSubtitle = () => {
     if (pathname === "/admin/results") return "Academic performance analytics";
+    if (pathname === "/admin/top-performers") return "Manage student achievements";
     if (pathname.startsWith("/admin/users")) return "Manage system user accounts";
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
