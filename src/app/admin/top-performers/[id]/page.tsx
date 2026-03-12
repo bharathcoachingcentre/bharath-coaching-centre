@@ -122,11 +122,11 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
-  // 3. Reset Form Logic with Diagnostic Logs
+  // 3. Reset Form Logic with Explicit Diagnostics
   useEffect(() => {
     if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving) {
-      // DEBUG LOG 1: Raw Firestore Data
-      console.log("Firestore Performer Data:", performer);
+      console.log("DIAGNOSTIC - STAGE 1: Raw Firestore Performer Data:", performer);
+      console.log("DIAGNOSTIC - STAGE 1: Available Years List:", yearsList);
 
       const normalizedData = {
         name: String(performer.name || ""),
@@ -142,15 +142,18 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         rankIcon: String(performer.rankIcon || ""),
       };
 
-      // DEBUG LOG 2: Normalized Data
-      console.log("Normalized Data Sent to Form:", normalizedData);
+      console.log("DIAGNOSTIC - STAGE 2: Normalized Data Prepared for form.reset():", normalizedData);
       
       form.reset(normalizedData);
 
-      // DEBUG LOG 3: Post-Reset Verification
+      console.log("DIAGNOSTIC - STAGE 3: form.reset() executed. Checking form state...");
+      // Immediate check
+      console.log("DIAGNOSTIC - STAGE 3 (Immediate): current form values:", form.getValues());
+      
+      // Delayed check to ensure React has processed state
       setTimeout(() => {
-        console.log("Form Values After Reset:", form.getValues());
-      }, 50);
+        console.log("DIAGNOSTIC - STAGE 3 (Delayed 100ms): current form values:", form.getValues());
+      }, 100);
     }
   }, [performer, yearsList, performerLoading, yearsLoading, form, isSaving]);
 
@@ -173,10 +176,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
-    // DEBUG LOG 5: Form Data On Submit
-    console.log("Form Data On Submit:", formData);
+    console.log("DIAGNOSTIC - STAGE 5: Form Data Captured on Submit:", formData);
 
-    // Sanitize and Merge
     const cleanData: any = {
       ...formData,
       year: formData.year || performer.year,
@@ -187,15 +188,14 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       updatedAt: serverTimestamp(),
     };
 
-    // Strip empty strings to avoid overwriting
+    // Strip empty strings to prevent accidental erasure
     Object.keys(cleanData).forEach((key) => {
       if (cleanData[key] === "" || cleanData[key] === undefined || cleanData[key] === null) {
         delete cleanData[key];
       }
     });
 
-    // DEBUG LOG 6: Final Clean Data
-    console.log("Final Data Sent To Firestore:", cleanData);
+    console.log("DIAGNOSTIC - STAGE 6: Final Clean Data Payload for Firestore:", cleanData);
 
     try {
       const ref = doc(firestore, "top-performers", performerId);
@@ -203,7 +203,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
-      console.error("Firestore Update Error:", error);
+      console.error("DIAGNOSTIC - ERROR: Firestore Update Failed:", error);
       toast({ variant: "destructive", title: "Update Failed", description: error.message });
       setIsSaving(false);
     }
@@ -213,7 +213,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Diagnosing Achievement Data...</p>
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Diagnosing Performance Stream...</p>
       </div>
     );
   }
@@ -243,7 +243,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
                   <Trophy className="w-6 h-6" />
                 </div>
-                <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Edit Performer Profile</CardTitle>
+                <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performer Diagnosis</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="p-10 pt-8 space-y-8 text-left">
@@ -266,8 +266,8 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                       />
                     </div>
                     <div className="space-y-1 text-left">
-                      <p className="text-sm font-bold text-gray-700">Change portrait</p>
-                      <p className="text-xs text-gray-400">Maximum size: 500KB.</p>
+                      <p className="text-sm font-bold text-gray-700">Student Identity Portrait</p>
+                      <p className="text-xs text-gray-400">Max size: 500KB.</p>
                     </div>
                   </div>
                 </div>
@@ -319,8 +319,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="year"
                   render={({ field }) => {
-                    // DEBUG LOG 4: Dropdown Binding
-                    console.log("Dropdown Field:", field.name, "Current Value:", field.value);
+                    console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
                     return (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
@@ -330,7 +329,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                               <SelectValue placeholder="Select year" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent className="rounded-xl">
+                          <SelectContent className="rounded-xl shadow-xl">
                             {yearsList?.map(y => (
                               <SelectItem key={y.id} value={String(y.year)}>{y.year}</SelectItem>
                             ))}
@@ -378,7 +377,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="rankIcon"
                   render={({ field }) => {
-                    console.log("Dropdown Field:", field.name, "Current Value:", field.value);
+                    console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
                     return (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
@@ -388,7 +387,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                               <SelectValue placeholder="Select icon" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent className="rounded-xl">
+                          <SelectContent className="rounded-xl shadow-xl">
                             {iconOptions.map(opt => (
                               <SelectItem key={opt.name} value={opt.name}>
                                 <div className="flex items-center gap-2">
@@ -408,7 +407,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
               {/* Visual Branding Section */}
               <div className="pt-10 border-t border-gray-50 text-left">
                 <h4 className="text-sm font-black text-gray-900 mb-8 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-blue-600" /> Visual Branding
+                  <Sparkles className="w-4 h-4 text-blue-600" /> Style Configuration
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {/* Badge Color */}
@@ -416,17 +415,17 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     control={form.control}
                     name="badgeColor"
                     render={({ field }) => {
-                      console.log("Dropdown Field:", field.name, "Current Value:", field.value);
+                      console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Color</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Color" />
+                                <SelectValue placeholder="Select Color" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="rounded-xl">
+                            <SelectContent className="rounded-xl shadow-xl">
                               {colorOptions.map(opt => (
                                 <SelectItem key={opt.value} value={opt.value}>
                                   <div className="flex items-center gap-2">
@@ -446,17 +445,17 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     control={form.control}
                     name="iconColor"
                     render={({ field }) => {
-                      console.log("Dropdown Field:", field.name, "Current Value:", field.value);
+                      console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Color" />
+                                <SelectValue placeholder="Select Color" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="rounded-xl">
+                            <SelectContent className="rounded-xl shadow-xl">
                               {colorOptions.map(opt => (
                                 <SelectItem key={opt.value} value={opt.value}>
                                   <div className="flex items-center gap-2">
@@ -476,17 +475,17 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     control={form.control}
                     name="marksColor"
                     render={({ field }) => {
-                      console.log("Dropdown Field:", field.name, "Current Value:", field.value);
+                      console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Color" />
+                                <SelectValue placeholder="Select Color" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="rounded-xl">
+                            <SelectContent className="rounded-xl shadow-xl">
                               {colorOptions.map(opt => (
                                 <SelectItem key={opt.text} value={opt.text}>
                                   <div className="flex items-center gap-2">
@@ -509,7 +508,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 </Button>
                 <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
                   {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-                  Save Changes
+                  Finalize Record
                 </Button>
               </div>
             </CardContent>
