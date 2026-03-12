@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -238,7 +237,10 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value || ""}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder={yearsLoading ? "Loading years..." : "Select year"} />
@@ -248,9 +250,6 @@ export default function CreatePerformerPage() {
                           {yearsList?.map(y => (
                             <SelectItem key={y.id} value={y.year}>{y.year}</SelectItem>
                           ))}
-                          {yearsList?.length === 0 && !yearsLoading && (
-                            <SelectItem value="none" disabled>No years added in dashboard</SelectItem>
-                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -284,7 +283,7 @@ export default function CreatePerformerPage() {
                           <Input type="number" placeholder="1" {...field} className="h-14 bg-gray-50 border-none rounded-xl pl-11 pr-6 font-bold" />
                         </div>
                       </FormControl>
-                      <p className="text-[10px] text-gray-400 font-medium">1 = First, 2 = Second, etc.</p>
+                      <p className="text-[10px] text-gray-400 font-medium text-left">1 = First, 2 = Second, etc.</p>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -296,7 +295,10 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value || ""}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select icon" />
@@ -330,7 +332,10 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
@@ -356,7 +361,10 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
@@ -382,7 +390,10 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -122,7 +121,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         marks: performer.marks || "",
         rank: performer.rank || "",
         rankOrder: performer.rankOrder || 1,
-        year: performer.year || "",
+        year: performer.year ? String(performer.year) : "",
         imageUrl: performer.imageUrl || "",
         badgeColor: performer.badgeColor || "bg-blue-600",
         iconColor: performer.iconColor || "bg-blue-600",
@@ -153,10 +152,18 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
 
     try {
       const ref = doc(firestore, "top-performers", performerId);
-      await updateDoc(ref, {
+      
+      // Ensure we don't save empty strings for critical branding fields
+      const finalData = {
         ...values,
+        marksColor: values.marksColor || performer?.marksColor || "text-blue-600",
+        badgeColor: values.badgeColor || performer?.badgeColor || "bg-blue-600",
+        iconColor: values.iconColor || performer?.iconColor || "bg-blue-600",
+        rankIcon: values.rankIcon || performer?.rankIcon || "Star",
         updatedAt: serverTimestamp(),
-      });
+      };
+
+      await updateDoc(ref, finalData);
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
@@ -184,6 +191,14 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       </div>
     );
   }
+
+  const iconMap: Record<string, any> = {
+    Star,
+    Trophy,
+    Medal,
+    Award,
+    Crown
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -275,7 +290,10 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value || ""}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select year" />
@@ -330,7 +348,10 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        value={field.value || ""}
+                      >
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select icon" />
@@ -363,7 +384,10 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme (Rank)</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
@@ -389,7 +413,10 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
@@ -415,7 +442,10 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Score Text Color</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          value={field.value || ""}
+                        >
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Select color" />
