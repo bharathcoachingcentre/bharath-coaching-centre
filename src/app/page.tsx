@@ -313,6 +313,8 @@ export default function HomePage() {
     };
   }, [homeContent]);
 
+  const SuccessCardIcon = iconMap[content.successCardIcon] || Star;
+
   const successYears = useMemo(() => {
     if (Array.isArray(content.successYears)) {
       return content.successYears.filter(Boolean);
