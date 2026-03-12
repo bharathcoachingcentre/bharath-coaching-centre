@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -167,6 +166,8 @@ const iconMap: Record<string, any> = {
   Trophy: Trophy,
   Medal: Medal,
   Crown: Crown,
+  CalendarCheck: CalendarCheck,
+  Clock: Clock
 };
 
 export default function HomePage() {
@@ -193,8 +194,10 @@ export default function HomePage() {
       heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
       heroPrimaryBtnText: "Book Free Consultation",
       heroPrimaryBtnLink: "#",
+      heroPrimaryBtnIcon: "CalendarCheck",
       heroOutlineBtnText: "View Timetable",
       heroOutlineBtnLink: "#timetable-section",
+      heroOutlineBtnIcon: "Clock",
       heroCard1Label: "Board",
       heroCard1Value: "CBSE",
       heroCard2Label: "Board",
@@ -310,6 +313,8 @@ export default function HomePage() {
   }, [homeContent]);
 
   const SuccessCardIcon = useMemo(() => iconMap[content.successCardIcon] || Star, [content.successCardIcon]);
+  const HeroPrimaryIcon = useMemo(() => iconMap[content.heroPrimaryBtnIcon] || CalendarCheck, [content.heroPrimaryBtnIcon]);
+  const HeroOutlineIcon = useMemo(() => iconMap[content.heroOutlineBtnIcon] || Clock, [content.heroOutlineBtnIcon]);
 
   // Fetch Years
   const yearsQuery = useMemo(() => {
@@ -464,7 +469,7 @@ export default function HomePage() {
           let cardStyle = "bg-purple-50 border-purple-100"; 
           const s = subjectName.toLowerCase();
           if (s.includes("math")) cardStyle = "bg-blue-50 border-blue-100";
-          else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-emerald-50 border-teal-100";
+          else if (s.includes("science") && !s.includes("social")) cardStyle = "bg-teal-50 border-teal-100";
           else if (s.includes("english")) cardStyle = "bg-purple-50 border-purple-100";
           else if (s.includes("social")) cardStyle = "bg-orange-50 border-orange-100";
           else if (s.includes("hindi")) cardStyle = "bg-pink-50 border-pink-100";
@@ -506,13 +511,13 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="px-8 py-7 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-none">
                   <Link href={content.heroPrimaryBtnLink || "#"}>
-                    <CalendarCheck className="mr-2 h-6 w-6" />
+                    <HeroPrimaryIcon className="mr-2 h-6 w-6" />
                     {content.heroPrimaryBtnText}
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="px-8 py-7 bg-white text-gray-700 font-bold text-lg rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
                   <Link href={content.heroOutlineBtnLink || "#"}>
-                    <Clock className="mr-2 h-6 w-6" />
+                    <HeroOutlineIcon className="mr-2 h-6 w-6" />
                     {content.heroOutlineBtnText}
                   </Link>
                 </Button>

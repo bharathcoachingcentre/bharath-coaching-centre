@@ -31,6 +31,7 @@ import {
   Lightbulb,
   Brain,
   Calendar,
+  CalendarCheck,
   Clock,
   Info,
   Handshake,
@@ -71,8 +72,10 @@ const defaultPageData: Record<string, any> = {
     heroSubtitle: "Interactive coaching for CBSE and Samacheer with personalized mentorship.",
     heroPrimaryBtnText: "Book Free Consultation",
     heroPrimaryBtnLink: "#",
+    heroPrimaryBtnIcon: "CalendarCheck",
     heroOutlineBtnText: "View Timetable",
     heroOutlineBtnLink: "#timetable-section",
+    heroOutlineBtnIcon: "Clock",
     heroCard1Label: "Board",
     heroCard1Value: "CBSE",
     heroCard2Label: "Board",
@@ -231,7 +234,9 @@ const iconMap: Record<string, any> = {
   Medal: Medal,
   Crown: Crown,
   Star: Star,
-  ImageIcon: ImageIcon
+  ImageIcon: ImageIcon,
+  CalendarCheck: CalendarCheck,
+  Clock: Clock
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -441,21 +446,37 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-xs font-bold text-blue-600 uppercase">Primary Button (Gradient)</Label>
-                        <Input 
-                          value={formData.heroPrimaryBtnText || ""} 
-                          onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)}
-                          className="h-12 bg-white border-none rounded-xl px-4 mt-2"
-                          placeholder="Button Text"
-                        />
+                        <div className="grid grid-cols-2 gap-4 mt-2">
+                          <Input 
+                            value={formData.heroPrimaryBtnText || ""} 
+                            onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)}
+                            className="h-12 bg-white border-none rounded-xl px-4"
+                            placeholder="Button Text"
+                          />
+                          <Input 
+                            value={formData.heroPrimaryBtnIcon || ""} 
+                            onChange={(e) => updateField('heroPrimaryBtnIcon', e.target.value)}
+                            className="h-12 bg-white border-none rounded-xl px-4"
+                            placeholder="Icon (e.g. CalendarCheck)"
+                          />
+                        </div>
                       </div>
                       <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-xs font-bold text-gray-500 uppercase">Outline Button (White)</Label>
-                        <Input 
-                          value={formData.heroOutlineBtnText || ""} 
-                          onChange={(e) => updateField('heroOutlineBtnText', e.target.value)}
-                          className="h-12 bg-white border-none rounded-xl px-4 mt-2"
-                          placeholder="Button Text"
-                        />
+                        <div className="grid grid-cols-2 gap-4 mt-2">
+                          <Input 
+                            value={formData.heroOutlineBtnText || ""} 
+                            onChange={(e) => updateField('heroOutlineBtnText', e.target.value)}
+                            className="h-12 bg-white border-none rounded-xl px-4"
+                            placeholder="Button Text"
+                          />
+                          <Input 
+                            value={formData.heroOutlineBtnIcon || ""} 
+                            onChange={(e) => updateField('heroOutlineBtnIcon', e.target.value)}
+                            className="h-12 bg-white border-none rounded-xl px-4"
+                            placeholder="Icon (e.g. Clock)"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -465,6 +486,19 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {(formData.stats || defaultPageData.home.stats)?.map((stat: any, idx: number) => (
                         <div key={idx} className="space-y-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name</Label>
+                            <Input 
+                              value={stat.icon || ""} 
+                              onChange={(e) => {
+                                const newStats = [...(formData.stats || defaultPageData.home.stats)];
+                                newStats[idx].icon = e.target.value;
+                                updateField('stats', newStats);
+                              }}
+                              className="h-10 bg-white"
+                              placeholder="Users, TrendingUp, Award"
+                            />
+                          </div>
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase text-gray-400">Value (e.g. 5000+)</Label>
                             <Input 
