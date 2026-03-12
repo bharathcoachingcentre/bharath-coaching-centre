@@ -105,6 +105,9 @@ const defaultPageData: Record<string, any> = {
       { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
     ],
+    materialsTitleMain: "Download Free ",
+    materialsTitleHighlight: "Study Materials",
+    materialsSubtitle: "Filter by class and board to find specific resources for your curriculum",
     programsTitleMain: "Explore Our Academic ",
     programsTitleHighlight: "Programs",
     programsSubtitle: "Choose the perfect learning path for your child's academic journey",
@@ -513,16 +516,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-xs font-bold text-blue-600 uppercase">Primary Button (Gradient)</Label>
                         <div className="grid grid-cols-1 gap-4 mt-2">
-                          <Input 
+                          <input 
                             value={formData.heroPrimaryBtnText || ""} 
                             onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)}
-                            className="h-12 bg-white border-none rounded-xl px-4"
+                            className="h-12 bg-white border-none rounded-xl px-4 w-full shadow-sm text-sm"
                             placeholder="Button Text"
                           />
-                          <Input 
+                          <input 
                             value={formData.heroPrimaryBtnIcon || ""} 
                             onChange={(e) => updateField('heroPrimaryBtnIcon', e.target.value)}
-                            className="h-12 bg-white border-none rounded-xl px-4"
+                            className="h-12 bg-white border-none rounded-xl px-4 w-full shadow-sm text-sm"
                             placeholder="Icon Name (e.g. CalendarCheck)"
                           />
                         </div>
@@ -530,16 +533,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-xs font-bold text-gray-500 uppercase">Outline Button (White)</Label>
                         <div className="grid grid-cols-1 gap-4 mt-2">
-                          <Input 
+                          <input 
                             value={formData.heroOutlineBtnText || ""} 
                             onChange={(e) => updateField('heroOutlineBtnText', e.target.value)}
-                            className="h-12 bg-white border-none rounded-xl px-4"
+                            className="h-12 bg-white border-none rounded-xl px-4 w-full shadow-sm text-sm"
                             placeholder="Button Text"
                           />
-                          <Input 
+                          <input 
                             value={formData.heroOutlineBtnIcon || ""} 
                             onChange={(e) => updateField('heroOutlineBtnIcon', e.target.value)}
-                            className="h-12 bg-white border-none rounded-xl px-4"
+                            className="h-12 bg-white border-none rounded-xl px-4 w-full shadow-sm text-sm"
                             placeholder="Icon Name (e.g. Clock)"
                           />
                         </div>
@@ -765,6 +768,46 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         </div>
                       ))}
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Study Materials Section Card */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0 text-left">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <BookOpen className="w-6 h-6 text-blue-600" /> Study Materials Section
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
+                      <Input 
+                        value={formData.materialsTitleMain || ""} 
+                        onChange={(e) => updateField('materialsTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                        placeholder="Download Free "
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
+                      <Input 
+                        value={formData.materialsTitleHighlight || ""} 
+                        onChange={(e) => updateField('materialsTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        placeholder="Study Materials"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Input 
+                      value={formData.materialsSubtitle || ""} 
+                      onChange={(e) => updateField('materialsSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium text-gray-600"
+                      placeholder="Filter by class and board to find specific resources"
+                    />
                   </div>
                 </CardContent>
               </Card>
@@ -1746,7 +1789,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* CTA Section Card */}
+              {/* CTA Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Call To Action (Footer)</CardTitle>

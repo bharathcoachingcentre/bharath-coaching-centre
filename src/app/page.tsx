@@ -225,6 +225,9 @@ export default function HomePage() {
         { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
       ],
+      materialsTitleMain: "Download Free ",
+      materialsTitleHighlight: "Study Materials",
+      materialsSubtitle: "Filter by class and board to find specific resources for your curriculum",
       programsTitleMain: "Explore Our Academic ",
       programsTitleHighlight: "Programs",
       programsSubtitle: "Choose the perfect learning path for your child's academic journey",
@@ -664,10 +667,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
-              Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
+              {content.materialsTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.materialsTitleHighlight}</span>
             </h2>
             <p className="mt-4 text-lg text-gray-500 font-normal text-center">
-              Filter by class and board to find specific resources for your curriculum
+              {content.materialsSubtitle}
             </p>
           </div>
 
