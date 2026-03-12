@@ -329,23 +329,19 @@ export default function HomePage() {
     }
   }, [resultYears, selectedResultYear]);
 
-  // Fetch Performers - Use simple query without internal sort to avoid composite index requirements
+  // Fetch Performers - Filter and sort by rankOrder
   const allPerformersQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'top-performers'));
   }, [firestore]);
   const { data: allPerformers, loading: performersLoading } = useCollection(allPerformersQuery);
 
-  // Filter and sort performers in-memory for prototype reliability
+  // Filter and sort performers in-memory based on rankOrder (1, 2, 3...)
   const performersList = useMemo(() => {
     if (!allPerformers) return [];
     return allPerformers
       .filter(p => p.year === selectedResultYear)
-      .sort((a, b) => {
-        const timeA = a.createdAt?.seconds || 0;
-        const timeB = b.createdAt?.seconds || 0;
-        return timeB - timeA;
-      });
+      .sort((a, b) => (a.rankOrder || 999) - (b.rankOrder || 999));
   }, [allPerformers, selectedResultYear]);
 
   // Timetable Configuration Data

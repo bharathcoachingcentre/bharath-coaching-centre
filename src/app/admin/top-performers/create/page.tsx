@@ -13,7 +13,8 @@ import {
   Star,
   Award,
   Medal,
-  Crown
+  Crown,
+  ListOrdered
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +49,7 @@ const formSchema = z.object({
   grade: z.string().min(1, "Class / Board is required"),
   marks: z.string().min(1, "Marks / Percentage is required"),
   rank: z.string().min(1, "Rank text is required"),
+  rankOrder: z.coerce.number().int().min(1, "Rank order must be at least 1"),
   year: z.string().min(1, "Year is required"),
   imageUrl: z.string().min(1, "Student photo is required"),
   badgeColor: z.string().default("bg-blue-600"),
@@ -95,6 +97,7 @@ export default function CreatePerformerPage() {
       grade: "",
       marks: "",
       rank: "Rank 1",
+      rankOrder: 1,
       year: "",
       imageUrl: "",
       badgeColor: "bg-blue-600",
@@ -264,6 +267,24 @@ export default function CreatePerformerPage() {
                       <FormControl>
                         <Input placeholder="e.g. Rank 1 or Top 10" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="rankOrder"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Order (Sorting)</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <ListOrdered className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <Input type="number" placeholder="1" {...field} className="h-14 bg-gray-50 border-none rounded-xl pl-11 pr-6 font-bold" />
+                        </div>
+                      </FormControl>
+                      <p className="text-[10px] text-gray-400 font-medium">1 = First, 2 = Second, etc.</p>
                       <FormMessage />
                     </FormItem>
                   )}
