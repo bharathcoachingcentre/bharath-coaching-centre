@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
@@ -91,14 +91,12 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
 
-  // 1. Fetch Years Master Data
   const yearsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'years'), orderBy('year', 'desc'));
   }, [firestore]);
   const { data: yearsList, loading: yearsLoading } = useCollection(yearsQuery);
 
-  // 2. Fetch Performer Data
   const docRef = useMemo(() => {
     if (!firestore || !performerId) return null;
     return doc(firestore, "top-performers", performerId);
@@ -122,11 +120,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
-  // 3. Reset Form Logic with Explicit Diagnostics
   useEffect(() => {
     if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving) {
       console.log("DIAGNOSTIC - STAGE 1: Raw Firestore Performer Data:", performer);
-      console.log("DIAGNOSTIC - STAGE 1: Available Years List:", yearsList);
 
       const normalizedData = {
         name: String(performer.name || ""),
@@ -142,18 +138,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         rankIcon: String(performer.rankIcon || ""),
       };
 
-      console.log("DIAGNOSTIC - STAGE 2: Normalized Data Prepared for form.reset():", normalizedData);
-      
+      console.log("DIAGNOSTIC - STAGE 2: Data for Reset:", normalizedData);
       form.reset(normalizedData);
-
-      console.log("DIAGNOSTIC - STAGE 3: form.reset() executed. Checking form state...");
-      // Immediate check
-      console.log("DIAGNOSTIC - STAGE 3 (Immediate): current form values:", form.getValues());
-      
-      // Delayed check to ensure React has processed state
-      setTimeout(() => {
-        console.log("DIAGNOSTIC - STAGE 3 (Delayed 100ms): current form values:", form.getValues());
-      }, 100);
+      console.log("DIAGNOSTIC - STAGE 3: Form State After Reset:", form.getValues());
     }
   }, [performer, yearsList, performerLoading, yearsLoading, form, isSaving]);
 
@@ -176,10 +163,11 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
-    console.log("DIAGNOSTIC - STAGE 5: Form Data Captured on Submit:", formData);
+    console.log("DIAGNOSTIC - STAGE 5: Form Data Captured:", formData);
 
-    const cleanData: any = {
+    const updatePayload: any = {
       ...formData,
+      // Defensive fallback: if form has empty string but DB has value, keep DB value
       year: formData.year || performer.year,
       marksColor: formData.marksColor || performer.marksColor,
       badgeColor: formData.badgeColor || performer.badgeColor,
@@ -188,22 +176,21 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       updatedAt: serverTimestamp(),
     };
 
-    // Strip empty strings to prevent accidental erasure
-    Object.keys(cleanData).forEach((key) => {
-      if (cleanData[key] === "" || cleanData[key] === undefined || cleanData[key] === null) {
-        delete cleanData[key];
+    // Final purge of any keys that resulted in empty values to avoid overwriting with ""
+    Object.keys(updatePayload).forEach((key) => {
+      if (updatePayload[key] === "" || updatePayload[key] === undefined || updatePayload[key] === null) {
+        delete updatePayload[key];
       }
     });
 
-    console.log("DIAGNOSTIC - STAGE 6: Final Clean Data Payload for Firestore:", cleanData);
+    console.log("DIAGNOSTIC - STAGE 6: Final Clean Payload:", updatePayload);
 
     try {
-      const ref = doc(firestore, "top-performers", performerId);
-      await updateDoc(ref, cleanData);
+      await updateDoc(doc(firestore, "top-performers", performerId), updatePayload);
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
-      console.error("DIAGNOSTIC - ERROR: Firestore Update Failed:", error);
+      console.error("DIAGNOSTIC - ERROR:", error);
       toast({ variant: "destructive", title: "Update Failed", description: error.message });
       setIsSaving(false);
     }
@@ -213,7 +200,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Diagnosing Performance Stream...</p>
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Syncing Performance Data...</p>
       </div>
     );
   }
@@ -314,12 +301,11 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   )}
                 />
 
-                {/* Year Dropdown with Diagnostic Log */}
-                <Controller
+                <FormField
                   control={form.control}
                   name="year"
                   render={({ field }) => {
-                    console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
+                    console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
                     return (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
@@ -372,12 +358,11 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   )}
                 />
 
-                {/* Rank Icon with Diagnostic Log */}
-                <Controller
+                <FormField
                   control={form.control}
                   name="rankIcon"
                   render={({ field }) => {
-                    console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
+                    console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
                     return (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
@@ -410,19 +395,18 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   <Sparkles className="w-4 h-4 text-blue-600" /> Style Configuration
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* Badge Color */}
-                  <Controller
+                  <FormField
                     control={form.control}
                     name="badgeColor"
                     render={({ field }) => {
-                      console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
+                      console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Color</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Select Color" />
+                                <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl shadow-xl">
@@ -440,19 +424,18 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     }}
                   />
 
-                  {/* Icon Color */}
-                  <Controller
+                  <FormField
                     control={form.control}
                     name="iconColor"
                     render={({ field }) => {
-                      console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
+                      console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Select Color" />
+                                <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl shadow-xl">
@@ -470,19 +453,18 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     }}
                   />
 
-                  {/* Marks Color */}
-                  <Controller
+                  <FormField
                     control={form.control}
                     name="marksColor"
                     render={({ field }) => {
-                      console.log(`DIAGNOSTIC - STAGE 4: Dropdown Binding [${field.name}] Current Value:`, field.value);
+                      console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
                       return (
                         <FormItem className="space-y-3 text-left">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
-                                <SelectValue placeholder="Select Color" />
+                                <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl shadow-xl">

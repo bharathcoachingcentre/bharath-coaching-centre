@@ -82,7 +82,6 @@ export default function CreatePerformerPage() {
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch Years
   const yearsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'years'), orderBy('year', 'desc'));
@@ -231,10 +230,7 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value || ""}
-                      >
+                      <Select value={field.value || ""} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder={yearsLoading ? "Loading..." : "Select year"} />
@@ -288,10 +284,7 @@ export default function CreatePerformerPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value || ""}
-                      >
+                      <Select value={field.value || ""} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select icon" />
@@ -324,7 +317,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                        <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
@@ -350,7 +343,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                        <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
@@ -376,7 +369,7 @@ export default function CreatePerformerPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                        <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
