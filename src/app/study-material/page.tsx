@@ -1,19 +1,32 @@
+"use client";
 
-'use client';
-
-import React, { useState, useMemo, useEffect } from 'react';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { 
+import React, { useState, useMemo, useEffect } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { BookOpen, FileText, GraduationCap, ArrowRight, Download, ChevronDown, Loader2, Search } from 'lucide-react';
+import {
+  BookOpen,
+  FileText,
+  GraduationCap,
+  ArrowRight,
+  Download,
+  ChevronDown,
+  Loader2,
+  Search,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { useFirestore, useCollection } from "@/firebase";
@@ -94,18 +107,32 @@ const materialStyles = [
   },
 ];
 
-const AnimatedSection = ({ children, className, id }: { children: React.ReactNode; className?: string; id?: string }) => {
-    const { setElement, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
-  
-    return (
-      <section
-        ref={setElement}
-        id={id}
-        className={cn('animate-on-scroll', { 'is-visible': isIntersecting }, className)}
-      >
-        {children}
-      </section>
-    );
+const AnimatedSection = ({
+  children,
+  className,
+  id,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+}) => {
+  const { setElement, isIntersecting } = useIntersectionObserver({
+    threshold: 0.1,
+  });
+
+  return (
+    <section
+      ref={setElement}
+      id={id}
+      className={cn(
+        "animate-on-scroll",
+        { "is-visible": isIntersecting },
+        className
+      )}
+    >
+      {children}
+    </section>
+  );
 };
 
 export default function StudyMaterialPage() {
@@ -118,29 +145,33 @@ export default function StudyMaterialPage() {
 
   const materialsQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
+    return query(
+      collection(firestore, "study-materials"),
+      orderBy("createdAt", "desc")
+    );
   }, [firestore]);
 
-  const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
+  const { data: allMaterials, loading: materialsLoading } =
+    useCollection(materialsQuery);
 
   // Fetch Classes
   const classesQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'classes'));
+    return query(collection(firestore, "classes"));
   }, [firestore]);
   const { data: allClassesRaw } = useCollection(classesQuery);
 
   const availableClasses = useMemo(() => {
     if (!allClassesRaw) return [];
     return [...allClassesRaw]
-      .filter(c => c.board?.toLowerCase() === activeBoard.toLowerCase())
+      .filter((c) => c.board?.toLowerCase() === activeBoard.toLowerCase())
       .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   }, [allClassesRaw, activeBoard]);
 
   // Ensure selectedClass is valid for the current board
   useEffect(() => {
     if (availableClasses.length > 0) {
-      const exists = availableClasses.find(c => c.name === selectedClass);
+      const exists = availableClasses.find((c) => c.name === selectedClass);
       if (!exists) {
         setSelectedClass(availableClasses[0].name);
       }
@@ -150,41 +181,45 @@ export default function StudyMaterialPage() {
   // Fetch Subjects
   const subjectsQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
+    return query(collection(firestore, "subjects"), orderBy("name", "asc"));
   }, [firestore]);
   const { data: allSubjectsRaw } = useCollection(subjectsQuery);
 
   const availableSubjectsList = useMemo(() => {
     const base = ["All Subjects"];
     if (allSubjectsRaw) {
-      return [...base, ...allSubjectsRaw.map(s => s.name)];
+      return [...base, ...allSubjectsRaw.map((s) => s.name)];
     }
     return base;
   }, [allSubjectsRaw]);
 
   const filteredSubjectsForDropdown = useMemo(() => {
-    return availableSubjectsList.filter(s => 
+    return availableSubjectsList.filter((s) =>
       s.toLowerCase().includes(subjectSearch.toLowerCase())
     );
   }, [availableSubjectsList, subjectSearch]);
 
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
-    
+
     return allMaterials
-      .filter(m => {
+      .filter((m) => {
         const matchesVisibility = m.isVisible !== false;
         const matchesGrade = m.grade === selectedClass;
-        const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
-        const matchesSubject = selectedSubject === "All Subjects" || m.subject === selectedSubject;
-        return matchesVisibility && matchesGrade && matchesBoard && matchesSubject;
+        const matchesBoard =
+          !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
+        const matchesSubject =
+          selectedSubject === "All Subjects" || m.subject === selectedSubject;
+        return (
+          matchesVisibility && matchesGrade && matchesBoard && matchesSubject
+        );
       })
       .map((m, idx) => {
         const styleIdx = idx % materialStyles.length;
         return {
           ...m,
           desc: m.description,
-          ...materialStyles[styleIdx]
+          ...materialStyles[styleIdx],
         };
       });
   }, [allMaterials, selectedClass, activeBoard, selectedSubject]);
@@ -192,7 +227,10 @@ export default function StudyMaterialPage() {
   return (
     <div className="font-body antialiased">
       {/* Hero Section */}
-      <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
+      <section
+        className="relative w-full flex items-center justify-center overflow-hidden"
+        style={{ height: "500px" }}
+      >
         <Image
           src="/Study-material.png"
           alt="Free Study Material"
@@ -217,11 +255,11 @@ export default function StudyMaterialPage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
-              Academic Resources
-            </span>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
-              Access <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Premium Learning</span>
+              Access{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                Premium Learning
+              </span>
             </h2>
           </div>
 
@@ -237,32 +275,60 @@ export default function StudyMaterialPage() {
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">CBSE</CardTitle>
-                  <p className="text-sm text-gray-500 font-medium mt-2">Complete NCERT solutions and chapter-wise practice questions</p>
+                  <CardTitle className="text-2xl font-bold text-gray-900">
+                    CBSE
+                  </CardTitle>
+                  <p className="text-sm text-gray-500 font-medium mt-2">
+                    Complete NCERT solutions and chapter-wise practice
+                    questions
+                  </p>
                 </div>
               </CardHeader>
               <CardContent className="p-8 pt-0 flex-grow">
                 <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="cbse-ncert-solutions" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">CBSE NCERT Solutions</AccordionTrigger>
+                  <AccordionItem
+                    value="cbse-ncert-solutions"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      CBSE NCERT Solutions
+                    </AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
-                        {allClassesRaw?.filter(c => c.board?.toLowerCase() === "cbse")
+                        {allClassesRaw
+                          ?.filter((c) => c.board?.toLowerCase() === "cbse")
                           .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                          .map(c => (
-                            <Button key={c.id} variant="outline" size="sm" onClick={() => {
-                              setSelectedClass(c.name);
-                              setActiveBoard("cbse");
-                              document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
-                            }} className="rounded-lg border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-colors">{c.name}</Button>
+                          .map((c) => (
+                            <Button
+                              key={c.id}
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setSelectedClass(c.name);
+                                setActiveBoard("cbse");
+                                document
+                                  .getElementById("study-materials-section")
+                                  ?.scrollIntoView({ behavior: "smooth" });
+                              }}
+                              className="rounded-lg border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-colors"
+                            >
+                              {c.name}
+                            </Button>
                           ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-                  <AccordionItem value="cbse-chapter-wise-test" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">CBSE Chapter Wise Test Questions</AccordionTrigger>
+                  <AccordionItem
+                    value="cbse-chapter-wise-test"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      CBSE Chapter Wise Test Questions
+                    </AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Deep dive into specific chapters with our curated list of test questions designed to test core conceptual understanding.
+                      Deep dive into specific chapters with our curated list of
+                      test questions designed to test core conceptual
+                      understanding.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -280,22 +346,39 @@ export default function StudyMaterialPage() {
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">Model Papers</CardTitle>
-                  <p className="text-sm text-gray-500 font-medium mt-2">Board question papers and previous year papers for preparation</p>
+                  <CardTitle className="text-2xl font-bold text-gray-900">
+                    Model Papers
+                  </CardTitle>
+                  <p className="text-sm text-gray-500 font-medium mt-2">
+                    Board question papers and previous year papers for
+                    preparation
+                  </p>
                 </div>
               </CardHeader>
               <CardContent className="p-8 pt-0 flex-grow">
                 <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="board-question-papers" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Board Question Papers</AccordionTrigger>
+                  <AccordionItem
+                    value="board-question-papers"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      Board Question Papers
+                    </AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Practice with the latest model board papers to understand the exam pattern and marking schemes.
+                      Practice with the latest model board papers to understand
+                      the exam pattern and marking schemes.
                     </AccordionContent>
                   </AccordionItem>
-                  <AccordionItem value="previous-year-papers" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Previous Year Board QP</AccordionTrigger>
+                  <AccordionItem
+                    value="previous-year-papers"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      Previous Year Board QP
+                    </AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Review actual papers from previous years to gauge the difficulty and recurring topics.
+                      Review actual papers from previous years to gauge the
+                      difficulty and recurring topics.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -313,44 +396,83 @@ export default function StudyMaterialPage() {
                   </div>
                 </div>
                 <div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">Samacheer</CardTitle>
-                  <p className="text-sm text-gray-500 font-medium mt-2">Book back solutions and comprehensive test materials for state board</p>
+                  <CardTitle className="text-2xl font-bold text-gray-900">
+                    Samacheer
+                  </CardTitle>
+                  <p className="text-sm text-gray-500 font-medium mt-2">
+                    Book back solutions and comprehensive test materials for
+                    state board
+                  </p>
                 </div>
               </CardHeader>
               <CardContent className="p-8 pt-0 flex-grow">
                 <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="samacheer-book-back" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Book Back Solutions</AccordionTrigger>
+                  <AccordionItem
+                    value="samacheer-book-back"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      Book Back Solutions
+                    </AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-wrap gap-2 pt-2">
-                        {allClassesRaw?.filter(c => c.board?.toLowerCase() === "samacheer")
+                        {allClassesRaw
+                          ?.filter((c) => c.board?.toLowerCase() === "samacheer")
                           .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                          .map(c => (
-                            <Button key={c.id} variant="outline" size="sm" onClick={() => {
-                              setSelectedClass(c.name);
-                              setActiveBoard("samacheer");
-                              document.getElementById('study-materials-section')?.scrollIntoView({ behavior: 'smooth' });
-                            }} className="rounded-lg border-gray-200 hover:border-purple-500 hover:text-purple-600 transition-colors">{c.name}</Button>
+                          .map((c) => (
+                            <Button
+                              key={c.id}
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setSelectedClass(c.name);
+                                setActiveBoard("samacheer");
+                                document
+                                  .getElementById("study-materials-section")
+                                  ?.scrollIntoView({ behavior: "smooth" });
+                              }}
+                              className="rounded-lg border-gray-200 hover:border-purple-500 hover:text-purple-600 transition-colors"
+                            >
+                              {c.name}
+                            </Button>
                           ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-                  <AccordionItem value="samacheer-chapter-wise" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Chapter Wise Test Questions</AccordionTrigger>
+                  <AccordionItem
+                    value="samacheer-chapter-wise"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      Chapter Wise Test Questions
+                    </AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Structured test questions for every chapter in the Samacheer Kalvi syllabus.
+                      Structured test questions for every chapter in the
+                      Samacheer Kalvi syllabus.
                     </AccordionContent>
                   </AccordionItem>
-                  <AccordionItem value="samacheer-model-papers" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Model Board Question Papers</AccordionTrigger>
+                  <AccordionItem
+                    value="samacheer-model-papers"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      Model Board Question Papers
+                    </AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Expertly drafted model papers following the state board guidelines.
+                      Expertly drafted model papers following the state board
+                      guidelines.
                     </AccordionContent>
                   </AccordionItem>
-                  <AccordionItem value="samacheer-previous-year" className="border-gray-100">
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">Previous Years Board QP</AccordionTrigger>
+                  <AccordionItem
+                    value="samacheer-previous-year"
+                    className="border-gray-100"
+                  >
+                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
+                      Previous Years Board QP
+                    </AccordionTrigger>
                     <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Review actual papers from previous years to gauge the difficulty and recurring topics.
+                      Review actual papers from previous years to gauge the
+                      difficulty and recurring topics.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -359,10 +481,16 @@ export default function StudyMaterialPage() {
           </div>
 
           {/* Dynamic Filter Section */}
-          <div id="study-materials-section" className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
+          <div
+            id="study-materials-section"
+            className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100"
+          >
             <div className="text-center mb-12">
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-                Download Free <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Study Materials</span>
+                Download Free{" "}
+                <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                  Study Materials
+                </span>
               </h2>
               <p className="text-lg text-gray-500 font-normal text-center">
                 Filter by class and board to find specific resources
@@ -371,13 +499,15 @@ export default function StudyMaterialPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
               <div className="relative min-w-[180px] w-full lg:w-auto">
-                <select 
+                <select
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
                   className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
                 >
                   {availableClasses.map((c) => (
-                    <option key={c.id} value={c.name}>{c.name}</option>
+                    <option key={c.id} value={c.name}>
+                      {c.name}
+                    </option>
                   ))}
                   {availableClasses.length === 0 && (
                     <option disabled>No classes available</option>
@@ -390,7 +520,7 @@ export default function StudyMaterialPage() {
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "cbse"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -401,7 +531,7 @@ export default function StudyMaterialPage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-500 min-w-[140px] text-sm tracking-tight",
+                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
                     activeBoard === "samacheer"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -417,15 +547,23 @@ export default function StudyMaterialPage() {
                   <PopoverTrigger asChild>
                     <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
                       <span className="truncate">{selectedSubject}</span>
-                      <ChevronDown className={cn("h-4 w-4 text-gray-400 transition-transform", isSubjectOpen && "rotate-180")} />
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 text-gray-400 transition-transform",
+                          isSubjectOpen && "rotate-180"
+                        )}
+                      />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 rounded-xl border-gray-100 shadow-2xl" align="end">
+                  <PopoverContent
+                    className="w-[var(--radix-popover-trigger-width)] p-0 rounded-xl border-gray-100 shadow-2xl"
+                    align="end"
+                  >
                     <div className="p-3 border-b border-gray-50">
                       <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
-                        <Input 
-                          placeholder="Search subjects..." 
+                        <Input
+                          placeholder="Search subjects..."
                           value={subjectSearch}
                           onChange={(e) => setSubjectSearch(e.target.value)}
                           className="h-9 pl-9 border-none bg-gray-50 rounded-lg text-xs focus-visible:ring-teal-500"
@@ -435,7 +573,9 @@ export default function StudyMaterialPage() {
                     <ScrollArea className="h-60">
                       <div className="p-1">
                         {filteredSubjectsForDropdown.length === 0 ? (
-                          <div className="p-4 text-center text-xs text-gray-400">No subjects found</div>
+                          <div className="p-4 text-center text-xs text-gray-400">
+                            No subjects found
+                          </div>
                         ) : (
                           filteredSubjectsForDropdown.map((sub) => (
                             <button
@@ -447,8 +587,8 @@ export default function StudyMaterialPage() {
                               }}
                               className={cn(
                                 "w-full text-left px-4 py-2.5 text-xs font-bold rounded-lg transition-colors",
-                                selectedSubject === sub 
-                                  ? "bg-teal-50 text-teal-600" 
+                                selectedSubject === sub
+                                  ? "bg-teal-50 text-teal-600"
                                   : "text-gray-600 hover:bg-gray-50"
                               )}
                             >
@@ -471,8 +611,13 @@ export default function StudyMaterialPage() {
             ) : displayMaterials.length === 0 ? (
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 font-bold">No study materials found for {selectedSubject} in {selectedClass} ({activeBoard.toUpperCase()}).</p>
-                <p className="text-gray-400 text-sm mt-1">Please try another class or check back later.</p>
+                <p className="text-gray-500 font-bold">
+                  No study materials found for {selectedSubject} in{" "}
+                  {selectedClass} ({activeBoard.toUpperCase()}).
+                </p>
+                <p className="text-gray-400 text-sm mt-1">
+                  Please try another class or check back later.
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -487,23 +632,52 @@ export default function StudyMaterialPage() {
                     )}
                   >
                     <div className="flex items-start justify-between mb-6">
-                      <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative", material.iconContainerBg)}>
-                        <div className={cn("relative flex items-center justify-center", material.iconColor)}>
-                          <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+                      <div
+                        className={cn(
+                          "w-16 h-16 rounded-2xl flex items-center justify-center relative",
+                          material.iconContainerBg
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            "relative flex items-center justify-center",
+                            material.iconColor
+                          )}
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-10 h-10"
+                          >
                             <path d="M6 2C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2H6Z" />
                           </svg>
-                          <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
+                          <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">
+                            PDF
+                          </span>
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1">
-                        <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
+                        <span
+                          className={cn(
+                            "px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm",
+                            material.themeColor
+                          )}
+                        >
+                          {material.grade}
+                        </span>
                         {material.subject && (
-                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{material.subject}</span>
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
+                            {material.subject}
+                          </span>
                         )}
                       </div>
                     </div>
-                    <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left">{material.title}</h3>
-                    <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
+                    <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left">
+                      {material.title}
+                    </h3>
+                    <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">
+                      {material.desc}
+                    </p>
                     <Button
                       asChild
                       className={cn(
@@ -512,7 +686,11 @@ export default function StudyMaterialPage() {
                         material.hoverThemeColor
                       )}
                     >
-                      <a href={material.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={material.pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Download className="w-5 h-5" />
                         Download PDF
                       </a>
