@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -7,7 +8,6 @@ import {
   Save, 
   Loader2, 
   Upload,
-  Trash2,
   Sparkles,
   Star,
   Award,
@@ -113,16 +113,17 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       rankOrder: 1,
       year: "",
       imageUrl: "",
-      badgeColor: "",
-      iconColor: "",
-      marksColor: "",
-      rankIcon: "",
+      badgeColor: "bg-blue-600",
+      iconColor: "bg-blue-600",
+      marksColor: "text-blue-600",
+      rankIcon: "Star",
     },
   });
 
+  // DIAGNOSTIC STAGE 1 & 2 & 3: FETCH AND RESET
   useEffect(() => {
     if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving) {
-      console.log("DIAGNOSTIC - STAGE 1: Raw Firestore Performer Data:", performer);
+      console.log("STAGE 1: Raw Firestore Fetch:", performer);
 
       const normalizedData = {
         name: String(performer.name || ""),
@@ -132,15 +133,15 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         rankOrder: Number(performer.rankOrder || 1),
         year: String(performer.year || ""),
         imageUrl: String(performer.imageUrl || ""),
-        badgeColor: String(performer.badgeColor || ""),
-        iconColor: String(performer.iconColor || ""),
-        marksColor: String(performer.marksColor || ""),
-        rankIcon: String(performer.rankIcon || ""),
+        badgeColor: String(performer.badgeColor || "bg-blue-600"),
+        iconColor: String(performer.iconColor || "bg-blue-600"),
+        marksColor: String(performer.marksColor || "text-blue-600"),
+        rankIcon: String(performer.rankIcon || "Star"),
       };
 
-      console.log("DIAGNOSTIC - STAGE 2: Data for Reset:", normalizedData);
+      console.log("STAGE 2: Normalized Data for Reset:", normalizedData);
       form.reset(normalizedData);
-      console.log("DIAGNOSTIC - STAGE 3: Form State After Reset:", form.getValues());
+      console.log("STAGE 3: Form State After Reset:", form.getValues());
     }
   }, [performer, yearsList, performerLoading, yearsLoading, form, isSaving]);
 
@@ -163,34 +164,36 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
-    console.log("DIAGNOSTIC - STAGE 5: Form Data Captured:", formData);
+    // STAGE 5: FORM CAPTURE
+    console.log("STAGE 5: Form Data On Submit:", formData);
 
-    const updatePayload: any = {
+    const cleanData: any = {
       ...formData,
-      // Defensive fallback: if form has empty string but DB has value, keep DB value
+      // DEFENSIVE FALLBACK: Keep DB value if form has empty string
       year: formData.year || performer.year,
-      marksColor: formData.marksColor || performer.marksColor,
-      badgeColor: formData.badgeColor || performer.badgeColor,
-      iconColor: formData.iconColor || performer.iconColor,
-      rankIcon: formData.rankIcon || performer.rankIcon,
+      marksColor: formData.marksColor || performer.marksColor || "text-blue-600",
+      badgeColor: formData.badgeColor || performer.badgeColor || "bg-blue-600",
+      iconColor: formData.iconColor || performer.iconColor || "bg-blue-600",
+      rankIcon: formData.rankIcon || performer.rankIcon || "Star",
       updatedAt: serverTimestamp(),
     };
 
-    // Final purge of any keys that resulted in empty values to avoid overwriting with ""
-    Object.keys(updatePayload).forEach((key) => {
-      if (updatePayload[key] === "" || updatePayload[key] === undefined || updatePayload[key] === null) {
-        delete updatePayload[key];
+    // Remove any actual undefined keys
+    Object.keys(cleanData).forEach((key) => {
+      if (cleanData[key] === undefined || cleanData[key] === null) {
+        delete cleanData[key];
       }
     });
 
-    console.log("DIAGNOSTIC - STAGE 6: Final Clean Payload:", updatePayload);
+    // STAGE 6: FINAL PAYLOAD
+    console.log("STAGE 6: Final Clean Data to Firestore:", cleanData);
 
     try {
-      await updateDoc(doc(firestore, "top-performers", performerId), updatePayload);
+      await updateDoc(doc(firestore, "top-performers", performerId), cleanData);
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
-      console.error("DIAGNOSTIC - ERROR:", error);
+      console.error("Submission Error:", error);
       toast({ variant: "destructive", title: "Update Failed", description: error.message });
       setIsSaving(false);
     }
@@ -235,7 +238,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
             </CardHeader>
             <CardContent className="p-10 pt-8 space-y-8 text-left">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Photo Upload */}
                 <div className="md:col-span-2 space-y-4">
                   <Label className="text-xs font-black uppercase text-gray-400">Student Photo</Label>
                   <div className="flex items-center gap-8">
@@ -263,7 +265,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Student Name</FormLabel>
                       <FormControl>
                         <Input placeholder="Full Name" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -277,7 +279,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="grade"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Class / Board</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. Class 10, CBSE" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -291,7 +293,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="marks"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Total Marks / Percentage</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. 98.6%" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -305,9 +307,10 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="year"
                   render={({ field }) => {
-                    console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
+                    // STAGE 4: BINDING VERIFICATION
+                    console.log("STAGE 4: Dropdown [year] current value:", field.value);
                     return (
-                      <FormItem className="space-y-3 text-left">
+                      <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
                         <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
@@ -331,7 +334,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="rank"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Text</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. Rank 1" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -345,7 +348,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="rankOrder"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Order (Sorting)</FormLabel>
                       <FormControl>
                         <div className="relative">
@@ -362,9 +365,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   control={form.control}
                   name="rankIcon"
                   render={({ field }) => {
-                    console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
+                    console.log("STAGE 4: Dropdown [rankIcon] current value:", field.value);
                     return (
-                      <FormItem className="space-y-3 text-left">
+                      <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
                         <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
@@ -389,7 +392,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 />
               </div>
 
-              {/* Visual Branding Section */}
               <div className="pt-10 border-t border-gray-50 text-left">
                 <h4 className="text-sm font-black text-gray-900 mb-8 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-blue-600" /> Style Configuration
@@ -399,9 +401,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     control={form.control}
                     name="badgeColor"
                     render={({ field }) => {
-                      console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
+                      console.log("STAGE 4: Dropdown [badgeColor] current value:", field.value);
                       return (
-                        <FormItem className="space-y-3 text-left">
+                        <FormItem className="space-y-3">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
@@ -409,7 +411,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                                 <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="rounded-xl shadow-xl">
+                            <SelectContent className="rounded-xl">
                               {colorOptions.map(opt => (
                                 <SelectItem key={opt.value} value={opt.value}>
                                   <div className="flex items-center gap-2">
@@ -428,9 +430,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     control={form.control}
                     name="iconColor"
                     render={({ field }) => {
-                      console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
+                      console.log("STAGE 4: Dropdown [iconColor] current value:", field.value);
                       return (
-                        <FormItem className="space-y-3 text-left">
+                        <FormItem className="space-y-3">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
@@ -438,7 +440,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                                 <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="rounded-xl shadow-xl">
+                            <SelectContent className="rounded-xl">
                               {colorOptions.map(opt => (
                                 <SelectItem key={opt.value} value={opt.value}>
                                   <div className="flex items-center gap-2">
@@ -457,9 +459,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     control={form.control}
                     name="marksColor"
                     render={({ field }) => {
-                      console.log(`DIAGNOSTIC - STAGE 4: Binding [${field.name}] Current:`, field.value);
+                      console.log("STAGE 4: Dropdown [marksColor] current value:", field.value);
                       return (
-                        <FormItem className="space-y-3 text-left">
+                        <FormItem className="space-y-3">
                           <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
                           <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
@@ -467,7 +469,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                                 <SelectValue placeholder="Color" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="rounded-xl shadow-xl">
+                            <SelectContent className="rounded-xl">
                               {colorOptions.map(opt => (
                                 <SelectItem key={opt.text} value={opt.text}>
                                   <div className="flex items-center gap-2">

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -7,7 +8,6 @@ import {
   Save, 
   Loader2, 
   Upload,
-  Trash2,
   Sparkles,
   Star,
   Award,
@@ -124,17 +124,28 @@ export default function CreatePerformerPage() {
     if (!firestore) return;
     setIsSubmitting(true);
 
+    // DEBUG LOG
+    console.log("Create Performer Payload (Raw):", values);
+
     try {
       const performerData = {
         ...values,
+        // Safety check: Fallback to defaults if somehow empty
+        badgeColor: values.badgeColor || "bg-blue-600",
+        iconColor: values.iconColor || "bg-blue-600",
+        marksColor: values.marksColor || "text-blue-600",
+        rankIcon: values.rankIcon || "Star",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       };
+
+      console.log("Create Performer Payload (Finalized):", performerData);
 
       await addDoc(collection(firestore, 'top-performers'), performerData);
       toast({ title: "Performer Added", description: `${values.name} is now in the Hall of Fame.` });
       router.push("/admin/top-performers");
     } catch (error: any) {
+      console.error("Submission Error:", error);
       toast({ variant: "destructive", title: "Failed", description: error.message });
       setIsSubmitting(false);
     }
@@ -186,7 +197,7 @@ export default function CreatePerformerPage() {
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Student Name</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. Ananya Krishnan" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -200,7 +211,7 @@ export default function CreatePerformerPage() {
                   control={form.control}
                   name="grade"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Class / Board</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. Class 10, CBSE" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -214,7 +225,7 @@ export default function CreatePerformerPage() {
                   control={form.control}
                   name="marks"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Total Marks / Percentage</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. 98.6%" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -228,7 +239,7 @@ export default function CreatePerformerPage() {
                   control={form.control}
                   name="year"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
                       <Select value={field.value || ""} onValueChange={field.onChange}>
                         <FormControl>
@@ -251,7 +262,7 @@ export default function CreatePerformerPage() {
                   control={form.control}
                   name="rank"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Text</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. Rank 1" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -265,7 +276,7 @@ export default function CreatePerformerPage() {
                   control={form.control}
                   name="rankOrder"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Order (Sorting)</FormLabel>
                       <FormControl>
                         <div className="relative">
@@ -282,7 +293,7 @@ export default function CreatePerformerPage() {
                   control={form.control}
                   name="rankIcon"
                   render={({ field }) => (
-                    <FormItem className="space-y-3 text-left">
+                    <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
                       <Select value={field.value || ""} onValueChange={field.onChange}>
                         <FormControl>
@@ -315,7 +326,7 @@ export default function CreatePerformerPage() {
                     control={form.control}
                     name="badgeColor"
                     render={({ field }) => (
-                      <FormItem className="space-y-3 text-left">
+                      <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
                         <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
@@ -341,7 +352,7 @@ export default function CreatePerformerPage() {
                     control={form.control}
                     name="iconColor"
                     render={({ field }) => (
-                      <FormItem className="space-y-3 text-left">
+                      <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
                         <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
@@ -367,7 +378,7 @@ export default function CreatePerformerPage() {
                     control={form.control}
                     name="marksColor"
                     render={({ field }) => (
-                      <FormItem className="space-y-3 text-left">
+                      <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
                         <Select value={field.value || ""} onValueChange={field.onChange}>
                           <FormControl>
