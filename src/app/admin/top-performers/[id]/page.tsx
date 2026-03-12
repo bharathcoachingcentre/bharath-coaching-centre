@@ -96,7 +96,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     return doc(firestore, "top-performers", performerId);
   }, [firestore, performerId]);
 
-  const { data: performer, loading } = useDoc(docRef);
+  const { data: performer, loading: performerLoading } = useDoc(docRef);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -115,8 +115,9 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
+  // Populate form when data arrives
   useEffect(() => {
-    if (performer) {
+    if (performer && !isSaving) {
       form.reset({
         name: performer.name || "",
         grade: performer.grade || "",
@@ -131,7 +132,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         rankIcon: performer.rankIcon || "Star",
       });
     }
-  }, [performer, form]);
+  }, [performer, form, isSaving]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -142,7 +143,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       }
       const reader = new FileReader();
       reader.onloadend = () => {
-        form.setValue("imageUrl", reader.result as string);
+        form.setValue("imageUrl", reader.result as string, { shouldDirty: true });
       };
       reader.readAsDataURL(file);
     }
@@ -166,11 +167,22 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     }
   };
 
-  if (loading) {
+  if (performerLoading || yearsLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400">Loading Record...</p>
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Loading Performer Data...</p>
+      </div>
+    );
+  }
+
+  if (!performer) {
+    return (
+      <div className="text-center py-32 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-900">Performer Not Found</h2>
+        <Button asChild variant="outline">
+          <Link href="/admin/top-performers">Back to List</Link>
+        </Button>
       </div>
     );
   }
@@ -224,7 +236,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Student Name</FormLabel>
                       <FormControl>
-                        <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                        <Input placeholder="Full Name" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -238,7 +250,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Class / Board</FormLabel>
                       <FormControl>
-                        <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                        <Input placeholder="e.g. Class 10, CBSE" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -252,7 +264,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Total Marks / Percentage</FormLabel>
                       <FormControl>
-                        <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                        <Input placeholder="e.g. 98.6%" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -268,16 +280,13 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
-                            <SelectValue placeholder={yearsLoading ? "Loading years..." : "Select year"} />
+                            <SelectValue placeholder="Select year" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="rounded-xl border-gray-100 shadow-xl">
                           {yearsList?.map(y => (
                             <SelectItem key={y.id} value={y.year}>{y.year}</SelectItem>
                           ))}
-                          {yearsList?.length === 0 && !yearsLoading && (
-                            <SelectItem value="none" disabled>No years added in dashboard</SelectItem>
-                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -292,7 +301,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Text</FormLabel>
                       <FormControl>
-                        <Input {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                        <Input placeholder="e.g. Rank 1" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
