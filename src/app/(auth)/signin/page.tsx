@@ -50,7 +50,10 @@ export default function SignInPage() {
         setIsLoading(true);
         try {
             const { auth } = initializeFirebase();
-            await signInWithEmailAndPassword(auth, values.email, values.password);
+            // Trim email to prevent common auto-fill issues
+            const email = values.email.trim();
+            await signInWithEmailAndPassword(auth, email, values.password);
+            
             toast({
                 title: "Welcome Back",
                 description: "Successfully signed in to your account.",
@@ -58,10 +61,24 @@ export default function SignInPage() {
             router.push("/admin");
         } catch (error: any) {
             console.error("Login error:", error);
+            
+            let errorMessage = "Invalid email or password.";
+            
+            // Handle specific Firebase Auth error codes
+            if (error.code === 'auth/invalid-credential') {
+                errorMessage = "The email or password you entered is incorrect. Please try again.";
+            } else if (error.code === 'auth/user-not-found') {
+                errorMessage = "No account found with this email address.";
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = "Incorrect password. Please try again.";
+            } else if (error.code === 'auth/too-many-requests') {
+                errorMessage = "Too many failed attempts. Please try again later or reset your password.";
+            }
+
             toast({
                 variant: "destructive",
                 title: "Authentication Failed",
-                description: error.message || "Invalid email or password.",
+                description: errorMessage,
             });
         } finally {
             setIsLoading(false);
@@ -70,7 +87,8 @@ export default function SignInPage() {
 
     const handleForgotPassword = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!resetEmail) {
+        const email = resetEmail.trim();
+        if (!email) {
             toast({
                 variant: "destructive",
                 title: "Email Required",
@@ -82,7 +100,7 @@ export default function SignInPage() {
         setIsResetting(true);
         try {
             const { auth } = initializeFirebase();
-            await sendPasswordResetEmail(auth, resetEmail);
+            await sendPasswordResetEmail(auth, email);
             toast({
                 title: "Reset Link Sent",
                 description: "Check your email inbox for instructions to reset your password.",

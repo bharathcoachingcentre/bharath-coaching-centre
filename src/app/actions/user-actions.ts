@@ -17,8 +17,8 @@ export async function updateUserCredentialsAction(uid: string, data: {
 
     // 1. Update Authentication Record
     const authUpdate: any = {};
-    if (data.email) authUpdate.email = data.email;
-    if (data.password) authUpdate.password = data.password;
+    if (data.email) authUpdate.email = data.email.trim();
+    if (data.password && data.password.length >= 6) authUpdate.password = data.password;
     if (data.displayName) authUpdate.displayName = data.displayName;
     if (data.photoURL) authUpdate.photoURL = data.photoURL;
 
@@ -27,7 +27,10 @@ export async function updateUserCredentialsAction(uid: string, data: {
     }
 
     // 2. Update Firestore Record
+    // Remove password from firestore data object to avoid storing plain text passwords
     const { password, ...firestoreData } = data;
+    if (firestoreData.email) firestoreData.email = firestoreData.email.trim();
+
     await db.collection('users').doc(uid).set({
       ...firestoreData,
       updatedAt: new Date().toISOString(),
@@ -55,9 +58,11 @@ export async function createUserAccountAction(data: {
     const auth = getAdminAuth();
     const db = getAdminFirestore();
 
+    const cleanEmail = data.email.trim();
+
     // 1. Create Authentication User
     const userRecord = await auth.createUser({
-      email: data.email,
+      email: cleanEmail,
       password: data.password || 'Temporary123!', // Fallback password
       displayName: data.displayName,
       photoURL: data.photoURL,
@@ -65,6 +70,8 @@ export async function createUserAccountAction(data: {
 
     // 2. Create Firestore Profile
     const { password, ...firestoreData } = data;
+    firestoreData.email = cleanEmail;
+
     await db.collection('users').doc(userRecord.uid).set({
       ...firestoreData,
       uid: userRecord.uid,
