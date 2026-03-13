@@ -106,6 +106,12 @@ const defaultPageData: Record<string, any> = {
     appSubtitle: "Learn anytime, anywhere with our mobile app",
     playStoreLink: "#",
     appStoreLink: "#",
+    copyrightText: "© 2026 Bharath Academy Hub. All rights reserved.",
+    bottomLinks: [
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms", href: "#" },
+      { label: "Refund Policy", href: "#" },
+    ],
     menus: [
       {
         title: "Company",
@@ -871,6 +877,80 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <Label className="text-sm font-bold text-gray-700">Apple App Store Link</Label>
                         <Input value={formData.appStoreLink || ""} onChange={(e) => updateField('appStoreLink', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6" />
                       </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Copyright & Legal Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Copyright & Legal Links</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Copyright Text</Label>
+                    <Input 
+                      value={formData.copyrightText || ""} 
+                      onChange={(e) => updateField('copyrightText', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      placeholder="© 2026 Bharath Academy Hub. All rights reserved."
+                    />
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Legal Links (Bottom Row)</Label>
+                      <Button 
+                        onClick={() => {
+                          const currentLinks = formData.bottomLinks || [];
+                          updateField('bottomLinks', [...currentLinks, { label: "New Link", href: "#" }]);
+                        }}
+                        variant="outline"
+                        size="sm"
+                        className="rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                      >
+                        <Plus className="w-4 h-4" /> Add Link
+                      </Button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {(formData.bottomLinks || []).map((link: any, linkIdx: number) => (
+                        <div key={linkIdx} className="flex items-center gap-2 p-4 bg-gray-50 rounded-2xl border border-gray-100 group relative">
+                          <div className="flex-grow space-y-2">
+                            <Input 
+                              value={link.label} 
+                              onChange={(e) => {
+                                const newLinks = [...formData.bottomLinks];
+                                newLinks[linkIdx].label = e.target.value;
+                                updateField('bottomLinks', newLinks);
+                              }}
+                              className="h-10 text-sm border-none bg-white rounded-lg"
+                              placeholder="Label"
+                            />
+                            <Input 
+                              value={link.href} 
+                              onChange={(e) => {
+                                const newLinks = [...formData.bottomLinks];
+                                newLinks[linkIdx].href = e.target.value;
+                                updateField('bottomLinks', newLinks);
+                              }}
+                              className="h-10 text-sm border-none bg-white rounded-lg"
+                              placeholder="URL"
+                            />
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            onClick={() => {
+                              const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== linkIdx);
+                              updateField('bottomLinks', newLinks);
+                            }}
+                            className="text-gray-300 hover:text-red-500"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </Button>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </CardContent>

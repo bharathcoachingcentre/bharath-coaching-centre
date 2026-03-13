@@ -33,6 +33,12 @@ export function Footer() {
       appSubtitle: "Learn anytime, anywhere with our mobile app",
       playStoreLink: "#",
       appStoreLink: "#",
+      copyrightText: `© ${new Date().getFullYear()} Bharath Academy Hub. All rights reserved.`,
+      bottomLinks: [
+        { label: "Privacy Policy", href: "#" },
+        { label: "Terms", href: "#" },
+        { label: "Refund Policy", href: "#" },
+      ],
       menus: [
         {
           title: "Company",
@@ -183,12 +189,14 @@ export function Footer() {
         <div className="border-t border-gray-800 py-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-gray-500 text-sm font-medium">
-              © {currentYear} Bharath Academy Hub. All rights reserved.
+              {content.copyrightText}
             </p>
             <div className="flex gap-8 text-sm font-normal">
-              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Privacy Policy</Link>
-              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Terms</Link>
-              <Link href="#" className="text-gray-500 hover:text-white transition-colors duration-200">Refund Policy</Link>
+              {(content.bottomLinks || []).map((link: any, idx: number) => (
+                <Link key={idx} href={link.href} className="text-gray-500 hover:text-white transition-colors duration-200">
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
