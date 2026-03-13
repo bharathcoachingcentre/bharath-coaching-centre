@@ -1087,7 +1087,7 @@ export default function HomePage() {
                   alt="Mentorship"
                   width={584}
                   height={500}
-                  className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[500px] object-cover transform hover:scale-105 transition-transform duration-700"
                   data-ai-hint="student mentorship"
                 />
               </div>
@@ -1176,7 +1176,7 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
               {content.whyChooseTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.whyChooseTitleHighlight}</span>
             </h2>
             <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
