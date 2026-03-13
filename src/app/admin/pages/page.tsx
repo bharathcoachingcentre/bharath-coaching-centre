@@ -13,7 +13,9 @@ import {
   ArrowRight,
   Globe,
   PanelTop,
-  PanelBottom
+  PanelBottom,
+  BookOpen,
+  BookMarked
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -51,6 +53,14 @@ const pages = [
     icon: Info, 
     color: "bg-teal-500", 
     bg: "bg-teal-50" 
+  },
+  { 
+    id: "study-material", 
+    title: "Study Materials", 
+    description: "Premium learning cards and resource hub settings", 
+    icon: BookMarked, 
+    color: "bg-cyan-500", 
+    bg: "bg-cyan-50" 
   },
   { 
     id: "results", 

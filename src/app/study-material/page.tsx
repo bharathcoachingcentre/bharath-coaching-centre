@@ -26,11 +26,13 @@ import {
   ChevronDown,
   Loader2,
   Search,
+  FileCheck,
+  Award
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy } from "firebase/firestore";
+import { useFirestore, useCollection, useDoc } from "@/firebase";
+import { collection, query, orderBy, doc } from "firebase/firestore";
 
 const materialStyles = [
   {
@@ -107,6 +109,14 @@ const materialStyles = [
   },
 ];
 
+const iconMap: Record<string, any> = {
+  BookOpen: BookOpen,
+  FileText: FileText,
+  GraduationCap: GraduationCap,
+  FileCheck: FileCheck,
+  Award: Award
+};
+
 const AnimatedSection = ({
   children,
   className,
@@ -143,6 +153,61 @@ export default function StudyMaterialPage() {
   const [subjectSearch, setSubjectSearch] = useState("");
   const [isSubjectOpen, setIsSubjectOpen] = useState(false);
 
+  // Fetch Page Content
+  const pageRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, "pages", "study-material");
+  }, [firestore]);
+  const { data: pageData, loading: pageLoading } = useDoc(pageRef);
+
+  const content = useMemo(() => {
+    const defaults = {
+      premiumTitleMain: "Access ",
+      premiumTitleHighlight: "Premium Learning",
+      premiumCards: [
+        {
+          icon: "BookOpen",
+          title: "CBSE",
+          description: "Complete NCERT solutions and chapter-wise practice questions",
+          accentColor: "blue",
+          accordions: [
+            { title: "CBSE NCERT Solutions", content: "Select your class below to access full NCERT book back solutions for all core subjects." },
+            { title: "CBSE Chapter Wise Test Questions", content: "Deep dive into specific chapters with our curated list of test questions designed to test core conceptual understanding." }
+          ]
+        },
+        {
+          icon: "FileText",
+          title: "Model Papers",
+          description: "Board question papers and previous year papers for preparation",
+          accentColor: "teal",
+          accordions: [
+            { title: "Board Question Papers", content: "Practice with the latest model board papers to understand the exam pattern and marking schemes." },
+            { title: "Previous Year Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
+          ]
+        },
+        {
+          icon: "GraduationCap",
+          title: "Samacheer",
+          description: "Book back solutions and comprehensive test materials for state board",
+          accentColor: "purple",
+          accordions: [
+            { title: "Book Back Solutions", content: "Comprehensive solutions for all textbook exercises across the Samacheer Kalvi syllabus." },
+            { title: "Chapter Wise Test Questions", content: "Structured test questions for every chapter in the Samacheer Kalvi syllabus." },
+            { title: "Model Board Question Papers", content: "Expertly drafted model papers following the state board guidelines." },
+            { title: "Previous Years Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
+          ]
+        }
+      ],
+      materialsTitleMain: "Download Free ",
+      materialsTitleHighlight: "Study Materials",
+      materialsSubtitle: "Filter by class and board to find specific resources for your curriculum"
+    };
+
+    if (!pageData?.content) return defaults;
+    return { ...defaults, ...pageData.content };
+  }, [pageData]);
+
+  // Fetch Entity Collections
   const materialsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(
@@ -154,7 +219,6 @@ export default function StudyMaterialPage() {
   const { data: allMaterials, loading: materialsLoading } =
     useCollection(materialsQuery);
 
-  // Fetch Classes
   const classesQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, "classes"));
@@ -168,7 +232,6 @@ export default function StudyMaterialPage() {
       .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   }, [allClassesRaw, activeBoard]);
 
-  // Ensure selectedClass is valid for the current board
   useEffect(() => {
     if (availableClasses.length > 0) {
       const exists = availableClasses.find((c) => c.name === selectedClass);
@@ -178,7 +241,6 @@ export default function StudyMaterialPage() {
     }
   }, [availableClasses, selectedClass]);
 
-  // Fetch Subjects
   const subjectsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, "subjects"), orderBy("name", "asc"));
@@ -224,6 +286,15 @@ export default function StudyMaterialPage() {
       });
   }, [allMaterials, selectedClass, activeBoard, selectedSubject]);
 
+  if (pageLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <Loader2 className="w-12 h-12 animate-spin text-blue-600 mb-4" />
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Syncing Resources...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="font-body antialiased">
       {/* Hero Section */}
@@ -247,253 +318,117 @@ export default function StudyMaterialPage() {
         </div>
       </section>
 
-      {/* Main Content Section */}
+      {/* Section 1: Access Premium Learning */}
       <AnimatedSection className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-blue-50/50 to-teal-50/50">
-        {/* Decorative Background Blobs */}
         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
         <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-[100px] -z-0"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight text-center">
-              Access{" "}
+              {content.premiumTitleMain}
               <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-                Premium Learning
+                {content.premiumTitleHighlight}
               </span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-10 mb-24">
-            {/* CBSE Card */}
-            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-blue-600" />
-              <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-blue-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center shadow-[0_10px_20px_rgba(37, 99, 235, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                    <BookOpen className="h-10 w-10 text-white" />
-                  </div>
-                </div>
-                <div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">
-                    CBSE
-                  </CardTitle>
-                  <p className="text-sm text-gray-500 font-medium mt-2">
-                    Complete NCERT solutions and chapter-wise practice
-                    questions
-                  </p>
-                </div>
-              </CardHeader>
-              <CardContent className="p-8 pt-0 flex-grow">
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem
-                    value="cbse-ncert-solutions"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      CBSE NCERT Solutions
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {allClassesRaw
-                          ?.filter((c) => c.board?.toLowerCase() === "cbse")
-                          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                          .map((c) => (
-                            <Button
-                              key={c.id}
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                setSelectedClass(c.name);
-                                setActiveBoard("cbse");
-                                document
-                                  .getElementById("study-materials-section")
-                                  ?.scrollIntoView({ behavior: "smooth" });
-                              }}
-                              className="rounded-lg border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-colors"
-                            >
-                              {c.name}
-                            </Button>
-                          ))}
+            {(content.premiumCards || []).map((card: any, idx: number) => {
+              const Icon = iconMap[card.icon] || BookOpen;
+              const accentColors: Record<string, string> = {
+                blue: "bg-blue-600",
+                teal: "bg-teal-500",
+                purple: "bg-purple-500",
+              };
+              const accent = card.accentColor || (idx === 0 ? "blue" : idx === 1 ? "teal" : "purple");
+              
+              return (
+                <Card key={idx} className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
+                  <div className={cn("absolute top-0 left-0 w-full h-1.5", accentColors[accent] || "bg-blue-600")} />
+                  <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
+                    <div className="relative">
+                      <div className={cn("absolute inset-0 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100", accent === 'blue' ? "bg-blue-600/20" : accent === 'teal' ? "bg-teal-500/20" : "bg-purple-500/20")}></div>
+                      <div className={cn("relative w-20 h-20 rounded-3xl flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.1)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 bg-gradient-to-tr text-white", 
+                        accent === 'blue' ? "from-blue-600 to-blue-400" : accent === 'teal' ? "from-teal-500 to-teal-400" : "from-purple-500 to-indigo-400")}>
+                        <Icon className="h-10 w-10" />
                       </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem
-                    value="cbse-chapter-wise-test"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      CBSE Chapter Wise Test Questions
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Deep dive into specific chapters with our curated list of
-                      test questions designed to test core conceptual
-                      understanding.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
-
-            {/* Model Papers Card */}
-            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-teal-500" />
-              <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-teal-500/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-teal-500 to-teal-400 flex items-center justify-center shadow-[0_10px_20px_rgba(20, 184, 166, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
-                    <FileText className="h-10 w-10 text-white" />
-                  </div>
-                </div>
-                <div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">
-                    Model Papers
-                  </CardTitle>
-                  <p className="text-sm text-gray-500 font-medium mt-2">
-                    Board question papers and previous year papers for
-                    preparation
-                  </p>
-                </div>
-              </CardHeader>
-              <CardContent className="p-8 pt-0 flex-grow">
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem
-                    value="board-question-papers"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      Board Question Papers
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Practice with the latest model board papers to understand
-                      the exam pattern and marking schemes.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem
-                    value="previous-year-papers"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      Previous Year Board QP
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Review actual papers from previous years to gauge the
-                      difficulty and recurring topics.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
-
-            {/* Samacheer Card */}
-            <Card className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-purple-500" />
-              <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-purple-500/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center shadow-[0_10px_20px_rgba(168, 85, 247, 0.3)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                    <GraduationCap className="h-10 w-10 text-white" />
-                  </div>
-                </div>
-                <div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">
-                    Samacheer
-                  </CardTitle>
-                  <p className="text-sm text-gray-500 font-medium mt-2">
-                    Book back solutions and comprehensive test materials for
-                    state board
-                  </p>
-                </div>
-              </CardHeader>
-              <CardContent className="p-8 pt-0 flex-grow">
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem
-                    value="samacheer-book-back"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      Book Back Solutions
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {allClassesRaw
-                          ?.filter((c) => c.board?.toLowerCase() === "samacheer")
-                          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                          .map((c) => (
-                            <Button
-                              key={c.id}
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                setSelectedClass(c.name);
-                                setActiveBoard("samacheer");
-                                document
-                                  .getElementById("study-materials-section")
-                                  ?.scrollIntoView({ behavior: "smooth" });
-                              }}
-                              className="rounded-lg border-gray-200 hover:border-purple-500 hover:text-purple-600 transition-colors"
-                            >
-                              {c.name}
-                            </Button>
-                          ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem
-                    value="samacheer-chapter-wise"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      Chapter Wise Test Questions
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Structured test questions for every chapter in the
-                      Samacheer Kalvi syllabus.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem
-                    value="samacheer-model-papers"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      Model Board Question Papers
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Expertly drafted model papers following the state board
-                      guidelines.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem
-                    value="samacheer-previous-year"
-                    className="border-gray-100"
-                  >
-                    <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm">
-                      Previous Years Board QP
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-500 text-xs py-4 leading-relaxed">
-                      Review actual papers from previous years to gauge the
-                      difficulty and recurring topics.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl font-bold text-gray-900">
+                        {card.title}
+                      </CardTitle>
+                      <p className="text-sm text-gray-500 font-medium mt-2">
+                        {card.description}
+                      </p>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-8 pt-0 flex-grow">
+                    <Accordion type="single" collapsible className="w-full">
+                      {(card.accordions || []).map((acc: any, accIdx: number) => (
+                        <AccordionItem
+                          key={accIdx}
+                          value={`${idx}-${accIdx}`}
+                          className="border-gray-100"
+                        >
+                          <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm text-left">
+                            {acc.title}
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="text-gray-500 text-xs py-2 leading-relaxed">
+                              {acc.content}
+                            </div>
+                            {(acc.title.includes("Solutions") || acc.title.includes("Class")) && (
+                              <div className="flex flex-wrap gap-2 pt-2">
+                                {allClassesRaw
+                                  ?.filter((c) => c.board?.toLowerCase() === card.title.toLowerCase() || (card.title === "Model Papers" && c.board?.toLowerCase() === "cbse"))
+                                  .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+                                  .map((c) => (
+                                    <Button
+                                      key={c.id}
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => {
+                                        setSelectedClass(c.name);
+                                        setActiveBoard(c.board?.toLowerCase() || "cbse");
+                                        document
+                                          .getElementById("study-materials-section")
+                                          ?.scrollIntoView({ behavior: "smooth" });
+                                      }}
+                                      className={cn("rounded-lg border-gray-200 transition-colors", 
+                                        accent === 'blue' ? "hover:border-blue-600 hover:text-blue-600" : 
+                                        accent === 'teal' ? "hover:border-teal-500 hover:text-teal-600" : 
+                                        "hover:border-purple-500 hover:text-purple-600")}
+                                    >
+                                      {c.name}
+                                    </Button>
+                                  ))}
+                              </div>
+                            )}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
 
-          {/* Dynamic Filter Section */}
+          {/* Section 2: Download Free Study Materials Hub */}
           <div
             id="study-materials-section"
             className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100"
           >
             <div className="text-center mb-12">
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
-                Download Free{" "}
+                {content.materialsTitleMain}
                 <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-                  Study Materials
+                  {content.materialsTitleHighlight}
                 </span>
               </h2>
               <p className="text-lg text-gray-500 font-normal text-center">
-                Filter by class and board to find specific resources
+                {content.materialsSubtitle}
               </p>
             </div>
 

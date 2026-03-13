@@ -55,7 +55,9 @@ import {
   MapPin,
   ExternalLink,
   Navigation,
-  List
+  List,
+  FileCheck,
+  FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -283,6 +285,46 @@ const defaultPageData: Record<string, any> = {
     ctaTitle: "Start Your Journey To Success",
     ctaSubtitle: "Experience the difference with our unique teaching methodology and personalized attention.",
     ctaBtnText: "Enroll Today"
+  },
+  "study-material": {
+    premiumTitleMain: "Access ",
+    premiumTitleHighlight: "Premium Learning",
+    premiumCards: [
+      {
+        icon: "BookOpen",
+        title: "CBSE",
+        description: "Complete NCERT solutions and chapter-wise practice questions",
+        accentColor: "blue",
+        accordions: [
+          { title: "CBSE NCERT Solutions", content: "Select your class below to access full NCERT book back solutions for all core subjects." },
+          { title: "CBSE Chapter Wise Test Questions", content: "Deep dive into specific chapters with our curated list of test questions designed to test core conceptual understanding." }
+        ]
+      },
+      {
+        icon: "FileText",
+        title: "Model Papers",
+        description: "Board question papers and previous year papers for preparation",
+        accentColor: "teal",
+        accordions: [
+          { title: "Board Question Papers", content: "Practice with the latest model board papers to understand the exam pattern and marking schemes." },
+          { title: "Previous Year Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
+        ]
+      },
+      {
+        icon: "GraduationCap",
+        title: "Samacheer",
+        description: "Book back solutions and comprehensive test materials for state board",
+        accentColor: "purple",
+        accordions: [
+          { title: "Book Back Solutions", content: "Comprehensive solutions for all textbook exercises across the Samacheer Kalvi syllabus." },
+          { title: "Chapter Wise Test Questions", content: "Structured test questions for every chapter in the Samacheer Kalvi syllabus." },
+          { title: "Model Board Question Papers", content: "Expertly drafted model papers following the state board guidelines." }
+        ]
+      }
+    ],
+    materialsTitleMain: "Download Free ",
+    materialsTitleHighlight: "Study Materials",
+    materialsSubtitle: "Filter by class and board to find specific resources for your curriculum"
   }
 };
 
@@ -315,7 +357,9 @@ const iconMap: Record<string, any> = {
   CalendarCheck: CalendarCheck,
   Clock: Clock,
   Laptop: Laptop,
-  Building: Building
+  Building: Building,
+  FileCheck: FileCheck,
+  FileText: FileText
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -2329,7 +2373,186 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && (
+          {/* Study Material Editor */}
+          {slug === 'study-material' && (
+            <div className="space-y-8 text-left">
+              {/* Section 1: Premium Learning Cards */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Access Premium Learning (Section 1)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Title</Label>
+                      <Input 
+                        value={formData.premiumTitleMain || ""} 
+                        onChange={(e) => updateField('premiumTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Title Highlight (Gradient)</Label>
+                      <Input 
+                        value={formData.premiumTitleHighlight || ""} 
+                        onChange={(e) => updateField('premiumTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-8">
+                    {(formData.premiumCards || []).map((card: any, cardIdx: number) => (
+                      <div key={cardIdx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Card Heading</Label>
+                            <Input 
+                              value={card.title} 
+                              onChange={(e) => {
+                                const newCards = [...formData.premiumCards];
+                                newCards[cardIdx].title = e.target.value;
+                                updateField('premiumCards', newCards);
+                              }}
+                              className="h-12 bg-white rounded-xl font-bold"
+                            />
+                          </div>
+                          <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Icon Name (Lucide)</Label>
+                            <Input 
+                              value={card.icon} 
+                              onChange={(e) => {
+                                const newCards = [...formData.premiumCards];
+                                newCards[cardIdx].icon = e.target.value;
+                                updateField('premiumCards', newCards);
+                              }}
+                              className="h-12 bg-white rounded-xl"
+                              placeholder="BookOpen, GraduationCap, etc."
+                            />
+                          </div>
+                          <div className="md:col-span-2 space-y-3">
+                            <Label className="text-xs font-black uppercase text-gray-400">Description</Label>
+                            <Textarea 
+                              value={card.description} 
+                              onChange={(e) => {
+                                const newCards = [...formData.premiumCards];
+                                newCards[cardIdx].description = e.target.value;
+                                updateField('premiumCards', newCards);
+                              }}
+                              className="h-20 bg-white rounded-xl resize-none"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-4 pt-4 border-t border-gray-200">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Accordion Items</Label>
+                            <Button 
+                              onClick={() => {
+                                const newCards = [...formData.premiumCards];
+                                newCards[cardIdx].accordions = [...(newCards[cardIdx].accordions || []), { title: "New Accordion", content: "" }];
+                                updateField('premiumCards', newCards);
+                              }}
+                              variant="outline"
+                              size="sm"
+                              className="h-8 rounded-lg text-xs font-bold"
+                            >
+                              <Plus className="w-3.5 h-3.5 mr-1" /> Add Item
+                            </Button>
+                          </div>
+                          <div className="space-y-3">
+                            {(card.accordions || []).map((acc: any, accIdx: number) => (
+                              <div key={accIdx} className="p-4 bg-white rounded-2xl border border-gray-100 relative group/acc">
+                                <div className="space-y-3">
+                                  <Input 
+                                    value={acc.title} 
+                                    onChange={(e) => {
+                                      const newCards = [...formData.premiumCards];
+                                      newCards[cardIdx].accordions[accIdx].title = e.target.value;
+                                      updateField('premiumCards', newCards);
+                                    }}
+                                    className="h-9 text-xs font-bold border-none bg-gray-50 rounded-lg"
+                                    placeholder="Accordion Title"
+                                  />
+                                  <Textarea 
+                                    value={acc.content} 
+                                    onChange={(e) => {
+                                      const newCards = [...formData.premiumCards];
+                                      newCards[cardIdx].accordions[accIdx].content = e.target.value;
+                                      updateField('premiumCards', newCards);
+                                    }}
+                                    className="min-h-[60px] text-xs border-none bg-gray-50 rounded-lg resize-none"
+                                    placeholder="Accordion Content"
+                                  />
+                                </div>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon" 
+                                  onClick={() => {
+                                    const newCards = [...formData.premiumCards];
+                                    newCards[cardIdx].accordions = newCards[cardIdx].accordions.filter((_: any, i: number) => i !== accIdx);
+                                    updateField('premiumCards', newCards);
+                                  }}
+                                  className="absolute top-2 right-2 h-6 w-6 text-gray-200 hover:text-red-500 opacity-0 group-hover/acc:opacity-100 transition-opacity"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Section 2: Download Free Study Materials Headers */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Free Resource Hub (Section 2)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Hub Title Main</Label>
+                      <Input 
+                        value={formData.materialsTitleMain || ""} 
+                        onChange={(e) => updateField('materialsTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Hub Title Highlight</Label>
+                      <Input 
+                        value={formData.materialsTitleHighlight || ""} 
+                        onChange={(e) => updateField('materialsTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Hub Subtitle</Label>
+                    <Input 
+                      value={formData.materialsSubtitle || ""} 
+                      onChange={(e) => updateField('materialsSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                  <div className="p-6 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                      <Info className="w-5 h-5" />
+                    </div>
+                    <p className="text-xs text-blue-800/70 font-medium">
+                      Note: The study material items (PDFs, subjects, etc.) are managed through the top-level <Link href="/admin/study-materials" className="font-bold underline text-blue-600">Study Materials</Link> menu in the sidebar.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
               <CardHeader className="p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>
