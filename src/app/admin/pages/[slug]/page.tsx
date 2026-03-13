@@ -452,7 +452,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Branding & Identity</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-6">
+                <CardContent className="p-10 pt-6 space-y-8">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Academy Name (Logo Text)</Label>
                     <Input 
@@ -462,13 +462,57 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
                   <div className="space-y-4">
-                    <Label className="text-sm font-bold text-gray-700">Custom Logo (Optional URL)</Label>
-                    <Input 
-                      value={formData.logoUrl || ""} 
-                      onChange={(e) => updateField('logoUrl', e.target.value)}
-                      placeholder="https://..."
-                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
-                    />
+                    <Label className="text-sm font-bold text-gray-700">Academy Logo</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-4">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2"
+                            onClick={() => document.getElementById('logo-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Upload Image
+                          </Button>
+                          <input 
+                            id="logo-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={(e) => handleImageUpload(e, (b64) => updateField('logoUrl', b64))}
+                          />
+                          {formData.logoUrl && (
+                            <Button 
+                              type="button" 
+                              variant="ghost" 
+                              className="text-red-500 hover:bg-red-50 rounded-xl h-12"
+                              onClick={() => updateField('logoUrl', "")}
+                            >
+                              <Trash2 className="w-4 h-4 mr-2" /> Remove
+                            </Button>
+                          )}
+                        </div>
+                        <Input 
+                          value={formData.logoUrl || ""} 
+                          onChange={(e) => updateField('logoUrl', e.target.value)}
+                          placeholder="Or enter logo URL (https://...)"
+                          className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
+                        <div className="relative h-24 w-full bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center p-4">
+                          {formData.logoUrl ? (
+                            <img src={formData.logoUrl} alt="Logo Preview" className="max-h-full max-w-full object-contain" />
+                          ) : (
+                            <div className="flex flex-col items-center gap-1 opacity-20">
+                              <GraduationCap className="w-8 h-8" />
+                              <span className="text-[10px] font-bold">DEFAULT ICON</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

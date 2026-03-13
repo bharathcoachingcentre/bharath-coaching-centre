@@ -62,9 +62,19 @@ export function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-md transition-transform group-hover:scale-110">
-              <GraduationCap className="text-white w-6 h-6" />
-            </div>
+            {content.logoUrl ? (
+              <div className="relative h-10 w-auto flex items-center">
+                <img 
+                  src={content.logoUrl} 
+                  alt={content.academyName} 
+                  className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                />
+              </div>
+            ) : (
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-md transition-transform group-hover:scale-110">
+                <GraduationCap className="text-white w-6 h-6" />
+              </div>
+            )}
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
               {content.academyName}
             </span>
@@ -134,7 +144,13 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="right" className="rounded-l-3xl">
                 <SheetHeader>
-                  <SheetTitle className="text-left font-bold text-2xl text-blue-600">Menu</SheetTitle>
+                  <SheetTitle className="text-left font-bold text-2xl text-blue-600">
+                    {content.logoUrl ? (
+                      <img src={content.logoUrl} alt={content.academyName} className="h-8 w-auto object-contain" />
+                    ) : (
+                      "Menu"
+                    )}
+                  </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col space-y-6 mt-10">
                   <Link href="/online-courses" className="text-xl font-bold text-gray-900 border-b pb-4 border-gray-100">Courses</Link>
