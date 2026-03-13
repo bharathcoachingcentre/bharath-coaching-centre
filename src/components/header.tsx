@@ -62,24 +62,19 @@ export function Header() {
 
   const menuTree = useMemo(() => {
     const items = content.navMenu || [];
-    const root: any[] = [];
-    const childrenMap: Record<string, any[]> = {};
+    // 1. Identify Root items (parentId is null)
+    const roots = items.filter(item => item.parentId === null || item.parentId === undefined || item.parentId === "");
+    
+    // 2. Sort items by their order
+    const sortedItems = [...items].sort((a, b) => (a.order || 0) - (b.order || 0));
 
-    [...items]
+    // 3. Build the tree structure
+    return roots
       .sort((a, b) => (a.order || 0) - (b.order || 0))
-      .forEach(item => {
-        if (item.parentId) {
-          if (!childrenMap[item.parentId]) childrenMap[item.parentId] = [];
-          childrenMap[item.parentId].push(item);
-        } else {
-          root.push(item);
-        }
-      });
-
-    return root.map(item => ({
-      ...item,
-      children: childrenMap[item.id] || []
-    }));
+      .map(root => ({
+        ...root,
+        children: sortedItems.filter(child => child.parentId === root.id)
+      }));
   }, [content.navMenu]);
 
   if (pathname.startsWith('/admin')) {

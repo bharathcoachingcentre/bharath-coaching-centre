@@ -480,6 +480,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   };
 
   const deleteMenuItem = (id: string) => {
+    // Delete the item and any item that lists this as a parent
     const newItems = (formData.navMenu || []).filter((item: any) => item.id !== id && item.parentId !== id);
     updateField('navMenu', newItems);
   };
@@ -488,10 +489,15 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     const items = [...(formData.navMenu || [])];
     const idx = items.findIndex(i => i.id === id);
     if (idx > 0) {
-      // Find potential parent above it
-      const prev = items[idx - 1];
-      if (!prev.parentId) {
-        items[idx].parentId = prev.id;
+      // Find the nearest ROOT item above the current item to use as a parent
+      let nearestRootIdx = idx - 1;
+      while (nearestRootIdx >= 0 && items[nearestRootIdx].parentId !== null) {
+        nearestRootIdx--;
+      }
+      
+      if (nearestRootIdx >= 0) {
+        const parent = items[nearestRootIdx];
+        items[idx].parentId = parent.id;
         updateField('navMenu', items);
       }
     }
@@ -720,7 +726,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <Reorder.Item key={item.id} value={item}>
                         <div className={cn(
                           "p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group",
-                          item.parentId && "ml-12 border-l-4 border-l-blue-200 bg-blue-50/30"
+                          item.parentId && "ml-12 border-l-4 border-l-blue-200 bg-blue-50/30 shadow-inner"
                         )}>
                           <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
                             <GripVertical className="w-5 h-5 text-gray-300" />
@@ -772,6 +778,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               onClick={() => outdentMenuItem(item.id)}
                               disabled={!item.parentId}
                               className="h-8 w-8 text-gray-400 hover:text-blue-600 disabled:opacity-20"
+                              title="Make Root Item"
                             >
                               <ArrowLeftIcon className="w-4 h-4" />
                             </Button>
@@ -781,6 +788,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               onClick={() => indentMenuItem(item.id)}
                               disabled={!!item.parentId || idx === 0}
                               className="h-8 w-8 text-gray-400 hover:text-blue-600 disabled:opacity-20"
+                              title="Add to Parent Above"
                             >
                               <ArrowRightIcon className="w-4 h-4" />
                             </Button>
@@ -1779,7 +1787,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <ImageIcon className="w-4 h-4 text-blue-600" /> Mentorship Section Image
                     </Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start text-left">
-                      <div className="space-y-3">
+                      <div className="space-y-3 text-left">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
                         <div className="flex items-center gap-4">
                           <Button 
@@ -1811,7 +1819,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <p className="text-[10px] text-gray-400 italic">Select a photo from your computer for the mentorship section.</p>
                       </div>
                       {(formData.mentorshipImageUrl || placeholderImages["one-to-one-mentorship"].src) && (
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-left">
                           <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
                           <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-gray-100 shadow-md">
                             <Image 
@@ -2769,7 +2777,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
                             <Input value={stat.icon} onChange={(e) => {
-                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
+                              const newList = [...(formData.results.successStats || defaultPageData.results.successStats)];
                               newList[idx].icon = e.target.value;
                               updateField('successStats', newList);
                             }} className="h-10 bg-white" />
@@ -2777,7 +2785,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase">Value</Label>
                             <Input value={stat.value} onChange={(e) => {
-                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
+                              const newList = [...(formData.results.successStats || defaultPageData.results.successStats)];
                               newList[idx].value = e.target.value;
                               updateField('successStats', newList);
                             }} className="h-10 bg-white font-bold" />
@@ -2785,7 +2793,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase">Label</Label>
                             <Input value={stat.label} onChange={(e) => {
-                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
+                              const newList = [...(formData.results.successStats || defaultPageData.results.successStats)];
                               newList[idx].label = e.target.value;
                               updateField('successStats', newList);
                             }} className="h-10 bg-white" />
