@@ -38,6 +38,8 @@ export function Header() {
     const defaults = {
       academyName: "Bharath Academy",
       logoUrl: "",
+      logoWidth: "100",
+      logoHeight: "80",
       ctaText: "Explore Courses",
       ctaLink: "/enrollment",
       navLinks: [
@@ -63,11 +65,16 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center space-x-2 group">
             {content.logoUrl ? (
-              <div className="relative h-10 w-auto flex items-center">
+              <div className="relative flex items-center" style={{ height: content.logoHeight ? `${content.logoHeight}px` : '40px' }}>
                 <img 
                   src={content.logoUrl} 
                   alt={content.academyName} 
-                  className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                  style={{ 
+                    width: content.logoWidth ? `${content.logoWidth}px` : 'auto', 
+                    height: content.logoHeight ? `${content.logoHeight}px` : '40px',
+                    maxWidth: 'none'
+                  }}
+                  className="object-contain transition-transform group-hover:scale-105"
                 />
               </div>
             ) : (
@@ -146,7 +153,16 @@ export function Header() {
                 <SheetHeader>
                   <SheetTitle className="text-left font-bold text-2xl text-blue-600">
                     {content.logoUrl ? (
-                      <img src={content.logoUrl} alt={content.academyName} className="h-8 w-auto object-contain" />
+                      <img 
+                        src={content.logoUrl} 
+                        alt={content.academyName} 
+                        style={{ 
+                          width: content.logoWidth ? `${parseInt(content.logoWidth) * 0.8}px` : 'auto', 
+                          height: content.logoHeight ? `${parseInt(content.logoHeight) * 0.8}px` : '32px',
+                          maxHeight: '40px'
+                        }} 
+                        className="object-contain" 
+                      />
                     ) : (
                       "Menu"
                     )}

@@ -80,6 +80,8 @@ const defaultPageData: Record<string, any> = {
   header: {
     academyName: "Bharath Academy",
     logoUrl: "",
+    logoWidth: "100",
+    logoHeight: "80",
     ctaText: "Explore Courses",
     ctaLink: "/enrollment",
     navLinks: [
@@ -227,15 +229,8 @@ const defaultPageData: Record<string, any> = {
       { icon: "GraduationCap", value: "5000+", label: "Students", color: "text-purple-600" },
     ],
     successTopHeader: "Top Performers",
-    successYears: ["2025", "2024", "2023"],
     successTotalMarksLabel: "Total Marks",
     successCardIcon: "Star",
-    successPerformers: [
-      { name: "Ananya Krishnan", grade: "Class 10, CBSE", marks: "98.6%", rank: "Rank 1", rankIcon: "Crown", badgeColor: "bg-[#fbbf24]", marksColor: "text-blue-600", iconColor: "bg-blue-600", img: placeholderImages["student-7"].src },
-      { name: "Arjun Mehta", grade: "Class 12, CBSE", marks: "97.8%", rank: "Rank 2", rankIcon: "Medal", badgeColor: "bg-[#94a3b8]", marksColor: "text-teal-600", iconColor: "bg-teal-600", img: placeholderImages["student-4"].src },
-      { name: "Divya Nair", grade: "Class 10, Samacheer", marks: "96.4%", rank: "Rank 3", rankIcon: "Award", badgeColor: "bg-[#f59e0b]", marksColor: "text-purple-600", iconColor: "bg-purple-600", img: placeholderImages["student-3"].src },
-      { name: "Rohan Kapoor", grade: "Class 12, CBSE", marks: "95.2%", rank: "Top 10", rankIcon: "", badgeColor: "bg-blue-500", marksColor: "text-orange-600", iconColor: "bg-orange-600", img: placeholderImages["student-8"].src },
-    ]
   },
   about: {
     heroTitle: "About Us",
@@ -503,7 +498,17 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
                         <div className="relative h-24 w-full bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center p-4">
                           {formData.logoUrl ? (
-                            <img src={formData.logoUrl} alt="Logo Preview" className="max-h-full max-w-full object-contain" />
+                            <img 
+                              src={formData.logoUrl} 
+                              alt="Logo Preview" 
+                              style={{ 
+                                width: formData.logoWidth ? `${formData.logoWidth}px` : 'auto', 
+                                height: formData.logoHeight ? `${formData.logoHeight}px` : '40px',
+                                maxWidth: '100%',
+                                maxHeight: '100%'
+                              }} 
+                              className="object-contain" 
+                            />
                           ) : (
                             <div className="flex flex-col items-center gap-1 opacity-20">
                               <GraduationCap className="w-8 h-8" />
@@ -512,6 +517,27 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           )}
                         </div>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Logo Width (px)</Label>
+                      <Input 
+                        value={formData.logoWidth || ""} 
+                        onChange={(e) => updateField('logoWidth', e.target.value)}
+                        placeholder="e.g. 150"
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Logo Height (px)</Label>
+                      <Input 
+                        value={formData.logoHeight || ""} 
+                        onChange={(e) => updateField('logoHeight', e.target.value)}
+                        placeholder="e.g. 150"
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
                     </div>
                   </div>
                 </CardContent>
