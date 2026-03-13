@@ -68,6 +68,7 @@ const formSchema = z.object({
   status: z.string().min(1, "Status is required"),
   phoneNumber: z.string().optional(),
   photoURL: z.string().optional(),
+  password: z.string().min(6, "Password must be at least 6 characters").optional().or(z.literal("")),
 });
 
 const avatarCollections = [
@@ -147,6 +148,7 @@ export default function UserDetailPage({
       status: "pending",
       phoneNumber: "",
       photoURL: "",
+      password: "",
     },
   });
 
@@ -159,6 +161,7 @@ export default function UserDetailPage({
         status: user.status || "pending",
         phoneNumber: user.phoneNumber || "",
         photoURL: user.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user.email}`,
+        password: "",
       });
     }
   }, [user, form, isSaving]);
@@ -172,8 +175,12 @@ export default function UserDetailPage({
 
     const ref = doc(firestore, "users", userId);
     
+    // In this prototype, we update the Firestore document.
+    // Note: Changing authentication credentials for another user usually requires a backend/Admin SDK.
+    const { password, ...updateData } = values;
+
     updateDoc(ref, {
-      ...values,
+      ...updateData,
       updatedAt: serverTimestamp(),
     })
       .then(() => {
@@ -188,7 +195,7 @@ export default function UserDetailPage({
         const permissionError = new FirestorePermissionError({
           path: ref.path,
           operation: "update",
-          requestResourceData: values,
+          requestResourceData: updateData,
         } satisfies SecurityRuleContext);
         
         errorEmitter.emit('permission-error', permissionError);
@@ -230,8 +237,8 @@ export default function UserDetailPage({
         </Button>
         <div className="flex items-center gap-3">
           {!isEditing ? (
-            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none">
-              <Edit3 className="w-4 h-4 mr-2" /> Edit Permissions
+            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95">
+              <Edit3 className="w-4 h-4 mr-2" /> Edit Details
             </Button>
           ) : (
             <Button variant="ghost" onClick={() => setIsEditMode(false)} className="text-gray-500 font-bold">
@@ -317,7 +324,7 @@ export default function UserDetailPage({
                   {isEditing ? "Account Settings" : "Profile Details"}
                 </CardTitle>
                 <p className="text-sm text-gray-400 font-medium">
-                  {isEditing ? "Manage user roles and administrative controls" : "Core account information and identity"}
+                  {isEditing ? "Manage user roles and credentials" : "Core account information and identity"}
                 </p>
               </div>
             </CardHeader>
@@ -364,7 +371,7 @@ export default function UserDetailPage({
                     <div>
                       <h4 className="font-bold text-gray-900">Security Note</h4>
                       <p className="text-sm text-gray-500 leading-relaxed max-w-md">
-                        Admins can modify roles and suspend accounts. Passwords must be reset by the user via the sign-in page.
+                        Passwords can be changed here. Updated email addresses will be used for future communications and system authentication.
                       </p>
                     </div>
                   </div>
@@ -474,7 +481,7 @@ export default function UserDetailPage({
                           <FormItem>
                             <FormLabel className="text-xs font-black uppercase text-gray-400">Display Name</FormLabel>
                             <FormControl>
-                              <Input {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
+                              <Input {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 shadow-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -487,12 +494,33 @@ export default function UserDetailPage({
                           <FormItem>
                             <FormLabel className="text-xs font-black uppercase text-gray-400">Email Address</FormLabel>
                             <FormControl>
-                              <Input {...field} readOnly className="h-12 bg-gray-100/50 border-gray-100 rounded-xl font-medium text-gray-500 cursor-not-allowed" />
+                              <div className="relative">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <Input {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 shadow-sm" />
+                              </div>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
+                      
+                      <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-xs font-black uppercase text-gray-400">New Password (optional)</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <Input type="password" placeholder="••••••••" {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 shadow-sm" />
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                       <FormField
                         control={form.control}
                         name="role"
@@ -501,7 +529,7 @@ export default function UserDetailPage({
                             <FormLabel className="text-xs font-black uppercase text-gray-400">Access Role</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
-                                <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                                <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                   <SelectValue placeholder="Select role" />
                                 </SelectTrigger>
                               </FormControl>
@@ -515,6 +543,7 @@ export default function UserDetailPage({
                           </FormItem>
                         )}
                       />
+                      
                       <FormField
                         control={form.control}
                         name="status"
@@ -523,7 +552,7 @@ export default function UserDetailPage({
                             <FormLabel className="text-xs font-black uppercase text-gray-400">Account Status</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
-                                <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                                <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                   <SelectValue placeholder="Select status" />
                                 </SelectTrigger>
                               </FormControl>
@@ -537,21 +566,24 @@ export default function UserDetailPage({
                           </FormItem>
                         )}
                       />
-                    </div>
 
-                    <FormField
-                      control={form.control}
-                      name="phoneNumber"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-xs font-black uppercase text-gray-400">Contact Number</FormLabel>
-                          <FormControl>
-                            <Input {...field} placeholder="+91 00000 00000" className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                      <FormField
+                        control={form.control}
+                        name="phoneNumber"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-xs font-black uppercase text-gray-400">Contact Number</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <Input {...field} placeholder="+91 00000 00000" className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 shadow-sm" />
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
                     <div className="flex items-center justify-end gap-4 pt-10 border-t border-gray-50">
                       <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving}>
