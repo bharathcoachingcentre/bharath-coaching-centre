@@ -94,6 +94,12 @@ const defaultPageData: Record<string, any> = {
       { href: "/our-results", label: "Results" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
+    ],
+    courseDropdownLabel: "Courses",
+    courseItems: [
+      { label: "CBSE Curriculum", subLabel: "Class 1 to 12", href: "/cbse" },
+      { label: "Samacheer Kalvi", subLabel: "Class 1 to 12", href: "/samacheer" },
+      { label: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", href: "/online-courses" },
     ]
   },
   footer: {
@@ -642,6 +648,88 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Courses Dropdown Menu</CardTitle>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <Label className="text-xs font-bold text-gray-400">Dropdown Label:</Label>
+                      <Input 
+                        value={formData.courseDropdownLabel || "Courses"} 
+                        onChange={(e) => updateField('courseDropdownLabel', e.target.value)}
+                        className="h-9 w-32 bg-gray-50 border-none rounded-lg font-bold"
+                      />
+                    </div>
+                    <Button 
+                      onClick={() => {
+                        const newItems = [...(formData.courseItems || [])];
+                        newItems.push({ label: "New Course", subLabel: "Subtitle", href: "/" });
+                        updateField('courseItems', newItems);
+                      }}
+                      variant="outline"
+                      className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600"
+                    >
+                      <Plus className="w-4 h-4" /> Add Item
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-4">
+                  {(formData.courseItems || []).map((item: any, idx: number) => (
+                    <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4 relative group">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Heading</Label>
+                          <Input 
+                            value={item.label} 
+                            onChange={(e) => {
+                              const newItems = [...formData.courseItems];
+                              newItems[idx].label = e.target.value;
+                              updateField('courseItems', newItems);
+                            }}
+                            className="bg-white border-none h-12 rounded-xl font-bold"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Sub-label / Classes</Label>
+                          <Input 
+                            value={item.subLabel} 
+                            onChange={(e) => {
+                              const newItems = [...formData.courseItems];
+                              newItems[idx].subLabel = e.target.value;
+                              updateField('courseItems', newItems);
+                            }}
+                            className="bg-white border-none h-12 rounded-xl"
+                          />
+                        </div>
+                        <div className="md:col-span-2 space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Target URL</Label>
+                          <Input 
+                            value={item.href} 
+                            onChange={(e) => {
+                              const newItems = [...formData.courseItems];
+                              newItems[idx].href = e.target.value;
+                              updateField('courseItems', newItems);
+                            }}
+                            className="bg-white border-none h-12 rounded-xl"
+                          />
+                        </div>
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={() => {
+                          const newItems = formData.courseItems.filter((_: any, i: number) => i !== idx);
+                          updateField('courseItems', newItems);
+                        }}
+                        className="absolute top-2 right-2 text-gray-200 hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Navigation Menu</CardTitle>
                   <Button 
                     onClick={() => {
@@ -658,7 +746,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardContent className="p-10 pt-6 space-y-4">
                   {(formData.navLinks || []).map((link: any, idx: number) => (
                     <div key={idx} className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 group">
-                      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                         <Input 
                           value={link.label} 
                           onChange={(e) => {
@@ -785,7 +873,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       </div>
 
                       <div className="space-y-4">
-                        <div className="flex items-center justify-between px-2">
+                        <div className="flex items-center justify-between px-2 text-left">
                           <Label className="text-xs font-black uppercase text-gray-400">Links</Label>
                           <Button 
                             variant="link" 
@@ -803,7 +891,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {menu.links.map((link: any, linkIdx: number) => (
                             <div key={linkIdx} className="flex items-center gap-2 p-3 bg-white rounded-xl shadow-sm group/link relative">
-                              <div className="flex-grow space-y-2">
+                              <div className="flex-grow space-y-2 text-left">
                                 <Input 
                                   value={link.label} 
                                   onChange={(e) => {
@@ -850,7 +938,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Contact & Support</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <CardContent className="p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                       <Phone className="w-4 h-4 text-blue-600" /> Phone Number
@@ -899,7 +987,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Social & App Links</CardTitle>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-10">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-xs font-bold text-blue-600 flex items-center gap-2 uppercase">
                         <Facebook className="w-4 h-4" /> Facebook
@@ -921,8 +1009,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
 
                   <div className="pt-10 border-t border-gray-50 space-y-8">
-                    <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Mobile App Section</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest text-left">Mobile App Section</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                       <div className="space-y-3">
                         <Label className="text-sm font-bold text-gray-700">App Section Title</Label>
                         <Input value={formData.appTitle || ""} onChange={(e) => updateField('appTitle', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
@@ -949,7 +1037,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Copyright & Legal Links</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10">
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Copyright Text</Label>
                     <Input 
@@ -961,7 +1049,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
 
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between text-left">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Legal Links (Bottom Row)</Label>
                       <Button 
                         onClick={() => {
@@ -978,7 +1066,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {(formData.bottomLinks || []).map((link: any, linkIdx: number) => (
                         <div key={linkIdx} className="flex items-center gap-2 p-4 bg-gray-50 rounded-2xl border border-gray-100 group relative">
-                          <div className="flex-grow space-y-2">
+                          <div className="flex-grow space-y-2 text-left">
                             <Input 
                               value={link.label} 
                               onChange={(e) => {
@@ -1465,7 +1553,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <div className="space-y-8">
                     {(formData.programs || defaultPageData.home.programs).map((program: any, idx: number) => (
                       <div key={idx} className="p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                           <div className="space-y-3">
                             <Label className="text-xs font-black uppercase text-gray-400">Program Title</Label>
                             <Input 
@@ -1544,7 +1632,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           </div>
                         </div>
 
-                        <div className="space-y-3">
+                        <div className="space-y-3 text-left">
                           <Label className="text-xs font-black uppercase text-gray-400">Curriculum Highlights (One per line)</Label>
                           <Textarea 
                             value={program.points?.join('\n') || ""} 
@@ -1727,7 +1815,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="space-y-4">
                       {(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures).map((feature: any, idx: number) => (
                         <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
-                          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start text-left">
                             <div className="md:col-span-1 flex flex-col items-center">
                               <span className="text-[10px] font-black text-gray-300">{idx + 1}</span>
                             </div>
@@ -1835,7 +1923,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="space-y-6">
                       {(formData.testimonials || defaultPageData.home.testimonials).map((testimonial: any, idx: number) => (
                         <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                             <div className="space-y-3">
                               <Label className="text-xs font-black uppercase text-gray-400">Name</Label>
                               <Input 
@@ -1910,7 +1998,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               </div>
                             </div>
                           </div>
-                          <div className="space-y-3">
+                          <div className="space-y-3 text-left">
                             <Label className="text-xs font-black uppercase text-gray-400">Review Description</Label>
                             <Textarea 
                               value={testimonial.quote || ""} 
@@ -1978,7 +2066,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
 
                   <div className="space-y-8">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between text-left">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Features List</Label>
                       <Button 
                         variant="outline" 
@@ -1997,7 +2085,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="space-y-6">
                       {(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures).map((feature: any, idx: number) => (
                         <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                             <div className="space-y-3">
                               <Label className="text-xs font-black uppercase text-gray-400">Title</Label>
                               <Input 
@@ -2024,7 +2112,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               />
                             </div>
                           </div>
-                          <div className="space-y-3">
+                          <div className="space-y-3 text-left">
                             <Label className="text-xs font-black uppercase text-gray-400">Description</Label>
                             <Textarea 
                               value={feature.desc || ""} 
@@ -2061,7 +2149,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-10 text-left">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
@@ -2081,7 +2169,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       />
                     </div>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
                     <Input 
                       value={formData.successSubtitle || ""} 
@@ -2090,7 +2178,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
 
-                  <div className="space-y-6">
+                  <div className="space-y-6 text-left">
                     <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Success Statistics</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {(formData.successStats || defaultPageData.home.successStats).map((stat: any, idx: number) => (
@@ -2124,7 +2212,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-gray-50">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-gray-50 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Top Performers Header</Label>
                       <Input value={formData.successTopHeader} onChange={(e) => updateField('successTopHeader', e.target.value)} className="h-12 bg-gray-50 border-none rounded-xl" />
@@ -2166,7 +2254,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <ImageIcon className="w-4 h-4 text-blue-600" /> Hero Banner Image
                     </Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                      <div className="space-y-3">
+                      <div className="space-y-3 text-left">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Banner</Label>
                         <div className="flex items-center gap-4">
                           <Button 
@@ -2188,7 +2276,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <p className="text-[10px] text-gray-400 italic">Select a wide photo for the main page header.</p>
                       </div>
                       {(formData.heroImageUrl || defaultPageData.about.heroImageUrl) && (
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-left">
                           <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
                           <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
                             <Image 
@@ -2248,7 +2336,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                       <ImageIcon className="w-4 h-4 text-teal-500" /> Philosophy Section Image
                     </Label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start text-left">
                       <div className="space-y-3">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
                         <div className="flex items-center gap-4">
@@ -2271,7 +2359,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <p className="text-[10px] text-gray-400 italic">Select an illustration for the philosophy section.</p>
                       </div>
                       {(formData.philosophyImageUrl || defaultPageData.about.philosophyImageUrl) && (
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-left">
                           <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
                           <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
                             <Image 
@@ -2287,7 +2375,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
                   
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between text-left">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Philosophy Features</Label>
                       <Button 
                         variant="outline" 
@@ -2305,12 +2393,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="space-y-4">
                       {(formData.philosophyItems || defaultPageData.about.philosophyItems).map((item: any, idx: number) => (
                         <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
-                          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start text-left">
                             <div className="md:col-span-1 flex flex-col items-center">
                               <span className="text-[10px] font-black text-gray-300">{idx + 1}</span>
                             </div>
                             <div className="md:col-span-11 grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div className="md:col-span-2 space-y-2">
+                              <div className="md:col-span-2 space-y-2 text-left">
                                 <Label className="text-[10px] font-black uppercase text-gray-400">Description Text</Label>
                                 <Textarea 
                                   value={item.text || ""} 
@@ -2322,7 +2410,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   className="min-h-[80px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
                                 />
                               </div>
-                              <div className="space-y-2">
+                              <div className="space-y-2 text-left">
                                 <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name (Lucide)</Label>
                                 <Input 
                                   value={item.icon || ""} 
@@ -2399,8 +2487,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Access Premium Learning (Section 1)</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Main Title</Label>
                       <Input 
@@ -2422,7 +2510,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <div className="space-y-8">
                     {(formData.premiumCards || []).map((card: any, cardIdx: number) => (
                       <div key={cardIdx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                           <div className="space-y-3">
                             <Label className="text-xs font-black uppercase text-gray-400">Card Heading</Label>
                             <Input 
@@ -2448,7 +2536,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               placeholder="BookOpen, GraduationCap, etc."
                             />
                           </div>
-                          <div className="md:col-span-2 space-y-3">
+                          <div className="md:col-span-2 space-y-3 text-left">
                             <Label className="text-xs font-black uppercase text-gray-400">Description</Label>
                             <Textarea 
                               value={card.description} 
@@ -2463,7 +2551,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         </div>
 
                         <div className="space-y-4 pt-4 border-t border-gray-200">
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-center justify-between text-left">
                             <Label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Accordion Items</Label>
                             <Button 
                               onClick={() => {
@@ -2481,7 +2569,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-3">
                             {(card.accordions || []).map((acc: any, accIdx: number) => (
                               <div key={accIdx} className="p-4 bg-white rounded-2xl border border-gray-100 relative group/acc">
-                                <div className="space-y-3">
+                                <div className="space-y-3 text-left">
                                   <Input 
                                     value={acc.title} 
                                     onChange={(e) => {
@@ -2530,8 +2618,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Free Resource Hub (Section 2)</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Hub Title Main</Label>
                       <Input 
@@ -2549,7 +2637,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       />
                     </div>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">Hub Subtitle</Label>
                     <Input 
                       value={formData.materialsSubtitle || ""} 
@@ -2557,7 +2645,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       className="h-14 bg-gray-50 border-none rounded-xl px-6"
                     />
                   </div>
-                  <div className="p-6 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-center gap-4">
+                  <div className="p-6 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-center gap-4 text-left">
                     <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
                       <Info className="w-5 h-5" />
                     </div>
@@ -2578,7 +2666,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8">
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Headline</Label>
                     <Input 
@@ -2589,7 +2677,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
                   <div className="space-y-4">
                     <Label className="text-sm font-bold text-gray-700">Banner Image</Label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start text-left">
                       <div className="space-y-4">
                         <Button 
                           type="button" 
@@ -2627,8 +2715,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Success Stats Section</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Title Main</Label>
                       <Input 
@@ -2646,7 +2734,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       />
                     </div>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">Subtitle</Label>
                     <Input 
                       value={formData.successSubtitle || ""} 
@@ -2655,7 +2743,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
 
-                  <div className="space-y-6">
+                  <div className="space-y-6 text-left">
                     <div className="flex items-center justify-between">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Statistics (3 Cards)</Label>
                     </div>
@@ -2698,8 +2786,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performers Grid Headers</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
@@ -2717,7 +2805,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       />
                     </div>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
                     <Input 
                       value={formData.performersSubtitle || ""} 
@@ -2725,7 +2813,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       className="h-14 bg-gray-50 border-none rounded-xl px-6"
                     />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Year Filter Header</Label>
                       <Input 

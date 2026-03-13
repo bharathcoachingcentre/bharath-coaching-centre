@@ -48,6 +48,12 @@ export function Header() {
         { href: "/our-results", label: "Results" },
         { href: "/about", label: "About" },
         { href: "/contact", label: "Contact" },
+      ],
+      courseDropdownLabel: "Courses",
+      courseItems: [
+        { label: "CBSE Curriculum", subLabel: "Class 1 to 12", href: "/cbse" },
+        { label: "Samacheer Kalvi", subLabel: "Class 1 to 12", href: "/samacheer" },
+        { label: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", href: "/online-courses" },
       ]
     };
 
@@ -91,29 +97,19 @@ export function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="text-gray-700 hover:text-blue-600 font-semibold flex items-center space-x-1 transition-colors duration-200 outline-none">
-                  <span>Courses</span>
+                  <span>{content.courseDropdownLabel}</span>
                   <ChevronDown className="h-3 w-3" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 rounded-xl shadow-xl border-gray-100 p-2">
-                <DropdownMenuItem asChild>
-                  <Link href="/cbse" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
-                    <div className="font-bold">CBSE Curriculum</div>
-                    <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest">Class 1 to 12</div>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/samacheer" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
-                    <div className="font-bold">Samacheer Kalvi</div>
-                    <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest">Class 1 to 12</div>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/online-courses" className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
-                    <div className="font-bold">Competitive Exams</div>
-                    <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest">JEE, NEET, Olympiad</div>
-                  </Link>
-                </DropdownMenuItem>
+                {(content.courseItems || []).map((item: any, idx: number) => (
+                  <DropdownMenuItem asChild key={idx}>
+                    <Link href={item.href} className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
+                      <div className="font-bold text-left">{item.label}</div>
+                      <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest text-left">{item.subLabel}</div>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -168,8 +164,8 @@ export function Header() {
                     )}
                   </SheetTitle>
                 </SheetHeader>
-                <div className="flex flex-col space-y-6 mt-10">
-                  <Link href="/online-courses" className="text-xl font-bold text-gray-900 border-b pb-4 border-gray-100">Courses</Link>
+                <div className="flex flex-col space-y-6 mt-10 text-left">
+                  <Link href="/online-courses" className="text-xl font-bold text-gray-900 border-b pb-4 border-gray-100">{content.courseDropdownLabel}</Link>
                   {content.navLinks.map((link: any, idx: number) => (
                     <SheetClose asChild key={idx}>
                       <Link
