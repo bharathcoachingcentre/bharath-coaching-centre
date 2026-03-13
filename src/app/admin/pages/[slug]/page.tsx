@@ -326,6 +326,23 @@ const defaultPageData: Record<string, any> = {
     materialsTitleMain: "Download Free ",
     materialsTitleHighlight: "Study Materials",
     materialsSubtitle: "Filter by class and board to find specific resources for your curriculum"
+  },
+  results: {
+    heroTitle: "Our Results",
+    heroImageUrl: "/Our-result.jpg",
+    successTitleMain: "Our Students' ",
+    successTitleHighlight: "Success Stories",
+    successSubtitle: "Celebrating exceptional achievements and academic excellence.",
+    successStats: [
+      { icon: "Trophy", value: "95%", label: "Pass Rate", color: "bg-blue-500" },
+      { icon: "Medal", value: "120+", label: "Distinctions", color: "bg-teal-500" },
+      { icon: "GraduationCap", value: "5000+", label: "Students", color: "bg-purple-500" },
+    ],
+    performersTitleMain: "Our Top ",
+    performersTitleHighlight: "Performers",
+    performersSubtitle: "Celebrating the hard work and dedication of our brilliant students",
+    performersYearHeader: "Top Achievers",
+    totalMarksLabel: "Total Marks",
   }
 };
 
@@ -2553,7 +2570,185 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && (
+          {/* Results Page Editor */}
+          {slug === 'results' && (
+            <div className="space-y-8 text-left">
+              {/* Hero Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Headline</Label>
+                    <Input 
+                      value={formData.heroTitle || ""} 
+                      onChange={(e) => updateField('heroTitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700">Banner Image</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                      <div className="space-y-4">
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2"
+                          onClick={() => document.getElementById('results-hero-upload')?.click()}
+                        >
+                          <Upload className="w-4 h-4" /> Choose Image
+                        </Button>
+                        <input 
+                          id="results-hero-upload"
+                          type="file" 
+                          accept="image/*"
+                          className="hidden" 
+                          onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                        />
+                      </div>
+                      {(formData.heroImageUrl || defaultPageData.results.heroImageUrl) && (
+                        <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                          <Image 
+                            src={formData.heroImageUrl || defaultPageData.results.heroImageUrl} 
+                            alt="Hero Preview" 
+                            fill 
+                            className="object-cover" 
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Success Stats Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Success Stats Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Title Main</Label>
+                      <Input 
+                        value={formData.successTitleMain || ""} 
+                        onChange={(e) => updateField('successTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Title Highlight</Label>
+                      <Input 
+                        value={formData.successTitleHighlight || ""} 
+                        onChange={(e) => updateField('successTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Subtitle</Label>
+                    <Input 
+                      value={formData.successSubtitle || ""} 
+                      onChange={(e) => updateField('successSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Statistics (3 Cards)</Label>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {(formData.successStats || defaultPageData.results.successStats).map((stat: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
+                            <Input value={stat.icon} onChange={(e) => {
+                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
+                              newList[idx].icon = e.target.value;
+                              updateField('successStats', newList);
+                            }} className="h-10 bg-white" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase">Value</Label>
+                            <Input value={stat.value} onChange={(e) => {
+                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
+                              newList[idx].value = e.target.value;
+                              updateField('successStats', newList);
+                            }} className="h-10 bg-white font-bold" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase">Label</Label>
+                            <Input value={stat.label} onChange={(e) => {
+                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
+                              newList[idx].label = e.target.value;
+                              updateField('successStats', newList);
+                            }} className="h-10 bg-white" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Performers Grid Headers */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performers Grid Headers</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
+                      <Input 
+                        value={formData.performersTitleMain || ""} 
+                        onChange={(e) => updateField('performersTitleMain', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
+                      <Input 
+                        value={formData.performersTitleHighlight || ""} 
+                        onChange={(e) => updateField('performersTitleHighlight', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Subtitle</Label>
+                    <Input 
+                      value={formData.performersSubtitle || ""} 
+                      onChange={(e) => updateField('performersSubtitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Year Filter Header</Label>
+                      <Input 
+                        value={formData.performersYearHeader || ""} 
+                        onChange={(e) => updateField('performersYearHeader', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Marks Label</Label>
+                      <Input 
+                        value={formData.totalMarksLabel || ""} 
+                        onChange={(e) => updateField('totalMarksLabel', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
               <CardHeader className="p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>
