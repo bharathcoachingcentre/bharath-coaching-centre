@@ -132,6 +132,7 @@ export default function UserDetailPage({
     },
   });
 
+  // Sync form data with database user data
   useEffect(() => {
     if (user && !isSaving) {
       form.reset({
@@ -174,7 +175,7 @@ export default function UserDetailPage({
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400">Loading User Account...</p>
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Loading User Account...</p>
       </div>
     );
   }
@@ -215,13 +216,15 @@ export default function UserDetailPage({
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white text-center">
             <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
             <CardContent className="p-8 -mt-12 relative text-left">
-              <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 mb-6">
-                {displayPhotoURL && (
+              <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto overflow-hidden bg-gray-50 mb-6 flex items-center justify-center">
+                {displayPhotoURL ? (
                   <img 
                     src={displayPhotoURL} 
                     alt={user.displayName || "User"}
                     className="w-full h-full object-cover"
                   />
+                ) : (
+                  <User Cog className="w-12 h-12 text-gray-300" />
                 )}
               </div>
               <div className="text-center space-y-1">
@@ -232,7 +235,7 @@ export default function UserDetailPage({
                   "px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border-none shadow-none",
                   user.role === 'admin' ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"
                 )}>
-                  {user.role}
+                  {user.role || 'student'}
                 </Badge>
               </div>
 
@@ -246,8 +249,8 @@ export default function UserDetailPage({
                   <span>{user.phoneNumber || "Not provided"}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm font-medium text-gray-600">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                  <span className="capitalize">{user.status} account</span>
+                  <ShieldCheck className={cn("w-4 h-4", user.status === 'active' ? "text-emerald-500" : "text-amber-500")} />
+                  <span className="capitalize">{user.status || 'pending'} account</span>
                 </div>
               </div>
             </CardContent>
@@ -259,17 +262,17 @@ export default function UserDetailPage({
                 <History className="w-5 h-5 text-blue-600" /> Activity
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6 space-y-6">
+            <CardContent className="p-6 space-y-6 text-left">
               <div>
                 <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Account Created</p>
                 <p className="text-sm font-bold text-gray-700">
-                  {user.createdAt ? (typeof user.createdAt === 'string' ? new Date(user.createdAt).toLocaleDateString() : user.createdAt.toDate().toLocaleDateString()) : 'Recently'}
+                  {user.createdAt ? (typeof user.createdAt === 'string' ? new Date(user.createdAt).toLocaleDateString() : (user.createdAt as any).toDate().toLocaleDateString()) : 'Recently'}
                 </p>
               </div>
               <div>
                 <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Last Activity</p>
                 <p className="text-sm font-bold text-gray-700">
-                  {user.lastLogin?.toDate ? new Date(user.lastLogin.toDate()).toLocaleString() : 'Never'}
+                  {(user.lastLogin as any)?.toDate ? new Date((user.lastLogin as any).toDate()).toLocaleString() : 'Never'}
                 </p>
               </div>
             </CardContent>
@@ -308,7 +311,7 @@ export default function UserDetailPage({
                         <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Access Level</p>
                         <div className="flex items-center gap-2 mt-1">
                           <UserCog className="w-5 h-5 text-purple-500" />
-                          <p className="text-lg font-bold text-gray-900 capitalize">{user.role}</p>
+                          <p className="text-lg font-bold text-gray-900 capitalize">{user.role || 'student'}</p>
                         </div>
                       </div>
                       <div className="space-y-1">
@@ -319,7 +322,7 @@ export default function UserDetailPage({
                           ) : (
                             <ShieldAlert className="w-5 h-5 text-rose-500" />
                           )}
-                          <p className="text-lg font-bold text-gray-900 capitalize">{user.status}</p>
+                          <p className="text-lg font-bold text-gray-900 capitalize">{user.status || 'pending'}</p>
                         </div>
                       </div>
                     </div>
@@ -329,7 +332,7 @@ export default function UserDetailPage({
                     <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-blue-600">
                       <Lock className="w-7 h-7" />
                     </div>
-                    <div>
+                    <div className="text-left">
                       <h4 className="font-bold text-gray-900">Security Management</h4>
                       <p className="text-sm text-gray-500 leading-relaxed max-w-md">
                         This user can now be updated dynamically. Changing the email or password here will update their login credentials instantly.
@@ -385,7 +388,7 @@ export default function UserDetailPage({
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[600px] rounded-[2.5rem]">
                                   <DialogHeader>
-                                    <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Avatar Library</DialogTitle>
+                                    <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight text-left">Avatar Library</DialogTitle>
                                   </DialogHeader>
                                   <Tabs defaultValue="micah" className="w-full mt-4">
                                     <TabsList className="grid grid-cols-3 sm:grid-cols-6 bg-gray-100 p-1 rounded-xl h-auto gap-1">
