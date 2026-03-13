@@ -54,7 +54,8 @@ import {
   Phone,
   MapPin,
   ExternalLink,
-  Navigation
+  Navigation,
+  List
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -104,7 +105,35 @@ const defaultPageData: Record<string, any> = {
     appTitle: "Get the Bharath Academy App",
     appSubtitle: "Learn anytime, anywhere with our mobile app",
     playStoreLink: "#",
-    appStoreLink: "#"
+    appStoreLink: "#",
+    menus: [
+      {
+        title: "Company",
+        links: [
+          { label: "Home", href: "/" },
+          { label: "About Us", href: "/about" },
+          { label: "Our Results", href: "/our-results" },
+          { label: "Contact Us", href: "/contact" },
+        ]
+      },
+      {
+        title: "Courses",
+        links: [
+          { label: "CBSE Coaching", href: "/cbse" },
+          { label: "Samacheer Coaching", href: "/samacheer" },
+          { label: "Online Classes", href: "/online-courses" },
+          { label: "One-to-One Mentorship", href: "/one-to-one-classes" },
+        ]
+      },
+      {
+        title: "Resources",
+        links: [
+          { label: "Free Study Materials", href: "/study-material" },
+          { label: "Blog", href: "/blog" },
+          { label: "Become a Teacher", href: "/become-a-teacher" },
+        ]
+      }
+    ]
   },
   home: {
     heroTitleMain: "Empowering Students from ",
@@ -390,7 +419,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <div className="h-20 bg-gradient-to-r from-blue-600 to-teal-500"></div>
-            <CardContent className="p-8 -mt-10 relative">
+            <CardContent className="p-8 -mt-10 relative text-left">
               <div className="flex items-start gap-6">
                 <div className="w-20 h-20 rounded-3xl border-4 border-white shadow-lg overflow-hidden bg-white flex items-center justify-center text-blue-600 shrink-0">
                   <Globe className="w-10 h-10" />
@@ -641,6 +670,111 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       className="min-h-[120px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none"
                     />
                   </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Footer Menu Columns</CardTitle>
+                  <Button 
+                    onClick={() => {
+                      const currentMenus = formData.menus || [];
+                      updateField('menus', [...currentMenus, { title: "New Menu", links: [] }]);
+                    }}
+                    variant="outline"
+                    className="rounded-xl font-bold gap-2"
+                  >
+                    <Plus className="w-4 h-4" /> Add Column
+                  </Button>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10">
+                  {(formData.menus || []).map((menu: any, colIdx: number) => (
+                    <div key={colIdx} className="p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group/col">
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-2 flex-grow max-w-md">
+                          <Label className="text-xs font-black uppercase text-gray-400">Column Title</Label>
+                          <Input 
+                            value={menu.title} 
+                            onChange={(e) => {
+                              const newMenus = [...formData.menus];
+                              newMenus[colIdx].title = e.target.value;
+                              updateField('menus', newMenus);
+                            }}
+                            className="bg-white border-none h-12 rounded-xl font-bold"
+                          />
+                        </div>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => {
+                            const newMenus = formData.menus.filter((_: any, i: number) => i !== colIdx);
+                            updateField('menus', newMenus);
+                          }}
+                          className="text-gray-300 hover:text-red-500"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </Button>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between px-2">
+                          <Label className="text-xs font-black uppercase text-gray-400">Links</Label>
+                          <Button 
+                            variant="link" 
+                            size="sm" 
+                            onClick={() => {
+                              const newMenus = [...formData.menus];
+                              newMenus[colIdx].links.push({ label: "New Link", href: "#" });
+                              updateField('menus', newMenus);
+                            }}
+                            className="h-auto p-0 font-bold text-blue-600"
+                          >
+                            <Plus className="w-3 h-3 mr-1" /> Add Link
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {menu.links.map((link: any, linkIdx: number) => (
+                            <div key={linkIdx} className="flex items-center gap-2 p-3 bg-white rounded-xl shadow-sm group/link relative">
+                              <div className="flex-grow space-y-2">
+                                <Input 
+                                  value={link.label} 
+                                  onChange={(e) => {
+                                    const newMenus = [...formData.menus];
+                                    newMenus[colIdx].links[linkIdx].label = e.target.value;
+                                    updateField('menus', newMenus);
+                                  }}
+                                  className="h-8 text-xs border-none bg-gray-50"
+                                  placeholder="Label"
+                                />
+                                <Input 
+                                  value={link.href} 
+                                  onChange={(e) => {
+                                    const newMenus = [...formData.menus];
+                                    newMenus[colIdx].links[linkIdx].href = e.target.value;
+                                    updateField('menus', newMenus);
+                                  }}
+                                  className="h-8 text-xs border-none bg-gray-50"
+                                  placeholder="URL"
+                                />
+                              </div>
+                              <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                onClick={() => {
+                                  const newMenus = [...formData.menus];
+                                  newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
+                                  updateField('menus', newMenus);
+                                }}
+                                className="h-8 w-8 text-gray-200 hover:text-red-500"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
 

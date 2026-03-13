@@ -32,7 +32,35 @@ export function Footer() {
       appTitle: "Get the Bharath Academy App",
       appSubtitle: "Learn anytime, anywhere with our mobile app",
       playStoreLink: "#",
-      appStoreLink: "#"
+      appStoreLink: "#",
+      menus: [
+        {
+          title: "Company",
+          links: [
+            { label: "Home", href: "/" },
+            { label: "About Us", href: "/about" },
+            { label: "Our Results", href: "/our-results" },
+            { label: "Contact Us", href: "/contact" },
+          ]
+        },
+        {
+          title: "Courses",
+          links: [
+            { label: "CBSE Coaching", href: "/cbse" },
+            { label: "Samacheer Coaching", href: "/samacheer" },
+            { label: "Online Classes", href: "/online-courses" },
+            { label: "One-to-One Mentorship", href: "/one-to-one-classes" },
+          ]
+        },
+        {
+          title: "Resources",
+          links: [
+            { label: "Free Study Materials", href: "/study-material" },
+            { label: "Blog", href: "/blog" },
+            { label: "Become a Teacher", href: "/become-a-teacher" },
+          ]
+        }
+      ]
     };
 
     if (!footerData?.content) return defaults;
@@ -71,34 +99,20 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="text-left">
-            <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Company</h3>
-            <ul className="space-y-4 font-medium text-[16px]">
-              <li><Link href="/" className="text-gray-400 hover:text-white transition-colors duration-200">Home</Link></li>
-              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors duration-200">About Us</Link></li>
-              <li><Link href="/our-results" className="text-gray-400 hover:text-white transition-colors duration-200">Our Results</Link></li>
-              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors duration-200">Contact Us</Link></li>
-            </ul>
-          </div>
-
-          <div className="text-left">
-            <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Courses</h3>
-            <ul className="space-y-4 font-medium text-[16px]">
-              <li><Link href="/cbse" className="text-gray-400 hover:text-white transition-colors duration-200">CBSE Coaching</Link></li>
-              <li><Link href="/samacheer" className="text-gray-400 hover:text-white transition-colors duration-200">Samacheer Coaching</Link></li>
-              <li><Link href="/online-courses" className="text-gray-400 hover:text-white transition-colors duration-200">Online Classes</Link></li>
-              <li><Link href="/one-to-one-classes" className="text-gray-400 hover:text-white transition-colors duration-200">One-to-One Mentorship</Link></li>
-            </ul>
-          </div>
-
-          <div className="text-left">
-            <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Resources</h3>
-            <ul className="space-y-4 font-medium text-[16px]">
-              <li><Link href="/study-material" className="text-gray-400 hover:text-white transition-colors duration-200">Free Study Materials</Link></li>
-              <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors duration-200">Blog</Link></li>
-              <li><Link href="/become-a-teacher" className="text-gray-400 hover:text-white transition-colors duration-200">Become a Teacher</Link></li>
-            </ul>
-          </div>
+          {(content.menus || []).map((menu: any, idx: number) => (
+            <div key={idx} className="text-left">
+              <h3 className="text-[18px] font-bold mb-6 text-white capitalize">{menu.title}</h3>
+              <ul className="space-y-4 font-medium text-[16px]">
+                {menu.links.map((link: any, linkIdx: number) => (
+                  <li key={linkIdx}>
+                    <Link href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           <div className="text-left">
             <h3 className="text-[18px] font-bold mb-6 text-white capitalize">Contact</h3>
