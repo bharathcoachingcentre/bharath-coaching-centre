@@ -111,6 +111,7 @@ export default function UserDetailPage({
   const [isEditing, setIsEditMode] = useState(isEditModeParam);
   const [isSaving, setIsSaving] = useState(false);
   const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   const docRef = useMemo(() => {
     if (!firestore || !userId) return null;
@@ -125,7 +126,7 @@ export default function UserDetailPage({
       displayName: "",
       email: "",
       role: "student",
-      status: "pending",
+      status: "active",
       phoneNumber: "",
       photoURL: "",
       password: "",
@@ -134,18 +135,19 @@ export default function UserDetailPage({
 
   // Sync form data with database user data once loaded
   useEffect(() => {
-    if (user && !isSaving && !form.formState.isDirty) {
+    if (user && !loading && !hasInitialized && !isSaving) {
       form.reset({
         displayName: user.displayName || "",
         email: user.email || "",
         role: user.role || "student",
-        status: user.status || "pending",
+        status: user.status || "active",
         phoneNumber: user.phoneNumber || "",
         photoURL: user.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user.email}`,
         password: "",
       });
+      setHasInitialized(true);
     }
-  }, [user, form, isSaving]);
+  }, [user, loading, hasInitialized, isSaving, form]);
 
   const displayPhotoURL = (form.watch("photoURL") || user?.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user?.email || 'default'}`);
 
@@ -160,7 +162,7 @@ export default function UserDetailPage({
         title: "User Updated",
         description: "Credentials and profile have been synchronized successfully.",
       });
-      // Reset form with new values to clear dirty state
+      // Explicitly reset form with new values to clear dirty state and update internal data
       form.reset(values);
       setIsEditMode(false);
     } else {

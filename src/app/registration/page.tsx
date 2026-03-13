@@ -49,8 +49,11 @@ export default function SignUpPage() {
         try {
             const { auth, firestore } = initializeFirebase();
             
+            // Trim email to prevent common auto-fill issues
+            const email = values.email.trim();
+
             // 1. Create Auth User
-            const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, values.password);
             const user = userCredential.user;
 
             // 2. Update Profile
@@ -62,23 +65,16 @@ export default function SignUpPage() {
             const userRef = doc(firestore, "users", user.uid);
             const userData = {
                 uid: user.uid,
-                email: values.email,
+                email: email,
                 displayName: values.fullName,
                 role: "student",
                 status: "active",
+                phoneNumber: "", // Initialize as empty string
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
             };
 
-            setDoc(userRef, userData)
-                .catch(async (error) => {
-                    const permissionError = new FirestorePermissionError({
-                        path: userRef.path,
-                        operation: 'create',
-                        requestResourceData: userData,
-                    });
-                    errorEmitter.emit('permission-error', permissionError);
-                });
+            await setDoc(userRef, userData);
 
             toast({
                 title: "Account Created",
@@ -88,6 +84,15 @@ export default function SignUpPage() {
             router.push("/signin");
         } catch (error: any) {
             console.error("Signup error:", error);
+            
+            if (error.code === 'permission-denied') {
+                const permissionError = new FirestorePermissionError({
+                    path: "users",
+                    operation: 'create',
+                });
+                errorEmitter.emit('permission-error', permissionError);
+            }
+
             toast({
                 variant: "destructive",
                 title: "Registration Failed",

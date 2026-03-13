@@ -27,15 +27,17 @@ export async function updateUserCredentialsAction(uid: string, data: {
     }
 
     // 2. Update Firestore Record
-    // Explicitly destructure to ensure we have the specific fields requested
-    const { password, ...firestoreData } = data;
-    if (firestoreData.email) firestoreData.email = firestoreData.email.trim();
-
-    // Ensure metadata fields are included if present
+    // Build a clean payload to ensure exact field names are preserved
     const updatePayload: any = {
-      ...firestoreData,
       updatedAt: new Date().toISOString(),
     };
+
+    if (data.email) updatePayload.email = data.email.trim();
+    if (data.displayName) updatePayload.displayName = data.displayName;
+    if (data.role) updatePayload.role = data.role;
+    if (data.status) updatePayload.status = data.status;
+    if (data.phoneNumber !== undefined) updatePayload.phoneNumber = data.phoneNumber;
+    if (data.photoURL) updatePayload.photoURL = data.photoURL;
 
     await db.collection('users').doc(uid).set(updatePayload, { merge: true });
 
