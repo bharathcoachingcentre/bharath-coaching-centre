@@ -996,7 +996,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,0,0,0.04)] overflow-hidden border border-gray-50">
+          <div className="bg-white rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,0,0,0.04)] overflow-hidden border border-gray-100">
             <div className="overflow-x-auto no-scrollbar">
               <div className="min-w-[1000px] p-8 md:p-12">
                 <div className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 mb-8 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl px-6 py-4">
@@ -1080,13 +1080,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative order-2 lg:order-1">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-teal-500/10 rounded-[3rem] blur-2xl"></div>
-              <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border border-white">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-teal-500/10 rounded-[24px] blur-2xl"></div>
+              <div className="relative rounded-[24px] overflow-hidden shadow-2xl border border-white">
                 <Image
                   src={content.mentorshipImageUrl || placeholderImages["one-to-one-mentorship"].src}
                   alt="Mentorship"
-                  width={800}
-                  height={1000}
+                  width={584}
+                  height={500}
                   className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
                   data-ai-hint="student mentorship"
                 />
