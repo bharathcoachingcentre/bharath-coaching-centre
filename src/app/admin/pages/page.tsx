@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo } from "react";
@@ -12,13 +11,31 @@ import {
   Users, 
   Layout,
   ArrowRight,
-  Globe
+  Globe,
+  PanelTop,
+  PanelBottom
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const pages = [
+  { 
+    id: "header", 
+    title: "Global Header", 
+    description: "Main navigation, branding, and CTA button", 
+    icon: PanelTop, 
+    color: "bg-indigo-500", 
+    bg: "bg-indigo-50" 
+  },
+  { 
+    id: "footer", 
+    title: "Global Footer", 
+    description: "Contact info, social links, and site links", 
+    icon: PanelBottom, 
+    color: "bg-slate-700", 
+    bg: "bg-slate-50" 
+  },
   { 
     id: "home", 
     title: "Home Page", 
@@ -67,7 +84,7 @@ export default function PagesManagementPage() {
       <div className="flex items-center justify-between">
         <div className="text-left">
           <h2 className="text-3xl font-black text-gray-900 tracking-tight">Content Management</h2>
-          <p className="text-gray-500 font-medium mt-1">Select a page to edit its dynamic content</p>
+          <p className="text-gray-500 font-medium mt-1">Select a page or layout component to edit its content</p>
         </div>
       </div>
 
@@ -83,7 +100,7 @@ export default function PagesManagementPage() {
                   <h3 className="font-bold text-gray-900 text-xl tracking-tight">{page.title}</h3>
                   <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-gray-400 mt-0.5">
                     <Layout className="w-3 h-3" />
-                    Page Template
+                    Template Editor
                   </div>
                 </div>
               </div>

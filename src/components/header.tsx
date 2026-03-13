@@ -1,9 +1,9 @@
-
 "use client";
 
+import React, { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, GraduationCap, ChevronDown, Users } from "lucide-react";
+import { Menu, GraduationCap, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -20,17 +20,38 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-
-const navLinks = [
-  { href: "/study-material", label: "Study Materials" },
-  { href: "/teachers", label: "Our Faculty" },
-  { href: "/our-results", label: "Results" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+import { useFirestore, useDoc } from "@/firebase";
+import { doc } from "firebase/firestore";
 
 export function Header() {
   const pathname = usePathname();
+  const firestore = useFirestore();
+
+  const headerRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, "pages", "header");
+  }, [firestore]);
+
+  const { data: headerData } = useDoc(headerRef);
+
+  const content = useMemo(() => {
+    const defaults = {
+      academyName: "Bharath Academy",
+      logoUrl: "",
+      ctaText: "Explore Courses",
+      ctaLink: "/enrollment",
+      navLinks: [
+        { href: "/study-material", label: "Study Materials" },
+        { href: "/teachers", label: "Our Faculty" },
+        { href: "/our-results", label: "Results" },
+        { href: "/about", label: "About" },
+        { href: "/contact", label: "Contact" },
+      ]
+    };
+
+    if (!headerData?.content) return defaults;
+    return { ...defaults, ...headerData.content };
+  }, [headerData]);
 
   if (pathname.startsWith('/admin')) {
     return null;
@@ -40,19 +61,19 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/70 border-b border-white/20">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-md">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-md transition-transform group-hover:scale-110">
               <GraduationCap className="text-white w-6 h-6" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-              Bharath Academy
+              {content.academyName}
             </span>
           </Link>
 
           <div className="hidden lg:flex items-center space-x-8">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="text-gray-700 hover:text-blue-600 font-semibold flex items-center space-x-1 transition-colors duration-200">
+                <button className="text-gray-700 hover:text-blue-600 font-semibold flex items-center space-x-1 transition-colors duration-200 outline-none">
                   <span>Courses</span>
                   <ChevronDown className="h-3 w-3" />
                 </button>
@@ -79,9 +100,9 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {navLinks.map((link) => (
+            {content.navLinks.map((link: any, idx: number) => (
               <Link
-                key={link.href + link.label}
+                key={idx}
                 href={link.href}
                 className={cn(
                   "text-gray-700 hover:text-blue-600 font-semibold transition-colors duration-200",
@@ -94,8 +115,10 @@ export function Header() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <Button asChild className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-200 transform hover:scale-105 px-8 h-11">
-              <Link href="/enrollment">Explore Courses</Link>
+            <Button asChild className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-200 transform hover:scale-105 px-8 h-11 border-none">
+              <Link href={content.ctaLink}>
+                {content.ctaText}
+              </Link>
             </Button>
             <Button variant="ghost" asChild className="text-gray-700 font-semibold hover:text-blue-600 hover:bg-blue-50 border-2 border-transparent hover:border-blue-100 rounded-lg px-6 transition-all">
               <Link href="/signin">Login</Link>
@@ -115,8 +138,8 @@ export function Header() {
                 </SheetHeader>
                 <div className="flex flex-col space-y-6 mt-10">
                   <Link href="/online-courses" className="text-xl font-bold text-gray-900 border-b pb-4 border-gray-100">Courses</Link>
-                  {navLinks.map((link) => (
-                    <SheetClose asChild key={link.href + link.label}>
+                  {content.navLinks.map((link: any, idx: number) => (
+                    <SheetClose asChild key={idx}>
                       <Link
                         href={link.href}
                         className={cn(
@@ -129,8 +152,10 @@ export function Header() {
                     </SheetClose>
                   ))}
                   <div className="pt-6 space-y-4">
-                    <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold h-14 rounded-xl text-lg shadow-lg">
-                      <Link href="/enrollment">Explore Courses</Link>
+                    <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold h-14 rounded-xl text-lg shadow-lg border-none">
+                      <Link href={content.ctaLink}>
+                        {content.ctaText}
+                      </Link>
                     </Button>
                     <SheetClose asChild>
                       <Button variant="outline" asChild className="w-full h-14 rounded-xl font-bold text-lg">

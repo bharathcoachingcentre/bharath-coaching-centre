@@ -46,7 +46,15 @@ import {
   Medal,
   Crown,
   Laptop,
-  Building
+  Building,
+  Facebook,
+  Instagram,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+  ExternalLink,
+  Navigation
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,6 +77,33 @@ import {
 } from "@/components/ui/select";
 
 const defaultPageData: Record<string, any> = {
+  header: {
+    academyName: "Bharath Academy",
+    logoUrl: "",
+    ctaText: "Explore Courses",
+    ctaLink: "/enrollment",
+    navLinks: [
+      { href: "/study-material", label: "Study Materials" },
+      { href: "/teachers", label: "Our Faculty" },
+      { href: "/our-results", label: "Results" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
+    ]
+  },
+  footer: {
+    description: "Helping students from Class 1 to 12 achieve academic excellence through structured coaching.",
+    facebookLink: "#",
+    instagramLink: "#",
+    youtubeLink: "#",
+    contactPhone: "+91 72000 30307",
+    contactEmail: "bcc_try@hotmail.com",
+    contactAddress: "C-109, 5th Cross, Thillainagar (East), Trichy - 18",
+    contactHours: "Mon-Sat 9AM-7PM",
+    appTitle: "Get the Bharath Academy App",
+    appSubtitle: "Learn anytime, anywhere with our mobile app",
+    playStoreLink: "#",
+    appStoreLink: "#"
+  },
   home: {
     heroTitleMain: "Empowering Students from ",
     heroTitleHighlight: "Class 1 to 12",
@@ -367,11 +402,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </div>
                 <div className="pt-10 flex-grow">
                   <h2 className="text-2xl font-black text-gray-900 leading-tight capitalize">
-                    {slug} Page
+                    {slug} Editor
                   </h2>
                   <div className="mt-4 flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest w-fit">
                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    Live Website
+                    Live Layout
                   </div>
                 </div>
               </div>
@@ -384,30 +419,261 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-[#182d45] text-white">
-            <CardHeader className="p-8 pb-4">
-              <CardTitle className="text-xl font-bold flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-teal-400" /> Icon Library
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-8 pt-4 space-y-6 text-left">
-              <p className="text-[10px] text-blue-200/60 font-black uppercase tracking-widest">Lucide Icon Reference</p>
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-                {Object.keys(iconMap).map((iconName) => {
-                  const Icon = iconMap[iconName];
-                  return (
-                    <div key={iconName} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
-                      <Icon className="w-5 h-5 text-teal-400" />
-                      <span className="text-[8px] font-black uppercase tracking-tighter text-blue-200/60 text-center">{iconName}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
+          {slug !== 'header' && slug !== 'footer' && (
+            <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-[#182d45] text-white">
+              <CardHeader className="p-8 pb-4">
+                <CardTitle className="text-xl font-bold flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-teal-400" /> Icon Library
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-8 pt-4 space-y-6 text-left">
+                <p className="text-[10px] text-blue-200/60 font-black uppercase tracking-widest">Lucide Icon Reference</p>
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                  {Object.keys(iconMap).map((iconName) => {
+                    const Icon = iconMap[iconName];
+                    return (
+                      <div key={iconName} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
+                        <Icon className="w-5 h-5 text-teal-400" />
+                        <span className="text-[8px] font-black uppercase tracking-tighter text-blue-200/60 text-center">{iconName}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <div className="space-y-8">
+          {/* Header Editor */}
+          {slug === 'header' && (
+            <div className="space-y-8 text-left">
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Branding & Identity</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-6">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Academy Name (Logo Text)</Label>
+                    <Input 
+                      value={formData.academyName || ""} 
+                      onChange={(e) => updateField('academyName', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700">Custom Logo (Optional URL)</Label>
+                    <Input 
+                      value={formData.logoUrl || ""} 
+                      onChange={(e) => updateField('logoUrl', e.target.value)}
+                      placeholder="https://..."
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Navigation Menu</CardTitle>
+                  <Button 
+                    onClick={() => {
+                      const newLinks = [...(formData.navLinks || [])];
+                      newLinks.push({ label: "New Link", href: "/" });
+                      updateField('navLinks', newLinks);
+                    }}
+                    variant="outline"
+                    className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600"
+                  >
+                    <Plus className="w-4 h-4" /> Add Item
+                  </Button>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-4">
+                  {(formData.navLinks || []).map((link: any, idx: number) => (
+                    <div key={idx} className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 group">
+                      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input 
+                          value={link.label} 
+                          onChange={(e) => {
+                            const newLinks = [...formData.navLinks];
+                            newLinks[idx].label = e.target.value;
+                            updateField('navLinks', newLinks);
+                          }}
+                          className="bg-white border-none h-12 rounded-xl"
+                          placeholder="Link Label"
+                        />
+                        <Input 
+                          value={link.href} 
+                          onChange={(e) => {
+                            const newLinks = [...formData.navLinks];
+                            newLinks[idx].href = e.target.value;
+                            updateField('navLinks', newLinks);
+                          }}
+                          className="bg-white border-none h-12 rounded-xl"
+                          placeholder="Target URL (/...)"
+                        />
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={() => {
+                          const newLinks = formData.navLinks.filter((_: any, i: number) => i !== idx);
+                          updateField('navLinks', newLinks);
+                        }}
+                        className="text-gray-300 hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Header CTA Button</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Button Text</Label>
+                    <Input 
+                      value={formData.ctaText || ""} 
+                      onChange={(e) => updateField('ctaText', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Button Link</Label>
+                    <Input 
+                      value={formData.ctaLink || ""} 
+                      onChange={(e) => updateField('ctaLink', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Footer Editor */}
+          {slug === 'footer' && (
+            <div className="space-y-8 text-left">
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Organization Summary</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Footer Description</Label>
+                    <Textarea 
+                      value={formData.description || ""} 
+                      onChange={(e) => updateField('description', e.target.value)}
+                      className="min-h-[120px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Contact & Support</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-blue-600" /> Phone Number
+                    </Label>
+                    <Input 
+                      value={formData.contactPhone || ""} 
+                      onChange={(e) => updateField('contactPhone', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-blue-600" /> Email Address
+                    </Label>
+                    <Input 
+                      value={formData.contactEmail || ""} 
+                      onChange={(e) => updateField('contactEmail', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-blue-600" /> Working Hours
+                    </Label>
+                    <Input 
+                      value={formData.contactHours || ""} 
+                      onChange={(e) => updateField('contactHours', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-blue-600" /> Office Address
+                    </Label>
+                    <Input 
+                      value={formData.contactAddress || ""} 
+                      onChange={(e) => updateField('contactAddress', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Social & App Links</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 pt-6 space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-blue-600 flex items-center gap-2 uppercase">
+                        <Facebook className="w-4 h-4" /> Facebook
+                      </Label>
+                      <Input value={formData.facebookLink || ""} onChange={(e) => updateField('facebookLink', e.target.value)} className="h-12 bg-gray-50 border-none rounded-xl shadow-sm" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-pink-600 flex items-center gap-2 uppercase">
+                        <Instagram className="w-4 h-4" /> Instagram
+                      </Label>
+                      <Input value={formData.instagramLink || ""} onChange={(e) => updateField('instagramLink', e.target.value)} className="h-12 bg-gray-50 border-none rounded-xl shadow-sm" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-red-600 flex items-center gap-2 uppercase">
+                        <Youtube className="w-4 h-4" /> Youtube
+                      </Label>
+                      <Input value={formData.youtubeLink || ""} onChange={(e) => updateField('youtubeLink', e.target.value)} className="h-12 bg-gray-50 border-none rounded-xl shadow-sm" />
+                    </div>
+                  </div>
+
+                  <div className="pt-10 border-t border-gray-50 space-y-8">
+                    <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Mobile App Section</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">App Section Title</Label>
+                        <Input value={formData.appTitle || ""} onChange={(e) => updateField('appTitle', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">App Section Subtitle</Label>
+                        <Input value={formData.appSubtitle || ""} onChange={(e) => updateField('appSubtitle', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Google Play Store Link</Label>
+                        <Input value={formData.playStoreLink || ""} onChange={(e) => updateField('playStoreLink', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Apple App Store Link</Label>
+                        <Input value={formData.appStoreLink || ""} onChange={(e) => updateField('appStoreLink', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6" />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
           {slug === 'home' && (
             <div className="space-y-8">
               {/* Hero Banner Text Card */}
@@ -1779,7 +2045,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {slug !== 'home' && slug !== 'about' && (
+          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
               <CardHeader className="p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>

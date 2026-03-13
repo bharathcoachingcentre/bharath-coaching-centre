@@ -1,4 +1,3 @@
-
 "use client";
 
 import '../globals.css';
@@ -21,7 +20,9 @@ import {
   CalendarClock,
   School,
   Contact2,
-  Star
+  Star,
+  Type,
+  List
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,7 +70,16 @@ const menuItems = [
       { label: "Admins", href: "/admin/users/admins" },
     ]
   },
-  { icon: Layout, label: "Pages", href: "/admin/pages" },
+  { 
+    icon: Layout, 
+    label: "Pages", 
+    href: "/admin/pages",
+    children: [
+      { label: "Manage Pages", href: "/admin/pages" },
+      { label: "Header Editor", href: "/admin/pages/header" },
+      { label: "Footer Editor", href: "/admin/pages/footer" },
+    ]
+  },
   { icon: Trophy, label: "Top Performers", href: "/admin/top-performers" },
   { icon: Users, label: "Enrollments", href: "/admin/enrollments" },
   { icon: BookOpen, label: "Study Materials", href: "/admin/study-materials" },
@@ -116,6 +126,7 @@ export default function AdminLayout({
 
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({
     Users: pathname.startsWith("/admin/users"),
+    Pages: pathname.startsWith("/admin/pages"),
     Timetable: pathname.startsWith("/admin/timetable")
   });
 
