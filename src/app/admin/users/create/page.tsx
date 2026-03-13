@@ -12,7 +12,8 @@ import {
   Check,
   Plus,
   BookMarked,
-  Sparkles
+  Sparkles,
+  Lock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -52,15 +53,13 @@ import * as z from "zod";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useFirestore } from "@/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 import { cn } from "@/lib/utils";
+import { createUserAccountAction } from "@/app/actions/user-actions";
 
 const formSchema = z.object({
   displayName: z.string().min(1, "Full name is required"),
   email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
   phoneNumber: z.string().min(10, "Valid contact required"),
   role: z.string().min(1, "Please select a role"),
   status: z.string().min(1, "Please select a status"),
@@ -86,7 +85,6 @@ function CreateUserForm() {
   const { toast } = useToast();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
 
@@ -97,6 +95,7 @@ function CreateUserForm() {
     defaultValues: {
       displayName: "",
       email: "",
+      password: "",
       phoneNumber: "",
       role: defaultRole,
       status: "active",
@@ -107,33 +106,24 @@ function CreateUserForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    if (!firestore) return;
     setIsSubmitting(true);
 
-    const submissionData = {
-      ...values,
-      photoURL: values.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${values.email}`,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    };
+    const result = await createUserAccountAction(values);
 
-    const usersRef = collection(firestore, 'users');
-    
-    addDoc(usersRef, submissionData)
-      .then(() => {
-        toast({ title: "User Created", description: `${values.displayName} has been added.` });
-        router.push(values.role === 'teacher' ? "/admin/teachers" : "/admin/users");
-      })
-      .catch(async (error) => {
-        const permissionError = new FirestorePermissionError({
-          path: 'users',
-          operation: 'create',
-          requestResourceData: submissionData,
-        });
-        errorEmitter.emit('permission-error', permissionError);
-        toast({ variant: "destructive", title: "Failed", description: error.message });
-        setIsSubmitting(false);
+    if (result.success) {
+      toast({ 
+        title: "Account Created", 
+        description: `Login enabled for ${values.displayName} with email ${values.email}.` 
       });
+      router.push(values.role === 'teacher' ? "/admin/teachers" : "/admin/users");
+    } else {
+      toast({ 
+        variant: "destructive", 
+        title: "Failed", 
+        description: result.error || "Could not create dynamic account." 
+      });
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -156,7 +146,7 @@ function CreateUserForm() {
                 </div>
                 <div className="text-left">
                   <h3 className="text-2xl font-black text-gray-900 tracking-tight">Create Account</h3>
-                  <p className="text-sm text-gray-400 font-medium">Register a new student or faculty member</p>
+                  <p className="text-sm text-gray-400 font-medium">Register a dynamic account with instant login capability</p>
                 </div>
               </div>
 
@@ -284,6 +274,23 @@ function CreateUserForm() {
                     </FormItem>
                   )}
                 />
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3 text-left">
+                      <FormLabel className="text-xs font-black uppercase text-gray-400">Initial Password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <Input type="password" placeholder="••••••••" {...field} className="h-14 bg-gray-50 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm" />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 
                 <FormField
                   control={form.control}
@@ -400,7 +407,7 @@ function CreateUserForm() {
               Cancel
             </Button>
             <Button 
-              type="submit"
+              type="submit" 
               disabled={isSubmitting}
               className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 gap-3 transition-all active:scale-95 border-none"
             >

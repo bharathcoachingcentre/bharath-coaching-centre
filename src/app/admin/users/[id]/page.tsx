@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -51,15 +50,14 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { useFirestore, useDoc } from "@/firebase";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { errorEmitter } from "@/firebase/error-emitter";
-import { FirestorePermissionError, type SecurityRuleContext } from "@/firebase/errors";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { updateUserCredentialsAction } from "@/app/actions/user-actions";
 
 const formSchema = z.object({
   displayName: z.string().min(1, "Name is required"),
@@ -86,21 +84,6 @@ const avatarCollections = [
     name: "Avataaars",
     id: "avataaars",
     seeds: ["Felix", "Aneka", "Jack", "Max", "Luna", "Oliver", "Sophie", "Leo", "Mia", "Zoe"]
-  },
-  {
-    name: "Lorelei",
-    id: "lorelei",
-    seeds: ["Midnight", "Snuggles", "Boots", "Tiger", "Lucky", "Pepper", "Ginger", "Oscar", "Bella", "Simba"]
-  },
-  {
-    name: "Notionists",
-    id: "notionists",
-    seeds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-  },
-  {
-    name: "Pixel Art",
-    id: "pixel-art-neutral",
-    seeds: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
   }
 ];
 
@@ -108,10 +91,7 @@ const quickSeeds = [
   { id: "micah", seed: "Jack" },
   { id: "micah", seed: "Sarah" },
   { id: "personas", seed: "1" },
-  { id: "personas", seed: "4" },
   { id: "avataaars", seed: "Felix" },
-  { id: "avataaars", seed: "Sophie" },
-  { id: "notionists", seed: "3" },
 ];
 
 export default function UserDetailPage({ 
@@ -166,47 +146,28 @@ export default function UserDetailPage({
     }
   }, [user, form, isSaving]);
 
-  const watchedPhotoURL = form.watch("photoURL");
-  const displayPhotoURL = (watchedPhotoURL || user?.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user?.email || 'default'}`);
+  const displayPhotoURL = (form.watch("photoURL") || user?.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user?.email || 'default'}`);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
-    if (!firestore || !userId) return;
+    if (!userId) return;
     setIsSaving(true);
 
-    const ref = doc(firestore, "users", userId);
-    
-    // In this prototype, we update the Firestore document.
-    // Note: Changing authentication credentials for another user usually requires a backend/Admin SDK.
-    const { password, ...updateData } = values;
+    const result = await updateUserCredentialsAction(userId, values);
 
-    updateDoc(ref, {
-      ...updateData,
-      updatedAt: serverTimestamp(),
-    })
-      .then(() => {
-        toast({
-          title: "User Updated",
-          description: "Account settings have been saved successfully.",
-        });
-        setIsEditMode(false);
-        setIsSaving(false);
-      })
-      .catch(async (error) => {
-        const permissionError = new FirestorePermissionError({
-          path: ref.path,
-          operation: "update",
-          requestResourceData: updateData,
-        } satisfies SecurityRuleContext);
-        
-        errorEmitter.emit('permission-error', permissionError);
-        
-        toast({
-          variant: "destructive",
-          title: "Update Failed",
-          description: error.message || "Could not save user changes.",
-        });
-        setIsSaving(false);
+    if (result.success) {
+      toast({
+        title: "User Updated",
+        description: "Credentials and profile have been synchronized successfully.",
       });
+      setIsEditMode(false);
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Update Failed",
+        description: result.error || "Could not save changes.",
+      });
+    }
+    setIsSaving(false);
   };
 
   if (loading) {
@@ -302,7 +263,7 @@ export default function UserDetailPage({
               <div>
                 <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Account Created</p>
                 <p className="text-sm font-bold text-gray-700">
-                  {user.createdAt?.toDate ? new Date(user.createdAt.toDate()).toLocaleDateString() : 'Recently'}
+                  {user.createdAt ? (typeof user.createdAt === 'string' ? new Date(user.createdAt).toLocaleDateString() : user.createdAt.toDate().toLocaleDateString()) : 'Recently'}
                 </p>
               </div>
               <div>
@@ -369,9 +330,9 @@ export default function UserDetailPage({
                       <Lock className="w-7 h-7" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-gray-900">Security Note</h4>
+                      <h4 className="font-bold text-gray-900">Security Management</h4>
                       <p className="text-sm text-gray-500 leading-relaxed max-w-md">
-                        Passwords can be changed here. Updated email addresses will be used for future communications and system authentication.
+                        This user can now be updated dynamically. Changing the email or password here will update their login credentials instantly.
                       </p>
                     </div>
                   </div>
