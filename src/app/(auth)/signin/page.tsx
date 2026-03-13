@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,7 +17,7 @@ import {
   DialogTrigger 
 } from "@/components/ui/dialog";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { initializeFirebase } from "@/firebase";
+import { initializeFirebase, useUser } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { Loader2, Mail, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -31,6 +31,7 @@ const loginSchema = z.object({
 });
 
 export default function SignInPage() {
+    const { user, loading: authLoading } = useUser();
     const { toast } = useToast();
     const router = useRouter();
     const [resetEmail, setResetEmail] = useState("");
@@ -45,6 +46,12 @@ export default function SignInPage() {
             password: "",
         },
     });
+
+    useEffect(() => {
+        if (!authLoading && user) {
+            router.replace("/admin");
+        }
+    }, [user, authLoading, router]);
 
     const onLogin = async (values: z.infer<typeof loginSchema>) => {
         setIsLoading(true);
@@ -117,6 +124,15 @@ export default function SignInPage() {
             setIsResetting(false);
         }
     };
+
+    if (authLoading || user) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen gradient-bg">
+                <Loader2 className="w-12 h-12 animate-spin text-blue-600 mb-4" />
+                <p className="font-bold text-gray-500 uppercase tracking-widest text-xs">Checking Session...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col min-h-screen pt-16 pb-24 gradient-bg" style={{ marginTop: '-140px' }}>
