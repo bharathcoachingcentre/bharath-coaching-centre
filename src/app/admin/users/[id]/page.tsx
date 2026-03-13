@@ -132,9 +132,9 @@ export default function UserDetailPage({
     },
   });
 
-  // Sync form data with database user data
+  // Sync form data with database user data once loaded
   useEffect(() => {
-    if (user && !isSaving) {
+    if (user && !isSaving && !form.formState.isDirty) {
       form.reset({
         displayName: user.displayName || "",
         email: user.email || "",
@@ -160,6 +160,8 @@ export default function UserDetailPage({
         title: "User Updated",
         description: "Credentials and profile have been synchronized successfully.",
       });
+      // Reset form with new values to clear dirty state
+      form.reset(values);
       setIsEditMode(false);
     } else {
       toast({
@@ -224,7 +226,7 @@ export default function UserDetailPage({
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <User Cog className="w-12 h-12 text-gray-300" />
+                  <UserCog className="w-12 h-12 text-gray-300" />
                 )}
               </div>
               <div className="text-center space-y-1">
@@ -490,7 +492,7 @@ export default function UserDetailPage({
                         name="role"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-xs font-black uppercase text-gray-400">Access Role</FormLabel>
+                            <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Access Role</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
                                 <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
@@ -513,7 +515,7 @@ export default function UserDetailPage({
                         name="status"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-xs font-black uppercase text-gray-400">Account Status</FormLabel>
+                            <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Account Status</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
                                 <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">

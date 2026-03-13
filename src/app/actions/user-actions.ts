@@ -27,14 +27,17 @@ export async function updateUserCredentialsAction(uid: string, data: {
     }
 
     // 2. Update Firestore Record
-    // Remove password from firestore data object to avoid storing plain text passwords
+    // Explicitly destructure to ensure we have the specific fields requested
     const { password, ...firestoreData } = data;
     if (firestoreData.email) firestoreData.email = firestoreData.email.trim();
 
-    await db.collection('users').doc(uid).set({
+    // Ensure metadata fields are included if present
+    const updatePayload: any = {
       ...firestoreData,
       updatedAt: new Date().toISOString(),
-    }, { merge: true });
+    };
+
+    await db.collection('users').doc(uid).set(updatePayload, { merge: true });
 
     return { success: true };
   } catch (error: any) {
