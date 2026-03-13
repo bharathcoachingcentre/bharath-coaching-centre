@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo } from "react";
@@ -42,24 +43,44 @@ export function Header() {
       logoHeight: "80",
       ctaText: "Explore Courses",
       ctaLink: "/enrollment",
-      navLinks: [
-        { href: "/study-material", label: "Study Materials" },
-        { href: "/teachers", label: "Our Faculty" },
-        { href: "/our-results", label: "Results" },
-        { href: "/about", label: "About" },
-        { href: "/contact", label: "Contact" },
-      ],
-      courseDropdownLabel: "Courses",
-      courseItems: [
-        { label: "CBSE Curriculum", subLabel: "Class 1 to 12", href: "/cbse" },
-        { label: "Samacheer Kalvi", subLabel: "Class 1 to 12", href: "/samacheer" },
-        { label: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", href: "/online-courses" },
+      navMenu: [
+        { id: "1", title: "Study Materials", url: "/study-material", parentId: null, order: 0 },
+        { id: "2", title: "Our Faculty", url: "/teachers", parentId: null, order: 1 },
+        { id: "3", title: "Results", url: "/our-results", parentId: null, order: 2 },
+        { id: "4", title: "About", url: "/about", parentId: null, order: 3 },
+        { id: "5", title: "Contact", url: "/contact", parentId: null, order: 4 },
+        { id: "6", title: "Courses", url: "#", parentId: null, order: 5 },
+        { id: "7", title: "CBSE Curriculum", subLabel: "Class 1 to 12", url: "/cbse", parentId: "6", order: 0 },
+        { id: "8", title: "Samacheer Kalvi", subLabel: "Class 1 to 12", url: "/samacheer", parentId: "6", order: 1 },
+        { id: "9", title: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", url: "/online-courses", parentId: "6", order: 2 },
       ]
     };
 
     if (!headerData?.content) return defaults;
     return { ...defaults, ...headerData.content };
   }, [headerData]);
+
+  const menuTree = useMemo(() => {
+    const items = content.navMenu || [];
+    const root: any[] = [];
+    const childrenMap: Record<string, any[]> = {};
+
+    [...items]
+      .sort((a, b) => (a.order || 0) - (b.order || 0))
+      .forEach(item => {
+        if (item.parentId) {
+          if (!childrenMap[item.parentId]) childrenMap[item.parentId] = [];
+          childrenMap[item.parentId].push(item);
+        } else {
+          root.push(item);
+        }
+      });
+
+    return root.map(item => ({
+      ...item,
+      children: childrenMap[item.id] || []
+    }));
+  }, [content.navMenu]);
 
   if (pathname.startsWith('/admin')) {
     return null;
@@ -94,37 +115,46 @@ export function Header() {
           </Link>
 
           <div className="hidden lg:flex items-center space-x-8">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="text-gray-700 hover:text-blue-600 font-semibold flex items-center space-x-1 transition-colors duration-200 outline-none">
-                  <span>{content.courseDropdownLabel}</span>
-                  <ChevronDown className="h-3 w-3" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 rounded-xl shadow-xl border-gray-100 p-2">
-                {(content.courseItems || []).map((item: any, idx: number) => (
-                  <DropdownMenuItem asChild key={idx}>
-                    <Link href={item.href} className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
-                      <div className="font-bold text-left">{item.label}</div>
-                      <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest text-left">{item.subLabel}</div>
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {content.navLinks.map((link: any, idx: number) => (
-              <Link
-                key={idx}
-                href={link.href}
-                className={cn(
-                  "text-gray-700 hover:text-blue-600 font-semibold transition-colors duration-200",
-                  pathname === link.href && "text-blue-600"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {menuTree.map((item) => {
+              if (item.children && item.children.length > 0) {
+                return (
+                  <DropdownMenu key={item.id}>
+                    <DropdownMenuTrigger asChild>
+                      <button className="text-gray-700 hover:text-blue-600 font-semibold flex items-center space-x-1 transition-colors duration-200 outline-none">
+                        <span>{item.title}</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 rounded-xl shadow-xl border-gray-100 p-2">
+                      {item.children.map((child: any) => (
+                        <DropdownMenuItem asChild key={child.id}>
+                          <Link href={child.url} className="p-3 cursor-pointer hover:bg-blue-50 rounded-lg block">
+                            <div className="font-bold text-left">{child.title}</div>
+                            {child.subLabel && (
+                              <div className="text-[10px] text-gray-500 font-medium uppercase tracking-widest text-left">
+                                {child.subLabel}
+                              </div>
+                            )}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                );
+              }
+              return (
+                <Link
+                  key={item.id}
+                  href={item.url}
+                  className={cn(
+                    "text-gray-700 hover:text-blue-600 font-semibold transition-colors duration-200",
+                    pathname === item.url && "text-blue-600"
+                  )}
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="hidden lg:flex items-center space-x-4">
@@ -145,7 +175,7 @@ export function Header() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="rounded-l-3xl">
+              <SheetContent side="right" className="rounded-l-3xl overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle className="text-left font-bold text-2xl text-blue-600">
                     {content.logoUrl ? (
@@ -165,20 +195,37 @@ export function Header() {
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col space-y-6 mt-10 text-left">
-                  <Link href="/online-courses" className="text-xl font-bold text-gray-900 border-b pb-4 border-gray-100">{content.courseDropdownLabel}</Link>
-                  {content.navLinks.map((link: any, idx: number) => (
-                    <SheetClose asChild key={idx}>
-                      <Link
-                        href={link.href}
+                  {menuTree.map((item) => (
+                    <div key={item.id} className="space-y-4">
+                      <Link 
+                        href={item.url} 
                         className={cn(
-                          "text-xl font-bold text-gray-700 hover:text-blue-600",
-                          pathname === link.href && "text-blue-600"
+                          "text-xl font-bold text-gray-900 block",
+                          pathname === item.url && "text-blue-600"
                         )}
                       >
-                        {link.label}
+                        {item.title}
                       </Link>
-                    </SheetClose>
+                      {item.children && item.children.length > 0 && (
+                        <div className="pl-4 space-y-4 border-l-2 border-gray-100">
+                          {item.children.map((child: any) => (
+                            <SheetClose asChild key={child.id}>
+                              <Link
+                                href={child.url}
+                                className={cn(
+                                  "text-lg font-bold text-gray-500 hover:text-blue-600 block",
+                                  pathname === child.url && "text-blue-600"
+                                )}
+                              >
+                                {child.title}
+                              </Link>
+                            </SheetClose>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   ))}
+                  
                   <div className="pt-6 space-y-4">
                     <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold h-14 rounded-xl text-lg shadow-lg border-none">
                       <Link href={content.ctaLink}>

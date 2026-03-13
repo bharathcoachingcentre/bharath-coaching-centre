@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -58,7 +59,10 @@ import {
   Navigation,
   List,
   FileCheck,
-  FileText
+  FileText,
+  GripVertical,
+  ChevronRight as ArrowRightIcon,
+  ChevronLeft as ArrowLeftIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -79,6 +83,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Reorder } from "framer-motion";
 
 const defaultPageData: Record<string, any> = {
   header: {
@@ -88,18 +93,16 @@ const defaultPageData: Record<string, any> = {
     logoHeight: "80",
     ctaText: "Explore Courses",
     ctaLink: "/enrollment",
-    navLinks: [
-      { href: "/study-material", label: "Study Materials" },
-      { href: "/teachers", label: "Our Faculty" },
-      { href: "/our-results", label: "Results" },
-      { href: "/about", label: "About" },
-      { href: "/contact", label: "Contact" },
-    ],
-    courseDropdownLabel: "Courses",
-    courseItems: [
-      { label: "CBSE Curriculum", subLabel: "Class 1 to 12", href: "/cbse" },
-      { label: "Samacheer Kalvi", subLabel: "Class 1 to 12", href: "/samacheer" },
-      { label: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", href: "/online-courses" },
+    navMenu: [
+      { id: "1", title: "Study Materials", url: "/study-material", parentId: null, order: 0 },
+      { id: "2", title: "Our Faculty", url: "/teachers", parentId: null, order: 1 },
+      { id: "3", title: "Results", url: "/our-results", parentId: null, order: 2 },
+      { id: "4", title: "About", url: "/about", parentId: null, order: 3 },
+      { id: "5", title: "Contact", url: "/contact", parentId: null, order: 4 },
+      { id: "6", title: "Courses", url: "#", parentId: null, order: 5 },
+      { id: "7", title: "CBSE Curriculum", subLabel: "Class 1 to 12", url: "/cbse", parentId: "6", order: 0 },
+      { id: "8", title: "Samacheer Kalvi", subLabel: "Class 1 to 12", url: "/samacheer", parentId: "6", order: 1 },
+      { id: "9", title: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", url: "/online-courses", parentId: "6", order: 2 },
     ]
   },
   footer: {
@@ -462,6 +465,52 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     }
   };
 
+  // Hierarchical Menu Helpers
+  const addMenuItem = () => {
+    const newItems = [...(formData.navMenu || [])];
+    const id = Math.random().toString(36).substring(2, 9);
+    newItems.push({ 
+      id, 
+      title: "New Link", 
+      url: "/", 
+      parentId: null, 
+      order: newItems.length 
+    });
+    updateField('navMenu', newItems);
+  };
+
+  const deleteMenuItem = (id: string) => {
+    const newItems = (formData.navMenu || []).filter((item: any) => item.id !== id && item.parentId !== id);
+    updateField('navMenu', newItems);
+  };
+
+  const indentMenuItem = (id: string) => {
+    const items = [...(formData.navMenu || [])];
+    const idx = items.findIndex(i => i.id === id);
+    if (idx > 0) {
+      // Find potential parent above it
+      const prev = items[idx - 1];
+      if (!prev.parentId) {
+        items[idx].parentId = prev.id;
+        updateField('navMenu', items);
+      }
+    }
+  };
+
+  const outdentMenuItem = (id: string) => {
+    const items = [...(formData.navMenu || [])];
+    const idx = items.findIndex(i => i.id === id);
+    if (idx !== -1) {
+      items[idx].parentId = null;
+      updateField('navMenu', items);
+    }
+  };
+
+  const handleMenuReorder = (newItems: any[]) => {
+    const reordered = newItems.map((item, idx) => ({ ...item, order: idx }));
+    updateField('navMenu', reordered);
+  };
+
   if (loading || !formData) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
@@ -646,97 +695,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Courses Dropdown Menu</CardTitle>
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                      <Label className="text-xs font-bold text-gray-400">Dropdown Label:</Label>
-                      <Input 
-                        value={formData.courseDropdownLabel || "Courses"} 
-                        onChange={(e) => updateField('courseDropdownLabel', e.target.value)}
-                        className="h-9 w-32 bg-gray-50 border-none rounded-lg font-bold"
-                      />
-                    </div>
-                    <Button 
-                      onClick={() => {
-                        const newItems = [...(formData.courseItems || [])];
-                        newItems.push({ label: "New Course", subLabel: "Subtitle", href: "/" });
-                        updateField('courseItems', newItems);
-                      }}
-                      variant="outline"
-                      className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600"
-                    >
-                      <Plus className="w-4 h-4" /> Add Item
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-4">
-                  {(formData.courseItems || []).map((item: any, idx: number) => (
-                    <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4 relative group">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase text-gray-400">Heading</Label>
-                          <Input 
-                            value={item.label} 
-                            onChange={(e) => {
-                              const newItems = [...formData.courseItems];
-                              newItems[idx].label = e.target.value;
-                              updateField('courseItems', newItems);
-                            }}
-                            className="bg-white border-none h-12 rounded-xl font-bold"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase text-gray-400">Sub-label / Classes</Label>
-                          <Input 
-                            value={item.subLabel} 
-                            onChange={(e) => {
-                              const newItems = [...formData.courseItems];
-                              newItems[idx].subLabel = e.target.value;
-                              updateField('courseItems', newItems);
-                            }}
-                            className="bg-white border-none h-12 rounded-xl"
-                          />
-                        </div>
-                        <div className="md:col-span-2 space-y-2">
-                          <Label className="text-[10px] font-black uppercase text-gray-400">Target URL</Label>
-                          <Input 
-                            value={item.href} 
-                            onChange={(e) => {
-                              const newItems = [...formData.courseItems];
-                              newItems[idx].href = e.target.value;
-                              updateField('courseItems', newItems);
-                            }}
-                            className="bg-white border-none h-12 rounded-xl"
-                          />
-                        </div>
-                      </div>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        onClick={() => {
-                          const newItems = formData.courseItems.filter((_: any, i: number) => i !== idx);
-                          updateField('courseItems', newItems);
-                        }}
-                        className="absolute top-2 right-2 text-gray-200 hover:text-red-500 transition-colors"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </Button>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-
+              {/* Hierarchical Navigation Menu Editor */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Navigation Menu</CardTitle>
                   <Button 
-                    onClick={() => {
-                      const newLinks = [...(formData.navLinks || [])];
-                      newLinks.push({ label: "New Link", href: "/" });
-                      updateField('navLinks', newLinks);
-                    }}
+                    onClick={addMenuItem}
                     variant="outline"
                     className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600"
                   >
@@ -744,43 +708,95 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </Button>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-4">
-                  {(formData.navLinks || []).map((link: any, idx: number) => (
-                    <div key={idx} className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 group">
-                      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                        <Input 
-                          value={link.label} 
-                          onChange={(e) => {
-                            const newLinks = [...formData.navLinks];
-                            newLinks[idx].label = e.target.value;
-                            updateField('navLinks', newLinks);
-                          }}
-                          className="bg-white border-none h-12 rounded-xl"
-                          placeholder="Link Label"
-                        />
-                        <Input 
-                          value={link.href} 
-                          onChange={(e) => {
-                            const newLinks = [...formData.navLinks];
-                            newLinks[idx].href = e.target.value;
-                            updateField('navLinks', newLinks);
-                          }}
-                          className="bg-white border-none h-12 rounded-xl"
-                          placeholder="Target URL (/...)"
-                        />
-                      </div>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        onClick={() => {
-                          const newLinks = formData.navLinks.filter((_: any, i: number) => i !== idx);
-                          updateField('navLinks', newLinks);
-                        }}
-                        className="text-gray-300 hover:text-red-500 transition-colors"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </Button>
-                    </div>
-                  ))}
+                  <p className="text-xs text-gray-400 font-medium mb-6">Drag handle to reorder. Use arrows to indent/outdent for submenus.</p>
+                  
+                  <Reorder.Group 
+                    axis="y" 
+                    values={formData.navMenu || []} 
+                    onReorder={handleMenuReorder}
+                    className="space-y-3"
+                  >
+                    {(formData.navMenu || []).map((item: any, idx: number) => (
+                      <Reorder.Item key={item.id} value={item}>
+                        <div className={cn(
+                          "p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group",
+                          item.parentId && "ml-12 border-l-4 border-l-blue-200 bg-blue-50/30"
+                        )}>
+                          <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
+                            <GripVertical className="w-5 h-5 text-gray-300" />
+                          </div>
+                          
+                          <div className="flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
+                            <div className="lg:col-span-4 space-y-1">
+                              <Input 
+                                value={item.title} 
+                                onChange={(e) => {
+                                  const newList = [...formData.navMenu];
+                                  newList[idx].title = e.target.value;
+                                  updateField('navMenu', newList);
+                                }}
+                                className="h-10 text-sm font-bold bg-white border-none rounded-lg"
+                                placeholder="Title"
+                              />
+                            </div>
+                            <div className="lg:col-span-4 space-y-1">
+                              <Input 
+                                value={item.url} 
+                                onChange={(e) => {
+                                  const newList = [...formData.navMenu];
+                                  newList[idx].url = e.target.value;
+                                  updateField('navMenu', newList);
+                                }}
+                                className="h-10 text-sm bg-white border-none rounded-lg"
+                                placeholder="URL (/...)"
+                              />
+                            </div>
+                            <div className="lg:col-span-4 space-y-1">
+                              <Input 
+                                value={item.subLabel || ""} 
+                                onChange={(e) => {
+                                  const newList = [...formData.navMenu];
+                                  newList[idx].subLabel = e.target.value;
+                                  updateField('navMenu', newList);
+                                }}
+                                className="h-10 text-[10px] bg-white border-none rounded-lg uppercase tracking-widest font-medium"
+                                placeholder="Sub-label (optional)"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-1">
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              onClick={() => outdentMenuItem(item.id)}
+                              disabled={!item.parentId}
+                              className="h-8 w-8 text-gray-400 hover:text-blue-600 disabled:opacity-20"
+                            >
+                              <ArrowLeftIcon className="w-4 h-4" />
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              onClick={() => indentMenuItem(item.id)}
+                              disabled={!!item.parentId || idx === 0}
+                              className="h-8 w-8 text-gray-400 hover:text-blue-600 disabled:opacity-20"
+                            >
+                              <ArrowRightIcon className="w-4 h-4" />
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              onClick={() => deleteMenuItem(item.id)}
+                              className="h-8 w-8 text-gray-300 hover:text-red-500"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </Reorder.Item>
+                    ))}
+                  </Reorder.Group>
                 </CardContent>
               </Card>
 
@@ -914,8 +930,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 />
                               </div>
                               <Button 
-                                variant="ghost" 
                                 size="icon" 
+                                variant="ghost"
                                 onClick={() => {
                                   const newMenus = [...formData.menus];
                                   newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
@@ -1762,7 +1778,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                       <ImageIcon className="w-4 h-4 text-blue-600" /> Mentorship Section Image
                     </Label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start text-left">
                       <div className="space-y-3">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
                         <div className="flex items-center gap-4">
