@@ -103,6 +103,8 @@ const defaultPageData: Record<string, any> = {
       { id: "7", title: "CBSE Curriculum", subLabel: "Class 1 to 12", url: "/cbse", parentId: "6", order: 0 },
       { id: "8", title: "Samacheer Kalvi", subLabel: "Class 1 to 12", url: "/samacheer", parentId: "6", order: 1 },
       { id: "9", title: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", url: "/online-courses", parentId: "6", order: 2 },
+      { id: "10", title: "TNPSC", subLabel: "Group Exams", url: "#", parentId: "6", order: 3 },
+      { id: "11", title: "Banking", subLabel: "IBPS, SBI, RBI", url: "#", parentId: "6", order: 4 },
     ]
   },
   footer: {
