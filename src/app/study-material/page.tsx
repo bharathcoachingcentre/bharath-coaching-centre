@@ -451,11 +451,11 @@ export default function StudyMaterialPage() {
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
 
-              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
+              <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto max-w-sm md:max-w-none">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                    "flex-1 md:flex-none px-4 md:px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
                     activeBoard === "cbse"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -466,7 +466,7 @@ export default function StudyMaterialPage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                    "flex-1 md:flex-none px-4 md:px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
                     activeBoard === "samacheer"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"

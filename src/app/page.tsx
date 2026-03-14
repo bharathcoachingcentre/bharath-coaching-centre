@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -694,11 +695,11 @@ export default function HomePage() {
               </div>
 
               {/* Board Toggle */}
-              <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
+              <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto max-w-sm md:max-w-none">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                    "flex-1 md:flex-none px-4 md:px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
                     activeBoard === "cbse"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -709,7 +710,7 @@ export default function HomePage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                    "flex-1 md:flex-none px-4 md:px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
                     activeBoard === "samacheer"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -953,11 +954,11 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-            <div className="flex p-1.5 bg-[#f1f5f9] rounded-2xl">
+            <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl">
               <button
                 onClick={() => setActiveScheduleBoard("cbse")}
                 className={cn(
-                  "px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                  "flex-1 md:flex-none px-4 md:px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
                   activeScheduleBoard === "cbse"
                     ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
                     : "text-gray-500 hover:bg-gray-200"
@@ -968,7 +969,7 @@ export default function HomePage() {
               <button
                 onClick={() => setActiveScheduleBoard("samacheer")}
                 className={cn(
-                  "px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-[140px] text-sm tracking-tight",
+                  "flex-1 md:flex-none px-4 md:px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
                   activeScheduleBoard === "samacheer"
                     ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
                     : "text-gray-500 hover:bg-gray-200"
@@ -1179,7 +1180,7 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
               {content.whyChooseTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.whyChooseTitleHighlight}</span>
             </h2>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-center font-normal">
+            <p className="mt-4 text-gray-500 max-w-2xl mx-auto text-center font-normal">
               {content.whyChooseSubtitle}
             </p>
           </div>
