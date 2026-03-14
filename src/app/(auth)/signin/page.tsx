@@ -57,7 +57,6 @@ export default function SignInPage() {
         setIsLoading(true);
         try {
             const { auth } = initializeFirebase();
-            // Trim email to prevent common auto-fill issues
             const email = values.email.trim();
             await signInWithEmailAndPassword(auth, email, values.password);
             
@@ -70,16 +69,12 @@ export default function SignInPage() {
             console.error("Login error:", error);
             
             let errorMessage = "Invalid email or password.";
-            
-            // Handle specific Firebase Auth error codes
             if (error.code === 'auth/invalid-credential') {
-                errorMessage = "The email or password you entered is incorrect. Please try again.";
+                errorMessage = "The email or password you entered is incorrect.";
             } else if (error.code === 'auth/user-not-found') {
                 errorMessage = "No account found with this email address.";
-            } else if (error.code === 'auth/wrong-password') {
-                errorMessage = "Incorrect password. Please try again.";
             } else if (error.code === 'auth/too-many-requests') {
-                errorMessage = "Too many failed attempts. Please try again later or reset your password.";
+                errorMessage = "Too many failed attempts. Please try again later.";
             }
 
             toast({
@@ -92,14 +87,24 @@ export default function SignInPage() {
         }
     };
 
-    const handleForgotPassword = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleForgotPassword = async () => {
         const email = resetEmail.trim();
         if (!email) {
             toast({
                 variant: "destructive",
                 title: "Email Required",
                 description: "Please enter your email address to receive a reset link.",
+            });
+            return;
+        }
+
+        // Basic email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            toast({
+                variant: "destructive",
+                title: "Invalid Email",
+                description: "Please enter a valid email address.",
             });
             return;
         }
@@ -115,14 +120,32 @@ export default function SignInPage() {
             setIsDialogOpen(false);
             setResetEmail("");
         } catch (error: any) {
+            console.error("Password reset error:", error);
+            let errorMessage = "Failed to send reset email. Please try again.";
+            
+            if (error.code === 'auth/user-not-found') {
+                errorMessage = "No account exists with this email address.";
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = "The email address is invalid.";
+            }
+
             toast({
                 variant: "destructive",
                 title: "Error",
-                description: error.message || "Failed to send reset email. Please try again.",
+                description: errorMessage,
             });
         } finally {
             setIsResetting(false);
         }
+    };
+
+    const onOpenResetDialog = () => {
+        // Pre-fill reset email with login email if present
+        const currentEmail = form.getValues("email");
+        if (currentEmail) {
+            setResetEmail(currentEmail);
+        }
+        setIsDialogOpen(true);
     };
 
     if (authLoading || user) {
@@ -169,41 +192,13 @@ export default function SignInPage() {
                                         <FormItem className="space-y-2">
                                             <div className="flex items-center justify-between">
                                                 <FormLabel className="font-bold text-[#182d45] text-sm">Password</FormLabel>
-                                                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                                                    <DialogTrigger asChild>
-                                                        <button type="button" className="text-xs font-bold text-blue-600 hover:underline">Forgot password?</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="sm:max-w-md">
-                                                        <DialogHeader>
-                                                            <DialogTitle className="text-xl font-bold">Reset Password</DialogTitle>
-                                                            <DialogDescription className="text-gray-500">
-                                                                Enter your email address and we'll send you a link to reset your password.
-                                                            </DialogDescription>
-                                                        </DialogHeader>
-                                                        <div className="space-y-4 py-4">
-                                                            <div className="space-y-2">
-                                                                <Label htmlFor="reset-email" className="font-bold">Email Address</Label>
-                                                                <Input 
-                                                                    id="reset-email" 
-                                                                    placeholder="m@example.com" 
-                                                                    value={resetEmail} 
-                                                                    onChange={(e) => setResetEmail(e.target.value)}
-                                                                    className="rounded-xl"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <DialogFooter>
-                                                            <Button 
-                                                                onClick={handleForgotPassword} 
-                                                                disabled={isResetting}
-                                                                className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 border-none text-white rounded-xl h-12 font-bold shadow-lg shadow-blue-500/20"
-                                                            >
-                                                                {isResetting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                                                                {isResetting ? "Sending..." : "Send Reset Link"}
-                                                            </Button>
-                                                        </DialogFooter>
-                                                    </DialogContent>
-                                                </Dialog>
+                                                <button 
+                                                    type="button" 
+                                                    onClick={onOpenResetDialog}
+                                                    className="text-xs font-bold text-blue-600 hover:underline"
+                                                >
+                                                    Forgot password?
+                                                </button>
                                             </div>
                                             <FormControl>
                                                 <div className="relative">
@@ -226,6 +221,48 @@ export default function SignInPage() {
                                 </Button>
                             </form>
                         </Form>
+
+                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                            <DialogContent className="sm:max-w-md rounded-[2rem] border-none shadow-2xl">
+                                <DialogHeader className="text-left">
+                                    <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Reset Password</DialogTitle>
+                                    <DialogDescription className="text-gray-500 font-medium">
+                                        Enter your email address and we'll send you a link to reset your password.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="space-y-4 py-4 text-left">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="reset-email" className="font-bold text-sm text-[#182d45]">Email Address</Label>
+                                        <div className="relative">
+                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                            <Input 
+                                                id="reset-email" 
+                                                placeholder="m@example.com" 
+                                                value={resetEmail} 
+                                                onChange={(e) => setResetEmail(e.target.value)}
+                                                className="h-12 bg-gray-50 border-gray-100 rounded-xl pl-11 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <DialogFooter className="sm:justify-start">
+                                    <Button 
+                                        onClick={handleForgotPassword} 
+                                        disabled={isResetting}
+                                        className="w-full h-12 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg border-none transition-all active:scale-95"
+                                    >
+                                        {isResetting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                                        {isResetting ? "Sending Link..." : "Send Reset Link"}
+                                    </Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+
+                        <div className="mt-8 text-center">
+                            <p className="text-sm text-gray-500 font-medium">
+                                Don't have an account? <Link href="/registration" className="text-blue-600 font-bold hover:underline">Sign Up</Link>
+                            </p>
+                        </div>
                     </CardContent>
                 </Card>
             </main>
