@@ -66,8 +66,8 @@ export function Header() {
     const items = content.navMenu || [];
     
     // 1. Separate Root menus from Submenus
-    const roots = items.filter(item => !item.parentId || item.parentId === null || item.parentId === "");
-    const subMenus = items.filter(item => item.parentId && item.parentId !== null && item.parentId !== "");
+    const roots = items.filter(item => !item.parentId || item.parentId === "none");
+    const subMenus = items.filter(item => item.parentId && item.parentId !== "none");
 
     // 2. Build Tree: For each root, find its specific children
     return roots

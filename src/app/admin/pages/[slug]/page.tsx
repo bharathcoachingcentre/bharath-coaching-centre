@@ -60,9 +60,7 @@ import {
   List,
   FileCheck,
   FileText,
-  GripVertical,
-  ChevronRight as ArrowRightIcon,
-  ChevronLeft as ArrowLeftIcon
+  GripVertical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -467,7 +465,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     }
   };
 
-  // Hierarchical Menu Helpers
+  // Menu Helpers
   const addMenuItem = () => {
     const newItems = [...(formData.navMenu || [])];
     const id = Math.random().toString(36).substring(2, 9);
@@ -482,43 +480,18 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   };
 
   const deleteMenuItem = (id: string) => {
-    // Delete the item and any item that lists this as a parent
     const newItems = (formData.navMenu || []).filter((item: any) => item.id !== id && item.parentId !== id);
     updateField('navMenu', newItems);
-  };
-
-  const indentMenuItem = (id: string) => {
-    const items = [...(formData.navMenu || [])];
-    const idx = items.findIndex(i => i.id === id);
-    if (idx > 0) {
-      // Find the nearest ROOT item above the current item to use as a parent
-      let nearestRootIdx = idx - 1;
-      // Use a strict loop to find the nearest item that is a Root (has no parentId)
-      while (nearestRootIdx >= 0 && (items[nearestRootIdx].parentId !== null && items[nearestRootIdx].parentId !== undefined && items[nearestRootIdx].parentId !== "")) {
-        nearestRootIdx--;
-      }
-      
-      if (nearestRootIdx >= 0) {
-        const parent = items[nearestRootIdx];
-        items[idx].parentId = parent.id;
-        updateField('navMenu', items);
-      }
-    }
-  };
-
-  const outdentMenuItem = (id: string) => {
-    const items = [...(formData.navMenu || [])];
-    const idx = items.findIndex(i => i.id === id);
-    if (idx !== -1) {
-      items[idx].parentId = null;
-      updateField('navMenu', items);
-    }
   };
 
   const handleMenuReorder = (newItems: any[]) => {
     const reordered = newItems.map((item, idx) => ({ ...item, order: idx }));
     updateField('navMenu', reordered);
   };
+
+  const rootMenuItems = useMemo(() => {
+    return (formData.navMenu || []).filter((item: any) => !item.parentId);
+  }, [formData.navMenu]);
 
   if (loading || !formData) {
     return (
@@ -530,7 +503,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 pb-12">
+    <div className="max-w-5xl mx-auto space-y-8 pb-12 text-left">
       <div className="flex items-center justify-between">
         <Button variant="ghost" onClick={() => router.push("/admin/pages")} className="text-gray-500 font-bold hover:text-blue-600">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Pages
@@ -704,7 +677,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Hierarchical Navigation Menu Editor */}
+              {/* Robust Navigation Menu Editor */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Navigation Menu</CardTitle>
@@ -717,7 +690,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </Button>
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-4">
-                  <p className="text-xs text-gray-400 font-medium mb-6">Drag handle to reorder. Use arrows to indent/outdent for submenus.</p>
+                  <p className="text-xs text-gray-400 font-medium mb-6">Drag handle to reorder. Use the "Parent Menu" selector to create dropdown submenus.</p>
                   
                   <Reorder.Group 
                     axis="y" 
@@ -728,7 +701,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     {(formData.navMenu || []).map((item: any, idx: number) => (
                       <Reorder.Item key={item.id} value={item}>
                         <div className={cn(
-                          "p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group",
+                          "p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group",
                           item.parentId && "ml-12 border-l-4 border-l-blue-200 bg-blue-50/30 shadow-inner"
                         )}>
                           <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
@@ -736,7 +709,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           </div>
                           
                           <div className="flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
-                            <div className="lg:col-span-4 space-y-1">
+                            <div className="lg:col-span-3 space-y-1 text-left">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Title</Label>
                               <Input 
                                 value={item.title} 
                                 onChange={(e) => {
@@ -748,7 +722,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 placeholder="Title"
                               />
                             </div>
-                            <div className="lg:col-span-4 space-y-1">
+                            <div className="lg:col-span-3 space-y-1 text-left">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">URL</Label>
                               <Input 
                                 value={item.url} 
                                 onChange={(e) => {
@@ -760,7 +735,31 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 placeholder="URL (/...)"
                               />
                             </div>
-                            <div className="lg:col-span-4 space-y-1">
+                            <div className="lg:col-span-3 space-y-1 text-left">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Parent Menu</Label>
+                              <Select 
+                                value={item.parentId || "none"} 
+                                onValueChange={(val) => {
+                                  const newList = [...formData.navMenu];
+                                  newList[idx].parentId = val === "none" ? null : val;
+                                  updateField('navMenu', newList);
+                                }}
+                              >
+                                <SelectTrigger className="h-10 text-xs bg-white border-none rounded-lg">
+                                  <SelectValue placeholder="No Parent" />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl shadow-xl">
+                                  <SelectItem value="none">None (Main Menu)</SelectItem>
+                                  {rootMenuItems
+                                    .filter((root: any) => root.id !== item.id) // Cannot be own parent
+                                    .map((root: any) => (
+                                      <SelectItem key={root.id} value={root.id}>{root.title}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div className="lg:col-span-3 space-y-1 text-left">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Sub-label (Optional)</Label>
                               <Input 
                                 value={item.subLabel || ""} 
                                 onChange={(e) => {
@@ -769,32 +768,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   updateField('navMenu', newList);
                                 }}
                                 className="h-10 text-[10px] bg-white border-none rounded-lg uppercase tracking-widest font-medium"
-                                placeholder="Sub-label (optional)"
+                                placeholder="e.g. Class 1-12"
                               />
                             </div>
                           </div>
 
                           <div className="flex items-center gap-1">
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              onClick={() => outdentMenuItem(item.id)}
-                              disabled={!item.parentId}
-                              className="h-8 w-8 text-gray-400 hover:text-blue-600 disabled:opacity-20"
-                              title="Make Root Item"
-                            >
-                              <ArrowLeftIcon className="w-4 h-4" />
-                            </Button>
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              onClick={() => indentMenuItem(item.id)}
-                              disabled={!!item.parentId || idx === 0}
-                              className="h-8 w-8 text-gray-400 hover:text-blue-600 disabled:opacity-20"
-                              title="Add to Parent Above"
-                            >
-                              <ArrowRightIcon className="w-4 h-4" />
-                            </Button>
                             <Button 
                               variant="ghost" 
                               size="icon" 
@@ -1548,7 +1527,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardHeader>
                 <CardContent className="p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div className="space-y-3">
+                    <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
                       <Input 
                         value={formData.programsTitleMain || ""} 
@@ -1557,7 +1536,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         placeholder="Explore Our Academic "
                       />
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Section Title Highlight</Label>
                       <Input 
                         value={formData.programsTitleHighlight || ""} 
@@ -1792,7 +1771,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start text-left">
                       <div className="space-y-3 text-left">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 text-left">
                           <Button 
                             type="button" 
                             variant="outline" 
