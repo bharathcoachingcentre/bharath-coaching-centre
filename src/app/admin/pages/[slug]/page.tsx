@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -467,7 +466,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   // Menu Helpers
   const addMenuItem = () => {
-    const newItems = [...(formData.navMenu || [])];
+    const newItems = [...(formData?.navMenu || [])];
     const id = Math.random().toString(36).substring(2, 9);
     newItems.push({ 
       id, 
@@ -480,7 +479,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   };
 
   const deleteMenuItem = (id: string) => {
-    const newItems = (formData.navMenu || []).filter((item: any) => item.id !== id && item.parentId !== id);
+    const newItems = (formData?.navMenu || []).filter((item: any) => item.id !== id && item.parentId !== id);
     updateField('navMenu', newItems);
   };
 
@@ -490,8 +489,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   };
 
   const rootMenuItems = useMemo(() => {
-    return (formData.navMenu || []).filter((item: any) => !item.parentId);
-  }, [formData.navMenu]);
+    return (formData?.navMenu || []).filter((item: any) => !item.parentId);
+  }, [formData?.navMenu]);
 
   if (loading || !formData) {
     return (
@@ -694,11 +693,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   
                   <Reorder.Group 
                     axis="y" 
-                    values={formData.navMenu || []} 
+                    values={formData?.navMenu || []} 
                     onReorder={handleMenuReorder}
                     className="space-y-3"
                   >
-                    {(formData.navMenu || []).map((item: any, idx: number) => (
+                    {(formData?.navMenu || []).map((item: any, idx: number) => (
                       <Reorder.Item key={item.id} value={item}>
                         <div className={cn(
                           "p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group",
