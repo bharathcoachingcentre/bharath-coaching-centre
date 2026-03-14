@@ -53,6 +53,8 @@ export function Header() {
         { id: "7", title: "CBSE Curriculum", subLabel: "Class 1 to 12", url: "/cbse", parentId: "6", order: 0 },
         { id: "8", title: "Samacheer Kalvi", subLabel: "Class 1 to 12", url: "/samacheer", parentId: "6", order: 1 },
         { id: "9", title: "Competitive Exams", subLabel: "JEE, NEET, Olympiad", url: "/online-courses", parentId: "6", order: 2 },
+        { id: "10", title: "TNPSC", subLabel: "Group Exams", url: "#", parentId: "6", order: 3 },
+        { id: "11", title: "Banking", subLabel: "IBPS, SBI, RBI", url: "#", parentId: "6", order: 4 },
       ]
     };
 
@@ -62,18 +64,19 @@ export function Header() {
 
   const menuTree = useMemo(() => {
     const items = content.navMenu || [];
-    // 1. Identify Root items (parentId is null)
-    const roots = items.filter(item => item.parentId === null || item.parentId === undefined || item.parentId === "");
     
-    // 2. Sort items by their order
-    const sortedItems = [...items].sort((a, b) => (a.order || 0) - (b.order || 0));
+    // 1. Separate Root menus from Submenus
+    const roots = items.filter(item => !item.parentId || item.parentId === null || item.parentId === "");
+    const subMenus = items.filter(item => item.parentId && item.parentId !== null && item.parentId !== "");
 
-    // 3. Build the tree structure
+    // 2. Build Tree: For each root, find its specific children
     return roots
       .sort((a, b) => (a.order || 0) - (b.order || 0))
       .map(root => ({
         ...root,
-        children: sortedItems.filter(child => child.parentId === root.id)
+        children: subMenus
+          .filter(sub => String(sub.parentId) === String(root.id))
+          .sort((a, b) => (a.order || 0) - (b.order || 0))
       }));
   }, [content.navMenu]);
 
