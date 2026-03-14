@@ -58,7 +58,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
-import { collection, query, orderBy, doc, where } from "firebase/firestore";
+import { collection, query, orderBy, doc, where, updateDoc, increment } from "firebase/firestore";
 
 const materialStyles = [
   {
@@ -456,6 +456,14 @@ export default function HomePage() {
       });
   }, [allMaterials, selectedClass, activeBoard, selectedSubject, allClassesLookup, allSubjectsLookup]);
 
+  const handleTrackDownload = async (id: string) => {
+    if (!firestore) return;
+    const docRef = doc(firestore, 'study-materials', id);
+    updateDoc(docRef, {
+      downloads: increment(1)
+    }).catch(err => console.error("Failed to track download:", err));
+  };
+
   const timetableDisplayData = useMemo(() => {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const slots = allPeriods?.map(p => p.label) || [
@@ -820,6 +828,7 @@ export default function HomePage() {
                         material.themeColor,
                         material.hoverThemeColor
                       )}
+                      onClick={() => handleTrackDownload(material.id)}
                     >
                       <a href={material.pdfUrl} target="_blank" rel="noopener noreferrer">
                         <Download className="w-5 h-5" />

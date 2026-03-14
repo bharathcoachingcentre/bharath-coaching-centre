@@ -31,7 +31,7 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, deleteDoc, doc } from "firebase/firestore";
+import { collection, query, orderBy, deleteDoc, doc, updateDoc, increment } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -75,6 +75,14 @@ export default function StudyMaterialsPage() {
     );
   }, [realMaterials, searchTerm]);
 
+  const handleTrackDownload = async (id: string) => {
+    if (!firestore) return;
+    const docRef = doc(firestore, 'study-materials', id);
+    updateDoc(docRef, {
+      downloads: increment(1)
+    }).catch(err => console.error("Failed to track download:", err));
+  };
+
   const handleDelete = async (id: string) => {
     if (!firestore) return;
     if (!confirm("Are you sure you want to delete this study material? This action cannot be undone.")) return;
@@ -108,9 +116,10 @@ export default function StudyMaterialsPage() {
       });
   };
 
-  const handlePreview = (url?: string) => {
+  const handlePreview = (url?: string, id?: string) => {
     if (url && url !== "#") {
       window.open(url, '_blank');
+      if (id) handleTrackDownload(id);
     } else {
       toast({ title: "No Preview", description: "This resource does not have a valid URL associated with it." });
     }
@@ -172,7 +181,7 @@ export default function StudyMaterialsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
                         <DropdownMenuItem 
-                          onSelect={() => handlePreview(item.pdfUrl)}
+                          onSelect={() => handlePreview(item.pdfUrl, item.id)}
                           className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg"
                         >
                           <Eye className="mr-2 h-4 w-4 text-blue-500" />
@@ -224,7 +233,7 @@ export default function StudyMaterialsPage() {
                         variant="ghost" 
                         size="icon" 
                         className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
-                        onClick={() => handlePreview(item.pdfUrl)}
+                        onClick={() => handlePreview(item.pdfUrl, item.id)}
                       >
                         <Eye className="w-5 h-5" />
                       </Button>
@@ -233,6 +242,7 @@ export default function StudyMaterialsPage() {
                         size="icon" 
                         className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
                         disabled={!item.pdfUrl}
+                        onClick={() => handleTrackDownload(item.id)}
                         asChild
                       >
                         <a href={item.pdfUrl} download target="_blank" rel="noopener noreferrer">

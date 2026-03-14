@@ -111,6 +111,7 @@ export default function UploadMaterialPage() {
         category: values.materialType,
         description: values.description,
         pdfUrl: values.pdfUrl,
+        downloads: 0,
         allowDownloads: values.allowDownloads,
         isVisible: values.visibleToStudents,
         createdAt: serverTimestamp(),

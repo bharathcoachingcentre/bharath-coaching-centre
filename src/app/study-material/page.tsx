@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -32,7 +33,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
-import { collection, query, orderBy, doc } from "firebase/firestore";
+import { collection, query, orderBy, doc, updateDoc, increment } from "firebase/firestore";
 
 const materialStyles = [
   {
@@ -285,6 +286,14 @@ export default function StudyMaterialPage() {
         };
       });
   }, [allMaterials, selectedClass, activeBoard, selectedSubject]);
+
+  const handleTrackDownload = async (id: string) => {
+    if (!firestore) return;
+    const docRef = doc(firestore, 'study-materials', id);
+    updateDoc(docRef, {
+      downloads: increment(1)
+    }).catch(err => console.error("Failed to track download:", err));
+  };
 
   if (pageLoading) {
     return (
@@ -620,6 +629,7 @@ export default function StudyMaterialPage() {
                         material.themeColor,
                         material.hoverThemeColor
                       )}
+                      onClick={() => handleTrackDownload(material.id)}
                     >
                       <a
                         href={material.pdfUrl}
