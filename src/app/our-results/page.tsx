@@ -143,7 +143,7 @@ export default function OurResultsPage() {
                   <div className={cn("w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl text-white transform transition-transform group-hover:scale-110", stat.color || "bg-blue-500")}>
                     <Icon className="w-10 h-10" />
                   </div>
-                  <div className="text-5xl font-black text-[#182d45] mb-2 tracking-tighter">
+                  <div className="text-5xl font-bold text-[#182d45] mb-2 tracking-tighter">
                     {stat.value}
                   </div>
                   <div className="text-sm font-bold text-[#35a3be] uppercase tracking-[0.25em]">{stat.label}</div>
