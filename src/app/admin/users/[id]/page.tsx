@@ -111,7 +111,6 @@ export default function UserDetailPage({
   const [isEditing, setIsEditMode] = useState(isEditModeParam);
   const [isSaving, setIsSaving] = useState(false);
   const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
-  const [hasInitialized, setHasInitialized] = useState(false);
 
   const docRef = useMemo(() => {
     if (!firestore || !userId) return null;
@@ -133,21 +132,19 @@ export default function UserDetailPage({
     },
   });
 
-  // Sync form data with database user data once loaded
   useEffect(() => {
-    if (user && !loading && !hasInitialized && !isSaving) {
+    if (user && !loading && !isSaving && !form.formState.isDirty) {
       form.reset({
         displayName: user.displayName || "",
         email: user.email || "",
-        role: user.role || "student",
-        status: user.status || "active",
+        role: (user.role || "student").toLowerCase(),
+        status: (user.status || "active").toLowerCase(),
         phoneNumber: user.phoneNumber || "",
         photoURL: user.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user.email}`,
         password: "",
       });
-      setHasInitialized(true);
     }
-  }, [user, loading, hasInitialized, isSaving, form]);
+  }, [user, loading, isSaving, form]);
 
   const displayPhotoURL = (form.watch("photoURL") || user?.photoURL || `https://api.dicebear.com/7.x/micah/svg?seed=${user?.email || 'default'}`);
 
@@ -162,7 +159,6 @@ export default function UserDetailPage({
         title: "User Updated",
         description: "Credentials and profile have been synchronized successfully.",
       });
-      // Explicitly reset form with new values to clear dirty state and update internal data
       form.reset(values);
       setIsEditMode(false);
     } else {
@@ -215,7 +211,6 @@ export default function UserDetailPage({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Profile Sidebar */}
         <div className="lg:col-span-1 space-y-8">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white text-center">
             <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
@@ -283,7 +278,6 @@ export default function UserDetailPage({
           </Card>
         </div>
 
-        {/* Form Column */}
         <div className="lg:col-span-2">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white min-h-[600px]">
             <CardHeader className="p-10 pb-4 text-left">
@@ -495,7 +489,7 @@ export default function UserDetailPage({
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Access Role</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
+                            <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                   <SelectValue placeholder="Select role" />
@@ -518,7 +512,7 @@ export default function UserDetailPage({
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Account Status</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
+                            <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                   <SelectValue placeholder="Select status" />
