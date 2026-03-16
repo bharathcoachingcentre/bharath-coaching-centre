@@ -59,7 +59,10 @@ import {
   List,
   FileCheck,
   FileText,
-  GripVertical
+  GripVertical,
+  ClipboardList,
+  BarChart,
+  UserSquare2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -269,16 +272,6 @@ const defaultPageData: Record<string, any> = {
       { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
       { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
     ],
-    whyChooseTitleHighlight: "Bharath Academy?",
-    whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
-    whyChooseFeatures: [
-      { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
-      { icon: "UserCheck", title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-50 shadow-teal-500/30" },
-      { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.", color: "bg-purple-500 shadow-purple-500/30" },
-      { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
-      { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
-      { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
-    ],
     successTitleMain: "Our Students' ",
     successTitleHighlight: "Success Stories",
     successSubtitle: "Celebrating exceptional achievements and academic excellence",
@@ -307,6 +300,36 @@ const defaultPageData: Record<string, any> = {
     ctaTitle: "Start Your Journey To Success",
     ctaSubtitle: "Experience the difference with our unique teaching methodology and personalized attention.",
     ctaBtnText: "Enroll Today"
+  },
+  "one-to-one-classes": {
+    heroTitle: "One to One Classes",
+    heroImageUrl: "/one-to-one.jpg",
+    infoTag: "Information",
+    headingMain: "One to One ",
+    headingHighlight: "Classes",
+    iconCards: [
+      { icon: "User", title: "Personal concern", color: "bg-blue-500" },
+      { icon: "Calendar", title: "Personalized schedule", color: "bg-teal-500" },
+      { icon: "BookOpen", title: "Perfect Learning", color: "bg-purple-500" },
+    ],
+    benefitsTitle: "Our Benefits",
+    benefits: [
+      { text: "Customized time table", icon: "Calendar", color: "bg-blue-500" },
+      { text: "18+ year experienced faculties", icon: "Users", color: "bg-teal-500" },
+      { text: "Individual attention", icon: "UserCheck", color: "bg-purple-500" },
+      { text: "Weekly test", icon: "ClipboardCheck", color: "bg-orange-500" },
+      { text: "25% & 50% portion test", icon: "BarChart", color: "bg-pink-500" },
+      { text: "Full mock test", icon: "GraduationCap", color: "bg-indigo-500" },
+      { text: "Specialized study materials", icon: "BookOpen", color: "bg-blue-600" },
+      { text: "Previous year question paper", icon: "FileText", color: "bg-teal-600" },
+    ],
+    formTag: "Book Now",
+    formTitle: "Booking Form",
+    formSubtitle: "Experience our personalized demo class today",
+    nameLabel: "Full Name",
+    phoneLabel: "Mobile Number",
+    emailLabel: "Email Address",
+    submitBtnText: "Book My Demo Session"
   },
   "study-material": {
     premiumTitleMain: "Access ",
@@ -399,7 +422,12 @@ const iconMap: Record<string, any> = {
   Laptop: Laptop,
   Building: Building,
   FileCheck: FileCheck,
-  FileText: FileText
+  FileText: FileText,
+  User: User,
+  Calendar: Calendar,
+  ClipboardList: ClipboardList,
+  BarChart: BarChart,
+  UserSquare2: UserSquare2
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -420,7 +448,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   useEffect(() => {
     if (pageData) {
-      // Ensure footer menus and their links have IDs for stable reordering
       if (slug === 'footer' && pageData.content?.menus) {
         const menusWithIds = pageData.content.menus.map((m: any, colIdx: number) => ({
           ...m,
@@ -491,7 +518,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     }
   };
 
-  // Menu Helpers
   const addMenuItem = () => {
     const newItems = [...(formData?.navMenu || [])];
     const id = Math.random().toString(36).substring(2, 9);
@@ -557,7 +583,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </div>
                 <div className="pt-10 flex-grow">
                   <h2 className="text-2xl font-black text-gray-900 leading-tight capitalize">
-                    {slug} Editor
+                    {slug.replace(/-/g, ' ')} Editor
                   </h2>
                   <div className="mt-4 flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest w-fit">
                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -600,7 +626,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         </div>
 
         <div className="space-y-8">
-          {/* Header Editor */}
           {slug === 'header' && (
             <div className="space-y-8 text-left">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
@@ -703,7 +728,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Robust Navigation Menu Editor */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Navigation Menu</CardTitle>
@@ -777,7 +801,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 <SelectContent className="rounded-xl shadow-xl">
                                   <SelectItem value="none">None (Main Menu)</SelectItem>
                                   {rootMenuItems
-                                    .filter((root: any) => root.id !== item.id) // Cannot be own parent
+                                    .filter((root: any) => root.id !== item.id)
                                     .map((root: any) => (
                                       <SelectItem key={root.id} value={root.id}>{root.title}</SelectItem>
                                     ))}
@@ -842,7 +866,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {/* Footer Editor */}
           {slug === 'footer' && (
             <div className="space-y-8 text-left">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
@@ -1101,7 +1124,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Copyright & Legal Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Copyright & Legal Links</CardTitle>
@@ -1143,7 +1165,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 newLinks[linkIdx].label = e.target.value;
                                 updateField('bottomLinks', newLinks);
                               }}
-                              className="h-10 text-sm border-none bg-white rounded-lg"
+                              className="h-10 text-sm font-bold border-none bg-white rounded-lg"
                               placeholder="Label"
                             />
                             <Input 
@@ -1177,9 +1199,252 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
+          {slug === 'one-to-one-classes' && (
+            <div className="space-y-8 text-left">
+              {/* Section 1: Banner */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Banner Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700">Banner Image</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                      <div className="space-y-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2 w-full sm:w-auto"
+                            onClick={() => document.getElementById('hero-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Upload Image
+                          </Button>
+                          <input 
+                            id="hero-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                          />
+                        </div>
+                        <Input 
+                          value={formData.heroImageUrl || ""} 
+                          onChange={(e) => updateField('heroImageUrl', e.target.value)}
+                          placeholder="Image URL"
+                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                      <div className="relative aspect-video rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                        <Image 
+                          src={formData.heroImageUrl || "/one-to-one.jpg"} 
+                          alt="Hero Preview" 
+                          fill 
+                          className="object-cover" 
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Information Tag Text</Label>
+                      <Input 
+                        value={formData.infoTag || ""} 
+                        onChange={(e) => updateField('infoTag', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Heading Main</Label>
+                        <Input 
+                          value={formData.headingMain || ""} 
+                          onChange={(e) => updateField('headingMain', e.target.value)}
+                          className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Heading Highlight</Label>
+                        <Input 
+                          value={formData.headingHighlight || ""} 
+                          onChange={(e) => updateField('headingHighlight', e.target.value)}
+                          className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Section 2: Three Icon Cards */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Feature Cards (3 Cards)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {(formData.iconCards || defaultPageData['one-to-one-classes'].iconCards).map((card: any, idx: number) => (
+                      <div key={idx} className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4">
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Card {idx + 1} Icon (Lucide)</Label>
+                          <Input 
+                            value={card.icon} 
+                            onChange={(e) => {
+                              const newCards = [...(formData.iconCards || defaultPageData['one-to-one-classes'].iconCards)];
+                              newCards[idx].icon = e.target.value;
+                              updateField('iconCards', newCards);
+                            }}
+                            className="h-10 bg-white"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Card {idx + 1} Title</Label>
+                          <Input 
+                            value={card.title} 
+                            onChange={(e) => {
+                              const newCards = [...(formData.iconCards || defaultPageData['one-to-one-classes'].iconCards)];
+                              newCards[idx].title = e.target.value;
+                              updateField('iconCards', newCards);
+                            }}
+                            className="h-10 bg-white font-bold"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Section 3: Benefits Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Benefits Section</CardTitle>
+                  <Button 
+                    onClick={() => {
+                      const current = formData.benefits || [];
+                      updateField('benefits', [...current, { text: "New Benefit", icon: "CheckCircle", color: "bg-blue-500", id: Math.random().toString(36).substring(7) }]);
+                    }}
+                    variant="outline"
+                    className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600 w-full sm:w-auto"
+                  >
+                    <Plus className="w-4 h-4" /> Add Benefit
+                  </Button>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-6">
+                  <div className="space-y-3 max-w-md mb-8">
+                    <Label className="text-sm font-bold text-gray-700">Section Heading</Label>
+                    <Input 
+                      value={formData.benefitsTitle || "Our Benefits"} 
+                      onChange={(e) => updateField('benefitsTitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                    />
+                  </div>
+
+                  <Reorder.Group 
+                    axis="y" 
+                    values={formData.benefits || []} 
+                    onReorder={(newItems) => updateField('benefits', newItems)}
+                    className="space-y-3"
+                  >
+                    {(formData.benefits || []).map((benefit: any, idx: number) => (
+                      <Reorder.Item key={benefit.id || idx} value={benefit}>
+                        <div className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group">
+                          <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
+                            <GripVertical className="w-5 h-5 text-gray-300" />
+                          </div>
+                          
+                          <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-4">
+                            <div className="md:col-span-3 space-y-1">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Icon (Lucide)</Label>
+                              <Input 
+                                value={benefit.icon} 
+                                onChange={(e) => {
+                                  const newList = [...formData.benefits];
+                                  newList[idx].icon = e.target.value;
+                                  updateField('benefits', newList);
+                                }}
+                                className="h-10 text-sm bg-white border-none rounded-lg"
+                              />
+                            </div>
+                            <div className="md:col-span-9 space-y-1">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Benefit Text</Label>
+                              <Input 
+                                value={benefit.text} 
+                                onChange={(e) => {
+                                  const newList = [...formData.benefits];
+                                  newList[idx].text = e.target.value;
+                                  updateField('benefits', newList);
+                                }}
+                                className="h-10 text-sm font-bold bg-white border-none rounded-lg"
+                              />
+                            </div>
+                          </div>
+
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            onClick={() => {
+                              const newList = formData.benefits.filter((_: any, i: number) => i !== idx);
+                              updateField('benefits', newList);
+                            }}
+                            className="h-8 w-8 text-gray-200 hover:text-red-500"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </Reorder.Item>
+                    ))}
+                  </Reorder.Group>
+                </CardContent>
+              </Card>
+
+              {/* Section 4: Booking Form Fields */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Booking Form Configuration</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-gray-400 uppercase">Form Tag</Label>
+                      <Input value={formData.formTag || ""} onChange={(e) => updateField('formTag', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-gray-400 uppercase">Form Title</Label>
+                      <Input value={formData.formTitle || ""} onChange={(e) => updateField('formTitle', e.target.value)} className="h-12 bg-gray-50 rounded-xl font-bold" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-gray-400 uppercase">Form Subtitle</Label>
+                      <Input value={formData.formSubtitle || ""} onChange={(e) => updateField('formSubtitle', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-gray-50">
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-gray-400 uppercase">Name Field Label</Label>
+                      <Input value={formData.nameLabel || ""} onChange={(e) => updateField('nameLabel', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-gray-400 uppercase">Phone Field Label</Label>
+                      <Input value={formData.phoneLabel || ""} onChange={(e) => updateField('phoneLabel', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-gray-400 uppercase">Email Field Label</Label>
+                      <Input value={formData.emailLabel || ""} onChange={(e) => updateField('emailLabel', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-xs font-bold text-gray-400 uppercase">Submit Button Text</Label>
+                      <Input value={formData.submitBtnText || ""} onChange={(e) => updateField('submitBtnText', e.target.value)} className="h-12 bg-gray-50 rounded-xl font-bold" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
           {slug === 'home' && (
             <div className="space-y-8">
-              {/* Hero Banner Text Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Banner Text</CardTitle>
@@ -1216,7 +1481,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Hero Image Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -1227,7 +1491,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start text-left">
                     <div className="space-y-4">
                       <Label className="text-xs font-black uppercase text-gray-400">Upload Hero Graphic</Label>
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
                         <Button 
                           type="button" 
                           variant="outline" 
@@ -1271,7 +1535,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Banner Elements Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -1433,7 +1696,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* How We Help Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -1541,7 +1803,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Study Materials Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -1581,7 +1842,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Academic Programs Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -1720,7 +1980,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Timetable Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -1780,7 +2039,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* One-to-One Mentorship Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -1935,7 +2193,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Testimonials Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -2096,7 +2353,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Why Choose Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -2210,7 +2466,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Success Stories Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
@@ -2302,7 +2557,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
           {slug === 'about' && (
             <div className="space-y-8">
-              {/* Hero Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
@@ -2361,7 +2615,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Philosophy Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Our Philosophy</CardTitle>
@@ -2510,7 +2763,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* CTA Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Call To Action (Footer)</CardTitle>
@@ -2547,10 +2799,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {/* Study Material Editor */}
           {slug === 'study-material' && (
             <div className="space-y-8 text-left">
-              {/* Section 1: Premium Learning Cards */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Access Premium Learning (Section 1)</CardTitle>
@@ -2681,7 +2931,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Section 2: Download Free Study Materials Headers */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Free Resource Hub (Section 2)</CardTitle>
@@ -2726,10 +2975,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {/* Results Page Editor */}
           {slug === 'results' && (
             <div className="space-y-8 text-left">
-              {/* Hero Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
@@ -2780,7 +3027,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Success Stats Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Success Stats Section</CardTitle>
@@ -2851,7 +3097,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Performers Grid Headers */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performers Grid Headers</CardTitle>
@@ -2906,7 +3151,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && (
+          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && slug !== 'one-to-one-classes' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
               <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>

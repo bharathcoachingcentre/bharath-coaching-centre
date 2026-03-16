@@ -38,10 +38,27 @@ import {
     BarChart, 
     GraduationCap, 
     FileText,
-    ChevronDown
+    ChevronDown,
+    Loader2
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import React, { useMemo } from "react";
+import { useFirestore, useDoc } from "@/firebase";
+import { doc } from "firebase/firestore";
+
+const iconMap: Record<string, any> = {
+  User: User,
+  Calendar: Calendar,
+  BookOpen: BookOpen,
+  Users: Users,
+  UserCheck: UserCheck,
+  ClipboardCheck: ClipboardCheck,
+  BarChart: BarChart,
+  GraduationCap: GraduationCap,
+  FileText: FileText,
+  CheckCircle: CheckCircle
+};
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -57,6 +74,51 @@ const formSchema = z.object({
 
 export default function OneToOneClassesPage() {
     const { toast } = useToast();
+    const firestore = useFirestore();
+
+    const pageRef = useMemo(() => {
+      if (!firestore) return null;
+      return doc(firestore, "pages", "one-to-one-classes");
+    }, [firestore]);
+
+    const { data: pageData, loading } = useDoc(pageRef);
+
+    const content = useMemo(() => {
+      const defaults = {
+        heroTitle: "One to One Classes",
+        heroImageUrl: "/one-to-one.jpg",
+        infoTag: "Information",
+        headingMain: "One to One ",
+        headingHighlight: "Classes",
+        iconCards: [
+          { icon: "User", title: "Personal concern", color: "bg-blue-500" },
+          { icon: "Calendar", title: "Personalized schedule", color: "bg-teal-500" },
+          { icon: "BookOpen", title: "Perfect Learning", color: "bg-purple-500" },
+        ],
+        benefitsTitle: "Our Benefits",
+        benefits: [
+          { text: "Customized time table", icon: "Calendar", color: "bg-blue-500" },
+          { text: "18+ year experienced faculties", icon: "Users", color: "bg-teal-500" },
+          { text: "Individual attention", icon: "UserCheck", color: "bg-purple-500" },
+          { text: "Weekly test", icon: "ClipboardCheck", color: "bg-orange-500" },
+          { text: "25% & 50% portion test", icon: "BarChart", color: "bg-pink-500" },
+          { text: "Full mock test", icon: "GraduationCap", color: "bg-indigo-500" },
+          { text: "Specialized study materials", icon: "BookOpen", color: "bg-blue-600" },
+          { text: "Previous year question paper", icon: "FileText", color: "bg-teal-600" },
+        ],
+        formTag: "Book Now",
+        formTitle: "Booking Form",
+        formSubtitle: "Experience our personalized demo class today",
+        nameLabel: "Full Name",
+        phoneLabel: "Mobile Number",
+        emailLabel: "Email Address",
+        submitBtnText: "Book My Demo Session"
+      };
+
+      if (!pageData?.content) return defaults;
+      return { ...defaults, ...pageData.content };
+    }, [pageData]);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -72,23 +134,6 @@ export default function OneToOneClassesPage() {
         },
     });
 
-    const benefits = [
-        { text: "Customized time table", icon: Calendar, color: "bg-blue-500" },
-        { text: "18+ year experienced faculties", icon: Users, color: "bg-teal-500" },
-        { text: "Individual attention", icon: UserCheck, color: "bg-purple-500" },
-        { text: "Weekly test", icon: ClipboardCheck, color: "bg-orange-500" },
-        { text: "25% & 50% portion test", icon: BarChart, color: "bg-pink-500" },
-        { text: "Full mock test", icon: GraduationCap, color: "bg-indigo-500" },
-        { text: "Specialized study materials", icon: BookOpen, color: "bg-blue-600" },
-        { text: "Previous year question paper", icon: FileText, color: "bg-teal-600" },
-    ];
-
-    const whyChoosePoints = [
-        { icon: User, title: "Personal concern", color: "bg-blue-500" },
-        { icon: Calendar, title: "Personalized schedule", color: "bg-teal-500" },
-        { icon: BookOpen, title: "Perfect Learning", color: "bg-purple-500" },
-    ];
-
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
         toast({
@@ -98,13 +143,22 @@ export default function OneToOneClassesPage() {
         form.reset();
     }
 
+    if (loading) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <Loader2 className="w-12 h-12 animate-spin text-blue-600" />
+          <p className="mt-4 font-bold text-gray-400 uppercase tracking-widest text-xs">Syncing Page Data...</p>
+        </div>
+      );
+    }
+
   return (
     <div className="font-body antialiased">
         {/* Hero Section */}
         <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
             <Image
-                src="/one-to-one.jpg"
-                alt="One to One Classes"
+                src={content.heroImageUrl}
+                alt={content.heroTitle}
                 fill
                 className="object-cover"
                 data-ai-hint="student learning online"
@@ -113,7 +167,7 @@ export default function OneToOneClassesPage() {
             <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
             <div className="relative z-10 w-full container mx-auto px-4 text-center pt-20">
                 <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl tracking-tight">
-                    One to One Classes
+                    {content.heroTitle}
                 </h1>
             </div>
         </section>
@@ -129,46 +183,52 @@ export default function OneToOneClassesPage() {
                     <div className="space-y-16">
                         <div className="text-left">
                             <span className="inline-block px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6 shadow-sm">
-                                Information
+                                {content.infoTag}
                             </span>
                             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-12">
-                                One to One <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Classes</span>
+                                {content.headingMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.headingHighlight}</span>
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                                {whyChoosePoints.map((point, index) => (
-                                    <div key={index} className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden">
+                                {(content.iconCards || []).map((point: any, index: number) => {
+                                  const Icon = iconMap[point.icon] || User;
+                                  return (
+                                    <div key={index} className="group relative bg-white/70 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col items-center text-center overflow-hidden h-full">
                                         <div className="relative mb-8">
                                             <div className="absolute inset-0 bg-blue-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
                                             <div className={cn(
                                                 "relative w-20 h-20 rounded-3xl flex items-center justify-center shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 text-white",
-                                                point.color
+                                                point.color || "bg-blue-500"
                                             )}>
-                                                <point.icon className="w-10 h-10" />
+                                                <Icon className="w-10 h-10" />
                                             </div>
                                         </div>
                                         <h3 className="relative z-10 text-xl font-bold text-gray-900 tracking-tight leading-tight">{point.title}</h3>
                                     </div>
-                                ))}
+                                  );
+                                })}
                             </div>
                         </div>
 
                         <div className="pt-4 text-left">
                              <h2 className="text-3xl font-bold mb-10 flex items-center gap-4 text-left text-gray-900">
                                 <span className="w-2 h-10 bg-gradient-to-b from-blue-600 to-teal-500 rounded-full"></span>
-                                Our <span className="text-blue-600">Benefits</span>
+                                {content.benefitsTitle.split(' ')[0]} <span className="text-blue-600">{content.benefitsTitle.split(' ').slice(1).join(' ')}</span>
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                {benefits.map((benefit, index) => (
-                                    <div key={index} className="bg-white/70 backdrop-blur-md p-5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center border border-white transition-all duration-300 hover:border-blue-200 hover:shadow-lg group">
-                                        <div className={cn(
-                                            "flex-shrink-0 flex items-center justify-center h-11 w-11 rounded-2xl text-white mr-5 shadow-lg transition-transform group-hover:scale-110",
-                                            benefit.color
-                                        )}>
-                                            <benefit.icon className="h-6 w-6" />
-                                        </div>
-                                        <span className="font-bold text-gray-700 text-lg leading-tight text-left">{benefit.text}</span>
-                                    </div>
-                                ))}
+                                {(content.benefits || []).map((benefit: any, index: number) => {
+                                    const Icon = iconMap[benefit.icon] || CheckCircle;
+                                    return (
+                                      <div key={index} className="bg-white/70 backdrop-blur-md p-5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center border border-white transition-all duration-300 hover:border-blue-200 hover:shadow-lg group">
+                                          <div className={cn(
+                                              "flex-shrink-0 flex items-center justify-center h-11 w-11 rounded-2xl text-white mr-5 shadow-lg transition-transform group-hover:scale-110",
+                                              benefit.color || "bg-blue-500"
+                                          )}>
+                                              <Icon className="h-6 w-6" />
+                                          </div>
+                                          <span className="font-bold text-gray-700 text-lg leading-tight text-left">{benefit.text}</span>
+                                      </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -176,9 +236,9 @@ export default function OneToOneClassesPage() {
                     {/* Right Column - Form */}
                     <div className="bg-white/90 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_30px_80px_rgba(8,112,184,0.1)] sticky top-28 border border-white">
                         <div className="text-center mb-8">
-                            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 text-xs font-bold uppercase tracking-widest mb-4">Book Now</span>
-                            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Booking Form</h2>
-                            <p className="text-gray-500 mt-2 font-medium">Experience our personalized demo class today</p>
+                            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 text-xs font-bold uppercase tracking-widest mb-4">{content.formTag}</span>
+                            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">{content.formTitle}</h2>
+                            <p className="text-gray-500 mt-2 font-medium">{content.formSubtitle}</p>
                         </div>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -188,7 +248,7 @@ export default function OneToOneClassesPage() {
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem className="text-left">
-                                            <FormLabel className="font-bold text-gray-700">Full Name</FormLabel>
+                                            <FormLabel className="font-bold text-gray-700">{content.nameLabel}</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="John Doe" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm"/>
                                             </FormControl>
@@ -201,7 +261,7 @@ export default function OneToOneClassesPage() {
                                         name="mobileNumber"
                                         render={({ field }) => (
                                             <FormItem className="text-left">
-                                            <FormLabel className="font-bold text-gray-700">Mobile Number</FormLabel>
+                                            <FormLabel className="font-bold text-gray-700">{content.phoneLabel}</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="+91 XXXXX XXXXX" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm"/>
                                             </FormControl>
@@ -215,7 +275,7 @@ export default function OneToOneClassesPage() {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem className="text-left">
-                                        <FormLabel className="font-bold text-gray-700">Email Address</FormLabel>
+                                        <FormLabel className="font-bold text-gray-700">{content.emailLabel}</FormLabel>
                                         <FormControl>
                                             <Input type="email" placeholder="your@email.com" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm"/>
                                         </FormControl>
@@ -326,7 +386,7 @@ export default function OneToOneClassesPage() {
                                 </div>
                                 
                                 <Button type="submit" size="lg" className="w-full h-14 text-lg font-bold text-white rounded-2xl shadow-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/25 transition-all duration-300 transform active:scale-95 mt-4 border-none">
-                                    <Send className="h-5 w-5 mr-2"/> Book My Demo Session
+                                    <Send className="h-5 w-5 mr-2"/> {content.submitBtnText}
                                 </Button>
                             </form>
                         </Form>

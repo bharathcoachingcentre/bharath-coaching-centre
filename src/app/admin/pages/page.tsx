@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -20,7 +19,8 @@ import {
   Plus,
   Loader2,
   FilePlus,
-  Trash2
+  Trash2,
+  UserCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -72,6 +72,14 @@ const systemPages = [
     icon: Info, 
     color: "bg-teal-500", 
     bg: "bg-teal-50" 
+  },
+  { 
+    id: "one-to-one-classes", 
+    title: "One to One Classes", 
+    description: "Personalized coaching details, benefits, and booking form", 
+    icon: UserCheck, 
+    color: "bg-blue-600", 
+    bg: "bg-blue-50" 
   },
   { 
     id: "study-material", 
@@ -172,7 +180,7 @@ export default function PagesManagementPage() {
 
   const handleDeletePage = async (pageId: string) => {
     if (!firestore) return;
-    if (!confirm("Are you sure? This page will be moved to the Recovery Bin.")) return;
+    if (!confirm(`Are you sure? This will remove the custom configuration for "${pageId}". System pages will revert to defaults.`)) return;
 
     try {
       const pageRef = doc(firestore, "pages", pageId);
@@ -180,12 +188,10 @@ export default function PagesManagementPage() {
       
       if (pageSnap.exists()) {
         const pageData = pageSnap.data();
-        // Archive the current configuration to recovery-bin
         await setDoc(doc(firestore, "recovery-bin", pageId), {
           ...pageData,
           deletedAt: serverTimestamp(),
         });
-        // Remove from active pages
         await deleteDoc(pageRef);
         toast({ title: "Moved to Recovery", description: "You can restore this configuration from the Recovery Bin." });
       } else {
