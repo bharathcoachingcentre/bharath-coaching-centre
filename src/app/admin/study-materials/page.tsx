@@ -89,7 +89,6 @@ export default function StudyMaterialsPage() {
 
     const docRef = doc(firestore, 'study-materials', id);
     
-    // Non-blocking deletion
     deleteDoc(docRef)
       .then(() => {
         toast({ 
@@ -114,15 +113,6 @@ export default function StudyMaterialsPage() {
           description: "You do not have permission to delete this file or a network error occurred.",
         });
       });
-  };
-
-  const handlePreview = (url?: string, id?: string) => {
-    if (url && url !== "#") {
-      window.open(url, '_blank');
-      if (id) handleTrackDownload(id);
-    } else {
-      toast({ title: "No Preview", description: "This resource does not have a valid URL associated with it." });
-    }
   };
 
   return (
@@ -180,12 +170,24 @@ export default function StudyMaterialsPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
-                        <DropdownMenuItem 
-                          onSelect={() => handlePreview(item.pdfUrl, item.id)}
-                          className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg"
-                        >
-                          <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                          <span className="font-bold text-xs">Preview File</span>
+                        <DropdownMenuItem asChild className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                          {item.pdfUrl ? (
+                            <a 
+                              href={item.pdfUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => handleTrackDownload(item.id)}
+                              className="flex items-center w-full"
+                            >
+                              <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                              <span className="font-bold text-xs">Preview File</span>
+                            </a>
+                          ) : (
+                            <button className="flex items-center w-full opacity-50 cursor-not-allowed">
+                              <Eye className="mr-2 h-4 w-4 text-gray-400" />
+                              <span className="font-bold text-xs">No File</span>
+                            </button>
+                          )}
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
                           <Link href={`/admin/study-materials/${item.id}`} className="flex items-center w-full">
@@ -233,19 +235,25 @@ export default function StudyMaterialsPage() {
                         variant="ghost" 
                         size="icon" 
                         className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
-                        onClick={() => handlePreview(item.pdfUrl, item.id)}
+                        asChild
                       >
-                        <Eye className="w-5 h-5" />
+                        <a 
+                          href={item.pdfUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          onClick={() => item.pdfUrl && handleTrackDownload(item.id)}
+                        >
+                          <Eye className="w-5 h-5" />
+                        </a>
                       </Button>
                       <Button 
                         variant="ghost" 
                         size="icon" 
                         className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
                         disabled={!item.pdfUrl}
-                        onClick={() => handleTrackDownload(item.id)}
                         asChild
                       >
-                        <a href={item.pdfUrl} download target="_blank" rel="noopener noreferrer">
+                        <a href={item.pdfUrl} download onClick={() => item.pdfUrl && handleTrackDownload(item.id)}>
                           <Download className="w-5 h-5" />
                         </a>
                       </Button>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use, useRef } from "react";
@@ -213,6 +214,8 @@ export default function StudyMaterialEditPage({
     );
   }
 
+  const currentPdfUrl = form.watch("pdfUrl");
+
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
@@ -246,11 +249,13 @@ export default function StudyMaterialEditPage({
               
               <div className="mt-8 space-y-4 pt-8 border-t border-gray-50 text-left">
                 <Button 
+                  asChild
                   variant="outline" 
                   className="w-full rounded-xl h-12 font-bold gap-2 text-blue-600 border-blue-100 hover:bg-blue-50"
-                  onClick={() => form.getValues("pdfUrl") && window.open(form.getValues("pdfUrl"), '_blank')}
                 >
-                  <Eye className="w-4 h-4" /> View Current File
+                  <a href={currentPdfUrl} target="_blank" rel="noopener noreferrer">
+                    <Eye className="w-4 h-4" /> View Current File
+                  </a>
                 </Button>
                 <div className="p-4 bg-gray-50 rounded-xl">
                   <div className="flex items-center gap-2 mb-1">
