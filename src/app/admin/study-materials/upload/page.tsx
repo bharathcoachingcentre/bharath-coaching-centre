@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { 
   ArrowLeft, 
   Upload, 
@@ -74,6 +74,7 @@ export default function UploadMaterialPage() {
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -118,6 +119,9 @@ export default function UploadMaterialPage() {
   const removeSelectedFile = () => {
     setSelectedFileName(null);
     form.setValue("pdfUrl", "");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleUpload = async (values: z.infer<typeof formSchema>) => {
@@ -225,7 +229,7 @@ export default function UploadMaterialPage() {
                                 type="button" 
                                 variant="outline" 
                                 className="h-14 w-full sm:w-auto border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
-                                onClick={() => document.getElementById('file-upload')?.click()}
+                                onClick={() => fileInputRef.current?.click()}
                               >
                                 <Upload className="w-4 h-4" /> Upload File
                               </Button>
@@ -233,6 +237,7 @@ export default function UploadMaterialPage() {
                                 id="file-upload"
                                 type="file" 
                                 className="hidden" 
+                                ref={fileInputRef}
                                 onChange={handleFileUpload}
                               />
                             </div>
@@ -305,7 +310,7 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Board</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select key={`board-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select board" />
@@ -327,7 +332,7 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select key={`grade-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select class" />
@@ -355,7 +360,7 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Subject</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select key={`subject-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select subject" />
@@ -378,7 +383,7 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Material Type</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select key={`type-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
                               <SelectValue placeholder="Select type" />

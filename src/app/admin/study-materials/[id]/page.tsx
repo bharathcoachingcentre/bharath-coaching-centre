@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useEffect, useState, use } from "react";
+import React, { useMemo, useEffect, useState, use, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
@@ -84,6 +84,7 @@ export default function StudyMaterialEditPage({
   
   const [isSaving, setIsSaving] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const docRef = useMemo(() => {
     if (!firestore || !materialId) return null;
@@ -151,6 +152,9 @@ export default function StudyMaterialEditPage({
   const removeSelectedFile = () => {
     setSelectedFileName(null);
     form.setValue("pdfUrl", material?.pdfUrl || "");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
@@ -304,7 +308,7 @@ export default function StudyMaterialEditPage({
                                     type="button" 
                                     variant="outline" 
                                     className="h-12 w-full sm:w-auto border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
-                                    onClick={() => document.getElementById('edit-file-upload')?.click()}
+                                    onClick={() => fileInputRef.current?.click()}
                                   >
                                     <Upload className="w-4 h-4" /> Replace
                                   </Button>
@@ -312,6 +316,7 @@ export default function StudyMaterialEditPage({
                                     id="edit-file-upload"
                                     type="file" 
                                     className="hidden" 
+                                    ref={fileInputRef}
                                     onChange={handleFileUpload}
                                   />
                                 </div>
