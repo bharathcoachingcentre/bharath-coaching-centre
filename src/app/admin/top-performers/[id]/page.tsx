@@ -113,8 +113,18 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
+  // Ensure available year options always include the currently saved value
+  const yearOptions = useMemo(() => {
+    const list = yearsList?.map(y => String(y.year)) || [];
+    const savedYear = performer?.year ? String(performer.year) : null;
+    if (savedYear && !list.includes(savedYear)) {
+      list.push(savedYear);
+    }
+    return Array.from(new Set(list)).sort((a, b) => b.localeCompare(a));
+  }, [yearsList, performer?.year]);
+
   useEffect(() => {
-    if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving && !form.formState.isDirty) {
+    if (!performerLoading && !yearsLoading && performer && !isSaving && !form.formState.isDirty) {
       existingDataRef.current = performer;
 
       const normalized = {
@@ -133,7 +143,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
 
       form.reset(normalized);
     }
-  }, [performer, yearsList, performerLoading, yearsLoading, form, isSaving]);
+  }, [performer, performerLoading, yearsLoading, form, isSaving]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -180,7 +190,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     }
   };
 
-  if (performerLoading || yearsLoading) {
+  if (performerLoading || (yearsLoading && !performer)) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
@@ -290,15 +300,15 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select value={field.value} onValueChange={field.onChange}>
+                      <Select key={`year-select-${field.value}-${yearOptions.length}`} value={field.value} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select year" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="rounded-xl shadow-xl">
-                          {yearsList?.map(y => (
-                            <SelectItem key={y.id} value={String(y.year)}>{y.year}</SelectItem>
+                          {yearOptions.map(y => (
+                            <SelectItem key={y} value={y}>{y}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -344,7 +354,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Rank Icon</FormLabel>
-                      <Select value={field.value} onValueChange={field.onChange}>
+                      <Select key={`icon-select-${field.value}`} value={field.value} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select icon" />
@@ -377,7 +387,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Badge Theme</FormLabel>
-                        <Select value={field.value} onValueChange={field.onChange}>
+                        <Select key={`badge-color-${field.value}`} value={field.value} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
@@ -403,7 +413,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Icon Background</FormLabel>
-                        <Select value={field.value} onValueChange={field.onChange}>
+                        <Select key={`icon-color-${field.value}`} value={field.value} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
@@ -429,7 +439,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="text-xs font-black uppercase text-gray-400">Marks Text Color</FormLabel>
-                        <Select value={field.value} onValueChange={field.onChange}>
+                        <Select key={`marks-color-${field.value}`} value={field.value} onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger className="h-12 bg-gray-50 border-none rounded-xl px-4 font-bold">
                               <SelectValue placeholder="Color" />
