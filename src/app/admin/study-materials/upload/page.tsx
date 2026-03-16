@@ -48,7 +48,7 @@ const formSchema = z.object({
   subject: z.string().min(1, "Please select a subject"),
   materialType: z.string().min(1, "Material type is required"),
   description: z.string().min(1, "Description is required"),
-  pdfUrl: z.string().url("Please enter a valid URL").min(1, "Resource URL is required"),
+  pdfUrl: z.string().min(1, "Resource URL or File is required"),
   allowDownloads: z.boolean().default(true),
   visibleToStudents: z.boolean().default(true),
 });
@@ -87,6 +87,30 @@ export default function UploadMaterialPage() {
       visibleToStudents: true,
     },
   });
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast({
+          variant: "destructive",
+          title: "File Too Large",
+          description: "Please upload a file smaller than 5MB.",
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        form.setValue("pdfUrl", reader.result as string, { shouldDirty: true });
+        toast({
+          title: "File Ready",
+          description: "The file has been uploaded locally and is ready to save.",
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleUpload = async (values: z.infer<typeof formSchema>) => {
     if (!firestore) {
@@ -166,7 +190,7 @@ export default function UploadMaterialPage() {
                 </div>
                 <div className="text-left">
                   <h3 className="text-xl font-bold text-gray-900 tracking-tight">Upload Resource</h3>
-                  <p className="text-sm text-gray-400 font-medium">Link your academic file to the platform</p>
+                  <p className="text-sm text-gray-400 font-medium">Link or upload your academic file to the platform</p>
                 </div>
               </div>
 
@@ -176,22 +200,40 @@ export default function UploadMaterialPage() {
                   name="pdfUrl"
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
-                      <FormLabel className="text-sm font-bold text-gray-700">Resource URL (e.g. Drive, Dropbox, PDF link) *</FormLabel>
+                      <FormLabel className="text-sm font-bold text-gray-700">Resource URL or File *</FormLabel>
                       <FormControl>
-                        <div className="relative">
-                          <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                          <Input 
-                            placeholder="https://example.com/file.pdf" 
-                            {...field}
-                            className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm"
-                          />
+                        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+                          <div className="relative flex-1 w-full">
+                            <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                            <Input 
+                              placeholder="https://example.com/file.pdf or direct file data" 
+                              {...field}
+                              className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm"
+                            />
+                          </div>
+                          <div className="flex-shrink-0 w-full sm:w-auto">
+                            <Button 
+                              type="button" 
+                              variant="outline" 
+                              className="h-14 w-full sm:w-auto border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
+                              onClick={() => document.getElementById('file-upload')?.click()}
+                            >
+                              <Upload className="w-4 h-4" /> Upload File
+                            </Button>
+                            <input 
+                              id="file-upload"
+                              type="file" 
+                              className="hidden" 
+                              onChange={handleFileUpload}
+                            />
+                          </div>
                         </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <p className="text-xs text-gray-400 px-2 italic text-left">Note: Please ensure the link is publicly accessible for students to download.</p>
+                <p className="text-xs text-gray-400 px-2 italic text-left">Note: You can either paste a link from Drive/Dropbox or upload a file directly from your computer (max 5MB).</p>
               </div>
             </CardContent>
           </Card>

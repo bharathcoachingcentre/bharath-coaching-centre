@@ -11,7 +11,8 @@ import {
   Info,
   ShieldCheck,
   Eye,
-  Link as LinkIcon
+  Link as LinkIcon,
+  Upload
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,7 +52,7 @@ const formSchema = z.object({
   subject: z.string().min(1, "Subject is required"),
   category: z.string().min(1, "Category is required"),
   description: z.string().min(1, "Description is required"),
-  pdfUrl: z.string().url("Valid URL required").min(1, "URL is required"),
+  pdfUrl: z.string().min(1, "URL or File is required"),
   isVisible: z.boolean().default(true),
   allowDownloads: z.boolean().default(true),
 });
@@ -119,6 +120,30 @@ export default function StudyMaterialEditPage({
       });
     }
   }, [material, form, isSaving]);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast({
+          variant: "destructive",
+          title: "File Too Large",
+          description: "Please upload a file smaller than 5MB.",
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        form.setValue("pdfUrl", reader.result as string, { shouldDirty: true });
+        toast({
+          title: "File Uploaded",
+          description: "Click update to save changes to the database.",
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !materialId) return;
@@ -211,7 +236,7 @@ export default function StudyMaterialEditPage({
                 <Button 
                   variant="outline" 
                   className="w-full rounded-xl h-12 font-bold gap-2 text-blue-600 border-blue-100 hover:bg-blue-50"
-                  onClick={() => material.pdfUrl && window.open(material.pdfUrl, '_blank')}
+                  onClick={() => form.getValues("pdfUrl") && window.open(form.getValues("pdfUrl"), '_blank')}
                 >
                   <Eye className="w-4 h-4" /> View Current File
                 </Button>
@@ -258,11 +283,29 @@ export default function StudyMaterialEditPage({
                       name="pdfUrl"
                       render={({ field }) => (
                         <FormItem className="md:col-span-2">
-                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Resource URL</FormLabel>
+                          <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Resource URL or File</FormLabel>
                           <FormControl>
-                            <div className="relative">
-                              <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                              <Input {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
+                            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+                              <div className="relative flex-1 w-full">
+                                <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <Input {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500" />
+                              </div>
+                              <div className="flex-shrink-0 w-full sm:w-auto">
+                                <Button 
+                                  type="button" 
+                                  variant="outline" 
+                                  className="h-12 w-full sm:w-auto border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
+                                  onClick={() => document.getElementById('edit-file-upload')?.click()}
+                                >
+                                  <Upload className="w-4 h-4" /> Replace
+                                </Button>
+                                <input 
+                                  id="edit-file-upload"
+                                  type="file" 
+                                  className="hidden" 
+                                  onChange={handleFileUpload}
+                                />
+                              </div>
                             </div>
                           </FormControl>
                           <FormMessage />
