@@ -125,6 +125,7 @@ const defaultPageData: Record<string, any> = {
     ],
     menus: [
       {
+        id: "footer-menu-1",
         title: "Company",
         links: [
           { label: "Home", href: "/" },
@@ -134,6 +135,7 @@ const defaultPageData: Record<string, any> = {
         ]
       },
       {
+        id: "footer-menu-2",
         title: "Courses",
         links: [
           { label: "CBSE Coaching", href: "/cbse" },
@@ -143,6 +145,7 @@ const defaultPageData: Record<string, any> = {
         ]
       },
       {
+        id: "footer-menu-3",
         title: "Resources",
         links: [
           { label: "Free Study Materials", href: "/study-material" },
@@ -327,7 +330,8 @@ const defaultPageData: Record<string, any> = {
         accordions: [
           { title: "Book Back Solutions", content: "Comprehensive solutions for all textbook exercises across the Samacheer Kalvi syllabus." },
           { title: "Chapter Wise Test Questions", content: "Structured test questions for every chapter in the Samacheer Kalvi syllabus." },
-          { title: "Model Board Question Papers", content: "Expertly drafted model papers following the state board guidelines." }
+          { title: "Model Board Question Papers", content: "Expertly drafted model papers following the state board guidelines." },
+          { title: "Previous Years Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
         ]
       }
     ],
@@ -406,7 +410,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   useEffect(() => {
     if (pageData) {
-      setFormData(pageData.content);
+      // Ensure footer menus have IDs for stable reordering
+      if (slug === 'footer' && pageData.content?.menus) {
+        const menusWithIds = pageData.content.menus.map((m: any, idx: number) => ({
+          ...m,
+          id: m.id || `footer-menu-${idx}`
+        }));
+        setFormData({ ...pageData.content, menus: menusWithIds });
+      } else {
+        setFormData(pageData.content);
+      }
     } else if (!loading && !formData) {
       setFormData(defaultPageData[slug] || {});
     }
@@ -840,7 +853,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <Button 
                     onClick={() => {
                       const currentMenus = formData.menus || [];
-                      updateField('menus', [...currentMenus, { title: "New Menu", links: [] }]);
+                      const id = `footer-menu-${Math.random().toString(36).substring(2, 9)}`;
+                      updateField('menus', [...currentMenus, { id, title: "New Menu", links: [] }]);
                     }}
                     variant="outline"
                     className="rounded-xl font-bold gap-2 w-full sm:w-auto"
@@ -848,94 +862,109 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Plus className="w-4 h-4" /> Add Column
                   </Button>
                 </CardHeader>
-                <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
-                  {(formData.menus || []).map((menu: any, colIdx: number) => (
-                    <div key={colIdx} className="p-4 sm:p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group/col">
-                      <div className="flex items-center justify-between">
-                        <div className="space-y-2 flex-grow max-w-md">
-                          <Label className="text-xs font-black uppercase text-gray-400">Column Title</Label>
-                          <Input 
-                            value={menu.title} 
-                            onChange={(e) => {
-                              const newMenus = [...formData.menus];
-                              newMenus[colIdx].title = e.target.value;
-                              updateField('menus', newMenus);
-                            }}
-                            className="bg-white border-none h-12 rounded-xl font-bold"
-                          />
-                        </div>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          onClick={() => {
-                            const newMenus = formData.menus.filter((_: any, i: number) => i !== colIdx);
-                            updateField('menus', newMenus);
-                          }}
-                          className="text-gray-300 hover:text-red-500"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </Button>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between px-2 text-left">
-                          <Label className="text-xs font-black uppercase text-gray-400">Links</Label>
-                          <Button 
-                            variant="link" 
-                            size="sm" 
-                            onClick={() => {
-                              const newMenus = [...formData.menus];
-                              newMenus[colIdx].links.push({ label: "New Link", href: "#" });
-                              updateField('menus', newMenus);
-                            }}
-                            className="h-auto p-0 font-bold text-blue-600"
-                          >
-                            <Plus className="w-3 h-3 mr-1" /> Add Link
-                          </Button>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {menu.links.map((link: any, linkIdx: number) => (
-                            <div key={linkIdx} className="flex items-center gap-2 p-3 bg-white rounded-xl shadow-sm group/link relative">
-                              <div className="flex-grow space-y-2 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6">
+                  <Reorder.Group 
+                    axis="y" 
+                    values={formData.menus || []} 
+                    onReorder={(newMenus) => updateField('menus', newMenus)}
+                    className="space-y-10"
+                  >
+                    {(formData.menus || []).map((menu: any, colIdx: number) => (
+                      <Reorder.Item key={menu.id || `menu-${colIdx}`} value={menu}>
+                        <div className="p-4 sm:p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group/col flex flex-col sm:flex-row gap-4 items-start">
+                          <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors shrink-0 sm:mt-10">
+                            <GripVertical className="w-5 h-5 text-gray-300" />
+                          </div>
+                          
+                          <div className="flex-grow w-full space-y-6">
+                            <div className="flex items-center justify-between">
+                              <div className="space-y-2 flex-grow max-w-md">
+                                <Label className="text-xs font-black uppercase text-gray-400">Column Title</Label>
                                 <Input 
-                                  value={link.label} 
+                                  value={menu.title} 
                                   onChange={(e) => {
                                     const newMenus = [...formData.menus];
-                                    newMenus[colIdx].links[linkIdx].label = e.target.value;
+                                    newMenus[colIdx].title = e.target.value;
                                     updateField('menus', newMenus);
                                   }}
-                                  className="h-8 text-xs border-none bg-gray-50"
-                                  placeholder="Label"
-                                />
-                                <Input 
-                                  value={link.href} 
-                                  onChange={(e) => {
-                                    const newMenus = [...formData.menus];
-                                    newMenus[colIdx].links[linkIdx].href = e.target.value;
-                                    updateField('menus', newMenus);
-                                  }}
-                                  className="h-8 text-xs border-none bg-gray-50"
-                                  placeholder="URL"
+                                  className="bg-white border-none h-12 rounded-xl font-bold"
                                 />
                               </div>
                               <Button 
+                                variant="ghost" 
                                 size="icon" 
-                                variant="ghost"
                                 onClick={() => {
-                                  const newMenus = [...formData.menus];
-                                  newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
+                                  const newMenus = formData.menus.filter((_: any, i: number) => i !== colIdx);
                                   updateField('menus', newMenus);
                                 }}
-                                className="h-8 w-8 text-gray-200 hover:text-red-500"
+                                className="text-gray-300 hover:text-red-500"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="w-5 h-5" />
                               </Button>
                             </div>
-                          ))}
+
+                            <div className="space-y-4">
+                              <div className="flex items-center justify-between px-2 text-left">
+                                <Label className="text-xs font-black uppercase text-gray-400">Links</Label>
+                                <Button 
+                                  variant="link" 
+                                  size="sm" 
+                                  onClick={() => {
+                                    const newMenus = [...formData.menus];
+                                    newMenus[colIdx].links.push({ label: "New Link", href: "#" });
+                                    updateField('menus', newMenus);
+                                  }}
+                                  className="h-auto p-0 font-bold text-blue-600"
+                                >
+                                  <Plus className="w-3 h-3 mr-1" /> Add Link
+                                </Button>
+                              </div>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {menu.links.map((link: any, linkIdx: number) => (
+                                  <div key={linkIdx} className="flex items-center gap-2 p-3 bg-white rounded-xl shadow-sm group/link relative">
+                                    <div className="flex-grow space-y-2 text-left">
+                                      <Input 
+                                        value={link.label} 
+                                        onChange={(e) => {
+                                          const newMenus = [...formData.menus];
+                                          newMenus[colIdx].links[linkIdx].label = e.target.value;
+                                          updateField('menus', newMenus);
+                                        }}
+                                        className="h-8 text-xs border-none bg-gray-50"
+                                        placeholder="Label"
+                                      />
+                                      <Input 
+                                        value={link.href} 
+                                        onChange={(e) => {
+                                          const newMenus = [...formData.menus];
+                                          newMenus[colIdx].links[linkIdx].href = e.target.value;
+                                          updateField('menus', newMenus);
+                                        }}
+                                        className="h-8 text-xs border-none bg-gray-50"
+                                        placeholder="URL"
+                                      />
+                                    </div>
+                                    <Button 
+                                      size="icon" 
+                                      variant="ghost"
+                                      onClick={() => {
+                                        const newMenus = [...formData.menus];
+                                        newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
+                                        updateField('menus', newMenus);
+                                      }}
+                                      className="h-8 w-8 text-gray-200 hover:text-red-500"
+                                    >
+                                      <Trash2 className="w-4 h-4" />
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
+                      </Reorder.Item>
+                    ))}
+                  </Reorder.Group>
                 </CardContent>
               </Card>
 
@@ -2236,7 +2265,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {/* About Page Sections */}
           {slug === 'about' && (
             <div className="space-y-8">
               {/* Hero Section */}
@@ -2348,7 +2376,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <Button 
                             type="button" 
                             variant="outline" 
-                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-2 w-full sm:w-auto"
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-teal-600 transition-all flex items-center gap-2 w-full sm:w-auto"
                             onClick={() => document.getElementById('about-philosophy-upload')?.click()}
                           >
                             <Upload className="w-4 h-4" /> Choose Image
