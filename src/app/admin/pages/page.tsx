@@ -172,11 +172,11 @@ export default function PagesManagementPage() {
 
   const handleDeletePage = async (pageId: string) => {
     if (!firestore) return;
-    if (!confirm("Are you sure you want to delete this custom page? This action cannot be undone.")) return;
+    if (!confirm("Are you sure you want to delete this page? This action cannot be undone. System pages will revert to default settings if their content record is deleted.")) return;
 
     try {
       await deleteDoc(doc(firestore, "pages", pageId));
-      toast({ title: "Page Removed", description: "The custom page has been deleted successfully." });
+      toast({ title: "Page Content Removed", description: "The page record has been deleted successfully." });
     } catch (error: any) {
       toast({ variant: "destructive", title: "Delete Failed", description: error.message });
     }
@@ -231,16 +231,14 @@ export default function PagesManagementPage() {
                       <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                     </Link>
                   </Button>
-                  {!page.isSystem && (
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      onClick={() => handleDeletePage(page.id)}
-                      className="h-12 w-12 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 border-none transition-all duration-300"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </Button>
-                  )}
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => handleDeletePage(page.id)}
+                    className="h-12 w-12 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 border-none transition-all duration-300"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>
