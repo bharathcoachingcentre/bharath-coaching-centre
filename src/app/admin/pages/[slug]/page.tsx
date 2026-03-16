@@ -255,10 +255,20 @@ const defaultPageData: Record<string, any> = {
       { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src, rating: 5 },
       { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weaknesses in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src, rating: 5 },
       { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src, rating: 5 },
-      { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
+      { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her Wood and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
       { name: "Vikram Singh", role: "Class 10, CBSE", quote: "Preparing for JEE along with board exams was made easy by Bharath Academy. The step-by-step approach and expert teachers made it look achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
     ],
     whyChooseTitleMain: "Why Choose ",
+    whyChooseTitleHighlight: "Bharath Academy?",
+    whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
+    whyChooseFeatures: [
+      { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance, attendance, and progress through our dedicated parent portal with detailed analytics.", color: "bg-blue-600 shadow-blue-600/30" },
+      { icon: "UserCheck", title: "Daily Performance Monitoring", desc: "Track daily homework completion, class participation, and understanding levels with instant notifications to parents.", color: "bg-teal-50 shadow-teal-500/30" },
+      { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas needing improvement with detailed performance reports.", color: "bg-purple-500 shadow-purple-500/30" },
+      { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to full mock exams, designed to build confidence and cover the entire syllabus systematically.", color: "bg-orange-500 shadow-orange-500/30" },
+      { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled one-on-one meetings with teachers to discuss student progress, challenges, and customized improvement strategies.", color: "bg-pink-500 shadow-pink-500/30" },
+      { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials, practice papers, and reference books specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-500 shadow-blue-500/30" }
+    ],
     whyChooseTitleHighlight: "Bharath Academy?",
     whyChooseSubtitle: "Comprehensive features designed for complete academic excellence",
     whyChooseFeatures: [
@@ -410,11 +420,15 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   useEffect(() => {
     if (pageData) {
-      // Ensure footer menus have IDs for stable reordering
+      // Ensure footer menus and their links have IDs for stable reordering
       if (slug === 'footer' && pageData.content?.menus) {
-        const menusWithIds = pageData.content.menus.map((m: any, idx: number) => ({
+        const menusWithIds = pageData.content.menus.map((m: any, colIdx: number) => ({
           ...m,
-          id: m.id || `footer-menu-${idx}`
+          id: m.id || `footer-menu-${colIdx}`,
+          links: (m.links || []).map((l: any, linkIdx: number) => ({
+            ...l,
+            id: l.id || `link-${colIdx}-${linkIdx}-${Math.random().toString(36).substring(2, 7)}`
+          }))
         }));
         setFormData({ ...pageData.content, menus: menusWithIds });
       } else {
@@ -509,7 +523,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-        <p className="font-bold text-gray-400">Loading Page Editor...</p>
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Loading Page Editor...</p>
       </div>
     );
   }
@@ -524,7 +538,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
           <Button 
             onClick={handleSave} 
             disabled={isSaving}
-            className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-10 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 gap-2 w-full sm:w-auto"
+            className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-10 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 gap-2 w-full sm:w-auto justify-center"
           >
             {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
             Publish Changes
@@ -911,7 +925,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   size="sm" 
                                   onClick={() => {
                                     const newMenus = [...formData.menus];
-                                    newMenus[colIdx].links.push({ label: "New Link", href: "#" });
+                                    const newId = `link-${colIdx}-${newMenus[colIdx].links.length}-${Math.random().toString(36).substring(2, 7)}`;
+                                    newMenus[colIdx].links.push({ id: newId, label: "New Link", href: "#" });
                                     updateField('menus', newMenus);
                                   }}
                                   className="h-auto p-0 font-bold text-blue-600"
@@ -919,46 +934,66 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   <Plus className="w-3 h-3 mr-1" /> Add Link
                                 </Button>
                               </div>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {menu.links.map((link: any, linkIdx: number) => (
-                                  <div key={linkIdx} className="flex items-center gap-2 p-3 bg-white rounded-xl shadow-sm group/link relative">
-                                    <div className="flex-grow space-y-2 text-left">
-                                      <Input 
-                                        value={link.label} 
-                                        onChange={(e) => {
+                              <Reorder.Group 
+                                axis="y" 
+                                values={menu.links || []} 
+                                onReorder={(newLinks) => {
+                                  const newMenus = [...formData.menus];
+                                  newMenus[colIdx].links = newLinks;
+                                  updateField('menus', newMenus);
+                                }}
+                                className="space-y-3"
+                              >
+                                {(menu.links || []).map((link: any, linkIdx: number) => (
+                                  <Reorder.Item key={link.id || `link-${linkIdx}`} value={link}>
+                                    <div className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm group/link relative">
+                                      <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-gray-50 rounded-lg transition-colors shrink-0">
+                                        <GripVertical className="w-4 h-4 text-gray-300" />
+                                      </div>
+                                      <div className="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                                        <div className="space-y-1">
+                                          <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
+                                          <Input 
+                                            value={link.label} 
+                                            onChange={(e) => {
+                                              const newMenus = [...formData.menus];
+                                              newMenus[colIdx].links[linkIdx].label = e.target.value;
+                                              updateField('menus', newMenus);
+                                            }}
+                                            className="h-10 text-sm font-bold border-none bg-gray-50 rounded-lg"
+                                            placeholder="Label"
+                                          />
+                                        </div>
+                                        <div className="space-y-1">
+                                          <Label className="text-[10px] font-black uppercase text-gray-400">URL</Label>
+                                          <Input 
+                                            value={link.href} 
+                                            onChange={(e) => {
+                                              const newMenus = [...formData.menus];
+                                              newMenus[colIdx].links[linkIdx].href = e.target.value;
+                                              updateField('menus', newMenus);
+                                            }}
+                                            className="h-10 text-sm border-none bg-gray-50 rounded-lg"
+                                            placeholder="URL"
+                                          />
+                                        </div>
+                                      </div>
+                                      <Button 
+                                        size="icon" 
+                                        variant="ghost"
+                                        onClick={() => {
                                           const newMenus = [...formData.menus];
-                                          newMenus[colIdx].links[linkIdx].label = e.target.value;
+                                          newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
                                           updateField('menus', newMenus);
                                         }}
-                                        className="h-8 text-xs border-none bg-gray-50"
-                                        placeholder="Label"
-                                      />
-                                      <Input 
-                                        value={link.href} 
-                                        onChange={(e) => {
-                                          const newMenus = [...formData.menus];
-                                          newMenus[colIdx].links[linkIdx].href = e.target.value;
-                                          updateField('menus', newMenus);
-                                        }}
-                                        className="h-8 text-xs border-none bg-gray-50"
-                                        placeholder="URL"
-                                      />
+                                        className="h-8 w-8 text-gray-200 hover:text-red-500 shrink-0"
+                                      >
+                                        <Trash2 className="w-4 h-4" />
+                                      </Button>
                                     </div>
-                                    <Button 
-                                      size="icon" 
-                                      variant="ghost"
-                                      onClick={() => {
-                                        const newMenus = [...formData.menus];
-                                        newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
-                                        updateField('menus', newMenus);
-                                      }}
-                                      className="h-8 w-8 text-gray-200 hover:text-red-500"
-                                    >
-                                      <Trash2 className="w-4 h-4" />
-                                    </Button>
-                                  </div>
+                                  </Reorder.Item>
                                 ))}
-                              </div>
+                              </Reorder.Group>
                             </div>
                           </div>
                         </div>
