@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use, useRef } from "react";
@@ -37,8 +36,8 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { useFirestore, useDoc } from "@/firebase";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { useFirestore, useDoc, useCollection } from "@/firebase";
+import { doc, updateDoc, serverTimestamp, query, collection, orderBy } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -93,6 +92,12 @@ export default function StudyMaterialEditPage({
   }, [firestore, materialId]);
 
   const { data: material, loading } = useDoc(docRef);
+
+  const classesQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'classes'), orderBy('order', 'asc'));
+  }, [firestore]);
+  const { data: allClassesRaw } = useCollection(classesQuery);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -234,8 +239,8 @@ export default function StudyMaterialEditPage({
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.back()} className="text-gray-500 font-bold hover:text-blue-600">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <Button variant="ghost" onClick={() => router.back()} className="text-gray-500 font-bold hover:text-blue-600 w-full sm:w-auto justify-start px-0 sm:px-4">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to List
         </Button>
         <div className="flex items-center gap-3">
@@ -288,11 +293,11 @@ export default function StudyMaterialEditPage({
 
         <div className="lg:col-span-2">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-            <CardHeader className="p-10 pb-4">
+            <CardHeader className="p-6 sm:p-10 pb-4">
               <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Edit Metadata</CardTitle>
               <p className="text-sm text-gray-400 font-medium">Update the resource details and settings</p>
             </CardHeader>
-            <CardContent className="p-10 pt-6">
+            <CardContent className="p-6 sm:p-10 pt-6">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -503,14 +508,14 @@ export default function StudyMaterialEditPage({
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-end gap-4 pt-6">
-                    <Button type="button" variant="ghost" onClick={() => router.back()} disabled={isSaving}>
+                  <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-6">
+                    <Button type="button" variant="ghost" onClick={() => router.back()} disabled={isSaving} className="w-full sm:w-auto">
                       Cancel
                     </Button>
                     <Button 
                       type="submit" 
                       disabled={isSaving} 
-                      className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-8 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 flex items-center gap-2"
+                      className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-8 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto"
                     >
                       {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                       Update Metadata

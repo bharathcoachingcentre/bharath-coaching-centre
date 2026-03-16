@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
@@ -77,10 +76,10 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-4xl text-left">
       {/* General Settings Section */}
       <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
-        <CardContent className="p-10 space-y-8">
+        <CardContent className="p-6 sm:p-10 space-y-8">
           <h3 className="text-xl font-bold text-gray-900 tracking-tight text-left">General</h3>
           
           <div className="space-y-6">
@@ -114,7 +113,7 @@ export default function SettingsPage() {
 
       {/* Notifications Section */}
       <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
-        <CardContent className="p-10 space-y-8">
+        <CardContent className="p-6 sm:p-10 space-y-8">
           <h3 className="text-xl font-bold text-gray-900 tracking-tight text-left">Notifications</h3>
           
           <div className="space-y-8">
@@ -150,7 +149,7 @@ export default function SettingsPage() {
         <Button 
           onClick={handleSave}
           disabled={isSaving}
-          className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 border-none gap-2"
+          className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 border-none gap-2 w-full sm:w-auto"
         >
           {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
           Save Changes

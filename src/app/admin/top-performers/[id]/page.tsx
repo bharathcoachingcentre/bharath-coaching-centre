@@ -1,7 +1,7 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   Trophy, 
@@ -38,10 +38,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 import { useFirestore, useDoc, useCollection } from "@/firebase";
 import { doc, updateDoc, serverTimestamp, query, collection, orderBy } from "firebase/firestore";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const formSchema = z.object({
   name: z.string().min(1, "Student name is required"),
@@ -82,7 +82,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
   const router = useRouter();
   const firestore = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
-  const existingDataRef = useRef<any>(null);
 
   const yearsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -113,7 +112,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     },
   });
 
-  // Ensure available year options always include the currently saved value
   const yearOptions = useMemo(() => {
     const list = yearsList?.map(y => String(y.year)) || [];
     const savedYear = performer?.year ? String(performer.year) : null;
@@ -125,8 +123,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
 
   useEffect(() => {
     if (!performerLoading && !yearsLoading && performer && !isSaving && !form.formState.isDirty) {
-      existingDataRef.current = performer;
-
       const normalized = {
         name: String(performer.name || ""),
         grade: String(performer.grade || ""),
@@ -140,7 +136,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
         marksColor: String(performer.marksColor || "text-blue-600"),
         rankIcon: String(performer.rankIcon || "Star"),
       };
-
       form.reset(normalized);
     }
   }, [performer, performerLoading, yearsLoading, form, isSaving]);
@@ -164,23 +159,12 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     if (!firestore || !performerId || !performer) return;
     setIsSaving(true);
 
-    const cleanData: any = {
-      name: formData.name,
-      grade: formData.grade,
-      marks: formData.marks,
-      rank: formData.rank,
-      rankOrder: Number(formData.rankOrder),
-      imageUrl: formData.imageUrl,
-      year: formData.year,
-      marksColor: formData.marksColor,
-      badgeColor: formData.badgeColor,
-      iconColor: formData.iconColor,
-      rankIcon: formData.rankIcon,
-      updatedAt: serverTimestamp(),
-    };
-
     try {
-      await updateDoc(doc(firestore, "top-performers", performerId), cleanData);
+      await updateDoc(doc(firestore, "top-performers", performerId), {
+        ...formData,
+        rankOrder: Number(formData.rankOrder),
+        updatedAt: serverTimestamp(),
+      });
       toast({ title: "Performer Updated", description: "Record has been saved successfully." });
       router.push("/admin/top-performers");
     } catch (error: any) {
@@ -199,27 +183,16 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
     );
   }
 
-  if (!performer) {
-    return (
-      <div className="text-center py-32 space-y-6">
-        <h2 className="text-2xl font-bold text-gray-900">Performer Not Found</h2>
-        <Button asChild variant="outline">
-          <Link href="/admin/top-performers">Back to List</Link>
-        </Button>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <Button variant="ghost" onClick={() => router.push("/admin/top-performers")} className="text-gray-500 font-bold hover:text-blue-600">
+    <div className="max-w-4xl mx-auto space-y-8 text-left">
+      <Button variant="ghost" onClick={() => router.push("/admin/top-performers")} className="text-gray-500 font-bold hover:text-blue-600 w-full sm:w-auto justify-start px-0 sm:px-4">
         <ArrowLeft className="w-4 h-4 mr-2" /> Back to List
       </Button>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left pb-12">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-            <CardHeader className="p-10 pb-0 text-left">
+            <CardHeader className="p-6 sm:p-10 pb-0 text-left">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
                   <Trophy className="w-6 h-6" />
@@ -227,11 +200,11 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performer Details</CardTitle>
               </div>
             </CardHeader>
-            <CardContent className="p-10 pt-8 space-y-8 text-left">
+            <CardContent className="p-6 sm:p-10 pt-8 space-y-8 text-left">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="md:col-span-2 space-y-4">
                   <Label className="text-xs font-black uppercase text-gray-400">Student Photo</Label>
-                  <div className="flex items-center gap-8">
+                  <div className="flex flex-col sm:flex-row items-center gap-8">
                     <div className="relative w-32 h-32 rounded-3xl overflow-hidden border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center group hover:border-blue-400 transition-colors">
                       {form.watch("imageUrl") ? (
                         <img src={form.watch("imageUrl")} className="w-full h-full object-cover" alt="Preview" />
@@ -245,7 +218,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                         onChange={handleImageUpload}
                       />
                     </div>
-                    <div className="space-y-1 text-left">
+                    <div className="space-y-1 text-center sm:text-left">
                       <p className="text-sm font-bold text-gray-700">Student Portrait</p>
                       <p className="text-xs text-gray-400">Squared ratio recommended.</p>
                     </div>
@@ -300,7 +273,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormLabel className="text-xs font-black uppercase text-gray-400">Academic Year</FormLabel>
-                      <Select key={`year-select-${field.value}-${yearOptions.length}`} value={field.value} onValueChange={field.onChange}>
+                      <Select key={`year-select-${field.value}`} value={field.value} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
                             <SelectValue placeholder="Select year" />
@@ -461,11 +434,11 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-4 pt-10 border-t border-gray-50 mt-10">
-                <Button type="button" variant="ghost" onClick={() => router.push("/admin/top-performers")} disabled={isSaving}>
+              <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-10 border-t border-gray-50 mt-10">
+                <Button type="button" variant="ghost" onClick={() => router.push("/admin/top-performers")} disabled={isSaving} className="w-full sm:w-auto">
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
+                <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2 w-full sm:w-auto justify-center">
                   {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                   Save Changes
                 </Button>

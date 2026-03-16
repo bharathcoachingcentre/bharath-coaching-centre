@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useEffect, useState, use } from "react";
+import React, { useMemo, useEffect, useState, use, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { 
@@ -503,15 +503,15 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-12 text-left">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.push("/admin/pages")} className="text-gray-500 font-bold hover:text-blue-600">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <Button variant="ghost" onClick={() => router.push("/admin/pages")} className="text-gray-500 font-bold hover:text-blue-600 w-full sm:w-auto justify-start px-0 sm:px-4">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Pages
         </Button>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           <Button 
             onClick={handleSave} 
             disabled={isSaving}
-            className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-10 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 gap-2"
+            className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-10 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 gap-2 w-full sm:w-auto"
           >
             {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
             Publish Changes
@@ -523,7 +523,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <div className="h-20 bg-gradient-to-r from-blue-600 to-teal-500"></div>
-            <CardContent className="p-8 -mt-10 relative text-left">
+            <CardContent className="p-6 sm:p-8 -mt-10 relative text-left">
               <div className="flex items-start gap-6">
                 <div className="w-20 h-20 rounded-3xl border-4 border-white shadow-lg overflow-hidden bg-white flex items-center justify-center text-blue-600 shrink-0">
                   <Globe className="w-10 h-10" />
@@ -549,12 +549,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
           {slug !== 'header' && slug !== 'footer' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-[#182d45] text-white">
-              <CardHeader className="p-8 pb-4">
+              <CardHeader className="p-6 sm:p-8 pb-4">
                 <CardTitle className="text-xl font-bold flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-teal-400" /> Icon Library
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-8 pt-4 space-y-6 text-left">
+              <CardContent className="p-6 sm:p-8 pt-4 space-y-6 text-left">
                 <p className="text-[10px] text-blue-200/60 font-black uppercase tracking-widest">Lucide Icon Reference</p>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
                   {Object.keys(iconMap).map((iconName) => {
@@ -577,10 +577,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
           {slug === 'header' && (
             <div className="space-y-8 text-left">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Branding & Identity</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Academy Name (Logo Text)</Label>
                     <Input 
@@ -593,11 +593,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700">Academy Logo</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                       <div className="space-y-4">
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                           <Button 
                             type="button" 
                             variant="outline" 
-                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2"
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2 w-full sm:w-auto"
                             onClick={() => document.getElementById('logo-upload')?.click()}
                           >
                             <Upload className="w-4 h-4" /> Upload Image
@@ -613,7 +613,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             <Button 
                               type="button" 
                               variant="ghost" 
-                              className="text-red-500 hover:bg-red-50 rounded-xl h-12"
+                              className="text-red-500 hover:bg-red-50 rounded-xl h-12 w-full sm:w-auto"
                               onClick={() => updateField('logoUrl', "")}
                             >
                               <Trash2 className="w-4 h-4 mr-2" /> Remove
@@ -678,17 +678,17 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Robust Navigation Menu Editor */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
+                <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Navigation Menu</CardTitle>
                   <Button 
                     onClick={addMenuItem}
                     variant="outline"
-                    className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600"
+                    className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600 w-full sm:w-auto"
                   >
                     <Plus className="w-4 h-4" /> Add Item
                   </Button>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-4">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-4">
                   <p className="text-xs text-gray-400 font-medium mb-6">Drag handle to reorder. Use the "Parent Menu" selector to create dropdown submenus.</p>
                   
                   <Reorder.Group 
@@ -700,14 +700,14 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     {(formData?.navMenu || []).map((item: any, idx: number) => (
                       <Reorder.Item key={item.id} value={item}>
                         <div className={cn(
-                          "p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group",
-                          item.parentId && "ml-12 border-l-4 border-l-blue-200 bg-blue-50/30 shadow-inner"
+                          "p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-2 sm:gap-4 transition-all group",
+                          item.parentId && "ml-4 sm:ml-12 border-l-4 border-l-blue-200 bg-blue-50/30 shadow-inner"
                         )}>
                           <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
                             <GripVertical className="w-5 h-5 text-gray-300" />
                           </div>
                           
-                          <div className="flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
+                          <div className="flex-grow grid grid-cols-1 lg:grid-cols-12 gap-4">
                             <div className="lg:col-span-3 space-y-1 text-left">
                               <Label className="text-[10px] font-black uppercase text-gray-400">Title</Label>
                               <Input 
@@ -790,10 +790,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
               </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Header CTA Button</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <CardContent className="p-6 sm:p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Button Text</Label>
                     <Input 
@@ -819,10 +819,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
           {slug === 'footer' && (
             <div className="space-y-8 text-left">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Organization Summary</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6">
+                <CardContent className="p-6 sm:p-10 pt-6">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Footer Description</Label>
                     <Textarea 
@@ -835,7 +835,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
               </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
+                <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Footer Menu Columns</CardTitle>
                   <Button 
                     onClick={() => {
@@ -843,14 +843,14 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       updateField('menus', [...currentMenus, { title: "New Menu", links: [] }]);
                     }}
                     variant="outline"
-                    className="rounded-xl font-bold gap-2"
+                    className="rounded-xl font-bold gap-2 w-full sm:w-auto"
                   >
                     <Plus className="w-4 h-4" /> Add Column
                   </Button>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
                   {(formData.menus || []).map((menu: any, colIdx: number) => (
-                    <div key={colIdx} className="p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group/col">
+                    <div key={colIdx} className="p-4 sm:p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group/col">
                       <div className="flex items-center justify-between">
                         <div className="space-y-2 flex-grow max-w-md">
                           <Label className="text-xs font-black uppercase text-gray-400">Column Title</Label>
@@ -940,10 +940,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
               </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Contact & Support</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                       <Phone className="w-4 h-4 text-blue-600" /> Phone Number
@@ -988,10 +988,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
               </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Social & App Links</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-xs font-bold text-blue-600 flex items-center gap-2 uppercase">
@@ -1039,10 +1039,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Copyright & Legal Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Copyright & Legal Links</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Copyright Text</Label>
                     <Input 
@@ -1054,7 +1054,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
 
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-left">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Legal Links (Bottom Row)</Label>
                       <Button 
                         onClick={() => {
@@ -1063,7 +1063,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         }}
                         variant="outline"
                         size="sm"
-                        className="rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                        className="rounded-xl font-bold gap-2 text-blue-600 border-blue-100 w-full sm:w-auto"
                       >
                         <Plus className="w-4 h-4" /> Add Link
                       </Button>
@@ -1117,10 +1117,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             <div className="space-y-8">
               {/* Hero Banner Text Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Banner Text</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-6 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-6 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Main Headline</Label>
@@ -1154,20 +1154,20 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Hero Image Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <ImageIcon className="w-6 h-6 text-blue-600" /> Hero Banner Image
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start text-left">
                     <div className="space-y-4">
                       <Label className="text-xs font-black uppercase text-gray-400">Upload Hero Graphic</Label>
-                      <div className="flex items-center gap-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                         <Button 
                           type="button" 
                           variant="outline" 
-                          className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2"
+                          className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2 w-full sm:w-auto"
                           onClick={() => document.getElementById('hero-upload')?.click()}
                         >
                           <Upload className="w-4 h-4" /> Choose Image
@@ -1183,7 +1183,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <Button 
                             type="button" 
                             variant="ghost" 
-                            className="text-red-500 hover:bg-red-50 rounded-xl h-12"
+                            className="text-red-500 hover:bg-red-50 rounded-xl h-12 w-full sm:w-auto"
                             onClick={() => updateField('heroImageUrl', "")}
                           >
                             Reset to Default
@@ -1209,16 +1209,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Banner Elements Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <MousePointer2 className="w-6 h-6 text-blue-600" /> Action Elements
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="space-y-6">
                     <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Buttons</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                      <div className="space-y-3 p-4 sm:p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-xs font-bold text-blue-600 uppercase">Primary Button (Gradient)</Label>
                         <div className="grid grid-cols-1 gap-4 mt-2">
                           <input 
@@ -1235,7 +1235,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           />
                         </div>
                       </div>
-                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                      <div className="space-y-3 p-4 sm:p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-xs font-bold text-gray-500 uppercase">Outline Button (White)</Label>
                         <div className="grid grid-cols-1 gap-4 mt-2">
                           <input 
@@ -1258,7 +1258,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <div className="space-y-6">
                     <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Floating UI Cards</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                      <div className="space-y-3 p-4 sm:p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-[10px] font-black uppercase text-gray-400">Card 1 (Top Floating)</Label>
                         <div className="space-y-2 text-left">
                           <Input 
@@ -1281,7 +1281,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           />
                         </div>
                       </div>
-                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                      <div className="space-y-3 p-4 sm:p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-[10px] font-black uppercase text-gray-400">Card 2 (Bottom Floating)</Label>
                         <div className="space-y-2 text-left">
                           <Input 
@@ -1304,7 +1304,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           />
                         </div>
                       </div>
-                      <div className="space-y-3 p-6 bg-gray-50 rounded-2xl">
+                      <div className="space-y-3 p-4 sm:p-6 bg-gray-50 rounded-2xl">
                         <Label className="text-[10px] font-black uppercase text-gray-400">Card 3 (Modes)</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2 text-left">
@@ -1324,7 +1324,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Hero Stats Counters</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {(formData.stats || defaultPageData.home.stats).map((stat: any, idx: number) => (
-                        <div key={idx} className="space-y-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                        <div key={idx} className="space-y-4 p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100">
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase text-gray-400">Icon Name</Label>
                             <Input 
@@ -1371,12 +1371,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* How We Help Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <Sparkles className="w-6 h-6 text-blue-600" /> How We Help Section
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -1411,7 +1411,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Feature Cards</Label>
                     <div className="space-y-4">
                       {(formData.features || defaultPageData.home.features).map((feature: any, idx: number) => (
-                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
+                        <div key={idx} className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
                           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start text-left">
                             <div className="md:col-span-1 flex flex-col items-center">
                               <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm mb-2", feature.color || "bg-blue-500")}>
@@ -1479,12 +1479,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Study Materials Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <BookOpen className="w-6 h-6 text-blue-600" /> Study Materials Section
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -1519,12 +1519,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Academic Programs Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <GraduationCap className="w-6 h-6 text-teal-500" /> Academic Programs
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -1557,7 +1557,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
                   <div className="space-y-8 text-left">
                     {(formData.programs || defaultPageData.home.programs).map((program: any, idx: number) => (
-                      <div key={idx} className="p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group">
+                      <div key={idx} className="p-4 sm:p-8 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-6 relative group">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                           <div className="space-y-3 text-left">
                             <Label className="text-xs font-black uppercase text-gray-400">Program Title</Label>
@@ -1658,12 +1658,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Timetable Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <Calendar className="w-6 h-6 text-blue-600" /> Offline Timetable Section
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -1718,12 +1718,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* One-to-One Mentorship Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <UserCheck className="w-6 h-6 text-blue-600" /> One-to-One Mentorship
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -1770,11 +1770,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start text-left">
                       <div className="space-y-3 text-left">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
-                        <div className="flex items-center gap-4 text-left">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
                           <Button 
                             type="button" 
                             variant="outline" 
-                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all flex items-center gap-2"
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all flex items-center gap-2 w-full sm:w-auto"
                             onClick={() => document.getElementById('image-upload')?.click()}
                           >
                             <Upload className="w-4 h-4" /> Choose Image
@@ -1790,7 +1790,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             <Button 
                               type="button" 
                               variant="ghost" 
-                              className="text-red-500 hover:text-red-600 hover:bg-red-50 h-12 rounded-xl"
+                              className="text-red-500 hover:text-red-600 hover:bg-red-50 h-12 rounded-xl w-full sm:w-auto"
                               onClick={() => updateField('mentorshipImageUrl', "")}
                             >
                               <Trash2 className="w-4 h-4 mr-2" /> Remove
@@ -1819,7 +1819,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Mentorship Features</Label>
                     <div className="space-y-4">
                       {(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures).map((feature: any, idx: number) => (
-                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
+                        <div key={idx} className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
                           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start text-left">
                             <div className="md:col-span-1 flex flex-col items-center">
                               <span className="text-[10px] font-black text-gray-300">{idx + 1}</span>
@@ -1873,12 +1873,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Testimonials Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <MessageSquareQuote className="w-6 h-6 text-blue-600" /> Testimonials Section
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -1909,7 +1909,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
 
                   <div className="space-y-8 text-left">
-                    <div className="flex items-center justify-between text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-left">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Testimonials List</Label>
                       <Button 
                         variant="outline" 
@@ -1919,7 +1919,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           newList.push({ name: "New Student", role: "Class 10", quote: "", avatar: "", rating: 5 });
                           updateField('testimonials', newList);
                         }}
-                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100 w-full sm:w-auto"
                       >
                         <Plus className="w-4 h-4" /> Add Testimonial
                       </Button>
@@ -1927,7 +1927,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
                     <div className="space-y-6 text-left">
                       {(formData.testimonials || defaultPageData.home.testimonials).map((testimonial: any, idx: number) => (
-                        <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
+                        <div key={idx} className="p-4 sm:p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                             <div className="space-y-3 text-left">
                               <Label className="text-xs font-black uppercase text-gray-400">Name</Label>
@@ -1975,11 +1975,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             </div>
                             <div className="space-y-3 text-left">
                               <Label className="text-xs font-black uppercase text-gray-400">Student Avatar</Label>
-                              <div className="flex items-center gap-4 text-left">
+                              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
                                 <Button 
                                   type="button" 
                                   variant="outline" 
-                                  className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2"
+                                  className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2 w-full sm:w-auto"
                                   onClick={() => document.getElementById(`avatar-upload-${idx}`)?.click()}
                                 >
                                   <Upload className="w-4 h-4" /> Upload Photo
@@ -2034,12 +2034,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Why Choose Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <HelpCircle className="w-6 h-6 text-blue-600" /> Why Choose Section
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -2071,7 +2071,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
 
                   <div className="space-y-8 text-left">
-                    <div className="flex items-center justify-between text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-left">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Features List</Label>
                       <Button 
                         variant="outline" 
@@ -2081,7 +2081,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           newList.push({ icon: "Zap", title: "New Feature", desc: "", color: "bg-blue-600 shadow-blue-600/30" });
                           updateField('whyChooseFeatures', newList);
                         }}
-                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100 w-full sm:w-auto"
                       >
                         <Plus className="w-4 h-4" /> Add Feature
                       </Button>
@@ -2089,7 +2089,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
                     <div className="space-y-6 text-left">
                       {(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures).map((feature: any, idx: number) => (
-                        <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
+                        <div key={idx} className="p-4 sm:p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                             <div className="space-y-3 text-left">
                               <Label className="text-xs font-black uppercase text-gray-400">Title</Label>
@@ -2148,12 +2148,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Success Stories Section Card */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
                     <Trophy className="w-6 h-6 text-blue-600" /> Success Stories Section
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -2187,7 +2187,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Success Statistics</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {(formData.successStats || defaultPageData.home.successStats).map((stat: any, idx: number) => (
-                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
+                        <div key={idx} className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
                             <Input value={stat.icon} onChange={(e) => {
@@ -2241,10 +2241,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             <div className="space-y-8">
               {/* Hero Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">Page Headline</Label>
                     <Input 
@@ -2258,14 +2258,14 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                       <ImageIcon className="w-4 h-4 text-blue-600" /> Hero Banner Image
                     </Label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start text-left">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start text-left">
                       <div className="space-y-3 text-left">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Banner</Label>
-                        <div className="flex items-center gap-4 text-left">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
                           <Button 
                             type="button" 
                             variant="outline" 
-                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2"
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2 w-full sm:w-auto"
                             onClick={() => document.getElementById('about-hero-upload')?.click()}
                           >
                             <Upload className="w-4 h-4" /> Choose Image
@@ -2300,10 +2300,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Philosophy Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Our Philosophy</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Philosophy Section Main Title</Label>
@@ -2341,14 +2341,14 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                       <ImageIcon className="w-4 h-4 text-teal-500" /> Philosophy Section Image
                     </Label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start text-left">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start text-left">
                       <div className="space-y-3 text-left">
                         <Label className="text-xs font-black uppercase text-gray-400">Upload Image</Label>
-                        <div className="flex items-center gap-4 text-left">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
                           <Button 
                             type="button" 
                             variant="outline" 
-                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-2"
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-2 w-full sm:w-auto"
                             onClick={() => document.getElementById('about-philosophy-upload')?.click()}
                           >
                             <Upload className="w-4 h-4" /> Choose Image
@@ -2380,7 +2380,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
                   
                   <div className="space-y-6 text-left">
-                    <div className="flex items-center justify-between text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-left">
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Philosophy Features</Label>
                       <Button 
                         variant="outline" 
@@ -2389,7 +2389,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           const newItems = [...(formData.philosophyItems || []), { text: "", icon: "Target" }];
                           updateField('philosophyItems', newItems);
                         }}
-                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100"
+                        className="h-9 rounded-xl font-bold gap-2 text-blue-600 border-blue-100 w-full sm:w-auto"
                       >
                         <Plus className="w-4 h-4" /> Add Item
                       </Button>
@@ -2397,7 +2397,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
                     <div className="space-y-4 text-left">
                       {(formData.philosophyItems || defaultPageData.about.philosophyItems).map((item: any, idx: number) => (
-                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
+                        <div key={idx} className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group">
                           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start text-left">
                             <div className="md:col-span-1 flex flex-col items-center">
                               <span className="text-[10px] font-black text-gray-300">{idx + 1}</span>
@@ -2449,10 +2449,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* CTA Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0 text-left">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Call To Action (Footer)</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-6 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-6 text-left">
                   <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">CTA Headline</Label>
                     <Input 
@@ -2489,10 +2489,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             <div className="space-y-8 text-left">
               {/* Section 1: Premium Learning Cards */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Access Premium Learning (Section 1)</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-left">
                     <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Main Title</Label>
@@ -2514,7 +2514,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
                   <div className="space-y-8 text-left">
                     {(formData.premiumCards || []).map((card: any, cardIdx: number) => (
-                      <div key={cardIdx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
+                      <div key={cardIdx} className="p-4 sm:p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 relative group">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                           <div className="space-y-3 text-left">
                             <Label className="text-xs font-black uppercase text-gray-400">Card Heading</Label>
@@ -2556,7 +2556,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         </div>
 
                         <div className="space-y-4 pt-4 border-t border-gray-200">
-                          <div className="flex items-center justify-between text-left">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-left">
                             <Label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Accordion Items</Label>
                             <Button 
                               onClick={() => {
@@ -2566,7 +2566,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               }}
                               variant="outline"
                               size="sm"
-                              className="h-8 rounded-lg text-xs font-bold"
+                              className="h-8 rounded-lg text-xs font-bold w-full sm:w-auto"
                             >
                               <Plus className="w-3.5 h-3.5 mr-1" /> Add Item
                             </Button>
@@ -2620,10 +2620,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Section 2: Download Free Study Materials Headers */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Free Resource Hub (Section 2)</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Hub Title Main</Label>
@@ -2668,10 +2668,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             <div className="space-y-8 text-left">
               {/* Hero Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">Headline</Label>
                     <Input 
@@ -2684,21 +2684,23 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700">Banner Image</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start text-left">
                       <div className="space-y-4 text-left">
-                        <Button 
-                          type="button" 
-                          variant="outline" 
-                          className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2"
-                          onClick={() => document.getElementById('results-hero-upload')?.click()}
-                        >
-                          <Upload className="w-4 h-4" /> Choose Image
-                        </Button>
-                        <input 
-                          id="results-hero-upload"
-                          type="file" 
-                          accept="image/*"
-                          className="hidden" 
-                          onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
-                        />
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2 w-full sm:w-auto"
+                            onClick={() => document.getElementById('results-hero-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Choose Image
+                          </Button>
+                          <input 
+                            id="results-hero-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                          />
+                        </div>
                       </div>
                       {(formData.heroImageUrl || defaultPageData.results.heroImageUrl) && (
                         <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
@@ -2717,10 +2719,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Success Stats Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Success Stats Section</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-10 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Title Main</Label>
@@ -2754,7 +2756,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                       {(formData.successStats || defaultPageData.results.successStats).map((stat: any, idx: number) => (
-                        <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
+                        <div key={idx} className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
                             <Input value={stat.icon} onChange={(e) => {
@@ -2788,10 +2790,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
               {/* Performers Grid Headers */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardHeader className="p-10 pb-0">
+                <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Performers Grid Headers</CardTitle>
                 </CardHeader>
-                <CardContent className="p-10 pt-6 space-y-8 text-left">
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div className="space-y-3 text-left">
                       <Label className="text-sm font-bold text-gray-700">Section Title Main</Label>
@@ -2843,10 +2845,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
           {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-              <CardHeader className="p-10 pb-0 text-left">
+              <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>
               </CardHeader>
-              <CardContent className="p-10 pt-6 text-center py-20">
+              <CardContent className="p-6 sm:p-10 pt-6 text-center py-20">
                 <Layout className="w-16 h-16 text-gray-200 mx-auto mb-4" />
                 <p className="text-gray-400 font-bold">Standard content fields for this page are coming soon.</p>
               </CardContent>

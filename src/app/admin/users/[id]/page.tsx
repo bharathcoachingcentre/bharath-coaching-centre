@@ -193,17 +193,17 @@ export default function UserDetailPage({
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.push("/admin/users")} className="text-gray-500 font-bold hover:text-blue-600">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <Button variant="ghost" onClick={() => router.push("/admin/users")} className="text-gray-500 font-bold hover:text-blue-600 w-full sm:w-auto justify-start px-0 sm:px-4">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back
         </Button>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           {!isEditing ? (
-            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95">
+            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 w-full sm:w-auto">
               <Edit3 className="w-4 h-4 mr-2" /> Edit Details
             </Button>
           ) : (
-            <Button variant="ghost" onClick={() => setIsEditMode(false)} className="text-gray-500 font-bold">
+            <Button variant="ghost" onClick={() => setIsEditMode(false)} className="text-gray-500 font-bold w-full sm:w-auto">
               Cancel
             </Button>
           )}
@@ -239,15 +239,15 @@ export default function UserDetailPage({
               </div>
 
               <div className="mt-8 space-y-4 pt-8 border-t border-gray-50">
-                <div className="flex items-center gap-3 text-sm font-medium text-gray-600">
+                <div className="flex items-center gap-3 text-left text-sm font-medium text-gray-600">
                   <Mail className="w-4 h-4 text-gray-400" />
                   <span className="truncate">{user.email}</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm font-medium text-gray-600">
+                <div className="flex items-center gap-3 text-left text-sm font-medium text-gray-600">
                   <Phone className="w-4 h-4 text-gray-400" />
                   <span>{user.phoneNumber || "Not provided"}</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm font-medium text-gray-600">
+                <div className="flex items-center gap-3 text-left text-sm font-medium text-gray-600">
                   <ShieldCheck className={cn("w-4 h-4", user.status === 'active' ? "text-emerald-500" : "text-amber-500")} />
                   <span className="capitalize">{user.status || 'pending'} account</span>
                 </div>
@@ -280,7 +280,7 @@ export default function UserDetailPage({
 
         <div className="lg:col-span-2">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white min-h-[600px]">
-            <CardHeader className="p-10 pb-4 text-left">
+            <CardHeader className="p-6 sm:p-10 pb-4 text-left">
               <div className="space-y-1">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">
                   {isEditing ? "Account Settings" : "Profile Details"}
@@ -290,7 +290,7 @@ export default function UserDetailPage({
                 </p>
               </div>
             </CardHeader>
-            <CardContent className="p-10 pt-6">
+            <CardContent className="p-6 sm:p-10 pt-6">
               {!isEditing ? (
                 <div className="space-y-10 text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -326,11 +326,11 @@ export default function UserDetailPage({
                     </div>
                   </div>
 
-                  <div className="p-8 rounded-[32px] bg-gray-50 border border-gray-100 flex items-center gap-6">
-                    <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-blue-600">
+                  <div className="p-8 rounded-[32px] bg-gray-50 border border-gray-100 flex flex-col sm:flex-row items-center gap-6">
+                    <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-blue-600 shrink-0">
                       <Lock className="w-7 h-7" />
                     </div>
-                    <div className="text-left">
+                    <div className="text-center sm:text-left">
                       <h4 className="font-bold text-gray-900">Security Management</h4>
                       <p className="text-sm text-gray-500 leading-relaxed max-w-md">
                         This user can now be updated dynamically. Changing the email or password here will update their login credentials instantly.
@@ -547,11 +547,11 @@ export default function UserDetailPage({
                       />
                     </div>
 
-                    <div className="flex items-center justify-end gap-4 pt-10 border-t border-gray-50">
-                      <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving}>
+                    <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-10 border-t border-gray-50">
+                      <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving} className="w-full sm:w-auto">
                         Cancel
                       </Button>
-                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-10 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95">
+                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-12 px-10 rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 w-full sm:w-auto justify-center">
                         {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                         Update Account
                       </Button>

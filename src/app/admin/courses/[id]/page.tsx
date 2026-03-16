@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -197,17 +196,17 @@ export default function CourseDetailPage({
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-12">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.push("/admin/courses")} className="text-gray-500 font-bold hover:text-blue-600">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <Button variant="ghost" onClick={() => router.push("/admin/courses")} className="text-gray-500 font-bold hover:text-blue-600 w-full sm:w-auto justify-start px-0 sm:px-4">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back
         </Button>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           {!isEditing ? (
-            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95">
+            <Button onClick={() => setIsEditMode(true)} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 border-none transition-all active:scale-95 w-full sm:w-auto">
               <Edit3 className="w-4 h-4 mr-2" /> Edit Details
             </Button>
           ) : (
-            <Button variant="ghost" onClick={() => setIsEditMode(false)} className="text-gray-500 font-bold">
+            <Button variant="ghost" onClick={() => setIsEditMode(false)} className="text-gray-500 font-bold w-full sm:w-auto">
               Cancel Editing
             </Button>
           )}
@@ -284,7 +283,7 @@ export default function CourseDetailPage({
           {!isEditing ? (
             <div className="space-y-8 text-left">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-                <CardContent className="p-10 space-y-10">
+                <CardContent className="p-6 sm:p-10 space-y-10">
                   <div className="space-y-4">
                     <h3 className="text-2xl font-black text-gray-900 tracking-tight">Overview</h3>
                     <p className="text-gray-600 leading-relaxed font-medium">
@@ -336,10 +335,10 @@ export default function CourseDetailPage({
             </div>
           ) : (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
-              <CardHeader className="p-10 pb-0">
+              <CardHeader className="p-6 sm:p-10 pb-0">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Edit Course</CardTitle>
               </CardHeader>
-              <CardContent className="p-10 pt-6">
+              <CardContent className="p-6 sm:p-10 pt-6">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8 text-left">
                     <div className="space-y-6">
@@ -452,7 +451,7 @@ export default function CourseDetailPage({
                           type="button"
                           variant="outline" 
                           onClick={addModule}
-                          className="h-10 border-dashed border-gray-200 bg-gray-50/50 hover:bg-gray-100 rounded-xl px-6 font-bold text-gray-500 gap-2"
+                          className="h-10 border-dashed border-gray-200 bg-gray-50/50 hover:bg-gray-100 rounded-xl px-6 font-bold text-gray-500 gap-2 w-full sm:w-auto"
                         >
                           <Plus className="w-4 h-4" /> Add Module
                         </Button>
@@ -515,11 +514,11 @@ export default function CourseDetailPage({
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-end gap-4 pt-10 border-t border-gray-50">
-                      <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving}>
+                    <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-10 border-t border-gray-50">
+                      <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving} className="w-full sm:w-auto">
                         Cancel
                       </Button>
-                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
+                      <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2 w-full sm:w-auto">
                         {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Save Course
                       </Button>

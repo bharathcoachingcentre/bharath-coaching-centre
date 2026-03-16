@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -170,17 +169,17 @@ export default function EnrollmentDetailPage({
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => router.back()} className="text-gray-500 font-bold hover:text-[#35a3be]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <Button variant="ghost" onClick={() => router.back()} className="text-gray-500 font-bold hover:text-[#35a3be] w-full sm:w-auto justify-start px-0 sm:px-4">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back
         </Button>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           {!isEditing ? (
-            <Button onClick={() => setIsEditMode(true)} className="bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20">
+            <Button onClick={() => setIsEditMode(true)} className="bg-[#35a3be] hover:bg-[#174f5f] text-white font-bold rounded-xl shadow-lg shadow-[#35a3be]/20 w-full sm:w-auto">
               <Edit3 className="w-4 h-4 mr-2" /> Edit Profile
             </Button>
           ) : (
-            <Button variant="ghost" onClick={() => setIsEditMode(false)} className="text-gray-500 font-bold">
+            <Button variant="ghost" onClick={() => setIsEditMode(false)} className="text-gray-500 font-bold w-full sm:w-auto">
               Cancel Editing
             </Button>
           )}
@@ -255,7 +254,7 @@ export default function EnrollmentDetailPage({
         {/* Right Column: Dynamic Form / Detail View */}
         <div className="lg:col-span-2">
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white min-h-[600px]">
-            <CardHeader className="p-10 pb-4 flex flex-row items-center justify-between">
+            <CardHeader className="p-6 sm:p-10 pb-4 flex flex-row items-center justify-between">
               <div className="space-y-1">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">
                   {isEditing ? "Edit Information" : "Academic Records"}
@@ -265,7 +264,7 @@ export default function EnrollmentDetailPage({
                 </p>
               </div>
             </CardHeader>
-            <CardContent className="p-10 pt-6">
+            <CardContent className="p-6 sm:p-10 pt-6">
               {!isEditing ? (
                 <div className="space-y-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -451,11 +450,11 @@ export default function EnrollmentDetailPage({
                       )}
                     />
 
-                    <div className="flex items-center justify-end gap-4 pt-6">
-                      <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving}>
+                    <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-6">
+                      <Button type="button" variant="ghost" onClick={() => setIsEditMode(false)} disabled={isSaving} className="w-full sm:w-auto">
                         Cancel
                       </Button>
-                      <Button type="submit" disabled={isSaving} className="bg-gray-900 hover:bg-black text-white font-bold h-12 px-8 rounded-xl shadow-xl transition-all active:scale-95">
+                      <Button type="submit" disabled={isSaving} className="bg-gray-900 hover:bg-black text-white font-bold h-12 px-8 rounded-xl shadow-xl transition-all active:scale-95 w-full sm:w-auto">
                         {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                         Save Changes
                       </Button>
