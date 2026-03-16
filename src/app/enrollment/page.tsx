@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -14,20 +13,16 @@ import {
     BookOpen, 
     Send, 
     GraduationCap, 
-    Trash2,
     Briefcase,
     Building,
-    MapPin,
-    Hash,
     IndianRupee,
-    Info,
     Clock,
-    Download,
     Loader2,
     ArrowRight,
     ArrowLeft,
     CheckCircle2,
-    Mail
+    Mail,
+    Calendar
 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
 import { cn } from "@/lib/utils"
@@ -37,7 +32,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useToast } from "@/hooks/use-toast"
-import { Separator } from "@/components/ui/separator"
 import {
   Select,
   SelectContent,
@@ -143,28 +137,18 @@ export default function EnrollmentPage() {
         form.setValue("admissionNo", generatedId);
     }, [form]);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setSelectedFileName(file.name);
-            form.setValue("photo", e.target.files);
-        }
-    };
-
-    const removeFile = () => {
-        setSelectedFileName(null);
-        form.setValue("photo", undefined);
-        if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-        }
-    };
-
     const nextStep = async () => {
         const fields = getFieldsForStep(currentStep);
         const isValid = await form.trigger(fields as any);
         if (isValid) {
             setCurrentStep((prev) => Math.min(prev + 1, steps.length));
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            toast({
+                variant: "destructive",
+                title: "Section Incomplete",
+                description: "Please fill in all required fields marked with * before continuing.",
+            });
         }
     };
 
@@ -204,7 +188,6 @@ export default function EnrollmentPage() {
             const timestamp = serverTimestamp();
             const { photo, ...cleanValues } = values;
             
-            // 1. Store Enrollment Record
             const enrollmentData = {
                 ...cleanValues,
                 status: 'pending',
@@ -215,7 +198,6 @@ export default function EnrollmentPage() {
             const enrollmentsRef = collection(firestore, 'enrollments');
             await addDoc(enrollmentsRef, enrollmentData);
 
-            // 2. Store User Account Record for Dashboard Display
             const usersRef = collection(firestore, 'users');
             await addDoc(usersRef, {
                 email: values.email,
@@ -234,7 +216,6 @@ export default function EnrollmentPage() {
             
             const nextId = `ADM-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
             form.reset({ admissionNo: nextId, admissionDate: format(new Date(), "yyyy-MM-dd"), academicYear: "2025-2026" });
-            setSelectedFileName(null);
             setCurrentStep(1);
             setIsSubmitting(false);
         } catch (error: any) {
@@ -257,6 +238,8 @@ export default function EnrollmentPage() {
         }
     }
 
+    if (!isMounted) return null;
+
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col text-left">
             <section className="relative w-full flex items-center justify-center pt-24 pb-32 overflow-hidden bg-[#182d45]">
@@ -271,7 +254,6 @@ export default function EnrollmentPage() {
                         Student <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">Application</span>
                     </h1>
                     
-                    {/* Progress Indicator */}
                     <div className="mt-12 max-w-2xl mx-auto flex items-center justify-between relative px-2">
                         <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -translate-y-1/2 -z-0"></div>
                         <div 
@@ -608,13 +590,159 @@ export default function EnrollmentPage() {
                                                 </FormItem>
                                             )}
                                         />
+                                        <FormField
+                                            control={form.control}
+                                            name="batchTiming"
+                                            render={({ field }) => (
+                                                <FormItem className="text-left">
+                                                    <FormLabel className="text-[#182d45] font-bold">Batch Timing *</FormLabel>
+                                                    <FormControl>
+                                                        <div className="relative">
+                                                            <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                                            <Input placeholder="e.g. 4 PM - 6 PM" {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl shadow-sm" />
+                                                        </div>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
                                     </div>
                                 </CardContent>
                             </Card>
                         )}
 
-                        {/* Step 3 & 4 (Rest of the form steps logic remains same, just ensure text-left consistency) */}
-                        {/* ... */}
+                        {/* Step 3: Guardian & Fees */}
+                        {currentStep === 3 && (
+                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="bg-gradient-to-r from-orange-600 to-orange-700 px-8 py-6 rounded-t-[2rem]">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner">
+                                            <Users className="text-white w-6 h-6" />
+                                        </div>
+                                        <h2 className="text-2xl font-bold text-white tracking-tight">Guardian & Fees Details</h2>
+                                    </div>
+                                </div>
+                                <CardContent className="p-8 md:p-12 space-y-8 text-left">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                        <FormField
+                                            control={form.control}
+                                            name="feesDetails"
+                                            render={({ field }) => (
+                                                <FormItem className="text-left md:col-span-2">
+                                                    <FormLabel className="text-[#182d45] font-bold">Fees Details / Payment Plan *</FormLabel>
+                                                    <FormControl>
+                                                        <div className="relative">
+                                                            <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                                            <Input placeholder="Monthly installments / Full payment" {...field} className="h-12 pl-11 bg-gray-50 border-gray-100 rounded-xl shadow-sm" />
+                                                        </div>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="admissionDate"
+                                            render={({ field }) => (
+                                                <FormItem className="flex flex-col text-left">
+                                                    <FormLabel className="text-[#182d45] font-bold mb-2">Admission Date *</FormLabel>
+                                                    <FormControl>
+                                                        <Input 
+                                                            type="date"
+                                                            className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="admissionNo"
+                                            render={({ field }) => (
+                                                <FormItem className="text-left">
+                                                    <FormLabel className="text-[#182d45] font-bold">Generated Admission No.</FormLabel>
+                                                    <FormControl>
+                                                        <Input {...field} readOnly className="h-12 bg-gray-100 border-gray-200 rounded-xl font-mono text-blue-600 font-bold" />
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )}
+
+                        {/* Step 4: Contact Details */}
+                        {currentStep === 4 && (
+                            <Card className="shadow-2xl shadow-gray-200 border-none rounded-[2rem] bg-white/90 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6 rounded-t-[2rem]">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner">
+                                            <Phone className="text-white w-6 h-6" />
+                                        </div>
+                                        <h2 className="text-2xl font-bold text-white tracking-tight">Contact Information</h2>
+                                    </div>
+                                </div>
+                                <CardContent className="p-8 md:p-12 space-y-8 text-left">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                        <FormField
+                                            control={form.control}
+                                            name="fatherNo"
+                                            render={({ field }) => (
+                                                <FormItem className="text-left">
+                                                    <FormLabel className="text-[#182d45] font-bold">Father's Mobile *</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="+91 XXXXX XXXXX" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="motherNo"
+                                            render={({ field }) => (
+                                                <FormItem className="text-left">
+                                                    <FormLabel className="text-[#182d45] font-bold">Mother's Mobile *</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="+91 XXXXX XXXXX" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="whatsappNo"
+                                            render={({ field }) => (
+                                                <FormItem className="text-left md:col-span-2">
+                                                    <FormLabel className="text-[#182d45] font-bold">WhatsApp Number *</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="+91 XXXXX XXXXX" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="residentialAddress"
+                                            render={({ field }) => (
+                                                <FormItem className="text-left md:col-span-2">
+                                                    <FormLabel className="text-[#182d45] font-bold">Residential Address *</FormLabel>
+                                                    <FormControl>
+                                                        <Textarea placeholder="Full postal address" {...field} className="min-h-[100px] bg-gray-50 border-gray-100 rounded-xl shadow-sm resize-none" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )}
 
                         <div className="flex flex-col items-center gap-6 pt-4">
                             <div className="flex items-center justify-between w-full max-w-2xl gap-4">
