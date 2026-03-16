@@ -489,7 +489,7 @@ export default function UserDetailPage({
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Access Role</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                            <Select key={`role-select-${field.value}`} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                   <SelectValue placeholder="Select role" />
@@ -512,7 +512,7 @@ export default function UserDetailPage({
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Account Status</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                            <Select key={`status-select-${field.value}`} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                   <SelectValue placeholder="Select status" />
