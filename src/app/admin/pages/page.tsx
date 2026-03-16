@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -18,13 +19,14 @@ import {
   BookMarked,
   Plus,
   Loader2,
-  FilePlus
+  FilePlus,
+  Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { collection, query, doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import {
   Dialog,
   DialogContent,
@@ -121,19 +123,21 @@ export default function PagesManagementPage() {
   const { data: dbPages, loading } = useCollection(pagesQuery);
 
   const mergedPages = useMemo(() => {
-    const base = [...systemPages];
+    const base = systemPages.map(p => ({ ...p, isSystem: true }));
     if (!dbPages) return base;
 
     dbPages.forEach(dbPage => {
-      if (!base.find(p => p.id === dbPage.id)) {
+      const isSystem = base.find(p => p.id === dbPage.id);
+      if (!isSystem) {
         base.push({
           id: dbPage.id,
           title: dbPage.title || dbPage.id,
           description: "Custom user-defined page content",
           icon: FileText,
           color: "bg-gray-500",
-          bg: "bg-gray-50"
-        });
+          bg: "bg-gray-50",
+          isSystem: false
+        } as any);
       }
     });
     return base;
@@ -166,6 +170,18 @@ export default function PagesManagementPage() {
     }
   };
 
+  const handleDeletePage = async (pageId: string) => {
+    if (!firestore) return;
+    if (!confirm("Are you sure you want to delete this custom page? This action cannot be undone.")) return;
+
+    try {
+      await deleteDoc(doc(firestore, "pages", pageId));
+      toast({ title: "Page Removed", description: "The custom page has been deleted successfully." });
+    } catch (error: any) {
+      toast({ variant: "destructive", title: "Delete Failed", description: error.message });
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -188,7 +204,7 @@ export default function PagesManagementPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mergedPages.map((page) => (
+          {mergedPages.map((page: any) => (
             <Card key={page.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
               <CardContent className="p-8">
                 <div className="flex items-center gap-5 mb-8">
@@ -208,12 +224,24 @@ export default function PagesManagementPage() {
                   {page.description}
                 </p>
 
-                <Button asChild className="w-full h-12 bg-gray-50 hover:bg-blue-600 text-gray-600 hover:text-white font-bold rounded-xl border-none transition-all duration-300 group/btn">
-                  <Link href={`/admin/pages/${page.id}`} className="flex items-center justify-center gap-2">
-                    Edit Content
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                  </Link>
-                </Button>
+                <div className="flex gap-3 mt-auto">
+                  <Button asChild className="flex-1 h-12 bg-gray-50 hover:bg-blue-600 text-gray-600 hover:text-white font-bold rounded-xl border-none transition-all duration-300 group/btn">
+                    <Link href={`/admin/pages/${page.id}`} className="flex items-center justify-center gap-2">
+                      Edit Content
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                    </Link>
+                  </Button>
+                  {!page.isSystem && (
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => handleDeletePage(page.id)}
+                      className="h-12 w-12 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 border-none transition-all duration-300"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </Button>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}
