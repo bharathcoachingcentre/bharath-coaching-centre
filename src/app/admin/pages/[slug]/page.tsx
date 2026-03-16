@@ -825,14 +825,13 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           </div>
 
                           <div className="flex items-center gap-1">
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
+                            <button 
+                              type="button"
                               onClick={() => deleteMenuItem(item.id)}
-                              className="h-8 w-8 text-gray-300 hover:text-red-500"
+                              className="h-8 w-8 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
                             >
                               <Trash2 className="w-4 h-4" />
-                            </Button>
+                            </button>
                           </div>
                         </div>
                       </Reorder.Item>
@@ -883,6 +882,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
                 </CardContent>
+              </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -927,17 +927,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   className="bg-white border-none h-12 rounded-xl font-bold"
                                 />
                               </div>
-                              <Button 
-                                variant="ghost" 
-                                size="icon" 
+                              <button 
+                                type="button"
                                 onClick={() => {
                                   const newMenus = formData.menus.filter((_: any, i: number) => i !== colIdx);
                                   updateField('menus', newMenus);
                                 }}
-                                className="text-gray-300 hover:text-red-500"
+                                className="h-10 w-10 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
                               >
                                 <Trash2 className="w-5 h-5" />
-                              </Button>
+                              </button>
                             </div>
 
                             <div className="space-y-4">
@@ -1001,18 +1000,17 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                           />
                                         </div>
                                       </div>
-                                      <Button 
-                                        size="icon" 
-                                        variant="ghost"
+                                      <button 
+                                        type="button"
                                         onClick={() => {
                                           const newMenus = [...formData.menus];
                                           newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
                                           updateField('menus', newMenus);
                                         }}
-                                        className="h-8 w-8 text-gray-200 hover:text-red-500 shrink-0"
+                                        className="h-8 w-8 flex items-center justify-center text-gray-200 hover:text-red-500 shrink-0 transition-colors"
                                       >
                                         <Trash2 className="w-4 h-4" />
-                                      </Button>
+                                      </button>
                                     </div>
                                   </Reorder.Item>
                                 ))}
@@ -1179,17 +1177,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               placeholder="URL"
                             />
                           </div>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
+                          <button 
+                            type="button"
                             onClick={() => {
                               const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== linkIdx);
                               updateField('bottomLinks', newLinks);
                             }}
-                            className="text-gray-300 hover:text-red-500"
+                            className="h-10 w-10 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
-                          </Button>
+                          </button>
                         </div>
                       ))}
                     </div>
@@ -1201,7 +1198,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
           {slug === 'one-to-one-classes' && (
             <div className="space-y-8 text-left">
-              {/* Section 1: Banner */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Banner Section</CardTitle>
@@ -1277,7 +1273,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Section 2: Three Icon Cards */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Feature Cards (3 Cards)</CardTitle>
@@ -1316,7 +1311,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Section 3: Benefits Section */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Benefits Section</CardTitle>
@@ -1349,7 +1343,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   >
                     {(formData.benefits || []).map((benefit: any, idx: number) => (
                       <Reorder.Item key={benefit.id || idx} value={benefit}>
-                        <div className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all group">
+                        <div className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all duration-300 group">
                           <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
                             <GripVertical className="w-5 h-5 text-gray-300" />
                           </div>
@@ -1360,7 +1354,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               <Input 
                                 value={benefit.icon} 
                                 onChange={(e) => {
-                                  const newList = [...formData.benefits];
+                                  const newList = [...(formData.benefits || [])];
                                   newList[idx].icon = e.target.value;
                                   updateField('benefits', newList);
                                 }}
@@ -1372,7 +1366,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               <Input 
                                 value={benefit.text} 
                                 onChange={(e) => {
-                                  const newList = [...formData.benefits];
+                                  const newList = [...(formData.benefits || [])];
                                   newList[idx].text = e.target.value;
                                   updateField('benefits', newList);
                                 }}
@@ -1381,17 +1375,16 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             </div>
                           </div>
 
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
+                          <button 
+                            type="button"
                             onClick={() => {
-                              const newList = formData.benefits.filter((_: any, i: number) => i !== idx);
+                              const newList = (formData.benefits || []).filter((_: any, i: number) => i !== idx);
                               updateField('benefits', newList);
                             }}
-                            className="h-8 w-8 text-gray-200 hover:text-red-500"
+                            className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
-                          </Button>
+                          </button>
                         </div>
                       </Reorder.Item>
                     ))}
@@ -1399,7 +1392,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Section 4: Booking Form Fields */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Booking Form Configuration</CardTitle>
@@ -2909,18 +2901,17 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                     placeholder="Accordion Content"
                                   />
                                 </div>
-                                <Button 
-                                  variant="ghost" 
-                                  size="icon" 
+                                <button 
+                                  type="button"
                                   onClick={() => {
                                     const newCards = [...formData.premiumCards];
                                     newCards[cardIdx].accordions = newCards[cardIdx].accordions.filter((_: any, i: number) => i !== accIdx);
                                     updateField('premiumCards', newCards);
                                   }}
-                                  className="absolute top-2 right-2 h-6 w-6 text-gray-200 hover:text-red-500 opacity-0 group-hover/acc:opacity-100 transition-opacity"
+                                  className="absolute top-2 right-2 h-6 w-6 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
-                                </Button>
+                                </button>
                               </div>
                             ))}
                           </div>
@@ -3069,7 +3060,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
                             <Input value={stat.icon} onChange={(e) => {
-                              const newList = [...(formData.results.successStats || defaultPageData.results.successStats)];
+                              const newList = [...(formData.successStats || [])];
                               newList[idx].icon = e.target.value;
                               updateField('successStats', newList);
                             }} className="h-10 bg-white" />
@@ -3077,7 +3068,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Value</Label>
                             <Input value={stat.value} onChange={(e) => {
-                              const newList = [...(formData.results.successStats || defaultPageData.results.successStats)];
+                              const newList = [...(formData.successStats || [])];
                               newList[idx].value = e.target.value;
                               updateField('successStats', newList);
                             }} className="h-10 bg-white font-bold" />
@@ -3085,7 +3076,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Label</Label>
                             <Input value={stat.label} onChange={(e) => {
-                              const newList = [...(formData.results.successStats || defaultPageData.results.successStats)];
+                              const newList = [...(formData.successStats || [])];
                               newList[idx].label = e.target.value;
                               updateField('successStats', newList);
                             }} className="h-10 bg-white" />
