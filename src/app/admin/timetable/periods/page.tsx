@@ -53,19 +53,6 @@ export default function PeriodsManagementPage() {
     endTime: "10:30"
   });
 
-  // Fix for unclickable UI
-  useEffect(() => {
-    if (!isDialogOpen) {
-      const cleanup = () => {
-        document.body.style.pointerEvents = 'auto';
-        document.body.style.overflow = 'auto';
-        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
-      };
-      const timer = setTimeout(cleanup, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [isDialogOpen]);
-
   const periodsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'periods'), orderBy('order', 'asc'));
@@ -112,17 +99,14 @@ export default function PeriodsManagementPage() {
         });
         toast({ title: "Period Added" });
       }
+      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
-      setIsDialogOpen(false);
       setEditingPeriod(null);
       setNewPeriod({ startTime: "09:00", endTime: "10:30" });
-      setTimeout(() => {
-        document.body.style.pointerEvents = 'auto';
-      }, 150);
     }
   };
 
@@ -142,8 +126,8 @@ export default function PeriodsManagementPage() {
       startTime: p.startTime || "09:00",
       endTime: p.endTime || "10:30"
     });
-    // Use timeout to allow DropdownMenu to close before Dialog opens
-    setTimeout(() => setIsDialogOpen(true), 50);
+    // Ensure dropdown is gone before dialog shows
+    setTimeout(() => setIsDialogOpen(true), 150);
   };
 
   return (
@@ -200,10 +184,7 @@ export default function PeriodsManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1 border-gray-100">
                           <DropdownMenuItem 
-                            onSelect={(e) => {
-                              e.preventDefault();
-                              openEditDialog(p);
-                            }}
+                            onSelect={() => openEditDialog(p)}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >
                             <Pencil className="mr-2 h-4 w-4 text-blue-600" />

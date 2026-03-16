@@ -51,19 +51,6 @@ export default function SubjectsManagementPage() {
   const [editingSubject, setEditingSubject] = useState<any | null>(null);
   const [newSubject, setNewSubject] = useState({ name: "", code: "" });
 
-  // Fix for unclickable UI
-  useEffect(() => {
-    if (!isDialogOpen) {
-      const cleanup = () => {
-        document.body.style.pointerEvents = 'auto';
-        document.body.style.overflow = 'auto';
-        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
-      };
-      const timer = setTimeout(cleanup, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [isDialogOpen]);
-
   const subjectsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
@@ -98,17 +85,14 @@ export default function SubjectsManagementPage() {
         });
         toast({ title: "Subject Added" });
       }
+      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
-      setIsDialogOpen(false);
       setEditingSubject(null);
       setNewSubject({ name: "", code: "" });
-      setTimeout(() => {
-        document.body.style.pointerEvents = 'auto';
-      }, 150);
     }
   };
 
@@ -180,11 +164,10 @@ export default function SubjectsManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1 border-gray-100">
                           <DropdownMenuItem 
-                            onSelect={(e) => {
-                              e.preventDefault();
+                            onSelect={() => {
                               setEditingSubject(s);
                               setNewSubject({ name: s.name, code: s.code || "" });
-                              setTimeout(() => setIsDialogOpen(true), 50);
+                              setTimeout(() => setIsDialogOpen(true), 150);
                             }}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >

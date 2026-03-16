@@ -47,19 +47,6 @@ export default function TeachersRegistryPage() {
   const [editingTeacher, setEditingTeacher] = useState<any | null>(null);
   const [teacherName, setTeacherName] = useState("");
 
-  // Fix for unclickable UI: Force body pointer-events and cleanup overlays
-  useEffect(() => {
-    if (!isDialogOpen) {
-      const cleanup = () => {
-        document.body.style.pointerEvents = 'auto';
-        document.body.style.overflow = 'auto';
-        document.querySelectorAll('[data-radix-dialog-overlay]').forEach(el => (el as HTMLElement).remove());
-      };
-      const timer = setTimeout(cleanup, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [isDialogOpen]);
-
   const teachersQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'users'), where('role', '==', 'teacher'));
@@ -92,18 +79,14 @@ export default function TeachersRegistryPage() {
         });
         toast({ title: "Teacher Added to Registry" });
       }
+      setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Save error:", error);
       toast({ variant: "destructive", title: "Save Failed", description: error.message });
     } finally {
       setIsSaving(false);
-      setIsDialogOpen(false);
       setEditingTeacher(null);
       setTeacherName("");
-      // Force immediate focus recovery
-      setTimeout(() => {
-        document.body.style.pointerEvents = 'auto';
-      }, 150);
     }
   };
 
@@ -120,8 +103,8 @@ export default function TeachersRegistryPage() {
   const openEditDialog = (t: any) => {
     setEditingTeacher(t);
     setTeacherName(t.displayName);
-    // Use timeout to allow DropdownMenu to close before Dialog opens
-    setTimeout(() => setIsDialogOpen(true), 50);
+    // Use timeout to allow DropdownMenu to close before Dialog opens to prevent lockups
+    setTimeout(() => setIsDialogOpen(true), 150);
   };
 
   return (
@@ -179,10 +162,7 @@ export default function TeachersRegistryPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl p-1 border-gray-100">
                           <DropdownMenuItem 
-                            onSelect={(e) => {
-                              e.preventDefault();
-                              openEditDialog(t);
-                            }}
+                            onSelect={() => openEditDialog(t)}
                             className="p-2.5 cursor-pointer rounded-lg"
                           >
                             <Pencil className="mr-2 h-4 w-4 text-blue-600" />
