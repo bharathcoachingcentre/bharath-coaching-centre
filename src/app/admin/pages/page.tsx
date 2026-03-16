@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -179,8 +180,8 @@ export default function PagesManagementPage() {
       
       if (pageSnap.exists()) {
         const pageData = pageSnap.data();
-        // Archive the current configuration
-        await setDoc(doc(firestore, "deleted_pages", pageId), {
+        // Archive the current configuration to recovery-bin
+        await setDoc(doc(firestore, "recovery-bin", pageId), {
           ...pageData,
           deletedAt: serverTimestamp(),
         });
@@ -199,8 +200,8 @@ export default function PagesManagementPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="text-left">
-          <h2 className="text-3xl font-black text-gray-900 tracking-tight">Content Management</h2>
-          <p className="text-gray-500 font-medium mt-1">Select a page or layout component to edit its content</p>
+          <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Content Management</h2>
+          <p className="text-xs md:text-sm text-gray-500 font-medium mt-1">Select a page or layout component to edit its content</p>
         </div>
         <Button 
           onClick={() => setIsCreateDialogOpen(true)}
@@ -219,21 +220,21 @@ export default function PagesManagementPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {mergedPages.map((page: any) => (
             <Card key={page.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500">
-              <CardContent className="p-8">
+              <CardContent className="p-6 md:p-8">
                 <div className="flex items-center gap-5 mb-8">
-                  <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110", page.color)}>
-                    <page.icon className="w-7 h-7" />
+                  <div className={cn("w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110", page.color)}>
+                    <page.icon className="w-6 h-6 md:w-7 md:h-7" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-bold text-gray-900 text-xl tracking-tight">{page.title}</h3>
-                    <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-gray-400 mt-0.5">
+                    <h3 className="font-bold text-gray-900 text-lg md:text-xl tracking-tight">{page.title}</h3>
+                    <div className="flex items-center gap-1 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mt-0.5">
                       <Layout className="w-3 h-3" />
                       Template Editor
                     </div>
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-500 font-medium leading-relaxed mb-8 line-clamp-2 min-h-[2.5rem] text-left">
+                <p className="text-xs md:text-sm text-gray-500 font-medium leading-relaxed mb-8 line-clamp-2 min-h-[2.5rem] text-left">
                   {page.description}
                 </p>
 
@@ -248,7 +249,7 @@ export default function PagesManagementPage() {
                     variant="ghost" 
                     size="icon" 
                     onClick={() => handleDeletePage(page.id)}
-                    className="h-12 w-12 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 border-none transition-all duration-300"
+                    className="h-12 w-12 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 border-none transition-all duration-300 shrink-0"
                   >
                     <Trash2 className="w-5 h-5" />
                   </Button>
@@ -260,10 +261,10 @@ export default function PagesManagementPage() {
       )}
 
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-        <DialogContent className="sm:max-w-md rounded-[2rem] border-none shadow-2xl">
+        <DialogContent className="sm:max-w-md rounded-[2rem] border-none shadow-2xl p-6 md:p-10">
           <DialogHeader className="text-left">
-            <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Create New Page</DialogTitle>
-            <DialogDescription className="text-gray-500 font-medium">
+            <DialogTitle className="text-xl md:text-2xl font-black text-[#182d45] tracking-tight">Create New Page</DialogTitle>
+            <DialogDescription className="text-gray-500 font-medium text-sm">
               Define a new content page. The slug will be used in the URL.
             </DialogDescription>
           </DialogHeader>
@@ -290,12 +291,12 @@ export default function PagesManagementPage() {
               </div>
             </div>
           </div>
-          <DialogFooter className="sm:justify-end gap-3">
-            <Button variant="ghost" onClick={() => setIsCreateDialogOpen(false)} disabled={isCreating} className="font-bold">Cancel</Button>
+          <DialogFooter className="sm:justify-end gap-3 pt-4">
+            <Button variant="ghost" onClick={() => setIsCreateDialogOpen(false)} disabled={isCreating} className="font-bold w-full sm:w-auto">Cancel</Button>
             <Button 
               onClick={handleCreatePage} 
               disabled={isCreating}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 px-8 rounded-xl shadow-lg border-none transition-all active:scale-95"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 px-8 rounded-xl shadow-lg border-none transition-all active:scale-95 w-full sm:w-auto"
             >
               {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <FilePlus className="w-4 h-4 mr-2" />}
               Create Page

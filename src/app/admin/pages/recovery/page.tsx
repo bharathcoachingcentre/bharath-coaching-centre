@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -23,7 +24,7 @@ export default function RecoveryBinPage() {
 
   const deletedPagesQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'deleted_pages'), orderBy('deletedAt', 'desc'));
+    return query(collection(firestore, 'recovery-bin'), orderBy('deletedAt', 'desc'));
   }, [firestore]);
 
   const { data: deletedPages, loading } = useCollection(deletedPagesQuery);
@@ -36,7 +37,7 @@ export default function RecoveryBinPage() {
       // Move back to pages collection
       await setDoc(doc(firestore, "pages", page.id), pageData);
       // Remove from recovery bin
-      await deleteDoc(doc(firestore, "deleted_pages", page.id));
+      await deleteDoc(doc(firestore, "recovery-bin", page.id));
       
       toast({ title: "Page Restored", description: `${page.title} configuration has been recovered.` });
     } catch (error: any) {
@@ -52,7 +53,7 @@ export default function RecoveryBinPage() {
 
     setIsProcessing(pageId);
     try {
-      await deleteDoc(doc(firestore, "deleted_pages", pageId));
+      await deleteDoc(doc(firestore, "recovery-bin", pageId));
       toast({ title: "Record Erased", description: "The archived page data has been deleted permanently." });
     } catch (error: any) {
       toast({ variant: "destructive", title: "Delete Failed", description: error.message });
@@ -68,8 +69,8 @@ export default function RecoveryBinPage() {
           <Link href="/admin/pages" className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-blue-600 mb-2 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to Pages
           </Link>
-          <h2 className="text-3xl font-black text-gray-900 tracking-tight">Recovery Bin</h2>
-          <p className="text-gray-500 font-medium mt-1">Restore your previously customized page content</p>
+          <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Recovery Bin</h2>
+          <p className="text-xs md:text-sm text-gray-500 font-medium mt-1">Restore your previously customized page content</p>
         </div>
       </div>
 
@@ -84,20 +85,20 @@ export default function RecoveryBinPage() {
             <History className="w-10 h-10 text-gray-300" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">Your bin is empty</h3>
-          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Archived page configurations will appear here for restoration.</p>
+          <p className="text-sm md:text-base text-gray-500 mt-2 max-w-xs mx-auto">Archived page configurations will appear here for restoration.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {deletedPages.map((page: any) => (
             <Card key={page.id} className="group border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white">
-              <CardContent className="p-8">
+              <CardContent className="p-6 md:p-8">
                 <div className="flex items-center gap-5 mb-8">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-gray-100 text-gray-400">
-                    <Layout className="w-7 h-7" />
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center bg-gray-100 text-gray-400">
+                    <Layout className="w-6 h-6 md:w-7 md:h-7" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-bold text-gray-900 text-xl tracking-tight line-clamp-1">{page.title}</h3>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mt-0.5">
+                    <h3 className="font-bold text-gray-900 text-lg md:text-xl tracking-tight line-clamp-1">{page.title}</h3>
+                    <div className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mt-0.5">
                       Deleted {page.deletedAt?.toDate ? new Date(page.deletedAt.toDate()).toLocaleDateString() : 'Recently'}
                     </div>
                   </div>
@@ -117,7 +118,7 @@ export default function RecoveryBinPage() {
                     size="icon" 
                     onClick={() => handlePermanentDelete(page.id)}
                     disabled={isProcessing === page.id}
-                    className="h-12 w-12 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 border-none transition-all"
+                    className="h-12 w-12 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 border-none transition-all shrink-0"
                   >
                     <Trash2 className="w-5 h-5" />
                   </Button>

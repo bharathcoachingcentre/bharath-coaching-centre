@@ -31,5 +31,29 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    match /recovery-bin/{itemId} {
+      allow read, write: if true;
+    }
+
+    match /years/{yearId} {
+      allow read, write: if true;
+    }
+
+    match /top-performers/{id} {
+      allow read, write: if true;
+    }
+
+    match /classes/{id} {
+      allow read, write: if true;
+    }
+
+    match /subjects/{id} {
+      allow read, write: if true;
+    }
+
+    match /periods/{id} {
+      allow read, write: if true;
+    }
+
   }
 }
