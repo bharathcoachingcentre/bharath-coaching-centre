@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -26,7 +25,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
+import { collection, query, doc, setDoc, serverTimestamp, deleteDoc, getDoc } from "firebase/firestore";
 import {
   Dialog,
   DialogContent,
@@ -172,11 +171,25 @@ export default function PagesManagementPage() {
 
   const handleDeletePage = async (pageId: string) => {
     if (!firestore) return;
-    if (!confirm("Are you sure you want to delete this page? This action cannot be undone. System pages will revert to default settings if their content record is deleted.")) return;
+    if (!confirm("Are you sure? This page will be moved to the Recovery Bin.")) return;
 
     try {
-      await deleteDoc(doc(firestore, "pages", pageId));
-      toast({ title: "Page Content Removed", description: "The page record has been deleted successfully." });
+      const pageRef = doc(firestore, "pages", pageId);
+      const pageSnap = await getDoc(pageRef);
+      
+      if (pageSnap.exists()) {
+        const pageData = pageSnap.data();
+        // Archive the current configuration
+        await setDoc(doc(firestore, "deleted_pages", pageId), {
+          ...pageData,
+          deletedAt: serverTimestamp(),
+        });
+        // Remove from active pages
+        await deleteDoc(pageRef);
+        toast({ title: "Moved to Recovery", description: "You can restore this configuration from the Recovery Bin." });
+      } else {
+        toast({ title: "Notice", description: "This page is already using default settings (no custom data exists in database)." });
+      }
     } catch (error: any) {
       toast({ variant: "destructive", title: "Delete Failed", description: error.message });
     }

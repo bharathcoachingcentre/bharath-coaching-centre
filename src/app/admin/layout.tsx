@@ -22,7 +22,8 @@ import {
   Contact2,
   Star,
   Type,
-  List
+  List,
+  History
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,6 +77,7 @@ const menuItems = [
     href: "/admin/pages",
     children: [
       { label: "Manage Pages", href: "/admin/pages" },
+      { label: "Recovery Bin", href: "/admin/pages/recovery" },
       { label: "Header Editor", href: "/admin/pages/header" },
       { label: "Footer Editor", href: "/admin/pages/footer" },
     ]
