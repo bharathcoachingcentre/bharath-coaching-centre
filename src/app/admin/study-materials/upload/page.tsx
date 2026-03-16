@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -8,7 +7,9 @@ import {
   BookOpen, 
   FileUp,
   Loader2,
-  Link as LinkIcon
+  Link as LinkIcon,
+  FileCheck,
+  X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -72,6 +73,7 @@ export default function UploadMaterialPage() {
   const router = useRouter();
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -103,13 +105,19 @@ export default function UploadMaterialPage() {
       const reader = new FileReader();
       reader.onloadend = () => {
         form.setValue("pdfUrl", reader.result as string, { shouldDirty: true });
+        setSelectedFileName(file.name);
         toast({
           title: "File Ready",
-          description: "The file has been uploaded locally and is ready to save.",
+          description: `"${file.name}" is ready to upload.`,
         });
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const removeSelectedFile = () => {
+    setSelectedFileName(null);
+    form.setValue("pdfUrl", "");
   };
 
   const handleUpload = async (values: z.infer<typeof formSchema>) => {
@@ -202,31 +210,52 @@ export default function UploadMaterialPage() {
                     <FormItem className="space-y-3 text-left">
                       <FormLabel className="text-sm font-bold text-gray-700">Resource URL or File *</FormLabel>
                       <FormControl>
-                        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
-                          <div className="relative flex-1 w-full">
-                            <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                            <Input 
-                              placeholder="https://example.com/file.pdf or direct file data" 
-                              {...field}
-                              className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm"
-                            />
+                        <div className="flex flex-col gap-4">
+                          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+                            <div className="relative flex-1 w-full">
+                              <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                              <Input 
+                                placeholder="https://example.com/file.pdf or direct file data" 
+                                {...field}
+                                className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm"
+                              />
+                            </div>
+                            <div className="flex-shrink-0 w-full sm:w-auto">
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                className="h-14 w-full sm:w-auto border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
+                                onClick={() => document.getElementById('file-upload')?.click()}
+                              >
+                                <Upload className="w-4 h-4" /> Upload File
+                              </Button>
+                              <input 
+                                id="file-upload"
+                                type="file" 
+                                className="hidden" 
+                                onChange={handleFileUpload}
+                              />
+                            </div>
                           </div>
-                          <div className="flex-shrink-0 w-full sm:w-auto">
-                            <Button 
-                              type="button" 
-                              variant="outline" 
-                              className="h-14 w-full sm:w-auto border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center justify-center gap-2"
-                              onClick={() => document.getElementById('file-upload')?.click()}
-                            >
-                              <Upload className="w-4 h-4" /> Upload File
-                            </Button>
-                            <input 
-                              id="file-upload"
-                              type="file" 
-                              className="hidden" 
-                              onChange={handleFileUpload}
-                            />
-                          </div>
+                          
+                          {selectedFileName && (
+                            <div className="flex items-center gap-3 px-4 py-2 bg-blue-50 border border-blue-100 rounded-xl w-fit animate-in fade-in slide-in-from-left-2 duration-300">
+                              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+                                <FileCheck className="w-4 h-4" />
+                              </div>
+                              <div className="flex flex-col min-w-0">
+                                <span className="text-xs font-black text-blue-900 truncate max-w-[250px]">{selectedFileName}</span>
+                                <span className="text-[10px] font-bold text-blue-400 uppercase tracking-tighter">Ready to sync</span>
+                              </div>
+                              <button 
+                                type="button" 
+                                onClick={removeSelectedFile}
+                                className="ml-2 p-1 hover:bg-blue-100 rounded-md text-blue-400 hover:text-red-500 transition-colors"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </FormControl>
                       <FormMessage />
