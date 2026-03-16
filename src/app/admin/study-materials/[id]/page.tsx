@@ -158,6 +158,24 @@ export default function StudyMaterialEditPage({
     }
   };
 
+  const handlePreview = async () => {
+    const url = form.getValues("pdfUrl");
+    if (!url) return;
+    
+    if (url.startsWith('data:')) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl, '_blank');
+      } catch (error) {
+        window.open(url, '_blank');
+      }
+    } else {
+      window.open(url, '_blank');
+    }
+  };
+
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !materialId) return;
     setIsSaving(true);
@@ -214,8 +232,6 @@ export default function StudyMaterialEditPage({
     );
   }
 
-  const currentPdfUrl = form.watch("pdfUrl");
-
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
@@ -249,13 +265,12 @@ export default function StudyMaterialEditPage({
               
               <div className="mt-8 space-y-4 pt-8 border-t border-gray-50 text-left">
                 <Button 
-                  asChild
+                  type="button"
                   variant="outline" 
+                  onClick={handlePreview}
                   className="w-full rounded-xl h-12 font-bold gap-2 text-blue-600 border-blue-100 hover:bg-blue-50"
                 >
-                  <a href={currentPdfUrl} target="_blank" rel="noopener noreferrer">
-                    <Eye className="w-4 h-4" /> View Current File
-                  </a>
+                  <Eye className="w-4 h-4" /> View Current File
                 </Button>
                 <div className="p-4 bg-gray-50 rounded-xl">
                   <div className="flex items-center gap-2 mb-1">
@@ -386,13 +401,8 @@ export default function StudyMaterialEditPage({
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl shadow-xl">
-                              <SelectItem value="Class 1">Class 1</SelectItem>
-                              <SelectItem value="Class 2">Class 2</SelectItem>
-                              <SelectItem value="Class 3">Class 3</SelectItem>
-                              <SelectItem value="Class 4">Class 4</SelectItem>
-                              <SelectItem value="Class 5">Class 5</SelectItem>
-                              {Array.from({ length: 7 }, (_, i) => i + 6).map(grade => (
-                                <SelectItem key={grade} value={`Class ${grade}`}>Class {grade}</SelectItem>
+                              {allClassesRaw?.map(c => (
+                                <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                               ))}
                             </SelectContent>
                           </Select>

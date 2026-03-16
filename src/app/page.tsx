@@ -830,7 +830,7 @@ export default function HomePage() {
                       )}
                       onClick={() => handleTrackDownload(material.id)}
                     >
-                      <a href={material.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <a href={material.pdfUrl} download={material.title}>
                         <Download className="w-5 h-5" />
                         Download PDF
                       </a>

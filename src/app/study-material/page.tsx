@@ -633,8 +633,7 @@ export default function StudyMaterialPage() {
                     >
                       <a
                         href={material.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        download={material.title}
                       >
                         <Download className="w-5 h-5" />
                         Download PDF

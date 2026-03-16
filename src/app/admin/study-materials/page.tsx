@@ -83,6 +83,23 @@ export default function StudyMaterialsPage() {
     }).catch(err => console.error("Failed to track download:", err));
   };
 
+  const handlePreview = async (url: string, id: string) => {
+    handleTrackDownload(id);
+    if (url.startsWith('data:')) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl, '_blank');
+      } catch (error) {
+        console.error("Blob preview failed:", error);
+        window.open(url, '_blank');
+      }
+    } else {
+      window.open(url, '_blank');
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (!firestore) return;
     if (!confirm("Are you sure you want to delete this study material? This action cannot be undone.")) return;
@@ -157,6 +174,7 @@ export default function StudyMaterialsPage() {
             const colors = getMaterialColors(item.category);
             return (
               <Card key={item.id} className="group border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden bg-white hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-300">
+                <div className="h-1.5 w-full bg-gradient-to-r from-blue-600 to-teal-500"></div>
                 <CardContent className="p-8">
                   <div className="flex items-start justify-between mb-6">
                     <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", colors.bg)}>
@@ -170,35 +188,23 @@ export default function StudyMaterialsPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
-                        <DropdownMenuItem asChild className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
-                          {item.pdfUrl ? (
-                            <a 
-                              href={item.pdfUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              onClick={() => handleTrackDownload(item.id)}
-                              className="flex items-center w-full"
-                            >
-                              <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                              <span className="font-bold text-xs">Preview File</span>
-                            </a>
-                          ) : (
-                            <button className="flex items-center w-full opacity-50 cursor-not-allowed">
-                              <Eye className="mr-2 h-4 w-4 text-gray-400" />
-                              <span className="font-bold text-xs">No File</span>
-                            </button>
-                          )}
+                        <DropdownMenuItem 
+                          onSelect={() => item.pdfUrl && handlePreview(item.pdfUrl, item.id)}
+                          className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg"
+                        >
+                          <Eye className="mr-2 h-4 w-4 text-blue-500" />
+                          <span className="font-bold text-xs text-gray-700">Preview File</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem asChild className="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+                        <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
                           <Link href={`/admin/study-materials/${item.id}`} className="flex items-center w-full">
                             <Pencil className="mr-2 h-4 w-4 text-blue-600" />
-                            <span className="font-bold text-xs">Edit Metadata</span>
+                            <span className="font-bold text-xs text-gray-700">Edit Metadata</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-gray-50" />
                         <DropdownMenuItem 
                           onSelect={() => handleDelete(item.id)}
-                          className="p-2 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
+                          className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
                           <span className="font-bold text-xs">Delete File</span>
@@ -235,25 +241,17 @@ export default function StudyMaterialsPage() {
                         variant="ghost" 
                         size="icon" 
                         className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
-                        asChild
+                        onClick={() => item.pdfUrl && handlePreview(item.pdfUrl, item.id)}
                       >
-                        <a 
-                          href={item.pdfUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          onClick={() => item.pdfUrl && handleTrackDownload(item.id)}
-                        >
-                          <Eye className="w-5 h-5" />
-                        </a>
+                        <Eye className="w-5 h-5" />
                       </Button>
                       <Button 
                         variant="ghost" 
                         size="icon" 
                         className="h-9 w-9 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
-                        disabled={!item.pdfUrl}
                         asChild
                       >
-                        <a href={item.pdfUrl} download onClick={() => item.pdfUrl && handleTrackDownload(item.id)}>
+                        <a href={item.pdfUrl} download={item.title} onClick={() => item.pdfUrl && handleTrackDownload(item.id)}>
                           <Download className="w-5 h-5" />
                         </a>
                       </Button>
