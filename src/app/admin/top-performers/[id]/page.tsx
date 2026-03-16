@@ -106,16 +106,15 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       rankOrder: 1,
       year: "",
       imageUrl: "",
-      badgeColor: "",
-      iconColor: "",
-      marksColor: "",
-      rankIcon: "",
+      badgeColor: "bg-blue-600",
+      iconColor: "bg-blue-600",
+      marksColor: "text-blue-600",
+      rankIcon: "Star",
     },
   });
 
-  // DATA POPULATION WITH TYPE COERCION
   useEffect(() => {
-    if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving) {
+    if (!performerLoading && !yearsLoading && performer && yearsList && !isSaving && !form.formState.isDirty) {
       existingDataRef.current = performer;
 
       const normalized = {
@@ -162,11 +161,11 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
       rank: formData.rank,
       rankOrder: Number(formData.rankOrder),
       imageUrl: formData.imageUrl,
-      year: formData.year || performer.year,
-      marksColor: formData.marksColor || performer.marksColor || "text-blue-600",
-      badgeColor: formData.badgeColor || performer.badgeColor || "bg-blue-600",
-      iconColor: formData.iconColor || performer.iconColor || "bg-blue-600",
-      rankIcon: formData.rankIcon || performer.rankIcon || "Star",
+      year: formData.year,
+      marksColor: formData.marksColor,
+      badgeColor: formData.badgeColor,
+      iconColor: formData.iconColor,
+      rankIcon: formData.rankIcon,
       updatedAt: serverTimestamp(),
     };
 
