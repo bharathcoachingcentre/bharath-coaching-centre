@@ -48,7 +48,7 @@ const formSchema = z.object({
   board: z.string().min(1, "Please select a board"),
   subject: z.string().min(1, "Please select a subject"),
   materialType: z.string().min(1, "Material type is required"),
-  description: z.string().min(1, "Description is required"),
+  description: z.string().optional(),
   pdfUrl: z.string().min(1, "Resource URL or File is required"),
   allowDownloads: z.boolean().default(true),
   visibleToStudents: z.boolean().default(true),
@@ -145,7 +145,7 @@ export default function UploadMaterialPage() {
         board: values.board,
         subject: values.subject,
         category: values.materialType,
-        description: values.description,
+        description: values.description || "",
         pdfUrl: values.pdfUrl,
         downloads: 0,
         allowDownloads: values.allowDownloads,
@@ -407,7 +407,7 @@ export default function UploadMaterialPage() {
                   name="description"
                   render={({ field }) => (
                     <FormItem className="space-y-3 text-left">
-                      <FormLabel className="text-sm font-bold text-gray-700">Description</FormLabel>
+                      <FormLabel className="text-sm font-bold text-gray-700">Description (Optional)</FormLabel>
                       <FormControl>
                         <Textarea 
                           placeholder="Brief description of this material..." 

@@ -52,7 +52,7 @@ const formSchema = z.object({
   board: z.string().min(1, "Board is required"),
   subject: z.string().min(1, "Subject is required"),
   category: z.string().min(1, "Category is required"),
-  description: z.string().min(1, "Description is required"),
+  description: z.string().optional(),
   pdfUrl: z.string().min(1, "URL or File is required"),
   isVisible: z.boolean().default(true),
   allowDownloads: z.boolean().default(true),
@@ -467,7 +467,7 @@ export default function StudyMaterialEditPage({
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Resource Description</FormLabel>
+                        <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Resource Description (Optional)</FormLabel>
                         <FormControl>
                           <Textarea {...field} className="min-h-[120px] bg-gray-50 border-gray-100 rounded-xl focus:ring-blue-500 resize-none" />
                         </FormControl>
