@@ -105,7 +105,7 @@ export default function StudyMaterialEditPage({
   });
 
   useEffect(() => {
-    if (material) {
+    if (material && !isSaving && !form.formState.isDirty) {
       form.reset({
         title: material.title || "",
         grade: material.grade || "",
@@ -118,7 +118,7 @@ export default function StudyMaterialEditPage({
         allowDownloads: material.allowDownloads !== undefined ? material.allowDownloads : true,
       });
     }
-  }, [material, form]);
+  }, [material, form, isSaving]);
 
   const onUpdate = async (values: z.infer<typeof formSchema>) => {
     if (!firestore || !materialId) return;
@@ -276,13 +276,13 @@ export default function StudyMaterialEditPage({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Board</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
+                          <Select key={`board-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                             <FormControl>
-                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                 <SelectValue placeholder="Select board" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="rounded-xl shadow-xl">
                               <SelectItem value="CBSE">CBSE</SelectItem>
                               <SelectItem value="Samacheer">Samacheer</SelectItem>
                             </SelectContent>
@@ -297,13 +297,13 @@ export default function StudyMaterialEditPage({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Class / Grade</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
+                          <Select key={`grade-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                             <FormControl>
-                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                 <SelectValue placeholder="Assign to class" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="rounded-xl shadow-xl">
                               <SelectItem value="Class 1">Class 1</SelectItem>
                               <SelectItem value="Class 2">Class 2</SelectItem>
                               <SelectItem value="Class 3">Class 3</SelectItem>
@@ -324,13 +324,13 @@ export default function StudyMaterialEditPage({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Subject</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
+                          <Select key={`subject-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                             <FormControl>
-                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                 <SelectValue placeholder="Select subject" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="rounded-xl shadow-xl">
                               {subjects.map(sub => (
                                 <SelectItem key={sub} value={sub}>{sub}</SelectItem>
                               ))}
@@ -346,13 +346,13 @@ export default function StudyMaterialEditPage({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-xs font-black uppercase text-gray-400 text-left block">Material Type</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
+                          <Select key={`category-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                             <FormControl>
-                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl">
+                              <SelectTrigger className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm">
                                 <SelectValue placeholder="Select type" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="rounded-xl shadow-xl">
                               <SelectItem value="pdf">PDF Document</SelectItem>
                               <SelectItem value="video">Video Lecture</SelectItem>
                               <SelectItem value="image">Image / Infographic</SelectItem>
