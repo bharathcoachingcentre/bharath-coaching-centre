@@ -65,7 +65,8 @@ import {
   UserSquare2,
   Heart,
   Send,
-  Maximize2
+  Maximize2,
+  User
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -417,7 +418,7 @@ const defaultPageData: Record<string, any> = {
     introTitleHighlight: "With Us",
     introDescription: "At Bharath Academy, we believe that everyone is an achiever. We are looking for dedicated educators who can deliver complex concepts through unique and interactive methods.",
     requirements: [
-      { icon: "GraduationCap", title: "Expertise", description: "Deep subject matter expertise in your chosen field of instruction.", color: "bg-blue-500 shadow-blue-500/30" },
+      { icon: "GraduationCap", title: "Expertise", description: "Deep subject matter expertise in your chosen field of instruction.", color: "bg-blue-50 shadow-blue-500/30" },
       { icon: "Users", title: "Patience", description: "Ability to connect with students of varying learning speeds and styles.", color: "bg-teal-50 shadow-teal-500/30" },
       { icon: "Heart", title: "Passion", description: "A genuine love for teaching and witnessing student breakthroughs.", color: "bg-purple-500 shadow-purple-500/30" },
       { icon: "Lightbulb", title: "Innovation", description: "Willingness to adopt and create unique teaching methodologies.", color: "bg-orange-500 shadow-orange-500/30" }
@@ -992,7 +993,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
                 </CardContent>
-              </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -3424,7 +3424,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <Button 
                     onClick={() => {
                       const current = formData.requirements || [];
-                      updateField('requirements', [...current, { title: "New Criterion", icon: "Award", description: "", color: "bg-blue-500 shadow-blue-500/30", id: Math.random().toString(36).substring(7) }]);
+                      updateField('requirements', [...current, { title: "New Criterion", icon: "Award", description: "", color: "bg-blue-50 shadow-blue-500/30", id: Math.random().toString(36).substring(7) }]);
                     }}
                     variant="outline"
                     className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600"
