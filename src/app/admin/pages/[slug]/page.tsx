@@ -63,9 +63,9 @@ import {
   ClipboardList,
   BarChart,
   UserSquare2,
-  User,
   Heart,
-  Send
+  Send,
+  Maximize2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -86,6 +86,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Reorder } from "framer-motion";
 
 const defaultPageData: Record<string, any> = {
@@ -469,6 +477,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<any>(null);
+  const [isIconLibraryOpen, setIsIconLibraryOpen] = useState(false);
+  const [iconSearchQuery, setIconSearchQuery] = useState("");
 
   const docRef = useMemo(() => {
     if (!firestore || !slug) return null;
@@ -477,13 +487,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   const { data: pageData, loading } = useDoc(docRef);
 
-  // Reset form data when slug changes to avoid loops and retain clean state
   useEffect(() => {
     setFormData(null);
   }, [slug]);
 
   useEffect(() => {
-    // Only initialize if we are not loading and data hasn't been set for this slug
     if (loading || formData) return;
 
     if (pageData) {
@@ -501,7 +509,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         setFormData(pageData.content || defaultPageData[slug] || {});
       }
     } else if (!loading) {
-      // Fallback to defaults if no doc exists in DB
       setFormData(defaultPageData[slug] || {});
     }
   }, [pageData, loading, slug, formData]);
@@ -585,6 +592,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     return (formData?.navMenu || []).filter((item: any) => !item.parentId);
   }, [formData?.navMenu]);
 
+  const allIconKeys = Object.keys(iconMap);
+  const previewIcons = allIconKeys.slice(0, 15); // Show first 3 rows (5 cols each)
+  const filteredIcons = allIconKeys.filter(key => 
+    key.toLowerCase().includes(iconSearchQuery.toLowerCase())
+  );
+
   if (loading || !formData) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
@@ -642,24 +655,74 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
           {slug !== 'header' && slug !== 'footer' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-[#182d45] text-white">
-              <CardHeader className="p-6 sm:p-8 pb-4">
+              <CardHeader className="p-6 sm:p-8 pb-4 flex flex-row items-center justify-between">
                 <CardTitle className="text-xl font-bold flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-teal-400" /> Icon Library
                 </CardTitle>
+                <Dialog open={isIconLibraryOpen} onOpenChange={setIsIconLibraryOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="ghost" size="sm" className="text-teal-400 hover:text-white hover:bg-white/10 rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
+                      <Maximize2 className="w-3 h-3" /> View All
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-2xl rounded-[2.5rem] border-none shadow-2xl p-0 overflow-hidden bg-[#182d45] text-white">
+                    <DialogHeader className="p-8 pb-4">
+                      <DialogTitle className="text-2xl font-black tracking-tight flex items-center gap-3">
+                        <Sparkles className="w-6 h-6 text-teal-400" /> 
+                        Lucide Icon Explorer
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="px-8 pb-4">
+                      <div className="relative">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Input 
+                          placeholder="Search icon names (e.g. Trophy, Zap)..." 
+                          value={iconSearchQuery}
+                          onChange={(e) => setIconSearchQuery(e.target.value)}
+                          className="h-12 bg-white/10 border-none rounded-xl pl-11 text-white placeholder:text-gray-500 focus-visible:ring-teal-500"
+                        />
+                      </div>
+                    </div>
+                    <ScrollArea className="h-[400px] px-8 pb-8">
+                      {filteredIcons.length === 0 ? (
+                        <div className="py-20 text-center text-gray-500">No icons match your search</div>
+                      ) : (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
+                          {filteredIcons.map((iconName) => {
+                            const Icon = iconMap[iconName];
+                            return (
+                              <div key={iconName} className="flex flex-col items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-teal-500/50 transition-all group">
+                                <Icon className="w-8 h-8 text-teal-400 transition-transform group-hover:scale-110" />
+                                <span className="text-[10px] font-black uppercase tracking-tighter text-blue-200/60 text-center line-clamp-1">{iconName}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </ScrollArea>
+                  </DialogContent>
+                </Dialog>
               </CardHeader>
-              <CardContent className="p-6 sm:p-8 pt-4 space-y-6 text-left">
+              <CardContent className="p-6 sm:p-8 pt-0 space-y-6 text-left">
                 <p className="text-[10px] text-blue-200/60 font-black uppercase tracking-widest">Lucide Icon Reference</p>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-                  {Object.keys(iconMap).map((iconName) => {
+                  {previewIcons.map((iconName) => {
                     const Icon = iconMap[iconName];
                     return (
                       <div key={iconName} className="flex flex-col items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 group hover:bg-white/10 transition-colors">
                         <Icon className="w-5 h-5 text-teal-400" />
-                        <span className="text-[8px] font-black uppercase tracking-tighter text-blue-200/60 text-center">{iconName}</span>
+                        <span className="text-[8px] font-black uppercase tracking-tighter text-blue-200/60 text-center line-clamp-1">{iconName}</span>
                       </div>
                     );
                   })}
                 </div>
+                <Button 
+                  onClick={() => setIsIconLibraryOpen(true)}
+                  variant="link" 
+                  className="w-full text-teal-400 font-bold text-[10px] uppercase tracking-[0.2em] h-auto p-0 hover:text-white"
+                >
+                  Show More Icons
+                </Button>
               </CardContent>
             </Card>
           )}
@@ -1509,7 +1572,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <Input 
                         value={formData.heroTitleMain || ""} 
                         onChange={(e) => updateField('heroTitleMain', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900 focus-visible:ring-blue-600"
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
                         placeholder="Empowering Students from "
                       />
                     </div>
@@ -1518,7 +1581,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <Input 
                         value={formData.heroTitleHighlight || ""} 
                         onChange={(e) => updateField('heroTitleHighlight', e.target.value)}
-                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600 focus-visible:ring-blue-600"
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600"
                         placeholder="Class 1 to 12"
                       />
                     </div>
@@ -1528,7 +1591,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Textarea 
                       value={formData.heroSubtitle || ""} 
                       onChange={(e) => updateField('heroSubtitle', e.target.value)}
-                      className="min-h-[100px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none focus-visible:ring-blue-600"
+                      className="min-h-[100px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none"
                     />
                   </div>
                 </CardContent>
