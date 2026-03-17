@@ -335,7 +335,7 @@ const defaultPageData: Record<string, any> = {
     submitBtnText: "Book My Demo Session"
   },
   "study-material": {
-    premiumTitleMain: "Access ",
+    premiumTitleMain: "Access ", 
     premiumTitleHighlight: "Premium Learning",
     premiumCards: [
       {
@@ -468,7 +468,15 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   const { data: pageData, loading } = useDoc(docRef);
 
+  // Reset form data when slug changes to avoid loops and retain clean state
   useEffect(() => {
+    setFormData(null);
+  }, [slug]);
+
+  useEffect(() => {
+    // Only initialize if we are not loading and data hasn't been set for this slug
+    if (loading || formData) return;
+
     if (pageData) {
       if (slug === 'footer' && pageData.content?.menus) {
         const menusWithIds = pageData.content.menus.map((m: any, colIdx: number) => ({
@@ -481,9 +489,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         }));
         setFormData({ ...pageData.content, menus: menusWithIds });
       } else {
-        setFormData(pageData.content);
+        setFormData(pageData.content || defaultPageData[slug] || {});
       }
-    } else if (!loading && !formData) {
+    } else if (!loading) {
+      // Fallback to defaults if no doc exists in DB
       setFormData(defaultPageData[slug] || {});
     }
   }, [pageData, loading, slug, formData]);
@@ -786,9 +795,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               <Input 
                                 value={item.title} 
                                 onChange={(e) => {
-                                  const newList = [...formData.navMenu];
-                                  newList[idx].title = e.target.value;
-                                  updateField('navMenu', newList);
+                                  const newList = [...(formData?.navMenu || [])];
+                                  if (newList[idx]) {
+                                    newList[idx].title = e.target.value;
+                                    updateField('navMenu', newList);
+                                  }
                                 }}
                                 className="h-10 text-sm font-bold bg-white border-none rounded-lg"
                                 placeholder="Title"
@@ -799,9 +810,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               <Input 
                                 value={item.url} 
                                 onChange={(e) => {
-                                  const newList = [...formData.navMenu];
-                                  newList[idx].url = e.target.value;
-                                  updateField('navMenu', newList);
+                                  const newList = [...(formData?.navMenu || [])];
+                                  if (newList[idx]) {
+                                    newList[idx].url = e.target.value;
+                                    updateField('navMenu', newList);
+                                  }
                                 }}
                                 className="h-10 text-sm bg-white border-none rounded-lg"
                                 placeholder="URL (/...)"
@@ -812,9 +825,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               <Select 
                                 value={item.parentId || "none"} 
                                 onValueChange={(val) => {
-                                  const newList = [...formData.navMenu];
-                                  newList[idx].parentId = val === "none" ? null : val;
-                                  updateField('navMenu', newList);
+                                  const newList = [...(formData?.navMenu || [])];
+                                  if (newList[idx]) {
+                                    newList[idx].parentId = val === "none" ? null : val;
+                                    updateField('navMenu', newList);
+                                  }
                                 }}
                               >
                                 <SelectTrigger className="h-10 text-xs bg-white border-none rounded-lg">
@@ -835,9 +850,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               <Input 
                                 value={item.subLabel || ""} 
                                 onChange={(e) => {
-                                  const newList = [...formData.navMenu];
-                                  newList[idx].subLabel = e.target.value;
-                                  updateField('navMenu', newList);
+                                  const newList = [...(formData?.navMenu || [])];
+                                  if (newList[idx]) {
+                                    newList[idx].subLabel = e.target.value;
+                                    updateField('navMenu', newList);
+                                  }
                                 }}
                                 className="h-10 text-[10px] bg-white border-none rounded-lg uppercase tracking-widest font-medium"
                                 placeholder="e.g. Class 1-12"
@@ -942,8 +959,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={menu.title} 
                                   onChange={(e) => {
                                     const newMenus = [...formData.menus];
-                                    newMenus[colIdx].title = e.target.value;
-                                    updateField('menus', newMenus);
+                                    if (newMenus[colIdx]) {
+                                      newMenus[colIdx].title = e.target.value;
+                                      updateField('menus', newMenus);
+                                    }
                                   }}
                                   className="bg-white border-none h-12 rounded-xl font-bold"
                                 />
@@ -1000,8 +1019,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                             value={link.label} 
                                             onChange={(e) => {
                                               const newMenus = [...formData.menus];
-                                              newMenus[colIdx].links[linkIdx].label = e.target.value;
-                                              updateField('menus', newMenus);
+                                              if (newMenus[colIdx] && newMenus[colIdx].links[linkIdx]) {
+                                                newMenus[colIdx].links[linkIdx].label = e.target.value;
+                                                updateField('menus', newMenus);
+                                              }
                                             }}
                                             className="h-10 text-sm font-bold border-none bg-gray-50 rounded-lg"
                                             placeholder="Label"
@@ -1013,8 +1034,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                             value={link.href} 
                                             onChange={(e) => {
                                               const newMenus = [...formData.menus];
-                                              newMenus[colIdx].links[linkIdx].href = e.target.value;
-                                              updateField('menus', newMenus);
+                                              if (newMenus[colIdx] && newMenus[colIdx].links[linkIdx]) {
+                                                newMenus[colIdx].links[linkIdx].href = e.target.value;
+                                                updateField('menus', newMenus);
+                                              }
                                             }}
                                             className="h-10 text-sm border-none bg-gray-50 rounded-lg"
                                             placeholder="URL"
@@ -1181,8 +1204,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={link.label} 
                               onChange={(e) => {
                                 const newLinks = [...formData.bottomLinks];
-                                newLinks[linkIdx].label = e.target.value;
-                                updateField('bottomLinks', newLinks);
+                                if (newLinks[linkIdx]) {
+                                  newLinks[linkIdx].label = e.target.value;
+                                  updateField('bottomLinks', newLinks);
+                                }
                               }}
                               className="h-10 text-sm font-bold border-none bg-white rounded-lg"
                               placeholder="Label"
@@ -1191,8 +1216,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={link.href} 
                               onChange={(e) => {
                                 const newLinks = [...formData.bottomLinks];
-                                newLinks[linkIdx].href = e.target.value;
-                                updateField('bottomLinks', newLinks);
+                                if (newLinks[linkIdx]) {
+                                  newLinks[linkIdx].href = e.target.value;
+                                  updateField('bottomLinks', newLinks);
+                                }
                               }}
                               className="h-10 text-sm border-none bg-white rounded-lg"
                               placeholder="URL"
@@ -1228,7 +1255,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700">Banner Image</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                       <div className="space-y-4">
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
                           <Button 
                             type="button" 
                             variant="outline" 
@@ -1376,8 +1403,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 value={benefit.icon} 
                                 onChange={(e) => {
                                   const newList = [...(formData.benefits || [])];
-                                  newList[idx].icon = e.target.value;
-                                  updateField('benefits', newList);
+                                  if (newList[idx]) {
+                                    newList[idx].icon = e.target.value;
+                                    updateField('benefits', newList);
+                                  }
                                 }}
                                 className="h-10 text-sm bg-white border-none rounded-lg"
                               />
@@ -1388,8 +1417,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 value={benefit.text} 
                                 onChange={(e) => {
                                   const newList = [...(formData.benefits || [])];
-                                  newList[idx].text = e.target.value;
-                                  updateField('benefits', newList);
+                                  if (newList[idx]) {
+                                    newList[idx].text = e.target.value;
+                                    updateField('benefits', newList);
+                                  }
                                 }}
                                 className="h-10 text-sm font-bold bg-white border-none rounded-lg"
                               />
@@ -1671,8 +1702,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={stat.icon || ""} 
                               onChange={(e) => {
                                 const newStats = [...(formData.stats || defaultPageData.home.stats)];
-                                newStats[idx].icon = e.target.value;
-                                updateField('stats', newStats);
+                                if (newStats[idx]) {
+                                  newStats[idx].icon = e.target.value;
+                                  updateField('stats', newStats);
+                                }
                               }}
                               className="h-10 bg-white"
                               placeholder="Users, TrendingUp, Award"
@@ -1684,8 +1717,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={stat.value || ""} 
                               onChange={(e) => {
                                 const newStats = [...(formData.stats || defaultPageData.home.stats)];
-                                newStats[idx].value = e.target.value;
-                                updateField('stats', newStats);
+                                if (newStats[idx]) {
+                                  newStats[idx].value = e.target.value;
+                                  updateField('stats', newStats);
+                                }
                               }}
                               className="h-10 bg-white"
                             />
@@ -1696,8 +1731,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={stat.label || ""} 
                               onChange={(e) => {
                                 const newStats = [...(formData.stats || defaultPageData.home.stats)];
-                                newStats[idx].label = e.target.value;
-                                updateField('stats', newStats);
+                                if (newStats[idx]) {
+                                  newStats[idx].label = e.target.value;
+                                  updateField('stats', newStats);
+                                }
                               }}
                               className="h-10 bg-white"
                             />
@@ -1765,8 +1802,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={feature.title || ""} 
                                   onChange={(e) => {
                                     const newFeatures = [...(formData.features || defaultPageData.home.features)];
-                                    newFeatures[idx].title = e.target.value;
-                                    updateField('features', newFeatures);
+                                    if (newFeatures[idx]) {
+                                      newFeatures[idx].title = e.target.value;
+                                      updateField('features', newFeatures);
+                                    }
                                   }}
                                   className="h-10 bg-white"
                                 />
@@ -1777,8 +1816,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={feature.icon || ""} 
                                   onChange={(e) => {
                                     const newFeatures = [...(formData.features || defaultPageData.home.features)];
-                                    newFeatures[idx].icon = e.target.value;
-                                    updateField('features', newFeatures);
+                                    if (newFeatures[idx]) {
+                                      newFeatures[idx].icon = e.target.value;
+                                      updateField('features', newFeatures);
+                                    }
                                   }}
                                   className="h-10 bg-white"
                                   placeholder="Presentation, BookOpen, etc."
@@ -1790,8 +1831,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={feature.desc || ""} 
                                   onChange={(e) => {
                                     const newFeatures = [...(formData.features || defaultPageData.home.features)];
-                                    newFeatures[idx].desc = e.target.value;
-                                    updateField('features', newFeatures);
+                                    if (newFeatures[idx]) {
+                                      newFeatures[idx].desc = e.target.value;
+                                      updateField('features', newFeatures);
+                                    }
                                   }}
                                   className="h-10 bg-white"
                                 />
@@ -1902,8 +1945,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={program.title || ""} 
                               onChange={(e) => {
                                 const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
-                                newPrograms[idx].title = e.target.value;
-                                updateField('programs', newPrograms);
+                                if (newPrograms[idx]) {
+                                  newPrograms[idx].title = e.target.value;
+                                  updateField('programs', newPrograms);
+                                }
                               }}
                               className="h-12 bg-white"
                             />
@@ -1914,8 +1959,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={program.subtitle || ""} 
                               onChange={(e) => {
                                 const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
-                                newPrograms[idx].subtitle = e.target.value;
-                                updateField('programs', newPrograms);
+                                if (newPrograms[idx]) {
+                                  newPrograms[idx].subtitle = e.target.value;
+                                  updateField('programs', newPrograms);
+                                }
                               }}
                               className="h-12 bg-white"
                             />
@@ -1926,8 +1973,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={program.icon || ""} 
                               onChange={(e) => {
                                 const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
-                                newPrograms[idx].icon = e.target.value;
-                                updateField('programs', newPrograms);
+                                if (newPrograms[idx]) {
+                                  newPrograms[idx].icon = e.target.value;
+                                  updateField('programs', newPrograms);
+                                }
                               }}
                               className="h-12 bg-white"
                               placeholder="Zap, BookOpen, GraduationCap"
@@ -1938,8 +1987,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               checked={program.popular} 
                               onCheckedChange={(checked) => {
                                 const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
-                                newPrograms[idx].popular = checked;
-                                updateField('programs', newPrograms);
+                                if (newPrograms[idx]) {
+                                  newPrograms[idx].popular = checked;
+                                  updateField('programs', newPrograms);
+                                }
                               }}
                               className="data-[state=checked]:bg-teal-500"
                             />
@@ -1952,8 +2003,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={program.viewTimetableBtnText || ""} 
                               onChange={(e) => {
                                 const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
-                                newPrograms[idx].viewTimetableBtnText = e.target.value;
-                                updateField('programs', newPrograms);
+                                if (newPrograms[idx]) {
+                                  newPrograms[idx].viewTimetableBtnText = e.target.value;
+                                  updateField('programs', newPrograms);
+                                }
                               }}
                               className="h-12 bg-white"
                               placeholder="View Timetable"
@@ -1965,8 +2018,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={program.enrollNowBtnText || ""} 
                               onChange={(e) => {
                                 const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
-                                newPrograms[idx].enrollNowBtnText = e.target.value;
-                                updateField('programs', newPrograms);
+                                if (newPrograms[idx]) {
+                                  newPrograms[idx].enrollNowBtnText = e.target.value;
+                                  updateField('programs', newPrograms);
+                                }
                               }}
                               className="h-12 bg-white"
                               placeholder="Enroll Now"
@@ -1980,8 +2035,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             value={program.points?.join('\n') || ""} 
                             onChange={(e) => {
                               const newPrograms = [...(formData.programs || defaultPageData.home.programs)];
-                              newPrograms[idx].points = e.target.value.split('\n').filter(p => p.trim() !== '');
-                              updateField('programs', newPrograms);
+                              if (newPrograms[idx]) {
+                                newPrograms[idx].points = e.target.value.split('\n').filter(p => p.trim() !== '');
+                                updateField('programs', newPrograms);
+                              }
                             }}
                             className="min-h-[120px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
                             placeholder="Building strong fundamentals..."
@@ -2166,8 +2223,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={feature.title || ""} 
                                   onChange={(e) => {
                                     const newFeatures = [...(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures)];
-                                    newFeatures[idx].title = e.target.value;
-                                    updateField('mentorshipFeatures', newFeatures);
+                                    if (newFeatures[idx]) {
+                                      newFeatures[idx].title = e.target.value;
+                                      updateField('mentorshipFeatures', newFeatures);
+                                    }
                                   }}
                                   className="h-10 bg-white"
                                 />
@@ -2178,8 +2237,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={feature.icon || ""} 
                                   onChange={(e) => {
                                     const newFeatures = [...(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures)];
-                                    newFeatures[idx].icon = e.target.value;
-                                    updateField('mentorshipFeatures', newFeatures);
+                                    if (newFeatures[idx]) {
+                                      newFeatures[idx].icon = e.target.value;
+                                      updateField('mentorshipFeatures', newFeatures);
+                                    }
                                   }}
                                   className="h-10 bg-white"
                                   placeholder="UserCheck, Layers, Handshake, etc."
@@ -2191,8 +2252,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={feature.desc || ""} 
                                   onChange={(e) => {
                                     const newFeatures = [...(formData.mentorshipFeatures || defaultPageData.home.mentorshipFeatures)];
-                                    newFeatures[idx].desc = e.target.value;
-                                    updateField('mentorshipFeatures', newFeatures);
+                                    if (newFeatures[idx]) {
+                                      newFeatures[idx].desc = e.target.value;
+                                      updateField('mentorshipFeatures', newFeatures);
+                                    }
                                   }}
                                   className="h-10 bg-white"
                                 />
@@ -2269,8 +2332,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 value={testimonial.name || ""} 
                                 onChange={(e) => {
                                   const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
-                                  newList[idx].name = e.target.value;
-                                  updateField('testimonials', newList);
+                                  if (newList[idx]) {
+                                    newList[idx].name = e.target.value;
+                                    updateField('testimonials', newList);
+                                  }
                                 }}
                                 className="h-12 bg-white"
                               />
@@ -2281,8 +2346,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 value={testimonial.role || ""} 
                                 onChange={(e) => {
                                   const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
-                                  newList[idx].role = e.target.value;
-                                  updateField('testimonials', newList);
+                                  if (newList[idx]) {
+                                    newList[idx].role = e.target.value;
+                                    updateField('testimonials', newList);
+                                  }
                                 }}
                                 className="h-12 bg-white"
                               />
@@ -2293,8 +2360,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 value={String(testimonial.rating || 5)} 
                                 onValueChange={(val) => {
                                   const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
-                                  newList[idx].rating = parseInt(val);
-                                  updateField('testimonials', newList);
+                                  if (newList[idx]) {
+                                    newList[idx].rating = parseInt(val);
+                                    updateField('testimonials', newList);
+                                  }
                                 }}
                               >
                                 <SelectTrigger className="h-12 bg-white rounded-xl">
@@ -2325,8 +2394,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   className="hidden" 
                                   onChange={(e) => handleImageUpload(e, (b64) => {
                                     const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
-                                    newList[idx].avatar = b64;
-                                    updateField('testimonials', newList);
+                                    if (newList[idx]) {
+                                      newList[idx].avatar = b64;
+                                      updateField('testimonials', newList);
+                                    }
                                   })}
                                 />
                                 {testimonial.avatar && (
@@ -2343,8 +2414,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={testimonial.quote || ""} 
                               onChange={(e) => {
                                 const newList = [...(formData.testimonials || defaultPageData.home.testimonials)];
-                                newList[idx].quote = e.target.value;
-                                updateField('testimonials', newList);
+                                if (newList[idx]) {
+                                  newList[idx].quote = e.target.value;
+                                  updateField('testimonials', newList);
+                                }
                               }}
                               className="min-h-[100px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
                             />
@@ -2430,8 +2503,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 value={feature.title || ""} 
                                 onChange={(e) => {
                                   const newList = [...(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures)];
-                                  newList[idx].title = e.target.value;
-                                  updateField('whyChooseFeatures', newList);
+                                  if (newList[idx]) {
+                                    newList[idx].title = e.target.value;
+                                    updateField('whyChooseFeatures', newList);
+                                  }
                                 }}
                                 className="h-12 bg-white"
                               />
@@ -2442,8 +2517,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 value={feature.icon || ""} 
                                 onChange={(e) => {
                                   const newList = [...(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures)];
-                                  newList[idx].icon = e.target.value;
-                                  updateField('whyChooseFeatures', newList);
+                                  if (newList[idx]) {
+                                    newList[idx].icon = e.target.value;
+                                    updateField('whyChooseFeatures', newList);
+                                  }
                                 }}
                                 className="h-12 bg-white"
                                 placeholder="Zap, PieChart, Users, etc."
@@ -2456,8 +2533,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={feature.desc || ""} 
                               onChange={(e) => {
                                 const newList = [...(formData.whyChooseFeatures || defaultPageData.home.whyChooseFeatures)];
-                                newList[idx].desc = e.target.value;
-                                updateField('whyChooseFeatures', newList);
+                                if (newList[idx]) {
+                                  newList[idx].desc = e.target.value;
+                                  updateField('whyChooseFeatures', newList);
+                                }
                               }}
                               className="min-h-[100px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
                             />
@@ -2524,24 +2603,30 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
                             <Input value={stat.icon} onChange={(e) => {
                               const newList = [...(formData.successStats || defaultPageData.home.successStats)];
-                              newList[idx].icon = e.target.value;
-                              updateField('successStats', newList);
+                              if (newList[idx]) {
+                                newList[idx].icon = e.target.value;
+                                updateField('successStats', newList);
+                              }
                             }} className="h-10 bg-white" />
                           </div>
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Value</Label>
                             <Input value={stat.value} onChange={(e) => {
                               const newList = [...(formData.successStats || defaultPageData.home.successStats)];
-                              newList[idx].value = e.target.value;
-                              updateField('successStats', newList);
+                              if (newList[idx]) {
+                                newList[idx].value = e.target.value;
+                                updateField('successStats', newList);
+                              }
                             }} className="h-10 bg-white" />
                           </div>
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Label</Label>
                             <Input value={stat.label} onChange={(e) => {
                               const newList = [...(formData.successStats || defaultPageData.home.successStats)];
-                              newList[idx].label = e.target.value;
-                              updateField('successStats', newList);
+                              if (newList[idx]) {
+                                newList[idx].label = e.target.value;
+                                updateField('successStats', newList);
+                              }
                             }} className="h-10 bg-white" />
                           </div>
                         </div>
@@ -2738,8 +2823,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={item.text || ""} 
                                   onChange={(e) => {
                                     const newItems = [...(formData.philosophyItems || [])];
-                                    newItems[idx].text = e.target.value;
-                                    updateField('philosophyItems', newItems);
+                                    if (newItems[idx]) {
+                                      newItems[idx].text = e.target.value;
+                                      updateField('philosophyItems', newItems);
+                                    }
                                   }}
                                   className="min-h-[80px] bg-white border-gray-200 rounded-xl p-4 font-medium text-gray-700 resize-none"
                                 />
@@ -2750,8 +2837,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   value={item.icon || ""} 
                                   onChange={(e) => {
                                     const newItems = [...(formData.philosophyItems || [])];
-                                    newItems[idx].icon = e.target.value;
-                                    updateField('philosophyItems', newItems);
+                                    if (newItems[idx]) {
+                                      newItems[idx].icon = e.target.value;
+                                      updateField('philosophyItems', newItems);
+                                    }
                                   }}
                                   className="h-10 bg-white"
                                   placeholder="Target, Brain, etc."
@@ -2848,8 +2937,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={card.title} 
                               onChange={(e) => {
                                 const newCards = [...formData.premiumCards];
-                                newCards[cardIdx].title = e.target.value;
-                                updateField('premiumCards', newCards);
+                                if (newCards[cardIdx]) {
+                                  newCards[cardIdx].title = e.target.value;
+                                  updateField('premiumCards', newCards);
+                                }
                               }}
                               className="h-12 bg-white rounded-xl font-bold"
                             />
@@ -2860,8 +2951,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={card.icon} 
                               onChange={(e) => {
                                 const newCards = [...formData.premiumCards];
-                                newCards[cardIdx].icon = e.target.value;
-                                updateField('premiumCards', newCards);
+                                if (newCards[cardIdx]) {
+                                  newCards[cardIdx].icon = e.target.value;
+                                  updateField('premiumCards', newCards);
+                                }
                               }}
                               className="h-12 bg-white rounded-xl"
                               placeholder="BookOpen, GraduationCap, etc."
@@ -2873,8 +2966,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               value={card.description} 
                               onChange={(e) => {
                                 const newCards = [...formData.premiumCards];
-                                newCards[cardIdx].description = e.target.value;
-                                updateField('premiumCards', newCards);
+                                if (newCards[cardIdx]) {
+                                  newCards[cardIdx].description = e.target.value;
+                                  updateField('premiumCards', newCards);
+                                }
                               }}
                               className="h-20 bg-white rounded-xl resize-none"
                             />
@@ -2887,8 +2982,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             <Button 
                               onClick={() => {
                                 const newCards = [...formData.premiumCards];
-                                newCards[cardIdx].accordions = [...(newCards[cardIdx].accordions || []), { title: "New Accordion", content: "" }];
-                                updateField('premiumCards', newCards);
+                                if (newCards[cardIdx]) {
+                                  newCards[cardIdx].accordions = [...(newCards[cardIdx].accordions || []), { title: "New Accordion", content: "" }];
+                                  updateField('premiumCards', newCards);
+                                }
                               }}
                               variant="outline"
                               size="sm"
@@ -2905,8 +3002,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                     value={acc.title} 
                                     onChange={(e) => {
                                       const newCards = [...formData.premiumCards];
-                                      newCards[cardIdx].accordions[accIdx].title = e.target.value;
-                                      updateField('premiumCards', newCards);
+                                      if (newCards[cardIdx] && newCards[cardIdx].accordions[accIdx]) {
+                                        newCards[cardIdx].accordions[accIdx].title = e.target.value;
+                                        updateField('premiumCards', newCards);
+                                      }
                                     }}
                                     className="h-9 text-xs font-bold border-none bg-gray-50 rounded-lg"
                                     placeholder="Accordion Title"
@@ -2915,8 +3014,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                     value={acc.content} 
                                     onChange={(e) => {
                                       const newCards = [...formData.premiumCards];
-                                      newCards[cardIdx].accordions[accIdx].content = e.target.value;
-                                      updateField('premiumCards', newCards);
+                                      if (newCards[cardIdx] && newCards[cardIdx].accordions[accIdx]) {
+                                        newCards[cardIdx].accordions[accIdx].content = e.target.value;
+                                        updateField('premiumCards', newCards);
+                                      }
                                     }}
                                     className="min-h-[60px] text-xs border-none bg-gray-50 rounded-lg resize-none"
                                     placeholder="Accordion Content"
@@ -2926,8 +3027,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   type="button"
                                   onClick={() => {
                                     const newCards = [...formData.premiumCards];
-                                    newCards[cardIdx].accordions = newCards[cardIdx].accordions.filter((_: any, i: number) => i !== accIdx);
-                                    updateField('premiumCards', newCards);
+                                    if (newCards[cardIdx]) {
+                                      newCards[cardIdx].accordions = newCards[cardIdx].accordions.filter((_: any, i: number) => i !== accIdx);
+                                      updateField('premiumCards', newCards);
+                                    }
                                   }}
                                   className="absolute top-2 right-2 h-6 w-6 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"
                                 >
@@ -3082,24 +3185,30 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
                             <Input value={stat.icon} onChange={(e) => {
                               const newList = [...(formData.successStats || [])];
-                              newList[idx].icon = e.target.value;
-                              updateField('successStats', newList);
+                              if (newList[idx]) {
+                                newList[idx].icon = e.target.value;
+                                updateField('successStats', newList);
+                              }
                             }} className="h-10 bg-white" />
                           </div>
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Value</Label>
                             <Input value={stat.value} onChange={(e) => {
                               const newList = [...(formData.successStats || [])];
-                              newList[idx].value = e.target.value;
-                              updateField('successStats', newList);
+                              if (newList[idx]) {
+                                newList[idx].value = e.target.value;
+                                updateField('successStats', newList);
+                              }
                             }} className="h-10 bg-white font-bold" />
                           </div>
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Label</Label>
                             <Input value={stat.label} onChange={(e) => {
                               const newList = [...(formData.successStats || [])];
-                              newList[idx].label = e.target.value;
-                              updateField('successStats', newList);
+                              if (newList[idx]) {
+                                newList[idx].label = e.target.value;
+                                updateField('successStats', newList);
+                              }
                             }} className="h-10 bg-white" />
                           </div>
                         </div>
@@ -3264,24 +3373,30 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               <Label className="text-[10px] font-black uppercase text-gray-400">Icon (Lucide)</Label>
                               <Input value={req.icon} onChange={(e) => {
                                 const list = [...formData.requirements];
-                                list[idx].icon = e.target.value;
-                                updateField('requirements', list);
+                                if (list[idx]) {
+                                  list[idx].icon = e.target.value;
+                                  updateField('requirements', list);
+                                }
                               }} className="h-10 bg-white" />
                             </div>
                             <div className="md:col-span-3 space-y-1">
                               <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
                               <Input value={req.title} onChange={(e) => {
                                 const list = [...formData.requirements];
-                                list[idx].title = e.target.value;
-                                updateField('requirements', list);
+                                if (list[idx]) {
+                                  list[idx].title = e.target.value;
+                                  updateField('requirements', list);
+                                }
                               }} className="h-10 bg-white font-bold" />
                             </div>
                             <div className="md:col-span-6 space-y-1">
                               <Label className="text-[10px] font-black uppercase text-gray-400">Description</Label>
                               <Input value={req.description} onChange={(e) => {
                                 const list = [...formData.requirements];
-                                list[idx].description = e.target.value;
-                                updateField('requirements', list);
+                                if (list[idx]) {
+                                  list[idx].description = e.target.value;
+                                  updateField('requirements', list);
+                                }
                               }} className="h-10 bg-white" />
                             </div>
                           </div>
@@ -3309,7 +3424,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   </div>
                   <div className="space-y-3">
                     <Label className="text-sm font-bold text-gray-700">Section Description</Label>
-                    <Textarea value={formData.applyDescription || ""} onChange={(e) => updateField('applyDescription', e.target.value)} className="min-h-[100px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600" />
+                    <Textarea value={formData.applyDescription || ""} onChange={(e) => updateField('applyDescription', e.target.value)} className="min-h-[120px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600" />
                   </div>
                   <div className="space-y-3 max-w-md">
                     <Label className="text-sm font-bold text-gray-700">Button Label</Label>
