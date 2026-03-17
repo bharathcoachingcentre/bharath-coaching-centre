@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { 
   ArrowLeft, 
   Upload, 
@@ -37,8 +38,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useFirestore } from "@/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, addDoc, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
@@ -76,6 +77,13 @@ export default function UploadMaterialPage() {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // Fetch Master Data
+  const classesQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'classes'), orderBy('order', 'asc'));
+  }, [firestore]);
+  const { data: allClassesRaw, loading: classesLoading } = useCollection(classesQuery);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -90,6 +98,12 @@ export default function UploadMaterialPage() {
       visibleToStudents: true,
     },
   });
+
+  const currentBoard = form.watch("board");
+  const filteredClasses = useMemo(() => {
+    if (!allClassesRaw) return [];
+    return allClassesRaw.filter(c => c.board?.toLowerCase() === currentBoard?.toLowerCase());
+  }, [allClassesRaw, currentBoard]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -194,7 +208,7 @@ export default function UploadMaterialPage() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleUpload)} className="space-y-8">
-          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
+          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white text-left">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
                 <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
@@ -221,7 +235,7 @@ export default function UploadMaterialPage() {
                               <Input 
                                 placeholder="https://example.com/file.pdf or direct file data" 
                                 {...field}
-                                className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm"
+                                className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 pl-11 font-medium shadow-sm w-full"
                               />
                             </div>
                             <div className="flex-shrink-0 w-full sm:w-auto">
@@ -272,7 +286,7 @@ export default function UploadMaterialPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
+          <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white text-left">
             <CardContent className="p-8 md:p-12">
               <div className="flex items-center gap-5 mb-10">
                 <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center">
@@ -295,7 +309,7 @@ export default function UploadMaterialPage() {
                         <Input 
                           placeholder="e.g. Class 10 Maths NCERT Solutions" 
                           {...field}
-                          className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm"
+                          className="h-14 bg-gray-50/80 border-none rounded-xl focus-visible:ring-blue-500 px-6 font-medium shadow-sm w-full"
                         />
                       </FormControl>
                       <FormMessage />
@@ -310,9 +324,12 @@ export default function UploadMaterialPage() {
                     render={({ field }) => (
                       <FormItem className="space-y-3 text-left">
                         <FormLabel className="text-sm font-bold text-gray-700">Board</FormLabel>
-                        <Select key={`board-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
+                        <Select key={`board-select-${field.value}`} onValueChange={(val) => {
+                          field.onChange(val);
+                          form.setValue("grade", "");
+                        }} value={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm w-full">
                               <SelectValue placeholder="Select board" />
                             </SelectTrigger>
                           </FormControl>
@@ -334,19 +351,17 @@ export default function UploadMaterialPage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Class / Grade</FormLabel>
                         <Select key={`grade-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm w-full">
                               <SelectValue placeholder="Select class" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="rounded-xl border-gray-100 shadow-xl">
-                            <SelectItem value="Class 1">Class 1</SelectItem>
-                            <SelectItem value="Class 2">Class 2</SelectItem>
-                            <SelectItem value="Class 3">Class 3</SelectItem>
-                            <SelectItem value="Class 4">Class 4</SelectItem>
-                            <SelectItem value="Class 5">Class 5</SelectItem>
-                            {Array.from({ length: 7 }, (_, i) => i + 6).map(grade => (
-                              <SelectItem key={grade} value={`Class ${grade}`}>Class {grade}</SelectItem>
+                            {filteredClasses.map((c) => (
+                              <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                             ))}
+                            {filteredClasses.length === 0 && (
+                              <SelectItem value="none" disabled>No classes for this board</SelectItem>
+                            )}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -362,7 +377,7 @@ export default function UploadMaterialPage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Subject</FormLabel>
                         <Select key={`subject-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm w-full">
                               <SelectValue placeholder="Select subject" />
                             </SelectTrigger>
                           </FormControl>
@@ -385,7 +400,7 @@ export default function UploadMaterialPage() {
                         <FormLabel className="text-sm font-bold text-gray-700">Material Type</FormLabel>
                         <Select key={`type-select-${field.value}`} onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm">
+                            <SelectTrigger className="h-14 bg-gray-50/80 border-none rounded-xl focus:ring-blue-500 px-6 font-medium text-gray-500 shadow-sm w-full">
                               <SelectValue placeholder="Select type" />
                             </SelectTrigger>
                           </FormControl>
@@ -412,7 +427,7 @@ export default function UploadMaterialPage() {
                         <Textarea 
                           placeholder="Brief description of this material..." 
                           {...field}
-                          className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-blue-500 p-6 font-medium text-gray-600 resize-none shadow-sm"
+                          className="min-h-[150px] bg-gray-50/80 border-none rounded-[20px] focus-visible:ring-blue-500 p-6 font-medium text-gray-600 resize-none shadow-sm w-full"
                         />
                       </FormControl>
                       <FormMessage />
@@ -465,11 +480,11 @@ export default function UploadMaterialPage() {
             </CardContent>
           </Card>
 
-          <div className="flex items-center justify-end gap-4 pt-4 pb-12">
+          <div className="flex items-center justify-end gap-4 pt-4 pb-12 w-full">
             <Button 
               type="button"
               variant="ghost" 
-              className="h-14 px-10 text-gray-500 font-bold rounded-xl hover:bg-gray-100"
+              className="h-14 px-10 text-gray-500 font-bold rounded-xl hover:bg-gray-100 w-full md:w-auto"
               onClick={() => router.push("/admin/study-materials")}
               disabled={isSubmitting}
             >
@@ -477,7 +492,7 @@ export default function UploadMaterialPage() {
             </Button>
             <Button 
               type="submit"
-              className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 gap-3 transition-all active:scale-95 border-none disabled:opacity-70"
+              className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 gap-3 transition-all active:scale-95 border-none disabled:opacity-70 w-full md:w-auto"
               disabled={isSubmitting}
             >
               {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}

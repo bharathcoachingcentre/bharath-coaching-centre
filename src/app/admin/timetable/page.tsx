@@ -52,6 +52,7 @@ export default function TimetableManagementPage() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [boardFilter, setBoardFilter] = useState<string>("all");
+  const [selectedScheduleClass, setSelectedScheduleClass] = useState<string>("all");
 
   const timetableQuery = useMemo(() => {
     if (!firestore) return null;
@@ -91,10 +92,11 @@ export default function TimetableManagementPage() {
         e.gradeName?.toLowerCase().includes(lower);
       
       const matchesBoard = boardFilter === "all" || e.board?.toLowerCase() === boardFilter.toLowerCase();
+      const matchesClass = selectedScheduleClass === "all" || e.grade === selectedScheduleClass || e.gradeName === selectedScheduleClass;
       
-      return matchesSearch && matchesBoard;
+      return matchesSearch && matchesBoard && matchesClass;
     });
-  }, [resolvedEntries, searchTerm, boardFilter]);
+  }, [resolvedEntries, searchTerm, boardFilter, selectedScheduleClass]);
 
   const handleDelete = async (entryId: string) => {
     if (!firestore) return;
@@ -122,31 +124,52 @@ export default function TimetableManagementPage() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex flex-1 items-center gap-4 max-w-2xl text-left">
-          <div className="relative flex-1">
+        <div className="flex flex-1 flex-col md:flex-row items-center gap-4 w-full md:max-w-3xl text-left">
+          <div className="relative flex-1 w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <Input 
               placeholder="Search by subject, teacher or class..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
+              className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600 w-full"
             />
           </div>
-          <Select value={boardFilter} onValueChange={setBoardFilter}>
-            <SelectTrigger className="w-44 h-14 bg-white border-none rounded-2xl shadow-sm focus:ring-blue-600">
-              <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-gray-400" />
-                <SelectValue placeholder="All Boards" />
-              </div>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Boards</SelectItem>
-              <SelectItem value="cbse">CBSE</SelectItem>
-              <SelectItem value="samacheer">Samacheer</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex gap-4 w-full md:w-auto">
+            <Select value={boardFilter} onValueChange={(val) => {
+              setBoardFilter(val);
+              setSelectedScheduleClass("all");
+            }}>
+              <SelectTrigger className="w-full md:w-44 h-14 bg-white border-none rounded-2xl shadow-sm focus:ring-blue-600">
+                <div className="flex items-center gap-2">
+                  <Filter className="w-4 h-4 text-gray-400" />
+                  <SelectValue placeholder="All Boards" />
+                </div>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Boards</SelectItem>
+                <SelectItem value="cbse">CBSE</SelectItem>
+                <SelectItem value="samacheer">Samacheer</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedScheduleClass} onValueChange={setSelectedScheduleClass}>
+              <SelectTrigger className="w-full md:w-44 h-14 bg-white border-none rounded-2xl shadow-sm focus:ring-blue-600">
+                <SelectValue placeholder="All Classes" />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                <SelectItem value="all">All Classes</SelectItem>
+                {[...new Set((classes || [])
+                  .filter(c => boardFilter === "all" || c.board?.toLowerCase() === boardFilter.toLowerCase())
+                  .map(c => c.name))]
+                  .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
+                  .map((cls) => (
+                    <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base border-none transition-all active:scale-95">
+        <Button asChild className="h-14 w-full md:w-auto px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base border-none transition-all active:scale-95">
           <Link href="/admin/timetable/add">
             <Plus className="w-6 h-6" /> Add Schedule
           </Link>
