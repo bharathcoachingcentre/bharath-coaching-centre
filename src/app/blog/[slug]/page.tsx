@@ -1,25 +1,42 @@
+"use client";
 
-import { getPostBySlug } from '@/lib/mock-data';
+import React, { useMemo, use } from "react";
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar, User, ArrowLeft } from 'lucide-react';
-import { blogPosts } from '@/lib/mock-data';
+import { Calendar, User, ArrowLeft, Loader2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useFirestore, useCollection } from "@/firebase";
+import { collection, query, where, limit } from "firebase/firestore";
 
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-export default async function BlogPostPage({
+export default function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug } = use(params);
+  const firestore = useFirestore();
+
+  const blogQuery = useMemo(() => {
+    if (!firestore || !slug) return null;
+    return query(
+      collection(firestore, 'blogs'),
+      where('slug', '==', slug),
+      limit(1)
+    );
+  }, [firestore, slug]);
+
+  const { data: blogs, loading } = useCollection(blogQuery);
+  const post = blogs?.[0];
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <Loader2 className="w-12 h-12 animate-spin text-blue-600 mb-4" />
+        <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">Syncing Article Content...</p>
+      </div>
+    );
+  }
 
   if (!post) {
     notFound();
@@ -29,11 +46,10 @@ export default async function BlogPostPage({
     <div className="font-body-home2" style={{ backgroundColor: 'rgb(245 250 255)' }}>
       <section className="relative w-full flex items-center justify-center" style={{ height: '400px', marginTop: '-140px' }}>
         <Image
-          src={post.imageUrl}
+          src={post.featuredImage || "/blog-1.jpg"}
           alt={post.title}
           fill
           className="object-cover"
-          data-ai-hint={post.imageHint}
           priority
         />
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
@@ -67,11 +83,27 @@ export default async function BlogPostPage({
         <div className="bg-white/80 backdrop-blur-md rounded-[2.5rem] p-8 md:p-16 shadow-[0_30px_80px_rgba(8,112,184,0.08)] border border-white relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#35a3be] to-[#174f5f]" />
             <div
-                className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-[#182d45] prose-headings:font-bold prose-p:text-gray-600 prose-p:font-medium prose-p:leading-relaxed prose-strong:text-[#182d45]"
+                className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-[#182d45] prose-headings:font-bold prose-p:text-gray-600 prose-p:font-medium prose-p:leading-relaxed prose-strong:text-[#182d45] blog-content-wrapper text-left"
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
         </div>
       </article>
+      <style jsx global>{`
+        .blog-content-wrapper ul {
+          list-style-type: disc;
+          padding-left: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .blog-content-wrapper ol {
+          list-style-type: decimal;
+          padding-left: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .blog-content-wrapper img {
+          border-radius: 1rem;
+          margin: 2rem 0;
+        }
+      `}</style>
     </div>
   );
 }

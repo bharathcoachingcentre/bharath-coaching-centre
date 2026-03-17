@@ -23,7 +23,8 @@ import {
   Star,
   Type,
   List,
-  History
+  History,
+  FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,6 +81,7 @@ const menuItems = [
       { label: "Recovery Bin", href: "/admin/pages/recovery" },
       { label: "Header Editor", href: "/admin/pages/header" },
       { label: "Footer Editor", href: "/admin/pages/footer" },
+      { label: "Blogs", href: "/admin/blogs" },
     ]
   },
   { icon: Trophy, label: "Top Performers", href: "/admin/top-performers" },
@@ -128,7 +130,7 @@ export default function AdminLayout({
 
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({
     Users: pathname.startsWith("/admin/users"),
-    Pages: pathname.startsWith("/admin/pages"),
+    Pages: pathname.startsWith("/admin/pages") || pathname.startsWith("/admin/blogs"),
     Timetable: pathname.startsWith("/admin/timetable")
   });
 
@@ -172,6 +174,7 @@ export default function AdminLayout({
     if (pathname === "/admin/enrollments") return "Manage student enrollments";
     if (pathname === "/admin/study-materials") return "Resources and material hub";
     if (pathname.startsWith("/admin/pages")) return "Manage website page content";
+    if (pathname.startsWith("/admin/blogs")) return "Manage articles and news";
     if (pathname.startsWith("/admin/timetable")) return "Manage class schedules";
     return "Overview of your education platform";
   };
