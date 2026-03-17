@@ -106,6 +106,14 @@ const systemPages = [
     bg: "bg-purple-50" 
   },
   { 
+    id: "blog", 
+    title: "Blog Listing Page", 
+    description: "Manage listing hero banner, headings, and grid layout", 
+    icon: FileText, 
+    color: "bg-blue-600", 
+    bg: "bg-blue-50" 
+  },
+  { 
     id: "online-courses", 
     title: "Online Courses", 
     description: "Batch details and digital features", 

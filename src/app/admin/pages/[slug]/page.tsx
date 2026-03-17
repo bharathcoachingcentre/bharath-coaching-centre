@@ -392,6 +392,15 @@ const defaultPageData: Record<string, any> = {
     performersYearHeader: "Top Achievers",
     totalMarksLabel: "Total Marks",
   },
+  blog: {
+    heroTitle: "Our Blog",
+    heroImageUrl: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=600",
+    badgeText: "Latest Updates",
+    headingMain: "Insights & ",
+    headingHighlight: "Stories",
+    description: "Insights, articles, and success stories from the heart of Bharath Academy.",
+    layoutColumns: "2"
+  },
   teachers: {
     heroTitle: "Become A Teacher",
     heroImageUrl: "/Teacher-banner-bcc.jpg",
@@ -401,7 +410,7 @@ const defaultPageData: Record<string, any> = {
     introDescription: "At Bharath Academy, we believe that everyone is an achiever. We are looking for dedicated educators who can deliver complex concepts through unique and interactive methods.",
     requirements: [
       { icon: "GraduationCap", title: "Expertise", description: "Deep subject matter expertise in your chosen field of instruction.", color: "bg-blue-500 shadow-blue-500/30" },
-      { icon: "Users", title: "Patience", description: "Ability to connect with students of varying learning speeds and styles.", color: "bg-teal-500 shadow-teal-500/30" },
+      { icon: "Users", title: "Patience", description: "Ability to connect with students of varying learning speeds and styles.", color: "bg-teal-50 shadow-teal-500/30" },
       { icon: "Heart", title: "Passion", description: "A genuine love for teaching and witnessing student breakthroughs.", color: "bg-purple-500 shadow-purple-500/30" },
       { icon: "Lightbulb", title: "Innovation", description: "Willingness to adopt and create unique teaching methodologies.", color: "bg-orange-500 shadow-orange-500/30" }
     ],
@@ -676,7 +685,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700">Academy Logo</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                       <div className="space-y-4">
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
                           <Button 
                             type="button" 
                             variant="outline" 
@@ -3435,7 +3444,107 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && slug !== 'one-to-one-classes' && slug !== 'teachers' && (
+          {slug === 'blog' && (
+            <div className="space-y-8 text-left">
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Banner Heading</Label>
+                    <Input 
+                      value={formData.heroTitle || ""} 
+                      onChange={(e) => updateField('heroTitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700">Banner Image</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                      <div className="space-y-4">
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2 w-full sm:w-auto"
+                          onClick={() => document.getElementById('blog-banner-upload')?.click()}
+                        >
+                          <Upload className="w-4 h-4" /> Upload Banner
+                        </Button>
+                        <input 
+                          id="blog-banner-upload"
+                          type="file" 
+                          accept="image/*"
+                          className="hidden" 
+                          onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                        />
+                        <Input 
+                          value={formData.heroImageUrl || ""} 
+                          onChange={(e) => updateField('heroImageUrl', e.target.value)}
+                          placeholder="Image URL"
+                          className="h-12 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                      <div className="relative aspect-video rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                        <Image src={formData.heroImageUrl || "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=600"} alt="Banner Preview" fill className="object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Blog Listing Header</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Badge Text</Label>
+                      <Input value={formData.badgeText || ""} onChange={(e) => updateField('badgeText', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-medium" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Heading Main</Label>
+                        <Input value={formData.headingMain || ""} onChange={(e) => updateField('headingMain', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Highlight</Label>
+                        <Input value={formData.headingHighlight || ""} onChange={(e) => updateField('headingHighlight', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Description</Label>
+                    <Textarea value={formData.description || ""} onChange={(e) => updateField('description', e.target.value)} className="min-h-[120px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600 resize-none" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 text-left">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Listing Layout</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 text-left">
+                  <div className="space-y-3 max-w-xs">
+                    <Label className="text-sm font-bold text-gray-700">Columns (Large Screens)</Label>
+                    <Select value={formData.layoutColumns || "2"} onValueChange={(val) => updateField('layoutColumns', val)}>
+                      <SelectTrigger className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold">
+                        <SelectValue placeholder="Select Columns" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="2">2 Columns</SelectItem>
+                        <SelectItem value="3">3 Columns</SelectItem>
+                        <SelectItem value="4">4 Columns</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && slug !== 'one-to-one-classes' && slug !== 'teachers' && slug !== 'blog' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
               <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>

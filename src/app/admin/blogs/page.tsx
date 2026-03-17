@@ -13,7 +13,8 @@ import {
   FileText,
   Calendar,
   User,
-  ExternalLink
+  ExternalLink,
+  Settings
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -81,11 +82,18 @@ export default function BlogsManagementPage() {
             className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
           />
         </div>
-        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 border-none transition-all active:scale-95">
-          <Link href="/admin/blogs/create">
-            <Plus className="w-6 h-6" /> Create Article
-          </Link>
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <Button asChild variant="outline" className="h-14 px-6 border-gray-200 rounded-2xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
+            <Link href="/admin/pages/blog">
+              <Settings className="w-5 h-5" /> Page Settings
+            </Link>
+          </Button>
+          <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 border-none transition-all active:scale-95">
+            <Link href="/admin/blogs/create">
+              <Plus className="w-6 h-6" /> Create Article
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {loading ? (
