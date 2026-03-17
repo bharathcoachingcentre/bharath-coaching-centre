@@ -179,7 +179,7 @@ export default function EditTimetableEntryPage({
         <form onSubmit={form.handleSubmit(onUpdate)} className="space-y-8 text-left" key={editData?.id || 'loading'}>
           <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
             <div className="h-24 bg-gradient-to-r from-blue-600 to-teal-500"></div>
-            <CardContent className="p-10 -mt-12 relative text-left">
+            <CardContent className="p-6 sm:p-10 -mt-12 relative text-left">
               <div className="w-20 h-20 rounded-3xl border-4 border-white shadow-lg bg-white flex items-center justify-center text-blue-600 mb-8">
                 <CalendarClock className="w-10 h-10" />
               </div>
@@ -353,11 +353,11 @@ export default function EditTimetableEntryPage({
                 />
               </div>
 
-              <div className="flex justify-end gap-4 pt-10 border-t border-gray-50 mt-10">
-                <Button type="button" variant="ghost" onClick={() => router.push("/admin/timetable")} disabled={isSaving}>
+              <div className="flex flex-col sm:flex-row justify-end gap-4 pt-10 border-t border-gray-50 mt-10">
+                <Button type="button" variant="ghost" onClick={() => router.push("/admin/timetable")} disabled={isSaving} className="w-full sm:w-auto">
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
+                <Button type="submit" disabled={isSaving} className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 px-10 rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2 w-full sm:w-auto">
                   {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                   Update Schedule
                 </Button>
