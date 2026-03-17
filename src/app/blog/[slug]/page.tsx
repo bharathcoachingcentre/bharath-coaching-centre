@@ -53,7 +53,7 @@ export default function BlogPostPage({
           priority
         />
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
-        <div className="relative z-10 container mx-auto px-4 pt-24 text-center">
+        <div className="relative z-10 container mx-auto px-4 text-center pt-20 sm:pt-24 lg:pt-28">
             <div className="flex flex-col items-center max-w-4xl mx-auto">
                 <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white border border-white/20 text-xs font-bold uppercase tracking-widest mb-6">Article</span>
                 <h1 className="font-headline text-3xl font-bold text-white md:text-5xl drop-shadow-2xl leading-tight mb-8">
