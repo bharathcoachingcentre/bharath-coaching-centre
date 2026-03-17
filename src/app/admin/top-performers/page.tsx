@@ -165,18 +165,18 @@ export default function TopPerformersManagementPage() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex flex-1 items-center gap-4 max-w-2xl text-left">
-          <div className="relative flex-1">
+        <div className="flex flex-1 flex-col sm:flex-row items-center gap-4 w-full md:max-w-2xl text-left">
+          <div className="relative flex-1 w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <Input 
               placeholder="Search by student name or class..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
+              className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600 w-full"
             />
           </div>
           <Select value={yearFilter} onValueChange={setYearFilter}>
-            <SelectTrigger className="w-44 h-14 bg-white border-none rounded-2xl shadow-sm focus:ring-blue-600">
+            <SelectTrigger className="w-full sm:w-44 h-14 bg-white border-none rounded-2xl shadow-sm focus:ring-blue-600">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-gray-400" />
                 <SelectValue placeholder="Filter Year" />
@@ -191,10 +191,10 @@ export default function TopPerformersManagementPage() {
           </Select>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
           <Dialog open={isYearDialogOpen} onOpenChange={setIsYearDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="h-14 px-6 rounded-2xl border-gray-200 font-bold text-gray-600 hover:bg-gray-50 gap-2">
+              <Button variant="outline" className="h-14 w-full sm:w-auto px-6 rounded-2xl border-gray-200 font-bold text-gray-600 hover:bg-gray-50 gap-2">
                 <Settings2 className="w-5 h-5" /> Manage Years
               </Button>
             </DialogTrigger>
@@ -239,7 +239,7 @@ export default function TopPerformersManagementPage() {
             </DialogContent>
           </Dialog>
 
-          <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base border-none transition-all active:scale-95">
+          <Button asChild className="h-14 w-full sm:w-auto px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base border-none transition-all active:scale-95">
             <Link href="/admin/top-performers/create">
               <Plus className="w-6 h-6" /> Add Performer
             </Link>
@@ -266,85 +266,87 @@ export default function TopPerformersManagementPage() {
       ) : (
         <Card className="border-none shadow-xl rounded-[2rem] overflow-hidden bg-white">
           <CardContent className="p-0">
-            <Table>
-              <TableHeader className="bg-gray-50/50">
-                <TableRow className="hover:bg-transparent border-gray-100">
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Rank</TableHead>
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Student</TableHead>
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Class / Board</TableHead>
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Marks</TableHead>
-                  <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Year</TableHead>
-                  <TableHead className="px-8 py-5"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredPerformers.map((p) => (
-                  <TableRow key={p.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
-                    <TableCell className="px-8 py-5 text-left">
-                      <div className="flex items-center gap-3">
-                        <Badge className={cn(
-                          "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
-                          p.badgeColor || "bg-blue-100 text-blue-600"
-                        )}>
-                          {p.rank}
-                        </Badge>
-                        <span className="text-[10px] font-bold text-gray-300">#{p.rankOrder || '-'}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="px-8 py-5 text-left">
-                      <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex-shrink-0">
-                          <img 
-                            src={p.imageUrl || "https://placehold.co/400x400.png?text=No+Photo"} 
-                            alt={p.name} 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <span className="font-bold text-gray-900">{p.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="px-8 py-5 text-left">
-                      <span className="font-medium text-gray-500">{p.grade}</span>
-                    </TableCell>
-                    <TableCell className="px-8 py-5 text-left">
-                      <span className={cn("font-black text-lg tracking-tight", p.marksColor || "text-blue-600")}>
-                        {p.marks}
-                      </span>
-                    </TableCell>
-                    <TableCell className="px-8 py-5 text-left">
-                      <Badge variant="outline" className="rounded-lg border-gray-200 text-gray-500 font-bold px-3">
-                        {p.year}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="px-8 py-5 text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-lg">
-                            <MoreVertical className="w-4 h-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
-                          <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
-                            <Link href={`/admin/top-performers/${p.id}`} className="flex items-center w-full">
-                              <Pencil className="mr-2 h-4 w-4 text-blue-600" />
-                              <span className="font-bold text-xs text-gray-700">Edit Details</span>
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator className="bg-gray-50" />
-                          <DropdownMenuItem 
-                            onClick={() => handleDelete(p.id)}
-                            className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
-                          >
-                            <Trash2 className="mr-2 h-4 w-4" />
-                            <span className="font-bold text-xs">Delete Record</span>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader className="bg-gray-50/50">
+                  <TableRow className="hover:bg-transparent border-gray-100">
+                    <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Rank</TableHead>
+                    <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Student</TableHead>
+                    <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Class / Board</TableHead>
+                    <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Marks</TableHead>
+                    <TableHead className="px-8 py-5 text-xs font-black uppercase tracking-wider text-gray-400 text-left">Year</TableHead>
+                    <TableHead className="px-8 py-5"></TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {filteredPerformers.map((p) => (
+                    <TableRow key={p.id} className="border-gray-50 hover:bg-gray-50/50 transition-colors group">
+                      <TableCell className="px-8 py-5 text-left">
+                        <div className="flex items-center gap-3">
+                          <Badge className={cn(
+                            "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
+                            p.badgeColor || "bg-blue-100 text-blue-600"
+                          )}>
+                            {p.rank}
+                          </Badge>
+                          <span className="text-[10px] font-bold text-gray-300">#{p.rankOrder || '-'}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="px-8 py-5 text-left">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex-shrink-0">
+                            <img 
+                              src={p.imageUrl || "https://placehold.co/400x400.png?text=No+Photo"} 
+                              alt={p.name} 
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <span className="font-bold text-gray-900">{p.name}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="px-8 py-5 text-left">
+                        <span className="font-medium text-gray-500">{p.grade}</span>
+                      </TableCell>
+                      <TableCell className="px-8 py-5 text-left">
+                        <span className={cn("font-black text-lg tracking-tight", p.marksColor || "text-blue-600")}>
+                          {p.marks}
+                        </span>
+                      </TableCell>
+                      <TableCell className="px-8 py-5 text-left">
+                        <Badge variant="outline" className="rounded-lg border-gray-200 text-gray-500 font-bold px-3">
+                          {p.year}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="px-8 py-5 text-right">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-lg">
+                              <MoreVertical className="w-4 h-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-gray-100 p-1">
+                            <DropdownMenuItem asChild className="p-2.5 cursor-pointer hover:bg-gray-50 rounded-lg">
+                              <Link href={`/admin/top-performers/${p.id}`} className="flex items-center w-full">
+                                <Pencil className="mr-2 h-4 w-4 text-blue-600" />
+                                <span className="font-bold text-xs text-gray-700">Edit Details</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator className="bg-gray-50" />
+                            <DropdownMenuItem 
+                              onClick={() => handleDelete(p.id)}
+                              className="p-2.5 cursor-pointer hover:bg-red-50 text-red-600 rounded-lg"
+                            >
+                              <Trash2 className="mr-2 h-4 w-4" />
+                              <span className="font-bold text-xs">Delete Record</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </CardContent>
         </Card>
       )}
