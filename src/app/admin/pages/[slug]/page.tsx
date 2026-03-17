@@ -63,7 +63,9 @@ import {
   ClipboardList,
   BarChart,
   UserSquare2,
-  User
+  User,
+  Heart,
+  Send
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -389,6 +391,23 @@ const defaultPageData: Record<string, any> = {
     performersSubtitle: "Celebrating the hard work and dedication of our brilliant students",
     performersYearHeader: "Top Achievers",
     totalMarksLabel: "Total Marks",
+  },
+  teachers: {
+    heroTitle: "Become A Teacher",
+    heroImageUrl: "/Teacher-banner-bcc.jpg",
+    introTag: "Join Our Faculty",
+    introTitleMain: "Shape The Future ",
+    introTitleHighlight: "With Us",
+    introDescription: "At Bharath Academy, we believe that everyone is an achiever. We are looking for dedicated educators who can deliver complex concepts through unique and interactive methods.",
+    requirements: [
+      { icon: "GraduationCap", title: "Expertise", description: "Deep subject matter expertise in your chosen field of instruction.", color: "bg-blue-500 shadow-blue-500/30" },
+      { icon: "Users", title: "Patience", description: "Ability to connect with students of varying learning speeds and styles.", color: "bg-teal-500 shadow-teal-500/30" },
+      { icon: "Heart", title: "Passion", description: "A genuine love for teaching and witnessing student breakthroughs.", color: "bg-purple-500 shadow-purple-500/30" },
+      { icon: "Lightbulb", title: "Innovation", description: "Willingness to adopt and create unique teaching methodologies.", color: "bg-orange-500 shadow-orange-500/30" }
+    ],
+    applyTitle: "Ready To Start Your Journey?",
+    applyDescription: "If you have the passion to transform a student into an achiever, we want to hear from you. Please send your detailed resume and a brief introduction to our team.",
+    applyBtnText: "Apply Now"
   }
 };
 
@@ -428,7 +447,9 @@ const iconMap: Record<string, any> = {
   Calendar: Calendar,
   ClipboardList: ClipboardList,
   BarChart: BarChart,
-  UserSquare2: UserSquare2
+  UserSquare2: UserSquare2,
+  Heart: Heart,
+  Send: Send
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -465,7 +486,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     } else if (!loading && !formData) {
       setFormData(defaultPageData[slug] || {});
     }
-  }, [pageData, loading, slug]);
+  }, [pageData, loading, slug, formData]);
 
   const handleSave = async () => {
     if (!firestore || !slug) return;
@@ -3142,7 +3163,164 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && slug !== 'one-to-one-classes' && (
+          {slug === 'teachers' && (
+            <div className="space-y-8 text-left">
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="space-y-3 text-left">
+                    <Label className="text-sm font-bold text-gray-700">Page Headline</Label>
+                    <Input 
+                      value={formData.heroTitle || ""} 
+                      onChange={(e) => updateField('heroTitle', e.target.value)}
+                      className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-gray-900"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700">Banner Image</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-4">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2"
+                            onClick={() => document.getElementById('teacher-hero-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Upload Banner
+                          </Button>
+                          <input 
+                            id="teacher-hero-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                          />
+                        </div>
+                        <Input value={formData.heroImageUrl || ""} onChange={(e) => updateField('heroImageUrl', e.target.value)} className="bg-gray-50 border-none h-12 rounded-xl px-6" placeholder="Image URL" />
+                      </div>
+                      <div className="relative aspect-video rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                        <Image src={formData.heroImageUrl || "/Teacher-banner-bcc.jpg"} alt="Hero Preview" fill className="object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Intro Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Intro Tag Text</Label>
+                      <Input value={formData.introTag || ""} onChange={(e) => updateField('introTag', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Title Main</Label>
+                        <Input value={formData.introTitleMain || ""} onChange={(e) => updateField('introTitleMain', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Title Highlight</Label>
+                        <Input value={formData.introTitleHighlight || ""} onChange={(e) => updateField('introTitleHighlight', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold text-blue-600" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Recruitment Description</Label>
+                    <Textarea value={formData.introDescription || ""} onChange={(e) => updateField('introDescription', e.target.value)} className="min-h-[120px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Core Requirements</CardTitle>
+                  <Button 
+                    onClick={() => {
+                      const current = formData.requirements || [];
+                      updateField('requirements', [...current, { title: "New Criterion", icon: "Award", description: "", color: "bg-blue-500 shadow-blue-500/30", id: Math.random().toString(36).substring(7) }]);
+                    }}
+                    variant="outline"
+                    className="rounded-xl font-bold h-10 gap-2 border-blue-100 text-blue-600"
+                  >
+                    <Plus className="w-4 h-4" /> Add Criterion
+                  </Button>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-6">
+                  <Reorder.Group axis="y" values={formData.requirements || []} onReorder={(newItems) => updateField('requirements', newItems)} className="space-y-4">
+                    {(formData.requirements || []).map((req: any, idx: number) => (
+                      <Reorder.Item key={req.id || idx} value={req}>
+                        <div className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 flex items-center gap-4 group">
+                          <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
+                            <GripVertical className="w-5 h-5 text-gray-300" />
+                          </div>
+                          <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-4 text-left">
+                            <div className="md:col-span-3 space-y-1">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Icon (Lucide)</Label>
+                              <Input value={req.icon} onChange={(e) => {
+                                const list = [...formData.requirements];
+                                list[idx].icon = e.target.value;
+                                updateField('requirements', list);
+                              }} className="h-10 bg-white" />
+                            </div>
+                            <div className="md:col-span-3 space-y-1">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
+                              <Input value={req.title} onChange={(e) => {
+                                const list = [...formData.requirements];
+                                list[idx].title = e.target.value;
+                                updateField('requirements', list);
+                              }} className="h-10 bg-white font-bold" />
+                            </div>
+                            <div className="md:col-span-6 space-y-1">
+                              <Label className="text-[10px] font-black uppercase text-gray-400">Description</Label>
+                              <Input value={req.description} onChange={(e) => {
+                                const list = [...formData.requirements];
+                                list[idx].description = e.target.value;
+                                updateField('requirements', list);
+                              }} className="h-10 bg-white" />
+                            </div>
+                          </div>
+                          <button onClick={() => {
+                            const list = formData.requirements.filter((_: any, i: number) => i !== idx);
+                            updateField('requirements', list);
+                          }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors">
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </Reorder.Item>
+                    ))}
+                  </Reorder.Group>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Apply Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Title</Label>
+                    <Input value={formData.applyTitle || ""} onChange={(e) => updateField('applyTitle', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Section Description</Label>
+                    <Textarea value={formData.applyDescription || ""} onChange={(e) => updateField('applyDescription', e.target.value)} className="min-h-[100px] bg-gray-50 border-none rounded-[20px] p-6 font-medium text-gray-600" />
+                  </div>
+                  <div className="space-y-3 max-w-md">
+                    <Label className="text-sm font-bold text-gray-700">Button Label</Label>
+                    <Input value={formData.applyBtnText || ""} onChange={(e) => updateField('applyBtnText', e.target.value)} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {slug !== 'home' && slug !== 'about' && slug !== 'header' && slug !== 'footer' && slug !== 'study-material' && slug !== 'results' && slug !== 'one-to-one-classes' && slug !== 'teachers' && (
             <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
               <CardHeader className="p-6 sm:p-10 pb-0 text-left">
                 <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Generic Content Editor</CardTitle>
