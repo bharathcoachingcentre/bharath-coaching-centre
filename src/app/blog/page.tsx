@@ -8,23 +8,29 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, User, Calendar, Loader2, FileText } from "lucide-react";
 import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, where, orderBy } from "firebase/firestore";
+import { collection, query, orderBy } from "firebase/firestore";
 
 export default function BlogPage() {
   const firestore = useFirestore();
   const bannerImage = placeholderImages["blog-banner"];
 
+  // Fetch all blogs ordered by date. 
+  // We filter status client-side to avoid needing to manually create Firestore composite indexes for (status + createdAt).
   const blogsQuery = useMemo(() => {
     if (!firestore) return null;
-    // We fetch only published blogs, ordered by creation date
     return query(
       collection(firestore, 'blogs'),
-      where('status', '==', 'published'),
       orderBy('createdAt', 'desc')
     );
   }, [firestore]);
 
-  const { data: blogs, loading } = useCollection(blogsQuery);
+  const { data: allBlogs, loading } = useCollection(blogsQuery);
+
+  // Filter only published blogs from the fetched collection
+  const publishedBlogs = useMemo(() => {
+    if (!allBlogs) return [];
+    return allBlogs.filter(post => post.status === 'published');
+  }, [allBlogs]);
 
   return (
     <div className="font-body antialiased">
@@ -69,7 +75,7 @@ export default function BlogPage() {
               <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
               <p className="font-bold">Syncing Articles...</p>
             </div>
-          ) : !blogs || blogs.length === 0 ? (
+          ) : publishedBlogs.length === 0 ? (
             <div className="text-center py-32 bg-white/50 backdrop-blur-sm rounded-[3rem] border border-white border-dashed">
               <FileText className="w-16 h-16 text-gray-200 mx-auto mb-6" />
               <h3 className="text-2xl font-bold text-gray-900">Articles Coming Soon</h3>
@@ -77,7 +83,7 @@ export default function BlogPage() {
             </div>
           ) : (
             <div className="grid gap-10 md:grid-cols-1 lg:grid-cols-2">
-              {blogs.map((post) => (
+              {publishedBlogs.map((post) => (
                 <Card key={post.id} className="group flex flex-col md:flex-row overflow-hidden transition-all duration-500 bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-2">
                   <div className="md:w-2/5 relative h-64 md:min-h-[350px] overflow-hidden bg-gray-100">
                     <Image
