@@ -307,7 +307,7 @@ const defaultPageData: Record<string, any> = {
       { text: "Everyone is an achiever.", icon: "Target" },
       { text: "Every student needs a unique method to deliver the concept.", icon: "Lightbulb" },
       { text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.", icon: "Brain" },
-      { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
+      { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
     ],
     ctaTitle: "Start Your Journey To Success",
     ctaSubtitle: "Experience the difference with our unique teaching methodology and personalized attention.",
@@ -993,6 +993,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
                 </CardContent>
+              </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -1065,7 +1066,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   }}
                                   className="h-auto p-0 font-bold text-blue-600"
                                 >
-                                  <Plus className="w-3 h-3 mr-1" /> Add Link
+                                  <Plus className="w-3.5 h-3.5 mr-1" /> Add Link
                                 </Button>
                               </div>
                               <Reorder.Group 
