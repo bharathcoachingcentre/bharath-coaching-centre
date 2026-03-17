@@ -118,8 +118,7 @@ export default function CreateBlogPage() {
         title: "Error",
         description: error.message
       });
-    } finally {
-      setIsSaving(true);
+      setIsSaving(false);
     }
   };
 

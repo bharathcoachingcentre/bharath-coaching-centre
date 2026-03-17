@@ -16,6 +16,7 @@ export default function BlogPage() {
 
   const blogsQuery = useMemo(() => {
     if (!firestore) return null;
+    // We fetch only published blogs, ordered by creation date
     return query(
       collection(firestore, 'blogs'),
       where('status', '==', 'published'),
@@ -88,20 +89,20 @@ export default function BlogPage() {
                     <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:opacity-0" />
                   </div>
                   <div className="flex flex-col justify-between p-8 md:w-3/5 text-left">
-                    <div>
+                    <div className="text-left">
                       <div className="flex flex-wrap items-center gap-3 text-[10px] md:text-xs font-bold text-blue-600 mb-4 justify-start">
                           <div className="flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full">
                               <User className="h-3.5 w-3.5" />
-                              <span>{post.author}</span>
+                              <span>{post.author || 'Staff'}</span>
                           </div>
                           <div className="flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full">
                               <Calendar className="h-3.5 w-3.5" />
-                              <span>{post.date}</span>
+                              <span>{post.date || 'Recent'}</span>
                           </div>
                       </div>
                       <CardHeader className="p-0 text-left">
-                        <CardTitle className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors leading-tight !text-left line-clamp-3">
-                          <Link href={`/blog/${post.slug}`} className="!text-left">{post.title}</Link>
+                        <CardTitle className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors leading-tight text-left line-clamp-3">
+                          <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-0 mt-4 text-left">

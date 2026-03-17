@@ -43,7 +43,7 @@ export default function BlogPostPage({
   }
 
   return (
-    <div className="font-body-home2" style={{ backgroundColor: 'rgb(245 250 255)' }}>
+    <div className="font-body-home2 min-h-screen" style={{ backgroundColor: 'rgb(245 250 255)' }}>
       <section className="relative w-full flex items-center justify-center" style={{ height: '400px', marginTop: '-140px' }}>
         <Image
           src={post.featuredImage || "/blog-1.jpg"}
@@ -62,11 +62,11 @@ export default function BlogPostPage({
                 <div className="flex justify-center items-center space-x-6 text-sm font-bold text-white/80">
                     <div className="flex items-center">
                         <User className="mr-2 h-4 w-4 text-[#35a3be]" />
-                        <span>{post.author}</span>
+                        <span>{post.author || 'Admin Staff'}</span>
                     </div>
                     <div className="flex items-center">
                         <Calendar className="mr-2 h-4 w-4 text-[#35a3be]" />
-                        <span>{post.date}</span>
+                        <span>{post.date || 'Recent'}</span>
                     </div>
                 </div>
             </div>
@@ -102,6 +102,8 @@ export default function BlogPostPage({
         .blog-content-wrapper img {
           border-radius: 1rem;
           margin: 2rem 0;
+          max-width: 100%;
+          height: auto;
         }
       `}</style>
     </div>
