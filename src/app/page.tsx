@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -467,14 +466,6 @@ export default function HomePage() {
       });
   }, [allMaterials, selectedClass, activeBoard, selectedSubject, allClassesLookup, allSubjectsLookup]);
 
-  const handleTrackDownload = async (id: string) => {
-    if (!firestore) return;
-    const docRef = doc(firestore, 'study-materials', id);
-    updateDoc(docRef, {
-      downloads: increment(1)
-    }).catch(err => console.error("Failed to track download:", err));
-  };
-
   const timetableDisplayData = useMemo(() => {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const slots = allPeriods?.map(p => p.label) || [
@@ -896,9 +887,9 @@ export default function HomePage() {
 
               return (
                 <div key={idx} className={cn(
-                  "relative p-8 rounded-3xl border-2 transition-all duration-500 group flex flex-col items-start text-left shadow-lg hover:shadow-2xl",
+                  "relative p-8 rounded-[24px] border-2 transition-all duration-500 group flex flex-col items-start text-left shadow-lg hover:shadow-2xl",
                   isPopular ? "border-[#e9d5ff] bg-white scale-105" : "border-gray-50 bg-white"
-                )} style={{ borderRadius: '24px' }}>
+                )}>
                   {isPopular && (
                     <div className="absolute -top-5 right-8 bg-gradient-to-r from-[#a855f7] to-[#e11d48] text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-1.5">
                       <Star className="w-3.5 h-3.5 fill-white" />
@@ -1161,7 +1152,7 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
               {content.testimonialsTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.testimonialsTitleHighlight}</span>
             </h2>
-            <p className="mt-4 text-gray-500 font-medium italic text-center">{content.testimonialsSubtitle}</p>
+            <p className="mt-4 text-gray-500 font-medium text-center">{content.testimonialsSubtitle}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1181,7 +1172,7 @@ export default function HomePage() {
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 leading-relaxed font-medium text-left italic">"{testimonial.quote}"</p>
+                <p className="text-gray-600 leading-relaxed font-medium text-left">"{testimonial.quote}"</p>
               </Card>
             ))}
           </div>
