@@ -61,36 +61,6 @@ import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
 import { collection, query, orderBy, doc, where, updateDoc, increment } from "firebase/firestore";
 
-const iconMap: Record<string, any> = {
-  Users: Users,
-  TrendingUp: TrendingUp,
-  Award: Award,
-  Presentation: Presentation,
-  FilePenLine: FilePenLine,
-  MessagesSquare: MessagesSquare,
-  BookOpen: BookOpen,
-  Book: Book,
-  UserCheck: UserCheck,
-  Zap: Zap,
-  GraduationCap: GraduationCap,
-  Search: Search,
-  Star: Star,
-  Laptop: Laptop,
-  Building: Building,
-  Info: Info,
-  Handshake: Handshake,
-  Layers: Layers,
-  PieChart: PieChart,
-  ClipboardCheck: ClipboardCheck,
-  Trophy: Trophy,
-  Medal: Medal,
-  Crown: Crown,
-  CalendarCheck: CalendarCheck,
-  Clock: Clock,
-  FileText: FileText,
-  CheckCircle: CheckCircle
-};
-
 const featuresColors = [
   "bg-blue-500 shadow-blue-500/30",
   "bg-teal-500 shadow-teal-500/30",
@@ -1179,7 +1149,7 @@ export default function HomePage() {
                   </div>
                   <div className="text-left">
                     <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-xs font-medium text-gray-400 uppercase tracking-widest">{testimonial.role}</p>
+                    <p className="text-xs font-medium text-gray-400 tracking-widest">{testimonial.role}</p>
                   </div>
                 </div>
                 <div className="flex gap-1 mb-4 justify-start">
