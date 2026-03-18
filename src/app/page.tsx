@@ -61,6 +61,43 @@ import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
 import { collection, query, orderBy, doc, where, updateDoc, increment } from "firebase/firestore";
 
+const iconMap: Record<string, any> = {
+  GraduationCap,
+  Book,
+  Laptop,
+  Building,
+  Users,
+  Award,
+  TrendingUp,
+  CalendarCheck,
+  Clock,
+  Presentation,
+  FilePenLine,
+  MessagesSquare,
+  BookOpen,
+  UserCheck,
+  Download,
+  Star,
+  UserPlus,
+  Calendar,
+  PieChart,
+  ClipboardCheck,
+  ChevronDown,
+  Layers,
+  Handshake,
+  Check,
+  Loader2,
+  Medal,
+  Trophy,
+  Search,
+  Crown,
+  CheckCircle2,
+  Info,
+  Zap,
+  FileText,
+  CheckCircle
+};
+
 const featuresColors = [
   "bg-blue-500 shadow-blue-500/30",
   "bg-teal-500 shadow-teal-500/30",
@@ -271,7 +308,7 @@ export default function HomePage() {
         { name: "Rajesh Kumar", role: "Parent, Class 12", quote: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src, rating: 5 },
         { name: "Arun Reddy", role: "Class 11, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src, rating: 5 },
         { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src, rating: 5 },
-        { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
+        { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keep her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
         { name: "Vikram Singh", role: "Class 12, CBSE", quote: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
       ],
       whyChooseTitleMain: "Why Choose ",
@@ -941,7 +978,7 @@ export default function HomePage() {
 
           <div className="bg-white rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,0,0,0.04)] overflow-hidden border border-gray-100">
             {/* Timetable Header Controls */}
-            <div className="px-8 md:px-12 pt-8 md:pt-12 pb-0 flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+            <div className="px-8 md:px-12 pt-8 md:pt-12 pb-0 flex flex-col md:flex-row items-center justify-between gap-8 mb-8 text-left">
               <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl">
                 <button
                   onClick={() => setActiveScheduleBoard("cbse")}
@@ -998,7 +1035,7 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                <div className="space-y-0">
+                <div className="space-y-0 text-left">
                   {timetableDisplayData.map((dayData, i) => (
                     <div key={i} className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 items-center py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors rounded-xl px-2">
                       <div className="text-center">
@@ -1039,7 +1076,7 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                <div className="mt-12 bg-[#eff6ff] rounded-3xl p-8 border border-blue-50/50">
+                <div className="mt-12 bg-[#eff6ff] rounded-3xl p-8 border border-blue-50/50 text-left">
                   <div className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 mt-1">
                       <Info className="w-3.5 h-3.5 text-white" />
@@ -1196,7 +1233,7 @@ export default function HomePage() {
 
       {/* Success Stories Section */}
       <section className="py-24 bg-blue-50/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight text-center">
               {content.successTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.successTitleHighlight}</span>
@@ -1206,7 +1243,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 text-left">
             {(content.successStats || []).map((stat: any, idx: number) => {
               const Icon = iconMap[stat.icon] || Trophy;
               const bgColors = ["bg-[#2b65e2]", "bg-[#10b981]", "bg-[#8b5cf6]"]; 
@@ -1224,8 +1261,8 @@ export default function HomePage() {
             })}
           </div>
 
-          <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 border border-white">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 border border-white text-left">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6 text-left">
               <h3 className="text-2xl font-bold text-gray-900 tracking-tight text-left">{content.successTopHeader}</h3>
               <div className="w-full md:w-auto text-left">
                 <Select key={resultYears.join(',')} value={selectedResultYear} onValueChange={setSelectedResultYear}>
