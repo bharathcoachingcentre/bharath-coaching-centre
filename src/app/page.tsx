@@ -1094,7 +1094,7 @@ export default function HomePage() {
       {/* One-to-One Mentorship Section */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative order-2 lg:order-1">
               <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-teal-500/10 rounded-[24px] blur-2xl"></div>
               <div className="relative rounded-[24px] overflow-hidden shadow-2xl border border-white">
