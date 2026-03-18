@@ -297,9 +297,12 @@ export default function HomePage() {
       testimonialsTitleHighlight: "Parents Say",
       testimonialsSubtitle: "Read stories from our successful students and satisfied parents.",
       testimonials: [
-        { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing. I improved my score from 75% to 93% in just one year!", avatar: placeholderImages["student-1"].src, rating: 5 },
-        { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src, rating: 5 },
-        { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weaknesses in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src, rating: 5 },
+        { name: "Priya Sharma", role: "Class 10, CBSE", quote: "The teachers at Bharath Academy are amazing! They explain every concept so clearly and are always available for doubt clearing. I improved my marks from 75% to 92% in just one year!", avatar: placeholderImages["student-1"].src, rating: 5 },
+        { name: "Rajesh Kumar", role: "Parent, Class 12", quote: "As a parent, I'm very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src, rating: 5 },
+        { name: "Arun Reddy", role: "Class 11, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weak areas in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src, rating: 5 },
+        { name: "Kavya Iyer", role: "Class 9, CBSE", quote: "I love the interactive classes! The teachers make learning fun with real-life examples. The doubt clearing sessions are super helpful and I never feel hesitant to ask questions anymore.", avatar: placeholderImages["student-3"].src, rating: 5 },
+        { name: "Sunita Patel", role: "Parent, Class 8", quote: "The academy's structured approach to learning is commendable. My daughter's confidence has increased significantly. The regular tests and feedback system keeps her motivated and focused.", avatar: placeholderImages["student-5"].src, rating: 5 },
+        { name: "Vikram Singh", role: "Class 12, CBSE", quote: "Preparing for JEE alongside board exams seemed impossible until I joined Bharath Academy. The integrated approach and expert teachers made it achievable. Got 95% in boards and cleared JEE!", avatar: placeholderImages["student-2"].src, rating: 5 },
       ],
       whyChooseTitleMain: "Why Choose ",
       whyChooseTitleHighlight: "Bharath Academy?",
@@ -379,7 +382,7 @@ export default function HomePage() {
 
   const materialsQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
+    return query(collection(firestore, "study-materials"), orderBy("createdAt", "desc"));
   }, [firestore]);
   const { data: allMaterials, loading: materialsLoading } = useCollection(materialsQuery);
 
@@ -1154,8 +1157,12 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gradient-to-br from-[#eff6ff] to-[#f0fdfa] relative overflow-hidden">
+        {/* Decorative Background Blobs */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[100px] -z-0"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-[100px] -z-0"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
               {content.testimonialsTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.testimonialsTitleHighlight}</span>
