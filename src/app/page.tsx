@@ -891,7 +891,7 @@ export default function HomePage() {
 
               return (
                 <div key={idx} className={cn(
-                  "relative p-8 rounded-[24px] border-2 transition-all duration-500 group flex flex-col items-start text-left shadow-lg hover:shadow-2xl",
+                  "relative p-8 rounded-3xl border-2 transition-all duration-500 group flex flex-col items-start text-left shadow-lg hover:shadow-2xl",
                   isPopular ? "border-[#e9d5ff] bg-white scale-105" : "border-gray-50 bg-white"
                 )}>
                   {isPopular && (
@@ -908,16 +908,16 @@ export default function HomePage() {
                     <Icon className={cn("w-8 h-8", theme.iconColor)} />
                   </div>
                   
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-black text-gray-900 mb-1">{program.title}</h3>
-                    <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">{program.subtitle}</p>
+                  <div className="mb-8 text-left">
+                    <h3 className="text-[24px] font-bold text-gray-900 mb-1">{program.title}</h3>
+                    <p className="text-[16px] font-medium text-gray-400">{program.subtitle}</p>
                   </div>
                   
                   <ul className="space-y-5 mb-10 flex-grow w-full">
                     {program.points?.map((point: string, i: number) => (
                       <li key={i} className="flex items-start gap-3">
                         <CheckCircle2 className={cn("w-5 h-5 shrink-0 mt-0.5", theme.checkColor)} />
-                        <span className="text-sm font-medium text-gray-600">{point}</span>
+                        <span className="text-[16px] font-normal text-gray-600">{point}</span>
                       </li>
                     ))}
                   </ul>
