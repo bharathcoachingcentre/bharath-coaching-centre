@@ -36,7 +36,9 @@ import {
   Crown,
   CheckCircle2,
   Info,
-  Zap
+  Zap,
+  FileText,
+  CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -59,6 +61,44 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
 import { collection, query, orderBy, doc, where, updateDoc, increment } from "firebase/firestore";
+
+const iconMap: Record<string, any> = {
+  Users: Users,
+  TrendingUp: TrendingUp,
+  Award: Award,
+  Presentation: Presentation,
+  FilePenLine: FilePenLine,
+  MessagesSquare: MessagesSquare,
+  BookOpen: BookOpen,
+  Book: Book,
+  UserCheck: UserCheck,
+  Zap: Zap,
+  GraduationCap: GraduationCap,
+  Search: Search,
+  Star: Star,
+  Laptop: Laptop,
+  Building: Building,
+  Info: Info,
+  Handshake: Handshake,
+  Layers: Layers,
+  PieChart: PieChart,
+  ClipboardCheck: ClipboardCheck,
+  Trophy: Trophy,
+  Medal: Medal,
+  Crown: Crown,
+  CalendarCheck: CalendarCheck,
+  Clock: Clock,
+  FileText: FileText,
+  CheckCircle: CheckCircle
+};
+
+const featuresColors = [
+  "bg-blue-500 shadow-blue-500/30",
+  "bg-teal-500 shadow-teal-500/30",
+  "bg-purple-500 shadow-purple-500/30",
+  "bg-orange-500 shadow-orange-500/30",
+  "bg-pink-500 shadow-pink-500/30"
+];
 
 const materialStyles = [
   {
@@ -144,34 +184,6 @@ const whyChooseStyles = [
   { bg: "bg-indigo-50/50", iconBg: "bg-indigo-600", shadow: "shadow-indigo-500/20", border: "border-indigo-100", hoverBorder: "hover:border-indigo-600" },
 ];
 
-const iconMap: Record<string, any> = {
-  Users: Users,
-  TrendingUp: TrendingUp,
-  Award: Award,
-  Presentation: Presentation,
-  FilePenLine: FilePenLine,
-  MessagesSquare: MessagesSquare,
-  BookOpen: BookOpen,
-  Book: Book,
-  UserCheck: UserCheck,
-  Zap: Zap,
-  GraduationCap: GraduationCap,
-  Search: Search,
-  Star: Star,
-  Laptop: Laptop,
-  Building: Building,
-  Info: Info,
-  Handshake: Handshake,
-  Layers: Layers,
-  PieChart: PieChart,
-  ClipboardCheck: ClipboardCheck,
-  Trophy: Trophy,
-  Medal: Medal,
-  Crown: Crown,
-  CalendarCheck: CalendarCheck,
-  Clock: Clock
-};
-
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -221,7 +233,7 @@ export default function HomePage() {
       featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
       features: [
         { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
+        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
         { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
         { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
@@ -640,6 +652,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {(content.features || []).map((feature: any, idx: number) => {
               const Icon = iconMap[feature.icon] || Presentation;
+              const bgColor = feature.color || featuresColors[idx % featuresColors.length];
               return (
                 <motion.div
                   key={idx}
@@ -647,7 +660,7 @@ export default function HomePage() {
                   className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col items-center text-center space-y-4 transition-all duration-300"
                 >
                   <div 
-                    className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color)}
+                    className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", bgColor)}
                   >
                     <Icon className="w-8 h-8" />
                   </div>
