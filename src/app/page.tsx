@@ -348,14 +348,13 @@ export default function HomePage() {
     }
   }, [resultYears, selectedResultYear]);
 
-  // Fetch Performers - Filter and sort by rankOrder
+  // Fetch Performers
   const allPerformersQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'top-performers'));
   }, [firestore]);
   const { data: allPerformers, loading: performersLoading } = useCollection(allPerformersQuery);
 
-  // Filter and sort performers in-memory based on rankOrder (1, 2, 3...)
   const performersList = useMemo(() => {
     if (!allPerformers) return [];
     return allPerformers
@@ -955,53 +954,54 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-            <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl">
-              <button
-                onClick={() => setActiveScheduleBoard("cbse")}
-                className={cn(
-                  "flex-1 md:flex-none px-4 md:px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
-                  activeScheduleBoard === "cbse"
-                    ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
-                    : "text-gray-500 hover:bg-gray-200"
-                )}
-              >
-                CBSE
-              </button>
-              <button
-                onClick={() => setActiveScheduleBoard("samacheer")}
-                className={cn(
-                  "flex-1 md:flex-none px-4 md:px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
-                  activeScheduleBoard === "samacheer"
-                    ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
-                    : "text-gray-500 hover:bg-gray-200"
-                )}
-              >
-                Samacheer
-              </button>
-            </div>
-
-            <div className="w-full md:w-[220px]">
-              <Select value={selectedScheduleClass} onValueChange={setSelectedScheduleClass}>
-                <SelectTrigger className="h-14 bg-white border-2 border-gray-100 rounded-2xl font-bold text-gray-700 shadow-sm focus:ring-blue-600">
-                  <SelectValue placeholder="Select Class" />
-                </SelectTrigger>
-                <SelectContent className="rounded-xl border-gray-100 shadow-xl">
-                  {[...new Set((allClassesRaw || [])
-                    .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
-                    .map(c => c.name))]
-                    .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
-                    .map((cls) => (
-                      <SelectItem key={cls} value={cls}>{cls}</SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
           <div className="bg-white rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,0,0,0.04)] overflow-hidden border border-gray-100">
+            {/* Timetable Header Controls */}
+            <div className="px-8 md:px-12 pt-8 md:pt-12 pb-0 flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+              <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl">
+                <button
+                  onClick={() => setActiveScheduleBoard("cbse")}
+                  className={cn(
+                    "flex-1 md:flex-none px-4 md:px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
+                    activeScheduleBoard === "cbse"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  CBSE
+                </button>
+                <button
+                  onClick={() => setActiveScheduleBoard("samacheer")}
+                  className={cn(
+                    "flex-1 md:flex-none px-4 md:px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
+                    activeScheduleBoard === "samacheer"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  Samacheer
+                </button>
+              </div>
+
+              <div className="w-full md:w-[220px]">
+                <Select value={selectedScheduleClass} onValueChange={setSelectedScheduleClass}>
+                  <SelectTrigger className="h-14 bg-white border-2 border-gray-100 rounded-2xl font-bold text-gray-700 shadow-sm focus:ring-blue-600">
+                    <SelectValue placeholder="Select Class" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl border-gray-100 shadow-xl">
+                    {[...new Set((allClassesRaw || [])
+                      .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
+                      .map(c => c.name))]
+                      .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
+                      .map((cls) => (
+                        <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
             <div className="overflow-x-auto no-scrollbar">
-              <div className="min-w-[1000px] p-8 md:p-12">
+              <div className="min-w-[1000px] p-8 md:p-12 pt-0 md:pt-0">
                 <div className="grid grid-cols-[140px_repeat(4,1fr)] gap-4 mb-8 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl px-6 py-4">
                   <div className="flex items-center justify-center text-white text-sm font-bold uppercase tracking-tight">
                     Day / Time
