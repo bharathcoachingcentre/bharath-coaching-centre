@@ -190,6 +190,34 @@ const whyChooseStyles = [
   { bg: "bg-indigo-50/50", iconBg: "bg-indigo-600", shadow: "shadow-indigo-500/20", border: "border-indigo-100", hoverBorder: "hover:border-indigo-600" },
 ];
 
+const AnimatedSection = ({
+  children,
+  className,
+  id,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+}) => {
+  const { setElement, isIntersecting } = useIntersectionObserver({
+    threshold: 0.1,
+  });
+
+  return (
+    <section
+      ref={setElement}
+      id={id}
+      className={cn(
+        "animate-on-scroll",
+        { "is-visible": isIntersecting },
+        className
+      )}
+    >
+      {children}
+    </section>
+  );
+};
+
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -1248,7 +1276,7 @@ export default function HomePage() {
               const Icon = iconMap[stat.icon] || Trophy;
               const bgColors = ["bg-[#2b65e2]", "bg-[#10b981]", "bg-[#8b5cf6]"]; 
               return (
-                <Card key={idx} className="border-none shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-[2rem] p-8 text-center flex flex-col items-center bg-white hover:-translate-y-2 transition-transform duration-500">
+                <Card key={idx} className="border-none shadow-xl rounded-[2rem] p-8 text-center flex flex-col items-center bg-white hover:-translate-y-2 transition-transform duration-500">
                   <div className={cn("w-20 h-20 rounded-full flex items-center justify-center shrink-0 shadow-xl mb-6 text-white", bgColors[idx % bgColors.length])}>
                     <Icon className="w-10 h-10" />
                   </div>
