@@ -914,13 +914,13 @@ export default function HomePage() {
                   </div>
                   
                   <div className="mb-8 text-left">
-                    <h3 className="text-[24px] font-bold text-gray-900 mb-1">{program.title}</h3>
-                    <p className="text-[16px] font-medium text-[#4b5563]">{program.subtitle}</p>
+                    <h3 className="text-[24px] font-bold text-gray-900 mb-1 leading-tight">{program.title}</h3>
+                    <p className="text-[16px] font-medium text-[#4b5563] capitalize">{program.subtitle}</p>
                   </div>
                   
                   <ul className="space-y-5 mb-10 flex-grow w-full">
                     {program.points?.map((point: string, i: number) => (
-                      <li key={i} className="flex items-start gap-3">
+                      <li key={i} className="flex items-start gap-3 text-left">
                         <CheckCircle2 className={cn("w-5 h-5 shrink-0 mt-0.5", theme.checkColor)} />
                         <span className="text-[16px] font-normal text-[#374151]">{point}</span>
                       </li>
@@ -1114,7 +1114,7 @@ export default function HomePage() {
                 <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
                   {content.mentorshipTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.mentorshipTitleHighlight}</span>
                 </h2>
-                <p className="mt-4 text-[18px] text-gray-500 font-normal">{content.mentorshipSubtitle}</p>
+                <p className="mt-4 text-[17px] text-gray-500 font-normal text-left">{content.mentorshipSubtitle}</p>
               </div>
 
               <div className="space-y-8">
@@ -1141,7 +1141,7 @@ export default function HomePage() {
                 })}
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 text-left">
                 <Button asChild className="h-14 px-10 bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 border-none transition-all active:scale-95 gap-2">
                   <Link href="/contact">
                     <CalendarCheck className="w-5 h-5" />
@@ -1176,7 +1176,7 @@ export default function HomePage() {
                     <p className="text-xs font-medium text-gray-400 uppercase tracking-widest">{testimonial.role}</p>
                   </div>
                 </div>
-                <div className="flex gap-1 mb-4">
+                <div className="flex gap-1 mb-4 justify-start">
                   {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
