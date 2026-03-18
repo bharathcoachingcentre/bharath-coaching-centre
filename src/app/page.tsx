@@ -35,7 +35,8 @@ import {
   Search,
   Crown,
   CheckCircle2,
-  Info
+  Info,
+  Zap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
