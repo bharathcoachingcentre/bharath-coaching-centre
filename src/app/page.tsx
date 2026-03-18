@@ -641,13 +641,6 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {(content.features || []).map((feature: any, idx: number) => {
               const Icon = iconMap[feature.icon] || Presentation;
-              const defaultColors = [
-                "bg-blue-500 shadow-blue-500/30",
-                "bg-teal-500 shadow-teal-500/30",
-                "bg-purple-500 shadow-purple-500/30",
-                "bg-orange-500 shadow-orange-500/30",
-                "bg-pink-500 shadow-pink-500/30",
-              ];
               return (
                 <motion.div
                   key={idx}
@@ -655,7 +648,7 @@ export default function HomePage() {
                   className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col items-center text-center space-y-4 transition-all duration-300"
                 >
                   <div 
-                    className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color || defaultColors[idx % defaultColors.length])}
+                    className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-shadow duration-300", feature.color)}
                   >
                     <Icon className="w-8 h-8" />
                   </div>
@@ -683,7 +676,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 border border-gray-100">
+          <div className="bg-white rounded-[24px] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
               {/* Class Selection */}
               <div className="relative min-w-[180px] w-full lg:w-auto">
@@ -824,7 +817,7 @@ export default function HomePage() {
                     <Button
                       asChild
                       className={cn(
-                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
+                        "w-full text-white font-bold rounded-[12px] h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
                         material.themeColor,
                         material.hoverThemeColor
                       )}
