@@ -659,8 +659,8 @@ export default function HomePage() {
                   >
                     <Icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-[24px] font-bold text-gray-900 tracking-tight">{feature.title}</h3>
-                  <p className="text-gray-600 text-[16px] leading-relaxed font-normal">{feature.desc}</p>
+                  <h3 className="text-[20px] font-bold text-gray-900 tracking-tight">{feature.title}</h3>
+                  <p className="text-gray-600 text-[14px] leading-relaxed font-normal">{feature.desc}</p>
                 </motion.div>
               );
             })}
