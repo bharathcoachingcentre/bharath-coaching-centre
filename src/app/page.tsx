@@ -21,7 +21,6 @@ import {
   UserCheck,
   Download,
   Star,
-  Zap,
   UserPlus,
   Calendar,
   PieChart,
@@ -910,14 +909,14 @@ export default function HomePage() {
                   
                   <div className="mb-8 text-left">
                     <h3 className="text-[24px] font-bold text-gray-900 mb-1">{program.title}</h3>
-                    <p className="text-[16px] font-medium text-gray-400">{program.subtitle}</p>
+                    <p className="text-[16px] font-medium text-[#4b5563]">{program.subtitle}</p>
                   </div>
                   
                   <ul className="space-y-5 mb-10 flex-grow w-full">
                     {program.points?.map((point: string, i: number) => (
                       <li key={i} className="flex items-start gap-3">
                         <CheckCircle2 className={cn("w-5 h-5 shrink-0 mt-0.5", theme.checkColor)} />
-                        <span className="text-[16px] font-normal text-gray-600">{point}</span>
+                        <span className="text-[16px] font-normal text-[#374151]">{point}</span>
                       </li>
                     ))}
                   </ul>
