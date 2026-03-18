@@ -898,7 +898,7 @@ export default function HomePage() {
                 <div key={idx} className={cn(
                   "relative p-8 rounded-3xl border-2 transition-all duration-500 group flex flex-col items-start text-left shadow-lg hover:shadow-2xl",
                   isPopular ? "border-[#e9d5ff] bg-white scale-105" : "border-gray-50 bg-white"
-                )}>
+                )} style={{ borderRadius: '24px' }}>
                   {isPopular && (
                     <div className="absolute -top-5 right-8 bg-gradient-to-r from-[#a855f7] to-[#e11d48] text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-1.5">
                       <Star className="w-3.5 h-3.5 fill-white" />
@@ -1114,7 +1114,7 @@ export default function HomePage() {
                 <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
                   {content.mentorshipTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.mentorshipTitleHighlight}</span>
                 </h2>
-                <p className="mt-4 text-[18px] text-gray-500 font-medium">{content.mentorshipSubtitle}</p>
+                <p className="mt-4 text-[18px] text-gray-500 font-normal">{content.mentorshipSubtitle}</p>
               </div>
 
               <div className="space-y-8">
