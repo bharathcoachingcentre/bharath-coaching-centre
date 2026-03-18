@@ -1160,12 +1160,12 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight text-center">
               {content.testimonialsTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.testimonialsTitleHighlight}</span>
             </h2>
-            <p className="mt-4 text-gray-500 font-medium text-center">{content.testimonialsSubtitle}</p>
+            <p className="mt-4 text-gray-500 font-normal text-center">{content.testimonialsSubtitle}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {(content.testimonials || []).map((testimonial: any, idx: number) => (
-              <Card key={idx} className="border-none shadow-xl rounded-[2rem] bg-white p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <Card key={idx} className="border-none shadow-xl rounded-[24px] bg-white p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="flex items-center gap-4 mb-6 text-left">
                   <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-blue-100 shadow-sm">
                     <Image src={testimonial.avatar || placeholderImages["student-1"].src} alt={testimonial.name} width={100} height={100} className="w-full h-full object-cover" />
