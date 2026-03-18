@@ -1114,7 +1114,7 @@ export default function HomePage() {
                 <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
                   {content.mentorshipTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.mentorshipTitleHighlight}</span>
                 </h2>
-                <p className="mt-4 text-gray-500 font-medium">{content.mentorshipSubtitle}</p>
+                <p className="mt-4 text-[18px] text-gray-500 font-medium">{content.mentorshipSubtitle}</p>
               </div>
 
               <div className="space-y-8">
@@ -1133,8 +1133,8 @@ export default function HomePage() {
                         <Icon className={cn("w-6 h-6", style.iconColor)} />
                       </div>
                       <div className="space-y-1 text-left">
-                        <h4 className="text-lg font-bold text-gray-900">{feature.title}</h4>
-                        <p className="text-sm text-gray-500 leading-relaxed font-normal">{feature.desc}</p>
+                        <h4 className="text-[20px] font-bold text-gray-900">{feature.title}</h4>
+                        <p className="text-[16px] text-gray-500 leading-relaxed font-normal">{feature.desc}</p>
                       </div>
                     </div>
                   );
