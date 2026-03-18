@@ -297,9 +297,9 @@ export default function HomePage() {
       testimonialsTitleHighlight: "Parents Say",
       testimonialsSubtitle: "Read stories from our successful students and satisfied parents.",
       testimonials: [
-        { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing.", avatar: placeholderImages["student-1"].src, rating: 5 },
-        { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives.", avatar: placeholderImages["student-4"].src, rating: 5 },
-        { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The mentorship helped me overcome my weaknesses.", avatar: placeholderImages["student-6"].src, rating: 5 },
+        { name: "Priya Sharma", role: "Class 12, CBSE", quote: "The teachers at Bharath Academy are amazing! They kept me motivated throughout the year and were always available for doubt clearing. I improved my score from 75% to 93% in just one year!", avatar: placeholderImages["student-1"].src, rating: 5 },
+        { name: "Rajesh Kumar", role: "Parent, Class 10", quote: "As a parent, I am very impressed with the regular updates and personalized attention my son receives. The weekly performance reports help me stay connected with his progress. Highly recommended!", avatar: placeholderImages["student-4"].src, rating: 5 },
+        { name: "Arun Reddy", role: "Class 12, Samacheer", quote: "The study materials and practice worksheets are excellent. The one-to-one mentorship helped me overcome my weaknesses in physics and chemistry. Now I'm confident about my board exams!", avatar: placeholderImages["student-6"].src, rating: 5 },
       ],
       whyChooseTitleMain: "Why Choose ",
       whyChooseTitleHighlight: "Bharath Academy?",
@@ -510,6 +510,14 @@ export default function HomePage() {
       return { day, slots: daySlots };
     });
   }, [allTimetables, activeScheduleBoard, selectedScheduleClass, allPeriods, allClassesLookup, allSubjectsLookup, allTeachersLookup]);
+
+  const handleTrackDownload = async (id: string) => {
+    if (!firestore) return;
+    const docRef = doc(firestore, 'study-materials', id);
+    updateDoc(docRef, {
+      downloads: increment(1)
+    }).catch(err => console.error("Failed to track download:", err));
+  };
 
   const heroImageData = placeholderImages["hero-education"];
 
@@ -1172,7 +1180,7 @@ export default function HomePage() {
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 leading-relaxed font-medium text-left">"{testimonial.quote}"</p>
+                <p className="text-[#374151] leading-relaxed font-normal text-left">"{testimonial.quote}"</p>
               </Card>
             ))}
           </div>
