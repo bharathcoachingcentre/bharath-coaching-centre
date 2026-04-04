@@ -165,7 +165,7 @@ export default function GalleryPage() {
 
           {/* Simple CTA Footer */}
           <div className="mt-20 text-center">
-            <div className="inline-flex flex-col items-center p-10 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white shadow-xl max-w-2xl">
+            <div className="inline-flex flex-col items-center p-10 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white shadow-xl max-w-4xl">
               <h3 className="text-2xl font-bold text-gray-900 mb-2 tracking-tight">Become an Achiever</h3>
               <p className="text-gray-600 mb-8 font-medium">
                 Every picture tells a story of success. Start your own story with us today.
