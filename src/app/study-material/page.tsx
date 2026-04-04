@@ -346,7 +346,7 @@ export default function StudyMaterialPage() {
               const accent = card.accentColor || (idx === 0 ? "blue" : idx === 1 ? "teal" : "purple");
               
               return (
-                <Card key={idx} className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left">
+                <Card key={idx} className="group relative bg-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(8,112,184,0.05)] border border-white transition-all duration-500 hover:shadow-[0_30px_70px_rgba(8,112,184,0.12)] hover:-translate-y-3 flex flex-col overflow-hidden text-left min-h-[350px] justify-center">
                   <div className={cn("absolute top-0 left-0 w-full h-1.5", accentColors[accent] || "bg-blue-600")} />
                   <CardHeader className="flex flex-col items-center gap-6 text-center p-8">
                     <div className="relative">
