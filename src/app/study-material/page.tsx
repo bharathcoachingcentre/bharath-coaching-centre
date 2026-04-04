@@ -1,16 +1,9 @@
-
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import {
   Popover,
   PopoverContent,
@@ -372,53 +365,6 @@ export default function StudyMaterialPage() {
                       </p>
                     </div>
                   </CardHeader>
-                  <CardContent className="p-8 pt-0 flex-grow">
-                    <Accordion type="single" collapsible className="w-full">
-                      {(card.accordions || []).map((acc: any, accIdx: number) => (
-                        <AccordionItem
-                          key={accIdx}
-                          value={`${idx}-${accIdx}`}
-                          className="border-gray-100"
-                        >
-                          <AccordionTrigger className="hover:no-underline font-bold text-gray-900 text-sm text-left">
-                            {acc.title}
-                          </AccordionTrigger>
-                          <AccordionContent>
-                            <div className="text-gray-500 text-xs py-2 leading-relaxed">
-                              {acc.content}
-                            </div>
-                            {(acc.title.includes("Solutions") || acc.title.includes("Class")) && (
-                              <div className="flex flex-wrap gap-2 pt-2">
-                                {allClassesRaw
-                                  ?.filter((c) => c.board?.toLowerCase() === card.title.toLowerCase() || (card.title === "Model Papers" && c.board?.toLowerCase() === "cbse"))
-                                  .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                                  .map((c) => (
-                                    <Button
-                                      key={c.id}
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() => {
-                                        setSelectedClass(c.name);
-                                        setActiveBoard(c.board?.toLowerCase() || "cbse");
-                                        document
-                                          .getElementById("study-materials-section")
-                                          ?.scrollIntoView({ behavior: "smooth" });
-                                      }}
-                                      className={cn("rounded-lg border-gray-200 transition-colors", 
-                                        accent === 'blue' ? "hover:border-blue-600 hover:text-blue-600" : 
-                                        accent === 'teal' ? "hover:border-teal-500 hover:text-teal-600" : 
-                                        "hover:border-purple-500 hover:text-purple-600")}
-                                    >
-                                      {c.name}
-                                    </Button>
-                                  ))}
-                              </div>
-                            )}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </CardContent>
                 </Card>
               )
             })}
