@@ -146,7 +146,7 @@ export default function AboutPage() {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-teal-500 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden group">
+          <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-600 to-teal-500 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 transition-transform duration-700 group-hover:scale-110"></div>
             <div className="relative z-10 space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold">{content.ctaTitle}</h2>
