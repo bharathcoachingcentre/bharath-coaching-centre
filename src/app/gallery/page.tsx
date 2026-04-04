@@ -163,16 +163,21 @@ export default function GalleryPage() {
             </div>
           )}
 
-          {/* Simple CTA Footer */}
+          {/* CTA Footer */}
           <div className="mt-20 text-center">
-            <div className="inline-flex flex-col items-center p-10 bg-white/80 backdrop-blur-md rounded-[3rem] border border-white shadow-xl max-w-4xl">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2 tracking-tight">Become an Achiever</h3>
-              <p className="text-gray-600 mb-8 font-medium">
-                Every picture tells a story of success. Start your own story with us today.
-              </p>
-              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold h-14 px-10 rounded-2xl shadow-xl transition-all active:scale-95 border-none">
-                <Link href="/enrollment">Join the Academy</Link>
-              </Button>
+            <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-600 to-teal-500 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 transition-transform duration-700 group-hover:scale-110"></div>
+              <div className="relative z-10 space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold">Become an Achiever</h2>
+                <p className="text-blue-50 text-lg max-w-2xl mx-auto font-medium">
+                  Every picture tells a story of success. Start your own story with us today.
+                </p>
+                <div className="pt-4">
+                  <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-7 rounded-2xl text-lg shadow-xl transition-all active:scale-95 border-none">
+                    <Link href="/enrollment">Join the Academy</Link>
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
