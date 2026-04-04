@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo } from "react";
@@ -29,7 +28,7 @@ export default function AboutPage() {
   const content = useMemo(() => {
     const defaults = {
       heroTitle: "About Us",
-      heroImageUrl: "/About-Us.jpg",
+      heroImageUrl: "/hero-about.jpg",
       philosophyTag: "Philosophy",
       philosophyTitleMain: "What Makes Us ",
       philosophyTitleHighlight: "Different",

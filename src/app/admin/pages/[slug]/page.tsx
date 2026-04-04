@@ -298,7 +298,7 @@ const defaultPageData: Record<string, any> = {
   },
   about: {
     heroTitle: "About Us",
-    heroImageUrl: "/About-Us.jpg",
+    heroImageUrl: "/hero-about.jpg",
     philosophyTag: "Philosophy",
     philosophyTitleMain: "What Makes Us ",
     philosophyTitleHighlight: "Different",
@@ -307,7 +307,7 @@ const defaultPageData: Record<string, any> = {
       { text: "Everyone is an achiever.", icon: "Target" },
       { text: "Every student needs a unique method to deliver the concept.", icon: "Lightbulb" },
       { text: "BEC works in many unique ways to deliver the concepts to the students' mind which is more efficient than a common teaching methodology for different personalities.", icon: "Brain" },
-      { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
+      { text: "Our motto \"Everyone is an achiever\" stands as our ultimate goal is to train up any student who steps into our academy and turn them into an achiever.", icon: "Trophy" }
     ],
     ctaTitle: "Start Your Journey To Success",
     ctaSubtitle: "Experience the difference with our unique teaching methodology and personalized attention.",
@@ -1401,7 +1401,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardContent className="p-6 sm:p-10 pt-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {(formData.iconCards || defaultPageData['one-to-one-classes'].iconCards).map((card: any, idx: number) => (
-                      <div key={idx} className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4">
+                      <div key={idx} className="p-6 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-4">
                         <div className="space-y-2">
                           <Label className="text-[10px] font-black uppercase text-gray-400">Card {idx + 1} Icon (Lucide)</Label>
                           <Input 
