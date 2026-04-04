@@ -1,9 +1,10 @@
+
 "use client";
 
 import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Target, Lightbulb, Brain, Trophy, Loader2 } from "lucide-react";
+import { Target, Lightbulb, Brain, Trophy, Loader2, BookOpen, Users, Award, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFirestore, useDoc } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -80,6 +81,42 @@ export default function AboutPage() {
           <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl tracking-tight">
             {content.heroTitle}
           </h1>
+        </div>
+      </section>
+
+      {/* About BCC Introduction Section */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-sm">
+              Our Legacy
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#182d45] tracking-tight mb-10 leading-tight">
+              About <span className="text-blue-600">BCC</span>
+            </h2>
+            <div className="space-y-8 text-gray-600 text-lg leading-relaxed font-medium">
+              <p>
+                BCC is an educational organization whose simple and critical goal is to make everyone an achiever by offering simple solutions for success in their exams. Recognized by students as one of the leading coaching centres in Trichy.
+              </p>
+              <p>
+                BCC was established in 2008 with 40 students at Anna Nagar initially and eventually grew with 150 members per academic year at Thillai Nagar. 2000+ students have been successful for the past 15 years. BCC aims to change the life of students through conscious training, individual attention and increasingly consistent performance.
+              </p>
+              <p>
+                All boards are being handled from classes 1-12. All subjects for classes 1-10; 11-12 (Mat, Phy, Che, and Business Maths). Maths classes are offered for Engineering, MBA, MCA, Polytechnic; Entrance coaching for SAINIK and NATA (I-Arch). We’ve had 800+ successful students for the past 5 years exclusively for NATA.
+              </p>
+              <div className="p-8 bg-blue-50/50 rounded-[2.5rem] border border-blue-100 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100/50 rounded-full -mr-16 -mt-16 transition-transform duration-500 group-hover:scale-110"></div>
+                <div className="flex items-start gap-4 relative z-10">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-lg">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <p className="text-[#182d45] font-bold">
+                    Apart from daily classes, weekly tests for students, BCC goes above and beyond in conducting daily study/learning classes towards exams for 12 hours each day helping the students to clear last minute doubts and conduct multiple revision tests to scale up and get thorough with their syllabus.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
