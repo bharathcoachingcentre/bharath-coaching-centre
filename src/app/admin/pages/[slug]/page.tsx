@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useEffect, useState, use, useRef } from "react";
+import React, { useMemo, useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { 
@@ -27,12 +27,10 @@ import {
   GraduationCap,
   MousePointer2,
   Search,
-  Check,
   Trophy,
   Target,
   Lightbulb,
   Brain,
-  Calendar,
   CalendarCheck,
   Clock,
   Info,
@@ -43,7 +41,6 @@ import {
   MessageSquareQuote,
   PieChart,
   ClipboardCheck,
-  HelpCircle,
   Medal,
   Crown,
   Laptop,
@@ -54,19 +51,17 @@ import {
   Mail,
   Phone,
   MapPin,
-  ExternalLink,
-  Navigation,
-  List,
-  FileCheck,
-  FileText,
-  GripVertical,
+  Maximize2,
+  User,
+  Calendar,
   ClipboardList,
   BarChart,
   UserSquare2,
   Heart,
   Send,
-  Maximize2,
-  User
+  GripVertical,
+  FileCheck,
+  FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -430,44 +425,44 @@ const defaultPageData: Record<string, any> = {
 };
 
 const iconMap: Record<string, any> = {
-  Presentation: Presentation,
-  FilePenLine: FilePenLine,
-  MessagesSquare: MessagesSquare,
-  BookOpen: BookOpen,
-  Book: Book,
-  UserCheck: UserCheck,
-  Zap: Zap,
-  GraduationCap: GraduationCap,
-  Trophy: Trophy,
-  Target: Target,
-  Lightbulb: Lightbulb,
-  Brain: Brain,
-  Users: Users,
-  TrendingUp: TrendingUp,
-  Award: Award,
-  Search: Search,
-  Info: Info,
-  Handshake: Handshake,
-  Layers: Layers,
-  PieChart: PieChart,
-  ClipboardCheck: ClipboardCheck,
-  Medal: Medal,
-  Crown: Crown,
-  Star: Star,
-  ImageIcon: ImageIcon,
-  CalendarCheck: CalendarCheck,
-  Clock: Clock,
-  Laptop: Laptop,
-  Building: Building,
-  FileCheck: FileCheck,
-  FileText: FileText,
-  User: User,
-  Calendar: Calendar,
-  ClipboardList: ClipboardList,
-  BarChart: BarChart,
-  UserSquare2: UserSquare2,
-  Heart: Heart,
-  Send: Send
+  Presentation,
+  FilePenLine,
+  MessagesSquare,
+  BookOpen,
+  Book,
+  UserCheck,
+  Zap,
+  GraduationCap,
+  Trophy,
+  Target,
+  Lightbulb,
+  Brain,
+  Users,
+  TrendingUp,
+  Award,
+  Search,
+  Info,
+  Handshake,
+  Layers,
+  PieChart,
+  ClipboardCheck,
+  Medal,
+  Crown,
+  Star,
+  ImageIcon,
+  CalendarCheck,
+  Clock,
+  Laptop,
+  Building,
+  FileCheck,
+  FileText,
+  User,
+  Calendar,
+  ClipboardList,
+  BarChart,
+  UserSquare2,
+  Heart,
+  Send
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -594,7 +589,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   }, [formData?.navMenu]);
 
   const allIconKeys = Object.keys(iconMap);
-  const previewIcons = allIconKeys.slice(0, 15); // Show first 3 rows (5 cols each)
+  const previewIcons = allIconKeys.slice(0, 15);
   const filteredIcons = allIconKeys.filter(key => 
     key.toLowerCase().includes(iconSearchQuery.toLowerCase())
   );

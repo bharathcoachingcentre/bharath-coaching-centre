@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Target, Lightbulb, Brain, Trophy, Loader2, BookOpen, Users, Award, Clock } from "lucide-react";
+import { Target, Lightbulb, Brain, Trophy, Loader2, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFirestore, useDoc } from "@/firebase";
 import { doc } from "firebase/firestore";
