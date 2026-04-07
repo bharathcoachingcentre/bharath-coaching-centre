@@ -990,6 +990,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     />
                   </div>
                 </CardContent>
+              </Card>
 
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
