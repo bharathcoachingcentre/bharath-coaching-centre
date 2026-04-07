@@ -72,7 +72,7 @@ export default function AboutPage() {
           alt="About Us Banner"
           fill
           className="object-cover"
-          data-ai-hint="woman yoga"
+          data-ai-hint="about academy"
           priority
         />
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />

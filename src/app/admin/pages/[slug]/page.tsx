@@ -855,7 +855,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     {(formData?.navMenu || []).map((item: any, idx: number) => (
                       <Reorder.Item key={item.id} value={item}>
                         <div className={cn(
-                          "p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-2 sm:gap-4 transition-all group",
+                          "p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-2 sm:gap-4 transition-all duration-300 group",
                           item.parentId && "ml-4 sm:ml-12 border-l-4 border-l-blue-200 bg-blue-50/30 shadow-inner"
                         )}>
                           <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors">
