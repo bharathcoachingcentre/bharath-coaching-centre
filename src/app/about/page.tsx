@@ -28,7 +28,7 @@ export default function AboutPage() {
   const content = useMemo(() => {
     const defaults = {
       heroTitle: "About Us",
-      heroImageUrl: "/hero-about.jpg",
+      heroImageUrl: "/study-materials-banner.jpg",
       philosophyTag: "Philosophy",
       philosophyTitleMain: "What Makes Us ",
       philosophyTitleHighlight: "Different",

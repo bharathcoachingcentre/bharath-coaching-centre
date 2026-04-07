@@ -298,7 +298,7 @@ const defaultPageData: Record<string, any> = {
   },
   about: {
     heroTitle: "About Us",
-    heroImageUrl: "/hero-about.jpg",
+    heroImageUrl: "/study-materials-banner.jpg",
     philosophyTag: "Philosophy",
     philosophyTitleMain: "What Makes Us ",
     philosophyTitleHighlight: "Different",
@@ -1469,7 +1469,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             <GripVertical className="w-5 h-5 text-gray-300" />
                           </div>
                           
-                          <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-4">
+                          <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-4 text-left">
                             <div className="md:col-span-3 space-y-1">
                               <Label className="text-[10px] font-black uppercase text-gray-400">Icon (Lucide)</Label>
                               <Input 
@@ -3257,7 +3257,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
                             <Input value={stat.icon} onChange={(e) => {
-                              const newList = [...(formData.successStats || [])];
+                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
                               if (newList[idx]) {
                                 newList[idx].icon = e.target.value;
                                 updateField('successStats', newList);
@@ -3267,7 +3267,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Value</Label>
                             <Input value={stat.value} onChange={(e) => {
-                              const newList = [...(formData.successStats || [])];
+                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
                               if (newList[idx]) {
                                 newList[idx].value = e.target.value;
                                 updateField('successStats', newList);
@@ -3277,7 +3277,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Label</Label>
                             <Input value={stat.label} onChange={(e) => {
-                              const newList = [...(formData.successStats || [])];
+                              const newList = [...(formData.successStats || defaultPageData.results.successStats)];
                               if (newList[idx]) {
                                 newList[idx].label = e.target.value;
                                 updateField('successStats', newList);
