@@ -156,6 +156,8 @@ export default function StudyMaterialPage() {
 
   const content = useMemo(() => {
     const defaults = {
+      heroTitle: "Free Study Material",
+      heroImageUrl: "/study-materials-banner.jpg",
       premiumTitleMain: "Access ",
       premiumTitleHighlight: "Premium Learning",
       premiumCards: [
@@ -305,8 +307,8 @@ export default function StudyMaterialPage() {
         style={{ height: "500px" }}
       >
         <Image
-          src="/Study-material.png"
-          alt="Free Study Material"
+          src={content.heroImageUrl}
+          alt={content.heroTitle}
           fill
           className="object-cover"
           data-ai-hint="books on a table"
@@ -315,7 +317,7 @@ export default function StudyMaterialPage() {
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         <div className="relative z-10 text-center px-4 pt-20">
           <h1 className="font-headline text-4xl font-bold text-white md:text-6xl drop-shadow-2xl tracking-tight">
-            Free Study Material
+            {content.heroTitle}
           </h1>
         </div>
       </section>
