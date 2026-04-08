@@ -75,7 +75,7 @@ export function ContactForm() {
 
     const setupRecaptcha = () => {
         const { auth } = initializeFirebase();
-        if (!(window as any).recaptchaVerifier) {
+        if (typeof window !== 'undefined' && !(window as any).recaptchaVerifier) {
             (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
                 'size': 'invisible',
                 'callback': () => {
@@ -97,7 +97,7 @@ export function ContactForm() {
             // Format phone number (Ensure it has country code)
             let phone = values.mobileNumber.trim();
             if (!phone.startsWith('+')) {
-                phone = '+91' + phone; // Default to India for this demo
+                phone = '+91' + phone; // Default to India for this project
             }
 
             const result = await signInWithPhoneNumber(auth, phone, appVerifier);
@@ -109,13 +109,27 @@ export function ContactForm() {
             });
         } catch (error: any) {
             console.error("SMS Error:", error);
+            
+            let errorMessage = "Please check the mobile number and try again.";
+            
+            if (error.code === 'auth/billing-not-enabled') {
+                errorMessage = "SMS verification requires a paid Firebase plan. To test for free, please add this phone number as a 'Test Number' in the Firebase Console.";
+            } else if (error.code === 'auth/operation-not-allowed') {
+                errorMessage = "Phone authentication is not enabled in your Firebase project. Please enable it in the Firebase Console under Authentication > Sign-in method.";
+            } else if (error.code === 'auth/too-many-requests') {
+                errorMessage = "Too many requests. Please try again later.";
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+
             toast({
                 variant: "destructive",
                 title: "Failed to send OTP",
-                description: error.message || "Please check the mobile number and try again.",
+                description: errorMessage,
             });
+
             // Reset recaptcha on error
-            if ((window as any).recaptchaVerifier) {
+            if (typeof window !== 'undefined' && (window as any).recaptchaVerifier) {
                 (window as any).recaptchaVerifier.clear();
                 (window as any).recaptchaVerifier = null;
             }
@@ -207,7 +221,7 @@ export function ContactForm() {
                                     <FormControl>
                                         <div className="relative">
                                             <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                                            <Input placeholder="+91 98765 43210" {...field} className="h-12 pl-10 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
+                                            <Input placeholder="98765 43210" {...field} className="h-12 pl-10 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
                                         </div>
                                     </FormControl>
                                     <FormMessage />
@@ -290,6 +304,7 @@ export function ContactForm() {
                         <p className="text-xs text-center text-gray-400">
                             Didn't receive the code? 
                             <button 
+                                type="button"
                                 onClick={() => formData && handleStartVerification(formData)}
                                 className="ml-1 text-blue-600 font-bold hover:underline"
                             >
