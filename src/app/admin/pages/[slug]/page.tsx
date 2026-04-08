@@ -760,7 +760,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             type="file" 
                             accept="image/*"
                             className="hidden" 
-                            onChange={(e) => handleImageUpload(e, (b64) => updateField('logoUrl', b64))}
+                            onChange={(e) => handleImageUpload(e, (base64) => updateField('logoUrl', base64))}
                           />
                           {formData.logoUrl && (
                             <Button 
@@ -1339,7 +1339,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             type="file" 
                             accept="image/*"
                             className="hidden" 
-                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                            onChange={(e) => handleImageUpload(e, (base64) => updateField('heroImageUrl', base64))}
                           />
                         </div>
                         <Input 
@@ -1594,7 +1594,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             type="file" 
                             accept="image/*"
                             className="hidden" 
-                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                            onChange={(e) => handleImageUpload(e, (base64) => updateField('heroImageUrl', base64))}
                           />
                         </div>
                         <p className="text-[10px] text-gray-400 italic text-left">Select a wide photo for the main page header.</p>
@@ -1837,7 +1837,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             type="file" 
                             accept="image/*"
                             className="hidden" 
-                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                            onChange={(e) => handleImageUpload(e, (base64) => updateField('heroImageUrl', base64))}
                           />
                         </div>
                       </div>
@@ -2019,7 +2019,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             type="file" 
                             accept="image/*"
                             className="hidden" 
-                            onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                            onChange={(e) => handleImageUpload(e, (base64) => updateField('heroImageUrl', base64))}
                           />
                         </div>
                         <Input value={formData.heroImageUrl || ""} onChange={(e) => updateField('heroImageUrl', e.target.value)} className="bg-gray-50 border-none h-12 rounded-xl px-6" placeholder="Image URL" />
@@ -2181,7 +2181,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           type="file" 
                           accept="image/*"
                           className="hidden" 
-                          onChange={(e) => handleImageUpload(e, (b64) => updateField('heroImageUrl', b64))}
+                          onChange={(e) => handleImageUpload(e, (base64) => updateField('heroImageUrl', base64))}
                         />
                         <Input 
                           value={formData.heroImageUrl || ""} 
