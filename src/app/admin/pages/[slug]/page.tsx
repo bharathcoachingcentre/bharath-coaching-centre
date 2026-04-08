@@ -293,7 +293,7 @@ const defaultPageData: Record<string, any> = {
   },
   about: {
     heroTitle: "About Us",
-    heroImageUrl: "/study-materials-banner.jpg",
+    heroImageUrl: "/About-banner.png",
     philosophyTag: "Philosophy",
     philosophyTitleMain: "What Makes Us ",
     philosophyTitleHighlight: "Different",
@@ -377,7 +377,7 @@ const defaultPageData: Record<string, any> = {
         ]
       }
     ],
-    materialsTitleMain: "Download Free ",
+    materialsTitleMain: "Download Free ", 
     materialsTitleHighlight: "Study Materials",
     materialsSubtitle: "Filter by class and board to find specific resources for your curriculum"
   },
@@ -673,11 +673,11 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <div className="px-8 pb-4">
                       <div className="relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                        <Input 
+                        <input 
                           placeholder="Search icon names (e.g. Trophy, Zap)..." 
                           value={iconSearchQuery}
                           onChange={(e) => setIconSearchQuery(e.target.value)}
-                          className="h-12 bg-white/10 border-none rounded-xl pl-11 text-white placeholder:text-gray-500 focus-visible:ring-teal-500"
+                          className="h-12 w-full bg-white/10 border-none rounded-xl pl-11 text-white placeholder:text-gray-500 focus-visible:ring-teal-500 outline-none"
                         />
                       </div>
                     </div>

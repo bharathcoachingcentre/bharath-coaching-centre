@@ -28,7 +28,7 @@ export default function AboutPage() {
   const content = useMemo(() => {
     const defaults = {
       heroTitle: "About Us",
-      heroImageUrl: "/study-materials-banner.jpg",
+      heroImageUrl: "/About-banner.png",
       philosophyTag: "Philosophy",
       philosophyTitleMain: "What Makes Us ",
       philosophyTitleHighlight: "Different",
@@ -68,7 +68,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
         <Image
-          src={content.heroImageUrl}
+          src={content.heroImageUrl || "/About-banner.png"}
           alt="About Us Banner"
           fill
           className="object-cover"
