@@ -3,7 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { Send } from "lucide-react"
+import { Send, Smartphone, ShieldCheck, Loader2, RefreshCw } from "lucide-react"
+import React, { useState, useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -17,6 +18,20 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import { initializeFirebase } from "@/firebase"
+import { 
+    RecaptchaVerifier, 
+    signInWithPhoneNumber, 
+    ConfirmationResult 
+} from "firebase/auth"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -24,6 +39,9 @@ const formSchema = z.object({
   }),
   email: z.string().email({
     message: "Please enter a valid email address.",
+  }),
+  mobileNumber: z.string().min(10, {
+    message: "Enter a valid mobile number (e.g., +91...)",
   }),
   subject: z.string().min(5, {
     message: "Subject must be at least 5 characters.",
@@ -37,89 +55,266 @@ const formSchema = z.object({
 
 export function ContactForm() {
     const { toast } = useToast()
+    const [isOtpDialogOpen, setIsOtpDialogOpen] = useState(false)
+    const [otpValue, setOtpCode] = useState("")
+    const [isVerifying, setIsVerifying] = useState(false)
+    const [isSendingOtp, setIsSendingOtp] = useState(false)
+    const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null)
+    const [formData, setFormData] = useState<z.infer<typeof formSchema> | null>(null)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
             email: "",
+            mobileNumber: "",
             subject: "",
             message: "",
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
-        toast({
-            title: "Message Sent!",
-            description: "Thank you for reaching out. We will get back to you shortly.",
-        })
-        form.reset()
+    const setupRecaptcha = () => {
+        const { auth } = initializeFirebase();
+        if (!(window as any).recaptchaVerifier) {
+            (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                'size': 'invisible',
+                'callback': () => {
+                    console.log("Recaptcha resolved");
+                }
+            });
+        }
+    };
+
+    async function handleStartVerification(values: z.infer<typeof formSchema>) {
+        setFormData(values);
+        setIsSendingOtp(true);
+        
+        try {
+            const { auth } = initializeFirebase();
+            setupRecaptcha();
+            const appVerifier = (window as any).recaptchaVerifier;
+            
+            // Format phone number (Ensure it has country code)
+            let phone = values.mobileNumber.trim();
+            if (!phone.startsWith('+')) {
+                phone = '+91' + phone; // Default to India for this demo
+            }
+
+            const result = await signInWithPhoneNumber(auth, phone, appVerifier);
+            setConfirmationResult(result);
+            setIsOtpDialogOpen(true);
+            toast({
+                title: "OTP Sent",
+                description: `A 6-digit verification code has been sent to ${phone}.`,
+            });
+        } catch (error: any) {
+            console.error("SMS Error:", error);
+            toast({
+                variant: "destructive",
+                title: "Failed to send OTP",
+                description: error.message || "Please check the mobile number and try again.",
+            });
+            // Reset recaptcha on error
+            if ((window as any).recaptchaVerifier) {
+                (window as any).recaptchaVerifier.clear();
+                (window as any).recaptchaVerifier = null;
+            }
+        } finally {
+            setIsSendingOtp(false);
+        }
+    }
+
+    async function handleVerifyOtp() {
+        if (!confirmationResult || !otpValue || otpValue.length !== 6) {
+            toast({
+                variant: "destructive",
+                title: "Invalid Code",
+                description: "Please enter the 6-digit code received on your phone.",
+            });
+            return;
+        }
+
+        setIsVerifying(true);
+        try {
+            await confirmationResult.confirm(otpValue);
+            
+            // Success! The phone is verified.
+            console.log("Form fully verified and submitted:", formData);
+            
+            toast({
+                title: "Message Sent!",
+                description: "Your phone number has been verified and your inquiry has been received.",
+            });
+            
+            setIsOtpDialogOpen(false);
+            form.reset();
+            setOtpCode("");
+            setConfirmationResult(null);
+        } catch (error: any) {
+            console.error("Verification Error:", error);
+            toast({
+                variant: "destructive",
+                title: "Verification Failed",
+                description: "The code you entered is incorrect or has expired.",
+            });
+        } finally {
+            setIsVerifying(false);
+        }
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className="text-gray-700 font-bold">Full Name</FormLabel>
-                            <FormControl>
-                                <Input placeholder="John Doe" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className="text-gray-700 font-bold">Email Address</FormLabel>
-                            <FormControl>
-                                <Input placeholder="you@example.com" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="subject"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className="text-gray-700 font-bold">Subject</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Inquiry about courses" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className="text-gray-700 font-bold">Message</FormLabel>
-                            <FormControl>
-                                <Textarea
-                                placeholder="Tell us how we can help..."
-                                className="resize-none min-h-[120px] bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500"
-                                {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 rounded-xl shadow-lg transition-all duration-500 transform active:scale-95">
-                    <Send className="mr-2 h-5 w-5" /> Send Message
-                </Button>
-            </form>
-        </Form>
+        <>
+            <div id="recaptcha-container"></div>
+            
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(handleStartVerification)} className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-700 font-bold">Full Name *</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="John Doe" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-700 font-bold">Email Address *</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="you@example.com" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <FormField
+                            control={form.control}
+                            name="mobileNumber"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-700 font-bold">Mobile Number *</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                            <Input placeholder="+91 98765 43210" {...field} className="h-12 pl-10 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="subject"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-700 font-bold">Subject *</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Inquiry about courses" {...field} className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
+                    <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="text-gray-700 font-bold">Message *</FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        placeholder="Tell us how we can help..."
+                                        className="resize-none min-h-[120px] bg-gray-50 border-gray-200 rounded-xl focus:ring-blue-500"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    
+                    <Button 
+                        type="submit" 
+                        disabled={isSendingOtp}
+                        className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold h-14 rounded-xl shadow-lg transition-all duration-500 transform active:scale-95 border-none"
+                    >
+                        {isSendingOtp ? (
+                            <>
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Sending OTP...
+                            </>
+                        ) : (
+                            <>
+                                <Send className="mr-2 h-5 w-5" /> Send Message
+                            </>
+                        )}
+                    </Button>
+                </form>
+            </Form>
+
+            <Dialog open={isOtpDialogOpen} onOpenChange={setIsOtpDialogOpen}>
+                <DialogContent className="sm:max-w-md rounded-[2rem] border-none shadow-2xl p-8">
+                    <DialogHeader className="text-left">
+                        <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4">
+                            <ShieldCheck className="w-6 h-6" />
+                        </div>
+                        <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Verify Your Phone</DialogTitle>
+                        <DialogDescription className="text-gray-500 font-medium">
+                            We've sent a 6-digit verification code to your mobile number to prevent spam.
+                        </DialogDescription>
+                    </DialogHeader>
+                    
+                    <div className="py-6 space-y-4">
+                        <div className="space-y-2">
+                            <FormLabel className="text-xs font-black uppercase text-gray-400 tracking-widest">Verification Code</FormLabel>
+                            <Input 
+                                placeholder="000000" 
+                                value={otpValue}
+                                onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                className="h-14 text-center text-2xl font-black tracking-[0.5em] bg-gray-50 border-gray-100 rounded-2xl focus:ring-blue-500"
+                            />
+                        </div>
+                        <p className="text-xs text-center text-gray-400">
+                            Didn't receive the code? 
+                            <button 
+                                onClick={() => formData && handleStartVerification(formData)}
+                                className="ml-1 text-blue-600 font-bold hover:underline"
+                            >
+                                Resend Code
+                            </button>
+                        </p>
+                    </div>
+
+                    <DialogFooter>
+                        <Button 
+                            onClick={handleVerifyOtp}
+                            disabled={isVerifying || otpValue.length < 6}
+                            className="w-full h-14 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl transition-all active:scale-95 border-none"
+                        >
+                            {isVerifying ? (
+                                <>
+                                    <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Verifying...
+                                </>
+                            ) : (
+                                "Complete Submission"
+                            )}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+        </>
     )
 }
