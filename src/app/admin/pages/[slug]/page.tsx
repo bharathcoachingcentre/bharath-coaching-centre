@@ -297,7 +297,7 @@ const defaultPageData: Record<string, any> = {
     philosophyTag: "Philosophy",
     philosophyTitleMain: "What Makes Us ",
     philosophyTitleHighlight: "Different",
-    philosophyImageUrl: "/about-image-vector.jpg",
+    philosophyImageUrl: "/About-philosophy.png",
     philosophyItems: [
       { text: "Everyone is an achiever.", icon: "Target" },
       { text: "Every student needs a unique method to deliver the concept.", icon: "Lightbulb" },
