@@ -1,4 +1,3 @@
-
 'use server';
 
 import { google } from 'googleapis';
@@ -27,7 +26,6 @@ export async function appendToGoogleSheetAction(data: any) {
     const defaultTabName = getEnv('GOOGLE_SHEET_TAB_NAME') || 'contact';
 
     // 2. Determine target tab name
-    // If it's an enrollment, use the "Enrollment" tab. Otherwise use the default (contact).
     const targetTab = data.type === 'contact' ? defaultTabName : 'Enrollment';
 
     // Validation
@@ -77,15 +75,32 @@ export async function appendToGoogleSheetAction(data: any) {
         data.message || 'N/A'
       ];
     } else {
+      // ENROLLMENT - Comprehensive field list
       rowValues = [
         timestamp,
-        `ENROLLMENT: ${data.admissionNo || 'N/A'}`,
-        `${data.firstName || ''} ${data.lastName || ''}`.trim(),
+        data.admissionNo || 'N/A',
+        data.firstName || 'N/A',
+        data.lastName || 'N/A',
         data.email || 'N/A',
+        data.gender || 'N/A',
+        data.dob || 'N/A',
+        data.religion || 'N/A',
+        data.fatherName || 'N/A',
+        data.fatherNo || 'N/A',
+        data.fatherOccupation || 'N/A',
+        data.motherName || 'N/A',
+        data.motherNo || 'N/A',
+        data.motherOccupation || 'N/A',
         data.whatsappNo || 'N/A',
+        data.academicYear || 'N/A',
         data.standard || 'N/A',
+        data.subjects ? (Array.isArray(data.subjects) ? data.subjects.join(', ') : data.subjects) : 'N/A',
+        data.institutionName || 'N/A',
         data.board || 'N/A',
-        data.subjects ? (Array.isArray(data.subjects) ? data.subjects.join(', ') : data.subjects) : 'N/A'
+        data.batchTiming || 'N/A',
+        data.feesDetails || 'N/A',
+        data.admissionDate || 'N/A',
+        data.residentialAddress || 'N/A'
       ];
     }
 
