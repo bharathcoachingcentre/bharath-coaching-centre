@@ -119,7 +119,12 @@ export function ContactForm() {
                 description: `A verification code has been sent to ${phone}.`,
             });
         } catch (error: any) {
-            if (error.code === 'auth/billing-not-enabled' || error.message?.includes('billing')) {
+            console.error("Verification initiation error:", error);
+            
+            const isBillingError = error.code === 'auth/billing-not-enabled' || error.message?.includes('billing');
+            const isQuotaError = error.code === 'auth/too-many-requests' || error.message?.includes('quota');
+
+            if (isBillingError || isQuotaError) {
                 setIsSimulationMode(true);
                 setIsOtpDialogOpen(true);
                 
@@ -131,8 +136,10 @@ export function ContactForm() {
                 } as any);
 
                 toast({
-                    title: "Simulation Mode Active",
-                    description: "SMS requires a paid plan. Use code '123456' to continue testing.",
+                    title: isQuotaError ? "Rate Limit Exceeded" : "Simulation Mode Active",
+                    description: isQuotaError 
+                        ? "Verification requests are temporarily blocked by Google. Switching to simulation mode. Use code '123456'."
+                        : "SMS requires a paid plan. Use code '123456' to continue testing.",
                 });
             } else {
                 toast({
@@ -319,7 +326,7 @@ export function ContactForm() {
                         </DialogTitle>
                         <DialogDescription className="text-gray-500 font-medium">
                             {isSimulationMode 
-                                ? "SMS billing is restricted. Use the bypass code to proceed." 
+                                ? "Real SMS is currently limited. Use the bypass code to proceed." 
                                 : "A verification code has been sent to your mobile number."}
                         </DialogDescription>
                     </DialogHeader>
