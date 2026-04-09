@@ -120,12 +120,11 @@ export function ContactForm() {
                 description: `A verification code has been sent to ${phone}.`,
             });
         } catch (error: any) {
-            console.error("Firebase SMS Auth Error:", error);
-            
-            // Handle common billing error by offering simulation mode
+            // IF we get the billing error or a specific Firebase auth error related to billing
             if (error.code === 'auth/billing-not-enabled' || error.message?.includes('billing')) {
                 setIsSimulationMode(true);
                 setIsOtpDialogOpen(true);
+                
                 // Create a mock confirmation result for simulation
                 setConfirmationResult({
                     confirm: async (code: string) => {
@@ -135,7 +134,7 @@ export function ContactForm() {
                 } as any);
 
                 toast({
-                    title: "Prototype Mode Active",
+                    title: "Simulation Mode Active",
                     description: "SMS requires a paid plan. Use code '123456' to continue testing.",
                 });
             } else {
@@ -146,7 +145,7 @@ export function ContactForm() {
                 });
             }
 
-            // Cleanup recaptcha on error so it can be re-initialized
+            // Cleanup recaptcha on error so it can be re-initialized if needed
             if (typeof window !== 'undefined' && (window as any).recaptchaVerifier) {
                 try {
                     (window as any).recaptchaVerifier.clear();
@@ -318,7 +317,7 @@ export function ContactForm() {
                         </DialogTitle>
                         <DialogDescription className="text-gray-500 font-medium">
                             {isSimulationMode 
-                                ? "Firebase billing is disabled. Use the prototype bypass code to proceed." 
+                                ? "SMS billing is restricted. Use the bypass code to proceed." 
                                 : "A verification code has been sent to your mobile number."}
                         </DialogDescription>
                     </DialogHeader>
@@ -328,13 +327,13 @@ export function ContactForm() {
                             <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl flex items-start gap-3">
                                 <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                                 <p className="text-xs text-amber-800 font-medium leading-relaxed">
-                                    To test real SMS, enable billing in Firebase or add your number as a <strong>Test Number</strong> in the Firebase Console.
+                                    Testing Mode: Please enter <strong>123456</strong> to verify.
                                 </p>
                             </div>
                         )}
                         <div className="space-y-2">
                             <FormLabel className="text-xs font-black uppercase text-gray-400 tracking-widest text-center block w-full">
-                                {isSimulationMode ? "Enter '123456' to bypass" : "Enter 6-Digit Code"}
+                                {isSimulationMode ? "Enter '123456'" : "Enter 6-Digit Code"}
                             </FormLabel>
                             <Input 
                                 placeholder="000000" 
