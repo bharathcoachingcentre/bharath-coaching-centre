@@ -5,6 +5,7 @@ import { google } from 'googleapis';
 /**
  * Appends a row to the configured Google Sheet using Service Account credentials.
  * Dynamically selects the tab based on the data type.
+ * Handles every field from the Enrollment and Contact forms.
  */
 export async function appendToGoogleSheetAction(data: any) {
   try {
@@ -26,13 +27,13 @@ export async function appendToGoogleSheetAction(data: any) {
     const defaultTabName = getEnv('GOOGLE_SHEET_TAB_NAME') || 'contact';
 
     // 2. Determine target tab name
-    const targetTab = data.type === 'contact' ? defaultTabName : 'Enrollment';
+    const targetTab = data.type === 'enrollment' ? 'Enrollment' : defaultTabName;
 
     // Validation
     if (!email || !privateKey || !sheetId) {
       return { 
         success: false, 
-        error: "System Configuration Missing. Please check your environment variables." 
+        error: "System Configuration Missing. Please ensure GOOGLE_SHEETS_CLIENT_EMAIL, GOOGLE_SHEETS_PRIVATE_KEY, and GOOGLE_SHEET_ID are set in your environment." 
       };
     }
 
@@ -50,7 +51,7 @@ export async function appendToGoogleSheetAction(data: any) {
       }
     }
 
-    // 5. Authenticate
+    // 5. Authenticate with Google
     const auth = new google.auth.JWT(
       email,
       undefined,
@@ -60,11 +61,41 @@ export async function appendToGoogleSheetAction(data: any) {
 
     const sheets = google.sheets({ version: 'v4', auth });
     
-    // 6. Construct Row Values
+    // 6. Construct Row Values with all fields
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
     let rowValues: any[] = [];
 
-    if (data.type === 'contact') {
+    if (data.type === 'enrollment') {
+      // ENROLLMENT - Full 25-column mapping
+      rowValues = [
+        timestamp,                                      // A: Timestamp
+        data.admissionNo || 'N/A',                      // B: ID
+        data.firstName || 'N/A',                        // C: First Name
+        data.lastName || 'N/A',                         // D: Last Name
+        data.email || 'N/A',                            // E: Email
+        data.gender || 'N/A',                           // F: Gender (Dropdown)
+        data.dob || 'N/A',                              // G: DOB
+        data.religion || 'N/A',                         // H: Religion
+        data.fatherName || 'N/A',                       // I: Father Name
+        data.fatherNo || 'N/A',                         // J: Father Phone
+        data.fatherOccupation || 'N/A',                 // K: Father Occupation
+        data.motherName || 'N/A',                       // L: Mother Name
+        data.motherNo || 'N/A',                         // M: Mother Phone
+        data.motherOccupation || 'N/A',                 // N: Mother Occupation
+        data.whatsappNo || 'N/A',                       // O: WhatsApp No
+        data.academicYear || 'N/A',                     // P: Academic Year (Dropdown)
+        data.standard || 'N/A',                         // Q: Standard (Dropdown)
+        data.subjects ? (Array.isArray(data.subjects) ? data.subjects.join(', ') : data.subjects) : 'None', // R: Subjects (Checkboxes)
+        data.otherSubject || '-',                       // S: Other Subject
+        data.institutionName || 'N/A',                  // T: Institution
+        data.board || 'N/A',                            // U: Board (Dropdown)
+        data.batchTiming || 'N/A',                      // V: Timing
+        data.feesDetails || 'N/A',                      // W: Fees
+        data.admissionDate || 'N/A',                    // X: Date
+        data.residentialAddress || 'N/A'                // Y: Address
+      ];
+    } else {
+      // CONTACT - Standard mapping
       rowValues = [
         timestamp,
         'CONTACT',
@@ -74,38 +105,10 @@ export async function appendToGoogleSheetAction(data: any) {
         data.subject || 'N/A',
         data.message || 'N/A'
       ];
-    } else {
-      // ENROLLMENT - Comprehensive field list
-      rowValues = [
-        timestamp,
-        data.admissionNo || 'N/A',
-        data.firstName || 'N/A',
-        data.lastName || 'N/A',
-        data.email || 'N/A',
-        data.gender || 'N/A',
-        data.dob || 'N/A',
-        data.religion || 'N/A',
-        data.fatherName || 'N/A',
-        data.fatherNo || 'N/A',
-        data.fatherOccupation || 'N/A',
-        data.motherName || 'N/A',
-        data.motherNo || 'N/A',
-        data.motherOccupation || 'N/A',
-        data.whatsappNo || 'N/A',
-        data.academicYear || 'N/A',
-        data.standard || 'N/A',
-        data.subjects ? (Array.isArray(data.subjects) ? data.subjects.join(', ') : data.subjects) : 'N/A',
-        data.institutionName || 'N/A',
-        data.board || 'N/A',
-        data.batchTiming || 'N/A',
-        data.feesDetails || 'N/A',
-        data.admissionDate || 'N/A',
-        data.residentialAddress || 'N/A'
-      ];
     }
 
     // 7. Append to Sheet
-    await sheets.spreadsheets.values.append({
+    const response = await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
       range: `${targetTab}!A:A`,
       valueInputOption: 'USER_ENTERED',
@@ -114,9 +117,12 @@ export async function appendToGoogleSheetAction(data: any) {
       },
     });
 
-    return { success: true };
+    return { success: true, updatedRange: response.data.updates?.updatedRange };
   } catch (error: any) {
     console.error('Google Sheet Sync Error:', error);
-    return { success: false, error: error.message || 'Unknown server error' };
+    return { 
+      success: false, 
+      error: error.message || 'An internal error occurred during Google Sheets synchronization.' 
+    };
   }
 }
