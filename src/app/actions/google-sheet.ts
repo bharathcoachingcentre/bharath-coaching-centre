@@ -10,13 +10,16 @@ export async function appendToGoogleSheetAction(data: any) {
   try {
     // 1. Read and clean environment variables
     const getEnv = (key: string) => {
-      let val = process.env[key] || '';
-      val = val.trim();
+      const val = process.env[key];
+      if (!val) return '';
+      
+      let cleaned = val.trim();
       // Strip surrounding quotes if present (common in some env loaders)
-      if (val.startsWith('"') && val.endsWith('"')) {
-        val = val.substring(1, val.length - 1);
+      if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
+        cleaned = cleaned.substring(1, cleaned.length - 1);
       }
-      return val;
+      // Re-trim after quote removal
+      return cleaned.trim();
     };
 
     const email = getEnv('GOOGLE_SHEETS_CLIENT_EMAIL');
@@ -24,24 +27,30 @@ export async function appendToGoogleSheetAction(data: any) {
     let sheetId = getEnv('GOOGLE_SHEET_ID');
     const tabName = getEnv('GOOGLE_SHEET_TAB_NAME') || 'Sheet1';
 
+    // Validation with detailed reporting
     if (!email || !privateKey || !sheetId) {
       const missing = [];
       if (!email) missing.push('GOOGLE_SHEETS_CLIENT_EMAIL');
       if (!privateKey) missing.push('GOOGLE_SHEETS_PRIVATE_KEY');
       if (!sheetId) missing.push('GOOGLE_SHEET_ID');
-      throw new Error(`Missing environment variables: ${missing.join(', ')}`);
+      
+      console.error('Environment variables missing:', missing);
+      return { 
+        success: false, 
+        error: `System Configuration Missing: ${missing.join(', ')}. Please ensure these are set in your environment settings.` 
+      };
     }
 
     // 2. Format Private Key correctly
     // Replace literal '\n' string with actual newline character
     privateKey = privateKey.replace(/\\n/g, '\n');
     
-    // Ensure it has the proper headers
+    // Ensure it has the proper headers if missing
     if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
       privateKey = `-----BEGIN PRIVATE KEY-----\n${privateKey}\n-----END PRIVATE KEY-----`;
     }
 
-    // 3. Extract Sheet ID from URL if provided
+    // 3. Extract Sheet ID from URL if the user accidentally pasted the whole URL
     if (sheetId.includes('docs.google.com/spreadsheets/d/')) {
       const parts = sheetId.split('/d/');
       if (parts[1]) {
@@ -99,15 +108,17 @@ export async function appendToGoogleSheetAction(data: any) {
     return { success: true };
   } catch (error: any) {
     console.error('Google Sheet Sync Error:', error);
-    // Return a readable error message for the UI toast
     let message = error.message || 'Unknown server error';
+    
+    // User-friendly error mapping
     if (message.includes('invalid_grant')) {
-      message = 'Invalid Private Key or Service Account Email. Check your .env formatting.';
+      message = 'Authentication Failed: The Private Key or Client Email is incorrect.';
     } else if (message.includes('403') || message.includes('permission')) {
-      message = 'Permission denied. Ensure the Google Sheet is shared with the Service Account email as an Editor.';
+      message = 'Permission Denied: Ensure you have shared the Google Sheet with the Service Account email as an Editor.';
     } else if (message.includes('404')) {
-      message = 'Spreadsheet not found. Check your GOOGLE_SHEET_ID.';
+      message = 'Spreadsheet Not Found: Please check your GOOGLE_SHEET_ID.';
     }
+    
     return { success: false, error: message };
   }
 }
