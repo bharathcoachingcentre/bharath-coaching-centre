@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: 'Welcome to Bharath Academy',
   icons: {
     icon: '/fav.png',
+    shortcut: '/fav.png',
+    apple: '/fav.png',
   },
 };
 
