@@ -5,7 +5,7 @@ import { google } from 'googleapis';
 /**
  * Appends a row to the configured Google Sheet using Service Account credentials.
  * Dynamically selects the tab based on the data type.
- * Handles every field from the Enrollment and Contact forms.
+ * Handles every field from the Enrollment, Contact, and One-to-One forms.
  */
 export async function appendToGoogleSheetAction(data: any) {
   try {
@@ -27,7 +27,10 @@ export async function appendToGoogleSheetAction(data: any) {
     const defaultTabName = getEnv('GOOGLE_SHEET_TAB_NAME') || 'contact';
 
     // 2. Determine target tab name
-    const targetTab = data.type === 'enrollment' ? 'Enrollment' : defaultTabName;
+    const targetTab = 
+      data.type === 'enrollment' ? 'Enrollment' : 
+      data.type === 'one-to-one' ? 'OneToOne' : 
+      defaultTabName;
 
     // Validation
     if (!email || !privateKey || !sheetId) {
@@ -93,6 +96,20 @@ export async function appendToGoogleSheetAction(data: any) {
         data.feesDetails || 'N/A',                      // W: Fees
         data.admissionDate || 'N/A',                    // X: Date
         data.residentialAddress || 'N/A'                // Y: Address
+      ];
+    } else if (data.type === 'one-to-one') {
+      // ONE-TO-ONE - 10-column mapping
+      rowValues = [
+        timestamp,
+        data.name || 'N/A',
+        data.mobileNumber || 'N/A',
+        data.email || 'N/A',
+        data.board || 'N/A',
+        data.grade || 'N/A',
+        data.individualConcern || '-',
+        data.personalizedSchedule || '-',
+        data.personalizedStudyMaterial || '-',
+        data.weeklyGrowthTracking || '-'
       ];
     } else {
       // CONTACT - Standard mapping

@@ -43,9 +43,10 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useFirestore, useDoc } from "@/firebase";
 import { doc } from "firebase/firestore";
+import { appendToGoogleSheetAction } from "@/app/actions/google-sheet";
 
 const iconMap: Record<string, any> = {
   User: User,
@@ -75,6 +76,7 @@ const formSchema = z.object({
 export default function OneToOneClassesPage() {
     const { toast } = useToast();
     const firestore = useFirestore();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const pageRef = useMemo(() => {
       if (!firestore) return null;
@@ -134,13 +136,36 @@ export default function OneToOneClassesPage() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
-        toast({
-            title: "Booking Submitted!",
-            description: "Thank you for your request. We will be in touch shortly.",
-        });
-        form.reset();
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitting(true);
+        try {
+            const syncResult = await appendToGoogleSheetAction({
+                ...values,
+                type: 'one-to-one'
+            });
+
+            if (syncResult.success) {
+                toast({
+                    title: "Booking Submitted!",
+                    description: "Thank you for your request. We will be in touch shortly.",
+                });
+                form.reset();
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "Submission Error",
+                    description: syncResult.error || "Could not sync your booking to the spreadsheet.",
+                });
+            }
+        } catch (error: any) {
+            toast({
+                variant: "destructive",
+                title: "System Error",
+                description: "An unexpected error occurred. Please try again later.",
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     if (loading) {
@@ -153,7 +178,7 @@ export default function OneToOneClassesPage() {
     }
 
   return (
-    <div className="font-body antialiased">
+    <div className="font-body antialiased text-left">
         {/* Hero Section */}
         <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ height: '500px' }}>
             <Image
@@ -242,7 +267,7 @@ export default function OneToOneClassesPage() {
                         </div>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left">
                                     <FormField
                                         control={form.control}
                                         name="name"
@@ -283,7 +308,7 @@ export default function OneToOneClassesPage() {
                                         </FormItem>
                                     )}
                                 />
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left">
                                     <FormField
                                         control={form.control}
                                         name="board"
@@ -332,7 +357,7 @@ export default function OneToOneClassesPage() {
                                     />
                                 </div>
                                 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left">
                                      <FormField
                                         control={form.control}
                                         name="individualConcern"
@@ -358,7 +383,7 @@ export default function OneToOneClassesPage() {
                                         )}
                                     />
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left">
                                      <FormField
                                         control={form.control}
                                         name="personalizedStudyMaterial"
@@ -385,8 +410,21 @@ export default function OneToOneClassesPage() {
                                     />
                                 </div>
                                 
-                                <Button type="submit" size="lg" className="w-full h-14 text-lg font-bold text-white rounded-2xl shadow-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/25 transition-all duration-300 transform active:scale-95 mt-4 border-none">
-                                    <Send className="h-5 w-5 mr-2"/> {content.submitBtnText}
+                                <Button 
+                                    type="submit" 
+                                    size="lg" 
+                                    disabled={isSubmitting}
+                                    className="w-full h-14 text-lg font-bold text-white rounded-2xl shadow-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:shadow-blue-500/25 transition-all duration-300 transform active:scale-95 mt-4 border-none"
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="h-5 w-5 mr-2 animate-spin"/> Processing...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Send className="h-5 w-5 mr-2"/> {content.submitBtnText}
+                                        </>
+                                    )}
                                 </Button>
                             </form>
                         </Form>
