@@ -16,6 +16,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Bharath Academy Hub',
   description: 'Welcome to Bharath Academy',
+  icons: {
+    icon: '/fav.png',
+  },
 };
 
 export default function RootLayout({
@@ -25,9 +28,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
-      <head>
-        <link rel="icon" href="/fav.png" type="image/png" />
-      </head>
       <body className={`${inter.variable} font-body antialiased flex flex-col min-h-screen`}>
         <FirebaseClientProvider>
           <ClientHeader />
