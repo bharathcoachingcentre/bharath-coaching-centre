@@ -44,9 +44,7 @@ import { useFirestore } from "@/firebase"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
-
-// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE TO SYNC LIVE
-const GOOGLE_SHEET_WEBHOOK_URL = ""; 
+import { appendToGoogleSheetAction } from "@/app/actions/google-sheet"
 
 const formSchema = z.object({
     firstName: z.string().min(1, { message: "First name is required." }),
@@ -201,14 +199,14 @@ export default function EnrollmentPage() {
             const enrollmentsRef = collection(firestore, 'enrollments');
             await addDoc(enrollmentsRef, enrollmentData);
 
-            // 2. Optional: Sync to Google Sheets if URL provided
-            if (GOOGLE_SHEET_WEBHOOK_URL) {
-                fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...enrollmentData, type: 'enrollment' })
-                }).catch(err => console.warn("Google Sheet Sync Failed:", err));
+            // 2. Sync to Google Sheets via secure Server Action
+            const syncResult = await appendToGoogleSheetAction({ 
+                ...enrollmentData, 
+                type: 'enrollment' 
+            });
+
+            if (!syncResult.success) {
+                console.warn("Sheet Sync Warning:", syncResult.error);
             }
 
             // 3. Create User Account (Pending)

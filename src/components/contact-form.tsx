@@ -33,9 +33,7 @@ import {
     signInWithPhoneNumber, 
     ConfirmationResult 
 } from "firebase/auth"
-
-// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE TO SYNC LIVE
-const GOOGLE_SHEET_WEBHOOK_URL = ""; 
+import { appendToGoogleSheetAction } from "@/app/actions/google-sheet"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -121,12 +119,10 @@ export function ContactForm() {
                 description: `A verification code has been sent to ${phone}.`,
             });
         } catch (error: any) {
-            // IF we get the billing error or a specific Firebase auth error related to billing
             if (error.code === 'auth/billing-not-enabled' || error.message?.includes('billing')) {
                 setIsSimulationMode(true);
                 setIsOtpDialogOpen(true);
                 
-                // Create a mock confirmation result for simulation
                 setConfirmationResult({
                     confirm: async (code: string) => {
                         if (code === "123456") return { user: { phoneNumber: values.mobileNumber } };
@@ -146,7 +142,6 @@ export function ContactForm() {
                 });
             }
 
-            // Cleanup recaptcha on error so it can be re-initialized if needed
             if (typeof window !== 'undefined' && (window as any).recaptchaVerifier) {
                 try {
                     (window as any).recaptchaVerifier.clear();
@@ -172,20 +167,26 @@ export function ContactForm() {
         try {
             await confirmationResult.confirm(otpValue);
             
-            // Sync to Google Sheets if webhook is provided
-            if (GOOGLE_SHEET_WEBHOOK_URL && formData) {
-                fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...formData, type: 'contact', submittedAt: new Date().toISOString() })
-                }).catch(err => console.warn("Google Sheet Sync Failed:", err));
-            }
+            if (formData) {
+                // Sync to Google Sheets via secure Server Action
+                const syncResult = await appendToGoogleSheetAction({ 
+                    ...formData, 
+                    type: 'contact' 
+                });
 
-            toast({
-                title: "Message Sent Successfully!",
-                description: "Your inquiry has been received and verified.",
-            });
+                if (syncResult.success) {
+                    toast({
+                        title: "Message Sent!",
+                        description: "Your inquiry has been received and verified.",
+                    });
+                } else {
+                    console.warn("Sheet Sync Warning:", syncResult.error);
+                    toast({
+                        title: "Message Verified",
+                        description: "Submission successful, but cloud sync encountered an issue.",
+                    });
+                }
+            }
             
             setIsOtpDialogOpen(false);
             form.reset();
