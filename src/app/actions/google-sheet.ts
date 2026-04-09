@@ -8,19 +8,26 @@ import { google } from 'googleapis';
  */
 export async function appendToGoogleSheetAction(data: any) {
   try {
-    const email = process.env.SERVICE_EMAIL;
-    let privateKey = process.env.PRIVATE_KEY;
-    let sheetId = process.env.SHEET_ID;
-    const tabName = process.env.TAB_NAME || 'Sheet1';
+    // Match the exact keys provided by the user in their configuration
+    const email = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
+    let privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+    let sheetId = process.env.GOOGLE_SHEET_ID;
+    const tabName = process.env.GOOGLE_SHEET_TAB_NAME || 'Sheet1';
 
     if (!email || !privateKey || !sheetId) {
-      throw new Error('Missing configuration: SERVICE_EMAIL, PRIVATE_KEY, or SHEET_ID is not set in environment variables.');
+      throw new Error('Missing configuration: GOOGLE_SHEETS_CLIENT_EMAIL, GOOGLE_SHEETS_PRIVATE_KEY, or GOOGLE_SHEET_ID is not set in environment variables.');
     }
 
     // Handle newline characters in private key (common issue in env files)
-    privateKey = privateKey.replace(/\\n/g, '\n');
+    // We clean the key to ensure it starts and ends correctly
+    privateKey = privateKey.replace(/\\n/g, '\n').trim();
+    
+    // Ensure the key has the correct headers if they were somehow missing
+    if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
+      privateKey = `-----BEGIN PRIVATE KEY-----\n${privateKey}\n-----END PRIVATE KEY-----`;
+    }
 
-    // Extract Sheet ID if the user provided the full URL
+    // Extract Sheet ID if the user provided the full URL by mistake
     if (sheetId.includes('docs.google.com/spreadsheets/d/')) {
       const parts = sheetId.split('/d/');
       if (parts[1]) {
