@@ -3,8 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { Send, Smartphone, ShieldCheck, Loader2, RefreshCw, Info } from "lucide-react"
-import React, { useState, useEffect } from "react"
+import { Send, Smartphone, ShieldCheck, Loader2, Info } from "lucide-react"
+import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -80,12 +80,16 @@ export function ContactForm() {
     const setupRecaptcha = () => {
         const { auth } = initializeFirebase();
         if (typeof window !== 'undefined' && !(window as any).recaptchaVerifier) {
-            (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-                'size': 'invisible',
-                'callback': () => {
-                    console.log("Recaptcha resolved");
-                }
-            });
+            try {
+                (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                    'size': 'invisible',
+                    'callback': () => {
+                        console.log("Recaptcha resolved");
+                    }
+                });
+            } catch (err) {
+                console.error("Recaptcha init failed:", err);
+            }
         }
     };
 
@@ -99,6 +103,10 @@ export function ContactForm() {
             setupRecaptcha();
             const appVerifier = (window as any).recaptchaVerifier;
             
+            if (!appVerifier) {
+                throw new Error("reCAPTCHA initialization failed. Please refresh the page.");
+            }
+
             let phone = values.mobileNumber.trim();
             if (!phone.startsWith('+')) {
                 phone = '+91' + phone; 
@@ -109,43 +117,41 @@ export function ContactForm() {
             setIsOtpDialogOpen(true);
             toast({
                 title: "OTP Sent",
-                description: `A 6-digit verification code has been sent to ${phone}.`,
+                description: `A verification code has been sent to ${phone}.`,
             });
         } catch (error: any) {
-            console.error("SMS Error:", error);
+            console.error("Firebase SMS Auth Error:", error);
             
-            if (error.code === 'auth/billing-not-enabled') {
+            // Handle common billing error by offering simulation mode
+            if (error.code === 'auth/billing-not-enabled' || error.message?.includes('billing')) {
                 setIsSimulationMode(true);
                 setIsOtpDialogOpen(true);
+                // Create a mock confirmation result for simulation
                 setConfirmationResult({
                     confirm: async (code: string) => {
                         if (code === "123456") return { user: { phoneNumber: values.mobileNumber } };
-                        throw new Error("Invalid simulation code");
+                        throw new Error("Invalid simulation code. Please use '123456'.");
                     }
                 } as any);
 
                 toast({
-                    title: "Prototype Simulation Enabled",
-                    description: "Real SMS requires a paid plan. Use code '123456' to test the flow for free.",
+                    title: "Prototype Mode Active",
+                    description: "SMS requires a paid plan. Use code '123456' to continue testing.",
                 });
             } else {
-                let errorMessage = "Please check the mobile number and try again.";
-                if (error.code === 'auth/operation-not-allowed') {
-                    errorMessage = "Phone authentication is not enabled in Firebase Console.";
-                } else if (error.message) {
-                    errorMessage = error.message;
-                }
-
                 toast({
                     variant: "destructive",
-                    title: "Failed to send OTP",
-                    description: errorMessage,
+                    title: "System Error",
+                    description: error.message || "Failed to initiate phone verification.",
                 });
             }
 
+            // Cleanup recaptcha on error so it can be re-initialized
             if (typeof window !== 'undefined' && (window as any).recaptchaVerifier) {
-                (window as any).recaptchaVerifier.clear();
-                (window as any).recaptchaVerifier = null;
+                try {
+                    (window as any).recaptchaVerifier.clear();
+                    (window as any).recaptchaVerifier = null;
+                } catch (e) {}
             }
         } finally {
             setIsSendingOtp(false);
@@ -156,8 +162,8 @@ export function ContactForm() {
         if (!confirmationResult || !otpValue || otpValue.length !== 6) {
             toast({
                 variant: "destructive",
-                title: "Invalid Code",
-                description: "Please enter the 6-digit code received on your phone.",
+                title: "Invalid Input",
+                description: "Please enter the 6-digit code.",
             });
             return;
         }
@@ -166,7 +172,7 @@ export function ContactForm() {
         try {
             await confirmationResult.confirm(otpValue);
             
-            // Sync to Google Sheets
+            // Sync to Google Sheets if webhook is provided
             if (GOOGLE_SHEET_WEBHOOK_URL && formData) {
                 fetch(GOOGLE_SHEET_WEBHOOK_URL, {
                     method: 'POST',
@@ -177,8 +183,8 @@ export function ContactForm() {
             }
 
             toast({
-                title: "Message Sent!",
-                description: "Your phone number has been verified and your inquiry has been received.",
+                title: "Message Sent Successfully!",
+                description: "Your inquiry has been received and verified.",
             });
             
             setIsOtpDialogOpen(false);
@@ -187,11 +193,11 @@ export function ContactForm() {
             setConfirmationResult(null);
             setIsSimulationMode(false);
         } catch (error: any) {
-            console.error("Verification Error:", error);
+            console.error("OTP Verification Error:", error);
             toast({
                 variant: "destructive",
                 title: "Verification Failed",
-                description: isSimulationMode ? "For simulation, please use code '123456'." : "The code you entered is incorrect or has expired.",
+                description: error.message || "The code is incorrect or expired.",
             });
         } finally {
             setIsVerifying(false);
@@ -290,7 +296,7 @@ export function ContactForm() {
                     >
                         {isSendingOtp ? (
                             <>
-                                <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Sending Code...
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Processing...
                             </>
                         ) : (
                             <>
@@ -308,12 +314,12 @@ export function ContactForm() {
                             <ShieldCheck className="w-6 h-6" />
                         </div>
                         <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">
-                            {isSimulationMode ? "Simulation Mode" : "Verify Your Phone"}
+                            {isSimulationMode ? "Simulation Active" : "Verify Phone Number"}
                         </DialogTitle>
                         <DialogDescription className="text-gray-500 font-medium">
                             {isSimulationMode 
-                                ? "Real SMS requires a paid Firebase plan. We've enabled a simulation for your prototype." 
-                                : "We've sent a 6-digit verification code to your mobile number."}
+                                ? "Firebase billing is disabled. Use the prototype bypass code to proceed." 
+                                : "A verification code has been sent to your mobile number."}
                         </DialogDescription>
                     </DialogHeader>
                     
@@ -322,13 +328,13 @@ export function ContactForm() {
                             <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl flex items-start gap-3">
                                 <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                                 <p className="text-xs text-amber-800 font-medium leading-relaxed">
-                                    To test real SMS for free later, add your phone number as a <strong>Test Number</strong> in the Firebase Console under Authentication {">"} Users.
+                                    To test real SMS, enable billing in Firebase or add your number as a <strong>Test Number</strong> in the Firebase Console.
                                 </p>
                             </div>
                         )}
                         <div className="space-y-2">
                             <FormLabel className="text-xs font-black uppercase text-gray-400 tracking-widest text-center block w-full">
-                                {isSimulationMode ? "Enter '123456' to proceed" : "Enter Verification Code"}
+                                {isSimulationMode ? "Enter '123456' to bypass" : "Enter 6-Digit Code"}
                             </FormLabel>
                             <Input 
                                 placeholder="000000" 
@@ -350,7 +356,7 @@ export function ContactForm() {
                                     <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Verifying...
                                 </>
                             ) : (
-                                "Complete Submission"
+                                "Verify & Submit"
                             )}
                         </Button>
                     </DialogFooter>
