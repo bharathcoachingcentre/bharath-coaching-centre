@@ -17,18 +17,9 @@ export const metadata: Metadata = {
   title: 'Bharath Academy Hub',
   description: 'Welcome to Bharath Academy',
   icons: {
-    icon: [
-      {
-        url: '/fav.png',
-        type: 'image/png',
-      },
-    ],
-    apple: [
-      {
-        url: '/fav.png',
-        type: 'image/png',
-      },
-    ],
+    icon: '/fav.ico',
+    shortcut: '/fav.ico',
+    apple: '/fav.ico',
   },
 };
 
