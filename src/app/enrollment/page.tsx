@@ -207,7 +207,7 @@ export default function EnrollmentPage() {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(enrollmentData)
+                    body: JSON.stringify({ ...enrollmentData, type: 'enrollment' })
                 }).catch(err => console.warn("Google Sheet Sync Failed:", err));
             }
 

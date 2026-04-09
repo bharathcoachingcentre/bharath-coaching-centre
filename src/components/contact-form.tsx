@@ -33,6 +33,9 @@ import {
     ConfirmationResult 
 } from "firebase/auth"
 
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE TO SYNC LIVE
+const GOOGLE_SHEET_WEBHOOK_URL = ""; 
+
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -112,7 +115,6 @@ export function ContactForm() {
             console.error("SMS Error:", error);
             
             if (error.code === 'auth/billing-not-enabled') {
-                // FALLBACK FOR FREE TESTING: Enable a "Simulation Mode" for the prototype
                 setIsSimulationMode(true);
                 setIsOtpDialogOpen(true);
                 setConfirmationResult({
@@ -164,6 +166,16 @@ export function ContactForm() {
         try {
             await confirmationResult.confirm(otpValue);
             
+            // Sync to Google Sheets
+            if (GOOGLE_SHEET_WEBHOOK_URL && formData) {
+                fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, type: 'contact', submittedAt: new Date().toISOString() })
+                }).catch(err => console.warn("Google Sheet Sync Failed:", err));
+            }
+
             toast({
                 title: "Message Sent!",
                 description: "Your phone number has been verified and your inquiry has been received.",
