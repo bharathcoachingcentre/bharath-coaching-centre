@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import {
@@ -332,9 +333,9 @@ export function ContactForm() {
                             </div>
                         )}
                         <div className="space-y-2">
-                            <FormLabel className="text-xs font-black uppercase text-gray-400 tracking-widest text-center block w-full">
+                            <Label className="text-xs font-black uppercase text-gray-400 tracking-widest text-center block w-full">
                                 {isSimulationMode ? "Enter '123456'" : "Enter 6-Digit Code"}
-                            </FormLabel>
+                            </Label>
                             <Input 
                                 placeholder="000000" 
                                 value={otpValue}
