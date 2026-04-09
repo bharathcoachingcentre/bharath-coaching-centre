@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo } from "react";
@@ -10,7 +9,9 @@ import {
   GraduationCap, 
   ArrowUpRight,
   ChevronRight,
-  Loader2
+  Loader2,
+  TableProperties,
+  ExternalLink
 } from "lucide-react";
 import { 
   BarChart, 
@@ -30,6 +31,8 @@ import { cn } from "@/lib/utils";
 import { useFirestore, useCollection } from "@/firebase";
 import { collection, query, orderBy, limit } from "firebase/firestore";
 import Link from "next/link";
+
+const EXTERNAL_SHEET_URL = "https://docs.google.com/spreadsheets/d/1IuzQxil2Gb5-dTyoi20ZjKpTbAtYtbHyGgG8XR1qhrg/edit?usp=sharing";
 
 const enrollmentData = [
   { name: "Jan", total: 120 },
@@ -117,8 +120,15 @@ export default function AdminDashboard() {
           <CardContent className="p-8">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-xl font-bold text-gray-900 tracking-tight">Enrollment Trends</h3>
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-[#35a3be]/10 text-[#35a3be] rounded-lg text-xs font-bold">
-                <ArrowUpRight className="w-3.5 h-3.5" /> +18%
+              <div className="flex items-center gap-4">
+                <Button asChild size="sm" variant="outline" className="rounded-lg h-9 font-bold text-emerald-600 border-emerald-100 hover:bg-emerald-50">
+                  <a href={EXTERNAL_SHEET_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <TableProperties className="w-3.5 h-3.5" /> Google Sheet
+                  </a>
+                </Button>
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-[#35a3be]/10 text-[#35a3be] rounded-lg text-xs font-bold">
+                  <ArrowUpRight className="w-3.5 h-3.5" /> +18%
+                </div>
               </div>
             </div>
             <div className="h-[300px] w-full">

@@ -22,7 +22,8 @@ import {
     ArrowLeft,
     CheckCircle2,
     Mail,
-    Calendar
+    Calendar,
+    TableProperties
 } from "lucide-react"
 import React, { useEffect, useState, useRef } from "react"
 import { cn } from "@/lib/utils"
@@ -43,6 +44,9 @@ import { useFirestore } from "@/firebase"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE TO SYNC LIVE
+const GOOGLE_SHEET_WEBHOOK_URL = ""; 
 
 const formSchema = z.object({
     firstName: z.string().min(1, { message: "First name is required." }),
@@ -76,13 +80,13 @@ const formSchema = z.object({
 });
 
 const subjectItems = [
-    { id: "tamil", label: "Tamil" },
-    { id: "english", label: "English" },
-    { id: "maths", label: "Maths" },
-    { id: "science", label: "Science" },
-    { id: "social", label: "Social" },
-    { id: "physics", label: "Physics" },
-    { id: "chemistry", label: "Chemistry" },
+    { id: "Tamil", label: "Tamil" },
+    { id: "English", label: "English" },
+    { id: "Mathematics", label: "Mathematics" },
+    { id: "Science", label: "Science" },
+    { id: "Social Science", label: "Social Science" },
+    { id: "Physics", label: "Physics" },
+    { id: "Chemistry", label: "Chemistry" },
 ];
 
 const steps = [
@@ -98,8 +102,6 @@ export default function EnrollmentPage() {
     const [isMounted, setIsMounted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-    const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -195,9 +197,21 @@ export default function EnrollmentPage() {
                 createdAt: timestamp,
             };
 
+            // 1. Save to Firestore
             const enrollmentsRef = collection(firestore, 'enrollments');
             await addDoc(enrollmentsRef, enrollmentData);
 
+            // 2. Optional: Sync to Google Sheets if URL provided
+            if (GOOGLE_SHEET_WEBHOOK_URL) {
+                fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(enrollmentData)
+                }).catch(err => console.warn("Google Sheet Sync Failed:", err));
+            }
+
+            // 3. Create User Account (Pending)
             const usersRef = collection(firestore, 'users');
             await addDoc(usersRef, {
                 email: values.email,

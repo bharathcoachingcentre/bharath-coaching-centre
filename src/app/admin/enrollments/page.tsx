@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -18,7 +17,9 @@ import {
   Eye,
   Pencil,
   Trash2,
-  Loader2
+  Loader2,
+  TableProperties,
+  ExternalLink
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,6 +48,8 @@ const statusStyles: Record<string, string> = {
   Completed: "bg-emerald-100 text-emerald-600",
   Dropped: "bg-rose-100 text-rose-600",
 };
+
+const EXTERNAL_SHEET_URL = "https://docs.google.com/spreadsheets/d/1IuzQxil2Gb5-dTyoi20ZjKpTbAtYtbHyGgG8XR1qhrg/edit?usp=sharing";
 
 export default function EnrollmentsPage() {
   const firestore = useFirestore();
@@ -111,7 +114,12 @@ export default function EnrollmentsPage() {
             className="pl-10 h-12 bg-white border-gray-200 rounded-xl focus-visible:ring-blue-600 shadow-sm"
           />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <Button asChild variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-emerald-600 hover:bg-emerald-50 gap-2">
+            <a href={EXTERNAL_SHEET_URL} target="_blank" rel="noopener noreferrer">
+              <TableProperties className="w-4 h-4" /> Live Google Sheet
+            </a>
+          </Button>
           <Button variant="outline" className="h-12 px-5 border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
             <Filter className="w-4 h-4" /> Filter
           </Button>
