@@ -54,6 +54,7 @@ const formSchema = z.object({
     dob: z.string().min(1, { message: "Date of birth is required." }),
     religion: z.string().min(1, { message: "Religion is required." }),
     fatherName: z.string().min(1, { message: "Father's name is required." }),
+    fatherNameNo: z.string().optional(), // Added for compatibility with action if needed, though schema uses fatherNo
     fatherOccupation: z.string().min(1, { message: "Father's occupation is required." }),
     motherName: z.string().min(1, { message: "Mother's name is required." }),
     motherOccupation: z.string().min(1, { message: "Mother's occupation is required." }),
@@ -162,7 +163,7 @@ export default function EnrollmentPage() {
             case 1:
                 return ["firstName", "lastName", "email", "gender", "dob", "religion", "fatherName", "fatherOccupation", "motherName", "motherOccupation"];
             case 2:
-                return ["academicYear", "standard", "subjects", "institutionName", "board", "batchTiming"];
+                return ["academicYear", "standard", "subjects", "otherSubject", "institutionName", "board", "batchTiming"];
             case 3:
                 return ["feesDetails", "admissionDate"];
             case 4:
@@ -561,6 +562,19 @@ export default function EnrollmentPage() {
                                                                 />
                                                             ))}
                                                         </div>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="otherSubject"
+                                                render={({ field }) => (
+                                                    <FormItem className="text-left mt-2">
+                                                        <FormLabel className="text-[#182d45] font-bold">Other Subject (if any)</FormLabel>
+                                                        <FormControl>
+                                                            <Input placeholder="Specify other subjects" {...field} className="h-12 bg-gray-50 border-gray-100 rounded-xl shadow-sm" />
+                                                        </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
                                                 )}
