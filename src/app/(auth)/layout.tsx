@@ -4,6 +4,9 @@ import '../globals.css';
 export const metadata: Metadata = {
   title: 'Sign In - Bharath Academy Hub',
   description: 'Sign in to your account',
+  icons: {
+    icon: '/fav.png',
+  },
 };
 
 export default function AuthLayout({
