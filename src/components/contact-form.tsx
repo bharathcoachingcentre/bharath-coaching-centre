@@ -136,10 +136,8 @@ export function ContactForm() {
                 } as any);
 
                 toast({
-                    title: isQuotaError ? "Rate Limit Exceeded" : "Simulation Mode Active",
-                    description: isQuotaError 
-                        ? "Verification requests are temporarily blocked by Google. Switching to simulation mode. Use code '123456'."
-                        : "SMS requires a paid plan. Use code '123456' to continue testing.",
+                    title: isQuotaError ? "Rate Limit Active" : "Simulation Mode Active",
+                    description: "Switching to simulation mode. Use code '123456' to proceed.",
                 });
             } else {
                 toast({
@@ -186,19 +184,20 @@ export function ContactForm() {
                         title: "Message Sent!",
                         description: "Your inquiry has been received and verified.",
                     });
+                    form.reset();
+                    setOtpCode("");
+                    setIsOtpDialogOpen(false);
                 } else {
                     console.warn("Sheet Sync Warning:", syncResult.error);
                     toast({
                         variant: "destructive",
-                        title: "Sync Failed",
-                        description: `Form verified, but Google Sheet error: ${syncResult.error || "Unknown error"}`,
+                        title: "Cloud Sync Issue",
+                        description: syncResult.error || "Form verified, but could not save to spreadsheet.",
                     });
+                    // We don't close the dialog yet so the user can see the error
                 }
             }
             
-            setIsOtpDialogOpen(false);
-            form.reset();
-            setOtpCode("");
             setConfirmationResult(null);
             setIsSimulationMode(false);
         } catch (error: any) {

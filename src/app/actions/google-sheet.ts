@@ -8,26 +8,40 @@ import { google } from 'googleapis';
  */
 export async function appendToGoogleSheetAction(data: any) {
   try {
-    // Match the exact keys provided by the user in their configuration
-    const email = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
-    let privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
-    let sheetId = process.env.GOOGLE_SHEET_ID;
-    const tabName = process.env.GOOGLE_SHEET_TAB_NAME || 'Sheet1';
+    // 1. Read and clean environment variables
+    const getEnv = (key: string) => {
+      let val = process.env[key] || '';
+      val = val.trim();
+      // Strip surrounding quotes if present (common in some env loaders)
+      if (val.startsWith('"') && val.endsWith('"')) {
+        val = val.substring(1, val.length - 1);
+      }
+      return val;
+    };
+
+    const email = getEnv('GOOGLE_SHEETS_CLIENT_EMAIL');
+    let privateKey = getEnv('GOOGLE_SHEETS_PRIVATE_KEY');
+    let sheetId = getEnv('GOOGLE_SHEET_ID');
+    const tabName = getEnv('GOOGLE_SHEET_TAB_NAME') || 'Sheet1';
 
     if (!email || !privateKey || !sheetId) {
-      throw new Error('Missing configuration: GOOGLE_SHEETS_CLIENT_EMAIL, GOOGLE_SHEETS_PRIVATE_KEY, or GOOGLE_SHEET_ID is not set in environment variables.');
+      const missing = [];
+      if (!email) missing.push('GOOGLE_SHEETS_CLIENT_EMAIL');
+      if (!privateKey) missing.push('GOOGLE_SHEETS_PRIVATE_KEY');
+      if (!sheetId) missing.push('GOOGLE_SHEET_ID');
+      throw new Error(`Missing environment variables: ${missing.join(', ')}`);
     }
 
-    // Handle newline characters in private key (common issue in env files)
-    // We clean the key to ensure it starts and ends correctly
-    privateKey = privateKey.replace(/\\n/g, '\n').trim();
+    // 2. Format Private Key correctly
+    // Replace literal '\n' string with actual newline character
+    privateKey = privateKey.replace(/\\n/g, '\n');
     
-    // Ensure the key has the correct headers if they were somehow missing
+    // Ensure it has the proper headers
     if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
       privateKey = `-----BEGIN PRIVATE KEY-----\n${privateKey}\n-----END PRIVATE KEY-----`;
     }
 
-    // Extract Sheet ID if the user provided the full URL by mistake
+    // 3. Extract Sheet ID from URL if provided
     if (sheetId.includes('docs.google.com/spreadsheets/d/')) {
       const parts = sheetId.split('/d/');
       if (parts[1]) {
@@ -35,6 +49,7 @@ export async function appendToGoogleSheetAction(data: any) {
       }
     }
 
+    // 4. Authenticate
     const auth = new google.auth.JWT(
       email,
       undefined,
@@ -44,7 +59,7 @@ export async function appendToGoogleSheetAction(data: any) {
 
     const sheets = google.sheets({ version: 'v4', auth });
     
-    // Construct values based on form type
+    // 5. Construct Row Values
     let rowValues: any[] = [];
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
@@ -52,25 +67,26 @@ export async function appendToGoogleSheetAction(data: any) {
       rowValues = [
         timestamp,
         'CONTACT',
-        data.name,
-        data.email,
-        data.mobileNumber,
-        data.subject,
-        data.message
+        data.name || 'N/A',
+        data.email || 'N/A',
+        data.mobileNumber || 'N/A',
+        data.subject || 'N/A',
+        data.message || 'N/A'
       ];
     } else {
       rowValues = [
         timestamp,
         `ENROLLMENT: ${data.admissionNo || 'N/A'}`,
-        `${data.firstName} ${data.lastName}`,
-        data.email,
-        data.whatsappNo,
-        data.standard,
-        data.board,
+        `${data.firstName || ''} ${data.lastName || ''}`.trim(),
+        data.email || 'N/A',
+        data.whatsappNo || 'N/A',
+        data.standard || 'N/A',
+        data.board || 'N/A',
         data.subjects ? (Array.isArray(data.subjects) ? data.subjects.join(', ') : data.subjects) : ''
       ];
     }
 
+    // 6. Append to Sheet
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
       range: `${tabName}!A:A`,
@@ -82,8 +98,16 @@ export async function appendToGoogleSheetAction(data: any) {
 
     return { success: true };
   } catch (error: any) {
-    console.error('Google Sheet Server Action Error:', error);
-    // Return the specific error message to the frontend for debugging
-    return { success: false, error: error.message };
+    console.error('Google Sheet Sync Error:', error);
+    // Return a readable error message for the UI toast
+    let message = error.message || 'Unknown server error';
+    if (message.includes('invalid_grant')) {
+      message = 'Invalid Private Key or Service Account Email. Check your .env formatting.';
+    } else if (message.includes('403') || message.includes('permission')) {
+      message = 'Permission denied. Ensure the Google Sheet is shared with the Service Account email as an Editor.';
+    } else if (message.includes('404')) {
+      message = 'Spreadsheet not found. Check your GOOGLE_SHEET_ID.';
+    }
+    return { success: false, error: message };
   }
 }
