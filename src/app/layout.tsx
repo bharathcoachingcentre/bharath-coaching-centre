@@ -17,9 +17,18 @@ export const metadata: Metadata = {
   title: 'Bharath Academy Hub',
   description: 'Welcome to Bharath Academy',
   icons: {
-    icon: '/fav.png',
-    shortcut: '/fav.png',
-    apple: '/fav.png',
+    icon: [
+      {
+        url: '/fav.png',
+        type: 'image/png',
+      },
+    ],
+    apple: [
+      {
+        url: '/fav.png',
+        type: 'image/png',
+      },
+    ],
   },
 };
 
@@ -30,10 +39,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
-      <head>
-        <link rel="icon" href="/fav.png" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/fav.png" />
-      </head>
       <body className={`${inter.variable} font-body antialiased flex flex-col min-h-screen`}>
         <FirebaseClientProvider>
           <ClientHeader />
