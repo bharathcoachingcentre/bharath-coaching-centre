@@ -1,10 +1,11 @@
+
 'use server';
 
 import { google } from 'googleapis';
 
 /**
  * Appends a row to the configured Google Sheet using Service Account credentials.
- * Sensitive variables are read from process.env on the server.
+ * Dynamically selects the tab based on the data type.
  */
 export async function appendToGoogleSheetAction(data: any) {
   try {
@@ -14,43 +15,36 @@ export async function appendToGoogleSheetAction(data: any) {
       if (!val) return '';
       
       let cleaned = val.trim();
-      // Strip surrounding quotes if present (common in some env loaders)
       if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
         cleaned = cleaned.substring(1, cleaned.length - 1);
       }
-      // Re-trim after quote removal
       return cleaned.trim();
     };
 
     const email = getEnv('GOOGLE_SHEETS_CLIENT_EMAIL');
     let privateKey = getEnv('GOOGLE_SHEETS_PRIVATE_KEY');
     let sheetId = getEnv('GOOGLE_SHEET_ID');
-    const tabName = getEnv('GOOGLE_SHEET_TAB_NAME') || 'Sheet1';
+    const defaultTabName = getEnv('GOOGLE_SHEET_TAB_NAME') || 'contact';
 
-    // Validation with detailed reporting
+    // 2. Determine target tab name
+    // If it's an enrollment, use the "Enrollment" tab. Otherwise use the default (contact).
+    const targetTab = data.type === 'contact' ? defaultTabName : 'Enrollment';
+
+    // Validation
     if (!email || !privateKey || !sheetId) {
-      const missing = [];
-      if (!email) missing.push('GOOGLE_SHEETS_CLIENT_EMAIL');
-      if (!privateKey) missing.push('GOOGLE_SHEETS_PRIVATE_KEY');
-      if (!sheetId) missing.push('GOOGLE_SHEET_ID');
-      
-      console.error('Environment variables missing:', missing);
       return { 
         success: false, 
-        error: `System Configuration Missing: ${missing.join(', ')}. Please ensure these are set in your environment settings.` 
+        error: "System Configuration Missing. Please check your environment variables." 
       };
     }
 
-    // 2. Format Private Key correctly
-    // Replace literal '\n' string with actual newline character
+    // 3. Format Private Key
     privateKey = privateKey.replace(/\\n/g, '\n');
-    
-    // Ensure it has the proper headers if missing
     if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
       privateKey = `-----BEGIN PRIVATE KEY-----\n${privateKey}\n-----END PRIVATE KEY-----`;
     }
 
-    // 3. Extract Sheet ID from URL if the user accidentally pasted the whole URL
+    // 4. Extract Sheet ID from URL if necessary
     if (sheetId.includes('docs.google.com/spreadsheets/d/')) {
       const parts = sheetId.split('/d/');
       if (parts[1]) {
@@ -58,7 +52,7 @@ export async function appendToGoogleSheetAction(data: any) {
       }
     }
 
-    // 4. Authenticate
+    // 5. Authenticate
     const auth = new google.auth.JWT(
       email,
       undefined,
@@ -68,9 +62,9 @@ export async function appendToGoogleSheetAction(data: any) {
 
     const sheets = google.sheets({ version: 'v4', auth });
     
-    // 5. Construct Row Values
-    let rowValues: any[] = [];
+    // 6. Construct Row Values
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    let rowValues: any[] = [];
 
     if (data.type === 'contact') {
       rowValues = [
@@ -91,14 +85,14 @@ export async function appendToGoogleSheetAction(data: any) {
         data.whatsappNo || 'N/A',
         data.standard || 'N/A',
         data.board || 'N/A',
-        data.subjects ? (Array.isArray(data.subjects) ? data.subjects.join(', ') : data.subjects) : ''
+        data.subjects ? (Array.isArray(data.subjects) ? data.subjects.join(', ') : data.subjects) : 'N/A'
       ];
     }
 
-    // 6. Append to Sheet
+    // 7. Append to Sheet
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: `${tabName}!A:A`,
+      range: `${targetTab}!A:A`,
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [rowValues],
@@ -108,17 +102,6 @@ export async function appendToGoogleSheetAction(data: any) {
     return { success: true };
   } catch (error: any) {
     console.error('Google Sheet Sync Error:', error);
-    let message = error.message || 'Unknown server error';
-    
-    // User-friendly error mapping
-    if (message.includes('invalid_grant')) {
-      message = 'Authentication Failed: The Private Key or Client Email is incorrect.';
-    } else if (message.includes('403') || message.includes('permission')) {
-      message = 'Permission Denied: Ensure you have shared the Google Sheet with the Service Account email as an Editor.';
-    } else if (message.includes('404')) {
-      message = 'Spreadsheet Not Found: Please check your GOOGLE_SHEET_ID.';
-    }
-    
-    return { success: false, error: message };
+    return { success: false, error: error.message || 'Unknown server error' };
   }
 }
