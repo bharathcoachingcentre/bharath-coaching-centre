@@ -189,8 +189,9 @@ export function ContactForm() {
                 } else {
                     console.warn("Sheet Sync Warning:", syncResult.error);
                     toast({
-                        title: "Message Verified",
-                        description: "Submission successful, but cloud sync encountered an issue.",
+                        variant: "destructive",
+                        title: "Sync Failed",
+                        description: `Form verified, but Google Sheet error: ${syncResult.error || "Unknown error"}`,
                     });
                 }
             }

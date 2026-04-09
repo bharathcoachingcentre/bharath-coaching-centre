@@ -9,12 +9,23 @@ import { google } from 'googleapis';
 export async function appendToGoogleSheetAction(data: any) {
   try {
     const email = process.env.SERVICE_EMAIL;
-    const privateKey = process.env.PRIVATE_KEY?.replace(/\\n/g, '\n');
-    const sheetId = process.env.SHEET_ID;
+    let privateKey = process.env.PRIVATE_KEY;
+    let sheetId = process.env.SHEET_ID;
     const tabName = process.env.TAB_NAME || 'Sheet1';
 
     if (!email || !privateKey || !sheetId) {
-      throw new Error('Missing Google Sheets configuration in environment variables.');
+      throw new Error('Missing configuration: SERVICE_EMAIL, PRIVATE_KEY, or SHEET_ID is not set in environment variables.');
+    }
+
+    // Handle newline characters in private key (common issue in env files)
+    privateKey = privateKey.replace(/\\n/g, '\n');
+
+    // Extract Sheet ID if the user provided the full URL
+    if (sheetId.includes('docs.google.com/spreadsheets/d/')) {
+      const parts = sheetId.split('/d/');
+      if (parts[1]) {
+        sheetId = parts[1].split('/')[0];
+      }
     }
 
     const auth = new google.auth.JWT(
@@ -65,6 +76,7 @@ export async function appendToGoogleSheetAction(data: any) {
     return { success: true };
   } catch (error: any) {
     console.error('Google Sheet Server Action Error:', error);
+    // Return the specific error message to the frontend for debugging
     return { success: false, error: error.message };
   }
 }
