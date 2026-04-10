@@ -19,10 +19,10 @@ export const metadata: Metadata = {
   description: 'Welcome to Bharath Academy',
   icons: {
     icon: [
-      { url: '/fav.ico?v=2', type: 'image/x-icon' },
+      { url: '/fav.ico?v=3', type: 'image/x-icon' },
     ],
-    shortcut: '/fav.ico?v=2',
-    apple: '/fav.ico?v=2',
+    shortcut: '/fav.ico?v=3',
+    apple: '/fav.ico?v=3',
   },
 };
 
@@ -34,11 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <head>
-        {/* Explicit fallback tags to ensure Firefox picks up the icon and bypasses cache */}
-        {/* Firefox is strictly compliant and often requires these to be present early in the head */}
-        <link rel="icon" href="/fav.ico?v=2" type="image/x-icon" sizes="any" />
-        <link rel="shortcut icon" href="/fav.ico?v=2" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="/fav.ico?v=2" />
+        {/* Aggressive Firefox Cache-Bypass & MIME satisfaction */}
+        <link rel="icon" href="/fav.ico?v=3" type="image/x-icon" sizes="any" />
+        <link rel="shortcut icon" href="/fav.ico?v=3" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/fav.ico?v=3" />
+        {/* Support for Firefox's alternate MIME recognition */}
+        <link rel="icon" href="/fav.ico?v=3" type="image/vnd.microsoft.icon" />
       </head>
       <body className={`${inter.variable} font-body antialiased flex flex-col min-h-screen`}>
         <FirebaseClientProvider>
