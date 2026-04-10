@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import { ClientHeader } from '@/components/client-header';
+import { ClientHeader } from '@/components/header';
 import { FooterWrapper } from '@/components/footer-wrapper';
 import { Inter } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase';
@@ -19,10 +19,10 @@ export const metadata: Metadata = {
   description: 'Welcome to Bharath Academy',
   icons: {
     icon: [
-      { url: '/fav.ico', type: 'image/x-icon' },
+      { url: '/fav.ico?v=1', type: 'image/x-icon' },
     ],
-    shortcut: '/fav.ico',
-    apple: '/fav.ico',
+    shortcut: '/fav.ico?v=1',
+    apple: '/fav.ico?v=1',
   },
 };
 
@@ -33,6 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
+      <head>
+        {/* Explicit fallback tags to ensure Firefox picks up the icon and bypasses cache */}
+        <link rel="icon" href="/fav.ico?v=1" type="image/x-icon" sizes="any" />
+        <link rel="shortcut icon" href="/fav.ico?v=1" type="image/x-icon" />
+      </head>
       <body className={`${inter.variable} font-body antialiased flex flex-col min-h-screen`}>
         <FirebaseClientProvider>
           <ClientHeader />
