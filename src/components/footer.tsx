@@ -89,29 +89,31 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center space-x-2 mb-6 group">
-              {content.logoUrl ? (
-                <div className="relative flex items-center" style={{ height: content.logoHeight ? `${content.logoHeight}px` : '40px' }}>
-                  <img 
-                    src={content.logoUrl} 
-                    alt="Logo" 
-                    style={{ 
-                      width: content.logoWidth ? `${content.logoWidth}px` : 'auto', 
-                      height: content.logoHeight ? `${content.logoHeight}px` : '40px',
-                      maxWidth: 'none'
-                    }}
-                    className="object-contain transition-transform group-hover:scale-105"
-                  />
-                </div>
-              ) : (
-                <>
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
-                    <GraduationCap className="text-white w-6 h-6" />
+            <div className="mb-6">
+              <Link href="/" className="inline-flex items-center space-x-2 group">
+                {content.logoUrl ? (
+                  <div className="relative flex items-center bg-white p-3 rounded-2xl shadow-xl transition-all duration-300 group-hover:scale-105" style={{ width: 'fit-content' }}>
+                    <img 
+                      src={content.logoUrl} 
+                      alt="Logo" 
+                      style={{ 
+                        width: content.logoWidth ? `${content.logoWidth}px` : 'auto', 
+                        height: content.logoHeight ? `${content.logoHeight}px` : '40px',
+                        maxWidth: 'none'
+                      }}
+                      className="object-contain"
+                    />
                   </div>
-                  <span className="text-2xl font-bold">Bharath Academy</span>
-                </>
-              )}
-            </Link>
+                ) : (
+                  <>
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+                      <GraduationCap className="text-white w-6 h-6" />
+                    </div>
+                    <span className="text-2xl font-bold">Bharath Academy</span>
+                  </>
+                )}
+              </Link>
+            </div>
             <p className="text-gray-400 text-sm mb-8 leading-relaxed font-medium text-left">
               {content.description}
             </p>
