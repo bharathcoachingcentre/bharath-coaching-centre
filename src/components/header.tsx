@@ -99,11 +99,11 @@ export function Header() {
                     height: content.logoHeight ? `${content.logoHeight}px` : '40px',
                     maxWidth: 'none'
                   }}
-                  className="object-contain transition-transform group-hover:scale-105"
+                  className="object-contain"
                 />
               </div>
             ) : (
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-md transition-transform group-hover:scale-110">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-md">
                 <GraduationCap className="text-white w-6 h-6" />
               </div>
             )}
