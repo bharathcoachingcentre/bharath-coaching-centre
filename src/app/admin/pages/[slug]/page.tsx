@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -63,7 +62,9 @@ import {
   GripVertical,
   FileCheck,
   FileText,
-  Link as LinkIcon
+  Link as LinkIcon,
+  CheckCircle2,
+  CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -471,7 +472,9 @@ const iconMap: Record<string, any> = {
   BarChart,
   UserSquare2,
   Heart,
-  Send
+  Send,
+  CheckCircle2,
+  CheckCircle
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -734,6 +737,313 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         </div>
 
         <div className="space-y-8">
+          {slug === 'home' && (
+            <div className="space-y-8 text-left">
+              {/* Hero Configuration */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section Configuration</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Headline Main</Label>
+                      <Input value={formData.heroTitleMain || ""} onChange={(e) => updateField('heroTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Headline Highlight</Label>
+                      <Input value={formData.heroTitleHighlight || ""} onChange={(e) => updateField('heroTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl font-bold text-blue-600" />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Hero Subtitle</Label>
+                    <Textarea value={formData.heroSubtitle || ""} onChange={(e) => updateField('heroSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Button Text</Label>
+                      <Input value={formData.heroPrimaryBtnText || ""} onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Button Link</Label>
+                      <Input value={formData.heroPrimaryBtnLink || ""} onChange={(e) => updateField('heroPrimaryBtnLink', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Button Icon (Lucide)</Label>
+                      <Input value={formData.heroPrimaryBtnIcon || ""} onChange={(e) => updateField('heroPrimaryBtnIcon', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pt-4">
+                    <div className="space-y-4">
+                      <Label className="text-sm font-bold text-gray-700">Hero Image</Label>
+                      <div className="flex items-center gap-4">
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2"
+                          onClick={() => document.getElementById('home-hero-upload')?.click()}
+                        >
+                          <Upload className="w-4 h-4" /> Upload Hero
+                        </Button>
+                        <input id="home-hero-upload" type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (base64) => updateField('heroImageUrl', base64))} />
+                      </div>
+                      <Input value={formData.heroImageUrl || ""} onChange={(e) => updateField('heroImageUrl', e.target.value)} className="bg-gray-50 border-none h-12 rounded-xl px-6" placeholder="Image URL" />
+                    </div>
+                    <div className="relative aspect-square max-w-[200px] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                      <img src={formData.heroImageUrl || content.heroImageUrl} alt="Hero Preview" className="w-full h-full object-contain" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Home Stats */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Hero Statistics (3 Cards)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {(formData.stats || content.stats).map((stat: any, idx: number) => (
+                      <div key={idx} className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 text-left">
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Icon (Lucide)</Label>
+                          <Input value={stat.icon} onChange={(e) => {
+                            const newStats = [...(formData.stats || content.stats)];
+                            newStats[idx].icon = e.target.value;
+                            updateField('stats', newStats);
+                          }} className="h-10 bg-white" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Value</Label>
+                          <Input value={stat.value} onChange={(e) => {
+                            const newStats = [...(formData.stats || content.stats)];
+                            newStats[idx].value = e.target.value;
+                            updateField('stats', newStats);
+                          }} className="h-10 bg-white font-bold" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
+                          <Input value={stat.label} onChange={(e) => {
+                            const newStats = [...(formData.stats || content.stats)];
+                            newStats[idx].label = e.target.value;
+                            updateField('stats', newStats);
+                          }} className="h-10 bg-white" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Floating Cards (Visuals) */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Floating Content Cards</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    <div className="space-y-4 p-6 bg-blue-50 rounded-3xl">
+                      <h4 className="font-bold text-blue-600">Card 1 (Top Right)</h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2"><Label className="text-xs">Label</Label><Input value={formData.heroCard1Label || ""} onChange={(e) => updateField('heroCard1Label', e.target.value)} className="bg-white" /></div>
+                        <div className="space-y-2"><Label className="text-xs">Value</Label><Input value={formData.heroCard1Value || ""} onChange={(e) => updateField('heroCard1Value', e.target.value)} className="bg-white" /></div>
+                      </div>
+                      <div className="space-y-2"><Label className="text-xs">Icon (Lucide)</Label><Input value={formData.heroCard1Icon || ""} onChange={(e) => updateField('heroCard1Icon', e.target.value)} className="bg-white" /></div>
+                    </div>
+                    <div className="space-y-4 p-6 bg-teal-50 rounded-3xl text-left">
+                      <h4 className="font-bold text-teal-600">Card 2 (Bottom Left)</h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2"><Label className="text-xs">Label</Label><Input value={formData.heroCard2Label || ""} onChange={(e) => updateField('heroCard2Label', e.target.value)} className="bg-white" /></div>
+                        <div className="space-y-2"><Label className="text-xs">Value</Label><Input value={formData.heroCard2Value || ""} onChange={(e) => updateField('heroCard2Value', e.target.value)} className="bg-white" /></div>
+                      </div>
+                      <div className="space-y-2"><Label className="text-xs">Icon (Lucide)</Label><Input value={formData.heroCard2Icon || ""} onChange={(e) => updateField('heroCard2Icon', e.target.value)} className="bg-white" /></div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Features Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Features List (Section 2)</CardTitle>
+                  <Button onClick={() => {
+                    const current = formData.features || content.features;
+                    updateField('features', [...current, { title: "New Feature", icon: "Zap", desc: "", color: "bg-blue-500 shadow-blue-500/30" }]);
+                  }} variant="outline" className="rounded-xl font-bold h-10 gap-2"><Plus className="w-4 h-4" /> Add Feature</Button>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Features Title Main</Label>
+                      <Input value={formData.featuresTitleMain || ""} onChange={(e) => updateField('featuresTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Features Highlight</Label>
+                      <Input value={formData.featuresTitleHighlight || ""} onChange={(e) => updateField('featuresTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
+                    </div>
+                  </div>
+                  <Reorder.Group axis="y" values={formData.features || content.features} onReorder={(newItems) => updateField('features', newItems)} className="space-y-4">
+                    {(formData.features || content.features).map((feat: any, idx: number) => (
+                      <Reorder.Item key={idx} value={feat}>
+                        <div className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 flex items-start gap-4 text-left group">
+                          <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors mt-8"><GripVertical className="w-5 h-5 text-gray-300" /></div>
+                          <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-4">
+                            <div className="md:col-span-3 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Icon</Label><Input value={feat.icon} onChange={(e) => { const list = [...(formData.features || content.features)]; list[idx].icon = e.target.value; updateField('features', list); }} className="h-10 bg-white" /></div>
+                            <div className="md:col-span-3 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Title</Label><Input value={feat.title} onChange={(e) => { const list = [...(formData.features || content.features)]; list[idx].title = e.target.value; updateField('features', list); }} className="h-10 bg-white font-bold" /></div>
+                            <div className="md:col-span-6 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Description</Label><Input value={feat.desc} onChange={(e) => { const list = [...(formData.features || content.features)]; list[idx].desc = e.target.value; updateField('features', list); }} className="h-10 bg-white" /></div>
+                          </div>
+                          <button onClick={() => { const list = (formData.features || content.features).filter((_: any, i: number) => i !== idx); updateField('features', list); }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors mt-8"><Trash2 className="w-4 h-4" /></button>
+                        </div>
+                      </Reorder.Item>
+                    ))}
+                  </Reorder.Group>
+                </CardContent>
+              </Card>
+
+              {/* Academic Programs */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Academic Programs (3 Main Programs)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {(formData.programs || content.programs).map((prog: any, idx: number) => (
+                      <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 text-left relative">
+                        <div className="space-y-3">
+                          <Label className="text-xs font-black uppercase text-gray-400">Program {idx + 1} Title</Label>
+                          <Input value={prog.title} onChange={(e) => {
+                            const list = [...(formData.programs || content.programs)];
+                            list[idx].title = e.target.value;
+                            updateField('programs', list);
+                          }} className="h-12 bg-white rounded-xl font-bold" />
+                        </div>
+                        <div className="space-y-3">
+                          <Label className="text-xs font-black uppercase text-gray-400">Subtitle</Label>
+                          <Input value={prog.subtitle} onChange={(e) => {
+                            const list = [...(formData.programs || content.programs)];
+                            list[idx].subtitle = e.target.value;
+                            updateField('programs', list);
+                          }} className="h-12 bg-white rounded-xl" />
+                        </div>
+                        <div className="space-y-3">
+                          <Label className="text-xs font-black uppercase text-gray-400">Points (one per line)</Label>
+                          <Textarea value={prog.points?.join('\n')} onChange={(e) => {
+                            const list = [...(formData.programs || content.programs)];
+                            list[idx].points = e.target.value.split('\n').filter(p => p.trim() !== "");
+                            updateField('programs', list);
+                          }} className="min-h-[120px] bg-white rounded-xl text-sm" />
+                        </div>
+                        <div className="flex items-center justify-between pt-4">
+                          <Label className="text-xs font-bold text-gray-500">Highlight as Popular?</Label>
+                          <Switch checked={prog.popular} onCheckedChange={(val) => {
+                            const list = [...(formData.programs || content.programs)];
+                            list[idx].popular = val;
+                            updateField('programs', list);
+                          }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Mentorship Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Mentorship Section</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Heading Main</Label>
+                      <Input value={formData.mentorshipTitleMain || ""} onChange={(e) => updateField('mentorshipTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Heading Highlight</Label>
+                      <Input value={formData.mentorshipTitleHighlight || ""} onChange={(e) => updateField('mentorshipTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
+                    </div>
+                  </div>
+                  <div className="space-y-6 text-left">
+                    <Label className="text-xs font-black uppercase text-gray-400">Mentorship Features (4 items)</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {(formData.mentorshipFeatures || content.mentorshipFeatures).map((feat: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-3xl border border-gray-100 space-y-4">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1"><Label className="text-[10px]">Icon</Label><Input value={feat.icon} onChange={(e) => { const list = [...(formData.mentorshipFeatures || content.mentorshipFeatures)]; list[idx].icon = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9" /></div>
+                            <div className="space-y-1"><Label className="text-[10px]">Title</Label><Input value={feat.title} onChange={(e) => { const list = [...(formData.mentorshipFeatures || content.mentorshipFeatures)]; list[idx].title = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9 font-bold" /></div>
+                          </div>
+                          <div className="space-y-1"><Label className="text-[10px]">Description</Label><Input value={feat.desc} onChange={(e) => { const list = [...(formData.mentorshipFeatures || content.mentorshipFeatures)]; list[idx].desc = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9 text-xs" /></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Testimonials */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Student & Parent Testimonials</CardTitle>
+                  <Button onClick={() => {
+                    const current = formData.testimonials || content.testimonials;
+                    updateField('testimonials', [...current, { name: "New Person", role: "Class X Student", quote: "", rating: 5, avatar: "" }]);
+                  }} variant="outline" className="rounded-xl font-bold h-10 gap-2"><Plus className="w-4 h-4" /> Add Feedback</Button>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
+                  <Reorder.Group axis="y" values={formData.testimonials || content.testimonials} onReorder={(newItems) => updateField('testimonials', newItems)} className="space-y-6">
+                    {(formData.testimonials || content.testimonials).map((test: any, idx: number) => (
+                      <Reorder.Item key={idx} value={test}>
+                        <div className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 text-left relative group">
+                          <div className="absolute top-8 right-8 flex items-center gap-2">
+                            <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors"><GripVertical className="w-5 h-5 text-gray-300" /></div>
+                            <button onClick={() => { const list = (formData.testimonials || content.testimonials).filter((_: any, i: number) => i !== idx); updateField('testimonials', list); }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
+                            <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Name</Label><Input value={test.name} onChange={(e) => { const list = [...(formData.testimonials || content.testimonials)]; list[idx].name = e.target.value; updateField('testimonials', list); }} className="bg-white font-bold h-12" /></div>
+                            <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Role / Class</Label><Input value={test.role} onChange={(e) => { const list = [...(formData.testimonials || content.testimonials)]; list[idx].role = e.target.value; updateField('testimonials', list); }} className="bg-white h-12" /></div>
+                          </div>
+                          <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Quote</Label><Textarea value={test.quote} onChange={(e) => { const list = [...(formData.testimonials || content.testimonials)]; list[idx].quote = e.target.value; updateField('testimonials', list); }} className="bg-white min-h-[100px] resize-none" /></div>
+                        </div>
+                      </Reorder.Item>
+                    ))}
+                  </Reorder.Group>
+                </CardContent>
+              </Card>
+
+              {/* Headers Configuration */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Additional Headers Configuration</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-12 text-left">
+                  {/* Study Materials Header */}
+                  <div className="space-y-6">
+                    <h4 className="text-sm font-black uppercase text-blue-600 tracking-widest flex items-center gap-2">
+                      <BookMarked className="w-4 h-4" /> Study Materials Header
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2"><Label className="text-xs">Main Title</Label><Input value={formData.materialsTitleMain || ""} onChange={(e) => updateField('materialsTitleMain', e.target.value)} className="bg-gray-50 h-12" /></div>
+                      <div className="space-y-2"><Label className="text-xs">Highlight</Label><Input value={formData.materialsTitleHighlight || ""} onChange={(e) => updateField('materialsTitleHighlight', e.target.value)} className="bg-gray-50 h-12 font-bold text-blue-600" /></div>
+                    </div>
+                    <div className="space-y-2"><Label className="text-xs">Subtitle</Label><Input value={formData.materialsSubtitle || ""} onChange={(e) => updateField('materialsSubtitle', e.target.value)} className="bg-gray-50 h-12" /></div>
+                  </div>
+
+                  {/* Timetable Header */}
+                  <div className="space-y-6 pt-10 border-t border-gray-100">
+                    <h4 className="text-sm font-black uppercase text-teal-600 tracking-widest flex items-center gap-2">
+                      <Clock className="w-4 h-4" /> Timetable Header & Notes
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2"><Label className="text-xs">Main Title</Label><Input value={formData.timetableTitleMain || ""} onChange={(e) => updateField('timetableTitleMain', e.target.value)} className="bg-gray-50 h-12" /></div>
+                      <div className="space-y-2"><Label className="text-xs">Highlight</Label><Input value={formData.timetableTitleHighlight || ""} onChange={(e) => updateField('timetableTitleHighlight', e.target.value)} className="bg-gray-50 h-12 font-bold text-teal-600" /></div>
+                    </div>
+                    <div className="space-y-2"><Label className="text-xs">Notes (one per line)</Label><Textarea value={formData.timetableNotes?.join('\n')} onChange={(e) => updateField('timetableNotes', e.target.value.split('\n').filter(n => n.trim() !== ""))} className="bg-gray-50 min-h-[100px] resize-none" /></div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
           {slug === 'header' && (
             <div className="space-y-8 text-left">
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
@@ -1421,7 +1731,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <button 
                             type="button"
                             onClick={() => {
-                              const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== linkIdx);
+                              const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== idx);
                               updateField('bottomLinks', newLinks);
                             }}
                             className="h-10 w-10 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
