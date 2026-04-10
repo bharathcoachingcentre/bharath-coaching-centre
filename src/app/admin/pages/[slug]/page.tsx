@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -211,7 +210,7 @@ const defaultPageData: Record<string, any> = {
       { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
     ],
-    materialsTitleMain: "Download Free ",
+    materialsTitleMain: "Download Free ", 
     materialsTitleHighlight: "Study Materials",
     materialsSubtitle: "Filter by class and board to find specific resources for your curriculum",
     programsTitleMain: "Explore Our Academic ",
@@ -246,7 +245,7 @@ const defaultPageData: Record<string, any> = {
         points: ["Board exam focused curriculum", "JEE & NEET preparation integrated", "Advanced problem-solving techniques", "Weekly mock tests & analysis", "Career counseling & guidance"],
       },
     ],
-    timetableTitleMain: "Offline Class ",
+    timetableTitleMain: "Offline Class ", 
     timetableTitleHighlight: "Timetable",
     timetableSubtitle: "View our structured class schedules for offline sessions",
     timetableIcon: "Info",
@@ -496,9 +495,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     return doc(firestore, "pages", slug);
   }, [firestore, slug]);
 
-  const { data: pageData, loading } = useDoc(headerRef ? null : docRef); // Hack to allow manual override below
-
-  // Redefining the doc fetching logic to ensure data is stable
   const { data: dbContent, loading: dbLoading } = useDoc(docRef);
 
   const content = useMemo(() => {
@@ -682,7 +678,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardTitle className="text-xl font-bold flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-teal-400" /> Icon Library
                 </CardTitle>
-                <Dialog open={isIconLibraryOpen} onOpenChange={setIsIconLibraryOpen}>
+                <Dialog open={isIconLibraryOpen} onOpenChange={setIconSearchQuery ? setIsIconLibraryOpen : setIsIconLibraryOpen}>
                   <DialogTrigger asChild>
                     <Button variant="ghost" size="sm" className="text-teal-400 hover:text-white hover:bg-white/10 rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
                       <Maximize2 className="w-3 h-3" /> View All
@@ -1785,7 +1781,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                               const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== linkIdx);
                               updateField('bottomLinks', newLinks);
                             }}
-                            className="h-10 w-10 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
+                            className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -2748,4 +2744,25 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
       </div>
     </div>
   );
+}
+
+function useIntersectionObserver(options: IntersectionObserverInit = {}) {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!element) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsIntersecting(entry.isIntersecting);
+    }, options);
+
+    observer.observe(element);
+
+    return () => {
+      observer.unobserve(element);
+    };
+  }, [element, options]);
+
+  return { setElement, isIntersecting };
 }
