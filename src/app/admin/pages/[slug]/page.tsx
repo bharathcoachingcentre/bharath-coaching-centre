@@ -62,7 +62,8 @@ import {
   Send,
   GripVertical,
   FileCheck,
-  FileText
+  FileText,
+  Link as LinkIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -124,7 +125,9 @@ const defaultPageData: Record<string, any> = {
     instagramLink: "#",
     youtubeLink: "#",
     contactPhone: "+91 72000 30307",
+    contactPhoneLink: "tel:+917200030307",
     contactEmail: "bcc_try@hotmail.com",
+    contactEmailLink: "mailto:bcc_try@hotmail.com",
     contactAddress: "C-109, 5th Cross, Thillainagar (East), Trichy - 18",
     contactHours: "Mon-Sat 9AM-7PM",
     appTitle: "Get the Bharath Academy App",
@@ -1238,46 +1241,70 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Contact & Support</CardTitle>
                 </CardHeader>
-                <CardContent className="p-6 sm:p-10 pt-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                  <div className="space-y-3">
-                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                      <Phone className="w-4 h-4 text-blue-600" /> Phone Number
-                    </Label>
-                    <Input 
-                      value={formData.contactPhone || ""} 
-                      onChange={(e) => updateField('contactPhone', e.target.value)}
-                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-blue-600" /> Email Address
-                    </Label>
-                    <Input 
-                      value={formData.contactEmail || ""} 
-                      onChange={(e) => updateField('contactEmail', e.target.value)}
-                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-blue-600" /> Working Hours
-                    </Label>
-                    <Input 
-                      value={formData.contactHours || ""} 
-                      onChange={(e) => updateField('contactHours', e.target.value)}
-                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-blue-600" /> Office Address
-                    </Label>
-                    <Input 
-                      value={formData.contactAddress || ""} 
-                      onChange={(e) => updateField('contactAddress', e.target.value)}
-                      className="h-14 bg-gray-50 border-none rounded-xl px-6"
-                    />
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <Phone className="w-4 h-4 text-blue-600" /> Phone Number (Display)
+                      </Label>
+                      <Input 
+                        value={formData.contactPhone || ""} 
+                        onChange={(e) => updateField('contactPhone', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <LinkIcon className="w-4 h-4 text-blue-600" /> Phone Link (tel:)
+                      </Label>
+                      <Input 
+                        value={formData.contactPhoneLink || ""} 
+                        onChange={(e) => updateField('contactPhoneLink', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                        placeholder="tel:+917200030307"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-blue-600" /> Email Address (Display)
+                      </Label>
+                      <Input 
+                        value={formData.contactEmail || ""} 
+                        onChange={(e) => updateField('contactEmail', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <LinkIcon className="w-4 h-4 text-blue-600" /> Email Link (mailto:)
+                      </Label>
+                      <Input 
+                        value={formData.contactEmailLink || ""} 
+                        onChange={(e) => updateField('contactEmailLink', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                        placeholder="mailto:bcc_try@hotmail.com"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-blue-600" /> Working Hours
+                      </Label>
+                      <Input 
+                        value={formData.contactHours || ""} 
+                        onChange={(e) => updateField('contactHours', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-blue-600" /> Office Address
+                      </Label>
+                      <Input 
+                        value={formData.contactAddress || ""} 
+                        onChange={(e) => updateField('contactAddress', e.target.value)}
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>

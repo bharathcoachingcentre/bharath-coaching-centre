@@ -30,7 +30,9 @@ export function Footer() {
       instagramLink: "#",
       youtubeLink: "#",
       contactPhone: "+91 72000 30307",
+      contactPhoneLink: "tel:+917200030307",
       contactEmail: "bcc_try@hotmail.com",
+      contactEmailLink: "mailto:bcc_try@hotmail.com",
       contactAddress: "C-109, 5th Cross, Thillainagar (East), Trichy - 18",
       contactHours: "Mon-Sat 9AM-7PM",
       appTitle: "Get the Bharath Academy App",
@@ -147,13 +149,23 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="text-blue-500 w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="text-white font-bold text-sm">{content.contactPhone}</div>
+                  <a 
+                    href={content.contactPhoneLink || `tel:${content.contactPhone?.replace(/\s+/g, '')}`} 
+                    className="text-white font-bold text-sm hover:text-blue-400 transition-colors"
+                  >
+                    {content.contactPhone}
+                  </a>
                   <div className="text-xs opacity-70">{content.contactHours}</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="text-blue-500 w-5 h-5 mt-1 flex-shrink-0" />
-                <div className="text-white font-bold text-sm truncate">{content.contactEmail}</div>
+                <a 
+                  href={content.contactEmailLink || `mailto:${content.contactEmail}`} 
+                  className="text-white font-bold text-sm truncate hover:text-blue-400 transition-colors"
+                >
+                  {content.contactEmail}
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="text-blue-500 w-5 h-5 mt-1 flex-shrink-0" />
