@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -495,27 +496,30 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     return doc(firestore, "pages", slug);
   }, [firestore, slug]);
 
-  const { data: pageData, loading } = useDoc(docRef);
+  const { data: pageData, loading } = useDoc(headerRef ? null : docRef); // Hack to allow manual override below
+
+  // Redefining the doc fetching logic to ensure data is stable
+  const { data: dbContent, loading: dbLoading } = useDoc(docRef);
 
   const content = useMemo(() => {
     const defaults = defaultPageData[slug] || {};
-    if (!pageData?.content) return defaults;
+    if (!dbContent?.content) return defaults;
     return {
       ...defaults,
-      ...pageData.content
+      ...dbContent.content
     };
-  }, [pageData, slug]);
+  }, [dbContent, slug]);
 
   useEffect(() => {
     setFormData(null);
   }, [slug]);
 
   useEffect(() => {
-    if (loading || formData) return;
+    if (dbLoading || formData) return;
 
-    if (pageData) {
-      if (slug === 'footer' && pageData.content?.menus) {
-        const menusWithIds = pageData.content.menus.map((m: any, colIdx: number) => ({
+    if (dbContent) {
+      if (slug === 'footer' && dbContent.content?.menus) {
+        const menusWithIds = dbContent.content.menus.map((m: any, colIdx: number) => ({
           ...m,
           id: m.id || `footer-menu-${colIdx}`,
           links: (m.links || []).map((l: any, linkIdx: number) => ({
@@ -523,14 +527,14 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
             id: l.id || `link-${colIdx}-${linkIdx}-${Math.random().toString(36).substring(2, 7)}`
           }))
         }));
-        setFormData({ ...pageData.content, menus: menusWithIds });
+        setFormData({ ...dbContent.content, menus: menusWithIds });
       } else {
-        setFormData(pageData.content || defaultPageData[slug] || {});
+        setFormData(dbContent.content || defaultPageData[slug] || {});
       }
-    } else if (!loading) {
+    } else if (!dbLoading) {
       setFormData(defaultPageData[slug] || {});
     }
-  }, [pageData, loading, slug, formData]);
+  }, [dbContent, dbLoading, slug, formData]);
 
   const handleSave = async () => {
     if (!firestore || !slug) return;
@@ -617,7 +621,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
     key.toLowerCase().includes(iconSearchQuery.toLowerCase())
   );
 
-  if (loading || !formData) {
+  if (dbLoading || !formData) {
     return (
       <div className="flex flex-col items-center justify-center py-32 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
@@ -666,7 +670,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
               <div className="mt-8 pt-6 border-t border-gray-50 flex flex-col gap-1">
                 <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Last Updated</p>
                 <p className="text-sm font-bold text-gray-700">
-                  {pageData?.updatedAt?.toDate ? new Date(pageData.updatedAt.toDate()).toLocaleString() : 'Never'}
+                  {dbContent?.updatedAt?.toDate ? new Date(dbContent.updatedAt.toDate()).toLocaleString() : 'Never'}
                 </p>
               </div>
             </CardContent>
@@ -770,23 +774,46 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700">Hero Subtitle</Label>
                     <Textarea value={formData.heroSubtitle || ""} onChange={(e) => updateField('heroSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Main Button Text</Label>
-                      <Input value={formData.heroPrimaryBtnText || ""} onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
-                    </div>
-                    <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Main Button Link</Label>
-                      <Input value={formData.heroPrimaryBtnLink || ""} onChange={(e) => updateField('heroPrimaryBtnLink', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
-                    </div>
-                    <div className="space-y-3">
-                      <Label className="text-sm font-bold text-gray-700">Main Button Icon (Lucide)</Label>
-                      <Input value={formData.heroPrimaryBtnIcon || ""} onChange={(e) => updateField('heroPrimaryBtnIcon', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                  
+                  <div className="space-y-6 pt-4 border-t border-gray-50">
+                    <h4 className="text-sm font-black text-blue-600 uppercase tracking-widest">Primary Button (Fill)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Button Text</Label>
+                        <Input value={formData.heroPrimaryBtnText || ""} onChange={(e) => updateField('heroPrimaryBtnText', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Button Link</Label>
+                        <Input value={formData.heroPrimaryBtnLink || ""} onChange={(e) => updateField('heroPrimaryBtnLink', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Button Icon (Lucide)</Label>
+                        <Input value={formData.heroPrimaryBtnIcon || ""} onChange={(e) => updateField('heroPrimaryBtnIcon', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                      </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pt-4">
+
+                  <div className="space-y-6 pt-4 border-t border-gray-50">
+                    <h4 className="text-sm font-black text-gray-400 uppercase tracking-widest">Secondary Button (Outline)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Button Text</Label>
+                        <Input value={formData.heroOutlineBtnText || ""} onChange={(e) => updateField('heroOutlineBtnText', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Button Link</Label>
+                        <Input value={formData.heroOutlineBtnLink || ""} onChange={(e) => updateField('heroOutlineBtnLink', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="text-sm font-bold text-gray-700">Button Icon (Lucide)</Label>
+                        <Input value={formData.heroOutlineBtnIcon || ""} onChange={(e) => updateField('heroOutlineBtnIcon', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pt-8 border-t border-gray-50">
                     <div className="space-y-4">
-                      <Label className="text-sm font-bold text-gray-700">Hero Image</Label>
+                      <Label className="text-sm font-bold text-gray-700">Hero Main Illustration</Label>
                       <div className="flex items-center gap-4">
                         <Button 
                           type="button" 
@@ -800,7 +827,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       </div>
                       <Input value={formData.heroImageUrl || ""} onChange={(e) => updateField('heroImageUrl', e.target.value)} className="bg-gray-50 border-none h-12 rounded-xl px-6" placeholder="Image URL" />
                     </div>
-                    <div className="relative aspect-square max-w-[200px] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
+                    <div className="relative aspect-square max-w-[200px] rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50">
                       <img src={formData.heroImageUrl || content.heroImageUrl} alt="Hero Preview" className="w-full h-full object-contain" />
                     </div>
                   </div>
@@ -852,7 +879,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Floating Content Cards</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                     <div className="space-y-4 p-6 bg-blue-50 rounded-3xl">
                       <h4 className="font-bold text-blue-600">Card 1 (Top Right)</h4>
                       <div className="grid grid-cols-2 gap-4">
@@ -868,6 +895,19 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <div className="space-y-2"><Label className="text-xs">Value</Label><Input value={formData.heroCard2Value || ""} onChange={(e) => updateField('heroCard2Value', e.target.value)} className="bg-white" /></div>
                       </div>
                       <div className="space-y-2"><Label className="text-xs">Icon (Lucide)</Label><Input value={formData.heroCard2Icon || ""} onChange={(e) => updateField('heroCard2Icon', e.target.value)} className="bg-white" /></div>
+                    </div>
+                    <div className="space-y-4 p-6 bg-purple-50 rounded-3xl text-left">
+                      <h4 className="font-bold text-purple-600">Card 3 (Middle Right)</h4>
+                      <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="space-y-1"><Label className="text-[10px]">Online Text</Label><Input value={formData.heroCard3Online || ""} onChange={(e) => updateField('heroCard3Online', e.target.value)} className="bg-white h-9" /></div>
+                          <div className="space-y-1"><Label className="text-[10px]">Online Icon</Label><Input value={formData.heroCard3OnlineIcon || ""} onChange={(e) => updateField('heroCard3OnlineIcon', e.target.value)} className="bg-white h-9" /></div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="space-y-1"><Label className="text-[10px]">Offline Text</Label><Input value={formData.heroCard3Offline || ""} onChange={(e) => updateField('heroCard3Offline', e.target.value)} className="bg-white h-9" /></div>
+                          <div className="space-y-1"><Label className="text-[10px]">Offline Icon</Label><Input value={formData.heroCard3OfflineIcon || ""} onChange={(e) => updateField('heroCard3OfflineIcon', e.target.value)} className="bg-white h-9" /></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
