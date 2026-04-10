@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -115,6 +116,9 @@ const defaultPageData: Record<string, any> = {
     ]
   },
   footer: {
+    logoUrl: "",
+    logoWidth: "150",
+    logoHeight: "60",
     description: "Helping students from Class 1 to 12 achieve academic excellence through structured coaching.",
     facebookLink: "#",
     instagramLink: "#",
@@ -976,6 +980,98 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
           {slug === 'footer' && (
             <div className="space-y-8 text-left">
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Branding & Identity</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
+                  <div className="space-y-4">
+                    <Label className="text-sm font-bold text-gray-700">Footer Logo</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                      <div className="space-y-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-left">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-all flex items-center gap-2 w-full sm:w-auto"
+                            onClick={() => document.getElementById('footer-logo-upload')?.click()}
+                          >
+                            <Upload className="w-4 h-4" /> Upload Image
+                          </Button>
+                          <input 
+                            id="footer-logo-upload"
+                            type="file" 
+                            accept="image/*"
+                            className="hidden" 
+                            onChange={(e) => handleImageUpload(e, (base64) => updateField('logoUrl', base64))}
+                          />
+                          {formData.logoUrl && (
+                            <Button 
+                              type="button" 
+                              variant="ghost" 
+                              className="text-red-500 hover:bg-red-50 rounded-xl h-12 w-full sm:w-auto"
+                              onClick={() => updateField('logoUrl', "")}
+                            >
+                              <Trash2 className="w-4 h-4 mr-2" /> Remove
+                            </Button>
+                          )}
+                        </div>
+                        <Input 
+                          value={formData.logoUrl || ""} 
+                          onChange={(e) => updateField('logoUrl', e.target.value)}
+                          placeholder="Or enter logo URL (https://...)"
+                          className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-xs font-black uppercase text-gray-400">Preview</Label>
+                        <div className="relative h-24 w-full bg-[#1e1e2d] rounded-2xl border border-gray-800 flex items-center justify-center p-4">
+                          {formData.logoUrl ? (
+                            <img 
+                              src={formData.logoUrl} 
+                              alt="Logo Preview" 
+                              style={{ 
+                                width: formData.logoWidth ? `${formData.logoWidth}px` : 'auto', 
+                                height: formData.logoHeight ? `${formData.logoHeight}px` : '40px',
+                                maxWidth: '100%',
+                                maxHeight: '100%'
+                              }} 
+                              className="object-contain" 
+                            />
+                          ) : (
+                            <div className="flex flex-col items-center gap-1 opacity-20 text-white">
+                              <GraduationCap className="w-8 h-8" />
+                              <span className="text-[10px] font-bold uppercase">Default</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Logo Width (px)</Label>
+                      <Input 
+                        value={formData.logoWidth || ""} 
+                        onChange={(e) => updateField('logoWidth', e.target.value)}
+                        placeholder="e.g. 150"
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Logo Height (px)</Label>
+                      <Input 
+                        value={formData.logoHeight || ""} 
+                        onChange={(e) => updateField('logoHeight', e.target.value)}
+                        placeholder="e.g. 150"
+                        className="h-14 bg-gray-50 border-none rounded-xl px-6"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
                   <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Organization Summary</CardTitle>

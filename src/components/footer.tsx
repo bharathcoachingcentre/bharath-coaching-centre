@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo } from "react";
@@ -21,6 +22,9 @@ export function Footer() {
 
   const content = useMemo(() => {
     const defaults = {
+      logoUrl: "",
+      logoWidth: "150",
+      logoHeight: "60",
       description: "Helping students from Class 1 to 12 achieve academic excellence through structured coaching.",
       facebookLink: "#",
       instagramLink: "#",
@@ -84,10 +88,27 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center space-x-2 mb-6 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
-                <GraduationCap className="text-white w-6 h-6" />
-              </div>
-              <span className="text-2xl font-bold">Bharath Academy</span>
+              {content.logoUrl ? (
+                <div className="relative flex items-center" style={{ height: content.logoHeight ? `${content.logoHeight}px` : '40px' }}>
+                  <img 
+                    src={content.logoUrl} 
+                    alt="Logo" 
+                    style={{ 
+                      width: content.logoWidth ? `${content.logoWidth}px` : 'auto', 
+                      height: content.logoHeight ? `${content.logoHeight}px` : '40px',
+                      maxWidth: 'none'
+                    }}
+                    className="object-contain transition-transform group-hover:scale-105"
+                  />
+                </div>
+              ) : (
+                <>
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+                    <GraduationCap className="text-white w-6 h-6" />
+                  </div>
+                  <span className="text-2xl font-bold">Bharath Academy</span>
+                </>
+              )}
             </Link>
             <p className="text-gray-400 text-sm mb-8 leading-relaxed font-medium text-left">
               {content.description}
