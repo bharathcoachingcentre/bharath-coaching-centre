@@ -5,6 +5,7 @@ import { ClientHeader } from '@/components/client-header';
 import { FooterWrapper } from '@/components/footer-wrapper';
 import { Inter } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase';
+import { BackToTop } from '@/components/back-to-top';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,6 +36,7 @@ export default function RootLayout({
           <ClientHeader />
           <main className="flex-grow">{children}</main>
           <FooterWrapper />
+          <BackToTop />
           <Toaster />
         </FirebaseClientProvider>
       </body>
