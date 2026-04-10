@@ -64,7 +64,8 @@ import {
   FileText,
   Link as LinkIcon,
   CheckCircle2,
-  CheckCircle
+  CheckCircle,
+  BookMarked
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -474,7 +475,8 @@ const iconMap: Record<string, any> = {
   Heart,
   Send,
   CheckCircle2,
-  CheckCircle
+  CheckCircle,
+  BookMarked
 };
 
 export default function PageEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -494,6 +496,15 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   }, [firestore, slug]);
 
   const { data: pageData, loading } = useDoc(docRef);
+
+  const content = useMemo(() => {
+    const defaults = defaultPageData[slug] || {};
+    if (!pageData?.content) return defaults;
+    return {
+      ...defaults,
+      ...pageData.content
+    };
+  }, [pageData, slug]);
 
   useEffect(() => {
     setFormData(null);
@@ -1731,7 +1742,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           <button 
                             type="button"
                             onClick={() => {
-                              const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== idx);
+                              const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== linkIdx);
                               updateField('bottomLinks', newLinks);
                             }}
                             className="h-10 w-10 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
