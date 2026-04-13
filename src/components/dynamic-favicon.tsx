@@ -29,41 +29,32 @@ export function DynamicFavicon() {
 
     // 2. Update Favicon
     if (settings.faviconUrl) {
-      // Append timestamp to bust browser cache for external URLs
-      const cacheBuster = `?v=${new Date().getTime()}`;
-      const finalUrl = settings.faviconUrl + (settings.faviconUrl.startsWith('data:') ? '' : cacheBuster);
-
-      // Update or create standard icon link
-      let iconLink: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
-      if (!iconLink) {
-        iconLink = document.createElement('link');
-        iconLink.rel = 'icon';
-        document.getElementsByTagName('head')[0].appendChild(iconLink);
-      }
-      iconLink.href = finalUrl;
+      const iconUrl = settings.faviconUrl;
+      const isIco = iconUrl.toLowerCase().endsWith('.ico');
+      const type = isIco ? 'image/x-icon' : 'image/png';
       
-      // Explicitly set type for .ico files if detected
-      if (settings.faviconUrl.toLowerCase().endsWith('.ico')) {
-        iconLink.type = 'image/x-icon';
-      }
+      // Add a timestamp to bypass cache for external URLs
+      const cacheBuster = `?v=${new Date().getTime()}`;
+      const finalUrl = iconUrl.startsWith('data:') ? iconUrl : `${iconUrl}${cacheBuster}`;
 
-      // Update or create shortcut icon for older browsers (standard for .ico)
-      let shortcutLink: HTMLLinkElement | null = document.querySelector("link[rel='shortcut icon']");
-      if (!shortcutLink) {
-        shortcutLink = document.createElement('link');
-        shortcutLink.rel = 'shortcut icon';
-        document.getElementsByTagName('head')[0].appendChild(shortcutLink);
-      }
-      shortcutLink.href = finalUrl;
+      const updateLink = (rel: string) => {
+        // Find existing link or create new one
+        let link: HTMLLinkElement | null = document.querySelector(`link[rel*='${rel}']`);
+        
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = rel;
+          document.head.appendChild(link);
+        }
+        
+        link.href = finalUrl;
+        link.type = type;
+      };
 
-      // Update Apple Touch Icon
-      let appleLink: HTMLLinkElement | null = document.querySelector("link[rel='apple-touch-icon']");
-      if (!appleLink) {
-        appleLink = document.createElement('link');
-        appleLink.rel = 'apple-touch-icon';
-        document.getElementsByTagName('head')[0].appendChild(appleLink);
-      }
-      appleLink.href = finalUrl;
+      // Update all standard icon relation types
+      updateLink('icon');
+      updateLink('shortcut icon');
+      updateLink('apple-touch-icon');
     }
   }, [settings]);
 

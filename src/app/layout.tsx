@@ -24,22 +24,23 @@ export async function generateMetadata(): Promise<Metadata> {
     const db = getAdminFirestore();
     if (db) {
       // Attempt to fetch custom branding settings from Firestore
+      // We use a try-catch inside to catch auth errors specific to the admin SDK
       const settingsSnap = await db.collection('settings').doc('academy').get();
       
       if (settingsSnap.exists) {
         const settings = settingsSnap.data();
         const icon = settings?.faviconUrl || defaultIcon;
         const title = settings?.name || defaultTitle;
+        const isIco = icon.toLowerCase().endsWith('.ico');
         
         return {
           title,
           description: 'Welcome to Bharath Academy',
           icons: {
             icon: [
-              { url: icon },
-              { url: icon, sizes: '32x32', type: 'image/x-icon' },
+              { url: icon, type: isIco ? 'image/x-icon' : 'image/png' },
             ],
-            shortcut: [icon],
+            shortcut: [{ url: icon, type: isIco ? 'image/x-icon' : 'image/png' }],
             apple: [
               { url: icon },
             ],
@@ -48,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
       }
     }
   } catch (e) {
-    // Silent catch to prevent crashes if Admin SDK encounters issues
+    // Silent catch to prevent crashes if Admin SDK encounters issues (like 16 UNAUTHENTICATED)
   }
   
   return {
