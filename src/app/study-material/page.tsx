@@ -267,19 +267,27 @@ export default function StudyMaterialPage() {
     return allMaterials
       .filter((m) => {
         const matchesVisibility = m.isVisible !== false;
+        if (!matchesVisibility) return false;
+
+        // Global search if query exists - bypasses standard filters
+        if (materialSearchQuery) {
+          return (
+            m.title?.toLowerCase().includes(lowerQuery) || 
+            m.description?.toLowerCase().includes(lowerQuery) ||
+            m.subject?.toLowerCase().includes(lowerQuery) ||
+            m.grade?.toLowerCase().includes(lowerQuery) ||
+            m.board?.toLowerCase().includes(lowerQuery)
+          );
+        }
+
+        // Standard tab filters apply when search is empty
         const matchesGrade = m.grade === selectedClass;
         const matchesBoard =
           !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
         const matchesSubject =
           selectedSubject === "All Subjects" || m.subject === selectedSubject;
         
-        const matchesSearch = !materialSearchQuery || 
-          m.title?.toLowerCase().includes(lowerQuery) || 
-          m.description?.toLowerCase().includes(lowerQuery);
-
-        return (
-          matchesVisibility && matchesGrade && matchesBoard && matchesSubject && matchesSearch
-        );
+        return matchesGrade && matchesBoard && matchesSubject;
       })
       .map((m, idx) => {
         const styleIdx = idx % materialStyles.length;
@@ -393,13 +401,13 @@ export default function StudyMaterialPage() {
                   {content.materialsTitleHighlight}
                 </span>
               </h2>
-              <p className="text-lg text-gray-500 font-normal text-center text-left">
+              <p className="text-lg text-gray-500 font-normal text-center">
                 {content.materialsSubtitle}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-6 mb-12">
-              {/* Search Bar */}
+              {/* Global Search Bar */}
               <div className="relative w-full text-left md:col-span-2 lg:col-span-1">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input 
@@ -526,8 +534,7 @@ export default function StudyMaterialPage() {
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-gray-500 font-bold">
-                  No study materials found for {materialSearchQuery ? `"${materialSearchQuery}"` : selectedSubject} in{" "}
-                  {selectedClass} ({activeBoard.toUpperCase()}).
+                  No materials found {materialSearchQuery ? `matching "${materialSearchQuery}"` : `for ${selectedSubject} in ${selectedClass}`}
                 </p>
                 <p className="text-gray-400 text-sm mt-1">
                   Please try another class or check back later.

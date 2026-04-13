@@ -464,24 +464,39 @@ export default function HomePage() {
     return allMaterials
       .filter(m => {
         const matchesVisibility = m.isVisible !== false;
+        if (!matchesVisibility) return false;
+
+        // GLOBAL SEARCH: If a query exists, search across everything and ignore tab filters
+        if (materialSearchQuery) {
+          const subjectName = allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject || "";
+          const className = allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade || "";
+          
+          return (
+            m.title?.toLowerCase().includes(lowerQuery) || 
+            m.description?.toLowerCase().includes(lowerQuery) ||
+            subjectName.toLowerCase().includes(lowerQuery) ||
+            className.toLowerCase().includes(lowerQuery) ||
+            m.board?.toLowerCase().includes(lowerQuery)
+          );
+        }
+
+        // TAB FILTERS: Apply only if search is empty
         const gradeId = allClassesLookup?.find(c => c.name === selectedClass)?.id;
         const matchesGrade = m.grade === selectedClass || m.grade === gradeId;
         const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
         const subjectId = allSubjectsLookup?.find(s => s.name === selectedSubject)?.id;
         const matchesSubject = selectedSubject === "All Subjects" || m.subject === selectedSubject || m.subject === subjectId;
         
-        const matchesSearch = !materialSearchQuery || 
-          m.title?.toLowerCase().includes(lowerQuery) || 
-          m.description?.toLowerCase().includes(lowerQuery);
-
-        return matchesVisibility && matchesGrade && matchesBoard && matchesSubject && matchesSearch;
+        return matchesGrade && matchesBoard && matchesSubject;
       })
       .map((m, idx) => {
         const styleIdx = idx % materialStyles.length;
         const subjectName = allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject;
+        const className = allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade;
         return {
           ...m,
           subject: subjectName,
+          grade: className, // Ensure display shows human readable grade
           desc: m.description,
           ...materialStyles[styleIdx]
         };
@@ -735,7 +750,7 @@ export default function HomePage() {
 
           <div className="bg-white rounded-[24px] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-6 mb-12">
-              {/* Search Bar */}
+              {/* Global Search Bar */}
               <div className="relative w-full text-left md:col-span-2 lg:col-span-1">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input 
@@ -849,7 +864,9 @@ export default function HomePage() {
             ) : displayMaterials.length === 0 ? (
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 font-bold">No materials found for {materialSearchQuery ? `"${materialSearchQuery}"` : selectedSubject} in {selectedClass}.</p>
+                <p className="text-gray-500 font-bold">
+                  No materials found {materialSearchQuery ? `matching "${materialSearchQuery}"` : `for ${selectedSubject} in ${selectedClass}`}
+                </p>
                 <p className="text-gray-400 text-sm mt-1">Check back later for new updates or try a different search.</p>
               </div>
             ) : (
