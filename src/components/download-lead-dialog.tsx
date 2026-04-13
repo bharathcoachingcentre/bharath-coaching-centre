@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -26,6 +27,8 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useFirestore } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError, type SecurityRuleContext } from '@/firebase/errors';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -58,42 +61,46 @@ export function DownloadLeadDialog({ materialTitle, pdfUrl, trigger, onDownload,
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
-    try {
-      if (firestore) {
-        // Save lead to Firestore
-        await addDoc(collection(firestore, 'material-leads'), {
-          ...values,
-          materialTitle,
-          timestamp: serverTimestamp(),
+    
+    if (firestore) {
+      const leadData = {
+        ...values,
+        materialTitle,
+        timestamp: serverTimestamp(),
+      };
+      const leadsRef = collection(firestore, 'material-leads');
+
+      // NO await here. Chain the .catch() block to follow the standard architecture.
+      addDoc(leadsRef, leadData)
+        .catch(async (serverError) => {
+          const permissionError = new FirestorePermissionError({
+            path: leadsRef.path,
+            operation: 'create',
+            requestResourceData: leadData,
+          } satisfies SecurityRuleContext);
+
+          // Emit the error to show contextual debug info in the dev overlay
+          errorEmitter.emit('permission-error', permissionError);
         });
-      }
-
-      // Trigger actual file download
-      const link = document.createElement('a');
-      link.href = pdfUrl;
-      link.setAttribute('download', materialTitle);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      if (onDownload) onDownload();
-
-      toast({
-        title: "Download Started",
-        description: `Your resource "${materialTitle}" is downloading.`,
-      });
-      setIsOpen(false);
-      form.reset();
-    } catch (error: any) {
-      console.error("Download lead error:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
     }
+
+    // Trigger actual file download for immediate user satisfaction
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.setAttribute('download', materialTitle);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    if (onDownload) onDownload();
+
+    toast({
+      title: "Download Started",
+      description: `Your resource "${materialTitle}" is downloading.`,
+    });
+    setIsOpen(false);
+    form.reset();
+    setIsSubmitting(false);
   };
 
   return (

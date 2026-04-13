@@ -131,6 +131,19 @@
         "updatedAt": { "type": "string", "format": "date-time" }
       },
       "required": ["title", "content"]
+    },
+    "MaterialLead": {
+      "title": "Material Lead",
+      "description": "Lead data captured from study material downloads.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "materialTitle": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "phone", "materialTitle"]
     }
   },
   "auth": {
@@ -164,6 +177,10 @@
     "/pages/{pageId}": {
       "schema": { "$ref": "#/entities/PageContent" },
       "description": "Dynamic content for website pages."
+    },
+    "/material-leads/{leadId}": {
+      "schema": { "$ref": "#/entities/MaterialLead" },
+      "description": "Collection of leads from material downloads."
     }
   }
 }

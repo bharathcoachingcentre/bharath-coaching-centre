@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
@@ -11,6 +12,8 @@ import { useFirestore, useDoc } from "@/firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { Loader2, Save, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { errorEmitter } from "@/firebase/error-emitter";
+import { FirestorePermissionError, type SecurityRuleContext } from "@/firebase/errors";
 
 export default function SettingsPage() {
   const { toast } = useToast();
@@ -74,21 +77,34 @@ export default function SettingsPage() {
       updatedAt: serverTimestamp(),
     };
 
-    try {
-      await setDoc(doc(firestore, "settings", "academy"), submissionData, { merge: true });
-      toast({
-        title: "Settings Saved",
-        description: "Your platform configuration has been updated successfully.",
+    const docRef = doc(firestore, "settings", "academy");
+
+    // NO await here. Chain the .catch() block to follow the standard architecture.
+    setDoc(docRef, submissionData, { merge: true })
+      .then(() => {
+        toast({
+          title: "Settings Saved",
+          description: "Your platform configuration has been updated successfully.",
+        });
+        setIsSaving(false);
+      })
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: docRef.path,
+          operation: 'write',
+          requestResourceData: submissionData,
+        } satisfies SecurityRuleContext);
+
+        // Emit the error to show contextual debug info in the dev overlay
+        errorEmitter.emit('permission-error', permissionError);
+        
+        toast({
+          variant: "destructive",
+          title: "Save Failed",
+          description: error.message || "Could not update settings.",
+        });
+        setIsSaving(false);
       });
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Save Failed",
-        description: error.message || "Could not update settings.",
-      });
-    } finally {
-      setIsSaving(false);
-    }
   };
 
   if (loading) {
