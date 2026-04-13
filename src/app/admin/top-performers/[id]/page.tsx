@@ -143,10 +143,6 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 500 * 1024) {
-        toast({ variant: "destructive", title: "File Too Large", description: "Please upload an image smaller than 500KB." });
-        return;
-      }
       const reader = new FileReader();
       reader.onloadend = () => {
         form.setValue("imageUrl", reader.result as string, { shouldDirty: true });
