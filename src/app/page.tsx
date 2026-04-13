@@ -190,32 +190,20 @@ const whyChooseStyles = [
   { bg: "bg-indigo-50/50", iconBg: "bg-indigo-600", shadow: "shadow-indigo-500/20", border: "border-indigo-100", hoverBorder: "hover:border-indigo-600" },
 ];
 
-const AnimatedSection = ({
-  children,
-  className,
-  id,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-}) => {
-  const { setElement, isIntersecting } = useIntersectionObserver({
-    threshold: 0.1,
-  });
+const useIntersectionObserver = (options: any) => {
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
 
-  return (
-    <section
-      ref={setElement}
-      id={id}
-      className={cn(
-        "animate-on-scroll",
-        { "is-visible": isIntersecting },
-        className
-      )}
-    >
-      {children}
-    </section>
-  );
+  useEffect(() => {
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsIntersecting(entry.isIntersecting);
+    }, options);
+    observer.observe(element);
+    return () => observer.unobserve(element);
+  }, [element, options]);
+
+  return { setElement, isIntersecting };
 };
 
 export default function HomePage() {
@@ -267,7 +255,7 @@ export default function HomePage() {
       featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
       features: [
         { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
+        { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
         { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
         { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
         { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
@@ -1210,7 +1198,7 @@ export default function HomePage() {
               <Card key={idx} className="border-none shadow-xl rounded-[24px] bg-white p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="flex items-center gap-4 mb-6 text-left">
                   <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-blue-100 shadow-sm">
-                    <Image src={testimonial.avatar || placeholderImages["student-1"].src} alt={testimonial.name} width={100} height={100} className="w-full h-full object-cover" />
+                    <img src={testimonial.avatar || placeholderImages["student-1"].src} alt={testimonial.name} className="w-full h-full object-cover" />
                   </div>
                   <div className="text-left">
                     <h4 className="font-bold text-gray-900">{testimonial.name}</h4>

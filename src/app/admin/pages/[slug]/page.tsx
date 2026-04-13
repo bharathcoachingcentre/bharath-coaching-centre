@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -1085,8 +1084,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     </div>
                   </div>
                   <div className="space-y-3 text-left">
-                    <Label className="text-sm font-bold text-gray-700">Subtitle</Label>
-                    <Textarea value={formData.mentorshipSubtitle || ""} onChange={(e) => updateField('mentorshipSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" />
+                    <Label className="text-sm font-bold text-gray-700">Description</Label>
+                    <Textarea value={formData.mentorshipSubtitle || ""} onChange={(e) => updateField('mentorshipSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" placeholder="Personalized attention to help every student reach their full potential." />
+                  </div>
+                  <div className="space-y-3 text-left">
+                    <Label className="text-sm font-bold text-gray-700">CTA Button Text</Label>
+                    <Input value={formData.mentorshipBtnText || ""} onChange={(e) => updateField('mentorshipBtnText', e.target.value)} className="h-12 bg-gray-50 rounded-xl" placeholder="Book Personal Session" />
                   </div>
                   <div className="space-y-6 text-left">
                     <Label className="text-xs font-black uppercase text-gray-400">Mentorship Features (4 items)</Label>
@@ -1126,8 +1129,8 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     </div>
                   </div>
                   <div className="space-y-3 text-left">
-                    <Label className="text-sm font-bold text-gray-700">Subtitle</Label>
-                    <Input value={formData.testimonialsSubtitle || ""} onChange={(e) => updateField('testimonialsSubtitle', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    <Label className="text-sm font-bold text-gray-700">Description</Label>
+                    <Textarea value={formData.testimonialsSubtitle || ""} onChange={(e) => updateField('testimonialsSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" placeholder="Read stories from our successful students and satisfied parents." />
                   </div>
                   <Reorder.Group axis="y" values={formData.testimonials || contentFallback.testimonials || []} onReorder={(newItems) => updateField('testimonials', newItems)} className="space-y-6">
                     {(formData.testimonials || contentFallback.testimonials || []).map((test: any, idx: number) => (
@@ -1137,6 +1140,28 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors"><GripVertical className="w-5 h-5 text-gray-300" /></div>
                             <button onClick={() => { const list = (formData.testimonials || contentFallback.testimonials).filter((_: any, i: number) => i !== idx); updateField('testimonials', list); }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
                           </div>
+                          
+                          <div className="space-y-4">
+                            <Label className="text-xs font-black uppercase text-gray-400">Avatar Image</Label>
+                            <div className="flex items-center gap-4">
+                              <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white border border-gray-200">
+                                <img src={test.avatar || "https://placehold.co/100x100"} className="w-full h-full object-cover" alt="Avatar" />
+                              </div>
+                              <div className="flex-grow">
+                                <Input 
+                                  placeholder="Image URL" 
+                                  value={test.avatar} 
+                                  onChange={(e) => {
+                                    const list = [...(formData.testimonials || contentFallback.testimonials)];
+                                    list[idx].avatar = e.target.value;
+                                    updateField('testimonials', list);
+                                  }}
+                                  className="h-10 bg-white"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
                             <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Name</Label><Input value={test.name} onChange={(e) => { const list = [...(formData.testimonials || contentFallback.testimonials)]; list[idx].name = e.target.value; updateField('testimonials', list); }} className="bg-white font-bold h-12" /></div>
                             <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Role / Class</Label><Input value={test.role} onChange={(e) => { const list = [...(formData.testimonials || contentFallback.testimonials)]; list[idx].role = e.target.value; updateField('testimonials', list); }} className="bg-white h-12" /></div>
@@ -1450,7 +1475,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
                           <div className="flex items-center gap-1">
                             <button 
-                              type="button"
+                              type="button" 
                               onClick={() => deleteMenuItem(item.id)}
                               className="h-8 w-8 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
                             >
@@ -1646,7 +1671,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                 />
                               </div>
                               <button 
-                                type="button"
+                                type="button" 
                                 onClick={() => {
                                   const newMenus = formData.menus.filter((_: any, i: number) => i !== colIdx);
                                   updateField('menus', newMenus);
@@ -1723,7 +1748,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                         </div>
                                       </div>
                                       <button 
-                                        type="button"
+                                        type="button" 
                                         onClick={() => {
                                           const newMenus = [...formData.menus];
                                           newMenus[colIdx].links = newMenus[colIdx].links.filter((_: any, i: number) => i !== linkIdx);
@@ -1892,7 +1917,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           updateField('bottomLinks', [...currentLinks, { label: "New Link", href: "#" }]);
                         }}
                         variant="outline"
-                        size="sm"
+                        size="sm" 
                         className="rounded-xl font-bold gap-2 text-blue-600 border-blue-100 w-full sm:w-auto"
                       >
                         <Plus className="w-4 h-4" /> Add Link
@@ -1928,7 +1953,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             />
                           </div>
                           <button 
-                            type="button"
+                            type="button" 
                             onClick={() => {
                               const newLinks = formData.bottomLinks.filter((_: any, i: number) => i !== linkIdx);
                               updateField('bottomLinks', newLinks);
@@ -2130,7 +2155,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           </div>
 
                           <button 
-                            type="button"
+                            type="button" 
                             onClick={() => {
                               const newList = (formData.benefits || []).filter((_: any, i: number) => i !== idx);
                               updateField('benefits', newList);
@@ -2370,7 +2395,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   />
                                 </div>
                                 <button 
-                                  type="button"
+                                  type="button" 
                                   onClick={() => {
                                     const newCards = [...formData.premiumCards];
                                     if (newCards[cardIdx]) {
@@ -2896,25 +2921,4 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
       </div>
     </div>
   );
-}
-
-function useIntersectionObserver(options: IntersectionObserverInit = {}) {
-  const [isIntersecting, setIsIntersecting] = useState(false);
-  const [element, setElement] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!element) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting);
-    }, options);
-
-    observer.observe(element);
-
-    return () => {
-      observer.unobserve(element);
-    };
-  }, [element, options]);
-
-  return { setElement, isIntersecting };
 }
