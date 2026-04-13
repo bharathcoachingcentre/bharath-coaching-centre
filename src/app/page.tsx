@@ -386,7 +386,18 @@ export default function HomePage() {
     if (!allPerformers) return [];
     return allPerformers
       .filter(p => p.year === selectedResultYear)
-      .sort((a, b) => (a.rankOrder || 999) - (b.rankOrder || 999));
+      .sort((a, b) => {
+        // Sort by marks descending (highest first)
+        const marksA = parseFloat(String(a.marks).replace(/[^0-9.]/g, '')) || 0;
+        const marksB = parseFloat(String(b.marks).replace(/[^0-9.]/g, '')) || 0;
+        
+        if (marksB !== marksA) {
+          return marksB - marksA;
+        }
+        
+        // Secondary sort by rank order if marks are equal
+        return (a.rankOrder || 999) - (b.rankOrder || 999);
+      });
   }, [allPerformers, selectedResultYear]);
 
   // Timetable Configuration Data
