@@ -198,7 +198,7 @@ const defaultPageData: Record<string, any> = {
     stats: [
       { label: "Students", value: "5000+", icon: "Users" },
       { label: "Success Rate", value: "95%", icon: "TrendingUp" },
-      { label: "Years Experience", value: "10+", icon: "Award" }
+      { label: "Years Experience", value: "17", icon: "Award" }
     ],
     featuresTitleMain: "How We Help Students ",
     featuresTitleHighlight: "Excel",
@@ -1479,7 +1479,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           
                           <div className="flex-grow w-full space-y-6">
                             <div className="flex items-center justify-between">
-                              <div className="space-y-2 flex-grow max-w-md">
+                              <div className="space-y-2 flex-grow max-md">
                                 <Label className="text-xs font-black uppercase text-gray-400">Column Title</Label>
                                 <Input 
                                   value={menu.title} 

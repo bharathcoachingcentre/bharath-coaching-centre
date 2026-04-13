@@ -260,7 +260,7 @@ export default function HomePage() {
       stats: [
         { label: "Students", value: "5000+", icon: "Users" },
         { label: "Success Rate", value: "95%", icon: "TrendingUp" },
-        { label: "Years Experience", value: "10+", icon: "Award" }
+        { label: "Years Experience", value: "17", icon: "Award" }
       ],
       featuresTitleMain: "How We Help Students ",
       featuresTitleHighlight: "Excel",
