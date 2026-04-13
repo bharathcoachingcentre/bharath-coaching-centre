@@ -145,6 +145,7 @@ export default function StudyMaterialPage() {
   const [activeBoard, setActiveBoard] = useState("cbse");
   const [selectedClass, setSelectedClass] = useState("Class 10");
   const [selectedSubject, setSelectedSubject] = useState("All Subjects");
+  const [materialSearchQuery, setMaterialSearchQuery] = useState("");
   const [subjectSearch, setSubjectSearch] = useState("");
   const [isSubjectOpen, setIsSubjectOpen] = useState(false);
 
@@ -261,6 +262,8 @@ export default function StudyMaterialPage() {
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
 
+    const lowerQuery = materialSearchQuery.toLowerCase();
+
     return allMaterials
       .filter((m) => {
         const matchesVisibility = m.isVisible !== false;
@@ -269,8 +272,13 @@ export default function StudyMaterialPage() {
           !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
         const matchesSubject =
           selectedSubject === "All Subjects" || m.subject === selectedSubject;
+        
+        const matchesSearch = !materialSearchQuery || 
+          m.title?.toLowerCase().includes(lowerQuery) || 
+          m.description?.toLowerCase().includes(lowerQuery);
+
         return (
-          matchesVisibility && matchesGrade && matchesBoard && matchesSubject
+          matchesVisibility && matchesGrade && matchesBoard && matchesSubject && matchesSearch
         );
       })
       .map((m, idx) => {
@@ -281,7 +289,7 @@ export default function StudyMaterialPage() {
           ...materialStyles[styleIdx],
         };
       });
-  }, [allMaterials, selectedClass, activeBoard, selectedSubject]);
+  }, [allMaterials, selectedClass, activeBoard, selectedSubject, materialSearchQuery]);
 
   const handleTrackDownload = async (id: string) => {
     if (!firestore) return;
@@ -390,8 +398,20 @@ export default function StudyMaterialPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
-              <div className="relative min-w-[180px] w-full lg:w-auto text-left">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-6 mb-12">
+              {/* Search Bar */}
+              <div className="relative w-full text-left md:col-span-2 lg:col-span-1">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input 
+                  placeholder="Search materials..." 
+                  value={materialSearchQuery}
+                  onChange={(e) => setMaterialSearchQuery(e.target.value)}
+                  className="h-14 pl-11 bg-white border-2 border-gray-100 rounded-xl focus-visible:ring-blue-600 shadow-sm font-medium"
+                />
+              </div>
+
+              {/* Class Selection */}
+              <div className="relative min-w-[180px] w-full text-left">
                 <select
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
@@ -409,11 +429,12 @@ export default function StudyMaterialPage() {
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
 
-              <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto max-w-sm md:max-w-none text-left">
+              {/* Board Toggle */}
+              <div className="flex w-full p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto text-left">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
-                    "flex-1 md:flex-none px-4 md:px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
+                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
                     activeBoard === "cbse"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -424,7 +445,7 @@ export default function StudyMaterialPage() {
                 <button
                   onClick={() => setActiveBoard("samacheer")}
                   className={cn(
-                    "flex-1 md:flex-none px-4 md:px-10 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
+                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
                     activeBoard === "samacheer"
                       ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
                       : "text-gray-500 hover:bg-gray-200"
@@ -434,8 +455,8 @@ export default function StudyMaterialPage() {
                 </button>
               </div>
 
-              {/* Right Column: Subject Selection (Searchable) */}
-              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0 text-left">
+              {/* Subject Selection (Searchable) */}
+              <div className="relative w-full text-left">
                 <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
                   <PopoverTrigger asChild>
                     <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
@@ -505,7 +526,7 @@ export default function StudyMaterialPage() {
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-gray-500 font-bold">
-                  No study materials found for {selectedSubject} in{" "}
+                  No study materials found for {materialSearchQuery ? `"${materialSearchQuery}"` : selectedSubject} in{" "}
                   {selectedClass} ({activeBoard.toUpperCase()}).
                 </p>
                 <p className="text-gray-400 text-sm mt-1">
