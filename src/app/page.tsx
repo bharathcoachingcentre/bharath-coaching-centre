@@ -60,6 +60,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import placeholderImages from "@/app/lib/placeholder-images.json";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
 import { collection, query, orderBy, doc, where, updateDoc, increment } from "firebase/firestore";
+import { DownloadLeadDialog } from "@/components/download-lead-dialog";
 
 const iconMap: Record<string, any> = {
   GraduationCap,
@@ -728,7 +729,7 @@ export default function HomePage() {
           <div className="bg-white rounded-[24px] shadow-xl p-8 md:p-12 border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
               {/* Class Selection */}
-              <div className="relative min-w-[180px] w-full lg:w-auto">
+              <div className="relative min-w-[180px] w-full lg:w-auto text-left">
                 <select 
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
@@ -771,7 +772,7 @@ export default function HomePage() {
               </div>
 
               {/* Subject Selection */}
-              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
+              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0 text-left">
                 <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
                   <PopoverTrigger asChild>
                     <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
@@ -863,20 +864,23 @@ export default function HomePage() {
                     </div>
                     <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left line-clamp-2 min-h-[3rem]">{material.title}</h3>
                     <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">{material.desc}</p>
-                    <Button
-                      asChild
-                      className={cn(
-                        "w-full text-white font-bold rounded-[12px] h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
-                        material.themeColor,
-                        material.hoverThemeColor
-                      )}
-                      onClick={() => handleTrackDownload(material.id)}
-                    >
-                      <a href={material.pdfUrl} download={material.title}>
-                        <Download className="w-5 h-5" />
-                        Download PDF
-                      </a>
-                    </Button>
+                    <DownloadLeadDialog
+                      materialTitle={material.title}
+                      pdfUrl={material.pdfUrl}
+                      onDownload={() => handleTrackDownload(material.id)}
+                      trigger={
+                        <Button
+                          className={cn(
+                            "w-full text-white font-bold rounded-[12px] h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
+                            material.themeColor,
+                            material.hoverThemeColor
+                          )}
+                        >
+                          <Download className="w-5 h-5" />
+                          Download PDF
+                        </Button>
+                      }
+                    />
                   </div>
                 ))}
               </div>
@@ -1032,7 +1036,7 @@ export default function HomePage() {
                 </button>
               </div>
 
-              <div className="w-full md:w-[220px]">
+              <div className="w-full md:w-[220px] text-left">
                 <Select value={selectedScheduleClass} onValueChange={setSelectedScheduleClass}>
                   <SelectTrigger className="h-14 bg-white border-2 border-gray-100 rounded-2xl font-bold text-gray-700 shadow-sm focus:ring-blue-600">
                     <SelectValue placeholder="Select Class" />
@@ -1105,7 +1109,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="mt-12 bg-[#eff6ff] rounded-3xl p-8 border border-blue-50/50 text-left">
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-4 text-left">
                     <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 mt-1">
                       <Info className="w-3.5 h-3.5 text-white" />
                     </div>
@@ -1147,14 +1151,14 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-10 order-1 lg:order-2 text-left">
-              <div>
+              <div className="text-left">
                 <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
                   {content.mentorshipTitleMain}<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">{content.mentorshipTitleHighlight}</span>
                 </h2>
                 <p className="mt-4 text-[17px] text-gray-500 font-normal text-left">{content.mentorshipSubtitle}</p>
               </div>
 
-              <div className="space-y-8">
+              <div className="space-y-8 text-left">
                 {(content.mentorshipFeatures || []).map((feature: any, idx: number) => {
                   const Icon = iconMap[feature.icon] || UserCheck;
                   const styles = [
@@ -1165,13 +1169,13 @@ export default function HomePage() {
                   ];
                   const style = styles[idx % styles.length];
                   return (
-                    <div key={idx} className="flex items-start gap-6 group">
+                    <div key={idx} className="flex items-start gap-6 group text-left">
                       <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform", style.bg)}>
                         <Icon className={cn("w-6 h-6", style.iconColor)} />
                       </div>
                       <div className="space-y-1 text-left">
                         <h4 className="text-[20px] font-bold text-gray-900">{feature.title}</h4>
-                        <p className="text-[16px] text-gray-500 leading-relaxed font-normal">{feature.desc}</p>
+                        <p className="text-[16px] text-gray-500 leading-relaxed font-normal text-left">{feature.desc}</p>
                       </div>
                     </div>
                   );
@@ -1251,7 +1255,7 @@ export default function HomePage() {
                     <Icon className="w-7 h-7" />
                   </div>
                   <h3 className="text-[24px] font-bold text-gray-900 mb-3 tracking-tight">{feature.title}</h3>
-                  <p className="text-[16px] text-gray-500 leading-relaxed font-normal">{feature.desc}</p>
+                  <p className="text-[16px] text-gray-500 leading-relaxed font-normal text-left">{feature.desc}</p>
                 </div>
               );
             })}
@@ -1316,11 +1320,11 @@ export default function HomePage() {
                 <p className="font-bold">Syncing Records...</p>
               </div>
             ) : !performersList || performersList.length === 0 ? (
-              <div className="py-20 text-center text-gray-400 font-medium bg-gray-50 rounded-[2rem] border border-dashed border-gray-200">
+              <div className="py-20 text-center text-gray-400 font-medium bg-gray-50 rounded-[2rem] border border-dashed border-gray-200 text-left">
                 No achievement records found for {selectedResultYear}.
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
                 {performersList.map((student, idx) => {
                   const PerformerRankIcon = iconMap[student.rankIcon] || SuccessCardIcon;
                   return (
@@ -1336,13 +1340,13 @@ export default function HomePage() {
                           {student.rank}
                         </div>
                       </div>
-                      <div className="p-6">
-                        <h4 className="font-bold text-gray-900 text-lg leading-tight mb-1">{student.name}</h4>
-                        <p className="text-[11px] font-bold text-gray-400 mb-6">{student.grade}</p>
+                      <div className="p-6 text-left">
+                        <h4 className="font-bold text-gray-900 text-lg leading-tight mb-1 text-left">{student.name}</h4>
+                        <p className="text-[11px] font-bold text-gray-400 mb-6 text-left">{student.grade}</p>
                         <div className="flex items-end justify-between">
                           <div className="space-y-0.5 text-left">
-                            <div className={cn("text-3xl font-black tracking-tighter", student.marksColor || "text-blue-600")}>{student.marks}</div>
-                            <div className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{content.successTotalMarksLabel}</div>
+                            <div className={cn("text-3xl font-black tracking-tighter text-left", student.marksColor || "text-blue-600")}>{student.marks}</div>
+                            <div className="text-[9px] font-bold text-gray-400 uppercase tracking-widest text-left">{content.successTotalMarksLabel}</div>
                           </div>
                           <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg", student.iconColor || "bg-blue-600")}>
                             <SuccessCardIcon className="w-5 h-5 fill-white" />

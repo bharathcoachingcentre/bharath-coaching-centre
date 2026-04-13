@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { useFirestore, useCollection, useDoc } from "@/firebase";
 import { collection, query, orderBy, doc, updateDoc, increment } from "firebase/firestore";
+import { DownloadLeadDialog } from "@/components/download-lead-dialog";
 
 const materialStyles = [
   {
@@ -384,13 +385,13 @@ export default function StudyMaterialPage() {
                   {content.materialsTitleHighlight}
                 </span>
               </h2>
-              <p className="text-lg text-gray-500 font-normal text-center">
+              <p className="text-lg text-gray-500 font-normal text-center text-left">
                 {content.materialsSubtitle}
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 mb-12">
-              <div className="relative min-w-[180px] w-full lg:w-auto">
+              <div className="relative min-w-[180px] w-full lg:w-auto text-left">
                 <select
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
@@ -408,7 +409,7 @@ export default function StudyMaterialPage() {
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
 
-              <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto max-w-sm md:max-w-none">
+              <div className="flex w-full md:w-auto p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto max-w-sm md:max-w-none text-left">
                 <button
                   onClick={() => setActiveBoard("cbse")}
                   className={cn(
@@ -434,7 +435,7 @@ export default function StudyMaterialPage() {
               </div>
 
               {/* Right Column: Subject Selection (Searchable) */}
-              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0">
+              <div className="relative w-full max-w-xs mx-auto lg:ml-auto lg:mr-0 text-left">
                 <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
                   <PopoverTrigger asChild>
                     <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
@@ -462,7 +463,7 @@ export default function StudyMaterialPage() {
                         />
                       </div>
                     </div>
-                    <ScrollArea className="h-60">
+                    <ScrollArea className="h-60 text-left">
                       <div className="p-1">
                         {filteredSubjectsForDropdown.length === 0 ? (
                           <div className="p-4 text-center text-xs text-gray-400">
@@ -512,7 +513,7 @@ export default function StudyMaterialPage() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
                 {displayMaterials.map((material, idx) => (
                   <div
                     key={idx}
@@ -570,23 +571,23 @@ export default function StudyMaterialPage() {
                     <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">
                       {material.desc}
                     </p>
-                    <Button
-                      asChild
-                      className={cn(
-                        "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
-                        material.themeColor,
-                        material.hoverThemeColor
-                      )}
-                      onClick={() => handleTrackDownload(material.id)}
-                    >
-                      <a
-                        href={material.pdfUrl}
-                        download={material.title}
-                      >
-                        <Download className="w-5 h-5" />
-                        Download PDF
-                      </a>
-                    </Button>
+                    <DownloadLeadDialog
+                      materialTitle={material.title}
+                      pdfUrl={material.pdfUrl}
+                      onDownload={() => handleTrackDownload(material.id)}
+                      trigger={
+                        <Button
+                          className={cn(
+                            "w-full text-white font-bold rounded-2xl h-14 shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-auto border-none",
+                            material.themeColor,
+                            material.hoverThemeColor
+                          )}
+                        >
+                          <Download className="w-5 h-5" />
+                          Download PDF
+                        </Button>
+                      }
+                    />
                   </div>
                 ))}
               </div>

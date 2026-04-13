@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -8,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from "@/lib/utils";
+import { DownloadLeadDialog } from '@/components/download-lead-dialog';
 
 const classes = [
   { name: "Class 6", number: 6, href: "/courses/cbse-class-6" },
@@ -94,7 +94,7 @@ export default function CbsePage() {
       };
 
   return (
-    <div>
+    <div className="text-left">
         <section className="relative w-full flex items-center justify-center text-center text-white overflow-hidden pt-20 bg-gradient-to-r from-blue-600 to-teal-500" style={{ height: '500px' }}>
             <Award className="absolute -left-8 -bottom-8 w-32 h-32 text-white/10" />
             <GraduationCap className="absolute -right-8 -top-8 w-32 h-32 text-white/10" />
@@ -167,12 +167,17 @@ export default function CbsePage() {
                                         const href = relevantLink ? relevantLink.pdf : "#";
 
                                         return (
-                                            <Button asChild key={material.name} variant="ghost" className="bg-white/10 hover:bg-white/20 text-white justify-start w-full font-bold text-xs h-11 rounded-xl border border-white/20 backdrop-blur-sm" disabled={!relevantLink}>
-                                                <a href={href} download>
+                                            <DownloadLeadDialog
+                                              key={material.name}
+                                              materialTitle={`${material.name} - Class ${classNumber}`}
+                                              pdfUrl={href}
+                                              trigger={
+                                                <Button variant="ghost" className="bg-white/10 hover:bg-white/20 text-white justify-start w-full font-bold text-xs h-11 rounded-xl border border-white/20 backdrop-blur-sm" disabled={!relevantLink}>
                                                     <material.icon className="h-4 w-4 mr-3" />
                                                     {material.name}
-                                                </a>
-                                            </Button>
+                                                </Button>
+                                              }
+                                            />
                                         );
                                     })}
                                 </CardContent>
