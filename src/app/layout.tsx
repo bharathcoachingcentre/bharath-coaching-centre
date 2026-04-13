@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import { ClientHeader } from '@/components/header';
+import { ClientHeader } from '@/components/client-header';
 import { FooterWrapper } from '@/components/footer-wrapper';
 import { Inter } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase';
