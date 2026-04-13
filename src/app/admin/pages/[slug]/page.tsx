@@ -191,9 +191,13 @@ const defaultPageData: Record<string, any> = {
     heroCard2Value: "Samacheer",
     heroCard2Icon: "GraduationCap",
     heroCard3Online: "Online",
-    heroCard3OnlineIcon: "Laptop",
+    heroCard3OnlineImageUrl: "",
+    heroCard3OnlineImageWidth: "24",
+    heroCard3OnlineImageHeight: "24",
     heroCard3Offline: "Offline",
-    heroCard3OfflineIcon: "Building",
+    heroCard3OfflineImageUrl: "",
+    heroCard3OfflineImageWidth: "24",
+    heroCard3OfflineImageHeight: "24",
     heroImageUrl: placeholderImages["hero-education"].src,
     stats: [
       { label: "Students", value: "5000+", icon: "Users" },
@@ -370,7 +374,7 @@ const defaultPageData: Record<string, any> = {
         accentColor: "teal",
         accordions: [
           { title: "Board Question Papers", content: "Practice with the latest model board papers to understand the exam pattern and marking schemes." },
-          { title: "Previous Year Board QP", content: "Review actual papers from previous years to gauge the column and recurring topics." }
+          { title: "Previous Year Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
         ]
       },
       {
@@ -382,7 +386,7 @@ const defaultPageData: Record<string, any> = {
           { title: "Book Back Solutions", content: "Comprehensive solutions for all textbook exercises across the Samacheer Kalvi syllabus." },
           { title: "Chapter Wise Test Questions", content: "Structured test questions for every chapter in the Samacheer Kalvi syllabus." },
           { title: "Model Board Question Papers", content: "Expertly drafted model papers following the state board guidelines." },
-          { title: "Previous Years Board QP", content: "Review actual papers from previous years to gauge the column and recurring topics." }
+          { title: "Previous Years Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
         ]
       }
     ],
@@ -561,15 +565,6 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, callback: (base64: string) => void) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 1024 * 1024) {
-        toast({
-          variant: "destructive",
-          title: "File Too Large",
-          description: "Please upload an image smaller than 1MB.",
-        });
-        return;
-      }
-
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
@@ -889,14 +884,53 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     </div>
                     <div className="space-y-4 p-6 bg-purple-50 rounded-3xl text-left">
                       <h4 className="font-bold text-purple-600">Card 3 (Middle Right)</h4>
-                      <div className="grid grid-cols-1 gap-4">
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="space-y-1"><Label className="text-[10px]">Online Text</Label><Input value={formData.heroCard3Online || ""} onChange={(e) => updateField('heroCard3Online', e.target.value)} className="bg-white h-9" /></div>
-                          <div className="space-y-1"><Label className="text-[10px]">Online Icon</Label><Input value={formData.heroCard3OnlineIcon || ""} onChange={(e) => updateField('heroCard3OnlineIcon', e.target.value)} className="bg-white h-9" /></div>
+                      <div className="grid grid-cols-1 gap-6">
+                        <div className="p-4 bg-white/50 rounded-2xl border border-purple-100 space-y-4">
+                          <Label className="text-xs font-bold text-purple-700 uppercase">Online Indicator</Label>
+                          <div className="space-y-2">
+                            <Label className="text-[10px]">Label Text</Label>
+                            <Input value={formData.heroCard3Online || ""} onChange={(e) => updateField('heroCard3Online', e.target.value)} className="bg-white h-9" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px]">Icon Image</Label>
+                            <div className="flex items-center gap-3">
+                              <Button size="sm" variant="outline" className="h-9 rounded-lg px-3 text-[10px] font-bold border-dashed" onClick={() => document.getElementById('card3-online-upload')?.click()}>
+                                <Upload className="w-3 h-3 mr-1" /> Upload
+                              </Button>
+                              <input id="card3-online-upload" type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (base64) => updateField('heroCard3OnlineImageUrl', base64))} />
+                              {formData.heroCard3OnlineImageUrl && (
+                                <div className="w-8 h-8 rounded border border-gray-200 overflow-hidden"><img src={formData.heroCard3OnlineImageUrl} className="w-full h-full object-contain" alt="Online Icon" /></div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1"><Label className="text-[10px]">Width (px)</Label><Input value={formData.heroCard3OnlineImageWidth || "24"} onChange={(e) => updateField('heroCard3OnlineImageWidth', e.target.value)} className="bg-white h-8 text-[10px]" /></div>
+                            <div className="space-y-1"><Label className="text-[10px]">Height (px)</Label><Input value={formData.heroCard3OnlineImageHeight || "24"} onChange={(e) => updateField('heroCard3OnlineImageHeight', e.target.value)} className="bg-white h-8 text-[10px]" /></div>
+                          </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="space-y-1"><Label className="text-[10px]">Offline Text</Label><Input value={formData.heroCard3Offline || ""} onChange={(e) => updateField('heroCard3Offline', e.target.value)} className="bg-white h-9" /></div>
-                          <div className="space-y-1"><Label className="text-[10px]">Offline Icon</Label><Input value={formData.heroCard3OfflineIcon || ""} onChange={(e) => updateField('heroCard3OfflineIcon', e.target.value)} className="bg-white h-9" /></div>
+
+                        <div className="p-4 bg-white/50 rounded-2xl border border-orange-100 space-y-4">
+                          <Label className="text-xs font-bold text-orange-700 uppercase">Offline Indicator</Label>
+                          <div className="space-y-2">
+                            <Label className="text-[10px]">Label Text</Label>
+                            <Input value={formData.heroCard3Offline || ""} onChange={(e) => updateField('heroCard3Offline', e.target.value)} className="bg-white h-9" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px]">Icon Image</Label>
+                            <div className="flex items-center gap-3">
+                              <Button size="sm" variant="outline" className="h-9 rounded-lg px-3 text-[10px] font-bold border-dashed" onClick={() => document.getElementById('card3-offline-upload')?.click()}>
+                                <Upload className="w-3 h-3 mr-1" /> Upload
+                              </Button>
+                              <input id="card3-offline-upload" type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (base64) => updateField('heroCard3OfflineImageUrl', base64))} />
+                              {formData.heroCard3OfflineImageUrl && (
+                                <div className="w-8 h-8 rounded border border-gray-200 overflow-hidden"><img src={formData.heroCard3OfflineImageUrl} className="w-full h-full object-contain" alt="Offline Icon" /></div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1"><Label className="text-[10px]">Width (px)</Label><Input value={formData.heroCard3OfflineImageWidth || "24"} onChange={(e) => updateField('heroCard3OfflineImageWidth', e.target.value)} className="bg-white h-8 text-[10px]" /></div>
+                            <div className="space-y-1"><Label className="text-[10px]">Height (px)</Label><Input value={formData.heroCard3OfflineImageHeight || "24"} onChange={(e) => updateField('heroCard3OfflineImageHeight', e.target.value)} className="bg-white h-8 text-[10px]" /></div>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -190,22 +190,6 @@ const whyChooseStyles = [
   { bg: "bg-indigo-50/50", iconBg: "bg-indigo-600", shadow: "shadow-indigo-500/20", border: "border-indigo-100", hoverBorder: "hover:border-indigo-600" },
 ];
 
-const useIntersectionObserver = (options: any) => {
-  const [element, setElement] = useState<HTMLElement | null>(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
-
-  useEffect(() => {
-    if (!element) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting);
-    }, options);
-    observer.observe(element);
-    return () => observer.unobserve(element);
-  }, [element, options]);
-
-  return { setElement, isIntersecting };
-};
-
 export default function HomePage() {
   const firestore = useFirestore();
   const [activeBoard, setActiveBoard] = useState("cbse");
@@ -241,9 +225,13 @@ export default function HomePage() {
       heroCard2Value: "Samacheer",
       heroCard2Icon: "GraduationCap",
       heroCard3Online: "Online",
-      heroCard3OnlineIcon: "Laptop",
+      heroCard3OnlineImageUrl: "",
+      heroCard3OnlineImageWidth: "24",
+      heroCard3OnlineImageHeight: "24",
       heroCard3Offline: "Offline",
-      heroCard3OfflineIcon: "Building",
+      heroCard3OfflineImageUrl: "",
+      heroCard3OfflineImageWidth: "24",
+      heroCard3OfflineImageHeight: "24",
       heroImageUrl: placeholderImages["hero-education"].src,
       stats: [
         { label: "Students", value: "5000+", icon: "Users" },
@@ -641,15 +629,39 @@ export default function HomePage() {
               <div className="absolute top-1/2 -right-2 sm:-right-4 lg:right-0 transform -translate-y-1/2 floating-card-delay-2 bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-xl p-2 sm:p-6 border border-white/50 z-20">
                 <div className="space-y-1 sm:space-y-3">
                   <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-50 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
-                      <HeroCard3OnlineIcon className="text-white w-3 h-3 sm:w-5 sm:h-5" />
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-50 to-purple-600 rounded-lg flex items-center justify-center shadow-lg overflow-hidden">
+                      {content.heroCard3OnlineImageUrl ? (
+                        <img 
+                          src={content.heroCard3OnlineImageUrl} 
+                          alt="Online Icon" 
+                          style={{ 
+                            width: content.heroCard3OnlineImageWidth ? `${content.heroCard3OnlineImageWidth}px` : 'auto',
+                            height: content.heroCard3OnlineImageHeight ? `${content.heroCard3OnlineImageHeight}px` : 'auto'
+                          }}
+                          className="object-contain"
+                        />
+                      ) : (
+                        <HeroCard3OnlineIcon className="text-white w-3 h-3 sm:w-5 sm:h-5" />
+                      )}
                     </div>
                     <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Online}</span>
                   </div>
                   <div className="h-px bg-gray-200"></div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg">
-                      <HeroCard3OfflineIcon className="text-white w-3 h-3 sm:w-5 sm:h-5" />
+                    <div className="w-6 h-6 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg overflow-hidden">
+                      {content.heroCard3OfflineImageUrl ? (
+                        <img 
+                          src={content.heroCard3OfflineImageUrl} 
+                          alt="Offline Icon" 
+                          style={{ 
+                            width: content.heroCard3OfflineImageWidth ? `${content.heroCard3OfflineImageWidth}px` : 'auto',
+                            height: content.heroCard3OfflineImageHeight ? `${content.heroCard3OfflineImageHeight}px` : 'auto'
+                          }}
+                          className="object-contain"
+                        />
+                      ) : (
+                        <HeroCard3OfflineIcon className="text-white w-3 h-3 sm:w-5 sm:h-5" />
+                      )}
                     </div>
                     <span className="text-[10px] sm:text-sm font-bold text-gray-900">{content.heroCard3Offline}</span>
                   </div>
