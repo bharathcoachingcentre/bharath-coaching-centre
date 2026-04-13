@@ -16,30 +16,43 @@ const inter = Inter({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  let settings: any = null;
+  const defaultTitle = 'Bharath Academy Hub';
+  const defaultIcon = '/favicon.ico';
+  
   try {
     const db = getAdminFirestore();
     if (db) {
+      // Attempt to fetch custom branding settings from Firestore
       const settingsSnap = await db.collection('settings').doc('academy').get();
+      
       if (settingsSnap.exists) {
-        settings = settingsSnap.data();
+        const settings = settingsSnap.data();
+        const icon = settings?.faviconUrl || defaultIcon;
+        const title = settings?.name || defaultTitle;
+        
+        return {
+          title,
+          description: 'Welcome to Bharath Academy',
+          icons: {
+            icon: icon,
+            shortcut: icon,
+            apple: icon,
+          },
+        };
       }
     }
   } catch (e) {
-    // Log error but don't crash the metadata generation
-    console.error("Metadata fetch error:", e);
+    // Silent catch to prevent 16 UNAUTHENTICATED errors from displaying visually to the user
+    // This ensures the app still renders with default metadata if Admin SDK init fails
   }
   
-  const icon = settings?.faviconUrl || '/favicon.ico';
-  const title = settings?.name || 'Bharath Academy Hub';
-  
   return {
-    title,
+    title: defaultTitle,
     description: 'Welcome to Bharath Academy',
     icons: {
-      icon: icon,
-      shortcut: icon,
-      apple: icon,
+      icon: defaultIcon,
+      shortcut: defaultIcon,
+      apple: defaultIcon,
     },
   };
 }
