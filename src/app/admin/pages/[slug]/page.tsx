@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useEffect, useState, use } from "react";
@@ -205,7 +206,7 @@ const defaultPageData: Record<string, any> = {
     featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
     features: [
       { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
+      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
       { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
       { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
@@ -497,14 +498,9 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
 
   const { data: dbContent, loading: dbLoading } = useDoc(docRef);
 
-  const content = useMemo(() => {
-    const defaults = defaultPageData[slug] || {};
-    if (!dbContent?.content) return defaults;
-    return {
-      ...defaults,
-      ...dbContent.content
-    };
-  }, [dbContent, slug]);
+  const contentFallback = useMemo(() => {
+    return defaultPageData[slug] || {};
+  }, [slug]);
 
   useEffect(() => {
     setFormData(null);
@@ -678,7 +674,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 <CardTitle className="text-xl font-bold flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-teal-400" /> Icon Library
                 </CardTitle>
-                <Dialog open={isIconLibraryOpen} onOpenChange={setIconSearchQuery ? setIsIconLibraryOpen : setIsIconLibraryOpen}>
+                <Dialog open={isIconLibraryOpen} onOpenChange={setIsIconLibraryOpen}>
                   <DialogTrigger asChild>
                     <Button variant="ghost" size="sm" className="text-teal-400 hover:text-white hover:bg-white/10 rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
                       <Maximize2 className="w-3 h-3" /> View All
@@ -750,10 +746,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
         <div className="space-y-8">
           {slug === 'home' && (
             <div className="space-y-8 text-left">
-              {/* Hero Configuration */}
+              {/* 1. Hero Configuration */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">Hero Section Configuration</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">1. Hero Section Configuration</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -824,25 +820,25 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <Input value={formData.heroImageUrl || ""} onChange={(e) => updateField('heroImageUrl', e.target.value)} className="bg-gray-50 border-none h-12 rounded-xl px-6" placeholder="Image URL" />
                     </div>
                     <div className="relative aspect-square max-w-[200px] rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50">
-                      <img src={formData.heroImageUrl || content.heroImageUrl} alt="Hero Preview" className="w-full h-full object-contain" />
+                      <img src={formData.heroImageUrl || contentFallback.heroImageUrl} alt="Hero Preview" className="w-full h-full object-contain" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Home Stats */}
+              {/* 2. Hero Stats */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Hero Statistics (3 Cards)</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">2. Hero Statistics (3 Cards)</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {(formData.stats || content.stats).map((stat: any, idx: number) => (
+                    {(formData.stats || contentFallback.stats || []).map((stat: any, idx: number) => (
                       <div key={idx} className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 text-left">
                         <div className="space-y-2">
                           <Label className="text-[10px] font-black uppercase text-gray-400">Icon (Lucide)</Label>
                           <Input value={stat.icon} onChange={(e) => {
-                            const newStats = [...(formData.stats || content.stats)];
+                            const newStats = [...(formData.stats || contentFallback.stats)];
                             newStats[idx].icon = e.target.value;
                             updateField('stats', newStats);
                           }} className="h-10 bg-white" />
@@ -850,7 +846,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <div className="space-y-2">
                           <Label className="text-[10px] font-black uppercase text-gray-400">Value</Label>
                           <Input value={stat.value} onChange={(e) => {
-                            const newStats = [...(formData.stats || content.stats)];
+                            const newStats = [...(formData.stats || contentFallback.stats)];
                             newStats[idx].value = e.target.value;
                             updateField('stats', newStats);
                           }} className="h-10 bg-white font-bold" />
@@ -858,7 +854,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <div className="space-y-2">
                           <Label className="text-[10px] font-black uppercase text-gray-400">Label</Label>
                           <Input value={stat.label} onChange={(e) => {
-                            const newStats = [...(formData.stats || content.stats)];
+                            const newStats = [...(formData.stats || contentFallback.stats)];
                             newStats[idx].label = e.target.value;
                             updateField('stats', newStats);
                           }} className="h-10 bg-white" />
@@ -869,10 +865,10 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Floating Cards (Visuals) */}
+              {/* 3. Floating Cards */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Floating Content Cards</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">3. Floating Content Cards</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
@@ -909,12 +905,12 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Features Section */}
+              {/* 4. Features List */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Features List (Section 2)</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">4. Features List (How We Help)</CardTitle>
                   <Button onClick={() => {
-                    const current = formData.features || content.features;
+                    const current = formData.features || contentFallback.features;
                     updateField('features', [...current, { title: "New Feature", icon: "Zap", desc: "", color: "bg-blue-500 shadow-blue-500/30" }]);
                   }} variant="outline" className="rounded-xl font-bold h-10 gap-2"><Plus className="w-4 h-4" /> Add Feature</Button>
                 </CardHeader>
@@ -929,17 +925,21 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <Input value={formData.featuresTitleHighlight || ""} onChange={(e) => updateField('featuresTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
                     </div>
                   </div>
-                  <Reorder.Group axis="y" values={formData.features || content.features} onReorder={(newItems) => updateField('features', newItems)} className="space-y-4">
-                    {(formData.features || content.features).map((feat: any, idx: number) => (
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Features Subtitle</Label>
+                    <Textarea value={formData.featuresSubtitle || ""} onChange={(e) => updateField('featuresSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" />
+                  </div>
+                  <Reorder.Group axis="y" values={formData.features || contentFallback.features || []} onReorder={(newItems) => updateField('features', newItems)} className="space-y-4">
+                    {(formData.features || contentFallback.features || []).map((feat: any, idx: number) => (
                       <Reorder.Item key={idx} value={feat}>
                         <div className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 flex items-start gap-4 text-left group">
                           <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors mt-8"><GripVertical className="w-5 h-5 text-gray-300" /></div>
                           <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-4">
-                            <div className="md:col-span-3 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Icon</Label><Input value={feat.icon} onChange={(e) => { const list = [...(formData.features || content.features)]; list[idx].icon = e.target.value; updateField('features', list); }} className="h-10 bg-white" /></div>
-                            <div className="md:col-span-3 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Title</Label><Input value={feat.title} onChange={(e) => { const list = [...(formData.features || content.features)]; list[idx].title = e.target.value; updateField('features', list); }} className="h-10 bg-white font-bold" /></div>
-                            <div className="md:col-span-6 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Description</Label><Input value={feat.desc} onChange={(e) => { const list = [...(formData.features || content.features)]; list[idx].desc = e.target.value; updateField('features', list); }} className="h-10 bg-white" /></div>
+                            <div className="md:col-span-3 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Icon</Label><Input value={feat.icon} onChange={(e) => { const list = [...(formData.features || contentFallback.features)]; list[idx].icon = e.target.value; updateField('features', list); }} className="h-10 bg-white" /></div>
+                            <div className="md:col-span-3 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Title</Label><Input value={feat.title} onChange={(e) => { const list = [...(formData.features || contentFallback.features)]; list[idx].title = e.target.value; updateField('features', list); }} className="h-10 bg-white font-bold" /></div>
+                            <div className="md:col-span-6 space-y-1"><Label className="text-[10px] font-black uppercase text-gray-400">Description</Label><Input value={feat.desc} onChange={(e) => { const list = [...(formData.features || contentFallback.features)]; list[idx].desc = e.target.value; updateField('features', list); }} className="h-10 bg-white" /></div>
                           </div>
-                          <button onClick={() => { const list = (formData.features || content.features).filter((_: any, i: number) => i !== idx); updateField('features', list); }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors mt-8"><Trash2 className="w-4 h-4" /></button>
+                          <button onClick={() => { const list = (formData.features || contentFallback.features).filter((_: any, i: number) => i !== idx); updateField('features', list); }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors mt-8"><Trash2 className="w-4 h-4" /></button>
                         </div>
                       </Reorder.Item>
                     ))}
@@ -947,19 +947,64 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Academic Programs */}
+              {/* 5. Study Materials Hub */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Academic Programs (3 Main Programs)</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">5. Download Free Study Materials</CardTitle>
                 </CardHeader>
-                <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {(formData.programs || content.programs).map((prog: any, idx: number) => (
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Title</Label>
+                      <Input value={formData.materialsTitleMain || ""} onChange={(e) => updateField('materialsTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Title Highlight</Label>
+                      <Input value={formData.materialsTitleHighlight || ""} onChange={(e) => updateField('materialsTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Description</Label>
+                    <Textarea value={formData.materialsSubtitle || ""} onChange={(e) => updateField('materialsSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" placeholder="Filter by class and board to find specific resources for your curriculum" />
+                  </div>
+                  <div className="p-6 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-center gap-4 text-left">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                      <Info className="w-5 h-5" />
+                    </div>
+                    <p className="text-xs text-blue-800/70 font-medium text-left">
+                      Note: Individual PDF resources are managed through the <Link href="/admin/study-materials" className="font-bold underline text-blue-600">Study Materials</Link> menu in the sidebar.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 6. Academic Programs */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">6. Explore Our Academic Programs</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Title</Label>
+                      <Input value={formData.programsTitleMain || ""} onChange={(e) => updateField('programsTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Title Highlight</Label>
+                      <Input value={formData.programsTitleHighlight || ""} onChange={(e) => updateField('programsTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Description</Label>
+                    <Textarea value={formData.programsSubtitle || ""} onChange={(e) => updateField('programsSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" placeholder="Choose the perfect learning path for your child's academic journey" />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+                    {(formData.programs || contentFallback.programs || []).map((prog: any, idx: number) => (
                       <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 text-left relative">
                         <div className="space-y-3">
                           <Label className="text-xs font-black uppercase text-gray-400">Program {idx + 1} Title</Label>
                           <Input value={prog.title} onChange={(e) => {
-                            const list = [...(formData.programs || content.programs)];
+                            const list = [...(formData.programs || contentFallback.programs)];
                             list[idx].title = e.target.value;
                             updateField('programs', list);
                           }} className="h-12 bg-white rounded-xl font-bold" />
@@ -967,7 +1012,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <div className="space-y-3">
                           <Label className="text-xs font-black uppercase text-gray-400">Subtitle</Label>
                           <Input value={prog.subtitle} onChange={(e) => {
-                            const list = [...(formData.programs || content.programs)];
+                            const list = [...(formData.programs || contentFallback.programs)];
                             list[idx].subtitle = e.target.value;
                             updateField('programs', list);
                           }} className="h-12 bg-white rounded-xl" />
@@ -975,7 +1020,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <div className="space-y-3">
                           <Label className="text-xs font-black uppercase text-gray-400">Points (one per line)</Label>
                           <Textarea value={prog.points?.join('\n')} onChange={(e) => {
-                            const list = [...(formData.programs || content.programs)];
+                            const list = [...(formData.programs || contentFallback.programs)];
                             list[idx].points = e.target.value.split('\n').filter(p => p.trim() !== "");
                             updateField('programs', list);
                           }} className="min-h-[120px] bg-white rounded-xl text-sm" />
@@ -983,7 +1028,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                         <div className="flex items-center justify-between pt-4">
                           <Label className="text-xs font-bold text-gray-500">Highlight as Popular?</Label>
                           <Switch checked={prog.popular} onCheckedChange={(val) => {
-                            const list = [...(formData.programs || content.programs)];
+                            const list = [...(formData.programs || contentFallback.programs)];
                             list[idx].popular = val;
                             updateField('programs', list);
                           }} />
@@ -994,10 +1039,39 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Mentorship Section */}
+              {/* 7. Offline Timetable */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Mentorship Section</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">7. Offline Class Timetable</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2"><Label className="text-sm font-bold text-gray-700">Main Title</Label><Input value={formData.timetableTitleMain || ""} onChange={(e) => updateField('timetableTitleMain', e.target.value)} className="bg-gray-50 h-12 rounded-xl" /></div>
+                    <div className="space-y-2"><Label className="text-sm font-bold text-gray-700">Title Highlight</Label><Input value={formData.timetableTitleHighlight || ""} onChange={(e) => updateField('timetableTitleHighlight', e.target.value)} className="bg-gray-50 h-12 font-bold text-teal-600 rounded-xl" /></div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-sm font-bold text-gray-700">Description</Label>
+                    <Textarea value={formData.timetableSubtitle || ""} onChange={(e) => updateField('timetableSubtitle', e.target.value)} className="bg-gray-50 min-h-[80px] rounded-xl" placeholder="View our structured class schedules for offline sessions" />
+                  </div>
+                  
+                  <div className="space-y-4 pt-6 border-t border-gray-50">
+                    <h4 className="text-sm font-black uppercase text-teal-600 tracking-widest flex items-center gap-2">
+                      <Info className="w-4 h-4" /> Important Notes
+                    </h4>
+                    <Textarea 
+                      value={formData.timetableNotes?.join('\n')} 
+                      onChange={(e) => updateField('timetableNotes', e.target.value.split('\n').filter(n => n.trim() !== ""))} 
+                      className="bg-gray-50 min-h-[120px] rounded-xl font-medium" 
+                      placeholder="Add one note per line..."
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 8. Mentorship Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">8. Mentorship Section</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6 space-y-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
@@ -1010,16 +1084,20 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <Input value={formData.mentorshipTitleHighlight || ""} onChange={(e) => updateField('mentorshipTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
                     </div>
                   </div>
+                  <div className="space-y-3 text-left">
+                    <Label className="text-sm font-bold text-gray-700">Subtitle</Label>
+                    <Textarea value={formData.mentorshipSubtitle || ""} onChange={(e) => updateField('mentorshipSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" />
+                  </div>
                   <div className="space-y-6 text-left">
                     <Label className="text-xs font-black uppercase text-gray-400">Mentorship Features (4 items)</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {(formData.mentorshipFeatures || content.mentorshipFeatures).map((feat: any, idx: number) => (
+                      {(formData.mentorshipFeatures || contentFallback.mentorshipFeatures || []).map((feat: any, idx: number) => (
                         <div key={idx} className="p-6 bg-gray-50 rounded-3xl border border-gray-100 space-y-4">
                           <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1"><Label className="text-[10px]">Icon</Label><Input value={feat.icon} onChange={(e) => { const list = [...(formData.mentorshipFeatures || content.mentorshipFeatures)]; list[idx].icon = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9" /></div>
-                            <div className="space-y-1"><Label className="text-[10px]">Title</Label><Input value={feat.title} onChange={(e) => { const list = [...(formData.mentorshipFeatures || content.mentorshipFeatures)]; list[idx].title = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9 font-bold" /></div>
+                            <div className="space-y-1"><Label className="text-[10px]">Icon</Label><Input value={feat.icon} onChange={(e) => { const list = [...(formData.mentorshipFeatures || contentFallback.mentorshipFeatures)]; list[idx].icon = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9" /></div>
+                            <div className="space-y-1"><Label className="text-[10px]">Title</Label><Input value={feat.title} onChange={(e) => { const list = [...(formData.mentorshipFeatures || contentFallback.mentorshipFeatures)]; list[idx].title = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9 font-bold" /></div>
                           </div>
-                          <div className="space-y-1"><Label className="text-[10px]">Description</Label><Input value={feat.desc} onChange={(e) => { const list = [...(formData.mentorshipFeatures || content.mentorshipFeatures)]; list[idx].desc = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9 text-xs" /></div>
+                          <div className="space-y-1"><Label className="text-[10px]">Description</Label><Input value={feat.desc} onChange={(e) => { const list = [...(formData.mentorshipFeatures || contentFallback.mentorshipFeatures)]; list[idx].desc = e.target.value; updateField('mentorshipFeatures', list); }} className="bg-white h-9 text-xs" /></div>
                         </div>
                       ))}
                     </div>
@@ -1027,29 +1105,43 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Testimonials */}
+              {/* 9. Testimonials */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Student & Parent Testimonials</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">9. Student & Parent Testimonials</CardTitle>
                   <Button onClick={() => {
-                    const current = formData.testimonials || content.testimonials;
+                    const current = formData.testimonials || contentFallback.testimonials;
                     updateField('testimonials', [...current, { name: "New Person", role: "Class X Student", quote: "", rating: 5, avatar: "" }]);
                   }} variant="outline" className="rounded-xl font-bold h-10 gap-2"><Plus className="w-4 h-4" /> Add Feedback</Button>
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6 space-y-8">
-                  <Reorder.Group axis="y" values={formData.testimonials || content.testimonials} onReorder={(newItems) => updateField('testimonials', newItems)} className="space-y-6">
-                    {(formData.testimonials || content.testimonials).map((test: any, idx: number) => (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Heading Main</Label>
+                      <Input value={formData.testimonialsTitleMain || ""} onChange={(e) => updateField('testimonialsTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Heading Highlight</Label>
+                      <Input value={formData.testimonialsTitleHighlight || ""} onChange={(e) => updateField('testimonialsTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
+                    </div>
+                  </div>
+                  <div className="space-y-3 text-left">
+                    <Label className="text-sm font-bold text-gray-700">Subtitle</Label>
+                    <Input value={formData.testimonialsSubtitle || ""} onChange={(e) => updateField('testimonialsSubtitle', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                  </div>
+                  <Reorder.Group axis="y" values={formData.testimonials || contentFallback.testimonials || []} onReorder={(newItems) => updateField('testimonials', newItems)} className="space-y-6">
+                    {(formData.testimonials || contentFallback.testimonials || []).map((test: any, idx: number) => (
                       <Reorder.Item key={idx} value={test}>
                         <div className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 text-left relative group">
                           <div className="absolute top-8 right-8 flex items-center gap-2">
                             <div className="cursor-grab active:cursor-grabbing p-2 hover:bg-white rounded-lg transition-colors"><GripVertical className="w-5 h-5 text-gray-300" /></div>
-                            <button onClick={() => { const list = (formData.testimonials || content.testimonials).filter((_: any, i: number) => i !== idx); updateField('testimonials', list); }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                            <button onClick={() => { const list = (formData.testimonials || contentFallback.testimonials).filter((_: any, i: number) => i !== idx); updateField('testimonials', list); }} className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
                           </div>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
-                            <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Name</Label><Input value={test.name} onChange={(e) => { const list = [...(formData.testimonials || content.testimonials)]; list[idx].name = e.target.value; updateField('testimonials', list); }} className="bg-white font-bold h-12" /></div>
-                            <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Role / Class</Label><Input value={test.role} onChange={(e) => { const list = [...(formData.testimonials || content.testimonials)]; list[idx].role = e.target.value; updateField('testimonials', list); }} className="bg-white h-12" /></div>
+                            <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Name</Label><Input value={test.name} onChange={(e) => { const list = [...(formData.testimonials || contentFallback.testimonials)]; list[idx].name = e.target.value; updateField('testimonials', list); }} className="bg-white font-bold h-12" /></div>
+                            <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Role / Class</Label><Input value={test.role} onChange={(e) => { const list = [...(formData.testimonials || contentFallback.testimonials)]; list[idx].role = e.target.value; updateField('testimonials', list); }} className="bg-white h-12" /></div>
                           </div>
-                          <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Quote</Label><Textarea value={test.quote} onChange={(e) => { const list = [...(formData.testimonials || content.testimonials)]; list[idx].quote = e.target.value; updateField('testimonials', list); }} className="bg-white min-h-[100px] resize-none" /></div>
+                          <div className="space-y-2"><Label className="text-xs font-bold uppercase text-gray-400">Quote</Label><Textarea value={test.quote} onChange={(e) => { const list = [...(formData.testimonials || contentFallback.testimonials)]; list[idx].quote = e.target.value; updateField('testimonials', list); }} className="bg-white min-h-[100px] resize-none" /></div>
                         </div>
                       </Reorder.Item>
                     ))}
@@ -1057,34 +1149,94 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardContent>
               </Card>
 
-              {/* Headers Configuration */}
+              {/* 10. Why Choose Section */}
+              <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-10 pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">10. Why Choose Section</CardTitle>
+                  <Button onClick={() => {
+                    const current = formData.whyChooseFeatures || contentFallback.whyChooseFeatures;
+                    updateField('whyChooseFeatures', [...current, { title: "New Reason", icon: "Zap", desc: "" }]);
+                  }} variant="outline" className="rounded-xl font-bold h-10 gap-2"><Plus className="w-4 h-4" /> Add Reason</Button>
+                </CardHeader>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Title</Label>
+                      <Input value={formData.whyChooseTitleMain || ""} onChange={(e) => updateField('whyChooseTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Title Highlight</Label>
+                      <Input value={formData.whyChooseTitleHighlight || ""} onChange={(e) => updateField('whyChooseTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Description</Label>
+                    <Textarea value={formData.whyChooseSubtitle || ""} onChange={(e) => updateField('whyChooseSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {(formData.whyChooseFeatures || contentFallback.whyChooseFeatures || []).map((feat: any, idx: number) => (
+                      <div key={idx} className="p-6 bg-gray-50 rounded-3xl border border-gray-100 space-y-4">
+                        <div className="flex items-center justify-between">
+                          <Label className="text-[10px] font-black uppercase text-blue-600">Feature {idx + 1}</Label>
+                          <button onClick={() => {
+                            const list = formData.whyChooseFeatures.filter((_: any, i: number) => i !== idx);
+                            updateField('whyChooseFeatures', list);
+                          }} className="text-gray-300 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-1"><Label className="text-[10px]">Icon</Label><Input value={feat.icon} onChange={(e) => { const list = [...formData.whyChooseFeatures]; list[idx].icon = e.target.value; updateField('whyChooseFeatures', list); }} className="bg-white h-9" /></div>
+                          <div className="space-y-1"><Label className="text-[10px]">Title</Label><Input value={feat.title} onChange={(e) => { const list = [...formData.whyChooseFeatures]; list[idx].title = e.target.value; updateField('whyChooseFeatures', list); }} className="bg-white h-9 font-bold" /></div>
+                        </div>
+                        <div className="space-y-1"><Label className="text-[10px]">Description</Label><Textarea value={feat.desc} onChange={(e) => { const list = [...formData.whyChooseFeatures]; list[idx].desc = e.target.value; updateField('whyChooseFeatures', list); }} className="bg-white h-20 text-xs resize-none" /></div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 11. Success Stories */}
               <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
                 <CardHeader className="p-6 sm:p-10 pb-0">
-                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">Additional Headers Configuration</CardTitle>
+                  <CardTitle className="text-2xl font-black text-gray-900 tracking-tight text-left">11. Success Stories & Stats</CardTitle>
                 </CardHeader>
-                <CardContent className="p-6 sm:p-10 pt-6 space-y-12 text-left">
-                  {/* Study Materials Header */}
-                  <div className="space-y-6">
-                    <h4 className="text-sm font-black uppercase text-blue-600 tracking-widest flex items-center gap-2">
-                      <BookMarked className="w-4 h-4" /> Study Materials Header
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2"><Label className="text-xs">Main Title</Label><Input value={formData.materialsTitleMain || ""} onChange={(e) => updateField('materialsTitleMain', e.target.value)} className="bg-gray-50 h-12" /></div>
-                      <div className="space-y-2"><Label className="text-xs">Highlight</Label><Input value={formData.materialsTitleHighlight || ""} onChange={(e) => updateField('materialsTitleHighlight', e.target.value)} className="bg-gray-50 h-12 font-bold text-blue-600" /></div>
+                <CardContent className="p-6 sm:p-10 pt-6 space-y-10 text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Main Title</Label>
+                      <Input value={formData.successTitleMain || ""} onChange={(e) => updateField('successTitleMain', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
                     </div>
-                    <div className="space-y-2"><Label className="text-xs">Subtitle</Label><Input value={formData.materialsSubtitle || ""} onChange={(e) => updateField('materialsSubtitle', e.target.value)} className="bg-gray-50 h-12" /></div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Title Highlight</Label>
+                      <Input value={formData.successTitleHighlight || ""} onChange={(e) => updateField('successTitleHighlight', e.target.value)} className="h-12 bg-gray-50 rounded-xl text-blue-600 font-bold" />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="text-sm font-bold text-gray-700">Description</Label>
+                    <Textarea value={formData.successSubtitle || ""} onChange={(e) => updateField('successSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" />
+                  </div>
+                  
+                  <div className="space-y-6 pt-6 border-t border-gray-50">
+                    <Label className="text-xs font-black uppercase text-blue-600 tracking-widest">Success Metrics (3 Cards)</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {(formData.successStats || contentFallback.successStats || []).map((stat: any, idx: number) => (
+                        <div key={idx} className="p-6 bg-gray-50 rounded-3xl border border-gray-100 space-y-4">
+                          <div className="space-y-1"><Label className="text-[10px]">Icon</Label><Input value={stat.icon} onChange={(e) => { const list = [...formData.successStats]; list[idx].icon = e.target.value; updateField('successStats', list); }} className="bg-white h-9" /></div>
+                          <div className="space-y-1"><Label className="text-[10px]">Value</Label><Input value={stat.value} onChange={(e) => { const list = [...formData.successStats]; list[idx].value = e.target.value; updateField('successStats', list); }} className="bg-white h-9 font-bold" /></div>
+                          <div className="space-y-1"><Label className="text-[10px]">Label</Label><Input value={stat.label} onChange={(e) => { const list = [...formData.successStats]; list[idx].label = e.target.value; updateField('successStats', list); }} className="bg-white h-9" /></div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Timetable Header */}
-                  <div className="space-y-6 pt-10 border-t border-gray-100">
-                    <h4 className="text-sm font-black uppercase text-teal-600 tracking-widest flex items-center gap-2">
-                      <Clock className="w-4 h-4" /> Timetable Header & Notes
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2"><Label className="text-xs">Main Title</Label><Input value={formData.timetableTitleMain || ""} onChange={(e) => updateField('timetableTitleMain', e.target.value)} className="bg-gray-50 h-12" /></div>
-                      <div className="space-y-2"><Label className="text-xs">Highlight</Label><Input value={formData.timetableTitleHighlight || ""} onChange={(e) => updateField('timetableTitleHighlight', e.target.value)} className="bg-gray-50 h-12 font-bold text-teal-600" /></div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-gray-50">
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Grid Header (e.g. Top Performers)</Label>
+                      <Input value={formData.successTopHeader || ""} onChange={(e) => updateField('successTopHeader', e.target.value)} className="h-12 bg-gray-50 rounded-xl font-bold" />
                     </div>
-                    <div className="space-y-2"><Label className="text-xs">Notes (one per line)</Label><Textarea value={formData.timetableNotes?.join('\n')} onChange={(e) => updateField('timetableNotes', e.target.value.split('\n').filter(n => n.trim() !== ""))} className="bg-gray-50 min-h-[100px] resize-none" /></div>
+                    <div className="space-y-3">
+                      <Label className="text-sm font-bold text-gray-700">Total Marks Label</Label>
+                      <Input value={formData.successTotalMarksLabel || ""} onChange={(e) => updateField('successTotalMarksLabel', e.target.value)} className="h-12 bg-gray-50 rounded-xl" />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -1499,7 +1651,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                                   const newMenus = formData.menus.filter((_: any, i: number) => i !== colIdx);
                                   updateField('menus', newMenus);
                                 }}
-                                className="h-10 w-10 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
+                                className="h-10 w-10 flex items-center justify-center text-gray-200 hover:text-red-500 transition-colors"
                               >
                                 <Trash2 className="w-5 h-5" />
                               </button>
@@ -1877,7 +2029,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {(formData.iconCards || defaultPageData['one-to-one-classes'].iconCards).map((card: any, idx: number) => (
+                    {(formData.iconCards || defaultPageData['one-to-one-classes'].iconCards || []).map((card: any, idx: number) => (
                       <div key={idx} className="p-6 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-4">
                         <div className="space-y-2">
                           <Label className="text-[10px] font-black uppercase text-gray-400">Card {idx + 1} Icon (Lucide)</Label>
@@ -2373,7 +2525,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                       <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Statistics (3 Cards)</Label>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                      {(formData.successStats || defaultPageData.results.successStats).map((stat: any, idx: number) => (
+                      {(formData.successStats || defaultPageData.results.successStats || []).map((stat: any, idx: number) => (
                         <div key={idx} className="p-4 sm:p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
                           <div className="space-y-2 text-left">
                             <Label className="text-[10px] font-black uppercase">Icon (Lucide)</Label>
