@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -41,7 +40,7 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useFirestore, useCollection } from "@/firebase";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
 import { collection, query, orderBy, deleteDoc, doc, where } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
@@ -54,18 +53,23 @@ export default function TimetableManagementPage() {
   const [boardFilter, setBoardFilter] = useState<string>("all");
   const [selectedScheduleClass, setSelectedScheduleClass] = useState<string>("all");
 
-  const timetableQuery = useMemo(() => {
+  const timetableQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'timetables'), orderBy('createdAt', 'desc'));
   }, [firestore]);
 
   const { data: entries, loading: timetableLoading } = useCollection(timetableQuery);
 
-  // Master Data Lookups (for supporting both legacy ID records and new Name-based records)
-  const { data: classes } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'classes')) : null, [firestore]));
-  const { data: subjects } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'subjects')) : null, [firestore]));
-  const { data: periods } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'periods')) : null, [firestore]));
-  const { data: teachers } = useCollection(useMemo(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]));
+  // Master Data Lookups
+  const classesQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'classes')) : null, [firestore]);
+  const subjectsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'subjects')) : null, [firestore]);
+  const periodsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'periods')) : null, [firestore]);
+  const teachersQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'users'), where('role', '==', 'teacher')) : null, [firestore]);
+
+  const { data: classes } = useCollection(classesQuery);
+  const { data: subjects } = useCollection(subjectsQuery);
+  const { data: periods } = useCollection(periodsQuery);
+  const { data: teachers } = useCollection(teachersQuery);
 
   const loading = timetableLoading || !classes || !subjects || !periods || !teachers;
 
@@ -75,7 +79,6 @@ export default function TimetableManagementPage() {
 
     return entries.map(e => ({
       ...e,
-      // Robust lookup handles cases where DB stores ID (legacy) or Name (new)
       gradeName: classes.find(c => c.id === e.grade)?.name || e.grade,
       subjectName: subjects.find(s => s.id === e.subject)?.name || e.subject,
       timeSlotLabel: periods.find(p => p.id === e.timeSlot)?.label || e.timeSlot,

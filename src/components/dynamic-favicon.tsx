@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useFirestore, useDoc } from '@/firebase';
+import { useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { doc } from 'firebase/firestore';
 
 /**
@@ -11,7 +11,12 @@ import { doc } from 'firebase/firestore';
  */
 export function DynamicFavicon() {
   const firestore = useFirestore();
-  const settingsRef = firestore ? doc(firestore, 'settings', 'academy') : null;
+  
+  const settingsRef = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return doc(firestore, 'settings', 'academy');
+  }, [firestore]);
+
   const { data: settings } = useDoc(settingsRef);
 
   useEffect(() => {
