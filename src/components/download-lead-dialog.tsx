@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -29,6 +28,7 @@ import { useFirestore } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError, type SecurityRuleContext } from '@/firebase/errors';
+import { appendToGoogleSheetAction } from "@/app/actions/google-sheet";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -62,8 +62,14 @@ export function DownloadLeadDialog({ materialTitle, pdfUrl, trigger, onDownload,
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     
+    const leadDataForSheet = {
+      ...values,
+      materialTitle,
+      type: 'download'
+    };
+
     if (firestore) {
-      const leadData = {
+      const leadDataFirestore = {
         ...values,
         materialTitle,
         timestamp: serverTimestamp(),
@@ -71,18 +77,25 @@ export function DownloadLeadDialog({ materialTitle, pdfUrl, trigger, onDownload,
       const leadsRef = collection(firestore, 'material-leads');
 
       // NO await here. Chain the .catch() block to follow the standard architecture.
-      addDoc(leadsRef, leadData)
+      addDoc(leadsRef, leadDataFirestore)
         .catch(async (serverError) => {
           const permissionError = new FirestorePermissionError({
             path: leadsRef.path,
             operation: 'create',
-            requestResourceData: leadData,
+            requestResourceData: leadDataFirestore,
           } satisfies SecurityRuleContext);
 
           // Emit the error to show contextual debug info in the dev overlay
           errorEmitter.emit('permission-error', permissionError);
         });
     }
+
+    // Sync to Google Sheets via secure Server Action
+    appendToGoogleSheetAction(leadDataForSheet).then(res => {
+      if (!res.success) {
+        console.warn("Google Sheet Sync Warning:", res.error);
+      }
+    });
 
     // Trigger actual file download for immediate user satisfaction
     const link = document.createElement('a');

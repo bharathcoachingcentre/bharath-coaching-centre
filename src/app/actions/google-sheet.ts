@@ -5,7 +5,7 @@ import { google } from 'googleapis';
 /**
  * Appends a row to the configured Google Sheet using Service Account credentials.
  * Dynamically selects the tab based on the data type.
- * Handles every field from the Enrollment, Contact, and One-to-One forms.
+ * Handles every field from the Enrollment, Contact, One-to-One, and Download forms.
  */
 export async function appendToGoogleSheetAction(data: any) {
   try {
@@ -30,6 +30,7 @@ export async function appendToGoogleSheetAction(data: any) {
     const targetTab = 
       data.type === 'enrollment' ? 'Enrollment' : 
       data.type === 'one-to-one' ? 'OneToOne' : 
+      data.type === 'download' ? 'Download' : 
       defaultTabName;
 
     // Validation
@@ -110,6 +111,16 @@ export async function appendToGoogleSheetAction(data: any) {
         data.personalizedSchedule || '-',
         data.personalizedStudyMaterial || '-',
         data.weeklyGrowthTracking || '-'
+      ];
+    } else if (data.type === 'download') {
+      // DOWNLOAD - New mapping for study materials
+      rowValues = [
+        timestamp,
+        'DOWNLOAD',
+        data.name || 'N/A',
+        data.email || 'N/A',
+        data.phone || 'N/A',
+        data.materialTitle || 'N/A'
       ];
     } else {
       // CONTACT - Standard mapping
