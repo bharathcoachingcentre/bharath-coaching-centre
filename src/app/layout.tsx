@@ -7,6 +7,7 @@ import { Inter } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase';
 import { BackToTop } from '@/components/back-to-top';
 import { getAdminFirestore } from '@/lib/firebase-admin';
+import { DynamicFavicon } from '@/components/dynamic-favicon';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -66,6 +67,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className={`${inter.variable} font-body antialiased flex flex-col min-h-screen`}>
         <FirebaseClientProvider>
+          <DynamicFavicon />
           <ClientHeader />
           <main className="flex-grow">{children}</main>
           <FooterWrapper />

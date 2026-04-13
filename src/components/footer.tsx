@@ -92,7 +92,7 @@ export function Footer() {
             <div className="mb-6">
               <Link href="/" className="inline-flex items-center space-x-2 group">
                 {content.logoUrl ? (
-                  <div className="relative flex items-center bg-white p-3 rounded-2xl shadow-xl transition-all duration-300 group-hover:scale-105" style={{ width: 'fit-content' }}>
+                  <div className="relative flex items-center bg-white p-3 rounded-2xl shadow-xl transition-all duration-300" style={{ width: 'fit-content' }}>
                     <img 
                       src={content.logoUrl} 
                       alt="Logo" 
