@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import { ClientHeader } from '@/components/client-header';
+import { ClientHeader } from '@/components/header';
 import { FooterWrapper } from '@/components/footer-wrapper';
 import { Inter } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase';
@@ -19,9 +19,14 @@ export async function generateMetadata(): Promise<Metadata> {
   let settings: any = null;
   try {
     const db = getAdminFirestore();
-    const settingsSnap = await db.collection('settings').doc('academy').get();
-    settings = settingsSnap.data();
+    if (db) {
+      const settingsSnap = await db.collection('settings').doc('academy').get();
+      if (settingsSnap.exists) {
+        settings = settingsSnap.data();
+      }
+    }
   } catch (e) {
+    // Log error but don't crash the metadata generation
     console.error("Metadata fetch error:", e);
   }
   
