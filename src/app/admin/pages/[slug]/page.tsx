@@ -205,7 +205,7 @@ const defaultPageData: Record<string, any> = {
     featuresSubtitle: "Comprehensive learning solutions designed to ensure academic success",
     features: [
       { icon: "Presentation", title: "Daily Interactive Classes", desc: "Engaging live sessions with expert teachers ensuring concept clarity", color: "bg-blue-500 shadow-blue-500/30" },
-      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-500 shadow-teal-500/30" },
+      { icon: "FilePenLine", title: "Unit-wise Practice Worksheets", desc: "Comprehensive practice materials for every chapter and topic", color: "bg-teal-50 shadow-teal-500/30" },
       { icon: "MessagesSquare", title: "Instant Doubt Solving", desc: "Get your questions answered immediately by dedicated mentors", color: "bg-purple-500 shadow-purple-500/30" },
       { icon: "BookOpen", title: "Printed Study Materials", desc: "High-quality printed notes and reference materials delivered to you", color: "bg-orange-500 shadow-orange-500/30" },
       { icon: "UserCheck", title: "Mentor Support", desc: "One-on-one guidance tailored to your learning pace and goals", color: "bg-pink-500 shadow-pink-500/30" },
@@ -370,7 +370,7 @@ const defaultPageData: Record<string, any> = {
         accentColor: "teal",
         accordions: [
           { title: "Board Question Papers", content: "Practice with the latest model board papers to understand the exam pattern and marking schemes." },
-          { title: "Previous Year Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
+          { title: "Previous Year Board QP", content: "Review actual papers from previous years to gauge the column and recurring topics." }
         ]
       },
       {
@@ -382,7 +382,7 @@ const defaultPageData: Record<string, any> = {
           { title: "Book Back Solutions", content: "Comprehensive solutions for all textbook exercises across the Samacheer Kalvi syllabus." },
           { title: "Chapter Wise Test Questions", content: "Structured test questions for every chapter in the Samacheer Kalvi syllabus." },
           { title: "Model Board Question Papers", content: "Expertly drafted model papers following the state board guidelines." },
-          { title: "Previous Years Board QP", content: "Review actual papers from previous years to gauge the difficulty and recurring topics." }
+          { title: "Previous Years Board QP", content: "Review actual papers from previous years to gauge the column and recurring topics." }
         ]
       }
     ],
@@ -1001,6 +1001,14 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     {(formData.programs || contentFallback.programs || []).map((prog: any, idx: number) => (
                       <div key={idx} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 space-y-6 text-left relative">
                         <div className="space-y-3">
+                          <Label className="text-xs font-black uppercase text-gray-400">Icon (Lucide Name)</Label>
+                          <Input value={prog.icon} onChange={(e) => {
+                            const list = [...(formData.programs || contentFallback.programs)];
+                            list[idx].icon = e.target.value;
+                            updateField('programs', list);
+                          }} className="h-12 bg-white rounded-xl font-bold" placeholder="e.g. Zap, BookOpen" />
+                        </div>
+                        <div className="space-y-3">
                           <Label className="text-xs font-black uppercase text-gray-400">Program {idx + 1} Title</Label>
                           <Input value={prog.title} onChange={(e) => {
                             const list = [...(formData.programs || contentFallback.programs)];
@@ -1024,6 +1032,26 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                             updateField('programs', list);
                           }} className="min-h-[120px] bg-white rounded-xl text-sm" />
                         </div>
+                        
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase text-gray-400">Timetable Button Text</Label>
+                            <Input value={prog.viewTimetableBtnText || "View Timetable"} onChange={(e) => {
+                              const list = [...(formData.programs || contentFallback.programs)];
+                              list[idx].viewTimetableBtnText = e.target.value;
+                              updateField('programs', list);
+                            }} className="h-10 bg-white rounded-lg text-xs" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase text-gray-400">Enroll Button Text</Label>
+                            <Input value={prog.enrollNowBtnText || "Enroll Now"} onChange={(e) => {
+                              const list = [...(formData.programs || contentFallback.programs)];
+                              list[idx].enrollNowBtnText = e.target.value;
+                              updateField('programs', list);
+                            }} className="h-10 bg-white rounded-lg text-xs" />
+                          </div>
+                        </div>
+
                         <div className="flex items-center justify-between pt-4">
                           <Label className="text-xs font-bold text-gray-500">Highlight as Popular?</Label>
                           <Switch checked={prog.popular} onCheckedChange={(val) => {
@@ -1087,6 +1115,28 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                     <Label className="text-sm font-bold text-gray-700">Description</Label>
                     <Textarea value={formData.mentorshipSubtitle || ""} onChange={(e) => updateField('mentorshipSubtitle', e.target.value)} className="min-h-[80px] bg-gray-50 rounded-xl" placeholder="Personalized attention to help every student reach their full potential." />
                   </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pt-4 border-t border-gray-50">
+                    <div className="space-y-4 text-left">
+                      <Label className="text-sm font-bold text-gray-700">Section Illustration</Label>
+                      <div className="flex items-center gap-4">
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          className="h-12 border-dashed border-gray-300 rounded-xl px-6 font-bold text-gray-500 hover:bg-blue-50 transition-all flex items-center gap-2"
+                          onClick={() => document.getElementById('mentorship-img-upload')?.click()}
+                        >
+                          <Upload className="w-4 h-4" /> Upload Image
+                        </Button>
+                        <input id="mentorship-img-upload" type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (base64) => updateField('mentorshipImageUrl', base64))} />
+                      </div>
+                      <Input value={formData.mentorshipImageUrl || ""} onChange={(e) => updateField('mentorshipImageUrl', e.target.value)} className="bg-gray-50 border-none h-12 rounded-xl px-6" placeholder="Image URL" />
+                    </div>
+                    <div className="relative aspect-video max-w-[300px] rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50">
+                      <img src={formData.mentorshipImageUrl || contentFallback.mentorshipImageUrl} alt="Mentorship Preview" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+
                   <div className="space-y-3 text-left">
                     <Label className="text-sm font-bold text-gray-700">CTA Button Text</Label>
                     <Input value={formData.mentorshipBtnText || ""} onChange={(e) => updateField('mentorshipBtnText', e.target.value)} className="h-12 bg-gray-50 rounded-xl" placeholder="Book Personal Session" />
@@ -1142,21 +1192,43 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                           </div>
                           
                           <div className="space-y-4">
-                            <Label className="text-xs font-black uppercase text-gray-400">Avatar Image</Label>
-                            <div className="flex items-center gap-4">
-                              <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white border border-gray-200">
-                                <img src={test.avatar || "https://placehold.co/100x100"} className="w-full h-full object-cover" alt="Avatar" />
+                            <Label className="text-xs font-black uppercase text-gray-400">Avatar Photo</Label>
+                            <div className="flex items-center gap-6">
+                              <div className="w-20 h-20 rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm shrink-0">
+                                <img src={test.avatar || "https://placehold.co/100x100?text=Avatar"} className="w-full h-full object-cover" alt="Avatar" />
                               </div>
-                              <div className="flex-grow">
+                              <div className="flex flex-col gap-3 flex-grow">
+                                <div className="flex items-center gap-3">
+                                  <Button 
+                                    type="button" 
+                                    variant="outline" 
+                                    size="sm"
+                                    className="h-10 border-dashed rounded-lg px-4 font-bold text-xs"
+                                    onClick={() => document.getElementById(`avatar-upload-${idx}`)?.click()}
+                                  >
+                                    <Upload className="w-3.5 h-3.5 mr-2" /> Upload Photo
+                                  </Button>
+                                  <input 
+                                    id={`avatar-upload-${idx}`} 
+                                    type="file" 
+                                    accept="image/*" 
+                                    className="hidden" 
+                                    onChange={(e) => handleImageUpload(e, (base64) => {
+                                      const list = [...(formData.testimonials || contentFallback.testimonials)];
+                                      list[idx].avatar = base64;
+                                      updateField('testimonials', list);
+                                    })} 
+                                  />
+                                </div>
                                 <Input 
-                                  placeholder="Image URL" 
+                                  placeholder="Or paste Image URL" 
                                   value={test.avatar} 
                                   onChange={(e) => {
                                     const list = [...(formData.testimonials || contentFallback.testimonials)];
                                     list[idx].avatar = e.target.value;
                                     updateField('testimonials', list);
                                   }}
-                                  className="h-10 bg-white"
+                                  className="h-10 bg-white text-xs"
                                 />
                               </div>
                             </div>
@@ -2469,7 +2541,7 @@ export default function PageEditor({ params }: { params: Promise<{ slug: string 
                 </CardHeader>
                 <CardContent className="p-6 sm:p-10 pt-6 space-y-8 text-left">
                   <div className="space-y-3 text-left">
-                    <Label className="text-sm font-bold text-gray-700">Headline</Label>
+                    <Label className="text-sm font-bold text-gray-700">Page Headline</Label>
                     <Input 
                       value={formData.heroTitle || ""} 
                       onChange={(e) => updateField('heroTitle', e.target.value)}
