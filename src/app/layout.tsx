@@ -35,16 +35,20 @@ export async function generateMetadata(): Promise<Metadata> {
           title,
           description: 'Welcome to Bharath Academy',
           icons: {
-            icon: icon,
-            shortcut: icon,
-            apple: icon,
+            icon: [
+              { url: icon },
+              { url: icon, sizes: '32x32', type: 'image/x-icon' },
+            ],
+            shortcut: [icon],
+            apple: [
+              { url: icon },
+            ],
           },
         };
       }
     }
   } catch (e) {
-    // Silent catch to prevent 16 UNAUTHENTICATED errors from displaying visually to the user
-    // This ensures the app still renders with default metadata if Admin SDK init fails
+    // Silent catch to prevent crashes if Admin SDK encounters issues
   }
   
   return {

@@ -152,14 +152,14 @@ export default function SettingsPage() {
                   )}
                   <input 
                     type="file" 
-                    accept="image/*" 
+                    accept="image/*,.ico" 
                     className="absolute inset-0 opacity-0 cursor-pointer" 
                     onChange={handleFaviconUpload}
                   />
                 </div>
                 <div className="space-y-1 text-center sm:text-left flex-1">
                   <p className="text-sm font-bold text-gray-700">Upload Icon</p>
-                  <p className="text-xs text-gray-400">This will be used as the browser favicon and dashboard logo. Square ratio recommended.</p>
+                  <p className="text-xs text-gray-400">This will be used as the browser favicon and dashboard logo. Square ratio recommended. Supports .png, .jpg, and .ico.</p>
                   <Input 
                     value={faviconUrl}
                     onChange={(e) => setFaviconUrl(e.target.value)}
