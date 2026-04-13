@@ -303,8 +303,15 @@ export default function AdminLayout({
       {/* Sidebar - Desktop */}
       <aside className="w-64 bg-[#1e1e2d] text-gray-400 flex flex-col hidden md:flex sticky top-0 h-screen shrink-0">
         <div className="p-6 flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#14b8a6]/20">
-            <GraduationCap className="w-6 h-6" />
+          <div className={cn(
+            "w-10 h-10 rounded-xl flex items-center justify-center shadow-lg overflow-hidden",
+            academySettings?.faviconUrl ? "bg-white" : "bg-[#14b8a6] text-white shadow-[#14b8a6]/20"
+          )}>
+            {academySettings?.faviconUrl ? (
+              <img src={academySettings.faviconUrl} className="w-full h-full object-contain p-1" alt="Logo" />
+            ) : (
+              <GraduationCap className="w-6 h-6" />
+            )}
           </div>
           <div className="flex flex-col text-left">
             <span className="text-white font-bold text-lg leading-none truncate w-40">{academyName}</span>
@@ -372,8 +379,15 @@ export default function AdminLayout({
                 </SheetHeader>
                 <div className="flex flex-col h-full">
                   <div className="p-6 flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#14b8a6] rounded-xl flex items-center justify-center text-white shadow-lg">
-                      <GraduationCap className="w-6 h-6" />
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center shadow-lg overflow-hidden",
+                      academySettings?.faviconUrl ? "bg-white" : "bg-[#14b8a6] text-white shadow-[#14b8a6]/20"
+                    )}>
+                      {academySettings?.faviconUrl ? (
+                        <img src={academySettings.faviconUrl} className="w-full h-full object-contain p-1" alt="Logo" />
+                      ) : (
+                        <GraduationCap className="w-6 h-6" />
+                      )}
                     </div>
                     <div className="flex flex-col text-left">
                       <span className="text-white font-bold text-lg leading-none truncate w-40">{academyName}</span>
