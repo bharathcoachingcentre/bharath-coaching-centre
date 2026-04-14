@@ -45,7 +45,7 @@ import Link from "next/link";
 
 const formSchema = z.object({
   name: z.string().min(1, "Student name is required"),
-  grade: z.string().min(1, "Class / Board is required"),
+  grade: z.string().optional(),
   marks: z.string().min(1, "Marks / Percentage is required"),
   rank: z.string().min(1, "Rank text is required"),
   rankOrder: z.coerce.number().int().min(1, "Rank order must be at least 1"),
@@ -266,7 +266,7 @@ export default function EditPerformerPage({ params }: { params: Promise<{ id: st
                   name="grade"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
-                      <FormLabel className="text-xs font-black uppercase text-gray-400">Class / Board</FormLabel>
+                      <FormLabel className="text-xs font-black uppercase text-gray-400">Class / Board (Optional)</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. Class 10, CBSE" {...field} className="h-14 bg-gray-50 border-none rounded-xl px-6 font-bold" />
                       </FormControl>
