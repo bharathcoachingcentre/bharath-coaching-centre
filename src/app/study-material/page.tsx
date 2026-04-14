@@ -143,12 +143,7 @@ const AnimatedSection = ({
 
 export default function StudyMaterialPage() {
   const firestore = useFirestore();
-  const [activeBoard, setActiveBoard] = useState("cbse");
-  const [selectedClass, setSelectedClass] = useState("Class 10");
-  const [selectedSubject, setSelectedSubject] = useState("All Subjects");
   const [materialSearchQuery, setMaterialSearchQuery] = useState("");
-  const [subjectSearch, setSubjectSearch] = useState("");
-  const [isSubjectOpen, setIsSubjectOpen] = useState(false);
 
   // Fetch Page Content
   const pageRef = useMemo(() => {
@@ -199,7 +194,7 @@ export default function StudyMaterialPage() {
       ],
       materialsTitleMain: "Download Free ",
       materialsTitleHighlight: "Study Materials",
-      materialsSubtitle: "Filter by class and board to find specific resources for your curriculum"
+      materialsSubtitle: "Search for specific resources for your curriculum across all grades and boards"
     };
 
     if (!pageData?.content) return defaults;
@@ -218,48 +213,6 @@ export default function StudyMaterialPage() {
   const { data: allMaterials, loading: materialsLoading } =
     useCollection(materialsQuery);
 
-  const classesQuery = useMemo(() => {
-    if (!firestore) return null;
-    return query(collection(firestore, "classes"));
-  }, [firestore]);
-  const { data: allClassesRaw } = useCollection(classesQuery);
-
-  const availableClasses = useMemo(() => {
-    if (!allClassesRaw) return [];
-    return [...allClassesRaw]
-      .filter((c) => c.board?.toLowerCase() === activeBoard.toLowerCase())
-      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  }, [allClassesRaw, activeBoard]);
-
-  useEffect(() => {
-    if (availableClasses.length > 0) {
-      const exists = availableClasses.find((c) => c.name === selectedClass);
-      if (!exists) {
-        setSelectedClass(availableClasses[0].name);
-      }
-    }
-  }, [availableClasses, selectedClass]);
-
-  const subjectsQuery = useMemo(() => {
-    if (!firestore) return null;
-    return query(collection(firestore, "subjects"), orderBy("name", "asc"));
-  }, [firestore]);
-  const { data: allSubjectsRaw } = useCollection(subjectsQuery);
-
-  const availableSubjectsList = useMemo(() => {
-    const base = ["All Subjects"];
-    if (allSubjectsRaw) {
-      return [...base, ...allSubjectsRaw.map((s) => s.name)];
-    }
-    return base;
-  }, [allSubjectsRaw]);
-
-  const filteredSubjectsForDropdown = useMemo(() => {
-    return availableSubjectsList.filter((s) =>
-      s.toLowerCase().includes(subjectSearch.toLowerCase())
-    );
-  }, [availableSubjectsList, subjectSearch]);
-
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
 
@@ -270,7 +223,7 @@ export default function StudyMaterialPage() {
         const matchesVisibility = m.isVisible !== false;
         if (!matchesVisibility) return false;
 
-        // Global search if query exists - bypasses standard filters
+        // ONLY GLOBAL SEARCH
         if (materialSearchQuery) {
           return (
             m.title?.toLowerCase().includes(lowerQuery) || 
@@ -281,14 +234,8 @@ export default function StudyMaterialPage() {
           );
         }
 
-        // Standard tab filters apply when search is empty
-        const matchesGrade = m.grade === selectedClass;
-        const matchesBoard =
-          !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
-        const matchesSubject =
-          selectedSubject === "All Subjects" || m.subject === selectedSubject;
-        
-        return matchesGrade && matchesBoard && matchesSubject;
+        // Show all if search is empty
+        return true;
       })
       .map((m, idx) => {
         const styleIdx = idx % materialStyles.length;
@@ -298,7 +245,7 @@ export default function StudyMaterialPage() {
           ...materialStyles[styleIdx],
         };
       });
-  }, [allMaterials, selectedClass, activeBoard, selectedSubject, materialSearchQuery]);
+  }, [allMaterials, materialSearchQuery]);
 
   const handleTrackDownload = async (id: string) => {
     if (!firestore) return;
@@ -407,138 +354,29 @@ export default function StudyMaterialPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-6 mb-12">
-              {/* Global Search Bar */}
-              <div className="relative w-full text-left md:col-span-2 lg:col-span-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <div className="max-w-2xl mx-auto mb-12">
+              {/* GLOBAL SEARCH BAR ONLY */}
+              <div className="relative w-full text-left">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input 
-                  placeholder="Search materials..." 
+                  placeholder="Search materials by name, class, or subject..." 
                   value={materialSearchQuery}
                   onChange={(e) => setMaterialSearchQuery(e.target.value)}
-                  className="h-14 pl-11 bg-white border-2 border-gray-100 rounded-xl focus-visible:ring-blue-600 shadow-sm font-medium"
+                  className="h-16 pl-12 bg-white border-2 border-gray-100 rounded-2xl focus-visible:ring-blue-600 shadow-sm font-bold text-lg"
                 />
-              </div>
-
-              {/* Class Selection */}
-              <div className="relative min-w-[180px] w-full text-left">
-                <select
-                  value={selectedClass}
-                  onChange={(e) => setSelectedClass(e.target.value)}
-                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
-                >
-                  {availableClasses.map((c) => (
-                    <option key={c.id} value={c.name}>
-                      {c.name}
-                    </option>
-                  ))}
-                  {availableClasses.length === 0 && (
-                    <option disabled>No classes available</option>
-                  )}
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-              </div>
-
-              {/* Board Toggle */}
-              <div className="flex w-full p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto text-left">
-                <button
-                  onClick={() => setActiveBoard("cbse")}
-                  className={cn(
-                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
-                    activeBoard === "cbse"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
-                      : "text-gray-500 hover:bg-gray-200"
-                  )}
-                >
-                  CBSE
-                </button>
-                <button
-                  onClick={() => setActiveBoard("samacheer")}
-                  className={cn(
-                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
-                    activeBoard === "samacheer"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
-                      : "text-gray-500 hover:bg-gray-200"
-                  )}
-                >
-                  Samacheer
-                </button>
-              </div>
-
-              {/* Subject Selection (Searchable) */}
-              <div className="relative w-full text-left">
-                <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
-                  <PopoverTrigger asChild>
-                    <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
-                      <span className="truncate">{selectedSubject}</span>
-                      <ChevronDown
-                        className={cn(
-                          "h-4 w-4 text-gray-400 transition-transform",
-                          isSubjectOpen && "rotate-180"
-                        )}
-                      />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="w-[var(--radix-popover-trigger-width)] p-0 rounded-xl border-gray-100 shadow-2xl"
-                    align="end"
-                  >
-                    <div className="p-3 border-b border-gray-50">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
-                        <Input
-                          placeholder="Search subjects..."
-                          value={subjectSearch}
-                          onChange={(e) => setSubjectSearch(e.target.value)}
-                          className="h-9 pl-9 border-none bg-gray-50 rounded-lg text-xs focus-visible:ring-teal-500"
-                        />
-                      </div>
-                    </div>
-                    <ScrollArea className="h-60 text-left">
-                      <div className="p-1">
-                        {filteredSubjectsForDropdown.length === 0 ? (
-                          <div className="p-4 text-center text-xs text-gray-400">
-                            No subjects found
-                          </div>
-                        ) : (
-                          filteredSubjectsForDropdown.map((sub) => (
-                            <button
-                              key={sub}
-                              onClick={() => {
-                                setSelectedSubject(sub);
-                                setIsSubjectOpen(false);
-                                setSubjectSearch("");
-                              }}
-                              className={cn(
-                                "w-full text-left px-4 py-2.5 text-xs font-bold rounded-lg transition-colors",
-                                selectedSubject === sub
-                                  ? "bg-teal-50 text-teal-600"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              )}
-                            >
-                              {sub}
-                            </button>
-                          ))
-                        )}
-                      </div>
-                    </ScrollArea>
-                  </PopoverContent>
-                </Popover>
               </div>
             </div>
 
             {materialsLoading ? (
               <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
                 <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-                <p className="font-bold">Loading Materials...</p>
+                <p className="font-bold">Syncing Resources...</p>
               </div>
             ) : displayMaterials.length === 0 ? (
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-gray-500 font-bold">
-                  No materials found {materialSearchQuery ? `matching "${materialSearchQuery}"` : `for ${selectedSubject} in ${selectedClass}`}
-                </p>
-                <p className="text-gray-400 text-sm mt-1">
-                  Please try another class or check back later.
+                  {materialSearchQuery ? `No materials found matching "${materialSearchQuery}"` : "Enter a search term above to find study materials."}
                 </p>
               </div>
             ) : (
@@ -594,7 +432,7 @@ export default function StudyMaterialPage() {
                         )}
                       </div>
                     </div>
-                    <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left">
+                    <h3 className="text-[20px] font-bold text-gray-900 mb-2 tracking-tight text-left line-clamp-2 min-h-[3rem]">
                       {material.title}
                     </h3>
                     <p className="text-[14px] text-gray-600 font-normal mb-4 flex-grow text-left line-clamp-3">

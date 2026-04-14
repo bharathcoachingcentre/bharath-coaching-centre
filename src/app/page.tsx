@@ -194,12 +194,7 @@ const whyChooseStyles = [
 
 export default function HomePage() {
   const firestore = useFirestore();
-  const [activeBoard, setActiveBoard] = useState("cbse");
-  const [selectedClass, setSelectedClass] = useState("Class 10");
-  const [selectedSubject, setSelectedSubject] = useState("All Subjects");
   const [materialSearchQuery, setMaterialSearchQuery] = useState("");
-  const [subjectSearch, setSubjectSearch] = useState("");
-  const [isSubjectOpen, setIsSubjectOpen] = useState(false);
   const [activeScheduleBoard, setActiveScheduleBoard] = useState("cbse");
   const [selectedScheduleClass, setSelectedScheduleClass] = useState("Class 10");
   const [selectedResultYear, setSelectedResultYear] = useState("2025");
@@ -253,7 +248,7 @@ export default function HomePage() {
       ],
       materialsTitleMain: "Download Free ",
       materialsTitleHighlight: "Study Materials",
-      materialsSubtitle: "Filter by class and board to find specific resources for your curriculum",
+      materialsSubtitle: "Search for specific resources for your curriculum across all grades and boards",
       programsTitleMain: "Explore Our Academic ",
       programsTitleHighlight: "Programs",
       programsSubtitle: "Choose the perfect learning path for your child's academic journey",
@@ -324,9 +319,9 @@ export default function HomePage() {
       whyChooseFeatures: [
         { icon: "PieChart", title: "Parent Academic Tracking", desc: "Real-time updates on student's performance and progress through our parent portal.", color: "bg-blue-600 shadow-blue-600/30" },
         { icon: "UserCheck", title: "Daily Performance Monitoring", desc: "Track daily homework completion and class participation with notifications.", color: "bg-teal-50 shadow-teal-500/30" },
-        { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas for improvement.", color: "bg-purple-500 shadow-purple-500/30" },
+        { icon: "ClipboardCheck", title: "Weekly Tests & Evaluation", desc: "Regular assessments every week to measure progress and identify areas for improvement.", color: "bg-purple-50 shadow-purple-500/30" },
         { icon: "Zap", title: "Structured Test Hierarchy", desc: "Progressive testing from unit tests to mock exams, designed to build confidence.", color: "bg-orange-500 shadow-orange-500/30" },
-        { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled meetings with teachers to discuss student progress and strategies.", color: "bg-pink-500 shadow-pink-500/30" },
+        { icon: "Users", title: "Term-wise Parent Meetings", desc: "Scheduled meetings with teachers to discuss student progress and strategies.", color: "bg-pink-50 shadow-pink-500/30" },
         { icon: "BookOpen", title: "Specialized Learning Materials", desc: "Curated study materials specifically designed for CBSE and Samacheer curricula.", color: "bg-blue-50 shadow-blue-500/30" }
       ],
       successTitleMain: "Our Students' ",
@@ -388,15 +383,9 @@ export default function HomePage() {
     return allPerformers
       .filter(p => String(p.year).trim() === selectedResultYear)
       .sort((a, b) => {
-        // Sort by marks descending (highest first)
         const marksA = parseFloat(String(a.marks).replace(/[^0-9.]/g, '')) || 0;
         const marksB = parseFloat(String(b.marks).replace(/[^0-9.]/g, '')) || 0;
-        
-        if (marksB !== marksA) {
-          return marksB - marksA;
-        }
-        
-        // Secondary sort by rank order if marks are equal
+        if (marksB !== marksA) return marksB - marksA;
         return (a.rankOrder || 999) - (b.rankOrder || 999);
       });
   }, [allPerformers, selectedResultYear]);
@@ -432,42 +421,6 @@ export default function HomePage() {
   }, [firestore]);
   const { data: allClassesRaw } = useCollection(classesQuery);
 
-  const availableClasses = useMemo(() => {
-    if (!allClassesRaw) return [];
-    return [...allClassesRaw]
-      .filter(c => c.board?.toLowerCase() === activeBoard.toLowerCase())
-      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  }, [allClassesRaw, activeBoard]);
-
-  useEffect(() => {
-    if (availableClasses.length > 0) {
-      const exists = availableClasses.find(c => c.name === selectedClass);
-      if (!exists) {
-        setSelectedClass(availableClasses[0].name);
-      }
-    }
-  }, [availableClasses, selectedClass]);
-
-  const subjectsQuery_Look = useMemo(() => {
-    if (!firestore) return null;
-    return query(collection(firestore, 'subjects'), orderBy('name', 'asc'));
-  }, [firestore]);
-  const { data: allSubjectsRaw } = useCollection(subjectsQuery_Look);
-
-  const availableSubjectsList = useMemo(() => {
-    const base = ["All Subjects"];
-    if (allSubjectsRaw) {
-      return [...base, ...allSubjectsRaw.map(s => s.name)];
-    }
-    return base;
-  }, [allSubjectsRaw]);
-
-  const filteredSubjectsForDropdown = useMemo(() => {
-    return availableSubjectsList.filter(s => 
-      s.toLowerCase().includes(subjectSearch.toLowerCase())
-    );
-  }, [availableSubjectsList, subjectSearch]);
-
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
     
@@ -478,7 +431,7 @@ export default function HomePage() {
         const matchesVisibility = m.isVisible !== false;
         if (!matchesVisibility) return false;
 
-        // GLOBAL SEARCH: If a query exists, search across everything and ignore tab filters
+        // ONLY GLOBAL SEARCH
         if (materialSearchQuery) {
           const subjectName = allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject || "";
           const className = allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade || "";
@@ -492,14 +445,8 @@ export default function HomePage() {
           );
         }
 
-        // TAB FILTERS: Apply only if search is empty
-        const gradeId = allClassesLookup?.find(c => c.name === selectedClass)?.id;
-        const matchesGrade = m.grade === selectedClass || m.grade === gradeId;
-        const matchesBoard = !m.board || m.board.toLowerCase() === activeBoard.toLowerCase();
-        const subjectId = allSubjectsLookup?.find(s => s.name === selectedSubject)?.id;
-        const matchesSubject = selectedSubject === "All Subjects" || m.subject === selectedSubject || m.subject === subjectId;
-        
-        return matchesGrade && matchesBoard && matchesSubject;
+        // Show all if search is empty
+        return true;
       })
       .map((m, idx) => {
         const styleIdx = idx % materialStyles.length;
@@ -508,12 +455,12 @@ export default function HomePage() {
         return {
           ...m,
           subject: subjectName,
-          grade: className, // Ensure display shows human readable grade
+          grade: className,
           desc: m.description,
           ...materialStyles[styleIdx]
         };
       });
-  }, [allMaterials, selectedClass, activeBoard, selectedSubject, allClassesLookup, allSubjectsLookup, materialSearchQuery]);
+  }, [allMaterials, allClassesLookup, allSubjectsLookup, materialSearchQuery]);
 
   const timetableDisplayData = useMemo(() => {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -760,129 +707,31 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-[24px] shadow-xl p-8 md:p-12 border border-gray-100">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-6 mb-12">
-              {/* Global Search Bar */}
-              <div className="relative w-full text-left md:col-span-2 lg:col-span-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input 
-                  placeholder="Search materials..." 
-                  value={materialSearchQuery}
-                  onChange={(e) => setMaterialSearchQuery(e.target.value)}
-                  className="h-14 pl-11 bg-white border-2 border-gray-100 rounded-xl focus-visible:ring-blue-600 shadow-sm font-medium"
-                />
-              </div>
-
-              {/* Class Selection */}
-              <div className="relative min-w-[180px] w-full text-left">
-                <select 
-                  value={selectedClass}
-                  onChange={(e) => setSelectedClass(e.target.value)}
-                  className="appearance-none w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-blue-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm"
-                >
-                  {availableClasses.map((c) => (
-                    <option key={c.id} value={c.name}>{c.name}</option>
-                  ))}
-                  {availableClasses.length === 0 && (
-                    <option disabled>No classes available</option>
-                  )}
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-              </div>
-
-              {/* Board Toggle */}
-              <div className="flex w-full p-1.5 bg-[#f1f5f9] rounded-2xl mx-auto">
-                <button
-                  onClick={() => setActiveBoard("cbse")}
-                  className={cn(
-                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
-                    activeBoard === "cbse"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
-                      : "text-gray-500 hover:bg-gray-200"
-                  )}
-                >
-                  CBSE
-                </button>
-                <button
-                  onClick={() => setActiveBoard("samacheer")}
-                  className={cn(
-                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
-                    activeBoard === "samacheer"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
-                      : "text-gray-500 hover:bg-gray-200"
-                  )}
-                >
-                  Samacheer
-                </button>
-              </div>
-
-              {/* Subject Selection */}
-              <div className="relative w-full text-left">
-                <Popover open={isSubjectOpen} onOpenChange={setIsSubjectOpen}>
-                  <PopoverTrigger asChild>
-                    <button className="flex items-center justify-between w-full px-6 py-3.5 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:border-teal-600 focus:outline-none shadow-sm bg-white cursor-pointer text-sm">
-                      <span className="truncate">{selectedSubject}</span>
-                      <ChevronDown className={cn("h-4 w-4 text-gray-400 transition-transform", isSubjectOpen && "rotate-180")} />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 rounded-xl border-gray-100 shadow-2xl" align="end">
-                    <div className="p-3 border-b border-gray-50">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
-                        <Input 
-                          placeholder="Search subjects..." 
-                          value={subjectSearch}
-                          onChange={(e) => setSubjectSearch(e.target.value)}
-                          className="h-9 pl-9 border-none bg-gray-50 rounded-lg text-xs focus-visible:ring-teal-500"
-                        />
-                      </div>
-                    </div>
-                    <ScrollArea className="h-60">
-                      <div className="p-1">
-                        {filteredSubjectsForDropdown.length === 0 ? (
-                          <div className="p-4 text-center text-xs text-gray-400">No subjects found</div>
-                        ) : (
-                          filteredSubjectsForDropdown.map((sub) => (
-                            <button
-                              key={sub}
-                              onClick={() => {
-                                setSelectedSubject(sub);
-                                setIsSubjectOpen(false);
-                                setSubjectSearch("");
-                              }}
-                              className={cn(
-                                "w-full text-left px-4 py-2.5 text-xs font-bold rounded-lg transition-colors",
-                                selectedSubject === sub 
-                                  ? "bg-teal-50 text-teal-600" 
-                                  : "text-gray-600 hover:bg-gray-50"
-                              )}
-                            >
-                              {sub}
-                            </button>
-                          ))
-                        )}
-                      </div>
-                    </ScrollArea>
-                  </PopoverContent>
-                </Popover>
-              </div>
+          <div className="bg-white rounded-[24px] shadow-xl p-8 md:p-12 border border-gray-100 max-w-2xl mx-auto">
+            <div className="relative w-full text-left mb-12">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Input 
+                placeholder="Search materials by name, class, or subject..." 
+                value={materialSearchQuery}
+                onChange={(e) => setMaterialSearchQuery(e.target.value)}
+                className="h-16 pl-12 bg-white border-2 border-gray-100 rounded-2xl focus-visible:ring-blue-600 shadow-sm font-bold text-lg"
+              />
             </div>
 
             {materialsLoading ? (
               <div className="flex flex-col items-center justify-center py-24 gap-4 text-gray-400">
                 <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-                <p className="font-bold uppercase tracking-widest text-xs">Loading Resources...</p>
+                <p className="font-bold uppercase tracking-widest text-xs">Syncing Resources...</p>
               </div>
             ) : displayMaterials.length === 0 ? (
               <div className="text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-gray-500 font-bold">
-                  No materials found {materialSearchQuery ? `matching "${materialSearchQuery}"` : `for ${selectedSubject} in ${selectedClass}`}
+                  {materialSearchQuery ? `No materials found matching "${materialSearchQuery}"` : "Enter a search term above to find study materials."}
                 </p>
-                <p className="text-gray-400 text-sm mt-1">Check back later for new updates or try a different search.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {displayMaterials.map((material, idx) => (
                   <div
                     key={idx}
