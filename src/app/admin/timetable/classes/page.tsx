@@ -210,7 +210,7 @@ export default function ClassesManagementPage() {
                     <TableCell className="px-8 py-5 text-left">
                       <Badge className={cn(
                         "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
-                        c.board?.toLowerCase() === "cbse" ? "bg-blue-100 text-blue-600" : "bg-teal-100 text-teal-600"
+                        c.board?.toLowerCase() === "cbse" ? "bg-blue-100 text-blue-600" : (c.board?.toLowerCase() === "samacheer" ? "bg-teal-100 text-teal-600" : "bg-gray-100 text-gray-600")
                       )}>
                         {c.board}
                       </Badge>
@@ -267,6 +267,7 @@ export default function ClassesManagementPage() {
                 <SelectContent>
                   <SelectItem value="cbse">CBSE</SelectItem>
                   <SelectItem value="samacheer">Samacheer</SelectItem>
+                  <SelectItem value="general">General</SelectItem>
                 </SelectContent>
               </Select>
             </div>

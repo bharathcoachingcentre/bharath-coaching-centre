@@ -336,6 +336,7 @@ export default function UploadMaterialPage() {
                           <SelectContent className="rounded-xl border-gray-100 shadow-xl">
                             <SelectItem value="CBSE">CBSE</SelectItem>
                             <SelectItem value="Samacheer">Samacheer</SelectItem>
+                            <SelectItem value="General">General</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />

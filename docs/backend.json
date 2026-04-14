@@ -83,7 +83,7 @@
         "description": { "type": "string" },
         "category": { "type": "string" },
         "grade": { "type": "string" },
-        "board": { "type": "string", "enum": ["CBSE", "Samacheer"] },
+        "board": { "type": "string", "enum": ["CBSE", "Samacheer", "General"] },
         "pdfUrl": { "type": "string" },
         "subject": { "type": "string" },
         "isVisible": { "type": "boolean" },
@@ -96,7 +96,7 @@
       "description": "Daily schedule data for offline classes.",
       "type": "object",
       "properties": {
-        "board": { "type": "string", "enum": ["cbse", "samacheer"] },
+        "board": { "type": "string", "enum": ["cbse", "samacheer", "general"] },
         "grade": { "type": "string" },
         "day": { "type": "string" },
         "timeSlot": { "type": "string" },

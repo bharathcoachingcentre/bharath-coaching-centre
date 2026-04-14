@@ -207,6 +207,7 @@ export default function EditTimetableEntryPage({
                         <SelectContent>
                           <SelectItem value="cbse">CBSE</SelectItem>
                           <SelectItem value="samacheer">Samacheer</SelectItem>
+                          <SelectItem value="general">General</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

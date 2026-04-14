@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
@@ -813,6 +814,17 @@ export default function HomePage() {
                 >
                   Samacheer
                 </button>
+                <button
+                  onClick={() => setActiveBoard("general")}
+                  className={cn(
+                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
+                    activeBoard === "general"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  General
+                </button>
               </div>
 
               {/* Subject Selection */}
@@ -1079,6 +1091,17 @@ export default function HomePage() {
                   )}
                 >
                   Samacheer
+                </button>
+                <button
+                  onClick={() => setActiveScheduleBoard("general")}
+                  className={cn(
+                    "flex-1 md:flex-none px-4 md:px-10 py-3 font-bold rounded-xl transition-all duration-300 min-w-0 md:min-w-[140px] text-sm tracking-tight",
+                    activeScheduleBoard === "general"
+                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-lg"
+                      : "text-gray-500 hover:bg-gray-200"
+                  )}
+                >
+                  General
                 </button>
               </div>
 

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -152,6 +153,7 @@ export default function TimetableManagementPage() {
                 <SelectItem value="all">All Boards</SelectItem>
                 <SelectItem value="cbse">CBSE</SelectItem>
                 <SelectItem value="samacheer">Samacheer</SelectItem>
+                <SelectItem value="general">General</SelectItem>
               </SelectContent>
             </Select>
 
@@ -218,7 +220,7 @@ export default function TimetableManagementPage() {
                         "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none shadow-none",
                         entry.board?.toLowerCase() === "cbse" 
                           ? "bg-blue-100 text-blue-600" 
-                          : "bg-teal-100 text-teal-600"
+                          : (entry.board?.toLowerCase() === "samacheer" ? "bg-teal-100 text-teal-600" : "bg-gray-100 text-gray-600")
                       )}>
                         {entry.board || "N/A"}
                       </Badge>

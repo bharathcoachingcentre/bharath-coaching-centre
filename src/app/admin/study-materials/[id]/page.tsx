@@ -397,6 +397,7 @@ export default function StudyMaterialEditPage({
                             <SelectContent className="rounded-xl shadow-xl">
                               <SelectItem value="CBSE">CBSE</SelectItem>
                               <SelectItem value="Samacheer">Samacheer</SelectItem>
+                              <SelectItem value="General">General</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
