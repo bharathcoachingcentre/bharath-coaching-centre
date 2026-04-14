@@ -67,7 +67,7 @@ export default function AddTimetableEntryPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      board: "cbse",
+      board: "",
       grade: "",
       day: "Monday",
       timeSlot: "",

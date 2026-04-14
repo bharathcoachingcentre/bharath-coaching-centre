@@ -89,7 +89,7 @@ export default function UploadMaterialPage() {
     defaultValues: {
       title: "",
       grade: "",
-      board: "CBSE",
+      board: "",
       subject: "",
       materialType: "pdf",
       description: "",

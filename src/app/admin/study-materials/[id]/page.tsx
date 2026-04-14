@@ -105,7 +105,7 @@ export default function StudyMaterialEditPage({
     defaultValues: {
       title: "",
       grade: "",
-      board: "CBSE",
+      board: "",
       subject: "",
       category: "pdf",
       description: "",
@@ -126,7 +126,7 @@ export default function StudyMaterialEditPage({
       form.reset({
         title: material.title || "",
         grade: material.grade || "",
-        board: material.board || "CBSE",
+        board: material.board || "",
         subject: material.subject || "",
         category: material.category || "pdf",
         description: material.description || "",
