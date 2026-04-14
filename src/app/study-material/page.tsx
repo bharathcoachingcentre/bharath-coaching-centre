@@ -213,39 +213,60 @@ export default function StudyMaterialPage() {
   const { data: allMaterials, loading: materialsLoading } =
     useCollection(materialsQuery);
 
+  const subjectsLookupQuery = useMemo(() => firestore ? query(collection(firestore, 'subjects')) : null, [firestore]);
+  const { data: allSubjectsLookup } = useCollection(subjectsLookupQuery);
+
+  const classesLookupQuery = useMemo(() => firestore ? query(collection(firestore, 'classes')) : null, [firestore]);
+  const { data: allClassesLookup } = useCollection(classesLookupQuery);
+
   const displayMaterials = useMemo(() => {
     if (!allMaterials) return [];
 
     const lowerQuery = materialSearchQuery.toLowerCase();
 
-    return allMaterials
+    const filtered = allMaterials
       .filter((m) => {
         const matchesVisibility = m.isVisible !== false;
         if (!matchesVisibility) return false;
 
-        // ONLY GLOBAL SEARCH
+        // GLOBAL SEARCH
         if (materialSearchQuery) {
+          const subjectName = allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject || "";
+          const className = allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade || "";
+          
           return (
             m.title?.toLowerCase().includes(lowerQuery) || 
             m.description?.toLowerCase().includes(lowerQuery) ||
-            m.subject?.toLowerCase().includes(lowerQuery) ||
-            m.grade?.toLowerCase().includes(lowerQuery) ||
+            subjectName.toLowerCase().includes(lowerQuery) ||
+            className.toLowerCase().includes(lowerQuery) ||
             m.board?.toLowerCase().includes(lowerQuery)
           );
         }
 
-        // Show all if search is empty
         return true;
-      })
-      .map((m, idx) => {
-        const styleIdx = idx % materialStyles.length;
-        return {
-          ...m,
-          desc: m.description,
-          ...materialStyles[styleIdx],
-        };
       });
-  }, [allMaterials, materialSearchQuery]);
+
+    // 1. Sort by subject name alphabetically
+    const sorted = filtered.sort((a, b) => {
+      const subA = (allSubjectsLookup?.find(s => s.id === a.subject)?.name || a.subject || "").toLowerCase();
+      const subB = (allSubjectsLookup?.find(s => s.id === b.subject)?.name || b.subject || "").toLowerCase();
+      return subA.localeCompare(subB);
+    });
+
+    // 2. Default to 2 rows of 4 (8 items total) if not searching
+    const result = !materialSearchQuery ? sorted.slice(0, 8) : sorted;
+
+    return result.map((m, idx) => {
+      const styleIdx = idx % materialStyles.length;
+      return {
+        ...m,
+        subject: allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject,
+        grade: allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade,
+        desc: m.description,
+        ...materialStyles[styleIdx],
+      };
+    });
+  }, [allMaterials, allSubjectsLookup, allClassesLookup, materialSearchQuery]);
 
   const handleTrackDownload = async (id: string) => {
     if (!firestore) return;
@@ -355,7 +376,6 @@ export default function StudyMaterialPage() {
             </div>
 
             <div className="max-w-2xl mx-auto mb-12">
-              {/* GLOBAL SEARCH BAR ONLY */}
               <div className="relative w-full text-left">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input 
@@ -416,7 +436,7 @@ export default function StudyMaterialPage() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex flex-col items-end gap-1">
+                      <div className="flex flex-col items-end gap-1 text-right">
                         <span
                           className={cn(
                             "px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm",

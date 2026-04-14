@@ -426,12 +426,12 @@ export default function HomePage() {
     
     const lowerQuery = materialSearchQuery.toLowerCase();
 
-    return allMaterials
+    const filtered = allMaterials
       .filter(m => {
         const matchesVisibility = m.isVisible !== false;
         if (!matchesVisibility) return false;
 
-        // ONLY GLOBAL SEARCH
+        // GLOBAL SEARCH
         if (materialSearchQuery) {
           const subjectName = allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject || "";
           const className = allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade || "";
@@ -445,21 +445,31 @@ export default function HomePage() {
           );
         }
 
-        // Show all if search is empty
         return true;
-      })
-      .map((m, idx) => {
-        const styleIdx = idx % materialStyles.length;
-        const subjectName = allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject;
-        const className = allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade;
-        return {
-          ...m,
-          subject: subjectName,
-          grade: className,
-          desc: m.description,
-          ...materialStyles[styleIdx]
-        };
       });
+
+    // 1. Sort by subject name alphabetically
+    const sorted = filtered.sort((a, b) => {
+      const subA = (allSubjectsLookup?.find(s => s.id === a.subject)?.name || a.subject || "").toLowerCase();
+      const subB = (allSubjectsLookup?.find(s => s.id === b.subject)?.name || b.subject || "").toLowerCase();
+      return subA.localeCompare(subB);
+    });
+
+    // 2. Default to 2 rows of 4 (8 items total) if not searching
+    const result = !materialSearchQuery ? sorted.slice(0, 8) : sorted;
+
+    return result.map((m, idx) => {
+      const styleIdx = idx % materialStyles.length;
+      const subjectName = allSubjectsLookup?.find(s => s.id === m.subject)?.name || m.subject;
+      const className = allClassesLookup?.find(c => c.id === m.grade)?.name || m.grade;
+      return {
+        ...m,
+        subject: subjectName,
+        grade: className,
+        desc: m.description,
+        ...materialStyles[styleIdx]
+      };
+    });
   }, [allMaterials, allClassesLookup, allSubjectsLookup, materialSearchQuery]);
 
   const timetableDisplayData = useMemo(() => {
@@ -707,15 +717,17 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-[24px] shadow-xl p-8 md:p-12 border border-gray-100 max-w-2xl mx-auto">
-            <div className="relative w-full text-left mb-12">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input 
-                placeholder="Search materials by name, class, or subject..." 
-                value={materialSearchQuery}
-                onChange={(e) => setMaterialSearchQuery(e.target.value)}
-                className="h-16 pl-12 bg-white border-2 border-gray-100 rounded-2xl focus-visible:ring-blue-600 shadow-sm font-bold text-lg"
-              />
+          <div className="bg-white rounded-[24px] shadow-xl p-8 md:p-12 border border-gray-100">
+            <div className="max-w-2xl mx-auto mb-12">
+              <div className="relative w-full text-left">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input 
+                  placeholder="Search materials by name, class, or subject..." 
+                  value={materialSearchQuery}
+                  onChange={(e) => setMaterialSearchQuery(e.target.value)}
+                  className="h-16 pl-12 bg-white border-2 border-gray-100 rounded-2xl focus-visible:ring-blue-600 shadow-sm font-bold text-lg"
+                />
+              </div>
             </div>
 
             {materialsLoading ? (
@@ -731,7 +743,7 @@ export default function HomePage() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
                 {displayMaterials.map((material, idx) => (
                   <div
                     key={idx}
@@ -751,7 +763,7 @@ export default function HomePage() {
                           <span className="absolute bottom-[6px] text-[8px] font-bold text-white tracking-tighter">PDF</span>
                         </div>
                       </div>
-                      <div className="flex flex-col items-end gap-1">
+                      <div className="flex flex-col items-end gap-1 text-right">
                         <span className={cn("px-3 py-1 text-white text-[12px] font-bold rounded-full shadow-sm", material.themeColor)}>{material.grade}</span>
                         {material.subject && (
                           <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter line-clamp-1 max-w-[100px]">{material.subject}</span>
