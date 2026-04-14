@@ -366,7 +366,7 @@ export default function HomePage() {
 
   const resultYears = useMemo(() => {
     if (!yearsList) return [];
-    return yearsList.map(y => y.year);
+    return [...new Set(yearsList.map(y => String(y.year).trim()))].filter(Boolean);
   }, [yearsList]);
 
   useEffect(() => {
@@ -385,7 +385,7 @@ export default function HomePage() {
   const performersList = useMemo(() => {
     if (!allPerformers) return [];
     return allPerformers
-      .filter(p => p.year === selectedResultYear)
+      .filter(p => String(p.year).trim() === selectedResultYear)
       .sort((a, b) => {
         // Sort by marks descending (highest first)
         const marksA = parseFloat(String(a.marks).replace(/[^0-9.]/g, '')) || 0;
@@ -1090,7 +1090,8 @@ export default function HomePage() {
                   <SelectContent className="rounded-xl border-gray-100 shadow-xl">
                     {[...new Set((allClassesRaw || [])
                       .filter(c => c.board?.toLowerCase() === activeScheduleBoard.toLowerCase())
-                      .map(c => c.name))]
+                      .map(c => String(c.name).trim()))]
+                      .filter(Boolean)
                       .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
                       .map((cls) => (
                         <SelectItem key={cls} value={cls}>{cls}</SelectItem>

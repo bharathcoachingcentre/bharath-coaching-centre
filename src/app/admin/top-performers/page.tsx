@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
@@ -74,7 +73,7 @@ export default function TopPerformersManagementPage() {
 
   const availableYears = useMemo(() => {
     if (!yearsList) return [];
-    return yearsList.map(y => y.year);
+    return [...new Set(yearsList.map(y => String(y.year).trim()))].filter(Boolean);
   }, [yearsList]);
 
   // 2. Constructed filtered query for the main list

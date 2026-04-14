@@ -67,7 +67,7 @@ export default function OurResultsPage() {
 
   const availableYears = useMemo(() => {
     if (!yearsList) return [];
-    return yearsList.map(y => String(y.year));
+    return [...new Set(yearsList.map(y => String(y.year).trim()))].filter(Boolean);
   }, [yearsList]);
 
   useEffect(() => {

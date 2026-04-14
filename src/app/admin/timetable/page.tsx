@@ -163,7 +163,8 @@ export default function TimetableManagementPage() {
                 <SelectItem value="all">All Classes</SelectItem>
                 {[...new Set((classes || [])
                   .filter(c => boardFilter === "all" || c.board?.toLowerCase() === boardFilter.toLowerCase())
-                  .map(c => c.name))]
+                  .map(c => String(c.name).trim()))]
+                  .filter(Boolean)
                   .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0))
                   .map((cls) => (
                     <SelectItem key={cls} value={cls}>{cls}</SelectItem>
