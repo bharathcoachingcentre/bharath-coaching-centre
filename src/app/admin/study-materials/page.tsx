@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useState } from "react";
@@ -215,7 +214,7 @@ export default function StudyMaterialsPage() {
                 <div className="p-4 bg-blue-50 border border-blue-100 rounded-2xl flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
                   <div className="text-xs text-blue-800 leading-relaxed font-medium">
-                    Expected format: <code className="bg-white/50 px-1.5 py-0.5 rounded">[{"title": "...", "grade": "Class 10", "board": "CBSE", "pdfUrl": "..."}]</code>
+                    Expected format: <code className="bg-white/50 px-1.5 py-0.5 rounded">{'[{"title": "...", "grade": "Class 10", "board": "CBSE", "pdfUrl": "..."}]'}</code>
                   </div>
                 </div>
                 <div className="space-y-2">
