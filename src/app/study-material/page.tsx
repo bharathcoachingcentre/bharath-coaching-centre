@@ -462,17 +462,6 @@ export default function StudyMaterialPage() {
                 >
                   Samacheer
                 </button>
-                <button
-                  onClick={() => setActiveBoard("general")}
-                  className={cn(
-                    "flex-1 px-4 py-3.5 font-bold rounded-2xl transition-all duration-300 min-w-0 text-sm tracking-tight",
-                    activeBoard === "general"
-                      ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white shadow-xl"
-                      : "text-gray-500 hover:bg-gray-200"
-                  )}
-                >
-                  General
-                </button>
               </div>
 
               {/* Subject Selection (Searchable) */}
