@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo } from "react";
@@ -11,7 +12,9 @@ import {
   ChevronRight,
   Loader2,
   TableProperties,
-  ExternalLink
+  ExternalLink,
+  FileText,
+  Clock
 } from "lucide-react";
 import { 
   BarChart, 
@@ -28,7 +31,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { useFirestore, useCollection } from "@/firebase";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
 import { collection, query, orderBy, limit } from "firebase/firestore";
 import Link from "next/link";
 
@@ -53,34 +56,33 @@ const distributionData = [
 export default function AdminDashboard() {
   const firestore = useFirestore();
   
-  const enrollmentsQuery = useMemo(() => {
+  const enrollmentsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'));
   }, [firestore]);
 
-  const materialsQuery = useMemo(() => {
+  const materialsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'study-materials'));
+    return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'), limit(5));
   }, [firestore]);
 
-  const coursesQuery = useMemo(() => {
+  const coursesQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'courses'));
   }, [firestore]);
 
-  const recentEnrollmentsQuery = useMemo(() => {
+  const recentEnrollmentsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'enrollments'), orderBy('createdAt', 'desc'), limit(5));
   }, [firestore]);
 
-  const { data: allEnrollments, loading: loadingAll } = useCollection(enrollmentsQuery);
-  const { data: allMaterials } = useCollection(materialsQuery);
+  const { data: allEnrollments } = useCollection(enrollmentsQuery);
+  const { data: recentMaterials, loading: loadingMaterials } = useCollection(materialsQuery);
   const { data: allCourses } = useCollection(coursesQuery);
   const { data: recentEnrollments, loading: loadingRecent } = useCollection(recentEnrollmentsQuery);
 
   const stats = [
     { label: "Total Enrollments", value: allEnrollments?.length?.toString() || "0", trend: "+12.5% from last month", icon: Users, iconColor: "text-[#3b82f6]", iconBg: "bg-[#3b82f6]/10" },
-    { label: "Study Materials", value: allMaterials?.length?.toString() || "0", trend: "Live resources hub", icon: BookOpen, iconColor: "text-[#10b981]", iconBg: "bg-[#10b981]/10" },
     { label: "Active Courses", value: allCourses?.length?.toString() || "0", trend: "Current catalog", icon: GraduationCap, iconColor: "text-[#8b5cf6]", iconBg: "bg-[#8b5cf6]/10" },
     { label: "Success Rate", value: "95%", trend: "Exceptional results", icon: Trophy, iconColor: "text-[#f59e0b]", iconBg: "bg-[#f59e0b]/10" },
   ];
@@ -89,12 +91,11 @@ export default function AdminDashboard() {
     { name: "Vikram Malhotra", category: "Class 12 CBSE", score: "98%", rank: "#1", color: "bg-[#f59e0b]/10 text-[#f59e0b]" },
     { name: "Nisha Reddy", category: "Class 10 Samacheer", score: "96%", rank: "#2", color: "bg-gray-100 text-gray-600" },
     { name: "Kabir Singh", category: "JEE Advanced Prep", score: "95%", rank: "#3", color: "bg-amber-100 text-amber-600" },
-    { name: "Zara Ali", category: "Class 9 CBSE", score: "94%", rank: "#4", color: "bg-slate-100 text-slate-600" },
   ];
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {stats.map((stat) => (
           <Card key={stat.label} className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[24px] overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
             <CardContent className="p-6">
@@ -250,27 +251,47 @@ export default function AdminDashboard() {
 
         <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[32px] overflow-hidden bg-white">
           <div className="p-8 pb-4 flex items-center justify-between">
-            <h3 className="text-xl font-bold text-gray-900 tracking-tight">Top Performers</h3>
-            <Button asChild variant="link" className="text-[#35a3be] font-bold text-sm h-auto p-0 flex items-center gap-1 group">
-              <Link href="/admin/results">
-                View all <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <h3 className="text-xl font-bold text-gray-900 tracking-tight">Recent Study Materials</h3>
+            <Button asChild variant="link" className="text-teal-600 font-bold text-sm h-auto p-0 flex items-center gap-1 group">
+              <Link href="/admin/study-materials">
+                Manage Hub <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>
           <CardContent className="p-4 pt-0">
-            <div className="space-y-2 px-4">
-              {topPerformers.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors">
-                  <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-sm font-black shadow-sm", item.color)}>
-                    {item.rank}
-                  </div>
-                  <div className="flex flex-col flex-1 min-w-0 text-left">
-                    <span className="text-sm font-bold text-gray-900 truncate">{item.name}</span>
-                    <span className="text-[11px] font-medium text-gray-500">{item.category}</span>
-                  </div>
-                  <span className="text-xl font-black text-gray-900">{item.score}</span>
+            <div className="space-y-1">
+              {loadingMaterials ? (
+                <div className="p-8 text-center text-gray-400 font-medium flex items-center justify-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" /> Syncing archives...
                 </div>
-              ))}
+              ) : !recentMaterials || recentMaterials.length === 0 ? (
+                <div className="p-8 text-center text-gray-400 font-medium">No materials uploaded yet.</div>
+              ) : (
+                recentMaterials.map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors group">
+                    <div className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600 shrink-0">
+                      <FileText className="w-6 h-6" />
+                    </div>
+                    <div className="flex flex-col flex-1 min-w-0 text-left">
+                      <span className="text-sm font-bold text-gray-900 truncate">{item.title}</span>
+                      <span className="text-[11px] font-medium text-gray-500 uppercase tracking-tighter">
+                        {item.grade} • {item.board}
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-end gap-1">
+                      <div className="flex items-center gap-1 text-gray-400">
+                        <Clock className="w-3 h-3" />
+                        <span className="text-[10px] font-medium">
+                          {item.createdAt?.toDate ? new Date(item.createdAt.toDate()).toLocaleDateString() : 'New'}
+                        </span>
+                      </div>
+                      <Badge variant="outline" className="text-[9px] px-1.5 font-bold uppercase border-teal-100 text-teal-600">
+                        {item.category}
+                      </Badge>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </CardContent>
         </Card>

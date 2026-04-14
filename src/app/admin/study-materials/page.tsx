@@ -16,7 +16,10 @@ import {
   Pencil,
   Trash2,
   Loader2,
-  BookOpen
+  BookOpen,
+  FileUp,
+  X,
+  AlertCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,10 +31,20 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogDescription
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy, deleteDoc, doc, updateDoc, increment } from "firebase/firestore";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
+import { collection, query, orderBy, deleteDoc, doc, updateDoc, increment, writeBatch, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -56,8 +69,11 @@ export default function StudyMaterialsPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
+  const [isImportOpen, setIsImportOpen] = useState(false);
+  const [importJson, setImportJson] = useState("");
+  const [isImporting, setIsImporting] = useState(false);
 
-  const materialsQuery = useMemo(() => {
+  const materialsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'study-materials'), orderBy('createdAt', 'desc'));
   }, [firestore]);
@@ -71,7 +87,8 @@ export default function StudyMaterialsPage() {
     return realMaterials.filter(m => 
       m.title?.toLowerCase().includes(lower) || 
       m.grade?.toLowerCase().includes(lower) ||
-      m.subject?.toLowerCase().includes(lower)
+      m.subject?.toLowerCase().includes(lower) ||
+      m.board?.toLowerCase().includes(lower)
     );
   }, [realMaterials, searchTerm]);
 
@@ -105,7 +122,6 @@ export default function StudyMaterialsPage() {
     if (!confirm("Are you sure you want to delete this study material? This action cannot be undone.")) return;
 
     const docRef = doc(firestore, 'study-materials', id);
-    
     deleteDoc(docRef)
       .then(() => {
         toast({ 
@@ -114,8 +130,6 @@ export default function StudyMaterialsPage() {
         });
       })
       .catch(async (error) => {
-        console.error("Delete error:", error);
-        
         if (error.code === 'permission-denied') {
           const permissionError = new FirestorePermissionError({
             path: docRef.path,
@@ -123,13 +137,52 @@ export default function StudyMaterialsPage() {
           });
           errorEmitter.emit('permission-error', permissionError);
         }
-
         toast({
           variant: "destructive",
           title: "Deletion Failed",
-          description: "You do not have permission to delete this file or a network error occurred.",
+          description: error.message || "An error occurred.",
         });
       });
+  };
+
+  const handleBulkImport = async () => {
+    if (!firestore || !importJson.trim()) return;
+    
+    setIsImporting(true);
+    try {
+      const data = JSON.parse(importJson);
+      if (!Array.isArray(data)) throw new Error("Input must be a JSON array of objects.");
+
+      const batch = writeBatch(firestore);
+      const materialsRef = collection(firestore, 'study-materials');
+
+      data.forEach((item: any) => {
+        const docRef = doc(materialsRef);
+        batch.set(docRef, {
+          title: item.title || "Untitled Resource",
+          grade: item.grade || "General",
+          board: item.board || "General",
+          subject: item.subject || "Other",
+          category: item.category || "pdf",
+          description: item.description || "",
+          pdfUrl: item.pdfUrl || "",
+          downloads: 0,
+          allowDownloads: item.allowDownloads !== undefined ? item.allowDownloads : true,
+          isVisible: item.isVisible !== undefined ? item.isVisible : true,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        });
+      });
+
+      await batch.commit();
+      toast({ title: "Bulk Import Successful", description: `${data.length} resources have been added.` });
+      setImportJson("");
+      setIsImportOpen(false);
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Import Failed", description: e.message });
+    } finally {
+      setIsImporting(false);
+    }
   };
 
   return (
@@ -138,17 +191,59 @@ export default function StudyMaterialsPage() {
         <div className="relative w-full max-w-md text-left">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
-            placeholder="Search materials..." 
+            placeholder="Search by title, class, board or subject..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
           />
         </div>
-        <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base cursor-pointer border-none transition-all active:scale-95">
-          <Link href="/admin/study-materials/upload">
-            <Plus className="w-6 h-6" /> Upload Material
-          </Link>
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="h-14 px-6 border-gray-200 rounded-2xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
+                <FileUp className="w-5 h-5" /> Bulk Import
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-2xl rounded-[2rem] p-8">
+              <DialogHeader className="text-left">
+                <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Bulk Import Materials</DialogTitle>
+                <DialogDescription className="text-gray-500 font-medium">
+                  Paste a JSON array of material objects to add multiple resources at once.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-6 py-4">
+                <div className="p-4 bg-blue-50 border border-blue-100 rounded-2xl flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                  <div className="text-xs text-blue-800 leading-relaxed font-medium">
+                    Expected format: <code className="bg-white/50 px-1.5 py-0.5 rounded">[{"title": "...", "grade": "Class 10", "board": "CBSE", "pdfUrl": "..."}]</code>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest px-1">JSON Content</label>
+                  <Textarea 
+                    value={importJson}
+                    onChange={(e) => setImportJson(e.target.value)}
+                    placeholder="[ { ... }, { ... } ]"
+                    className="min-h-[250px] font-mono text-xs bg-gray-50 border-gray-100 rounded-xl p-4 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+              <DialogFooter className="gap-3 sm:justify-end">
+                <Button variant="ghost" onClick={() => setIsImportOpen(false)} disabled={isImporting}>Cancel</Button>
+                <Button onClick={handleBulkImport} disabled={isImporting} className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 px-8 rounded-xl border-none shadow-lg transition-all active:scale-95">
+                  {isImporting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <FileUp className="w-4 h-4 mr-2" />}
+                  Import Resources
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          <Button asChild className="h-14 px-8 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-teal-500 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/20 gap-2 text-base cursor-pointer border-none transition-all active:scale-95">
+            <Link href="/admin/study-materials/upload">
+              <Plus className="w-6 h-6" /> Upload Single
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {loading ? (
@@ -162,10 +257,13 @@ export default function StudyMaterialsPage() {
             <BookOpen className="w-10 h-10 text-gray-300" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">No Materials Found</h3>
-          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Link your first academic resource to make it available for students.</p>
-          <Button asChild className="mt-8 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-bold border-none h-12 px-8">
-            <Link href="/admin/study-materials/upload">Get Started</Link>
-          </Button>
+          <p className="text-gray-500 mt-2 max-w-xs mx-auto">Link your academic resources or use the bulk import tool to get started.</p>
+          <div className="flex justify-center gap-4 mt-8">
+            <Button variant="outline" onClick={() => setIsImportOpen(true)} className="rounded-xl font-bold border-gray-200 h-12 px-8">Bulk Import</Button>
+            <Button asChild className="bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-bold border-none h-12 px-8 shadow-lg">
+              <Link href="/admin/study-materials/upload">Upload File</Link>
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
