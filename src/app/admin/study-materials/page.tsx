@@ -18,7 +18,8 @@ import {
   BookOpen,
   FileUp,
   X,
-  AlertCircle
+  AlertCircle,
+  Eraser
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,6 +40,17 @@ import {
   DialogFooter,
   DialogDescription
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -70,7 +82,7 @@ export default function StudyMaterialsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [importJson, setImportJson] = useState("");
-  const [isImporting, setIsImporting] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const materialsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
@@ -144,10 +156,35 @@ export default function StudyMaterialsPage() {
       });
   };
 
+  const handleDeleteAll = async () => {
+    if (!firestore || !realMaterials || realMaterials.length === 0) return;
+    
+    setIsProcessing(true);
+    try {
+      const batch = writeBatch(firestore);
+      realMaterials.forEach((item) => {
+        batch.delete(doc(firestore, 'study-materials', item.id));
+      });
+      await batch.commit();
+      toast({ 
+        title: "Library Cleared", 
+        description: "All study materials have been permanently removed." 
+      });
+    } catch (e: any) {
+      toast({ 
+        variant: "destructive", 
+        title: "Operation Failed", 
+        description: e.message 
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const handleBulkImport = async () => {
     if (!firestore || !importJson.trim()) return;
     
-    setIsImporting(true);
+    setIsProcessing(true);
     try {
       const data = JSON.parse(importJson);
       if (!Array.isArray(data)) throw new Error("Input must be a JSON array of objects.");
@@ -180,14 +217,14 @@ export default function StudyMaterialsPage() {
     } catch (e: any) {
       toast({ variant: "destructive", title: "Import Failed", description: e.message });
     } finally {
-      setIsImporting(false);
+      setIsProcessing(false);
     }
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 text-left">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="relative w-full max-w-md text-left">
+        <div className="relative w-full max-w-md">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input 
             placeholder="Search by title, class, board or subject..." 
@@ -196,14 +233,41 @@ export default function StudyMaterialsPage() {
             className="pl-12 h-14 bg-white border-none rounded-2xl shadow-sm focus-visible:ring-blue-600"
           />
         </div>
-        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          {realMaterials && realMaterials.length > 0 && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" className="h-14 px-6 border-red-100 rounded-2xl font-bold text-red-500 hover:bg-red-50 gap-2">
+                  <Eraser className="w-5 h-5" /> Delete All
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="rounded-[2.5rem] p-8 border-none shadow-2xl">
+                <AlertDialogHeader className="text-left">
+                  <AlertDialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription className="text-gray-500 font-medium text-base pt-2">
+                    This action will permanently delete all {realMaterials.length} study materials from the database. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter className="pt-6 gap-3 sm:justify-end">
+                  <AlertDialogCancel className="h-12 px-6 rounded-xl font-bold border-gray-100 text-gray-500 bg-gray-50">Cancel</AlertDialogCancel>
+                  <AlertDialogAction 
+                    onClick={handleDeleteAll}
+                    className="h-12 px-8 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl border-none shadow-lg shadow-red-500/20 transition-all active:scale-95"
+                  >
+                    Delete Everything
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+
           <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" className="h-14 px-6 border-gray-200 rounded-2xl font-bold text-gray-600 hover:bg-gray-50 gap-2">
                 <FileUp className="w-5 h-5" /> Bulk Import
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-2xl rounded-[2rem] p-8">
+            <DialogContent className="sm:max-w-2xl rounded-[2rem] p-8 border-none shadow-2xl">
               <DialogHeader className="text-left">
                 <DialogTitle className="text-2xl font-black text-[#182d45] tracking-tight">Bulk Import Materials</DialogTitle>
                 <DialogDescription className="text-gray-500 font-medium">
@@ -214,7 +278,7 @@ export default function StudyMaterialsPage() {
                 <div className="p-4 bg-blue-50 border border-blue-100 rounded-2xl flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
                   <div className="text-xs text-blue-800 leading-relaxed font-medium">
-                    Expected format: <code className="bg-white/50 px-1.5 py-0.5 rounded">{'[{"title": "...", "grade": "Class 10", "board": "CBSE", "pdfUrl": "..."}]'}</code>
+                    Expected format: <code className="bg-white/50 px-1.5 py-0.5 rounded">{"[{\"title\": \"...\", \"grade\": \"...\"}]"}</code>
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -227,10 +291,10 @@ export default function StudyMaterialsPage() {
                   />
                 </div>
               </div>
-              <DialogFooter className="gap-3 sm:justify-end">
-                <Button variant="ghost" onClick={() => setIsImportOpen(false)} disabled={isImporting}>Cancel</Button>
-                <Button onClick={handleBulkImport} disabled={isImporting} className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 px-8 rounded-xl border-none shadow-lg transition-all active:scale-95">
-                  {isImporting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <FileUp className="w-4 h-4 mr-2" />}
+              <DialogFooter className="gap-3 sm:justify-end pt-4">
+                <Button variant="ghost" onClick={() => setIsImportOpen(false)} disabled={isProcessing} className="font-bold">Cancel</Button>
+                <Button onClick={handleBulkImport} disabled={isProcessing} className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 px-8 rounded-xl border-none shadow-lg transition-all active:scale-95">
+                  {isProcessing ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <FileUp className="w-4 h-4 mr-2" />}
                   Import Resources
                 </Button>
               </DialogFooter>
@@ -281,7 +345,7 @@ export default function StudyMaterialsPage() {
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-300 hover:text-gray-600 rounded-lg">
-                          <MoreVertical className="w-5 h-5" />
+                          <MoreVertical className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-40 rounded-xl shadow-xl border-gray-100 p-1">
